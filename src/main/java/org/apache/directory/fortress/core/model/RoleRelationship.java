@@ -17,7 +17,10 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
+package org.apache.directory.fortress.core.model;
+
+import org.apache.directory.fortress.core.model.FortEntity;
+import org.apache.directory.fortress.core.model.Role;
 
 import java.io.Serializable;
 
@@ -27,42 +30,41 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * This entity is used by en masse to communicate parent and child {@link org.apache.directory.fortress.core.rbac.AdminRole} information to the server.
+ * This entity is used by en masse to communicate parent and child {@link org.apache.directory.fortress.core.model.Role} information to the server.
  * <p/>
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-@XmlRootElement(name = "fortAdminRoleRelationship")
+@XmlRootElement(name = "fortRoleRelationship")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "adminrelationship", propOrder = {
+@XmlType(name = "roleRelationship", propOrder = {
     "child",
     "parent"
 })
-public class AdminRoleRelationship extends FortEntity implements Serializable
+public class RoleRelationship extends FortEntity implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    
-    /** The parent AdminRole */
-    private AdminRole parent;
-    
-    /** The child AdminRole */
-    private AdminRole child;
+    private Role parent;
+    private Role child;
 
-    public AdminRole getParent()
+    public Role getParent()
     {
         return parent;
     }
 
-    public void setParent(AdminRole parent)
+    
+    public void setParent(Role parent)
     {
         this.parent = parent;
     }
 
-    public AdminRole getChild()
+    
+    public Role getChild()
     {
         return child;
     }
 
-    public void setChild(AdminRole child)
+    
+    public void setChild(Role child)
     {
         this.child = child;
     }
@@ -75,7 +77,7 @@ public class AdminRoleRelationship extends FortEntity implements Serializable
     {
         StringBuilder sb = new StringBuilder();
 
-        sb.append( "AdminRoleRelationship object: \n" );
+        sb.append( "RoleRelationship object: \n" );
 
         sb.append( "    parent :" ).append( parent ).append( '\n' );
         sb.append( "    child :" ).append( child ).append( '\n' );

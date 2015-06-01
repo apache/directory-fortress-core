@@ -21,7 +21,7 @@ package org.apache.directory.fortress.core.util.time;
 
 
 import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.rbac.Session;
+import org.apache.directory.fortress.core.model.Session;
 
 
 /**
@@ -29,11 +29,11 @@ import org.apache.directory.fortress.core.rbac.Session;
  * The timeout is in minutes and is stored as integer value.  i.e. 30 for 30 minutes.  A value of '0' specifies no timeout for a particular entity.
  * <h4> Constraint Targets include</h4>
  * <ol>
- * <li>{@link org.apache.directory.fortress.core.rbac.User} maps to 'ftCstr' attribute on 'ftUserAttrs' object class</li>
- * <li>{@link org.apache.directory.fortress.core.rbac.UserRole} maps to 'ftRC' attribute on 'ftUserAttrs' object class</li>
- * <li>{@link org.apache.directory.fortress.core.rbac.Role}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link org.apache.directory.fortress.core.rbac.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
+ * <li>{@link org.apache.directory.fortress.core.model.User} maps to 'ftCstr' attribute on 'ftUserAttrs' object class</li>
+ * <li>{@link org.apache.directory.fortress.core.model.UserRole} maps to 'ftRC' attribute on 'ftUserAttrs' object class</li>
+ * <li>{@link org.apache.directory.fortress.core.model.Role}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
+ * <li>{@link org.apache.directory.fortress.core.model.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
+ * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
  * </ol>
  * </p>
  *

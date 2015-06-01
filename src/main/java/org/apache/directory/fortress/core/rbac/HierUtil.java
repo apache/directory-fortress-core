@@ -29,6 +29,8 @@ import java.util.TreeSet;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import org.apache.directory.fortress.core.model.Hier;
+import org.apache.directory.fortress.core.model.Relationship;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,7 +52,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * </ol>
  * This class...
  * <ol>
- * <li>manipulates data that is stored as singleton inside other classes with vertices of {@code String}, and edges, as {@link Relationship}s</li>
+ * <li>manipulates data that is stored as singleton inside other classes with vertices of {@code String}, and edges, as {@link org.apache.directory.fortress.core.model.Relationship}s</li>
  * <li>utilizes open source library, see <a href="http://www.jgrapht.org/">JGraphT</a>.</li>
  * <li>processes general hierarchical data structure i.e. allows multiple inheritance with parents.</li>
  * <li>constructs and parses simple directed graphs.</li>
@@ -210,12 +212,12 @@ final class HierUtil
 
 
     /**
-     * This method Convert from logical, {@code org.jgrapht.graph.SimpleDirectedGraph} to ldap entity, {@link org.apache.directory.fortress.core.rbac.Hier}.
+     * This method Convert from logical, {@code org.jgrapht.graph.SimpleDirectedGraph} to ldap entity, {@link org.apache.directory.fortress.core.model.Hier}.
      * The conversion iterates over all edges in the graph and loads the corresponding {@link Relationship} data
      * into the ldap entity.  The ldap entity stores this data physically in the {@code ftRels} attribute of {@code ftHier} object class.
      *
      * @param graph contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
-     * @return reference to hierarchical ldap entity {@link org.apache.directory.fortress.core.rbac.Hier}.
+     * @return reference to hierarchical ldap entity {@link org.apache.directory.fortress.core.model.Hier}.
      */
     static Hier toHier( SimpleDirectedGraph<String, Relationship> graph )
     {
@@ -718,7 +720,7 @@ final class HierUtil
      *
      * @param graph contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
      * @param relationship contains parent-child relationship targeted for addition.
-     * @param op   used to pass the ldap op {@link Hier.Op#ADD}, {@link Hier.Op#MOD}, {@link org.apache.directory.fortress.core.rbac.Hier.Op#REM}
+     * @param op   used to pass the ldap op {@link Hier.Op#ADD}, {@link Hier.Op#MOD}, {@link org.apache.directory.fortress.core.model.Hier.Op#REM}
      * @throws org.apache.directory.fortress.core.SecurityException in the event of a system error.
      */
     static void updateHier( SimpleDirectedGraph<String, Relationship> graph, Relationship relationship, Hier.Op op )

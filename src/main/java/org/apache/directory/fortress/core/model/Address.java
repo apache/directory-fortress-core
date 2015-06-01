@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
+package org.apache.directory.fortress.core.model;
 
 
 import java.io.Serializable;
@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * This entity is stored on {@link org.apache.directory.fortress.core.rbac.User} and is used to store postal address information in LDAP.
+ * This entity is stored on {@link User} and is used to store postal address information in LDAP.
  * <p/>
  * Contains data retrieved from the following LDAP attributes:
  * <p/>

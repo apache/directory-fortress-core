@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
+package org.apache.directory.fortress.core.model;
 
 import java.io.Serializable;
 
@@ -26,42 +26,44 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+
 /**
- * This entity is used by en masse to communicate parent and child {@link org.apache.directory.fortress.core.rbac.Role} information to the server.
+ * This entity is used by en masse to communicate parent and child {@link OrgUnit} information to the server.
  * <p/>
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-@XmlRootElement(name = "fortRoleRelationship")
+@XmlRootElement(name = "fortOrgUnitRelationship")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "roleRelationship", propOrder = {
+@XmlType(name = "orgrelationship", propOrder = {
     "child",
     "parent"
 })
-public class RoleRelationship extends FortEntity implements Serializable
+public class OrgUnitRelationship extends FortEntity implements Serializable
 {
     private static final long serialVersionUID = 1L;
-    private Role parent;
-    private Role child;
+    
+    private OrgUnit parent;
+    private OrgUnit child;
 
-    public Role getParent()
+    public OrgUnit getParent()
     {
         return parent;
     }
 
     
-    public void setParent(Role parent)
+    public void setParent(OrgUnit parent)
     {
         this.parent = parent;
     }
 
     
-    public Role getChild()
+    public OrgUnit getChild()
     {
         return child;
     }
 
     
-    public void setChild(Role child)
+    public void setChild(OrgUnit child)
     {
         this.child = child;
     }
@@ -74,7 +76,7 @@ public class RoleRelationship extends FortEntity implements Serializable
     {
         StringBuilder sb = new StringBuilder();
 
-        sb.append( "RoleRelationship object: \n" );
+        sb.append( "OrgUnitRelationship object: \n" );
 
         sb.append( "    parent :" ).append( parent ).append( '\n' );
         sb.append( "    child :" ).append( child ).append( '\n' );
@@ -82,3 +84,4 @@ public class RoleRelationship extends FortEntity implements Serializable
         return sb.toString();
     }
 }
+

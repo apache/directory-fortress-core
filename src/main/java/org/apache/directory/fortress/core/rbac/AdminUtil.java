@@ -24,6 +24,11 @@ import org.apache.directory.fortress.core.AuthorizationException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.DelAccessMgrFactory;
+import org.apache.directory.fortress.core.model.FortEntity;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
 
 /**
  * This class supplies static wrapper utilities to provide ARBAC functionality to Fortress internal Manager APIs.
@@ -46,7 +51,7 @@ final class AdminUtil
     }
 
     /**
-     * Wrapper function to call {@link DelAccessMgrImpl#canAssign(org.apache.directory.fortress.core.rbac.Session, org.apache.directory.fortress.core.rbac.User, org.apache.directory.fortress.core.rbac.Role)}.
+     * Wrapper function to call {@link DelAccessMgrImpl#canAssign(org.apache.directory.fortress.core.model.Session, org.apache.directory.fortress.core.model.User, org.apache.directory.fortress.core.model.Role)}.
      * This will determine if the user contains an AdminRole that is authorized assignment control over User-Role Assignment (URA).  This adheres to the ARBAC02 functional specification for can-assign URA.
      *
      * @param session This object must be instantiated by calling {@link org.apache.directory.fortress.core.AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
@@ -70,7 +75,7 @@ final class AdminUtil
     }
 
     /**
-     * Wrapper function to call {@link DelAccessMgrImpl#canDeassign(org.apache.directory.fortress.core.rbac.Session, org.apache.directory.fortress.core.rbac.User, org.apache.directory.fortress.core.rbac.Role)}.
+     * Wrapper function to call {@link DelAccessMgrImpl#canDeassign(org.apache.directory.fortress.core.model.Session, org.apache.directory.fortress.core.model.User, org.apache.directory.fortress.core.model.Role)}.
      *
      * This function will determine if the user contains an AdminRole that is authorized revoke control over User-Role Assignment (URA).  This adheres to the ARBAC02 functional specification for can-revoke URA.
      *
@@ -96,7 +101,7 @@ final class AdminUtil
     }
 
     /**
-     * Wrapper function to call {@link DelAccessMgrImpl#canGrant(org.apache.directory.fortress.core.rbac.Session, org.apache.directory.fortress.core.rbac.Role, Permission)}.
+     * Wrapper function to call {@link DelAccessMgrImpl#canGrant(org.apache.directory.fortress.core.model.Session, org.apache.directory.fortress.core.model.Role, Permission)}.
      * This function will determine if the user contains an AdminRole that is authorized assignment control over
      * Permission-Role Assignment (PRA).  This adheres to the ARBAC02 functional specification for can-assign-p PRA.
      *
@@ -122,7 +127,7 @@ final class AdminUtil
     }
 
     /**
-     * Wrapper function to call {@link DelAccessMgrImpl#canRevoke(org.apache.directory.fortress.core.rbac.Session, org.apache.directory.fortress.core.rbac.Role, Permission)}.
+     * Wrapper function to call {@link DelAccessMgrImpl#canRevoke(org.apache.directory.fortress.core.model.Session, org.apache.directory.fortress.core.model.Role, Permission)}.
      *
      * This function will determine if the user contains an AdminRole that is authorized revoke control over
      * Permission-Role Assignment (PRA).  This adheres to the ARBAC02 functional specification for can-revoke-p PRA.
@@ -148,7 +153,7 @@ final class AdminUtil
     }
 
     /**
-     * Method is called by Manager APIs to load contextual information on {@link FortEntity} and perform checkAccess on Administrative permission.
+     * Method is called by Manager APIs to load contextual information on {@link org.apache.directory.fortress.core.model.FortEntity} and perform checkAccess on Administrative permission.
      * </p>
      * The information is used to
      * <ol>
@@ -156,7 +161,7 @@ final class AdminUtil
      * <li>Load the target operation's permission into the audit context.  This is used for Fortress audit log stored in OpenLDAP</li>
      * </ol>
      *
-     * @param session object contains the {@link org.apache.directory.fortress.core.rbac.User}'s RBAC, {@link org.apache.directory.fortress.core.rbac.UserRole}, and Administrative Roles {@link UserAdminRole}.
+     * @param session object contains the {@link org.apache.directory.fortress.core.model.User}'s RBAC, {@link org.apache.directory.fortress.core.model.UserRole}, and Administrative Roles {@link org.apache.directory.fortress.core.model.UserAdminRole}.
      * @param perm    contains the permission object name, {@link Permission#objName}, and operation name, {@link Permission#opName}
      * @param entity  used to pass contextual information through Fortress layers for administrative security checks and audit.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
@@ -173,7 +178,7 @@ final class AdminUtil
     }
 
     /**
-     * Wrapper function to call {@link DelAccessMgrImpl#checkAccess(org.apache.directory.fortress.core.rbac.Session, Permission)}.
+     * Wrapper function to call {@link DelAccessMgrImpl#checkAccess(org.apache.directory.fortress.core.model.Session, Permission)}.
      * Perform user arbac authorization.  This function returns a Boolean value meaning whether the subject of a given session is
      * allowed or not to perform a given operation on a given object. The function is valid if and
      * only if the session is a valid Fortress session, the object is a member of the OBJS data set,

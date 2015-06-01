@@ -24,7 +24,7 @@ import java.util.List;
 
 
 /**
- * The class is used by {@link FortressAntTask} to load {@link UserAnt}s used to drive {@link org.apache.directory.fortress.core.AdminMgr#disableUser(org.apache.directory.fortress.core.rbac.User)}.
+ * The class is used by {@link FortressAntTask} to load {@link UserAnt}s used to drive {@link org.apache.directory.fortress.core.AdminMgr#disableUser(org.apache.directory.fortress.core.model.User)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>This class name, 'Deluser', is used for the xml tag in the load script.</p>
  * <pre>

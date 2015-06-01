@@ -27,6 +27,7 @@ import java.util.StringTokenizer;
 
 import junit.framework.TestCase;
 
+import org.apache.directory.fortress.core.model.OrgUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

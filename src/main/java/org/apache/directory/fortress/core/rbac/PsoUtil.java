@@ -25,6 +25,9 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.locks.ReadWriteLock;
 
+import org.apache.directory.fortress.core.model.Hier;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.Relationship;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,13 +40,13 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
 
 
 /**
- * This utility wraps {@link HierUtil} methods to provide hierarchical functionality using the {@link org.apache.directory.fortress.core.rbac.OrgUnit} data set
- * for Permissions, {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#PERM}.
+ * This utility wraps {@link HierUtil} methods to provide hierarchical functionality using the {@link org.apache.directory.fortress.core.model.OrgUnit} data set
+ * for Permissions, {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM}.
  * The {@code cn=Hierarchies, ou=OS-P} data contains Permission OU pools and within a data cache, {@link #psoCache}, contained within this class.  The parent-child edges are contained in LDAP,
- * in {@code ftParents} attribute.  The ldap data is retrieved {@link OrgUnitP#getAllDescendants(org.apache.directory.fortress.core.rbac.OrgUnit)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
+ * in {@code ftParents} attribute.  The ldap data is retrieved {@link OrgUnitP#getAllDescendants(org.apache.directory.fortress.core.model.OrgUnit)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
  * The graph...
  * <ol>
- * <li>is stored as singleton in this class with vertices of {@code String}, and edges, as {@link Relationship}s</li>
+ * <li>is stored as singleton in this class with vertices of {@code String}, and edges, as {@link org.apache.directory.fortress.core.model.Relationship}s</li>
  * <li>utilizes open source library, see <a href="http://www.jgrapht.org/">JGraphT</a>.</li>
  * <li>contains a general hierarchical data structure i.e. allows multiple inheritance with parents.</li>
  * <li>is a simple directed graph thus does not allow cycles.</li>
@@ -66,7 +69,7 @@ public final class PsoUtil
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     /**
-     * Initialize the Perm OU hierarchies.  This will read the {@link org.apache.directory.fortress.core.rbac.Hier} data set from ldap and load into
+     * Initialize the Perm OU hierarchies.  This will read the {@link org.apache.directory.fortress.core.model.Hier} data set from ldap and load into
      * the JGraphT simple digraph that referenced statically within this class.
      */
     static
@@ -77,11 +80,11 @@ public final class PsoUtil
 
 
     /**
-     * Recursively traverse the {@link org.apache.directory.fortress.core.rbac.OrgUnit} graph and return all of the descendants of a given parent {@link org.apache.directory.fortress.core.rbac.OrgUnit#name}.
+     * Recursively traverse the {@link org.apache.directory.fortress.core.model.OrgUnit} graph and return all of the descendants of a given parent {@link org.apache.directory.fortress.core.model.OrgUnit#name}.
      *
-     * @param name      {@link org.apache.directory.fortress.core.rbac.OrgUnit#name} maps on 'ftOrgUnit' object class.
+     * @param name      {@link org.apache.directory.fortress.core.model.OrgUnit#name} maps on 'ftOrgUnit' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return Set of names of descendants {@link org.apache.directory.fortress.core.rbac.OrgUnit}s of given parent.
+     * @return Set of names of descendants {@link org.apache.directory.fortress.core.model.OrgUnit}s of given parent.
      */
     static Set<String> getDescendants( String name, String contextId )
     {
@@ -90,9 +93,9 @@ public final class PsoUtil
 
 
     /**
-     * Recursively traverse the {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#USER} graph and return all of the ascendants of a given child ou.
+     * Recursively traverse the {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} graph and return all of the ascendants of a given child ou.
      *
-     * @param name      maps to logical {@link org.apache.directory.fortress.core.rbac.OrgUnit#name} on 'ftOrgUnit' object class.
+     * @param name      maps to logical {@link org.apache.directory.fortress.core.model.OrgUnit#name} on 'ftOrgUnit' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of ou names that are ascendants of given child.
      */
@@ -103,11 +106,11 @@ public final class PsoUtil
 
 
     /**
-     * Traverse one level of the {@link org.apache.directory.fortress.core.rbac.OrgUnit} graph and return all of the children (direct descendants) of a given parent {@link org.apache.directory.fortress.core.rbac.OrgUnit#name}.
+     * Traverse one level of the {@link org.apache.directory.fortress.core.model.OrgUnit} graph and return all of the children (direct descendants) of a given parent {@link org.apache.directory.fortress.core.model.OrgUnit#name}.
      *
-     * @param name      {@link org.apache.directory.fortress.core.rbac.OrgUnit#name} maps on 'ftOrgUnit' object class.
+     * @param name      {@link org.apache.directory.fortress.core.model.OrgUnit#name} maps on 'ftOrgUnit' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return Set of names of children {@link org.apache.directory.fortress.core.rbac.OrgUnit}s of given parent.
+     * @return Set of names of children {@link org.apache.directory.fortress.core.model.OrgUnit}s of given parent.
      */
     public static Set<String> getChildren( String name, String contextId )
     {
@@ -116,9 +119,9 @@ public final class PsoUtil
 
 
     /**
-     * Traverse one level of the {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#USER} graph and return all of the parents (direct ascendants) of a given child ou.
+     * Traverse one level of the {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} graph and return all of the parents (direct ascendants) of a given child ou.
      *
-     * @param name      maps to logical {@link org.apache.directory.fortress.core.rbac.OrgUnit#name} on 'ftOrgUnit' object class.
+     * @param name      maps to logical {@link org.apache.directory.fortress.core.model.OrgUnit#name} on 'ftOrgUnit' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of ou names that are parents of given child.
      */
@@ -129,9 +132,9 @@ public final class PsoUtil
 
 
     /**
-     * Recursively traverse the {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#PERM} graph and return number of children a given parent ou has.
+     * Recursively traverse the {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM} graph and return number of children a given parent ou has.
      *
-     * @param name      maps to logical {@link org.apache.directory.fortress.core.rbac.OrgUnit#name} on 'ftOrgUnit' object class.
+     * @param name      maps to logical {@link org.apache.directory.fortress.core.model.OrgUnit#name} on 'ftOrgUnit' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return int value contains the number of children of a given parent ou.
      */
@@ -142,9 +145,9 @@ public final class PsoUtil
 
 
     /**
-     * Return Set of {@link org.apache.directory.fortress.core.rbac.OrgUnit#name}s ascendants contained within {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#PERM}.
+     * Return Set of {@link org.apache.directory.fortress.core.model.OrgUnit#name}s ascendants contained within {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM}.
      *
-     * @param ous       contains list of {@link org.apache.directory.fortress.core.rbac.OrgUnit}s.
+     * @param ous       contains list of {@link org.apache.directory.fortress.core.model.OrgUnit}s.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return contains Set of all descendants.
      */
@@ -181,8 +184,8 @@ public final class PsoUtil
      * Method will throw {@link org.apache.directory.fortress.core.ValidationException} if rule check fails meaning caller failed validation
      * attempt to add/remove hierarchical relationship failed.
      *
-     * @param child     contains {@link org.apache.directory.fortress.core.rbac.OrgUnit#name} of child.
-     * @param parent    contains {@link org.apache.directory.fortress.core.rbac.OrgUnit#name} of parent.
+     * @param child     contains {@link org.apache.directory.fortress.core.model.OrgUnit#name} of child.
+     * @param parent    contains {@link org.apache.directory.fortress.core.model.OrgUnit#name} of parent.
      * @param mustExist boolean is used to specify if relationship must be true.
      * @throws org.apache.directory.fortress.core.ValidationException
      *          in the event it fails one of the 3 checks.
@@ -200,7 +203,7 @@ public final class PsoUtil
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @param relationship contains parent-child relationship targeted for addition.
-     * @param op   used to pass the ldap op {@link org.apache.directory.fortress.core.rbac.Hier.Op#ADD}, {@link org.apache.directory.fortress.core.rbac.Hier.Op#MOD}, {@link org.apache.directory.fortress.core.rbac.Hier.Op#REM}
+     * @param op   used to pass the ldap op {@link org.apache.directory.fortress.core.model.Hier.Op#ADD}, {@link org.apache.directory.fortress.core.model.Hier.Op#MOD}, {@link org.apache.directory.fortress.core.model.Hier.Op#REM}
      * @throws org.apache.directory.fortress.core.SecurityException in the event of a system error.
      */
     static void updateHier( String contextId, Relationship relationship, Hier.Op op ) throws SecurityException

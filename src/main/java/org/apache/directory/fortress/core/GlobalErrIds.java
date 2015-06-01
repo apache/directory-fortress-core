@@ -1131,7 +1131,7 @@ public final class GlobalErrIds
     public static final int ORG_NULL = 8001;
 
     /**
-     * The supplied {@link org.apache.directory.fortress.core.rbac.OrgUnit#type} is required and cannot be null.
+     * The supplied {@link org.apache.directory.fortress.core.model.OrgUnit#type} is required and cannot be null.
      */
     public static final int ORG_TYPE_NULL = 8002;
 

@@ -27,11 +27,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.AccelMgr;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.Session;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.rbac.TestUtils;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.rbac.UserRole;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
 
 import static org.junit.Assert.*;
 

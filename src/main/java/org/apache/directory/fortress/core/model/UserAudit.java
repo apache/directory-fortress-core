@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
+package org.apache.directory.fortress.core.model;
 
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -31,14 +31,14 @@ import java.util.Date;
 
 /**
  * This entity is used to pass search criteria into the {@link org.apache.directory.fortress.core.AuditMgr} APIs, down through the
- * {@link org.apache.directory.fortress.core.rbac.AuditP} process layer and finally into the {@link AuditDAO} data access layer.  Once the data has been
+ * {@link org.apache.directory.fortress.core.rbac.AuditP} process layer and finally into the {@link org.apache.directory.fortress.core.rbac.AuditDAO} data access layer.  Once the data has been
  * retrieved from the directory it will be passed back to the caller using one of audit output entities.
  * <p/>
  * All audit data is returned to user using one of the following:
  * <ul>
- * <li> Authorization events: {@link org.apache.directory.fortress.core.rbac.AuthZ}
- * <li> Authentication events: {@link org.apache.directory.fortress.core.rbac.Bind}
- * <li> Modification events: {@link org.apache.directory.fortress.core.rbac.Mod}
+ * <li> Authorization events: {@link org.apache.directory.fortress.core.model.AuthZ}
+ * <li> Authentication events: {@link org.apache.directory.fortress.core.model.Bind}
+ * <li> Modification events: {@link org.apache.directory.fortress.core.model.Mod}
  * </ul>
  * <p/>
  * <p/>
@@ -83,9 +83,9 @@ public class UserAudit extends FortEntity implements java.io.Serializable
 
 
     /**
-     * Get the optional objName attribute which limits set by {@link Permission#objName}.
-     * For modification search, this attr maps to {@link AuditDAO#REQMOD}.  For authorization search, it will map to {@link AuditDAO#REQDN}.
-     * The object name is derived from another class name which represents targets for Fortress authorizations. For example {@link AdminMgrImpl} or 'CustomerCheckOutPage'.
+     * Get the optional objName attribute which limits set by {@link org.apache.directory.fortress.core.model.Permission#objName}.
+     * For modification search, this attr maps to {@link org.apache.directory.fortress.core.rbac.AuditDAO#REQMOD}.  For authorization search, it will map to {@link org.apache.directory.fortress.core.rbac.AuditDAO#REQDN}.
+     * The object name is derived from another class name which represents targets for Fortress authorizations. For example {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl} or 'CustomerCheckOutPage'.
      *
      * @return the name of the object which maps to 'reqDn' for 'auditSearch' target, or 'reqMod' for 'auditMod' search.
      */
@@ -96,9 +96,9 @@ public class UserAudit extends FortEntity implements java.io.Serializable
 
 
     /**
-     * Set the optional objName attribute which limits set by {@link Permission#objName}.
-     * For modification search, this attr maps to {@link AuditDAO#REQMOD}.  For authorization search, it will map to {@link AuditDAO#REQDN}.
-     * The object name is derived from another class name which represents targets for Fortress authorizations. For example {@link AdminMgrImpl} or 'CustomerCheckOutPage'.
+     * Set the optional objName attribute which limits set by {@link org.apache.directory.fortress.core.model.Permission#objName}.
+     * For modification search, this attr maps to {@link org.apache.directory.fortress.core.rbac.AuditDAO#REQMOD}.  For authorization search, it will map to {@link org.apache.directory.fortress.core.rbac.AuditDAO#REQDN}.
+     * The object name is derived from another class name which represents targets for Fortress authorizations. For example {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl} or 'CustomerCheckOutPage'.
      *
      * @param objName maps to 'reqDn' for 'auditSearch' target, or 'reqMod' for 'auditMod' search.
      */
@@ -112,9 +112,9 @@ public class UserAudit extends FortEntity implements java.io.Serializable
      * The failedOnly flag will limit result set to include only authN or authZ events that have failed.
      * <p/>
      * <ul>
-     * <li>{@link AuditMgrImpl#searchInvalidUsers(UserAudit)} maps to ({@link AuditDAO#REQENTRIES} == 0)
-     * <li>{@link AuditMgrImpl#searchAuthZs(UserAudit)} maps to ({@link AuditDAO#REQENTRIES} == 0)
-     * <li>{@link AuditMgrImpl#searchBinds(UserAudit)} maps to ({@link AuditDAO#REQRESULT} >= 1)
+     * <li>{@link org.apache.directory.fortress.core.rbac.AuditMgrImpl#searchInvalidUsers(UserAudit)} maps to ({@link org.apache.directory.fortress.core.rbac.AuditDAO#REQENTRIES} == 0)
+     * <li>{@link org.apache.directory.fortress.core.rbac.AuditMgrImpl#searchAuthZs(UserAudit)} maps to ({@link org.apache.directory.fortress.core.rbac.AuditDAO#REQENTRIES} == 0)
+     * <li>{@link org.apache.directory.fortress.core.rbac.AuditMgrImpl#searchBinds(UserAudit)} maps to ({@link org.apache.directory.fortress.core.rbac.AuditDAO#REQRESULT} >= 1)
      * </ul>
      *
      * @return boolean if true will limit search to failed events.
@@ -129,9 +129,9 @@ public class UserAudit extends FortEntity implements java.io.Serializable
      * The failedOnly flag will limit result set to include only authN or authZ events that have failed.
      * <p/>
      * <ul>
-     * <li>{@link AuditMgrImpl#searchInvalidUsers(UserAudit)} maps to ({@link AuditDAO#REQENTRIES} == 0)
-     * <li>{@link AuditMgrImpl#searchAuthZs(UserAudit)} maps to ({@link AuditDAO#REQENTRIES} == 0)
-     * <li>{@link AuditMgrImpl#searchBinds(UserAudit)} maps to ({@link AuditDAO#REQRESULT} >= 1)
+     * <li>{@link org.apache.directory.fortress.core.rbac.AuditMgrImpl#searchInvalidUsers(UserAudit)} maps to ({@link org.apache.directory.fortress.core.rbac.AuditDAO#REQENTRIES} == 0)
+     * <li>{@link org.apache.directory.fortress.core.rbac.AuditMgrImpl#searchAuthZs(UserAudit)} maps to ({@link org.apache.directory.fortress.core.rbac.AuditDAO#REQENTRIES} == 0)
+     * <li>{@link org.apache.directory.fortress.core.rbac.AuditMgrImpl#searchBinds(UserAudit)} maps to ({@link org.apache.directory.fortress.core.rbac.AuditDAO#REQRESULT} >= 1)
      * </ul>
      *
      * @param failedOnly if boolean true search will limit to failed only.
@@ -143,7 +143,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
 
 
     /**
-     * Get the optional opName attribute which limits {@link AuditMgrImpl#searchAdminMods(UserAudit)} by {@link AuditDAO#REQMOD}.
+     * Get the optional opName attribute which limits {@link org.apache.directory.fortress.core.rbac.AuditMgrImpl#searchAdminMods(UserAudit)} by {@link org.apache.directory.fortress.core.rbac.AuditDAO#REQMOD}.
      * The operation name is derived from a method name of a class which represents targets for Fortress authorizations. For example 'read', 'search' or 'add'.
      *
      * @return value that maps to 'reqMod' on 'auditMod' object class.
@@ -155,7 +155,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
 
 
     /**
-     * Set the optional opName attribute which limits {@link AuditMgrImpl#searchAdminMods(UserAudit)} by {@link AuditDAO#REQMOD}.
+     * Set the optional opName attribute which limits {@link org.apache.directory.fortress.core.rbac.AuditMgrImpl#searchAdminMods(UserAudit)} by {@link org.apache.directory.fortress.core.rbac.AuditDAO#REQMOD}.
      * The operation name is derived from a method name of a class which represents targets for Fortress authorizations. For example 'read', 'search' or 'add'.
      *
      * @param opName attribute maps to 'reqMod' on 'auditMod' object class.
@@ -167,8 +167,8 @@ public class UserAudit extends FortEntity implements java.io.Serializable
 
 
     /**
-     * Get the optional userId attribute which limits set by {@link org.apache.directory.fortress.core.rbac.User#userId}.
-     * For authentication searchs, this attr maps to {@link AuditDAO#REQDN}.  For authorization search, it will map to {@link AuditDAO#REQUAUTHZID}.
+     * Get the optional userId attribute which limits set by {@link org.apache.directory.fortress.core.model.User#userId}.
+     * For authentication searchs, this attr maps to {@link org.apache.directory.fortress.core.rbac.AuditDAO#REQDN}.  For authorization search, it will map to {@link org.apache.directory.fortress.core.rbac.AuditDAO#REQUAUTHZID}.
      * The userId for this search represents the end user.
      *
      * @return the userId which maps to 'reqDn' for authentications or 'reqAuthzID' for authorization events.
@@ -180,8 +180,8 @@ public class UserAudit extends FortEntity implements java.io.Serializable
 
 
     /**
-     * Set the optional userId attribute which limits set by {@link org.apache.directory.fortress.core.rbac.User#userId}.
-     * For authentication searchs, this attr maps to {@link AuditDAO#REQDN}.  For authorization search, it will map to {@link AuditDAO#REQUAUTHZID}.
+     * Set the optional userId attribute which limits set by {@link org.apache.directory.fortress.core.model.User#userId}.
+     * For authentication searchs, this attr maps to {@link org.apache.directory.fortress.core.rbac.AuditDAO#REQDN}.  For authorization search, it will map to {@link org.apache.directory.fortress.core.rbac.AuditDAO#REQUAUTHZID}.
      * The userId for this search represents the end user.
      *
      * @param userId maps to 'reqDn' for authentications or 'reqAuthzID' for authorization events.
@@ -193,8 +193,8 @@ public class UserAudit extends FortEntity implements java.io.Serializable
 
 
     /**
-     * Get the optional internalUserId attribute which limits set by {@link org.apache.directory.fortress.core.rbac.User#internalId}.
-     * For {@link AuditMgrImpl#searchUserSessions(UserAudit)} this attr maps to {@link AuditDAO#REQMOD}.
+     * Get the optional internalUserId attribute which limits set by {@link org.apache.directory.fortress.core.model.User#internalId}.
+     * For {@link org.apache.directory.fortress.core.rbac.AuditMgrImpl#searchUserSessions(UserAudit)} this attr maps to {@link org.apache.directory.fortress.core.rbac.AuditDAO#REQMOD}.
      * The internalUserId for this search represents the end user but is stored as its internal id.
      *
      * @return the internalUserId which maps to 'reqMod' for 'auditModify' object class searches.
@@ -206,8 +206,8 @@ public class UserAudit extends FortEntity implements java.io.Serializable
 
 
     /**
-     * Set the optional internalUserId attribute which limits set by {@link org.apache.directory.fortress.core.rbac.User#internalId}.
-     * For {@link AuditMgrImpl#searchUserSessions(UserAudit)} this attr maps to {@link AuditDAO#REQMOD}.
+     * Set the optional internalUserId attribute which limits set by {@link org.apache.directory.fortress.core.model.User#internalId}.
+     * For {@link org.apache.directory.fortress.core.rbac.AuditMgrImpl#searchUserSessions(UserAudit)} this attr maps to {@link org.apache.directory.fortress.core.rbac.AuditDAO#REQMOD}.
      * The internalUserId for this search represents the end user but is stored as its internal id.
      *
      * @param internalUserId maps to 'reqMod' for 'auditModify' object class searches.
@@ -264,7 +264,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
 
 
     /**
-     * Get the optional dn attribute can be used to constraint {@link AuditMgrImpl#searchUserSessions(UserAudit)}.
+     * Get the optional dn attribute can be used to constraint {@link org.apache.directory.fortress.core.rbac.AuditMgrImpl#searchUserSessions(UserAudit)}.
      * The dn for this search may represent any target entry in DIT that has been recently modified or deleted.
      *
      * @return the dn which maps to 'reqDn' for 'auditModify' object class searches.
@@ -276,7 +276,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
 
 
     /**
-     * Set the optional dn attribute can be used to constraint {@link AuditMgrImpl#searchUserSessions(UserAudit)}.
+     * Set the optional dn attribute can be used to constraint {@link org.apache.directory.fortress.core.rbac.AuditMgrImpl#searchUserSessions(UserAudit)}.
      * The dn for this search may represent any target entry in DIT that has been recently modified or deleted.
      *
      * @param dn maps to 'reqDn' for 'auditModify' object class searches.

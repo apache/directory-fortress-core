@@ -26,6 +26,10 @@ import java.util.Set;
 import org.apache.directory.fortress.core.AccessMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.util.time.CUtil;
 
@@ -108,13 +112,13 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
      * This method must be called once per user prior to calling other methods within this class.
      * The successful result is {@link Session} that contains target user's RBAC {@link User#roles} and Admin role {@link User#adminRoles}.<br />
      * In addition to checking user password validity it will apply configured password policy checks {@link User#pwPolicy}..<br />
-     * Method may also store parms passed in for audit trail {@link org.apache.directory.fortress.core.rbac.FortEntity}.
+     * Method may also store parms passed in for audit trail {@link org.apache.directory.fortress.core.model.FortEntity}.
      * <h4> This API will...</h4>
      * <ul>
      * <li> authenticate user password if trusted == false.
      * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>.
      * <li> fail for any user who is locked by OpenLDAP's policies {@link User#isLocked()}, regardless of trusted flag being set as parm on API.
-     * <li> evaluate temporal {@link org.apache.directory.fortress.core.util.time.Constraint}(s) on {@link User}, {@link org.apache.directory.fortress.core.rbac.UserRole} and {@link UserAdminRole} entities.
+     * <li> evaluate temporal {@link org.apache.directory.fortress.core.util.time.Constraint}(s) on {@link User}, {@link org.apache.directory.fortress.core.model.UserRole} and {@link org.apache.directory.fortress.core.model.UserAdminRole} entities.
      * <li> process selective role activations into User RBAC Session {@link User#roles}.
      * <li> check Dynamic Separation of Duties {@link org.apache.directory.fortress.core.rbac.DSDChecker#validate(Session, org.apache.directory.fortress.core.util.time.Constraint, org.apache.directory.fortress.core.util.time.Time)} on {@link User#roles}.
      * <li> process selective administrative role activations {@link User#adminRoles}.
@@ -177,7 +181,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
      * one of the session's active roles. This implementation will verify the roles or userId correspond
      * to the subject's active roles are registered in the object's access control list.
      *
-     * @param perm  must contain the object, {@link org.apache.directory.fortress.core.rbac.Permission#objName}, and operation, {@link org.apache.directory.fortress.core.rbac.Permission#opName}, of permission User is trying to access.
+     * @param perm  must contain the object, {@link org.apache.directory.fortress.core.model.Permission#objName}, and operation, {@link org.apache.directory.fortress.core.model.Permission#opName}, of permission User is trying to access.
      * @param session This object must be instantiated by calling {@link AccessMgrImpl#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
      * @return True if user has access, false otherwise.
      * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.

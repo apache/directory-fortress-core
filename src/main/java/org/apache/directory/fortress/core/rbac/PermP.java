@@ -27,6 +27,13 @@ import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 

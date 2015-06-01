@@ -19,13 +19,13 @@
  */
 package org.apache.directory.fortress.core.ant;
 
-import org.apache.directory.fortress.core.rbac.Role;
+import org.apache.directory.fortress.core.model.Role;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class is used by {@link FortressAntTask} to load {@link org.apache.directory.fortress.core.rbac.Role}s used to drive {@link org.apache.directory.fortress.core.AdminMgr#addRole(org.apache.directory.fortress.core.rbac.Role)}}.
+ * The class is used by {@link FortressAntTask} to load {@link org.apache.directory.fortress.core.model.Role}s used to drive {@link org.apache.directory.fortress.core.AdminMgr#addRole(org.apache.directory.fortress.core.model.Role)}}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>This class name, 'Addrole', is used for the xml tag in the load script.</p>
  * <pre>
@@ -74,7 +74,7 @@ public class Addrole
     /**
      * Used by {@link FortressAntTask#addRoles()} to retrieve list of Roles as defined in input xml file.
      *
-     * @return collection containing {@link org.apache.directory.fortress.core.rbac.Role}s targeted for insertion.
+     * @return collection containing {@link org.apache.directory.fortress.core.model.Role}s targeted for insertion.
      */
     public List<Role> getRoles()
     {

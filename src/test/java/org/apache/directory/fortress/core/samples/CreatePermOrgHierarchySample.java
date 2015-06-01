@@ -21,7 +21,7 @@ package org.apache.directory.fortress.core.samples;
 
 import org.apache.directory.fortress.core.DelAdminMgr;
 import org.apache.directory.fortress.core.DelAdminMgrFactory;
-import org.apache.directory.fortress.core.rbac.OrgUnit;
+import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.rbac.TestUtils;
 import junit.framework.Test;

@@ -31,6 +31,8 @@ import java.util.TreeSet;
 
 import junit.framework.TestCase;
 import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.model.Address;
+import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
 

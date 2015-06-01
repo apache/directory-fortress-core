@@ -20,11 +20,11 @@
 package org.apache.directory.fortress.core;
 
 
-import org.apache.directory.fortress.core.rbac.UserAdminRole;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.Role;
-import org.apache.directory.fortress.core.rbac.Session;
-import org.apache.directory.fortress.core.rbac.User;
+import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
 
 import java.util.List;
 import java.util.Set;
@@ -42,7 +42,7 @@ import java.util.Set;
  * Fortress fully supports the Oh/Sandhu/Zhang ARBAC02 model for delegated administration.  ARBAC provides large enterprises the capability to delegate administrative authority to users that reside outside of the security admin group.
  * Decentralizing administration helps because it provides security provisioning capability to work groups without sacrificing regulations for accountability or traceability.
  * <p/>
- * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} or {@link Manageable#setAdmin(org.apache.directory.fortress.core.rbac.Session)}) are set.
+ * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} or {@link Manageable#setAdmin(org.apache.directory.fortress.core.model.Session)}) are set.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -52,7 +52,7 @@ public interface DelAccessMgr extends Manageable
      * This function will determine if the user contains an AdminRole that is authorized assignment control over
      * User-Role Assignment (URA).  This adheres to the ARBAC02 functional specification for can-assign URA.
      *
-     * @param session This object must be instantiated by calling {@link AccessMgr#createSession(org.apache.directory.fortress.core.rbac.User, boolean)} before passing into the method.  No variables need to be set by client after returned from createSession.
+     * @param session This object must be instantiated by calling {@link AccessMgr#createSession(org.apache.directory.fortress.core.model.User, boolean)} before passing into the method.  No variables need to be set by client after returned from createSession.
      * @param user    Instantiated User entity requires only valid userId attribute set.
      * @param role    Instantiated Role entity requires only valid role name attribute set.
      * @return boolean value true indicates access allowed.

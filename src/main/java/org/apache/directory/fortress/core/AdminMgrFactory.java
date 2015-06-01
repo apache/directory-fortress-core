@@ -22,7 +22,7 @@ package org.apache.directory.fortress.core;
 import org.apache.directory.fortress.core.cfg.Config;
 import org.apache.directory.fortress.core.rbac.AdminMgrImpl;
 import org.apache.directory.fortress.core.rbac.ClassUtil;
-import org.apache.directory.fortress.core.rbac.Session;
+import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.rest.AdminMgrRestImpl;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 

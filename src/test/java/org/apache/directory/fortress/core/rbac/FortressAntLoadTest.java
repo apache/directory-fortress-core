@@ -27,6 +27,13 @@ import java.util.Date;
 import java.util.List;
 
 import au.com.bytecode.opencsv.CSVWriter;
+import org.apache.directory.fortress.core.model.PermGrant;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.tools.ant.Task;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;

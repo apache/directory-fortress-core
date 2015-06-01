@@ -20,10 +20,10 @@
 package org.apache.directory.fortress.core;
 
 
-import org.apache.directory.fortress.core.rbac.AdminRole;
-import org.apache.directory.fortress.core.rbac.OrgUnit;
-import org.apache.directory.fortress.core.rbac.UserAdminRole;
-import org.apache.directory.fortress.core.rbac.User;
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.model.User;
 
 import java.util.List;
 
@@ -40,7 +40,7 @@ import java.util.List;
  * Fortress fully supports the Oh/Sandhu/Zhang ARBAC02 model for delegated administration.  ARBAC provides large enterprises the capability to delegate administrative authority to users that reside outside of the security admin group.
  * Decentralizing administration helps because it provides security provisioning capability to work groups without sacrificing regulations for accountability or traceability.
  * <p/>
- * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} or {@link Manageable#setAdmin(org.apache.directory.fortress.core.rbac.Session)}) are set.
+ * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} or {@link Manageable#setAdmin(org.apache.directory.fortress.core.model.Session)}) are set.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -117,8 +117,8 @@ public interface DelReviewMgr extends Manageable
      * set by setting type attribute.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.OrgUnit#name} - contains the name associated with the OrgUnit object targeted for search.</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.OrgUnit#type} - contains the type of OU:  {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#PERM}</li>
+     * <li>{@link org.apache.directory.fortress.core.model.OrgUnit#name} - contains the name associated with the OrgUnit object targeted for search.</li>
+     * <li>{@link org.apache.directory.fortress.core.model.OrgUnit#type} - contains the type of OU:  {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM}</li>
      * </ul>
      *
      * @param entity contains OrgUnit name and type.
@@ -134,7 +134,7 @@ public interface DelReviewMgr extends Manageable
      * set by setting type parameter on API.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.OrgUnit#type} - contains the type of OU:  {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#PERM}</li>
+     * <li>{@link org.apache.directory.fortress.core.model.OrgUnit#type} - contains the type of OU:  {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM}</li>
      * <li>searchVal - contains some or all of the chars associated with the OrgUnit objects targeted for search.</li>
      * </ul>
      *

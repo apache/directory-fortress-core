@@ -24,6 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.PwPolicy;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +50,7 @@ import org.apache.directory.fortress.core.util.time.CUtil;
  * Process module for the User entity.  This class performs data validations and error mapping.  It is typically called
  * by internal Fortress manager classes ({@link AdminMgrImpl}, {@link AccessMgrImpl},
  * {@link ReviewMgrImpl}, ...) and not intended for external non-Fortress clients.  This class will accept,
- * {@link org.apache.directory.fortress.core.rbac.User}, validate its contents and forward on to it's corresponding DAO class {@link org.apache.directory.fortress.core.rbac.UserDAO}.
+ * {@link org.apache.directory.fortress.core.model.User}, validate its contents and forward on to it's corresponding DAO class {@link org.apache.directory.fortress.core.rbac.UserDAO}.
  * <p>
  * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link org.apache.directory.fortress.core.FinderException},

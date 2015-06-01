@@ -21,6 +21,7 @@ package org.apache.directory.fortress.core;
 
 
 import org.apache.directory.fortress.core.ldap.group.Group;
+import org.apache.directory.fortress.core.model.*;
 import org.apache.directory.fortress.core.rbac.*;
 import org.apache.directory.fortress.core.rest.FortRequest;
 import org.apache.directory.fortress.core.rest.FortResponse;
@@ -79,7 +80,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.FortEntity }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.FortEntity }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortEntity")
     public JAXBElement<FortEntity> createFortEntity( FortEntity value )
@@ -109,7 +110,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.SDSet }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.SDSet }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortSet")
     public JAXBElement<SDSet> createFortSet( SDSet value )
@@ -119,7 +120,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.PwPolicy }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.PwPolicy }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortPolicy")
     public JAXBElement<PwPolicy> createFortPolicy( PwPolicy value )
@@ -129,7 +130,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Session }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.Session }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortSession")
     public JAXBElement<Session> createFortSession( Session value )
@@ -139,7 +140,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.User }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.User }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortUser")
     public JAXBElement<User> createFortUser( User value )
@@ -149,7 +150,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.UserRole }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.UserRole }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortUserRole")
     public JAXBElement<UserRole> createFortUserRole( UserRole value )
@@ -159,7 +160,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.OrgUnit }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.OrgUnit }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortOrgUnit")
     public JAXBElement<OrgUnit> createFortOrgUnit( OrgUnit value )
@@ -169,7 +170,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Role }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.Role }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortRole")
     public JAXBElement<Role> createFortRole( Role value )
@@ -179,7 +180,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.PermGrant }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.PermGrant }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortGrant")
     public JAXBElement<PermGrant> createFortGrant( PermGrant value )
@@ -189,7 +190,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.AdminRoleRelationship}{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.AdminRoleRelationship}{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortAdminRoleRelationship")
     public JAXBElement<AdminRoleRelationship> createFortAdminRoleRelationship( AdminRoleRelationship value )
@@ -199,7 +200,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.OrgUnitRelationship}{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.OrgUnitRelationship}{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortOrgUnitRelationship")
     public JAXBElement<OrgUnitRelationship> createFortOrgUnitRelationship( OrgUnitRelationship value )
@@ -209,7 +210,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.RoleRelationship}{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.RoleRelationship}{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortRoleRelationship")
     public JAXBElement<RoleRelationship> createFortRoleRelationship( RoleRelationship value )
@@ -219,7 +220,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Role }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.Role }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortAdminRole")
     public JAXBElement<AdminRole> createFortAdminRole( AdminRole value )
@@ -229,7 +230,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.UserAdminRole }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.UserAdminRole }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortUserAdminRole")
     public JAXBElement<UserAdminRole> createFortUserRole( UserAdminRole value )
@@ -239,7 +240,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.PermObj }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.PermObj }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortObject")
     public JAXBElement<PermObj> createFortObject( PermObj value )
@@ -249,7 +250,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Permission }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.Permission }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortPermission")
     public JAXBElement<Permission> createFortPermission( Permission value )
@@ -259,7 +260,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Bind }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.Bind }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortBind")
     public JAXBElement<Bind> createFortEntity( Bind value )
@@ -269,7 +270,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.UserAudit }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.UserAudit }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortUserAudit")
     public JAXBElement<UserAudit> createFortUserAudit( UserAudit value )
@@ -279,7 +280,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.AuthZ }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.AuthZ }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortAuthZ")
     public JAXBElement<AuthZ> createFortAuthZ( AuthZ value )
@@ -289,7 +290,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Mod }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.Mod }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortMod")
     public JAXBElement<Mod> createFortMod( Mod value )
@@ -299,7 +300,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.RolePerm }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.RolePerm }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortRolePerm")
     public JAXBElement<RolePerm> createFortRolePerm( RolePerm value )
@@ -309,7 +310,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Address }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.Address }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortAddress")
     public JAXBElement<Address> createFortAddress( Address value )
@@ -319,7 +320,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Props }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.Props }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortProps")
     public JAXBElement<Props> createFortProps( Props value )
@@ -364,7 +365,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link org.apache.directory.fortress.core.rbac.PwPolicy }
+     * Create an instance of {@link org.apache.directory.fortress.core.model.PwPolicy }
      */
     public PwPolicy createPswdPolicy()
     {
@@ -472,7 +473,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link UserRole}
+     * Create an instance of {@link org.apache.directory.fortress.core.model.UserRole}
      */
     public UserRole createUserRole()
     {

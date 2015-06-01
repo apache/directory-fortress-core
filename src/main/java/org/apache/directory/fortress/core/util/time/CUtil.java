@@ -27,8 +27,8 @@ import org.apache.directory.fortress.core.cfg.Config;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.rbac.ClassUtil;
-import org.apache.directory.fortress.core.rbac.Session;
-import org.apache.directory.fortress.core.rbac.UserRole;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.rbac.Warning;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.slf4j.Logger;
@@ -350,11 +350,11 @@ public class CUtil
     public static enum ConstraintType
     {
         /**
-         * Specifies {@link org.apache.directory.fortress.core.rbac.User}
+         * Specifies {@link org.apache.directory.fortress.core.model.User}
          */
         USER,
         /**
-         * Specifies {@link org.apache.directory.fortress.core.rbac.Role}
+         * Specifies {@link org.apache.directory.fortress.core.model.Role}
          */
         ROLE
     }
@@ -423,9 +423,9 @@ public class CUtil
 
     /**
      * This utility iterates over all of the Validators initialized for runtime and calls them passing the {@link Constraint} contained within the
-     * targeted entity.  If a particular {@link org.apache.directory.fortress.core.rbac.UserRole} violates constraint it will not be activated.  If {@link org.apache.directory.fortress.core.rbac.User} validation fails a ValidationException will be thrown thus preventing User logon.
+     * targeted entity.  If a particular {@link org.apache.directory.fortress.core.model.UserRole} violates constraint it will not be activated.  If {@link org.apache.directory.fortress.core.model.User} validation fails a ValidationException will be thrown thus preventing User logon.
      *
-     * @param session contains {@link org.apache.directory.fortress.core.rbac.User} and {@link org.apache.directory.fortress.core.rbac.UserRole} constraints {@link Constraint} to be checked.
+     * @param session contains {@link org.apache.directory.fortress.core.model.User} and {@link org.apache.directory.fortress.core.model.UserRole} constraints {@link Constraint} to be checked.
      * @param type    specifies User {@link ConstraintType#USER} or rOLE {@link ConstraintType#ROLE}.
      * @param checkDsd will check DSD constraints if true
      * @throws org.apache.directory.fortress.core.SecurityException in the event validation fails for User or system error occurs.

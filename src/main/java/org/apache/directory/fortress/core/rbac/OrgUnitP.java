@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import org.apache.directory.fortress.core.model.OrgUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -37,12 +38,12 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
 
 /**
  * Process module for the OrgUnit entity. The Fortress OrgUnit data set can be associated with two entities:
- * {@link org.apache.directory.fortress.core.rbac.User} class or {@link org.apache.directory.fortress.core.rbac.PermObj} class.  The OrgUnit entity itself is stored in two separate locations in the ldap tree one
- * for each entity listed above.  The type of OU entity is set via the enum attribute {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type} which is equal to 'PERM' or 'USER'.
+ * {@link org.apache.directory.fortress.core.model.User} class or {@link org.apache.directory.fortress.core.model.PermObj} class.  The OrgUnit entity itself is stored in two separate locations in the ldap tree one
+ * for each entity listed above.  The type of OU entity is set via the enum attribute {@link org.apache.directory.fortress.core.model.OrgUnit.Type} which is equal to 'PERM' or 'USER'.
  * This class performs data validations.  The methods of this class are called by internal Fortress manager impl classes
  * {@link DelAdminMgrImpl} and {@link DelReviewMgrImpl} but is also called by {@link org.apache.directory.fortress.core.rbac.PermP#validate} method and {@link org.apache.directory.fortress.core.rbac.UserP#validate} functions
  * which ensure the entities are related to valid OU entries. This class is not intended to be called external
- * to Fortress Core itself.  This class will accept Fortress entity {@link org.apache.directory.fortress.core.rbac.OrgUnit}, validate its contents and forward on to it's
+ * to Fortress Core itself.  This class will accept Fortress entity {@link org.apache.directory.fortress.core.model.OrgUnit}, validate its contents and forward on to it's
  * corresponding DAO class {@link OrgUnitDAO} for data access.
  * <p>
  * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system

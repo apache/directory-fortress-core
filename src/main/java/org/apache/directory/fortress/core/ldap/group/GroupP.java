@@ -22,7 +22,7 @@ package org.apache.directory.fortress.core.ldap.group;
 
 import org.apache.directory.api.util.Strings;
 import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.rbac.User;
+import org.apache.directory.fortress.core.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;

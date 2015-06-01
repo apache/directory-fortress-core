@@ -29,6 +29,7 @@ import net.sf.ehcache.search.Query;
 import net.sf.ehcache.search.Result;
 import net.sf.ehcache.search.Results;
 
+import org.apache.directory.fortress.core.model.SDSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

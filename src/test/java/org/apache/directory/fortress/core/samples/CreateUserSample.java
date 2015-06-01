@@ -26,7 +26,7 @@ import org.apache.directory.fortress.core.AdminMgrFactory;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.ReviewMgrFactory;
 import org.apache.directory.fortress.core.rbac.TestUtils;
-import org.apache.directory.fortress.core.rbac.User;
+import org.apache.directory.fortress.core.model.User;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -166,7 +166,7 @@ public class CreateUserSample extends TestCase
             // You do not have to assign a Role to User when calling 'addUser'.  Role assignment may be done using the 'assignUser' API.
             /**
              * Create new User entity:
-             *   {@link org.apache.directory.fortress.core.rbac.User#userId}="sampleUser1"
+             *   {@link org.apache.directory.fortress.core.model.User#userId}="sampleUser1"
              *   {@link User#password}="password1"
              *   {@link User#setRole(String)}="sampleRole1"
              *   {@link User#ou}="sampleUserOU1"

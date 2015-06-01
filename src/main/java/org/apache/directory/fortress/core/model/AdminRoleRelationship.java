@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
+package org.apache.directory.fortress.core.model;
 
 import java.io.Serializable;
 
@@ -27,44 +27,44 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * This entity is used by en masse to communicate {@link org.apache.directory.fortress.core.rbac.Role}, {@link Permission} and {@link org.apache.directory.fortress.core.rbac.Session} information to the server for access control decisions.
+ * This entity is used by en masse to communicate parent and child {@link AdminRole} information to the server.
  * <p/>
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-@XmlRootElement(name = "fortRolePerm")
+@XmlRootElement(name = "fortAdminRoleRelationship")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "rolePerm", propOrder = {
-    "role",
-    "perm"
+@XmlType(name = "adminrelationship", propOrder = {
+    "child",
+    "parent"
 })
-public class RolePerm extends FortEntity implements Serializable
+public class AdminRoleRelationship extends FortEntity implements Serializable
 {
     private static final long serialVersionUID = 1L;
     
-    private Role role;
-    private Permission perm;
+    /** The parent AdminRole */
+    private AdminRole parent;
+    
+    /** The child AdminRole */
+    private AdminRole child;
 
-    public Role getRole()
+    public AdminRole getParent()
     {
-        return role;
+        return parent;
     }
 
-    
-    public void setRole(Role role)
+    public void setParent(AdminRole parent)
     {
-        this.role = role;
-    }
-    
-
-    public Permission getPerm()
-    {
-        return perm;
+        this.parent = parent;
     }
 
-    
-    public void setPerm(Permission perm)
+    public AdminRole getChild()
     {
-        this.perm = perm;
+        return child;
+    }
+
+    public void setChild(AdminRole child)
+    {
+        this.child = child;
     }
 
 
@@ -75,10 +75,10 @@ public class RolePerm extends FortEntity implements Serializable
     {
         StringBuilder sb = new StringBuilder();
 
-        sb.append( "RolePerm object: \n" );
+        sb.append( "AdminRoleRelationship object: \n" );
 
-        sb.append( "    role :" ).append( role ).append( '\n' );
-        sb.append( "    perm :" ).append( perm ).append( '\n' );
+        sb.append( "    parent :" ).append( parent ).append( '\n' );
+        sb.append( "    child :" ).append( child ).append( '\n' );
 
         return sb.toString();
     }

@@ -22,6 +22,8 @@ package org.apache.directory.fortress.core.rbac;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.PwPolicyMgr;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.PwPolicy;
+import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import java.util.List;
@@ -66,56 +68,56 @@ public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
      * if and only if the policy entry is not already present in the POLICIES data set.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PwPolicy#name} - Maps to name attribute of pwdPolicy object class being added.</li>
+     * <li>{@link org.apache.directory.fortress.core.model.PwPolicy#name} - Maps to name attribute of pwdPolicy object class being added.</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PwPolicy#minAge} - This attribute holds the number of seconds that must elapse between
+     * <li>{@link org.apache.directory.fortress.core.model.PwPolicy#minAge} - This attribute holds the number of seconds that must elapse between
      * modifications to the password.  If this attribute is not present, 0
      * seconds is assumed.</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PwPolicy#maxAge} - This attribute holds the number of seconds after which a modified
+     * <li>{@link org.apache.directory.fortress.core.model.PwPolicy#maxAge} - This attribute holds the number of seconds after which a modified
      * password will expire. If this attribute is not present, or if the value is 0 the password
      * does not expire.  If not 0, the value must be greater than or equal
      * to the value of the pwdMinAge.
      * </li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PwPolicy#inHistory} - This attribute specifies the maximum number of used passwords stored
+     * <li>{@link org.apache.directory.fortress.core.model.PwPolicy#inHistory} - This attribute specifies the maximum number of used passwords stored
      * in the pwdHistory attribute. If this attribute is not present, or if the value is 0, used
      * passwords are not stored in the pwdHistory attribute and thus may be reused.</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PwPolicy#minLength} - When quality checking is enabled, this attribute holds the minimum
+     * <li>{@link org.apache.directory.fortress.core.model.PwPolicy#minLength} - When quality checking is enabled, this attribute holds the minimum
      * number of characters that must be used in a password.  If this
      * attribute is not present, no minimum password length will be
      * enforced.  If the server is unable to check the length (due to a
      * hashed password or otherwise), the server will, depending on the
      * value of the pwdCheckQuality attribute, either accept the password
      * without checking it ('0' or '1') or refuse it ('2').</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PwPolicy#expireWarning} - This attribute specifies the maximum number of seconds before a
+     * <li>{@link org.apache.directory.fortress.core.model.PwPolicy#expireWarning} - This attribute specifies the maximum number of seconds before a
      * password is due to expire that expiration warning messages will be
      * returned to an authenticating user.  If this attribute is not present, or if the value is 0 no warnings
      * will be returned.  If not 0, the value must be smaller than the value
      * of the pwdMaxAge attribute.</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PwPolicy#graceLoginLimit} - This attribute specifies the number of times an expired password can
+     * <li>{@link org.apache.directory.fortress.core.model.PwPolicy#graceLoginLimit} - This attribute specifies the number of times an expired password can
      * be used to authenticate.  If this attribute is not present or if the
      * value is 0, authentication will fail. </li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PwPolicy#lockout} - This attribute indicates, when its value is "TRUE", that the password
+     * <li>{@link org.apache.directory.fortress.core.model.PwPolicy#lockout} - This attribute indicates, when its value is "TRUE", that the password
      * may not be used to authenticate after a specified number of
      * consecutive failed bind attempts.  The maximum number of consecutive
      * failed bind attempts is specified in pwdMaxFailure.  If this attribute is not present, or if the
      * value is "FALSE", the password may be used to authenticate when the number of failed bind
      * attempts has been reached.</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PwPolicy#lockoutDuration} - This attribute holds the number of seconds that the password cannot
+     * <li>{@link org.apache.directory.fortress.core.model.PwPolicy#lockoutDuration} - This attribute holds the number of seconds that the password cannot
      * be used to authenticate due to too many failed bind attempts.  If
      * this attribute is not present, or if the value is 0 the password
      * cannot be used to authenticate until reset by a password
      * administrator.</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PwPolicy#maxFailure} - This attribute specifies the number of consecutive failed bind
+     * <li>{@link org.apache.directory.fortress.core.model.PwPolicy#maxFailure} - This attribute specifies the number of consecutive failed bind
      * attempts after which the password may not be used to authenticate.
      * If this attribute is not present, or if the value is 0, this policy
      * is not checked, and the value of pwdLockout will be ignored.</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PwPolicy#failureCountInterval} - This attribute holds the number of seconds after which the password
+     * <li>{@link org.apache.directory.fortress.core.model.PwPolicy#failureCountInterval} - This attribute holds the number of seconds after which the password
      * failures are purged from the failure counter, even though no
      * successful authentication occurred.  If this attribute is not present, or if its value is 0, the failure
      * counter is only reset by a successful authentication.</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PwPolicy#mustChange} - This attribute specifies with a value of "TRUE" that users must
+     * <li>{@link org.apache.directory.fortress.core.model.PwPolicy#mustChange} - This attribute specifies with a value of "TRUE" that users must
      * change their passwords when they first bind to the directory after a
      * password is set or reset by a password administrator.  If this
      * attribute is not present, or if the value is "FALSE", users are not
@@ -123,14 +125,14 @@ public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
      * administrator sets or resets the password.  This attribute is not set
      * due to any actions specified by this document, it is typically set by
      * a password administrator after resetting a user's password.</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PwPolicy#allowUserChange} - This attribute indicates whether users can change their own
+     * <li>{@link org.apache.directory.fortress.core.model.PwPolicy#allowUserChange} - This attribute indicates whether users can change their own
      * passwords, although the change operation is still subject to access
      * control.  If this attribute is not present, a value of "TRUE" is
      * assumed.  This attribute is intended to be used in the absence of an access control mechanism.</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PwPolicy#safeModify} - This attribute specifies whether or not the existing password must be
+     * <li>{@link org.apache.directory.fortress.core.model.PwPolicy#safeModify} - This attribute specifies whether or not the existing password must be
      * sent along with the new password when being changed.  If this
      * attribute is not present, a "FALSE" value is assumed.</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PwPolicy#checkQuality} - This attribute indicates how the password quality will be verified
+     * <li>{@link org.apache.directory.fortress.core.model.PwPolicy#checkQuality} - This attribute indicates how the password quality will be verified
      * while being modified or added.  If this attribute is not present, or
      * if the value is '0', quality checking will not be enforced.  A value
      * of '1' indicates that the server will check the quality, and if the
@@ -138,12 +140,12 @@ public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
      * reasons) it will be accepted.  A value of '2' indicates that the
      * server will check the quality, and if the server is unable to verify
      * it, it will return an error refusing the password. </li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PwPolicy#attribute} - This holds the name of the attribute to which the password policy is
+     * <li>{@link org.apache.directory.fortress.core.model.PwPolicy#attribute} - This holds the name of the attribute to which the password policy is
      * applied.  For example, the password policy may be applied to the
      * userPassword attribute </li>
      * </ul>
      *
-     * @param policy Object must contain {@link org.apache.directory.fortress.core.rbac.PwPolicy#name} and optionally other attributes.
+     * @param policy Object must contain {@link org.apache.directory.fortress.core.model.PwPolicy#name} and optionally other attributes.
      * @throws SecurityException In the event of data validation or system error.
      */
     @Override
@@ -328,7 +330,7 @@ public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
      * if and only if the user is a member of the USERS data set and the policyName refers to a
      * policy that is a member of the PWPOLICIES data set.
      *
-     * @param userId     Contains {@link org.apache.directory.fortress.core.rbac.User#userId} of a User entity in USERS data set.
+     * @param userId     Contains {@link org.apache.directory.fortress.core.model.User#userId} of a User entity in USERS data set.
      * @param policyName String contains the {@link PwPolicy#name} of a pw policy entity contained within the PWPOLICIES data set.
      * @throws SecurityException thrown in the event either user or policy not valid or system error.
      */
@@ -353,7 +355,7 @@ public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
      * Removal of pw policy assignment will revert the user's policy to use the global default for OpenLDAP
      * instance that contains user.
      *
-     * @param userId Contains {@link User#userId} of a User entity in USERS data set.
+     * @param userId Contains {@link org.apache.directory.fortress.core.model.User#userId} of a User entity in USERS data set.
      * @throws SecurityException Thrown in the event either user not valid or system error.
      */
     @Override

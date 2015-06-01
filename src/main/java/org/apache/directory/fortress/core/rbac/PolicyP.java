@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import org.apache.directory.fortress.core.model.PwPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -39,8 +40,8 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
 /**
  * Process module for the OpenLDAP Password Policy entity.  This class performs data validations and error mapping.
  * It is typically called by internal Fortress manager class {@link PwPolicyMgrImpl} but also
- * needed by {@link org.apache.directory.fortress.core.rbac.UserP#validate(org.apache.directory.fortress.core.rbac.User, boolean)}
- * This class is not intended to be used by external programs.  This class will accept Fortress entity, {@link PwPolicy}, on its
+ * needed by {@link org.apache.directory.fortress.core.rbac.UserP#validate(org.apache.directory.fortress.core.model.User, boolean)}
+ * This class is not intended to be used by external programs.  This class will accept Fortress entity, {@link org.apache.directory.fortress.core.model.PwPolicy}, on its
  * methods, validate contents and forward on to it's corresponding DAO class {@link PolicyDAO}.
  * <p/>
  * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system

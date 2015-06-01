@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.core.ant;
 
-import org.apache.directory.fortress.core.rbac.Context;
+import org.apache.directory.fortress.core.model.Context;
 
 import java.util.ArrayList;
 import java.util.List;

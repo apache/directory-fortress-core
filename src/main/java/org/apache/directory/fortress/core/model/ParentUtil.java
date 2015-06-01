@@ -17,26 +17,21 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
-import java.util.Arrays;
+package org.apache.directory.fortress.core.model;
 
+import java.util.Set;
 /**
- * Created by IntelliJ IDEA.
- * User: Shawn McKinney
- * Date: 1/8/12
- * Time: 7:29 AM
+ * This interface provides a callback mechanism for entities {@link UserRole} and {@link UserAdminRole} and is implemented by RoleUtil.*
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class CharArrayAdapter extends XmlAdapter<String, char[]>
+public interface
+    ParentUtil
 {
-    public char[] unmarshal(String val) throws Exception
-    {
-        return val.toCharArray();
-    }
-
-    public String marshal(char[] val) throws Exception
-    {
-        return Arrays.toString(val);
-    }
+    /**
+     * Get the parents of a particular role.
+     *
+     * @return Set of parent role names for this role.
+     */
+    Set<String> getParentsCB( String name, String contextId );
 }

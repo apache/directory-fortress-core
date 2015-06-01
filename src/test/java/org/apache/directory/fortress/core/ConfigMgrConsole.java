@@ -21,7 +21,7 @@ package org.apache.directory.fortress.core;
 
 import org.apache.directory.fortress.core.cfg.ConfigMgr;
 import org.apache.directory.fortress.core.cfg.ConfigMgrFactory;
-import org.apache.directory.fortress.core.rbac.Session;
+import org.apache.directory.fortress.core.model.Session;
 
 import java.util.Enumeration;
 import java.util.Properties;

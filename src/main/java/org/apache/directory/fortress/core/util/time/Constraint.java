@@ -22,8 +22,8 @@ package org.apache.directory.fortress.core.util.time;
 
 /**
  * The Fortress Constraint interface prescribes attributes that are used to store, process and retrieve temporal validation attributes on
- * {@link org.apache.directory.fortress.core.rbac.User}, {@link org.apache.directory.fortress.core.rbac.UserRole}, {@link org.apache.directory.fortress.core.rbac.Role},
- * {@link org.apache.directory.fortress.core.rbac.AdminRole}, {@link org.apache.directory.fortress.core.rbac.UserAdminRole} entities.
+ * {@link org.apache.directory.fortress.core.model.User}, {@link org.apache.directory.fortress.core.model.UserRole}, {@link org.apache.directory.fortress.core.model.Role},
+ * {@link org.apache.directory.fortress.core.model.AdminRole}, {@link org.apache.directory.fortress.core.model.UserAdminRole} entities.
  * <p/>
  * <img src="../../doc-files/TemporalRbac.png">
  * <p/>

@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
+package org.apache.directory.fortress.core.model;
 
 
 import java.util.Set;
@@ -28,33 +28,34 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.directory.fortress.core.rbac.Administrator;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.util.time.CUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
 
 
 /**
- * All entities ({@link AdminRole}, {@link org.apache.directory.fortress.core.rbac.OrgUnit},
- * {@link org.apache.directory.fortress.core.rbac.SDSet} etc...) are used to carry data between three Fortress
+ * All entities ({@link AdminRole}, {@link org.apache.directory.fortress.core.model.OrgUnit},
+ * {@link org.apache.directory.fortress.core.model.SDSet} etc...) are used to carry data between three Fortress
  * layers.starting with the (1) Manager layer down thru middle (2) Process layer and it's processing rules into
  * (3) DAO layer where persistence with the OpenLDAP server occurs.
  * <h4>Fortress Processing Layers</h4>
  * <ol>
- * <li>Manager layer: {@link DelAdminMgrImpl}, {@link DelAccessMgrImpl}, {@link DelReviewMgrImpl},...</li>
- * <li>Process layer: {@link AdminRoleP}, {@link org.apache.directory.fortress.core.rbac.OrgUnitP},...</li>
- * <li>DAO layer: {@link AdminRoleDAO}, {@link OrgUnitDAO},...</li>
+ * <li>Manager layer: {@link org.apache.directory.fortress.core.rbac.DelAdminMgrImpl}, {@link org.apache.directory.fortress.core.rbac.DelAccessMgrImpl}, {@link org.apache.directory.fortress.core.rbac.DelReviewMgrImpl},...</li>
+ * <li>Process layer: {@link org.apache.directory.fortress.core.rbac.AdminRoleP}, {@link org.apache.directory.fortress.core.rbac.OrgUnitP},...</li>
+ * <li>DAO layer: {@link org.apache.directory.fortress.core.rbac.AdminRoleDAO}, {@link org.apache.directory.fortress.core.rbac.OrgUnitDAO},...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br />
- * For example, this entity requires {@link #name} set before passing into {@link DelAdminMgrImpl} or  {@link DelReviewMgrImpl} APIs.
+ * For example, this entity requires {@link #name} set before passing into {@link org.apache.directory.fortress.core.rbac.DelAdminMgrImpl} or  {@link org.apache.directory.fortress.core.rbac.DelReviewMgrImpl} APIs.
  * Create methods usually require more attributes (than Read) due to constraints enforced between entities.
  * <p/>
- * This entity extends the {@link org.apache.directory.fortress.core.rbac.Role} entity and is used to store the ARBAC AdminRole assignments that comprise the many-to-many relationships between Users and Administrative Permissions.
- * In addition it is used to store the ARBAC {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#PERM} and {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#USER} OU information that adheres to the AdminRole entity in the ARBAC02 model.
+ * This entity extends the {@link org.apache.directory.fortress.core.model.Role} entity and is used to store the ARBAC AdminRole assignments that comprise the many-to-many relationships between Users and Administrative Permissions.
+ * In addition it is used to store the ARBAC {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM} and {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} OU information that adheres to the AdminRole entity in the ARBAC02 model.
  * <br />The unique key to locate AdminRole entity (which is subsequently assigned both to Users and administrative Permissions) is {@link AdminRole#name}.<br />
  * <p/>
  * There is a many-to-many relationship between User's, Administrative Roles and Administrative Permissions.
- * <h3>{@link org.apache.directory.fortress.core.rbac.User}*<->*{@link AdminRole}*<->*{@link Permission}</h3>
+ * <h3>{@link org.apache.directory.fortress.core.model.User}*<->*{@link AdminRole}*<->*{@link org.apache.directory.fortress.core.model.Permission}</h3>
  * Example to create new ARBAC AdminRole:
  * <p/>
  * <code>AdminRole myRole = new AdminRole("MyRoleName");</code><br />

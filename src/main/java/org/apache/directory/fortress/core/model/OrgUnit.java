@@ -17,8 +17,10 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
+package org.apache.directory.fortress.core.model;
 
+
+import org.apache.directory.fortress.core.rbac.Graphable;
 
 import java.io.Serializable;
 import java.util.HashSet;
@@ -35,18 +37,18 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * All entities ({@link AdminRole}, {@link OrgUnit},
- * {@link org.apache.directory.fortress.core.rbac.SDSet} etc...) are used to carry data between three Fortress
+ * {@link SDSet} etc...) are used to carry data between three Fortress
  * layers.starting with the (1) Manager layer down thru middle (2) Process layer and it's processing rules into
  * (3) DAO layer where persistence with the OpenLDAP server occurs.
  * <h4>Fortress Processing Layers</h4>
  * <ol>
- * <li>Manager layer:  {@link DelAdminMgrImpl}, {@link DelAccessMgrImpl}, {@link DelReviewMgrImpl},...</li>
- * <li>Process layer:  {@link AdminRoleP}, {@link OrgUnitP},...</li>
- * <li>DAO layer: {@link AdminRoleDAO}, {@link OrgUnitDAO},...</li>
+ * <li>Manager layer:  {@link org.apache.directory.fortress.core.rbac.DelAdminMgrImpl}, {@link org.apache.directory.fortress.core.rbac.DelAccessMgrImpl}, {@link org.apache.directory.fortress.core.rbac.DelReviewMgrImpl},...</li>
+ * <li>Process layer:  {@link org.apache.directory.fortress.core.rbac.AdminRoleP}, {@link org.apache.directory.fortress.core.rbac.OrgUnitP},...</li>
+ * <li>DAO layer: {@link org.apache.directory.fortress.core.rbac.AdminRoleDAO}, {@link org.apache.directory.fortress.core.rbac.OrgUnitDAO},...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br />
- * For example, this entity requires {@link #name} and {@link #type} set before passing into {@link DelAdminMgrImpl} or  {@link DelReviewMgrImpl} APIs.
+ * For example, this entity requires {@link #name} and {@link #type} set before passing into {@link org.apache.directory.fortress.core.rbac.DelAdminMgrImpl} or  {@link org.apache.directory.fortress.core.rbac.DelReviewMgrImpl} APIs.
  * Create methods usually require more attributes (than Read) due to constraints enforced between entities.
  * <p/>
  * This entity implements both User and Permission OU pool functionality that defines org membership of entities for ARBAC02 style admin checks..
@@ -68,7 +70,7 @@ import javax.xml.bind.annotation.XmlType;
  * </ol>
  * <p/>
  * There is a Many-to-One relationship between a User and OrgUnit.
- * <h3>{@link org.apache.directory.fortress.core.rbac.User}*<->1 {@link OrgUnit}</h3>
+ * <h3>{@link User}*<->1 {@link OrgUnit}</h3>
  * <p/>
  * There is a Many-to-One relationship between a {@link PermObj} object and {@link OrgUnit}.
  * <h3>{@link PermObj}*<->1 {@link OrgUnit}</h3>
@@ -288,11 +290,11 @@ public class OrgUnit extends FortEntity implements Graphable, Serializable
     public enum Type
     {
         /**
-         * Type {@link org.apache.directory.fortress.core.rbac.User} nodes reside in User OU pool.
+         * Type {@link User} nodes reside in User OU pool.
          */
         USER,
         /**
-         * Type {@link Permission} nodes reside in Perm OU pool.
+         * Type {@link org.apache.directory.fortress.core.model.Permission} nodes reside in Perm OU pool.
          */
         PERM
     }

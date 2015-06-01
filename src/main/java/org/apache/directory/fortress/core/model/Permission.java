@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
+package org.apache.directory.fortress.core.model;
 
 
 import java.io.Serializable;
@@ -52,42 +52,43 @@ import javax.xml.bind.annotation.XmlType;
     )
 */
 /**
- * All entities ({@link org.apache.directory.fortress.core.rbac.User}, {@link org.apache.directory.fortress.core.rbac.Role}, {@link Permission},
- * {@link org.apache.directory.fortress.core.rbac.PwPolicy} {@link org.apache.directory.fortress.core.rbac.SDSet} etc...) are used to carry data between three Fortress
+ * All entities ({@link User}, {@link Role}, {@link Permission},
+ * {@link PwPolicy} {@link SDSet} etc...) are used to carry data between three Fortress
  * layers.starting with the (1) Manager layer down thru middle (2) Process layer and it's processing rules into
  * (3) DAO layer where persistence with the OpenLDAP server occurs.
  * <h4>Fortress Processing Layers</h4>
  * <ol>
- * <li>Manager layer:  {@link AdminMgrImpl}, {@link AccessMgrImpl}, {@link ReviewMgrImpl},...</li>
+ * <li>Manager layer:  {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl}, {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl}, {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl},...</li>
  * <li>Process layer:  {@link org.apache.directory.fortress.core.rbac.UserP}, {@link org.apache.directory.fortress.core.rbac.RoleP}, {@link org.apache.directory.fortress.core.rbac.PermP},...</li>
- * <li>DAO layer: {@link UserDAO}, {@link RoleDAO}, {@link org.apache.directory.fortress.core.rbac.PermDAO},...</li>
+ * <li>DAO layer: {@link org.apache.directory.fortress.core.rbac.UserDAO}, {@link org.apache.directory.fortress.core.rbac.RoleDAO}, {@link org.apache.directory.fortress.core.rbac.PermDAO},...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br />
- * For example, this entity requires {@link #setObjName} and {@link #setOpName} attributes set before passing into {@link AccessMgrImpl} APIs.
+ * For example, this entity requires {@link #setObjName} and {@link #setOpName} attributes set before passing into {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl} APIs.
  * Create methods usually require more attributes (than Read) due to constraints enforced between entities.
  * <p/>
  * <h4>Permission entity attribute usages include</h4>
  * <ul>
- * <li>{@link #setObjName} and {@link #setOpName} attributes set before calling {@link AccessMgrImpl#checkAccess(org.apache.directory.fortress.core.rbac.Session, Permission)}.
- * <li>{@link #getRoles} may be set after calling {@link ReviewMgrImpl#readPermission(Permission)} or {@link AccessMgrImpl#sessionPermissions(org.apache.directory.fortress.core.rbac.Session)}.
- * <li>{@link #getUsers} may be set after calling {@link ReviewMgrImpl#readPermission(Permission)} or {@link AccessMgrImpl#sessionPermissions(org.apache.directory.fortress.core.rbac.Session)}.
+ * <li>{@link #setObjName} and {@link #setOpName} attributes set before calling {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl#checkAccess(Session, Permission)}.
+ * <li>{@link #getRoles} may be set after calling {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl#readPermission(Permission)} or {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl#sessionPermissions(Session)}.
+ *
+ * <li>{@link #getUsers} may be set after calling {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl#readPermission(Permission)} or {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl#sessionPermissions(Session)}.
  *
  * </ul>
  * <p/>
  * <h4>More Permission entity notes</h4>
  * <ul>
  * <li>The unique key to locate a Permission entity (which is required for all authZ requests) is {@link Permission#objName} and {@link Permission#opName}.<br />
- * <li>The Permission entity is used to target function points within computer programs needing authorization. This permission model allows a one-to-many relationship between the objects {@link org.apache.directory.fortress.core.rbac.PermObj} and operations {@link Permission}.
+ * <li>The Permission entity is used to target function points within computer programs needing authorization. This permission model allows a one-to-many relationship between the objects {@link PermObj} and operations {@link Permission}.
  * <p/>
  * <img src="../doc-files/RbacCore.png">
  * <li>The object to operation pairings enable application resources to be mapped to Fortress permissions in a way that is natural for object oriented programming.
- * <li>Permissions = Object {@link org.apache.directory.fortress.core.rbac.PermObj} 1<->* Operations {@link Permission}
+ * <li>Permissions = Object {@link PermObj} 1<->* Operations {@link Permission}
  * <li>Permissions in Fortress may also be assigned directly to {@link #users}.
  * <li>Objects {@link #objName}, Operations {@link #opName}, Roles {@link #roles}, Users {@link #users} are not case sensitive for reads or searches.
  * </ul>
  * <p/>
- * The application entity that requires authorization will be mapped to the {@link org.apache.directory.fortress.core.rbac.PermObj} entity and the application's methods or operation names
+ * The application entity that requires authorization will be mapped to the {@link PermObj} entity and the application's methods or operation names
  * will be mapped to {@link Permission} entities.
  * For example, the application entity 'ShoppingCart' has 5 operations - 'create', 'read', 'update', 'delete' and 'checkout'.
  * The following code will create the permissions and perform the necessary grants.
@@ -132,10 +133,10 @@ import javax.xml.bind.annotation.XmlType;
  * <p/>
  * <h4>Notes on the shopping cart example</h4>
  * <ul>
- * <li> {@link org.apache.directory.fortress.core.rbac.User} that activate 'Manager' role into their Sessions will be allowed access to 'ShoppingCart.delete' permission.
- * <li> {@link org.apache.directory.fortress.core.rbac.User} that activate 'Admin' role may perform 'ShoppingCart.update'.
- * <li> {@link org.apache.directory.fortress.core.rbac.User} with 'Customer' role may perform the 'ShoppingCart.create'  'ShoppingCart.read and 'ShoppingCart.checkout'.
- * <li> {@link org.apache.directory.fortress.core.rbac.Role}s must exist in ldap before assignment here, see javadoc {@link org.apache.directory.fortress.core.rbac.Role} for details.
+ * <li> {@link User} that activate 'Manager' role into their Sessions will be allowed access to 'ShoppingCart.delete' permission.
+ * <li> {@link User} that activate 'Admin' role may perform 'ShoppingCart.update'.
+ * <li> {@link User} with 'Customer' role may perform the 'ShoppingCart.create'  'ShoppingCart.read and 'ShoppingCart.checkout'.
+ * <li> {@link Role}s must exist in ldap before assignment here, see javadoc {@link Role} for details.
  * <p/>
  * </ul>
  * <p/>

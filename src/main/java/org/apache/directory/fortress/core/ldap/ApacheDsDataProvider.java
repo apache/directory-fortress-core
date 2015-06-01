@@ -67,7 +67,6 @@ import org.apache.directory.api.ldap.model.message.controls.ProxiedAuthz;
 import org.apache.directory.api.ldap.model.message.controls.ProxiedAuthzImpl;
 
 import org.apache.directory.api.ldap.model.name.Dn;
-import org.apache.directory.ldap.client.api.DefaultPoolableLdapConnectionFactory;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.ldap.client.api.LdapConnectionConfig;
 import org.apache.directory.ldap.client.api.LdapConnectionPool;
@@ -75,9 +74,9 @@ import org.apache.directory.fortress.core.CfgRuntimeException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.cfg.Config;
-import org.apache.directory.fortress.core.rbac.FortEntity;
-import org.apache.directory.fortress.core.rbac.Hier;
-import org.apache.directory.fortress.core.rbac.Relationship;
+import org.apache.directory.fortress.core.model.FortEntity;
+import org.apache.directory.fortress.core.model.Hier;
+import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.util.crypto.EncryptUtil;
 import org.apache.directory.fortress.core.util.time.CUtil;
@@ -1130,14 +1129,14 @@ public abstract class ApacheDsDataProvider
 
 
     /**
-     * Given a collection of {@link org.apache.directory.fortress.core.rbac.Relationship}s, convert to raw data name-value format and
+     * Given a collection of {@link org.apache.directory.fortress.core.model.Relationship}s, convert to raw data name-value format and
      * load into ldap modification set in preparation for ldap modify.
      *
-     * @param list     contains List of type {@link org.apache.directory.fortress.core.rbac.Relationship} targeted for updating in ldap.
+     * @param list     contains List of type {@link org.apache.directory.fortress.core.model.Relationship} targeted for updating in ldap.
      * @param mods     ldap modification set containing parent-child relationships in raw ldap format.
      * @param attrName contains the name of the ldap attribute to be updated.
-     * @param op       specifies type of mod: {@link org.apache.directory.fortress.core.rbac.Hier.Op#ADD},
-     * {@link org.apache.directory.fortress.core.rbac.Hier.Op#MOD}, {@link org.apache.directory.fortress.core.rbac.Hier.Op#REM}.
+     * @param op       specifies type of mod: {@link org.apache.directory.fortress.core.model.Hier.Op#ADD},
+     * {@link org.apache.directory.fortress.core.model.Hier.Op#MOD}, {@link org.apache.directory.fortress.core.model.Hier.Op#REM}.
      */
     protected void loadRelationshipAttrs( List<Relationship> list, List<Modification> mods, String attrName,
         Hier.Op op )

@@ -22,11 +22,11 @@ package org.apache.directory.fortress.core.rest;
 import org.apache.directory.fortress.core.AuditMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.rbac.AuthZ;
-import org.apache.directory.fortress.core.rbac.Bind;
+import org.apache.directory.fortress.core.model.AuthZ;
+import org.apache.directory.fortress.core.model.Bind;
 import org.apache.directory.fortress.core.rbac.Manageable;
-import org.apache.directory.fortress.core.rbac.Mod;
-import org.apache.directory.fortress.core.rbac.UserAudit;
+import org.apache.directory.fortress.core.model.Mod;
+import org.apache.directory.fortress.core.model.UserAudit;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ import java.util.List;
  * This class performs searches across <a href="http://www.openldap.org/">OpenLDAP</a>'s slapd access log using HTTP access to En Masse REST server.
  * The access log events are
  * persisted in <a href="http://www.oracle.com/technetwork/database/berkeleydb/overview/index.html">BDB</a>.
- * Audit entries stored on behalf of Fortress operations correspond to runtime authentication {@link org.apache.directory.fortress.core.rbac.Bind}, authorization {@link org.apache.directory.fortress.core.rbac.AuthZ} and modification {@link Mod}
+ * Audit entries stored on behalf of Fortress operations correspond to runtime authentication {@link org.apache.directory.fortress.core.model.Bind}, authorization {@link org.apache.directory.fortress.core.model.AuthZ} and modification {@link Mod}
  * events as they occur automatically on the server when audit is enabled.
  * <h4>Audit Interrogator</h4>
  * Provides an OpenLDAP access log retrieval mechanism that enables security event monitoring.
@@ -49,7 +49,7 @@ import java.util.List;
  * </ol>
  * <img src="../doc-files/Audit.png">
  * <p/>
- * All events include Fortress context, see {@link org.apache.directory.fortress.core.rbac.FortEntity}.
+ * All events include Fortress context, see {@link org.apache.directory.fortress.core.model.FortEntity}.
  * <p/>
  * <h4>
  * The following APIs generate events subsequently stored in this access log:
@@ -63,15 +63,15 @@ import java.util.List;
  * <li> {@link org.apache.directory.fortress.core.PwPolicyMgr}
  * </ul>
  * <h4>
- * The following reports are supported using search input: {@link org.apache.directory.fortress.core.rbac.UserAudit}
+ * The following reports are supported using search input: {@link org.apache.directory.fortress.core.model.UserAudit}
  * </h4>
  * <ul>
- * <li>User Authentications:     <code>List<{@link org.apache.directory.fortress.core.rbac.Bind}>  {@link org.apache.directory.fortress.core.AuditMgr#searchBinds(org.apache.directory.fortress.core.rbac.UserAudit)}</code>
- * <li>Invalid Users AuthN:      <code>List<{@link org.apache.directory.fortress.core.rbac.Bind}>  {@link org.apache.directory.fortress.core.AuditMgr#searchInvalidUsers(org.apache.directory.fortress.core.rbac.UserAudit)} </code>
- * <li>User Authorizations 1:    <code>List<{@link org.apache.directory.fortress.core.rbac.AuthZ}> {@link org.apache.directory.fortress.core.AuditMgr#getUserAuthZs(org.apache.directory.fortress.core.rbac.UserAudit)} </code>
- * <li>User Authorizations 2:    <code>List<{@link org.apache.directory.fortress.core.rbac.AuthZ}> {@link org.apache.directory.fortress.core.AuditMgr#searchAuthZs(org.apache.directory.fortress.core.rbac.UserAudit)} </code>
- * <li>User Session Activations: <code>List<{@link Mod}>   {@link org.apache.directory.fortress.core.AuditMgr#searchUserSessions(org.apache.directory.fortress.core.rbac.UserAudit)} </code>
- * <li>Entity Modifications:     <code>List<{@link Mod}>   {@link org.apache.directory.fortress.core.AuditMgr#searchAdminMods(org.apache.directory.fortress.core.rbac.UserAudit)} </code>
+ * <li>User Authentications:     <code>List<{@link org.apache.directory.fortress.core.model.Bind}>  {@link org.apache.directory.fortress.core.AuditMgr#searchBinds(org.apache.directory.fortress.core.model.UserAudit)}</code>
+ * <li>Invalid Users AuthN:      <code>List<{@link org.apache.directory.fortress.core.model.Bind}>  {@link org.apache.directory.fortress.core.AuditMgr#searchInvalidUsers(org.apache.directory.fortress.core.model.UserAudit)} </code>
+ * <li>User Authorizations 1:    <code>List<{@link org.apache.directory.fortress.core.model.AuthZ}> {@link org.apache.directory.fortress.core.AuditMgr#getUserAuthZs(org.apache.directory.fortress.core.model.UserAudit)} </code>
+ * <li>User Authorizations 2:    <code>List<{@link org.apache.directory.fortress.core.model.AuthZ}> {@link org.apache.directory.fortress.core.AuditMgr#searchAuthZs(org.apache.directory.fortress.core.model.UserAudit)} </code>
+ * <li>User Session Activations: <code>List<{@link Mod}>   {@link org.apache.directory.fortress.core.AuditMgr#searchUserSessions(org.apache.directory.fortress.core.model.UserAudit)} </code>
+ * <li>Entity Modifications:     <code>List<{@link Mod}>   {@link org.apache.directory.fortress.core.AuditMgr#searchAdminMods(org.apache.directory.fortress.core.model.UserAudit)} </code>
  * </ul>
  * <p/>
  *
@@ -82,9 +82,9 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
     private static final String CLS_NM = AuditMgrRestImpl.class.getName();
 
     /**
-     * This method returns a list of authorization events for a particular user {@link org.apache.directory.fortress.core.rbac.UserAudit#userId}
-     * and given timestamp field {@link org.apache.directory.fortress.core.rbac.UserAudit#beginDate}.<BR>
-     * Method also can discriminate between all events or failed only by setting {@link org.apache.directory.fortress.core.rbac.UserAudit#failedOnly}.
+     * This method returns a list of authorization events for a particular user {@link org.apache.directory.fortress.core.model.UserAudit#userId}
+     * and given timestamp field {@link org.apache.directory.fortress.core.model.UserAudit#beginDate}.<BR>
+     * Method also can discriminate between all events or failed only by setting {@link org.apache.directory.fortress.core.model.UserAudit#failedOnly}.
      * <h4>optional parameters</h4>
      * <ul>
      * <li>{@link UserAudit#userId} - contains the target userId</li>
@@ -131,9 +131,9 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
 
 
     /**
-     * This method returns a list of authorization events for a particular user {@link org.apache.directory.fortress.core.rbac.UserAudit#userId},
-     * object {@link org.apache.directory.fortress.core.rbac.UserAudit#objName}, and given timestamp field {@link org.apache.directory.fortress.core.rbac.UserAudit#beginDate}.<BR>
-     * Method also can discriminate between all events or failed only by setting flag {@link org.apache.directory.fortress.core.rbac.UserAudit#failedOnly}..
+     * This method returns a list of authorization events for a particular user {@link org.apache.directory.fortress.core.model.UserAudit#userId},
+     * object {@link org.apache.directory.fortress.core.model.UserAudit#objName}, and given timestamp field {@link org.apache.directory.fortress.core.model.UserAudit#beginDate}.<BR>
+     * Method also can discriminate between all events or failed only by setting flag {@link org.apache.directory.fortress.core.model.UserAudit#failedOnly}..
      * <h4>required parameters</h4>
      * <ul>
      * <li>{@link UserAudit#userId} - contains the target userId<</li>
@@ -183,8 +183,8 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
 
 
     /**
-     * This method returns a list of authentication audit events for a particular user {@link org.apache.directory.fortress.core.rbac.UserAudit#userId},
-     * and given timestamp field {@link org.apache.directory.fortress.core.rbac.UserAudit#beginDate}.<BR>
+     * This method returns a list of authentication audit events for a particular user {@link org.apache.directory.fortress.core.model.UserAudit#userId},
+     * and given timestamp field {@link org.apache.directory.fortress.core.model.UserAudit#beginDate}.<BR>
      * <h4>optional parameters</h4>
      * <ul>
      * <li>{@link UserAudit#userId} - contains the target userId<</li>
@@ -230,8 +230,8 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
     }
 
     /**
-     * This method returns a list of sessions created for a given user {@link org.apache.directory.fortress.core.rbac.UserAudit#userId},
-     * and timestamp {@link org.apache.directory.fortress.core.rbac.UserAudit#beginDate}.<BR>
+     * This method returns a list of sessions created for a given user {@link org.apache.directory.fortress.core.model.UserAudit#userId},
+     * and timestamp {@link org.apache.directory.fortress.core.model.UserAudit#beginDate}.<BR>
      * <h4>required parameters</h4>
      * <ul>
      * <li>{@link UserAudit#userId} - contains the target userId<</li>
@@ -279,16 +279,16 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
     }
 
     /**
-     * This method returns a list of admin operations events for a particular entity {@link org.apache.directory.fortress.core.rbac.UserAudit#dn},
-     * object {@link org.apache.directory.fortress.core.rbac.UserAudit#objName} and timestamp {@link org.apache.directory.fortress.core.rbac.UserAudit#beginDate}.  If the internal
-     * userId {@link org.apache.directory.fortress.core.rbac.UserAudit#internalUserId} is set it will limit search by that field.
+     * This method returns a list of admin operations events for a particular entity {@link org.apache.directory.fortress.core.model.UserAudit#dn},
+     * object {@link org.apache.directory.fortress.core.model.UserAudit#objName} and timestamp {@link org.apache.directory.fortress.core.model.UserAudit#beginDate}.  If the internal
+     * userId {@link org.apache.directory.fortress.core.model.UserAudit#internalUserId} is set it will limit search by that field.
      * <h4>optional parameters</h4>
      * <ul>
      * <li>{@link UserAudit#dn} - contains the LDAP distinguished name for the updated object.  For example if caller
      * wants to find out what changes were made to John Doe's user object this would be 'uid=jdoe,ou=People,dc=example,dc=com'</li>
      * <li>{@link UserAudit#objName} - contains the object (authorization resource) name corresponding to the event.  For example if caller
      * wants to return events where User object was modified, this would be 'updateUser'</li>
-     * <li>{@link UserAudit#internalUserId} - maps to the internalUserId of user who changed the record in LDAP.  This maps to {@link org.apache.directory.fortress.core.rbac.User#internalId}.</li>
+     * <li>{@link UserAudit#internalUserId} - maps to the internalUserId of user who changed the record in LDAP.  This maps to {@link org.apache.directory.fortress.core.model.User#internalId}.</li>
      * <li>{@link UserAudit#beginDate} - contains the date in which to begin search</li>
      * <li>{@link UserAudit#endDate} - contains the date in which to end search</li>
      * </ul>
@@ -332,8 +332,8 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
 
 
     /**
-     * This method returns a list of failed authentication events for a particular invalid user {@link org.apache.directory.fortress.core.rbac.UserAudit#userId},
-     * and given timestamp {@link org.apache.directory.fortress.core.rbac.UserAudit#beginDate}.  If the {@link org.apache.directory.fortress.core.rbac.UserAudit#failedOnly} is true it will
+     * This method returns a list of failed authentication events for a particular invalid user {@link org.apache.directory.fortress.core.model.UserAudit#userId},
+     * and given timestamp {@link org.apache.directory.fortress.core.model.UserAudit#beginDate}.  If the {@link org.apache.directory.fortress.core.model.UserAudit#failedOnly} is true it will
      * return only authentication attempts made with invalid userId.
      * </p>
      * This is possible because Fortress performs read on user before the bind.

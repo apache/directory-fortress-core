@@ -27,6 +27,8 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 
@@ -34,7 +36,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * Process module for the Role entity.  This class performs data validations and error mapping.  It is typically called
  * by internal Fortress manager classes ({@link AdminMgrImpl}, {@link AccessMgrImpl},
  * {@link ReviewMgrImpl}, ...) and not intended for external non-Fortress clients.  This class will accept,
- * {@link org.apache.directory.fortress.core.rbac.Role}, validate its contents and forward on to it's corresponding DAO class {@link RoleDAO}.
+ * {@link org.apache.directory.fortress.core.model.Role}, validate its contents and forward on to it's corresponding DAO class {@link RoleDAO}.
  * <p>
  * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link org.apache.directory.fortress.core.FinderException},

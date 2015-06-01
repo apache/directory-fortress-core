@@ -40,6 +40,13 @@ import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueEx
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchAttributeException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
@@ -816,8 +823,8 @@ final class PermDAO extends ApacheDsDataProvider
      * It performs ldap operations:  read and (optionally) compare.  The first is to pull back the permission to see if user has access or not.  The second is to trigger audit
      * record storage on ldap server but can be disabled.
      *
-     * @param session contains {@link Session#getUserId()}, for rbac check {@link org.apache.directory.fortress.core.rbac.Session#getRoles()}, for arbac check: {@link org.apache.directory.fortress.core.rbac.Session#getAdminRoles()}.
-     * @param inPerm  must contain required attributes {@link Permission#objName} and {@link Permission#opName}.  {@link Permission#objId} is optional.
+     * @param session contains {@link Session#getUserId()}, for rbac check {@link org.apache.directory.fortress.core.model.Session#getRoles()}, for arbac check: {@link org.apache.directory.fortress.core.model.Session#getAdminRoles()}.
+     * @param inPerm  must contain required attributes {@link Permission#objName} and {@link Permission#opName}.  {@link org.apache.directory.fortress.core.model.Permission#objId} is optional.
      * @return boolean containing result of check.
      * @throws org.apache.directory.fortress.core.FinderException
      *          In the event system error occurs looking up data on ldap server.
@@ -939,10 +946,10 @@ final class PermDAO extends ApacheDsDataProvider
     /**
      * This function will first compare the userId from the session object with the list of users attached to permission object.
      * If match does not occur there, determine if there is a match between the authorized roles of user with roles attached to permission object.
-     * For this use {@link org.apache.directory.fortress.core.rbac.Permission#isAdmin()} to determine if admin permissions or normal permissions have been passed in by caller.
+     * For this use {@link org.apache.directory.fortress.core.model.Permission#isAdmin()} to determine if admin permissions or normal permissions have been passed in by caller.
      *
-     * @param session contains the {@link org.apache.directory.fortress.core.rbac.Session#getUserId()},{@link Session#getRoles()} or {@link org.apache.directory.fortress.core.rbac.Session#getAdminRoles()}.
-     * @param permission contains {@link org.apache.directory.fortress.core.rbac.Permission#getUsers()} and {@link Permission#getRoles()}.
+     * @param session contains the {@link org.apache.directory.fortress.core.model.Session#getUserId()},{@link Session#getRoles()} or {@link org.apache.directory.fortress.core.model.Session#getAdminRoles()}.
+     * @param permission contains {@link org.apache.directory.fortress.core.model.Permission#getUsers()} and {@link Permission#getRoles()}.
      * @return binary result.
      */
     private boolean isAuthorized( Session session, Permission permission )

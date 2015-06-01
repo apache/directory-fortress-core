@@ -23,14 +23,14 @@ package org.apache.directory.fortress.core.rest;
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.rbac.PermGrant;
-import org.apache.directory.fortress.core.rbac.PermObj;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.Role;
-import org.apache.directory.fortress.core.rbac.RoleRelationship;
-import org.apache.directory.fortress.core.rbac.SDSet;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.rbac.UserRole;
+import org.apache.directory.fortress.core.model.PermGrant;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.RoleRelationship;
+import org.apache.directory.fortress.core.model.SDSet;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.rbac.Manageable;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
@@ -82,36 +82,36 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * does not own any session at the time of its creation.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#userId} - maps to INetOrgPerson uid</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#password} - used to authenticate the User</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#ou} - contains the name of an already existing User OU node</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#userId} - maps to INetOrgPerson uid</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#password} - used to authenticate the User</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#ou} - contains the name of an already existing User OU node</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#pwPolicy} - contains the name of an already existing OpenLDAP password policy node</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#cn} - maps to INetOrgPerson common name attribute</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#sn} - maps to INetOrgPerson surname attribute</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#description} - maps to INetOrgPerson description attribute</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#title} - maps to INetOrgPerson title attribute</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#employeeType} - maps to INetOrgPerson employeeType attribute</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#phones} * - multi-occurring attribute maps to organizationalPerson telephoneNumber  attribute</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#mobiles} * - multi-occurring attribute maps to INetOrgPerson mobile attribute</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#emails} * - multi-occurring attribute maps to INetOrgPerson mail attribute</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#address} * - multi-occurring attribute maps to organizationalPerson postalAddress, st, l, postalCode, postOfficeBox attributes</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#beginTime} - HHMM - determines begin hour user may activate session</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#endTime} - HHMM - determines end hour user may activate session.</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#beginDate} - YYYYMMDD - determines date when user may sign on</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#endDate} - YYYYMMDD - indicates latest date user may sign on</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#timeout} - number in seconds of session inactivity time allowed</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#props} * - multi-occurring attribute contains property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#roles} * - multi-occurring attribute contains the name of already existing role to assign to user</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#adminRoles} * - multi-occurring attribute contains the name of already existing adminRole to assign to user</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#pwPolicy} - contains the name of an already existing OpenLDAP password policy node</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#cn} - maps to INetOrgPerson common name attribute</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#sn} - maps to INetOrgPerson surname attribute</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#description} - maps to INetOrgPerson description attribute</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#title} - maps to INetOrgPerson title attribute</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#employeeType} - maps to INetOrgPerson employeeType attribute</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#phones} * - multi-occurring attribute maps to organizationalPerson telephoneNumber  attribute</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#mobiles} * - multi-occurring attribute maps to INetOrgPerson mobile attribute</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#emails} * - multi-occurring attribute maps to INetOrgPerson mail attribute</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#address} * - multi-occurring attribute maps to organizationalPerson postalAddress, st, l, postalCode, postOfficeBox attributes</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#beginTime} - HHMM - determines begin hour user may activate session</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#endTime} - HHMM - determines end hour user may activate session.</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#beginDate} - YYYYMMDD - determines date when user may sign on</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#endDate} - YYYYMMDD - indicates latest date user may sign on</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#timeout} - number in seconds of session inactivity time allowed</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#props} * - multi-occurring attribute contains property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#roles} * - multi-occurring attribute contains the name of already existing role to assign to user</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#adminRoles} * - multi-occurring attribute contains the name of already existing adminRole to assign to user</li>
      * </ul>
      *
-     * @param user User entity must contain {@link org.apache.directory.fortress.core.rbac.User#userId} and {@link org.apache.directory.fortress.core.rbac.User#ou} (required) and optional {@link org.apache.directory.fortress.core.rbac.User#description},{@link org.apache.directory.fortress.core.rbac.User#roles} and many others.
+     * @param user User entity must contain {@link org.apache.directory.fortress.core.model.User#userId} and {@link org.apache.directory.fortress.core.model.User#ou} (required) and optional {@link org.apache.directory.fortress.core.model.User#description},{@link org.apache.directory.fortress.core.model.User#roles} and many others.
      * @return Returns entity containing user data that was added.
      * @throws org.apache.directory.fortress.core.SecurityException
      *          Thrown in the event of data validation or system error.
@@ -364,7 +364,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * <li>{@link User#userId} - maps to INetOrgPerson uid</li>
      * </ul>
      *
-     * @param user entity contains {@link org.apache.directory.fortress.core.rbac.User#userId} of User to be unlocked.
+     * @param user entity contains {@link org.apache.directory.fortress.core.model.User#userId} of User to be unlocked.
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
     @Override
@@ -453,21 +453,21 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * <p/>
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Role#name} - contains the name to use for the Role to be created.</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Role#name} - contains the name to use for the Role to be created.</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Role#description} - maps to description attribute on organizationalRole object class</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Role#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC session</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Role#endTime} - HHMM - determines end hour role may be activated into user's RBAC session.</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Role#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Role#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Role#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Role#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's RBAC session</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Role#description} - maps to description attribute on organizationalRole object class</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Role#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC session</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Role#endTime} - HHMM - determines end hour role may be activated into user's RBAC session.</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Role#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Role#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Role#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Role#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's RBAC session</li>
      * </ul>
      *
-     * @param role must contains {@link org.apache.directory.fortress.core.rbac.Role#name} (required) and optional {@link org.apache.directory.fortress.core.rbac.Role#description}.
+     * @param role must contains {@link org.apache.directory.fortress.core.model.Role#name} (required) and optional {@link org.apache.directory.fortress.core.model.Role#description}.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
     @Override
@@ -616,21 +616,21 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * </ul>
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserRole#name} - contains the name for already existing Role to be assigned</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserRole#userId} - contains the userId for existing User</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserRole#name} - contains the name for already existing Role to be assigned</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserRole#userId} - contains the userId for existing User</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserRole#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC session</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserRole#endTime} - HHMM - determines end hour role may be activated into user's RBAC session.</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserRole#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserRole#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's RBAC session</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserRole#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC session</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserRole#endTime} - HHMM - determines end hour role may be activated into user's RBAC session.</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserRole#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserRole#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's RBAC session</li>
      * </ul>
      *
-     * @param uRole must contain {@link org.apache.directory.fortress.core.rbac.UserRole#userId} and {@link org.apache.directory.fortress.core.rbac.UserRole#name} and optional {@code Constraints}.
+     * @param uRole must contain {@link org.apache.directory.fortress.core.model.UserRole#userId} and {@link org.apache.directory.fortress.core.model.UserRole#name} and optional {@code Constraints}.
      * @throws org.apache.directory.fortress.core.SecurityException
      *          in the event of validation or system error.
      */
@@ -698,22 +698,22 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
 
     /**
      * This method will add permission operation to an existing permission object which resides under {@code ou=Permissions,ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.
-     * The perm operation entity may have {@link org.apache.directory.fortress.core.rbac.Role} or {@link org.apache.directory.fortress.core.rbac.User} associations.  The target {@link org.apache.directory.fortress.core.rbac.Permission} must not exist prior to calling.
-     * A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent and itself as stored in ldap tree: ({@link org.apache.directory.fortress.core.rbac.PermObj}*->{@link org.apache.directory.fortress.core.rbac.Permission}).
+     * The perm operation entity may have {@link org.apache.directory.fortress.core.model.Role} or {@link org.apache.directory.fortress.core.model.User} associations.  The target {@link org.apache.directory.fortress.core.model.Permission} must not exist prior to calling.
+     * A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent and itself as stored in ldap tree: ({@link org.apache.directory.fortress.core.model.PermObj}*->{@link org.apache.directory.fortress.core.model.Permission}).
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Permission#objName} - contains the name of existing object being targeted for the permission add</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Permission#opName} - contains the name of new permission operation being added</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#objName} - contains the name of existing object being targeted for the permission add</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#opName} - contains the name of new permission operation being added</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Permission#roles} * - multi occurring attribute contains RBAC Roles that permission operation is being granted to</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Permission#users} * - multi occurring attribute contains Users that permission operation is being granted to</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Permission#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Permission#type} - any safe text</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#roles} * - multi occurring attribute contains RBAC Roles that permission operation is being granted to</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#users} * - multi occurring attribute contains Users that permission operation is being granted to</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#type} - any safe text</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link org.apache.directory.fortress.core.rbac.Permission#objName}, and operation, {@link org.apache.directory.fortress.core.rbac.Permission#opName}, that identifies target along with optional other attributes..
+     * @param perm must contain the object, {@link org.apache.directory.fortress.core.model.Permission#objName}, and operation, {@link org.apache.directory.fortress.core.model.Permission#opName}, that identifies target along with optional other attributes..
      * @return copy of Permission entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
@@ -747,7 +747,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
 
     /**
      * This method will update permission operation pre-existing in target directory under {@code ou=Permissions,ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.
-     * The perm operation entity may also contain {@link org.apache.directory.fortress.core.rbac.Role} or {@link org.apache.directory.fortress.core.rbac.User} associations to add or remove using this function.
+     * The perm operation entity may also contain {@link org.apache.directory.fortress.core.model.Role} or {@link org.apache.directory.fortress.core.model.User} associations to add or remove using this function.
      * The perm operation must exist before making this call.  Only non-null attributes will be updated.
      * <h4>required parameters</h4>
      * <ul>
@@ -832,20 +832,20 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
 
     /**
      * This method will add permission object to perms container in directory. The perm object must not exist before making this call.
-     * A {@link org.apache.directory.fortress.core.rbac.PermObj} instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap tree: ({@link org.apache.directory.fortress.core.rbac.PermObj}*->{@link Permission}).
+     * A {@link org.apache.directory.fortress.core.model.PermObj} instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap tree: ({@link org.apache.directory.fortress.core.model.PermObj}*->{@link Permission}).
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PermObj#objName} - contains the name of new object being added</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PermObj#ou} - contains the name of an existing PERMS OrgUnit this object is associated with</li>
+     * <li>{@link org.apache.directory.fortress.core.model.PermObj#objName} - contains the name of new object being added</li>
+     * <li>{@link org.apache.directory.fortress.core.model.PermObj#ou} - contains the name of an existing PERMS OrgUnit this object is associated with</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PermObj#description} - any safe text</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PermObj#type} - contains any safe text</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PermObj#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * <li>{@link org.apache.directory.fortress.core.model.PermObj#description} - any safe text</li>
+     * <li>{@link org.apache.directory.fortress.core.model.PermObj#type} - contains any safe text</li>
+     * <li>{@link org.apache.directory.fortress.core.model.PermObj#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
      * </ul>
      *
-     * @param pObj must contain the {@link org.apache.directory.fortress.core.rbac.PermObj#objName} and {@link org.apache.directory.fortress.core.rbac.PermObj#ou}.  The other attributes are optional.
+     * @param pObj must contain the {@link org.apache.directory.fortress.core.model.PermObj#objName} and {@link org.apache.directory.fortress.core.model.PermObj#ou}.  The other attributes are optional.
      * @return copy of permObj entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
@@ -933,7 +933,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * <li>{@link PermObj#objName} - contains the name of existing object targeted for removal</li>
      * </ul>
      *
-     * @param pObj must contain the {@link org.apache.directory.fortress.core.rbac.PermObj#objName} of object targeted for removal.
+     * @param pObj must contain the {@link org.apache.directory.fortress.core.model.PermObj#objName} of object targeted for removal.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
     @Override
@@ -1344,13 +1344,13 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * 4 - the SSD constraint for the new role set is satisfied.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.SDSet#name} - contains the name of new SSD role set to be added</li>
+     * <li>{@link org.apache.directory.fortress.core.model.SDSet#name} - contains the name of new SSD role set to be added</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.SDSet#members} * - multi-occurring attribute contains the RBAC Role names to be added to this set</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be assigned to User from a particular set</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.SDSet#description} - contains any safe text</li>
+     * <li>{@link org.apache.directory.fortress.core.model.SDSet#members} * - multi-occurring attribute contains the RBAC Role names to be added to this set</li>
+     * <li>{@link org.apache.directory.fortress.core.model.SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be assigned to User from a particular set</li>
+     * <li>{@link org.apache.directory.fortress.core.model.SDSet#description} - contains any safe text</li>
      * </ul>
      *
      * @param ssdSet contains an instantiated reference to new SSD set containing, name, members, and cardinality (default 2)

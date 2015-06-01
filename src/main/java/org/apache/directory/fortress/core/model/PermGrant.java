@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
+package org.apache.directory.fortress.core.model;
 
 import java.io.Serializable;
 
@@ -28,8 +28,8 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * This entity is used by {@link org.apache.directory.fortress.core.ant.FortressAntTask} to add {@link Permission} grants to
- * RBAC {@link org.apache.directory.fortress.core.rbac.Role}, or ARBAC {@link org.apache.directory.fortress.core.rbac.AdminRole}.
- * Can also be used to grant Permissions directly to {@link org.apache.directory.fortress.core.rbac.User}s.
+ * RBAC {@link Role}, or ARBAC {@link AdminRole}.
+ * Can also be used to grant Permissions directly to {@link User}s.
  * This entity is used for Ant and En Masse processing only.
  * <p/>
 

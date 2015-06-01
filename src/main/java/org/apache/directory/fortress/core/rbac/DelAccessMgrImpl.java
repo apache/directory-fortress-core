@@ -22,6 +22,12 @@ package org.apache.directory.fortress.core.rbac;
 import org.apache.directory.fortress.core.DelAccessMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.cfg.Config;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.util.time.CUtil;
@@ -63,7 +69,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
      * This function will determine if the user contains an AdminRole that is authorized assignment control over
      * User-Role Assignment (URA).  This adheres to the ARBAC02 functional specification for can-assign URA.
      *
-     * @param session This object must be instantiated by calling {@link org.apache.directory.fortress.core.AccessMgr#createSession(org.apache.directory.fortress.core.rbac.User, boolean)} before passing into the method.  No variables need to be set by client after returned from createSession.
+     * @param session This object must be instantiated by calling {@link org.apache.directory.fortress.core.AccessMgr#createSession(org.apache.directory.fortress.core.model.User, boolean)} before passing into the method.  No variables need to be set by client after returned from createSession.
      * @param user    Instantiated User entity requires only valid userId attribute set.
      * @param role    Instantiated Role entity requires only valid role name attribute set.
      * @return boolean value true indicates access allowed.

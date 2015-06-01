@@ -35,7 +35,7 @@ import java.io.Serializable;
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 /**
- * This entity is stored on {@link org.apache.directory.fortress.core.rbac.Session} and is used to pass warnings 
+ * This entity is stored on {@link org.apache.directory.fortress.core.model.Session} and is used to pass warnings
  * that occur during role activation and password policy validation.
  * <p/>
  * Contains data from event that occurs during session initialization:

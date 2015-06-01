@@ -23,13 +23,17 @@ package org.apache.directory.fortress.core.rbac;
 import java.util.List;
 
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.AuthZ;
+import org.apache.directory.fortress.core.model.Bind;
+import org.apache.directory.fortress.core.model.Mod;
+import org.apache.directory.fortress.core.model.UserAudit;
 
 
 /**
  * This class is process layer for Fortress audit data.  It performs data validation
  * and data mapping functions.
  * Process module for the for Fortress audit data.  It performs data validation and data mapping functions.
- * The audit data is passed using {@link org.apache.directory.fortress.core.rbac.AuthZ} class.  This class does perform simple data validations to ensure data reasonability and
+ * The audit data is passed using {@link org.apache.directory.fortress.core.model.AuthZ} class.  This class does perform simple data validations to ensure data reasonability and
  * the required fields are present..<BR>
  * The methods in this class are called by {@link AuditMgrImpl} methods during audit log interrogations.
  * <p/>
@@ -58,9 +62,9 @@ public final class AuditP
 
 
     /**
-     * This method returns a list of authorization events for a particular user {@link UserAudit#userId}
-     * and given timestamp field {@link UserAudit#beginDate}.<BR>
-     * Method also can discriminate between all events or failed only by setting {@link UserAudit#failedOnly}.
+     * This method returns a list of authorization events for a particular user {@link org.apache.directory.fortress.core.model.UserAudit#userId}
+     * and given timestamp field {@link org.apache.directory.fortress.core.model.UserAudit#beginDate}.<BR>
+     * Method also can discriminate between all events or failed only by setting {@link org.apache.directory.fortress.core.model.UserAudit#failedOnly}.
      *
      * @param uAudit This entity is instantiated and populated before invocation.
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one authorization event.

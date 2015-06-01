@@ -24,10 +24,10 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.rbac.AccessMgrImpl;
 import org.apache.directory.fortress.core.rbac.Manageable;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.Session;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.rbac.UserRole;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import java.util.List;
@@ -115,13 +115,13 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
      * This method must be called once per user prior to calling other methods within this class.
      * The successful result is {@link Session} that contains target user's RBAC {@link User#roles} and Admin role {@link User#adminRoles}.<br />
      * In addition to checking user password validity it will apply configured password policy checks {@link User#pwPolicy}..<br />
-     * Method may also store parms passed in for audit trail {@link org.apache.directory.fortress.core.rbac.FortEntity}.
+     * Method may also store parms passed in for audit trail {@link org.apache.directory.fortress.core.model.FortEntity}.
      * <h4> This API will...</h4>
      * <ul>
      * <li> authenticate user password if trusted == false.
      * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>.
      * <li> fail for any user who is locked by OpenLDAP's policies {@link User#isLocked()}, regardless of trusted flag being set as parm on API.
-     * <li> evaluate temporal {@link org.apache.directory.fortress.core.util.time.Constraint}(s) on {@link User}, {@link UserRole} and {@link org.apache.directory.fortress.core.rbac.UserAdminRole} entities.
+     * <li> evaluate temporal {@link org.apache.directory.fortress.core.util.time.Constraint}(s) on {@link User}, {@link UserRole} and {@link org.apache.directory.fortress.core.model.UserAdminRole} entities.
      * <li> process selective role activations into User RBAC Session {@link User#roles}.
      * <li> check Dynamic Separation of Duties {@link org.apache.directory.fortress.core.rbac.DSDChecker#validate(Session, org.apache.directory.fortress.core.util.time.Constraint, org.apache.directory.fortress.core.util.time.Time)} on {@link User#roles}.
      * <li> process selective administrative role activations {@link User#adminRoles}.

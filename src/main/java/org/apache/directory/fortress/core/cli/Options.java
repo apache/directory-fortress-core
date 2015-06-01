@@ -21,15 +21,15 @@ package org.apache.directory.fortress.core.cli;
 
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.ldap.group.Group;
-import org.apache.directory.fortress.core.rbac.Address;
-import org.apache.directory.fortress.core.rbac.AdminRole;
-import org.apache.directory.fortress.core.rbac.OrgUnit;
-import org.apache.directory.fortress.core.rbac.PermObj;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.Relationship;
-import org.apache.directory.fortress.core.rbac.Role;
-import org.apache.directory.fortress.core.rbac.SDSet;
-import org.apache.directory.fortress.core.rbac.User;
+import org.apache.directory.fortress.core.model.Address;
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Relationship;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.SDSet;
+import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
 

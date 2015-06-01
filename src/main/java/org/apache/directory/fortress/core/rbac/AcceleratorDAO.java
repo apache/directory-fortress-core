@@ -23,6 +23,10 @@ package org.apache.directory.fortress.core.rbac;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
 import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.openldap.accelerator.api.addRole.RbacAddRoleRequest;
 import org.openldap.accelerator.api.addRole.RbacAddRoleRequestImpl;
 import org.openldap.accelerator.api.addRole.RbacAddRoleResponse;
@@ -67,10 +71,10 @@ final class AcceleratorDAO extends ApacheDsDataProvider
 
 
     /**
-     * Authenticate user and return sessionId inside {@link Session#sessionId}.
-     * This function follows the pattern from: {@link org.apache.directory.fortress.core.AccessMgr#createSession(org.apache.directory.fortress.core.rbac.User, boolean)}
-     * Success will result in rbac session state, i.e. {@link org.apache.directory.fortress.core.rbac.Session}, to be stored on server-side.
-     * Result may be stored inside RBAC server-side audit record and retrieved with {@link org.apache.directory.fortress.core.AuditMgr#searchBinds(org.apache.directory.fortress.core.rbac.UserAudit)}
+     * Authenticate user and return sessionId inside {@link org.apache.directory.fortress.core.model.Session#sessionId}.
+     * This function follows the pattern from: {@link org.apache.directory.fortress.core.AccessMgr#createSession(org.apache.directory.fortress.core.model.User, boolean)}
+     * Success will result in rbac session state, i.e. {@link org.apache.directory.fortress.core.model.Session}, to be stored on server-side.
+     * Result may be stored inside RBAC server-side audit record and retrieved with {@link org.apache.directory.fortress.core.AuditMgr#searchBinds(org.apache.directory.fortress.core.model.UserAudit)}
      *
      * It uses the {@link RbacCreateSessionRequest} and {@link RbacCreateSessionResponse} accelerator APIs.
      *
@@ -153,7 +157,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
      * It uses the {@link RbacCheckAccessRequest} and {@link RbacCheckAccessResponse} accelerator APIs.
      *
      * @param session This object must be instantiated by calling {@link #createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
-     * @param perm  must contain the object, {@link org.apache.directory.fortress.core.rbac.Permission#objName}, and operation, {@link org.apache.directory.fortress.core.rbac.Permission#opName}, of permission User is trying to access.
+     * @param perm  must contain the object, {@link org.apache.directory.fortress.core.model.Permission#objName}, and operation, {@link org.apache.directory.fortress.core.model.Permission#opName}, of permission User is trying to access.
      * @return True if user has access, false otherwise.
      * @throws SecurityException rethrows {@code LdapException} with {@code GlobalErrIds.ACEL_CHECK_ACCESS_ERR}.
      */
@@ -201,12 +205,12 @@ final class AcceleratorDAO extends ApacheDsDataProvider
 
     /**
      * Deactivate user role from rbac session
-     * This function follows the pattern from: {@link org.apache.directory.fortress.core.AccessMgr#dropActiveRole(org.apache.directory.fortress.core.rbac.Session, org.apache.directory.fortress.core.rbac.UserRole)}.
+     * This function follows the pattern from: {@link org.apache.directory.fortress.core.AccessMgr#dropActiveRole(org.apache.directory.fortress.core.model.Session, org.apache.directory.fortress.core.model.UserRole)}.
      * Success will result in rbac session state to be modified inside server-side cache.
      * It uses the {@link RbacDropRoleRequest} and {@link RbacDropRoleResponse} accelerator APIs.
      *
      * @param session contains a valid sessionId captured from accelerator createSession method.
-     * @param userRole both the {@link UserRole#userId} and {@link UserRole#name} fields must be set before invoking.
+     * @param userRole both the {@link org.apache.directory.fortress.core.model.UserRole#userId} and {@link UserRole#name} fields must be set before invoking.
      * @throws SecurityException rethrows {@code LdapException} with {@code GlobalErrIds.ACEL_DROP_ROLE_ERR}.
      */
     void dropActiveRole( Session session, UserRole userRole ) throws SecurityException
@@ -247,12 +251,12 @@ final class AcceleratorDAO extends ApacheDsDataProvider
 
     /**
      * Activate user role into rbac session
-     * This function follows the pattern from: {@link org.apache.directory.fortress.core.AccessMgr#addActiveRole(org.apache.directory.fortress.core.rbac.Session, org.apache.directory.fortress.core.rbac.UserRole)}.
+     * This function follows the pattern from: {@link org.apache.directory.fortress.core.AccessMgr#addActiveRole(org.apache.directory.fortress.core.model.Session, org.apache.directory.fortress.core.model.UserRole)}.
      * Success will result in rbac session state to be modified inside server-side cache.
      * It uses the {@link RbacAddRoleRequest} and {@link RbacAddRoleResponse} accelerator APIs.
      *
      * @param session contains a valid sessionId captured from accelerator createSession method.
-     * @param userRole both the {@link UserRole#userId} and {@link UserRole#name} fields must be set before invoking.
+     * @param userRole both the {@link org.apache.directory.fortress.core.model.UserRole#userId} and {@link UserRole#name} fields must be set before invoking.
      * @throws SecurityException rethrows {@code LdapException} with {@code GlobalErrIds.ACEL_ADD_ROLE_ERR}.
      */
     void addActiveRole( Session session, UserRole userRole ) throws SecurityException

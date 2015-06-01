@@ -22,7 +22,7 @@ package org.apache.directory.fortress.core.samples;
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.AdminMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.rbac.Role;
+import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.rbac.TestUtils;
 import junit.framework.Test;
 import junit.framework.TestCase;

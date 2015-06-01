@@ -30,6 +30,9 @@ import java.util.StringTokenizer;
 
 import junit.framework.TestCase;
 
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.SDSet;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

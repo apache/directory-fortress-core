@@ -25,7 +25,7 @@ import java.util.List;
 
 
 /**
- * This class is used by {@link FortressAntTask} to load {@link org.apache.directory.fortress.core.rbac.AdminRole}s used to drive {@link org.apache.directory.fortress.core.DelAdminMgr#deleteRole(org.apache.directory.fortress.core.rbac.AdminRole)}.
+ * This class is used by {@link FortressAntTask} to load {@link org.apache.directory.fortress.core.model.AdminRole}s used to drive {@link org.apache.directory.fortress.core.DelAdminMgr#deleteRole(org.apache.directory.fortress.core.model.AdminRole)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>The class name, 'Deladminrole', is used for the xml tag in the load script.</p>
  * <pre>
@@ -65,7 +65,7 @@ public class Deladminrole
      * }
      * </pre>
      *
-     * @param role contains extension of {@link org.apache.directory.fortress.core.rbac.AdminRole}.
+     * @param role contains extension of {@link org.apache.directory.fortress.core.model.AdminRole}.
      */
     public void addRole( AdminRoleAnt role )
     {

@@ -24,6 +24,14 @@ import org.apache.directory.fortress.core.AdminMgrFactory;
 import org.apache.directory.fortress.core.DelAdminMgr;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.Hier;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Relationship;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.util.time.CUtil;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.apache.directory.fortress.core.util.attr.VUtil;
@@ -62,25 +70,25 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * Initially, no user or permission is assigned to the new role.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole#name} - contains the name of the new AdminRole being targeted for addition to LDAP</li>
+     * <li>{@link org.apache.directory.fortress.core.model.AdminRole#name} - contains the name of the new AdminRole being targeted for addition to LDAP</li>
      * </ul>
      * <p/>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole#description} - contains any safe text</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole#osPs} * - multi-occurring attribute used to set associations to existing PERMS OrgUnits</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole#osUs} * - multi-occurring attribute used to set associations to existing USERS OrgUnits</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole#beginRange} - contains the name of an existing RBAC Role that represents the lowest role in hierarchy that administrator (whoever has this AdminRole activated) controls</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole#endRange} - contains the name of an existing RBAC Role that represents that highest role in hierarchy that administrator may control</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole#beginInclusive} - if 'true' the RBAC Role specified in beginRange is also controlled by the posessor of this AdminRole</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole#endInclusive} - if 'true' the RBAC Role specified in endRange is also controlled by the administratrator</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole#beginTime} - HHMM - determines begin hour adminRole may be activated into user's ARBAC session</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole#endTime} - HHMM - determines end hour adminRole may be activated into user's ARBAC session.</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole#beginDate} - YYYYMMDD - determines date when adminRole may be activated into user's ARBAC session</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole#endDate} - YYYYMMDD - indicates latest date adminRole may be activated into user's ARBAC session</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's ARBAC session</li>
+     * <li>{@link org.apache.directory.fortress.core.model.AdminRole#description} - contains any safe text</li>
+     * <li>{@link org.apache.directory.fortress.core.model.AdminRole#osPs} * - multi-occurring attribute used to set associations to existing PERMS OrgUnits</li>
+     * <li>{@link org.apache.directory.fortress.core.model.AdminRole#osUs} * - multi-occurring attribute used to set associations to existing USERS OrgUnits</li>
+     * <li>{@link org.apache.directory.fortress.core.model.AdminRole#beginRange} - contains the name of an existing RBAC Role that represents the lowest role in hierarchy that administrator (whoever has this AdminRole activated) controls</li>
+     * <li>{@link org.apache.directory.fortress.core.model.AdminRole#endRange} - contains the name of an existing RBAC Role that represents that highest role in hierarchy that administrator may control</li>
+     * <li>{@link org.apache.directory.fortress.core.model.AdminRole#beginInclusive} - if 'true' the RBAC Role specified in beginRange is also controlled by the posessor of this AdminRole</li>
+     * <li>{@link org.apache.directory.fortress.core.model.AdminRole#endInclusive} - if 'true' the RBAC Role specified in endRange is also controlled by the administratrator</li>
+     * <li>{@link org.apache.directory.fortress.core.model.AdminRole#beginTime} - HHMM - determines begin hour adminRole may be activated into user's ARBAC session</li>
+     * <li>{@link org.apache.directory.fortress.core.model.AdminRole#endTime} - HHMM - determines end hour adminRole may be activated into user's ARBAC session.</li>
+     * <li>{@link org.apache.directory.fortress.core.model.AdminRole#beginDate} - YYYYMMDD - determines date when adminRole may be activated into user's ARBAC session</li>
+     * <li>{@link org.apache.directory.fortress.core.model.AdminRole#endDate} - YYYYMMDD - indicates latest date adminRole may be activated into user's ARBAC session</li>
+     * <li>{@link org.apache.directory.fortress.core.model.AdminRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
+     * <li>{@link org.apache.directory.fortress.core.model.AdminRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
+     * <li>{@link org.apache.directory.fortress.core.model.AdminRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's ARBAC session</li>
      * </ul>
      *
      * @param role Contains role name and description.
@@ -237,21 +245,21 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * </ul>
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserAdminRole#name} - contains the name for already existing AdminRole to be assigned</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserAdminRole#userId} - contains the userId for existing User</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole#name} - contains the name for already existing AdminRole to be assigned</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole#userId} - contains the userId for existing User</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserAdminRole#beginTime} - HHMM - determines begin hour AdminRole may be activated into user's RBAC session</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserAdminRole#endTime} - HHMM - determines end hour AdminRole may be activated into user's RBAC session.</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserAdminRole#beginDate} - YYYYMMDD - determines date when AdminRole may be activated into user's RBAC session</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserAdminRole#endDate} - YYYYMMDD - indicates latest date AdminRole may be activated into user's RBAC session</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserAdminRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserAdminRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserAdminRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's ARBAC session</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole#beginTime} - HHMM - determines begin hour AdminRole may be activated into user's RBAC session</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole#endTime} - HHMM - determines end hour AdminRole may be activated into user's RBAC session.</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole#beginDate} - YYYYMMDD - determines date when AdminRole may be activated into user's RBAC session</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole#endDate} - YYYYMMDD - indicates latest date AdminRole may be activated into user's RBAC session</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's ARBAC session</li>
      * </ul>
      *
-     * @param uAdminRole entity contains {@link org.apache.directory.fortress.core.rbac.User#userId} and {@link org.apache.directory.fortress.core.rbac.AdminRole#name} and optional {@code org.apache.directory.fortress.core.rbac.Constraints}.
+     * @param uAdminRole entity contains {@link org.apache.directory.fortress.core.model.User#userId} and {@link org.apache.directory.fortress.core.model.AdminRole#name} and optional {@code org.apache.directory.fortress.core.rbac.Constraints}.
      * @throws SecurityException in the event data error in user or role objects or system error.
      */
     @Override
@@ -291,11 +299,11 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * User to Role assignment in Admin Role data set.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserAdminRole#name} - contains the name for already existing AdminRole to be deassigned</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.UserAdminRole#userId} - contains the userId for existing User</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole#name} - contains the name for already existing AdminRole to be deassigned</li>
+     * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole#userId} - contains the userId for existing User</li>
      * </ul>
      *
-     * @param uAdminRole entity contains {@link org.apache.directory.fortress.core.rbac.User#userId} and {@link org.apache.directory.fortress.core.rbac.AdminRole#name}.
+     * @param uAdminRole entity contains {@link org.apache.directory.fortress.core.model.User#userId} and {@link org.apache.directory.fortress.core.model.AdminRole#name}.
      * @throws SecurityException - in the event data error in user or role objects or system error.
      */
     @Override
@@ -319,12 +327,12 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * set by setting type attribute.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.OrgUnit#name} - contains the name of new USERS or PERMS OrgUnit to be added</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.OrgUnit#type} - contains the type of OU:  {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#PERM}</li>
+     * <li>{@link org.apache.directory.fortress.core.model.OrgUnit#name} - contains the name of new USERS or PERMS OrgUnit to be added</li>
+     * <li>{@link org.apache.directory.fortress.core.model.OrgUnit#type} - contains the type of OU:  {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM}</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.OrgUnit#description} - contains any safe text</li>
+     * <li>{@link org.apache.directory.fortress.core.model.OrgUnit#description} - contains any safe text</li>
      * </ul>
      *
      * @param entity contains OrgUnit name and type.
@@ -346,12 +354,12 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * set by setting type attribute.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.OrgUnit#name} - contains the name of new USERS or PERMS OrgUnit to be updated</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.OrgUnit#type} - contains the type of OU:  {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#PERM}</li>
+     * <li>{@link org.apache.directory.fortress.core.model.OrgUnit#name} - contains the name of new USERS or PERMS OrgUnit to be updated</li>
+     * <li>{@link org.apache.directory.fortress.core.model.OrgUnit#type} - contains the type of OU:  {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM}</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.OrgUnit#description} - contains any safe text</li>
+     * <li>{@link org.apache.directory.fortress.core.model.OrgUnit#description} - contains any safe text</li>
      * </ul>
      *
      * @param entity contains OrgUnit name and type.
@@ -375,8 +383,8 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * set by setting type attribute.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.OrgUnit#name} - contains the name of new USERS or PERMS OrgUnit to be removed</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.OrgUnit#type} - contains the type of OU:  {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#PERM}</li>
+     * <li>{@link org.apache.directory.fortress.core.model.OrgUnit#name} - contains the name of new USERS or PERMS OrgUnit to be removed</li>
+     * <li>{@link org.apache.directory.fortress.core.model.OrgUnit#type} - contains the type of OU:  {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM}</li>
      * </ul>
      *
      * @param entity contains OrgUnit name and type.
@@ -472,13 +480,13 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * </ul>
      * <h4>required parameters</h4>
      * <ul>
-     * <li>parentRole - {@link org.apache.directory.fortress.core.rbac.OrgUnit#name} - contains the name of existing OrgUnit to be parent</li>
-     * <li>parentRole - {@link org.apache.directory.fortress.core.rbac.OrgUnit#type} - contains the type of OrgUnit targeted: {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#PERM}</li>
-     * <li>childRole - {@link org.apache.directory.fortress.core.rbac.OrgUnit#name} - contains the name of new OrgUnit to be child</li>
+     * <li>parentRole - {@link org.apache.directory.fortress.core.model.OrgUnit#name} - contains the name of existing OrgUnit to be parent</li>
+     * <li>parentRole - {@link org.apache.directory.fortress.core.model.OrgUnit#type} - contains the type of OrgUnit targeted: {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM}</li>
+     * <li>childRole - {@link org.apache.directory.fortress.core.model.OrgUnit#name} - contains the name of new OrgUnit to be child</li>
      * </ul>
      * <h4>optional parameters child</h4>
      * <ul>
-     * <li>childRole - {@link org.apache.directory.fortress.core.rbac.OrgUnit#description} - maps to description attribute on organizationalUnit object class for new child</li>
+     * <li>childRole - {@link org.apache.directory.fortress.core.model.OrgUnit#description} - maps to description attribute on organizationalUnit object class for new child</li>
      * </ul>
      *
      * @param parent This entity must be present in ORGUNIT data set.  Success will add rel with child.
@@ -535,13 +543,13 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * </ul>
      * <h4>required parameters</h4>
      * <ul>
-     * <li>parent - {@link org.apache.directory.fortress.core.rbac.OrgUnit#name} - contains the name of existing OrgUnit to be parent</li>
-     * <li>parent - {@link org.apache.directory.fortress.core.rbac.OrgUnit#type} - contains the type of OrgUnit targeted: {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#PERM}</li>
-     * <li>child - {@link org.apache.directory.fortress.core.rbac.OrgUnit#name} - contains the name of new OrgUnit to be child</li>
+     * <li>parent - {@link org.apache.directory.fortress.core.model.OrgUnit#name} - contains the name of existing OrgUnit to be parent</li>
+     * <li>parent - {@link org.apache.directory.fortress.core.model.OrgUnit#type} - contains the type of OrgUnit targeted: {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM}</li>
+     * <li>child - {@link org.apache.directory.fortress.core.model.OrgUnit#name} - contains the name of new OrgUnit to be child</li>
      * </ul>
      * <h4>optional parameters child</h4>
      * <ul>
-     * <li>child - {@link org.apache.directory.fortress.core.rbac.OrgUnit#description} - maps to description attribute on organizationalUnit object class for new child</li>
+     * <li>child - {@link org.apache.directory.fortress.core.model.OrgUnit#description} - maps to description attribute on organizationalUnit object class for new child</li>
      * </ul>
      *
      * @param parent completion of op assigns new child relationship with child orgunit.
@@ -595,9 +603,9 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * </p>
      * <h4>required parameters</h4>
      * <ul>
-     * <li>parent - {@link org.apache.directory.fortress.core.rbac.OrgUnit#name} - contains the name of existing OrgUnit to be parent</li>
-     * <li>parent - {@link org.apache.directory.fortress.core.rbac.OrgUnit#type} - contains the type of OrgUnit targeted: {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#PERM}</li>
-     * <li>child - {@link org.apache.directory.fortress.core.rbac.OrgUnit#name} - contains the name of existing OrgUnit to be child</li>
+     * <li>parent - {@link org.apache.directory.fortress.core.model.OrgUnit#name} - contains the name of existing OrgUnit to be parent</li>
+     * <li>parent - {@link org.apache.directory.fortress.core.model.OrgUnit#type} - contains the type of OrgUnit targeted: {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM}</li>
+     * <li>child - {@link org.apache.directory.fortress.core.model.OrgUnit#name} - contains the name of existing OrgUnit to be child</li>
      * </ul>
      *
      * @param parent completion of op deassigns child relationship with child orgunit.
@@ -653,9 +661,9 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * </ul>
      * <h4>required parameters</h4>
      * <ul>
-     * <li>parent - {@link org.apache.directory.fortress.core.rbac.OrgUnit#name} - contains the name of existing OrgUnit to remove as parent</li>
-     * <li>parent - {@link org.apache.directory.fortress.core.rbac.OrgUnit#type} - contains the type of OrgUnit targeted: {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#PERM}</li>
-     * <li>child - {@link org.apache.directory.fortress.core.rbac.OrgUnit#name} - contains the name of existing OrgUnit to remove as child</li>
+     * <li>parent - {@link org.apache.directory.fortress.core.model.OrgUnit#name} - contains the name of existing OrgUnit to remove as parent</li>
+     * <li>parent - {@link org.apache.directory.fortress.core.model.OrgUnit#type} - contains the type of OrgUnit targeted: {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM}</li>
+     * <li>child - {@link org.apache.directory.fortress.core.model.OrgUnit#name} - contains the name of existing OrgUnit to remove as child</li>
      * </ul>
      *
      * @param parent completion of op removes child relationship with childRole.
@@ -899,22 +907,22 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
 
     /**
      * This method will add an administrative permission operation to an existing permission object which resides under {@code ou=AdminPerms,ou=ARBAC,dc=yourHostName,dc=com} container in directory information tree.
-     * The perm operation entity may have {@link AdminRole} or {@link org.apache.directory.fortress.core.rbac.User} associations.  The target {@link org.apache.directory.fortress.core.rbac.Permission} must not exist prior to calling.
-     * A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent and itself as stored in ldap tree: ({@link PermObj}*->{@link org.apache.directory.fortress.core.rbac.Permission}).
+     * The perm operation entity may have {@link AdminRole} or {@link org.apache.directory.fortress.core.model.User} associations.  The target {@link org.apache.directory.fortress.core.model.Permission} must not exist prior to calling.
+     * A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent and itself as stored in ldap tree: ({@link PermObj}*->{@link org.apache.directory.fortress.core.model.Permission}).
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Permission#objName} - contains the name of existing object being targeted for the permission add</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Permission#opName} - contains the name of new permission operation being added</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#objName} - contains the name of existing object being targeted for the permission add</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#opName} - contains the name of new permission operation being added</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Permission#roles} * - multi occurring attribute contains RBAC Roles that permission operation is being granted to</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Permission#users} * - multi occurring attribute contains Users that permission operation is being granted to</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Permission#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Permission#type} - any safe text</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#roles} * - multi occurring attribute contains RBAC Roles that permission operation is being granted to</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#users} * - multi occurring attribute contains Users that permission operation is being granted to</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#type} - any safe text</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link org.apache.directory.fortress.core.rbac.Permission#objName}, and operation, {@link org.apache.directory.fortress.core.rbac.Permission#opName}, that identifies target along with optional other attributes..
+     * @param perm must contain the object, {@link org.apache.directory.fortress.core.model.Permission#objName}, and operation, {@link org.apache.directory.fortress.core.model.Permission#opName}, that identifies target along with optional other attributes..
      * @return copy of Permission entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
@@ -929,12 +937,12 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
 
     /**
      * This method will update administrative permission operation pre-existing in target directory under {@code ou=AdminPerms,ou=ARBAC,dc=yourHostName,dc=com} container in directory information tree.
-     * The perm operation entity may also contain {@link AdminRole} or {@link org.apache.directory.fortress.core.rbac.User} associations to add or remove using this function.
+     * The perm operation entity may also contain {@link AdminRole} or {@link org.apache.directory.fortress.core.model.User} associations to add or remove using this function.
      * The perm operation must exist before making this call.  Only non-null attributes will be updated.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link Permission#objName} - contains the name of existing object being targeted for the permission update</li>
-     * <li>{@link Permission#opName} - contains the name of existing permission operation being updated</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#objName} - contains the name of existing object being targeted for the permission update</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#opName} - contains the name of existing permission operation being updated</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
@@ -964,7 +972,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * <h4>required parameters</h4>
      * <ul>
      * <li>{@link Permission#objName} - contains the name of existing object being targeted for the permission delete</li>
-     * <li>{@link Permission#opName} - contains the name of existing permission operation being removed</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#opName} - contains the name of existing permission operation being removed</li>
      * </ul>
      *
      * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, that identifies target.
@@ -986,7 +994,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * <h4>required parameters</h4>
      * <ul>
      * <li>{@link PermObj#objName} - contains the name of new object being added</li>
-     * <li>{@link PermObj#ou} - contains the name of an existing PERMS OrgUnit this object is associated with</li>
+     * <li>{@link org.apache.directory.fortress.core.model.PermObj#ou} - contains the name of an existing PERMS OrgUnit this object is associated with</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
@@ -1065,12 +1073,12 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * and the adminRole is a member of the ADMIN_ROLES data set.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link Permission#objName} - contains the object name</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#objName} - contains the object name</li>
      * <li>{@link Permission#opName} - contains the operation name</li>
      * <li>{@link AdminRole#name} - contains the adminRole name</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, that identifies target.
+     * @param perm must contain the object, {@link org.apache.directory.fortress.core.model.Permission#objName}, and operation, {@link Permission#opName}, that identifies target.
      * @param role must contains {@link AdminRole#name}.
      * @throws org.apache.directory.fortress.core.SecurityException
      *          Thrown in the event of data validation or system error.
@@ -1092,12 +1100,12 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * the role is a member of the ADMIN_ROLES data set, and the permission is assigned to that AdminRole.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link Permission#objName} - contains the object name</li>
-     * <li>{@link Permission#opName} - contains the operation name</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#objName} - contains the object name</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#opName} - contains the operation name</li>
      * <li>{@link AdminRole#name} - contains the adminRole name</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, that identifies target.
+     * @param perm must contain the object, {@link org.apache.directory.fortress.core.model.Permission#objName}, and operation, {@link Permission#opName}, that identifies target.
      * @param role must contains {@link AdminRole#name}.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
@@ -1123,7 +1131,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * <li>{@link User#userId} - contains the userId</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, that identifies target.
+     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link org.apache.directory.fortress.core.model.Permission#opName}, that identifies target.
      * @param user must contain {@link User#userId} of target User entity.
      * @throws org.apache.directory.fortress.core.SecurityException
      *          Thrown in the event of data validation or system error.
@@ -1150,7 +1158,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
      * <li>{@link User#userId} - contains the userId</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, that identifies target.
+     * @param perm must contain the object, {@link org.apache.directory.fortress.core.model.Permission#objName}, and operation, {@link org.apache.directory.fortress.core.model.Permission#opName}, that identifies target.
      * @param user must contain {@link User#userId} of target User entity.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */

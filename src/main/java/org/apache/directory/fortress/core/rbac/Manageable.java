@@ -21,11 +21,14 @@ package org.apache.directory.fortress.core.rbac;
 
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
+import org.apache.directory.fortress.core.model.FortEntity;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 /**
  * Abstract class allows outside clients to manage security and multi-tenant concerns within the Fortress runtime.
- * The {@link #setAdmin(org.apache.directory.fortress.core.rbac.Session)} method allows A/RBAC sessions to be loaded and allows authorization
+ * The {@link #setAdmin(org.apache.directory.fortress.core.model.Session)} method allows A/RBAC sessions to be loaded and allows authorization
  * to be performed on behalf of the user who is contained within the Session object itself.
  * The ARBAC permissions will be checked each time outside client makes calls into Fortress API.
  * This interface also allows Fortress clients to operate in a multi-tenant fashion using {@link #setContextId(String)}.
@@ -70,7 +73,7 @@ public abstract class Manageable implements org.apache.directory.fortress.core.M
      *
      * @param className contains the class name.
      * @param opName contains operation name.
-     * @param entity contains {@link org.apache.directory.fortress.core.rbac.FortEntity} instance.
+     * @param entity contains {@link org.apache.directory.fortress.core.model.FortEntity} instance.
      * @throws org.apache.directory.fortress.core.SecurityException
      *          in the event of data validation or system error.
      */

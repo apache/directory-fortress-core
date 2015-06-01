@@ -17,7 +17,10 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
+package org.apache.directory.fortress.core.model;
+
+import org.apache.directory.fortress.core.rbac.PwMessage;
+import org.apache.directory.fortress.core.rbac.Warning;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -346,7 +349,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
 
     /**
      * Return the list of User's RBAC Roles that have been activated into User's session.  This list will not include
-     * ascendant RBAC roles which may be retrieved using {@link AccessMgrImpl#authorizedRoles(Session)}.
+     * ascendant RBAC roles which may be retrieved using {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl#authorizedRoles(Session)}.
      *
      * @return List containing User's RBAC roles.  This list may be empty if User not assigned RBAC.
      */

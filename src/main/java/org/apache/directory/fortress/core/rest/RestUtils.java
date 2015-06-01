@@ -50,7 +50,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.ObjectFactory;
 import org.apache.directory.fortress.core.RestException;
 import org.apache.directory.fortress.core.cfg.Config;
-import org.apache.directory.fortress.core.rbac.Props;
+import org.apache.directory.fortress.core.model.Props;
 import org.apache.directory.fortress.core.util.crypto.EncryptUtil;
 
 

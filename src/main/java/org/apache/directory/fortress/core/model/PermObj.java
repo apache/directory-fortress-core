@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
+package org.apache.directory.fortress.core.model;
 
 
 import java.io.Serializable;
@@ -35,38 +35,38 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * All entities ({@link org.apache.directory.fortress.core.rbac.User}, {@link org.apache.directory.fortress.core.rbac.Role}, {@link Permission},
- * {@link PwPolicy} {@link org.apache.directory.fortress.core.rbac.SDSet} etc...) are used to carry data between three Fortress
+ * All entities ({@link User}, {@link Role}, {@link org.apache.directory.fortress.core.model.Permission},
+ * {@link PwPolicy} {@link SDSet} etc...) are used to carry data between three Fortress
  * layers.starting with the (1) Manager layer down thru middle (2) Process layer and it's processing rules into
  * (3) DAO layer where persistence with the OpenLDAP server occurs.
  * <h4>Fortress Processing Layers</h4>
  * <ol>
- * <li>Manager layer:  {@link AdminMgrImpl}, {@link AccessMgrImpl}, {@link ReviewMgrImpl},...</li>
+ * <li>Manager layer:  {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl}, {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl}, {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl},...</li>
  * <li>Process layer:  {@link org.apache.directory.fortress.core.rbac.UserP}, {@link org.apache.directory.fortress.core.rbac.RoleP}, {@link org.apache.directory.fortress.core.rbac.PermP},...</li>
- * <li>DAO layer: {@link UserDAO}, {@link RoleDAO}, {@link org.apache.directory.fortress.core.rbac.PermDAO},...</li>
+ * <li>DAO layer: {@link org.apache.directory.fortress.core.rbac.UserDAO}, {@link org.apache.directory.fortress.core.rbac.RoleDAO}, {@link org.apache.directory.fortress.core.rbac.PermDAO},...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br />
- * For example, this entity requires {@link #objName} and {@link #ou} attributes set before passing into {@link AdminMgrImpl} or  {@link ReviewMgrImpl} APIs.
+ * For example, this entity requires {@link #objName} and {@link #ou} attributes set before passing into {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl} or  {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl} APIs.
  * Create methods usually require more attributes (than Read) due to constraints enforced between entities.
  * <p/>
  * <h4>PermObj entity attribute usages include</h4>
  * <ul>
- * <li>{@link #setObjName} and {@link #setOu} attributes set before calling {@link AdminMgrImpl#addPermObj(PermObj)}.
- * <li>{@link #addProperty} may be set before calling {@link AdminMgrImpl#addPermObj(PermObj)}.
- * <li>{@link #getProperty} may be set after calling {@link ReviewMgrImpl#findPermObjs(PermObj)}.
+ * <li>{@link #setObjName} and {@link #setOu} attributes set before calling {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl#addPermObj(PermObj)}.
+ * <li>{@link #addProperty} may be set before calling {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl#addPermObj(PermObj)}.
+ * <li>{@link #getProperty} may be set after calling {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl#findPermObjs(PermObj)}.
  * </ul>
  * <p/>
  * <h4>More Permission entity notes</h4>
  * <ul>
- * <li>The {@link PermObj} entity is not used for authorization checks, rather contains {@link Permission} which are themselves authorization targets.<br />
- * <li>This entity must be associated with a valid Perm OU {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#PERM} that is contained within the {@code ou=OS-P,ou=ARBAC,dc=example,dc=com} location in ldap.
+ * <li>The {@link PermObj} entity is not used for authorization checks, rather contains {@link org.apache.directory.fortress.core.model.Permission} which are themselves authorization targets.<br />
+ * <li>This entity must be associated with a valid Perm OU {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM} that is contained within the {@code ou=OS-P,ou=ARBAC,dc=example,dc=com} location in ldap.
  * <li>The object to operation pairings enable application resources to be mapped to Fortress permissions in a way that is natural for object oriented programming.
- * <li>Permissions = Object {@link PermObj} 1<->* Operations {@link Permission}
+ * <li>Permissions = Object {@link PermObj} 1<->* Operations {@link org.apache.directory.fortress.core.model.Permission}
  * <p/>
  * <img src="../doc-files/RbacCore.png">
  * <li>The unique key to locate an Fortress PermObj entity is {@code PermObj#objName}.
- * <li>For sample code usages check out {@link Permission} javadoc.
+ * <li>For sample code usages check out {@link org.apache.directory.fortress.core.model.Permission} javadoc.
  * </ul>
  * <p/>
  * <h4>PermObj Schema</h4>

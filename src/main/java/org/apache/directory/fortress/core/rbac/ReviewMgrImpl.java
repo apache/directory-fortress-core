@@ -22,6 +22,13 @@ package org.apache.directory.fortress.core.rbac;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.SDSet;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import java.util.ArrayList;
@@ -76,11 +83,11 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * This method returns a matching permission entity to caller.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Permission#objName} - contains the name of existing object being targeted</li>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Permission#opName} - contains the name of existing permission operation</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#objName} - contains the name of existing object being targeted</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#opName} - contains the name of existing permission operation</li>
      * </ul>
      *
-     * @param permission must contain the object, {@link org.apache.directory.fortress.core.rbac.Permission#objName}, and operation, {@link org.apache.directory.fortress.core.rbac.Permission#opName}, and optionally object id of targeted permission entity.
+     * @param permission must contain the object, {@link org.apache.directory.fortress.core.model.Permission#objName}, and operation, {@link org.apache.directory.fortress.core.model.Permission#opName}, and optionally object id of targeted permission entity.
      * @return Permission entity that is loaded with data.
      * @throws SecurityException if permission not found or system error occurs.
      */
@@ -100,10 +107,10 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * Method reads permission object from perm container in directory.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.PermObj#objName} - contains the name of existing object being targeted</li>
+     * <li>{@link org.apache.directory.fortress.core.model.PermObj#objName} - contains the name of existing object being targeted</li>
      * </ul>
      *
-     * @param permObj entity contains the {@link org.apache.directory.fortress.core.rbac.PermObj#objName} of target record.
+     * @param permObj entity contains the {@link org.apache.directory.fortress.core.model.PermObj#objName} of target record.
      * @return PermObj loaded with perm object data.
      * @throws SecurityException is thrown if object not found or system error.
      */
@@ -167,10 +174,10 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * Method returns a list of type Permission that match the perm object search string.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.OrgUnit#name} - contains one or more characters of org unit associated with existing object being targeted</li>
+     * <li>{@link org.apache.directory.fortress.core.model.OrgUnit#name} - contains one or more characters of org unit associated with existing object being targeted</li>
      * </ul>
      *
-     * @param ou contains org unit name {@link org.apache.directory.fortress.core.rbac.OrgUnit#name}.  The search val contains the full name of matching ou in OS-P data set.
+     * @param ou contains org unit name {@link org.apache.directory.fortress.core.model.OrgUnit#name}.  The search val contains the full name of matching ou in OS-P data set.
      * @return List of type PermObj.  Fortress permissions are object->operation mappings.
      * @throws org.apache.directory.fortress.core.SecurityException
      *          thrown in the event of system error.
@@ -190,10 +197,10 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * Method reads Role entity from the role container in directory.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.Role#name} - contains the name to use for the Role to read.</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Role#name} - contains the name to use for the Role to read.</li>
      * </ul>
      *
-     * @param role contains role name, {@link org.apache.directory.fortress.core.rbac.Role#name}, to be read.
+     * @param role contains role name, {@link org.apache.directory.fortress.core.model.Role#name}, to be read.
      * @return Role entity that corresponds with role name.
      * @throws SecurityException will be thrown if role not found or system error occurs.
      */
@@ -254,10 +261,10 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * Method returns matching User entity that is contained within the people container in the directory.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.User#userId} - contains the userId associated with the User object targeted for read.</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#userId} - contains the userId associated with the User object targeted for read.</li>
      * </ul>
      *
-     * @param user entity contains a value {@link org.apache.directory.fortress.core.rbac.User#userId} that matches record in the directory.  userId is globally unique in
+     * @param user entity contains a value {@link org.apache.directory.fortress.core.model.User#userId} that matches record in the directory.  userId is globally unique in
      *             people container.
      * @return entity containing matching user data.
      * @throws org.apache.directory.fortress.core.SecurityException
@@ -278,7 +285,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * Return a list of type User of all users in the people container that match all or part of the {@link User#userId} field passed in User entity.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link User#userId} - contains all or some leading chars that match userId(s) stored in the directory.</li>
+     * <li>{@link org.apache.directory.fortress.core.model.User#userId} - contains all or some leading chars that match userId(s) stored in the directory.</li>
      * </ul>
      *
      * @param user contains all or some leading chars that match userIds stored in the directory.
@@ -555,7 +562,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * <li>{@link Permission#opName} - contains the name of existing permission operation</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, and optionally object id of targeted permission entity.
+     * @param perm must contain the object, {@link org.apache.directory.fortress.core.model.Permission#objName}, and operation, {@link Permission#opName}, and optionally object id of targeted permission entity.
      * @return List of type string containing the role names that have the matching perm granted.
      * @throws SecurityException in the event permission not found or system error occurs.
      */
@@ -583,7 +590,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * Return all role names that have been authorized for a given permission.  This will process role hierarchies to determine set of all Roles who have access to a given permission.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link Permission#objName} - contains the name of existing object being targeted</li>
+     * <li>{@link org.apache.directory.fortress.core.model.Permission#objName} - contains the name of existing object being targeted</li>
      * <li>{@link Permission#opName} - contains the name of existing permission operation</li>
      * </ul>
      *

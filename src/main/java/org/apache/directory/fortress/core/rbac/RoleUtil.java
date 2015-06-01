@@ -25,6 +25,11 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.locks.ReadWriteLock;
 
+import org.apache.directory.fortress.core.model.Hier;
+import org.apache.directory.fortress.core.model.ParentUtil;
+import org.apache.directory.fortress.core.model.Relationship;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,12 +42,12 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
 
 
 /**
- * This utility wraps {@link org.apache.directory.fortress.core.rbac.HierUtil} methods to provide hierarchical functionality for the {@link org.apache.directory.fortress.core.rbac.Role} data set.
+ * This utility wraps {@link org.apache.directory.fortress.core.rbac.HierUtil} methods to provide hierarchical functionality for the {@link org.apache.directory.fortress.core.model.Role} data set.
  * The {@code cn=Hierarchies, ou=Roles} data is stored within a cache, {@link #roleCache}, contained within this class.  The parent-child edges are contained in LDAP,
  * in {@code ftParents} attribute.  The ldap data is retrieved {@link org.apache.directory.fortress.core.rbac.RoleP#getAllDescendants(String)} and loaded into {@code org.jgrapht.graph.SimpleDirectedGraph}.
  * The graph...
  * <ol>
- * <li>is stored as singleton in this class with vertices of {@code String}, and edges, as {@link Relationship}s</li>
+ * <li>is stored as singleton in this class with vertices of {@code String}, and edges, as {@link org.apache.directory.fortress.core.model.Relationship}s</li>
  * <li>utilizes open source library, see <a href="http://www.jgrapht.org/">JGraphT</a>.</li>
  * <li>contains a general hierarchical data structure i.e. allows multiple inheritance with parents.</li>
  * <li>is a simple directed graph thus does not allow cycles.</li>
@@ -57,7 +62,7 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public final class RoleUtil
+public final class RoleUtil implements ParentUtil
 {
     private static final Cache roleCache;
     private static final RoleP roleP = new RoleP();
@@ -65,7 +70,7 @@ public final class RoleUtil
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     /**
-     * Initialize the Role hierarchies.  This will read the {@link org.apache.directory.fortress.core.rbac.Hier} data set from ldap and load into
+     * Initialize the Role hierarchies.  This will read the {@link org.apache.directory.fortress.core.model.Hier} data set from ldap and load into
      * the JGraphT simple digraph that referenced statically within this class.
      */
     static
@@ -83,12 +88,12 @@ public final class RoleUtil
     }
 
     /**
-     * Used to determine if one {@link org.apache.directory.fortress.core.rbac.Role} is the parent of another.  This method
+     * Used to determine if one {@link org.apache.directory.fortress.core.model.Role} is the parent of another.  This method
      * will call recursive routine {@link #getAscendants(String, String)} to walk the {@code org.jgrapht.graph.SimpleDirectedGraph} data structure
      * returning flag indicating if parent-child relationship is valid.
      *
-     * @param child  maps to logical {@link org.apache.directory.fortress.core.rbac.Role#name} on 'ftRls' object class.
-     * @param parent maps to logical {@link org.apache.directory.fortress.core.rbac.Role#name} on 'ftRels' object class.
+     * @param child  maps to logical {@link org.apache.directory.fortress.core.model.Role#name} on 'ftRls' object class.
+     * @param parent maps to logical {@link org.apache.directory.fortress.core.model.Role#name} on 'ftRels' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return boolean result, 'true' indicates parent/child relationship exists.
      */
@@ -105,11 +110,11 @@ public final class RoleUtil
 
 
     /**
-     * Recursively traverse the {@link org.apache.directory.fortress.core.rbac.Role} graph and return all of the descendants of a given node {@link org.apache.directory.fortress.core.rbac.Role#name}.
+     * Recursively traverse the {@link org.apache.directory.fortress.core.model.Role} graph and return all of the descendants of a given node {@link org.apache.directory.fortress.core.model.Role#name}.
      *
-     * @param roleName {@link org.apache.directory.fortress.core.rbac.Role#name} on 'ftRls' object class.
+     * @param roleName {@link org.apache.directory.fortress.core.model.Role#name} on 'ftRls' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return Set of Role names are descendants {@link org.apache.directory.fortress.core.rbac.Role}s of given parent.
+     * @return Set of Role names are descendants {@link org.apache.directory.fortress.core.model.Role}s of given parent.
      */
     public static Set<String> getDescendants( String roleName, String contextId )
     {
@@ -118,11 +123,11 @@ public final class RoleUtil
 
 
     /**
-     * Traverse the {@link org.apache.directory.fortress.core.rbac.Role} graph and return all children (direct descendants) of a given parent node {@link org.apache.directory.fortress.core.rbac.Role#name}.
+     * Traverse the {@link org.apache.directory.fortress.core.model.Role} graph and return all children (direct descendants) of a given parent node {@link org.apache.directory.fortress.core.model.Role#name}.
      *
-     * @param roleName {@link org.apache.directory.fortress.core.rbac.Role#name} on 'ftRls' object class.
+     * @param roleName {@link org.apache.directory.fortress.core.model.Role#name} on 'ftRls' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
-     * @return Set of Role names are children {@link org.apache.directory.fortress.core.rbac.Role}s of given parent.
+     * @return Set of Role names are children {@link org.apache.directory.fortress.core.model.Role}s of given parent.
      */
     public static Set<String> getChildren( String roleName, String contextId )
     {
@@ -133,7 +138,7 @@ public final class RoleUtil
     /**
      * Recursively traverse the hierarchical role graph and return all of the ascendants of a given role.
      *
-     * @param roleName maps to logical {@link org.apache.directory.fortress.core.rbac.Role#name} on 'ftRls' object class.
+     * @param roleName maps to logical {@link org.apache.directory.fortress.core.model.Role#name} on 'ftRls' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of Role names that are ascendants of given child.
      */
@@ -146,7 +151,7 @@ public final class RoleUtil
     /**
      * Traverse the hierarchical role graph and return all of the parents (direct ascendants) of a given role.
      *
-     * @param roleName maps to logical {@link org.apache.directory.fortress.core.rbac.Role#name} on 'ftRls' object class.
+     * @param roleName maps to logical {@link org.apache.directory.fortress.core.model.Role#name} on 'ftRls' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of Role names that are parents of given child.
      */
@@ -157,9 +162,22 @@ public final class RoleUtil
 
 
     /**
+     * Traverse the hierarchical role graph and return all of the parents (direct ascendants) of a given role.
+     *
+     * @param roleName maps to logical {@link org.apache.directory.fortress.core.model.Role#name} on 'ftRls' object class.
+     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @return Set of Role names that are parents of given child.
+     */
+    public Set<String> getParentsCB( String roleName, String contextId )
+    {
+        return HierUtil.getParents( roleName.toUpperCase(), getGraph( contextId ) );
+    }
+
+
+    /**
      * Determine the number of children (direct descendants) a given parent role has.
      *
-     * @param roleName maps to logical {@link org.apache.directory.fortress.core.rbac.Role#name} on 'ftRls' object class.
+     * @param roleName maps to logical {@link org.apache.directory.fortress.core.model.Role#name} on 'ftRls' object class.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return int value contains the number of children of a given parent nRole.
      */
@@ -170,10 +188,10 @@ public final class RoleUtil
 
 
     /**
-     * Return Set of RBAC {@link org.apache.directory.fortress.core.rbac.Role#name}s ascendants.  Used by {@link org.apache.directory.fortress.core.rbac.PermDAO#checkPermission}
-     * for computing authorized {@link UserRole#name}s.
+     * Return Set of RBAC {@link org.apache.directory.fortress.core.model.Role#name}s ascendants.  Used by {@link org.apache.directory.fortress.core.rbac.PermDAO#checkPermission}
+     * for computing authorized {@link org.apache.directory.fortress.core.model.UserRole#name}s.
      *
-     * @param uRoles contains list of Roles activated within a {@link org.apache.directory.fortress.core.rbac.User}'s {@link org.apache.directory.fortress.core.rbac.Session}.
+     * @param uRoles contains list of Roles activated within a {@link org.apache.directory.fortress.core.model.User}'s {@link org.apache.directory.fortress.core.model.Session}.
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return contains Set of all authorized RBAC Roles for a given User.
      */
@@ -276,8 +294,8 @@ public final class RoleUtil
      * Method will throw {@link org.apache.directory.fortress.core.ValidationException} if rule check fails meaning caller failed validation
      * attempt to add/remove hierarchical relationship failed.
      *
-     * @param childRole  contains {@link org.apache.directory.fortress.core.rbac.Role#name} of child.
-     * @param parentRole contains {@link org.apache.directory.fortress.core.rbac.Role#name} of parent.
+     * @param childRole  contains {@link org.apache.directory.fortress.core.model.Role#name} of child.
+     * @param parentRole contains {@link org.apache.directory.fortress.core.model.Role#name} of parent.
      * @param mustExist  boolean is used to specify if relationship must be true.
      * @throws org.apache.directory.fortress.core.ValidationException
      *          in the event it fails one of the 3 checks.
@@ -296,7 +314,7 @@ public final class RoleUtil
      *
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @param relationship contains parent-child relationship targeted for addition.
-     * @param op   used to pass the ldap op {@link org.apache.directory.fortress.core.rbac.Hier.Op#ADD}, {@link org.apache.directory.fortress.core.rbac.Hier.Op#MOD}, {@link org.apache.directory.fortress.core.rbac.Hier.Op#REM}
+     * @param op   used to pass the ldap op {@link org.apache.directory.fortress.core.model.Hier.Op#ADD}, {@link org.apache.directory.fortress.core.model.Hier.Op#MOD}, {@link org.apache.directory.fortress.core.model.Hier.Op#REM}
      * @throws org.apache.directory.fortress.core.SecurityException in the event of a system error.
      */
     static void updateHier( String contextId, Relationship relationship, Hier.Op op ) throws SecurityException

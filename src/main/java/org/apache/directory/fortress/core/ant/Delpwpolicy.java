@@ -19,14 +19,14 @@
  */
 package org.apache.directory.fortress.core.ant;
 
-import org.apache.directory.fortress.core.rbac.PwPolicy;
+import org.apache.directory.fortress.core.model.PwPolicy;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 /**
- * The class is used by {@link FortressAntTask} to load {@link org.apache.directory.fortress.core.rbac.PwPolicy}s used to drive {@link org.apache.directory.fortress.core.PwPolicyMgr#delete(org.apache.directory.fortress.core.rbac.PwPolicy)}.
+ * The class is used by {@link FortressAntTask} to load {@link org.apache.directory.fortress.core.model.PwPolicy}s used to drive {@link org.apache.directory.fortress.core.PwPolicyMgr#delete(org.apache.directory.fortress.core.model.PwPolicy)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>This class name, 'Delpwpolicy', is used for the xml tag in the load script.</p>
  * <pre>
@@ -74,7 +74,7 @@ public class Delpwpolicy
     /**
      * Used by {@link FortressAntTask#deletePolicies()} to retrieve list of PwPolicy as defined in input xml file.
      *
-     * @return collection containing {@link org.apache.directory.fortress.core.rbac.PwPolicy}s targeted for removal.
+     * @return collection containing {@link org.apache.directory.fortress.core.model.PwPolicy}s targeted for removal.
      */
     public List<PwPolicy> getPolicies()
     {

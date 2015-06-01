@@ -25,7 +25,7 @@ import java.util.Set;
 
 /**
  * The Fortress Graphable interface prescribes attributes that are used to maintain implementor within a simple directed graph.
- * {@link org.apache.directory.fortress.core.rbac.Role}, {@link org.apache.directory.fortress.core.rbac.AdminRole}, {@link org.apache.directory.fortress.core.rbac.OrgUnit} entities.
+ * {@link org.apache.directory.fortress.core.model.Role}, {@link org.apache.directory.fortress.core.model.AdminRole}, {@link org.apache.directory.fortress.core.model.OrgUnit} entities.
  * <p/>
  * <h4>Manageable Schema</h4>
  * The entity maps to Fortress LDAP attributetype ( 1.3.6.1.4.1.1.38088.1.28

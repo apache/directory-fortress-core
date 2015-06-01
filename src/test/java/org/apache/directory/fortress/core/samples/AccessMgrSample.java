@@ -33,12 +33,12 @@ import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.AccessMgr;
 import org.apache.directory.fortress.core.AccessMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.Session;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.rbac.TestUtils;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.rbac.UserAdminRole;
-import org.apache.directory.fortress.core.rbac.UserRole;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.model.UserRole;
 
 
 /**

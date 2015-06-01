@@ -25,8 +25,8 @@ import org.apache.directory.api.ldap.model.name.Rdn;
 import org.apache.directory.api.util.DateUtils;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.rbac.Administrator;
-import org.apache.directory.fortress.core.rbac.AuthZ;
-import org.apache.directory.fortress.core.rbac.Permission;
+import org.apache.directory.fortress.core.model.AuthZ;
+import org.apache.directory.fortress.core.model.Permission;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -56,7 +56,7 @@ public final class AttrHelper
     }
 
     /**
-     * Perform copy on ARBAC attributes.  This is used during assignment of {@link org.apache.directory.fortress.core.rbac.AdminRole} to {@link org.apache.directory.fortress.core.rbac.User}.
+     * Perform copy on ARBAC attributes.  This is used during assignment of {@link org.apache.directory.fortress.core.model.AdminRole} to {@link org.apache.directory.fortress.core.model.User}.
      * This method does not perform input validations.
      *
      * @param srcR contains source attributes to copy.

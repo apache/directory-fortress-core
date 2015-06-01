@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
+package org.apache.directory.fortress.core.model;
 
 
 import java.util.ArrayList;
@@ -33,38 +33,39 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.directory.fortress.core.rbac.Graphable;
 import org.apache.directory.fortress.core.util.time.CUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
 
 
 /**
- * All entities ({@link User}, {@link Role}, {@link Permission},
- * {@link PwPolicy} {@link SDSet} etc...) are used to carry data between three Fortress
+ * All entities ({@link User}, {@link Role}, {@link org.apache.directory.fortress.core.model.Permission},
+ * {@link org.apache.directory.fortress.core.model.PwPolicy} {@link SDSet} etc...) are used to carry data between three Fortress
  * layers.starting with the (1) Manager layer down thru middle (2) Process layer and it's processing rules into
  * (3) DAO layer where persistence with the OpenLDAP server occurs.
  * <h4>Fortress Processing Layers</h4>
  * <ol>
- * <li>Manager layer:  {@link AdminMgrImpl}, {@link AccessMgrImpl}, {@link ReviewMgrImpl},...</li>
- * <li>Process layer:  {@link UserP}, {@link RoleP}, {@link PermP},...</li>
- * <li>DAO layer: {@link UserDAO}, {@link RoleDAO}, {@link org.apache.directory.fortress.core.rbac.PermDAO},...</li>
+ * <li>Manager layer:  {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl}, {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl}, {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl},...</li>
+ * <li>Process layer:  {@link org.apache.directory.fortress.core.rbac.UserP}, {@link org.apache.directory.fortress.core.rbac.RoleP}, {@link org.apache.directory.fortress.core.rbac.PermP},...</li>
+ * <li>DAO layer: {@link org.apache.directory.fortress.core.rbac.UserDAO}, {@link org.apache.directory.fortress.core.rbac.RoleDAO}, {@link org.apache.directory.fortress.core.rbac.PermDAO},...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br />
- * For example, this entity requires {@link #setName} attribute set before passing into {@link AdminMgrImpl} APIs.
+ * For example, this entity requires {@link #setName} attribute set before passing into {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl} APIs.
  * Create methods sometimes require more attributes (than Read) due to constraints enforced between entities although only {@link Role#setName} is required for {@link Role}.
  * <p/>
  * <h4>Role entity attribute usages include</h4>
  * <ul>
- * <li>{@link #setName} attribute must be set before calling {@link AdminMgrImpl#addRole(Role)}, {@link AdminMgrImpl#updateRole(Role)} or  {@link AdminMgrImpl#deleteRole(Role)}
- * <li>{@link org.apache.directory.fortress.core.util.time.Constraint} may be set <b>before</b> calling method {@link AdminMgrImpl#addRole(Role)}.
- * <li>{@link org.apache.directory.fortress.core.util.time.Constraint} will be <b>returned</b> to caller on methods like {@link ReviewMgrImpl#readRole(Role)} or {@link ReviewMgrImpl#findRoles(String)} iff persisted to entity prior to call.
+ * <li>{@link #setName} attribute must be set before calling {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl#addRole(Role)}, {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl#updateRole(Role)} or  {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl#deleteRole(Role)}
+ * <li>{@link org.apache.directory.fortress.core.util.time.Constraint} may be set <b>before</b> calling method {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl#addRole(Role)}.
+ * <li>{@link org.apache.directory.fortress.core.util.time.Constraint} will be <b>returned</b> to caller on methods like {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl#readRole(Role)} or {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl#findRoles(String)} iff persisted to entity prior to call.
  * </ul>
  * <p/>
- * This entity is used to store the RBAC Role assignments that comprise the many-to-many relationships between {@link User}s and {@link Permission}s.
+ * This entity is used to store the RBAC Role assignments that comprise the many-to-many relationships between {@link User}s and {@link org.apache.directory.fortress.core.model.Permission}s.
  * <br />The unique key to locate a Role entity (which is subsequently assigned both to Users and Permissions) is 'Role.name'.<br />
  * <p/>
  * There is a many-to-many relationship between User's, RBAC Roles and Permissions.
- * <h3>{@link User}*<->*{@link Role}*<->*{@link Permission}</h3>
+ * <h3>{@link User}*<->*{@link Role}*<->*{@link org.apache.directory.fortress.core.model.Permission}</h3>
  * <p/>
  * <img src="../doc-files/RbacCore.png">
  * <p/>

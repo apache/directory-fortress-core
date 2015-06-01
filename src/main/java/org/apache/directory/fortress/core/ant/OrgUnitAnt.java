@@ -17,7 +17,9 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
+package org.apache.directory.fortress.core.ant;
+
+import org.apache.directory.fortress.core.model.OrgUnit;
 
 import java.io.Serializable;
 

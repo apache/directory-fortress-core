@@ -17,7 +17,11 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
+package org.apache.directory.fortress.core.model;
+
+import org.apache.directory.fortress.core.model.FortEntity;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Role;
 
 import java.io.Serializable;
 
@@ -26,46 +30,45 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * This entity is used by en masse to communicate parent and child {@link org.apache.directory.fortress.core.rbac.OrgUnit} information to the server.
+ * This entity is used by en masse to communicate {@link org.apache.directory.fortress.core.model.Role}, {@link Permission} and {@link org.apache.directory.fortress.core.model.Session} information to the server for access control decisions.
  * <p/>
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-@XmlRootElement(name = "fortOrgUnitRelationship")
+@XmlRootElement(name = "fortRolePerm")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "orgrelationship", propOrder = {
-    "child",
-    "parent"
+@XmlType(name = "rolePerm", propOrder = {
+    "role",
+    "perm"
 })
-public class OrgUnitRelationship extends FortEntity implements Serializable
+public class RolePerm extends FortEntity implements Serializable
 {
     private static final long serialVersionUID = 1L;
     
-    private OrgUnit parent;
-    private OrgUnit child;
+    private Role role;
+    private Permission perm;
 
-    public OrgUnit getParent()
+    public Role getRole()
     {
-        return parent;
+        return role;
     }
 
     
-    public void setParent(OrgUnit parent)
+    public void setRole(Role role)
     {
-        this.parent = parent;
+        this.role = role;
+    }
+    
+
+    public Permission getPerm()
+    {
+        return perm;
     }
 
     
-    public OrgUnit getChild()
+    public void setPerm(Permission perm)
     {
-        return child;
-    }
-
-    
-    public void setChild(OrgUnit child)
-    {
-        this.child = child;
+        this.perm = perm;
     }
 
 
@@ -76,12 +79,11 @@ public class OrgUnitRelationship extends FortEntity implements Serializable
     {
         StringBuilder sb = new StringBuilder();
 
-        sb.append( "OrgUnitRelationship object: \n" );
+        sb.append( "RolePerm object: \n" );
 
-        sb.append( "    parent :" ).append( parent ).append( '\n' );
-        sb.append( "    child :" ).append( child ).append( '\n' );
+        sb.append( "    role :" ).append( role ).append( '\n' );
+        sb.append( "    perm :" ).append( perm ).append( '\n' );
 
         return sb.toString();
     }
 }
-

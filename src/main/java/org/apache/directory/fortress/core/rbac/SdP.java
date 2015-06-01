@@ -25,6 +25,8 @@ import java.util.Set;
 
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 
@@ -34,10 +36,10 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * <li>Static Separation of Duties (SSD)</li>
  * <li>Dynamic Separation of Duties (DSD)</li>
  * </ol>
- * The SDSet entity itself distinguishes which is being targeted by {@link SDSet.SDType} which is equal to {@link SDSet.SDType#STATIC} or {@link SDSet.SDType#DYNAMIC}.
+ * The SDSet entity itself distinguishes which is being targeted by {@link org.apache.directory.fortress.core.model.SDSet.SDType} which is equal to {@link org.apache.directory.fortress.core.model.SDSet.SDType#STATIC} or {@link org.apache.directory.fortress.core.model.SDSet.SDType#DYNAMIC}.
  * This class performs data validations and error mapping in addition to calling DAO methods.  It is typically called
  * by internal Fortress Manager classes ({@link org.apache.directory.fortress.core.AdminMgr}, {@link org.apache.directory.fortress.core.ReviewMgr}) and also by internal SD utils.
- * This class is not intended to be called externally or outside of Fortress Core itself.  This class will accept {@link SDSet},
+ * This class is not intended to be called externally or outside of Fortress Core itself.  This class will accept {@link org.apache.directory.fortress.core.model.SDSet},
  * validate its contents and forward on to it's corresponding DAO {@link org.apache.directory.fortress.core.rbac.SdDAO}.
  * <p>
  * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system

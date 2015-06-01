@@ -20,10 +20,10 @@
 package org.apache.directory.fortress.core;
 
 
-import org.apache.directory.fortress.core.rbac.AdminRole;
+import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.rbac.TestUtils;
-import org.apache.directory.fortress.core.rbac.UserAdminRole;
-import org.apache.directory.fortress.core.rbac.User;
+import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.model.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

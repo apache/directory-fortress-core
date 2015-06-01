@@ -46,6 +46,14 @@ import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.BindResponse;
 import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
 import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.fortress.core.model.Address;
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -2260,9 +2268,9 @@ final class UserDAO extends ApacheDsDataProvider
 
 
     /**
-     * Given a User address, {@link Address}, load into ldap attribute set in preparation for ldap add.
+     * Given a User address, {@link org.apache.directory.fortress.core.model.Address}, load into ldap attribute set in preparation for ldap add.
      *
-     * @param address contains User address {@link Address} targeted for adding to ldap.
+     * @param address contains User address {@link org.apache.directory.fortress.core.model.Address} targeted for adding to ldap.
      * @param entry   collection of ldap attributes containing RBAC role assignments in raw ldap format.
      * @throws org.apache.directory.api.ldap.model.exception.LdapException
      */
@@ -2447,7 +2455,7 @@ final class UserDAO extends ApacheDsDataProvider
             for ( String raw : roles )
             {
                 UserAdminRole ure = new ObjectFactory().createUserAdminRole();
-                ure.load( raw, contextId );
+                ure.load( raw, contextId, new RoleUtil() );
                 ure.setSequenceId( sequence++ );
                 ure.setUserId( userId );
                 uRoles.add( ure );
@@ -2492,7 +2500,7 @@ final class UserDAO extends ApacheDsDataProvider
             for ( String raw : roles )
             {
                 UserRole ure = new ObjectFactory().createUserRole();
-                ure.load( raw, contextId );
+                ure.load( raw, contextId, new RoleUtil() );
                 ure.setUserId( userId );
                 ure.setSequenceId( sequence++ );
                 uRoles.add( ure );

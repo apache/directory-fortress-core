@@ -23,13 +23,13 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.rbac.Manageable;
-import org.apache.directory.fortress.core.rbac.OrgUnit;
-import org.apache.directory.fortress.core.rbac.PermObj;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.Role;
-import org.apache.directory.fortress.core.rbac.SDSet;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.rbac.UserRole;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.SDSet;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import java.util.ArrayList;
@@ -240,7 +240,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
      * <li>{@link OrgUnit#name} - contains one or more characters of org unit associated with existing object being targeted</li>
      * </ul>
      *
-     * @param ou contains org unit name {@link org.apache.directory.fortress.core.rbac.OrgUnit#name}.  The search val contains the full name of matching ou in OS-P data set.
+     * @param ou contains org unit name {@link org.apache.directory.fortress.core.model.OrgUnit#name}.  The search val contains the full name of matching ou in OS-P data set.
      * @return List of type PermObj.  Fortress permissions are object->operation mappings.
      * @throws org.apache.directory.fortress.core.SecurityException
      *          thrown in the event of system error.
@@ -471,7 +471,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
      * <li>{@link OrgUnit#name} - contains one or more characters of org unit associated with existing object(s) being targeted</li>
      * </ul>
      *
-     * @param ou contains name of User OU, {@link org.apache.directory.fortress.core.rbac.OrgUnit#name} that match ou attribute associated with User entity in the directory.
+     * @param ou contains name of User OU, {@link org.apache.directory.fortress.core.model.OrgUnit#name} that match ou attribute associated with User entity in the directory.
      * @return List of type User.
      * @throws SecurityException In the event of system error.
      */

@@ -29,6 +29,11 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.SDSet;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

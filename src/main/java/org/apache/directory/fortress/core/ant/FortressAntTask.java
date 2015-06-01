@@ -54,21 +54,20 @@ import org.apache.directory.fortress.core.ldap.container.OrganizationalUnitP;
 import org.apache.directory.fortress.core.ldap.suffix.Suffix;
 import org.apache.directory.fortress.core.ldap.suffix.SuffixP;
 
-import org.apache.directory.fortress.core.rbac.AdminRole;
+import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.rbac.ClassUtil;
-import org.apache.directory.fortress.core.rbac.Context;
-import org.apache.directory.fortress.core.rbac.OrgUnit;
-import org.apache.directory.fortress.core.rbac.OrgUnitAnt;
-import org.apache.directory.fortress.core.rbac.PermGrant;
-import org.apache.directory.fortress.core.rbac.PermObj;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.PwPolicy;
-import org.apache.directory.fortress.core.rbac.Relationship;
-import org.apache.directory.fortress.core.rbac.Role;
-import org.apache.directory.fortress.core.rbac.SDSet;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.rbac.UserAdminRole;
-import org.apache.directory.fortress.core.rbac.UserRole;
+import org.apache.directory.fortress.core.model.Context;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.PermGrant;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PwPolicy;
+import org.apache.directory.fortress.core.model.Relationship;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.SDSet;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.Testable;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
@@ -135,28 +134,31 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * The order of operations in the XML does not effect the order or precedence which has been "hard-wired" by the
  * processing order within this class.
  * <ol>
- * <li>Delete User Role Assignments {@link org.apache.directory.fortress.core.AdminMgr#deassignUser(org.apache.directory.fortress.core.rbac.UserRole)}</li>
+ * <li>Delete User Role Assignments {@link org.apache.directory.fortress.core.AdminMgr#deassignUser(org.apache.directory.fortress.core.model.UserRole)}</li>
  * <li>Delete User AdminRole Assignments {@link DelAdminMgr#deassignUser(UserAdminRole)}</li>
- * <li>Revoke Permission Assignments Delete{@link AdminMgr#revokePermission(org.apache.directory.fortress.core.rbac.Permission,
- * org.apache.directory.fortress.core.rbac.Role)}</li>
- * <li>Delete Users {@link org.apache.directory.fortress.core.AdminMgr#disableUser(org.apache.directory.fortress.core.rbac.User)}</li>
- * <li>Delete Password Policies {@link org.apache.directory.fortress.core.PwPolicyMgr#delete(org.apache.directory.fortress.core.rbac.PwPolicy)}</li>
+ * <li>Revoke Permission Assignments Delete{@link AdminMgr#revokePermission(org.apache.directory.fortress.core.model.Permission,
  *
- * <li>Delete Permission Operations {@link org.apache.directory.fortress.core.AdminMgr#deletePermission(org.apache.directory.fortress.core.rbac.Permission)
+ * org.apache.directory.fortress.core.model.Role)}</li>
+ * <li>Delete Users {@link org.apache.directory.fortress.core.AdminMgr#disableUser(org.apache.directory.fortress.core.model.User)}</li>
+ * <li>Delete Password Policies {@link org.apache.directory.fortress.core.PwPolicyMgr#delete(org.apache.directory.fortress.core.model.PwPolicy)}</li>
+ *
+ * <li>Delete Permission Operations {@link org.apache.directory.fortress.core.AdminMgr#deletePermission(org.apache.directory.fortress.core.model.Permission)
  * }</li>
- * <li>Delete Permission Objects {@link org.apache.directory.fortress.core.AdminMgr#deletePermObj(org.apache.directory.fortress.core.rbac.PermObj)}</li>
+ * <li>Delete Permission Objects {@link org.apache.directory.fortress.core.AdminMgr#deletePermObj(org.apache.directory.fortress.core.model.PermObj)}</li>
  *
- * <li>Delete SSD and DSD Sets {@link org.apache.directory.fortress.core.AdminMgr#deleteDsdSet(org.apache.directory.fortress.core.rbac.SDSet)} and {@link
- * org.apache.directory.fortress.core.AdminMgr#deleteSsdSet(org.apache.directory.fortress.core.rbac.SDSet)}</li>
- * <li>Delete RBAC Roles Inheritances {@link org.apache.directory.fortress.core.AdminMgr#deleteInheritance(org.apache.directory.fortress.core.rbac.Role,
- * org.apache.directory.fortress.core.rbac.Role)}</li>
- * <li>Delete RBAC Roles {@link org.apache.directory.fortress.core.AdminMgr#deleteRole(org.apache.directory.fortress.core.rbac.Role)}</li>
- * <li>Delete ARBAC Role Inheritances {@link DelAdminMgr#deleteInheritance(org.apache.directory.fortress.core.rbac.AdminRole,
- * org.apache.directory.fortress.core.rbac.AdminRole)}</li>
- * <li>Delete ARBAC Roles {@link org.apache.directory.fortress.core.DelAdminMgr#deleteRole(org.apache.directory.fortress.core.rbac.AdminRole)}</li>
- * <li>Delete User and Perm OU Inheritances {@link DelAdminMgr#deleteInheritance(org.apache.directory.fortress.core.rbac.OrgUnit,
- * org.apache.directory.fortress.core.rbac.OrgUnit)} USER and PERM</li>
- * <li>Delete User and Perm OUs {@link org.apache.directory.fortress.core.DelAdminMgr#delete(org.apache.directory.fortress.core.rbac.OrgUnit)} USER and
+ * <li>Delete SSD and DSD Sets {@link org.apache.directory.fortress.core.AdminMgr#deleteDsdSet(org.apache.directory.fortress.core.model.SDSet)} and {@link
+ * org.apache.directory.fortress.core.AdminMgr#deleteSsdSet(org.apache.directory.fortress.core.model.SDSet)}</li>
+ * <li>Delete RBAC Roles Inheritances {@link org.apache.directory.fortress.core.AdminMgr#deleteInheritance(org.apache.directory.fortress.core.model.Role,
+ * org.apache.directory.fortress.core.model.Role)}</li>
+ * <li>Delete RBAC Roles {@link org.apache.directory.fortress.core.AdminMgr#deleteRole(org.apache.directory.fortress.core.model.Role)}</li>
+ * <li>Delete ARBAC Role Inheritances {@link DelAdminMgr#deleteInheritance(org.apache.directory.fortress.core.model.AdminRole,
+ *
+ * org.apache.directory.fortress.core.model.AdminRole)}</li>
+ * <li>Delete ARBAC Roles {@link org.apache.directory.fortress.core.DelAdminMgr#deleteRole(org.apache.directory.fortress.core.model.AdminRole)}</li>
+ * <li>Delete User and Perm OU Inheritances {@link DelAdminMgr#deleteInheritance(org.apache.directory.fortress.core.model.OrgUnit,
+ *
+ * org.apache.directory.fortress.core.model.OrgUnit)} USER and PERM</li>
+ * <li>Delete User and Perm OUs {@link org.apache.directory.fortress.core.DelAdminMgr#delete(org.apache.directory.fortress.core.model.OrgUnit)} USER and
  * PERM</li>
  * <li>Delete Configuration Entries {@link org.apache.directory.fortress.core.cfg.ConfigMgr#delete(String, java.util.Properties)}</li>
  * <li>Delete Containers {@link OrganizationalUnitP#delete(OrganizationalUnit)}</li>
@@ -164,24 +166,26 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * <li>Add Suffix {@link SuffixP#add(Suffix)}}</li>
  * <li>Add Containers {@link OrganizationalUnitP#add(OrganizationalUnit)}</li>
  * <li>Add Configuration Parameters {@link ConfigMgr#add(String, java.util.Properties)}</li>
- * <li>Add User and Perm OUs {@link org.apache.directory.fortress.core.DelAdminMgr#add(org.apache.directory.fortress.core.rbac.OrgUnit)} USER and PERM</li>
- * <li>Add User and Perm OU Inheritances {@link DelAdminMgr#addInheritance(org.apache.directory.fortress.core.rbac.OrgUnit,
- * org.apache.directory.fortress.core.rbac.OrgUnit)} USER and PERM</li>
- * <li>Add ARBAC Roles {@link org.apache.directory.fortress.core.DelAdminMgr#addRole(org.apache.directory.fortress.core.rbac.AdminRole)}</li>
- * <li>Add ARBAC Role Inheritances {@link org.apache.directory.fortress.core.DelAdminMgr#addInheritance(org.apache.directory.fortress.core.rbac.AdminRole,
- * org.apache.directory.fortress.core.rbac.AdminRole)}</li>
- * <li>Add RBAC Roles {@link org.apache.directory.fortress.core.AdminMgr#addRole(org.apache.directory.fortress.core.rbac.Role)}</li>
- * <li>Add RBAC Role Inheritances {@link org.apache.directory.fortress.core.AdminMgr#addInheritance(org.apache.directory.fortress.core.rbac.Role,
- * org.apache.directory.fortress.core.rbac.Role)}</li>
- * <li>Add DSD and SSD Sets {@link org.apache.directory.fortress.core.AdminMgr#createDsdSet(org.apache.directory.fortress.core.rbac.SDSet)} and {@link org.apache.directory.fortress.core.AdminMgr#createSsdSet(org.apache.directory.fortress.core.rbac.SDSet)}</li>
- * <li>Add Permission Objects {@link org.apache.directory.fortress.core.AdminMgr#addPermObj(org.apache.directory.fortress.core.rbac.PermObj)}</li>
- * <li>Add Permission Operations {@link org.apache.directory.fortress.core.AdminMgr#addPermission(org.apache.directory.fortress.core.rbac.Permission)}</li>
- * <li>Add Password Policies {@link org.apache.directory.fortress.core.PwPolicyMgr#add(org.apache.directory.fortress.core.rbac.PwPolicy)}</li>
- * <li>Add Users {@link org.apache.directory.fortress.core.AdminMgr#addUser(org.apache.directory.fortress.core.rbac.User)}</li>
- * <li>Grant RBAC Permissions {@link org.apache.directory.fortress.core.AdminMgr#grantPermission(org.apache.directory.fortress.core.rbac.Permission,
- * org.apache.directory.fortress.core.rbac.Role)}</li>
- * <li>Assign ARBAC Roles {@link org.apache.directory.fortress.core.DelAdminMgr#assignUser(org.apache.directory.fortress.core.rbac.UserAdminRole)}</li>
- * <li>Assign RBAC Roles {@link org.apache.directory.fortress.core.AdminMgr#assignUser(org.apache.directory.fortress.core.rbac.UserRole)}</li>
+ * <li>Add User and Perm OUs {@link org.apache.directory.fortress.core.DelAdminMgr#add(org.apache.directory.fortress.core.model.OrgUnit)} USER and PERM</li>
+ * <li>Add User and Perm OU Inheritances {@link DelAdminMgr#addInheritance(org.apache.directory.fortress.core.model.OrgUnit,
+ * org.apache.directory.fortress.core.model.OrgUnit)} USER and PERM</li>
+ * <li>Add ARBAC Roles {@link org.apache.directory.fortress.core.DelAdminMgr#addRole(org.apache.directory.fortress.core.model.AdminRole)}</li>
+ * <li>Add ARBAC Role Inheritances {@link org.apache.directory.fortress.core.DelAdminMgr#addInheritance(org.apache.directory.fortress.core.model.AdminRole,
+ * org.apache.directory.fortress.core.model.AdminRole)}</li>
+ * <li>Add RBAC Roles {@link org.apache.directory.fortress.core.AdminMgr#addRole(org.apache.directory.fortress.core.model.Role)}</li>
+ *
+ * <li>Add RBAC Role Inheritances {@link org.apache.directory.fortress.core.AdminMgr#addInheritance(org.apache.directory.fortress.core.model.Role,
+ * org.apache.directory.fortress.core.model.Role)}</li>
+ * <li>Add DSD and SSD Sets {@link org.apache.directory.fortress.core.AdminMgr#createDsdSet(org.apache.directory.fortress.core.model.SDSet)} and {@link org.apache.directory.fortress.core.AdminMgr#createSsdSet(org.apache.directory.fortress.core.model.SDSet)}</li>
+ *
+ * <li>Add Permission Objects {@link org.apache.directory.fortress.core.AdminMgr#addPermObj(org.apache.directory.fortress.core.model.PermObj)}</li>
+ * <li>Add Permission Operations {@link org.apache.directory.fortress.core.AdminMgr#addPermission(org.apache.directory.fortress.core.model.Permission)}</li>
+ * <li>Add Password Policies {@link org.apache.directory.fortress.core.PwPolicyMgr#add(org.apache.directory.fortress.core.model.PwPolicy)}</li>
+ * <li>Add Users {@link org.apache.directory.fortress.core.AdminMgr#addUser(org.apache.directory.fortress.core.model.User)}</li>
+ * <li>Grant RBAC Permissions {@link org.apache.directory.fortress.core.AdminMgr#grantPermission(org.apache.directory.fortress.core.model.Permission,
+ * org.apache.directory.fortress.core.model.Role)}</li>
+ * <li>Assign ARBAC Roles {@link org.apache.directory.fortress.core.DelAdminMgr#assignUser(org.apache.directory.fortress.core.model.UserAdminRole)}</li>
+ * <li>Assign RBAC Roles {@link org.apache.directory.fortress.core.AdminMgr#assignUser(org.apache.directory.fortress.core.model.UserRole)}</li>
  * </li>
  * </ol>
  * <p/>

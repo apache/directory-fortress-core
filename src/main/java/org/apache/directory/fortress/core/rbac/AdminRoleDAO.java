@@ -43,13 +43,15 @@ import org.apache.directory.fortress.core.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.util.time.CUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 
 
 /**
- * The AdminRoleDAO is called by {@link AdminRoleP} and processes data via its entity {@link AdminRole}.
+ * The AdminRoleDAO is called by {@link AdminRoleP} and processes data via its entity {@link org.apache.directory.fortress.core.model.AdminRole}.
  * <p/>
  * The Fortress AdminRoleDAO uses the following other Fortress structural and aux object classes:
  * <h4>1. ftRls Structural objectclass is used to store the AdminRole information like name, and temporal constraints</h4>
@@ -139,7 +141,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
 
 
     /**
-     * Create a new AdminRole entity using supplied data.  Required attribute is {@link AdminRole#name}.
+     * Create a new AdminRole entity using supplied data.  Required attribute is {@link org.apache.directory.fortress.core.model.AdminRole#name}.
      * This data will be stored in the {@link GlobalIds#ADMIN_ROLE_ROOT} container.
      *
      * @param entity record contains AdminRole data.  Null attributes will be ignored.

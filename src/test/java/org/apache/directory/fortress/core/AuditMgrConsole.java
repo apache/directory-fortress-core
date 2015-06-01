@@ -20,14 +20,12 @@
 package org.apache.directory.fortress.core;
 
 import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
-import org.apache.directory.api.ldap.model.name.Dn;
-import org.apache.directory.api.ldap.model.name.Rdn;
-import org.apache.directory.fortress.core.rbac.Bind;
-import org.apache.directory.fortress.core.rbac.AuthZ;
-import org.apache.directory.fortress.core.rbac.Mod;
+import org.apache.directory.fortress.core.model.Bind;
+import org.apache.directory.fortress.core.model.AuthZ;
+import org.apache.directory.fortress.core.model.Mod;
 import org.apache.directory.fortress.core.rbac.TestUtils;
-import org.apache.directory.fortress.core.rbac.UserAudit;
-import org.apache.directory.fortress.core.rbac.Permission;
+import org.apache.directory.fortress.core.model.UserAudit;
+import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.slf4j.Logger;
@@ -859,7 +857,7 @@ class AuditMgrConsole
      * Parse slapd access raw data to pull the permission name out.
      *
      * @param authZ raw data contained in Fortress audit entity.
-     * @return Permission contains {@link org.apache.directory.fortress.core.rbac.Permission#objName} and {@link org.apache.directory.fortress.core.rbac.Permission#opName}
+     * @return Permission contains {@link org.apache.directory.fortress.core.model.Permission#objName} and {@link org.apache.directory.fortress.core.model.Permission#opName}
      */
     private Permission getAuthZPerm2(AuthZ authZ)
     {

@@ -20,7 +20,7 @@
 package org.apache.directory.fortress.core.util.time;
 
 
-import org.apache.directory.fortress.core.rbac.Session;
+import org.apache.directory.fortress.core.model.Session;
 
 
 /**
@@ -28,11 +28,11 @@ import org.apache.directory.fortress.core.rbac.Session;
  *
  * <h4> Constraint Targets</h4>
  * <ol>
- * <li>{@link org.apache.directory.fortress.core.rbac.User}</li>
- * <li>{@link org.apache.directory.fortress.core.rbac.UserRole}</li>
- * <li>{@link org.apache.directory.fortress.core.rbac.Role}</li>
- * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole}</li>
- * <li>{@link org.apache.directory.fortress.core.rbac.UserAdminRole}</li>
+ * <li>{@link org.apache.directory.fortress.core.model.User}</li>
+ * <li>{@link org.apache.directory.fortress.core.model.UserRole}</li>
+ * <li>{@link org.apache.directory.fortress.core.model.Role}</li>
+ * <li>{@link org.apache.directory.fortress.core.model.AdminRole}</li>
+ * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole}</li>
  * </ol>
  * </p>
  * <h4> Constraint Processors </h4>
@@ -60,7 +60,7 @@ import org.apache.directory.fortress.core.rbac.Session;
 public interface Validator
 {
     /**
-     * This method is called during activation of {@link org.apache.directory.fortress.core.rbac.UserRole} and {@link org.apache.directory.fortress.core.rbac.UserAdminRole}
+     * This method is called during activation of {@link org.apache.directory.fortress.core.model.UserRole} and {@link org.apache.directory.fortress.core.model.UserAdminRole}
      * </p>
      * The following error codes can be returned for validations:
      * <ol>

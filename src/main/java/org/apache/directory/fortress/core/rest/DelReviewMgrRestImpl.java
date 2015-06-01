@@ -22,11 +22,11 @@ package org.apache.directory.fortress.core.rest;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.DelReviewMgr;
-import org.apache.directory.fortress.core.rbac.AdminRole;
+import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.rbac.Manageable;
-import org.apache.directory.fortress.core.rbac.OrgUnit;
-import org.apache.directory.fortress.core.rbac.UserAdminRole;
-import org.apache.directory.fortress.core.rbac.User;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import java.util.ArrayList;
@@ -224,8 +224,8 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
      * set by setting type attribute.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.OrgUnit#name} - contains the name associated with the OrgUnit object targeted for search.</li>
-     * <li>{@link OrgUnit#type} - contains the type of OU:  {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#PERM}</li>
+     * <li>{@link org.apache.directory.fortress.core.model.OrgUnit#name} - contains the name associated with the OrgUnit object targeted for search.</li>
+     * <li>{@link OrgUnit#type} - contains the type of OU:  {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM}</li>
      * </ul>
      *
      * @param entity contains OrgUnit name and type.
@@ -266,7 +266,7 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
      * set by setting type parameter on API.
      * <h4>required parameters</h4>
      * <ul>
-     * <li>{@link org.apache.directory.fortress.core.rbac.OrgUnit#type} - contains the type of OU:  {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.rbac.OrgUnit.Type#PERM}</li>
+     * <li>{@link org.apache.directory.fortress.core.model.OrgUnit#type} - contains the type of OU:  {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM}</li>
      * <li>searchVal - contains some or all of the chars associated with the OrgUnit objects targeted for search.</li>
      * </ul>
      *

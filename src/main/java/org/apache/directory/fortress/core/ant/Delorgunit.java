@@ -22,11 +22,9 @@ package org.apache.directory.fortress.core.ant;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.directory.fortress.core.rbac.OrgUnitAnt;
-
 
 /**
- * The class is used by {@link FortressAntTask} to delete {@link org.apache.directory.fortress.core.rbac.OrgUnit}s used to drive {@link org.apache.directory.fortress.core.DelAdminMgr#delete(org.apache.directory.fortress.core.rbac.OrgUnit)}.
+ * The class is used by {@link FortressAntTask} to delete {@link org.apache.directory.fortress.core.model.OrgUnit}s used to drive {@link org.apache.directory.fortress.core.DelAdminMgr#delete(org.apache.directory.fortress.core.model.OrgUnit)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>This class name, 'Delorgunit', is used for the xml tag in the load script.</p>
  * <pre>
@@ -80,7 +78,7 @@ public class Delorgunit
     /**
      * Used by {@link FortressAntTask#addOrgunits()} to retrieve list of OrgUnits as defined in input xml file.
      *
-     * @return collection containing {@link org.apache.directory.fortress.core.rbac.OrgUnit}s targeted for removal.
+     * @return collection containing {@link org.apache.directory.fortress.core.model.OrgUnit}s targeted for removal.
      */
     public List<OrgUnitAnt> getOrgUnits()
     {

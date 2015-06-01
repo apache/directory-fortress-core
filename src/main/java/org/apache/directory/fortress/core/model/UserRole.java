@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
+package org.apache.directory.fortress.core.model;
 
 
 import java.io.Serializable;
@@ -32,6 +32,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.rbac.RoleUtil;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.util.time.CUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
@@ -44,7 +45,7 @@ import org.apache.directory.fortress.core.util.time.Constraint;
  * (Temporal Constraints) attributes on the 'ftUserAttrs' object class.
  * The UserRole entity carries elements of {@link org.apache.directory.fortress.core.util.time.Constraint}.  Any attributes of
  * Constraint not set within this entity
- * will use same attribute from the {@link org.apache.directory.fortress.core.rbac.Role} entity.  Thus the UserRole can override
+ * will use same attribute from the {@link org.apache.directory.fortress.core.model.Role} entity.  Thus the UserRole can override
  * Constraint attributes from it's corresponding Role if required by caller.
  * <p/>
  * <h4>UserRole Schema</h4>
@@ -149,8 +150,10 @@ public class UserRole extends FortEntity implements Serializable, Constraint
      * a compact String for efficient storage and retrieval and is not intended to be called by external programs.
      *
      * @param szRawData contains a raw formatted String that maps to 'ftRC' attribute on 'ftUserAttrs' object class
+     * @param contextId contains the tenant id.
+     * @param parentUtil provides method to getParents.
      */
-    public void load( String szRawData, String contextId )
+    public void load( String szRawData, String contextId, ParentUtil parentUtil )
     {
         if ( ( szRawData != null ) && ( szRawData.length() > 0 ) )
         {
@@ -163,7 +166,7 @@ public class UserRole extends FortEntity implements Serializable, Constraint
                     {
                         case 0:
                             name = tokens[i];
-                            parents = RoleUtil.getParents( name.toUpperCase(), contextId );
+                            parents = parentUtil.getParentsCB( name.toUpperCase(), contextId );
                             break;
 
                         case 1:

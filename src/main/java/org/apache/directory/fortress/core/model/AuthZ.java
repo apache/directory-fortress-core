@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
+package org.apache.directory.fortress.core.model;
 
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -28,32 +28,30 @@ import java.io.Serializable;
 
 
 /**
- * This entity class contains OpenLDAP slapd access log records that correspond to bind attempts made to the directory.
+ * This entity class contains OpenLDAP slapo-accesslog records that correspond to authorization attempts made to the directory.
  * <p/>
- * The auditBind Structural object class is used to store authentication events that can later be queried via ldap API.<br />
- * <code># The Bind class includes the reqVersion attribute which contains the LDAP</code>
- * <code># protocol version specified in the Bind as well as the reqMethod attribute</code>
- * <code># which contains the Bind Method used in the Bind. This will be the string</code>
- * <code># SIMPLE for LDAP Simple Binds or SASL(mech) for SASL Binds. Note that unless</code>
- * <code># configured as a global overlay, only Simple Binds using DNs that reside in</code>
- * <code># the current database will be logged:</code>
+ * The auditCompare Structural object class is used by the slapo-accesslog overlay to store record of fortress authorization events.
+ * These events can later be pulled as audit trail using ldap protocol.  The data pertaining to authZ events are stored in this entity record.<br/>
+ * <p/>
  * <pre>
  * ------------------------------------------
- * objectclass (  1.3.6.1.4.1.4203.666.11.5.2.6 NAME 'auditBind'</code>
- * DESC 'Bind operation'</code>
- * SUP auditObject STRUCTURAL</code>
- * MUST ( reqVersion $ reqMethod ) )</code>
+ * objectclass (  1.3.6.1.4.1.4203.666.11.5.2.7
+ * NAME 'auditCompare'
+ * DESC 'Compare operation'
+ * SUP auditObject STRUCTURAL
+ * MUST reqAssertion )
  * ------------------------------------------
  * </pre>
+ * For the Compare operation the reqAssertion attribute carries the Attribute Value Assertion used in the compare request
  * <p/>
- * Note this class used descriptions pulled from man pages on slapd access log.
+ * Note this class uses descriptions pulled from man pages on slapo-accesslog.
  * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-@XmlRootElement(name = "fortBind")
+@XmlRootElement(name = "fortAuthZ")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "bind", propOrder =
+@XmlType(name = "authZ", propOrder =
     {
         "createTimestamp",
         "creatorsName",
@@ -64,20 +62,28 @@ import java.io.Serializable;
         "modifiersName",
         "modifyTimestamp",
         "objectClass",
+        "reqAttr",
+        "reqAttrsOnly",
         "reqAuthzID",
         "reqControls",
         "reqDN",
+        "reqDerefAliases",
         "reqEnd",
-        "reqMethod",
+        "reqEntries",
+        "reqFilter",
         "reqResult",
+        "reqScope",
         "reqSession",
+        "reqSizeLimit",
         "reqStart",
+        "reqTimeLimit",
         "reqType",
-        "reqVersion",
+        "reqAssertion",
         "structuralObjectClass",
+        "subschemaSubentry",
         "sequenceId"
 })
-public class Bind extends FortEntity implements Serializable
+public class AuthZ extends FortEntity implements Serializable
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
@@ -90,17 +96,25 @@ public class Bind extends FortEntity implements Serializable
     private String modifiersName;
     private String modifyTimestamp;
     private String objectClass;
+    private String reqAttr;
+    private String reqAttrsOnly;
     private String reqAuthzID;
     private String reqControls;
     private String reqDN;
+    private String reqDerefAliases;
     private String reqEnd;
-    private String reqMethod;
+    private String reqEntries;
+    private String reqFilter;
     private String reqResult;
+    private String reqScope;
     private String reqSession;
+    private String reqSizeLimit;
     private String reqStart;
+    private String reqTimeLimit;
     private String reqType;
-    private String reqVersion;
+    private String reqAssertion;
     private String structuralObjectClass;
+    private String subschemaSubentry;
     private long sequenceId;
 
 
@@ -108,7 +122,7 @@ public class Bind extends FortEntity implements Serializable
      * Get the attribute that maps to 'reqStart' which provides the start time of the operation which is also the rDn for the node.
      * These time attributes use generalizedTime syntax. The reqStart attribute is also used as the RDN for each log entry.
      *
-     * @return attribute that maps to 'reqStart' in 'auditBind' object class.
+     * @return attribute that maps to 'reqStart' in 'auditSearch' object class.
      */
     public String getCreateTimestamp()
     {
@@ -120,7 +134,7 @@ public class Bind extends FortEntity implements Serializable
      * Set the attribute that maps to 'reqStart' which provides the start time of the operation which is also the rDn for the node.
      * These time attributes use generalizedTime syntax. The reqStart attribute is also used as the RDN for each log entry.
      *
-     * @param createTimestamp attribute that maps to 'reqStart' in 'auditBind' object class.
+     * @param createTimestamp attribute that maps to 'reqStart' in 'auditSearch' object class.
      */
     public void setCreateTimestamp( String createTimestamp )
     {
@@ -133,7 +147,7 @@ public class Bind extends FortEntity implements Serializable
      * is configured for performing slapd access log operations on behalf of Fortress.
      * The config property name {@link org.apache.directory.fortress.core.ldap.ApacheDsDataProvider#LDAP_LOG_POOL_UID} contains the audit log system user id.
      *
-     * @return value that maps to 'creatorsName' attribute on 'auditBind' object class.
+     * @return value that maps to 'creatorsName' attribute on 'auditSearch' object class.
      */
     public String getCreatorsName()
     {
@@ -146,7 +160,7 @@ public class Bind extends FortEntity implements Serializable
      * is configured for performing slapd access log operations on behalf of Fortress.
      * The config property name {@link org.apache.directory.fortress.core.ldap.ApacheDsDataProvider#LDAP_LOG_POOL_UID} contains the audit log system user id.
      *
-     * @param creatorsName maps to 'creatorsName' attribute on 'auditBind' object class.
+     * @param creatorsName maps to 'creatorsName' attribute on 'auditSearch' object class.
      */
     public void setCreatorsName( String creatorsName )
     {
@@ -157,7 +171,7 @@ public class Bind extends FortEntity implements Serializable
     /**
      * Return the Change Sequence Number (CSN) containing sequence number that is used for OpenLDAP synch replication functionality.
      *
-     * @return attribute that maps to 'entryCSN' on 'auditBind' object class.
+     * @return attribute that maps to 'entryCSN' on 'auditSearch' object class.
      */
     public String getEntryCSN()
     {
@@ -168,7 +182,7 @@ public class Bind extends FortEntity implements Serializable
     /**
      * Set the Change Sequence Number (CSN) containing sequence number that is used for OpenLDAP synch replication functionality.
      *
-     * @param entryCSN maps to 'entryCSN' attribute on 'auditBind' object class.
+     * @param entryCSN maps to 'entryCSN' attribute on 'auditSearch' object class.
      */
     public void setEntryCSN( String entryCSN )
     {
@@ -179,7 +193,7 @@ public class Bind extends FortEntity implements Serializable
     /**
      * Get the entry dn for bind object stored in directory.  This attribute uses the 'reqStart' along with suffix for log.
      *
-     * @return attribute that maps to 'entryDN' on 'auditBind' object class.
+     * @return attribute that maps to 'entryDN' on 'auditSearch' object class.
      */
     public String getEntryDN()
     {
@@ -190,7 +204,7 @@ public class Bind extends FortEntity implements Serializable
     /**
      * Set the entry dn for bind object stored in directory.  This attribute uses the 'reqStart' along with suffix for log.
      *
-     * @param entryDN attribute that maps to 'entryDN' on 'auditBind' object class.
+     * @param entryDN attribute that maps to 'entryDN' on 'auditSearch' object class.
      */
     public void setEntryDN( String entryDN )
     {
@@ -199,9 +213,9 @@ public class Bind extends FortEntity implements Serializable
 
 
     /**
-     * Get the attribute that contains the Universally Unique ID (UUID) of the corresponding 'auditBind' record.
+     * Get the attribute that contains the Universally Unique ID (UUID) of the corresponding 'auditSearch' record.
      *
-     * @return value that maps to 'entryUUID' attribute on 'auditBind' object class.
+     * @return value that maps to 'entryUUID' attribute on 'auditSearch' object class.
      */
     public String getEntryUUID()
     {
@@ -210,9 +224,9 @@ public class Bind extends FortEntity implements Serializable
 
 
     /**
-     * Set the attribute that contains the Universally Unique ID (UUID) of the corresponding 'auditBind' record.
+     * Set the attribute that contains the Universally Unique ID (UUID) of the corresponding 'auditSearch' record.
      *
-     * @param entryUUID that maps to 'entryUUID' attribute on 'auditBind' object class.
+     * @param entryUUID that maps to 'entryUUID' attribute on 'auditSearch' object class.
      */
     public void setEntryUUID( String entryUUID )
     {
@@ -223,7 +237,7 @@ public class Bind extends FortEntity implements Serializable
     /**
      * Get the attribute that corresponds to the boolean value hasSubordinates.
      *
-     * @return value that maps to 'hasSubordinates' attribute on 'auditBind' object class.
+     * @return value that maps to 'hasSubordinates' attribute on 'auditSearch' object class.
      */
     public String getHasSubordinates()
     {
@@ -234,7 +248,7 @@ public class Bind extends FortEntity implements Serializable
     /**
      * Set the attribute that corresponds to the boolean value hasSubordinates.
      *
-     * @param hasSubordinates maps to same name on 'auditBind' object class.
+     * @param hasSubordinates maps to same name on 'auditSearch' object class.
      */
     public void setHasSubordinates( String hasSubordinates )
     {
@@ -247,7 +261,7 @@ public class Bind extends FortEntity implements Serializable
      * is configured for performing slapd access log operations on behalf of Fortress.
      * The config property name {@link org.apache.directory.fortress.core.ldap.ApacheDsDataProvider#LDAP_LOG_POOL_UID} contains the audit log system user id.
      *
-     * @return value that maps to 'modifiersName' attribute on 'auditBind' object class.
+     * @return value that maps to 'modifiersName' attribute on 'auditSearch' object class.
      */
     public String getModifiersName()
     {
@@ -260,7 +274,7 @@ public class Bind extends FortEntity implements Serializable
      * is configured for performing slapd access log operations on behalf of Fortress.
      * The config property name {@link org.apache.directory.fortress.core.ldap.ApacheDsDataProvider#LDAP_LOG_POOL_UID} contains the audit log system user id.
      *
-     * @param modifiersName maps to 'modifiersName' attribute on 'auditBind' object class.
+     * @param modifiersName maps to 'modifiersName' attribute on 'auditSearch' object class.
      */
     public void setModifiersName( String modifiersName )
     {
@@ -272,7 +286,7 @@ public class Bind extends FortEntity implements Serializable
      * Get the attribute that maps to 'modifyTimestamp' which provides the last time audit record was changed.
      * The time attributes use generalizedTime syntax.
      *
-     * @return attribute that maps to 'modifyTimestamp' in 'auditBind' object class.
+     * @return attribute that maps to 'modifyTimestamp' in 'auditSearch' object class.
      */
     public String getModifyTimestamp()
     {
@@ -284,7 +298,7 @@ public class Bind extends FortEntity implements Serializable
      * Set the attribute that maps to 'modifyTimestamp' which provides the last time audit record was changed.
      * The time attributes use generalizedTime syntax.
      *
-     * @param modifyTimestamp attribute that maps to same name in 'auditBind' object class.
+     * @param modifyTimestamp attribute that maps to same name in 'auditSearch' object class.
      */
     public void setModifyTimestamp( String modifyTimestamp )
     {
@@ -293,9 +307,9 @@ public class Bind extends FortEntity implements Serializable
 
 
     /**
-     * Get the object class name of the audit record.  For this entity, this value will always be 'auditBind'.
+     * Get the object class name of the audit record.  For this entity, this value will always be 'auditSearch'.
      *
-     * @return value that maps to 'objectClass' attribute on 'auditBind' obejct class.
+     * @return value that maps to 'objectClass' attribute on 'auditSearch' obejct class.
      */
     public String getObjectClass()
     {
@@ -304,9 +318,9 @@ public class Bind extends FortEntity implements Serializable
 
 
     /**
-     * Set the object class name of the audit record.  For this entity, this value will always be 'auditBind'.
+     * Set the object class name of the audit record.  For this entity, this value will always be 'auditSearch'.
      *
-     * @param objectClass value that maps to same name on 'auditBind' obejct class.
+     * @param objectClass value that maps to same name on 'auditSearch' obejct class.
      */
     public void setObjectClass( String objectClass )
     {
@@ -321,7 +335,7 @@ public class Bind extends FortEntity implements Serializable
      * may be altered in various circumstances.
      * For Fortress bind operations this will map to {@link User#userId}
      *
-     * @return value that maps to 'reqAuthzID' on 'auditBind' object class.
+     * @return value that maps to 'reqAuthzID' on 'auditSearch' object class.
      */
     public String getReqAuthzID()
     {
@@ -349,7 +363,7 @@ public class Bind extends FortEntity implements Serializable
      * response, respectively. The attribute  values  are  just  uninterpreted
      * octet strings.
      *
-     * @return value that maps to 'reqControls' attribute on 'auditBind' object class.
+     * @return value that maps to 'reqControls' attribute on 'auditSearch' object class.
      */
     public String getReqControls()
     {
@@ -363,7 +377,7 @@ public class Bind extends FortEntity implements Serializable
      * response, respectively. The attribute  values  are  just  uninterpreted
      * octet strings.
      *
-     * @param reqControls maps to same name attribute on 'auditBind' object class.
+     * @param reqControls maps to same name attribute on 'auditSearch' object class.
      */
     public void setReqControls( String reqControls )
     {
@@ -377,7 +391,7 @@ public class Bind extends FortEntity implements Serializable
      * request, this is the DN of the entry being added. For a Search request,
      * this is the base DN of the search.
      *
-     * @return value that map to 'reqDN' attribute on 'auditBind' object class.
+     * @return value that map to 'reqDN' attribute on 'auditSearch' object class.
      */
     public String getReqDN()
     {
@@ -391,7 +405,7 @@ public class Bind extends FortEntity implements Serializable
      * request, this is the DN of the entry being added. For a Search request,
      * this is the base DN of the search.
      *
-     * @param reqDN maps to 'reqDN' attribute on 'auditBind' object class.
+     * @param reqDN maps to 'reqDN' attribute on 'auditSearch' object class.
      */
     public void setReqDN( String reqDN )
     {
@@ -402,7 +416,7 @@ public class Bind extends FortEntity implements Serializable
     /**
      * reqEnd provide the end time of the operation. It uses generalizedTime syntax.
      *
-     * @return value that maps to 'reqEnd' attribute on 'auditBind' object class.
+     * @return value that maps to 'reqEnd' attribute on 'auditSearch' object class.
      */
     public String getReqEnd()
     {
@@ -413,39 +427,11 @@ public class Bind extends FortEntity implements Serializable
     /**
      * reqEnd provide the end time of the operation. It uses generalizedTime syntax.
      *
-     * @param reqEnd value that maps to same name on 'auditBind' object class.
+     * @param reqEnd value that maps to same name on 'auditSearch' object class.
      */
     public void setReqEnd( String reqEnd )
     {
         this.reqEnd = reqEnd;
-    }
-
-
-    /**
-     * The reqMethod attribute contains the Bind Method used in the Bind. This will be
-     * the string SIMPLE for LDAP Simple Binds or SASL(<mech>) for SASL Binds.
-     * Note  that  unless  configured  as  a global overlay, only Simple Binds
-     * using DNs that reside in the current database will be logged.
-     *
-     * @return String that maps to 'reqMethod' attribute on 'auditBind' object class.
-     */
-    public String getReqMethod()
-    {
-        return reqMethod;
-    }
-
-
-    /**
-     * The reqMethod attribute contains the Bind Method used in the Bind. This will be
-     * the string SIMPLE for LDAP Simple Binds or SASL(<mech>) for SASL Binds.
-     * Note  that  unless  configured  as  a global overlay, only Simple Binds
-     * using DNs that reside in the current database will be logged.
-     *
-     * @param reqMethod maps to same name on 'auditBind' object class.
-     */
-    public void setReqMethod( String reqMethod )
-    {
-        this.reqMethod = reqMethod;
     }
 
 
@@ -455,7 +441,7 @@ public class Bind extends FortEntity implements Serializable
      * An  error code may be accompanied by a text error message which will be
      * recorded in the reqMessage attribute.
      *
-     * @return value that maps to 'reqResult' attribute on 'auditBind' object class.
+     * @return value that maps to 'reqResult' attribute on 'auditSearch' object class.
      */
     public String getReqResult()
     {
@@ -469,7 +455,7 @@ public class Bind extends FortEntity implements Serializable
      * An  error code may be accompanied by a text error message which will be
      * recorded in the reqMessage attribute.
      *
-     * @param reqResult maps to same name on 'auditBind' object class.
+     * @param reqResult maps to same name on 'auditSearch' object class.
      */
     public void setReqResult( String reqResult )
     {
@@ -482,7 +468,7 @@ public class Bind extends FortEntity implements Serializable
      * is  common to all the operations associated with the same LDAP session.
      * Currently this is slapd's internal connection ID, stored in decimal.
      *
-     * @return value that maps to 'reqSession' attribute on 'auditBind' object class.
+     * @return value that maps to 'reqSession' attribute on 'auditSearch' object class.
      */
     public String getReqSession()
     {
@@ -495,7 +481,7 @@ public class Bind extends FortEntity implements Serializable
      * is  common to all the operations associated with the same LDAP session.
      * Currently this is slapd's internal connection ID, stored in decimal.
      *
-     * @param reqSession maps to same name on 'auditBind' object class.
+     * @param reqSession maps to same name on 'auditSearch' object class.
      */
     public void setReqSession( String reqSession )
     {
@@ -507,7 +493,7 @@ public class Bind extends FortEntity implements Serializable
      * reqStart provide the start of the operation,  They  use generalizedTime syntax.
      * The reqStart attribute is also used as the RDN for each log entry.
      *
-     * @return value that maps to 'reqStart' attribute on 'auditBind' object class.
+     * @return value that maps to 'reqStart' attribute on 'auditSearch' object class.
      */
     public String getReqStart()
     {
@@ -519,7 +505,7 @@ public class Bind extends FortEntity implements Serializable
      * reqStart provide the start of the operation,  They  use generalizedTime syntax.
      * The reqStart attribute is also used as the RDN for each log entry.
      *
-     * @param reqStart maps to same name on 'auditBind' object class.
+     * @param reqStart maps to same name on 'auditSearch' object class.
      */
     public void setReqStart( String reqStart )
     {
@@ -533,7 +519,7 @@ public class Bind extends FortEntity implements Serializable
      * operations,  the  type also includes the OID of the extended operation,
      * e.g.  extended(1.1.1.1)
      *
-     * @return value that maps to 'reqType' attribute on 'auditBind' object class.
+     * @return value that maps to 'reqType' attribute on 'auditSearch' object class.
      */
     public String getReqType()
     {
@@ -547,7 +533,7 @@ public class Bind extends FortEntity implements Serializable
      * operations,  the  type also includes the OID of the extended operation,
      * e.g.  extended(1.1.1.1)
      *
-     * @param reqType maps to same name on 'auditBind' object class.
+     * @param reqType maps to same name on 'auditSearch' object class.
      */
     public void setReqType( String reqType )
     {
@@ -556,34 +542,32 @@ public class Bind extends FortEntity implements Serializable
 
 
     /**
-     * The reqVersion attribute which contains the
-     * LDAP protocol version specified in the Bind
+     * Get the Compare operation the reqAssertion attribute carries the Attribute Value Assertion used in the compare request.
      *
-     * @return value that maps to the 'reqVersion' attribute on 'auditBind' object class.
+     * @return value that maps to 'reqAssertion' attribute on 'auditCompare' object class.
      */
-    public String getReqVersion()
+    public String getReqAssertion()
     {
-        return reqVersion;
+        return reqAssertion;
     }
 
 
     /**
-     * The reqVersion attribute which contains the
-     * LDAP protocol version specified in the Bind
+     * Set the Compare operation the reqAssertion attribute carries the Attribute Value Assertion used in the compare request.
      *
-     * @param reqVersion maps to same name on 'auditBind' object class.
+     * @param reqAssertion value maps to 'reqAssertion' attribute contained in the 'auditCompare' object class.
      */
-    public void setReqVersion( String reqVersion )
+    public void setReqAssertion( String reqAssertion )
     {
-        this.reqVersion = reqVersion;
+        this.reqAssertion = reqAssertion;
     }
 
 
     /**
      * Returns the name of the structural object class that is used to log the event.  For this entity
-     * this value will always be 'auditBind'.
+     * this value will always be 'auditSearch'.
      *
-     * @return value that maps to 'structuralObjectClass' attribute that contains the name 'auditBind'.
+     * @return value that maps to 'structuralObjectClass' attribute that contains the name 'auditSearch'.
      */
     public String getStructuralObjectClass()
     {
@@ -593,13 +577,235 @@ public class Bind extends FortEntity implements Serializable
 
     /**
      * Returns the name of the structural object class that is used to log the event.  For this entity
-     * this value will always be 'auditBind'.
+     * this value will always be 'auditSearch'.
      *
-     * @param structuralObjectClass maps to same name on 'auditBind' object class.
+     * @param structuralObjectClass maps to same name on 'auditSearch' object class.
      */
     public void setStructuralObjectClass( String structuralObjectClass )
     {
         this.structuralObjectClass = structuralObjectClass;
+    }
+
+
+    /**
+     * The reqEntries attribute is the integer count of  how  many entries  were  returned  by  this search request.
+     *
+     * @return value that maps to 'reqEntries' attribute on 'auditSearch' object class
+     */
+    public String getReqEntries()
+    {
+        return reqEntries;
+    }
+
+
+    /**
+     * The reqEntries attribute is the integer count of  how  many entries  were  returned  by  this search request.
+     *
+     * @param reqEntries maps to same name on 'auditSearch' object class
+     */
+    public void setReqEntries( String reqEntries )
+    {
+        this.reqEntries = reqEntries;
+    }
+
+
+    /**
+     * The reqAttr attribute lists the requested attributes if specific attributes were requested.
+     *
+     * @return value maps to 'reqAttr' on 'auditSearch' object class.
+     */
+    public String getReqAttr()
+    {
+        return reqAttr;
+    }
+
+
+    /**
+     * The reqAttr attribute lists the requested attributes if specific attributes were requested.
+     *
+     * @param reqAttr maps to same name on 'auditSearch' object class.
+     */
+    public void setReqAttr( String reqAttr )
+    {
+        this.reqAttr = reqAttr;
+    }
+
+
+    /**
+     * The reqAttrsOnly attribute is a Boolean value showing TRUE if only attribute names
+     * were  requested, or FALSE if attributes and their values were requested.
+     * For Fortress authorization requests this value will always be TRUE.
+     *
+     * @return value maps to 'reqAttrsOnly' on 'auditSearch' object class.
+     */
+    public String getReqAttrsOnly()
+    {
+        return reqAttrsOnly;
+    }
+
+
+    /**
+     * The reqAttrsOnly attribute is a Boolean value showing TRUE if only attribute names
+     * were  requested, or FALSE if attributes and their values were requested.
+     * For Fortress authorization requests this value will always be TRUE.
+     *
+     * @param reqAttrsOnly maps to same name on 'auditSearch' object class.
+     */
+    public void setReqAttrsOnly( String reqAttrsOnly )
+    {
+        this.reqAttrsOnly = reqAttrsOnly;
+    }
+
+
+    /**
+     * The reqFilter attribute carries the filter used in the search request.
+     * <p/>
+     * For Fortress authorization events this will contain the following:
+     * <ul>
+     * <li>userId: {@link User#userId}
+     * <li>activated roles: {@link UserRole#name}
+     * <li>object name: {@link Permission#objName}
+     * <li>operation name: {@link Permission#opName}
+     * </ul>
+     *
+     * @return value that maps to 'reqFilter' attribute on 'auditSearch' object class.
+     */
+    public String getReqFilter()
+    {
+        return reqFilter;
+    }
+
+
+    /**
+     * The reqFilter attribute carries the filter used in the search request.
+     * <p/>
+     * For Fortress authorization events this will contain the following:
+     * <ul>
+     * <li>userId: {@link User#userId}
+     * <li>activated roles: {@link UserRole#name}
+     * <li>object name: {@link Permission#objName}
+     * <li>operation name: {@link Permission#opName}
+     * </ul>
+     *
+     * @param reqFilter maps to same name on 'auditSearch' object class.
+     */
+    public void setReqFilter( String reqFilter )
+    {
+        this.reqFilter = reqFilter;
+    }
+
+
+    /**
+     * The reqScope attribute contains the scope of the original search request, using
+     * the values specified for the LDAP URL format. I.e. base, one, sub, or subord.
+     *
+     * @return value that maps to 'reqScope' attribute on 'auditSearch' object class.
+     */
+    public String getReqScope()
+    {
+        return reqScope;
+    }
+
+
+    /**
+     * The reqScope attribute contains the scope of the original search request, using
+     * the values specified for the LDAP URL format. I.e. base, one, sub, or subord.
+     *
+     * @param reqScope maps to same name on 'auditSearch' object class.
+     */
+    public void setReqScope( String reqScope )
+    {
+        this.reqScope = reqScope;
+    }
+
+
+    /**
+     * The reqSizeLimit attribute indicate what limits were requested on the search operation.
+     *
+     * @return value that maps to 'reqSizeLimit' attribute on 'auditSearch' object class.
+     */
+    public String getReqSizeLimit()
+    {
+        return reqSizeLimit;
+    }
+
+
+    /**
+     * The reqSizeLimit attribute indicate what limits were requested on the search operation.
+     *
+     * @param reqSizeLimit maps to same name on 'auditSearch' object class.
+     */
+    public void setReqSizeLimit( String reqSizeLimit )
+    {
+        this.reqSizeLimit = reqSizeLimit;
+    }
+
+
+    /**
+     * The reqTimeLimit attribute indicate what limits were requested on the search operation.
+     *
+     * @return value that maps to 'reqTimeLimit' attribute on 'auditSearch' object class.
+     */
+    public String getReqTimeLimit()
+    {
+        return reqTimeLimit;
+    }
+
+
+    /**
+     * The reqTimeLimit attribute indicate what limits were requested on the search operation.
+     *
+     * @param reqTimeLimit maps to same name on 'auditSearch' object class.
+     */
+    public void setReqTimeLimit( String reqTimeLimit )
+    {
+        this.reqTimeLimit = reqTimeLimit;
+    }
+
+
+    /**
+     * Return the subschemaSubentry attribute from the audit entry.
+     *
+     * @return value that maps to 'subschemaSubentry' on 'auditSearch' object class.
+     */
+    public String getSubschemaSubentry()
+    {
+        return subschemaSubentry;
+    }
+
+
+    /**
+     * Set the subschemaSubentry attribute from the audit entry.
+     *
+     * @param subschemaSubentry maps to same name on 'auditSearch' object class.
+     */
+    public void setSubschemaSubentry( String subschemaSubentry )
+    {
+        this.subschemaSubentry = subschemaSubentry;
+    }
+
+
+    /**
+     * The reqDerefAliases attribute is on of never, finding, searching, or always, denoting how aliases
+     * will be processed during the search.
+     *
+     * @return value that maps to 'reqDerefAliases' on 'auditSearch' object class.
+     */
+    public String getReqDerefAliases()
+    {
+        return reqDerefAliases;
+    }
+
+
+    /**
+     * The reqDerefAliases attribute is on of never, finding, searching, or always, denoting how aliases
+     * will be processed during the search.
+     *
+     * @param reqDerefAliases maps to same name on 'auditSearch' object class.
+     */
+    public void setReqDerefAliases( String reqDerefAliases )
+    {
+        this.reqDerefAliases = reqDerefAliases;
     }
 
 

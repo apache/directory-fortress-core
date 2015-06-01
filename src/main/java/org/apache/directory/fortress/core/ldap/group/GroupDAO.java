@@ -39,7 +39,7 @@ import org.apache.directory.fortress.core.ObjectFactory;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.cfg.Config;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
-import org.apache.directory.fortress.core.rbac.User;
+import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

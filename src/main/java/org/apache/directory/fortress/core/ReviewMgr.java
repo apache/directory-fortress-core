@@ -20,13 +20,13 @@
 package org.apache.directory.fortress.core;
 
 
-import org.apache.directory.fortress.core.rbac.OrgUnit;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.PermObj;
-import org.apache.directory.fortress.core.rbac.Role;
-import org.apache.directory.fortress.core.rbac.SDSet;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.rbac.UserRole;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.SDSet;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
 
 import java.util.List;
 import java.util.Set;
@@ -63,7 +63,7 @@ import java.util.Set;
  * <img src="./doc-files/RbacDSD.png">
  * <hr>
  * <p/>
- * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} or {@link Manageable#setAdmin(org.apache.directory.fortress.core.rbac.Session)}) are set.
+ * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} or {@link Manageable#setAdmin(org.apache.directory.fortress.core.model.Session)}) are set.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -142,7 +142,7 @@ public interface ReviewMgr extends Manageable
      * <li>{@link OrgUnit#name} - contains one or more characters of org unit associated with existing object being targeted</li>
      * </ul>
      *
-     * @param ou contains org unit name {@link org.apache.directory.fortress.core.rbac.OrgUnit#name}.  The search val contains the full name of matching ou in OS-P data set.
+     * @param ou contains org unit name {@link org.apache.directory.fortress.core.model.OrgUnit#name}.  The search val contains the full name of matching ou in OS-P data set.
      * @return List of type PermObj.  Fortress permissions are object->operation mappings.
      * @throws SecurityException
      *          thrown in the event of system error.

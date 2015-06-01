@@ -22,6 +22,8 @@ package org.apache.directory.fortress.core.rbac;
 
 import junit.framework.TestCase;
 
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

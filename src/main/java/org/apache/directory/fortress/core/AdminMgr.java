@@ -20,12 +20,12 @@
 package org.apache.directory.fortress.core;
 
 
-import org.apache.directory.fortress.core.rbac.PermObj;
-import org.apache.directory.fortress.core.rbac.Permission;
-import org.apache.directory.fortress.core.rbac.Role;
-import org.apache.directory.fortress.core.rbac.SDSet;
-import org.apache.directory.fortress.core.rbac.User;
-import org.apache.directory.fortress.core.rbac.UserRole;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.SDSet;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
 
 
 /**
@@ -59,7 +59,7 @@ import org.apache.directory.fortress.core.rbac.UserRole;
  * <img src="./doc-files/RbacDSD.png">
  * <hr>
  * <p/>
- * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} or {@link Manageable#setAdmin(org.apache.directory.fortress.core.rbac.Session)}) are set.
+ * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} or {@link Manageable#setAdmin(org.apache.directory.fortress.core.model.Session)}) are set.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -402,7 +402,7 @@ public interface AdminMgr extends Manageable
      * <li>{@link UserRole#name} - contains the name for already existing Role to be deassigned</li>
      * <li>{@link UserRole#userId} - contains the userId for existing User</li>
      * </ul>
-     * @param uRole must contain {@link org.apache.directory.fortress.core.rbac.UserRole#userId} and {@link UserRole#name}.
+     * @param uRole must contain {@link org.apache.directory.fortress.core.model.UserRole#userId} and {@link UserRole#name}.
      * @throws SecurityException - in the event data error in user or role objects or system error.
      */
     void deassignUser( UserRole uRole )
@@ -411,7 +411,7 @@ public interface AdminMgr extends Manageable
 
     /**
      * This method will add permission operation to an existing permission object which resides under {@code ou=Permissions,ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.
-     * The perm operation entity may have {@link org.apache.directory.fortress.core.rbac.Role} or {@link org.apache.directory.fortress.core.rbac.User} associations.  The target {@link Permission} must not exist prior to calling.
+     * The perm operation entity may have {@link org.apache.directory.fortress.core.model.Role} or {@link org.apache.directory.fortress.core.model.User} associations.  The target {@link Permission} must not exist prior to calling.
      * A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent and itself as stored in ldap tree: ({@link PermObj}*->{@link Permission}).
      * <h4>required parameters</h4>
      * <ul>
@@ -426,7 +426,7 @@ public interface AdminMgr extends Manageable
      * <li>{@link Permission#type} - any safe text</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link org.apache.directory.fortress.core.rbac.Permission#objName}, and operation, {@link Permission#opName}, that identifies target along with optional other attributes..
+     * @param perm must contain the object, {@link org.apache.directory.fortress.core.model.Permission#objName}, and operation, {@link Permission#opName}, that identifies target along with optional other attributes..
      * @return copy of Permission entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
@@ -436,7 +436,7 @@ public interface AdminMgr extends Manageable
 
     /**
      * This method will update permission operation pre-existing in target directory under {@code ou=Permissions,ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.
-     * The perm operation entity may also contain {@link org.apache.directory.fortress.core.rbac.Role} or {@link org.apache.directory.fortress.core.rbac.User} associations to add or remove using this function.
+     * The perm operation entity may also contain {@link org.apache.directory.fortress.core.model.Role} or {@link org.apache.directory.fortress.core.model.User} associations to add or remove using this function.
      * The perm operation must exist before making this call.  Only non-null attributes will be updated.
      * <h4>required parameters</h4>
      * <ul>

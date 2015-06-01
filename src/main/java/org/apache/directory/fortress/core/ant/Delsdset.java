@@ -24,7 +24,8 @@ import java.util.List;
 
 
 /**
- * The class is used by {@link FortressAntTask} to create new {@link SDSetAnt}s used to drive {@link org.apache.directory.fortress.core.AdminMgr#deleteSsdSet(org.apache.directory.fortress.core.rbac.SDSet)} or {@link org.apache.directory.fortress.core.AdminMgr#deleteDsdSet(org.apache.directory.fortress.core.rbac.SDSet)}.
+ * The class is used by {@link FortressAntTask} to create new {@link SDSetAnt}s used to drive {@link org.apache.directory.fortress.core.AdminMgr#deleteSsdSet(org.apache.directory.fortress.core.model.SDSet)} or {@link org.apache.directory.fortress.core.AdminMgr#deleteDsdSet(org.apache.directory.fortress.core.model.SDSet)}.
+ *
  *
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>This class name, 'Delsdset', is used for the xml tag in the load script.</p>

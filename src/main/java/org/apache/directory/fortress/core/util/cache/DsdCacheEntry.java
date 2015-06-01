@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.core.util.cache;
 
-import org.apache.directory.fortress.core.rbac.SDSet;
+import org.apache.directory.fortress.core.model.SDSet;
 
 /**
  * Value object wraps {@link SDSet} for caching purposes.  This class also provides attributes that are used for
@@ -36,10 +36,10 @@ public class DsdCacheEntry
     private String contextId;
 
     /**
-     * Non-default contructor takes a {@link DsdCacheEntry#member} that maps to  {@link org.apache.directory.fortress.core.rbac.Role#name}, along
-     * with a reference to {@link org.apache.directory.fortress.core.rbac.SDSet} and a boolean value to indicate if DSD not found for member, which indicates empty.
+     * Non-default contructor takes a {@link DsdCacheEntry#member} that maps to  {@link org.apache.directory.fortress.core.model.Role#name}, along
+     * with a reference to {@link org.apache.directory.fortress.core.model.SDSet} and a boolean value to indicate if DSD not found for member, which indicates empty.
      *
-     * @param member maps to {@link org.apache.directory.fortress.core.rbac.Role#name}
+     * @param member maps to {@link org.apache.directory.fortress.core.model.Role#name}
      * @param sdSet contains DSD entry.
      * @param empty if true, the DSD entry was not found for a corresponding Role.
      */
@@ -94,7 +94,7 @@ public class DsdCacheEntry
     /**
      * Get the DSD for this cache entry.
      *
-     * @return SDSet of type {@link org.apache.directory.fortress.core.rbac.SDSet.SDType#DYNAMIC}.
+     * @return SDSet of type {@link org.apache.directory.fortress.core.model.SDSet.SDType#DYNAMIC}.
      */
     public SDSet getSdSet()
     {
@@ -104,7 +104,7 @@ public class DsdCacheEntry
     /**
      * Set the DSD for this cache entry.
      *
-     * @param sdSet reference to non-null {@link SDSet} of type {@link org.apache.directory.fortress.core.rbac.SDSet.SDType#DYNAMIC}.
+     * @param sdSet reference to non-null {@link SDSet} of type {@link org.apache.directory.fortress.core.model.SDSet.SDType#DYNAMIC}.
      */
     public void setSdSet(SDSet sdSet)
     {

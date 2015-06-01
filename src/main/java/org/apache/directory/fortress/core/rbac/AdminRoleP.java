@@ -23,6 +23,9 @@ package org.apache.directory.fortress.core.rbac;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +41,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * Process module for the AdminRole entity.  This class performs data validations and error mapping.  It is typically called
  * by internal Fortress delegated manager classes ({@link DelAdminMgrImpl}, {@link DelAccessMgrImpl},
  * {@link DelReviewMgrImpl}, ...) and not intended for external non-Fortress clients.  This class will accept,
- * {@link org.apache.directory.fortress.core.rbac.AdminRole}, validate its contents and forward on to it's corresponding DAO class {@link AdminRoleDAO}.
+ * {@link org.apache.directory.fortress.core.model.AdminRole}, validate its contents and forward on to it's corresponding DAO class {@link AdminRoleDAO}.
  * <p>
  * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link org.apache.directory.fortress.core.FinderException},

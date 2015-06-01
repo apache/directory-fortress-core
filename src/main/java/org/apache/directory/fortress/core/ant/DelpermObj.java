@@ -22,11 +22,11 @@ package org.apache.directory.fortress.core.ant;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.directory.fortress.core.rbac.PermObj;
+import org.apache.directory.fortress.core.model.PermObj;
 
 
 /**
- * The class is used by {@link FortressAntTask} to load {@link PermObj}s used to drive {@link org.apache.directory.fortress.core.AdminMgr#deletePermObj(org.apache.directory.fortress.core.rbac.PermObj)}.
+ * The class is used by {@link FortressAntTask} to load {@link PermObj}s used to drive {@link org.apache.directory.fortress.core.AdminMgr#deletePermObj(org.apache.directory.fortress.core.model.PermObj)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>This class name, 'DelpermObj', is used for the xml tag in the load script.</p>
  * <pre>
@@ -75,7 +75,7 @@ public class DelpermObj
     /**
      * Used by {@link FortressAntTask#addPermObjs()} to retrieve list of PermObjs as defined in input xml file.
      *
-     * @return collection containing {@link org.apache.directory.fortress.core.rbac.PermObj}s targeted for deletion.
+     * @return collection containing {@link org.apache.directory.fortress.core.model.PermObj}s targeted for deletion.
      */
     public List<PermObj> getObjs()
     {

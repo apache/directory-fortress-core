@@ -24,7 +24,7 @@ import java.util.List;
 
 
 /**
- * Interface is implemented by {@link org.apache.directory.fortress.core.rbac.Session} and prescribes methods used to return Fortress
+ * Interface is implemented by {@link org.apache.directory.fortress.core.model.Session} and prescribes methods used to return Fortress
  * password messages to the caller.
  * <p/>
 
@@ -34,7 +34,7 @@ import java.util.List;
 public interface PwMessage
 {
     /**
-     * Return the {@link org.apache.directory.fortress.core.rbac.User#userId} from entity.
+     * Return the {@link org.apache.directory.fortress.core.model.User#userId} from entity.
      *
      * @param userId maps to {@code uid} attribute on inetOrgPerson object class.
      */
@@ -42,7 +42,7 @@ public interface PwMessage
 
 
     /**
-     * Set the {@link org.apache.directory.fortress.core.rbac.User#userId} in entity.
+     * Set the {@link org.apache.directory.fortress.core.model.User#userId} in entity.
      *
      * @return userId maps to {@code uid} attribute on inetOrgPerson object class.
      */

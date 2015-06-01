@@ -187,7 +187,7 @@ public final class VUtil
     /**
      * Simple null, {@link org.apache.directory.fortress.core.GlobalErrIds#USER_ID_NULL}, and length checks, {@link org.apache.directory.fortress.core.GlobalErrIds#CONST_INVLD_FIELD_LEN}, on userId.
      *
-     * @param userId contains the userId, maps to {@link org.apache.directory.fortress.core.rbac.User#userId}.
+     * @param userId contains the userId, maps to {@link org.apache.directory.fortress.core.model.User#userId}.
      * @throws ValidationException in the event of failure, {@link GlobalErrIds#CONST_INVLD_FIELD_LEN}.
      */
     public static void userId( String userId ) throws ValidationException

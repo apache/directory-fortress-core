@@ -28,6 +28,9 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.apache.directory.fortress.core.model.PwPolicy;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

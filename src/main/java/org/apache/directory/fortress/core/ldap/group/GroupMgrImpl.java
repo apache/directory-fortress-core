@@ -24,7 +24,7 @@ import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.ReviewMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.rbac.Manageable;
-import org.apache.directory.fortress.core.rbac.User;
+import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import java.util.ArrayList;

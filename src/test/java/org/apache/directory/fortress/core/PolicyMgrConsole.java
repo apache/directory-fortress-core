@@ -20,7 +20,7 @@
 package org.apache.directory.fortress.core;
 
 
-import org.apache.directory.fortress.core.rbac.PwPolicy;
+import org.apache.directory.fortress.core.model.PwPolicy;
 import org.apache.directory.fortress.core.rbac.TestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

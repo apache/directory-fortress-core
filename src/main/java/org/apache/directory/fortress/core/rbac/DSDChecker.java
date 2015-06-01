@@ -24,6 +24,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.directory.fortress.core.model.SDSet;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -42,11 +45,11 @@ import org.apache.directory.fortress.core.util.time.Validator;
  * This validator will ensure the role being targeted for activation does not violate RBAC dynamic separation of duty constraints.
  * <h4> Constraint Targets include</h4>
  * <ol>
- * <li>{@link org.apache.directory.fortress.core.rbac.User} maps to 'ftCstr' attribute on 'ftUserAttrs' object class</li>
- * <li>{@link org.apache.directory.fortress.core.rbac.UserRole} maps to 'ftRC' attribute on 'ftUserAttrs' object class</li>
- * <li>{@link org.apache.directory.fortress.core.rbac.Role}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
+ * <li>{@link org.apache.directory.fortress.core.model.User} maps to 'ftCstr' attribute on 'ftUserAttrs' object class</li>
+ * <li>{@link org.apache.directory.fortress.core.model.UserRole} maps to 'ftRC' attribute on 'ftUserAttrs' object class</li>
+ * <li>{@link org.apache.directory.fortress.core.model.Role}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
+ * <li>{@link org.apache.directory.fortress.core.model.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
+ * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
  * </ol>
  * </p>
  *
@@ -62,7 +65,7 @@ public class DSDChecker
     /**
      * This method is called during entity activation, {@link org.apache.directory.fortress.core.util.time.CUtil#validateConstraints} and ensures the role does not violate dynamic separation of duty constraints.
      *
-     * @param session    contains list of RBAC roles {@link org.apache.directory.fortress.core.rbac.UserRole} targeted for activation.
+     * @param session    contains list of RBAC roles {@link org.apache.directory.fortress.core.model.UserRole} targeted for activation.
      * @param constraint required for Validator interface, not used here..
      * @param time       required for Validator interface, not used here.
      * @return '0' if validation succeeds else {@link org.apache.directory.fortress.core.GlobalErrIds#ACTV_FAILED_DSD} if failed.

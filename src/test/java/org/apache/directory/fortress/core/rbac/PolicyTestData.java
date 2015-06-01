@@ -27,6 +27,7 @@ import java.lang.annotation.Target;
 
 import junit.framework.TestCase;
 
+import org.apache.directory.fortress.core.model.PwPolicy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

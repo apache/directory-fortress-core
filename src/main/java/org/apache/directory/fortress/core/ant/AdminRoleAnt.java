@@ -20,7 +20,7 @@
 package org.apache.directory.fortress.core.ant;
 
 
-import org.apache.directory.fortress.core.rbac.AdminRole;
+import org.apache.directory.fortress.core.model.AdminRole;
 
 import java.util.StringTokenizer;
 

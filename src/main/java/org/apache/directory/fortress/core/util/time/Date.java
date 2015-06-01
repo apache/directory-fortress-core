@@ -21,18 +21,18 @@ package org.apache.directory.fortress.core.util.time;
 
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.rbac.Session;
+import org.apache.directory.fortress.core.model.Session;
 
 /**
  * This class performs date validation for {@link Constraint}.  This validator will ensure the current date falls between {@link Constraint#getBeginDate()} and {@link Constraint#getEndDate()}
  * The format requires YYYYMMDD, i.e. 20110101 for January 1, 2011.  The constant {@link org.apache.directory.fortress.core.GlobalIds#NONE} may be used to disable checks for a particular entity.
  * <h4> Constraint Targets include</h4>
  * <ol>
- * <li>{@link org.apache.directory.fortress.core.rbac.User} maps to 'ftCstr' attribute on 'ftUserAttrs' object class</li>
- * <li>{@link org.apache.directory.fortress.core.rbac.UserRole} maps to 'ftRC' attribute on 'ftUserAttrs' object class</li>
- * <li>{@link org.apache.directory.fortress.core.rbac.Role}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link org.apache.directory.fortress.core.rbac.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link org.apache.directory.fortress.core.rbac.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
+ * <li>{@link org.apache.directory.fortress.core.model.User} maps to 'ftCstr' attribute on 'ftUserAttrs' object class</li>
+ * <li>{@link org.apache.directory.fortress.core.model.UserRole} maps to 'ftRC' attribute on 'ftUserAttrs' object class</li>
+ * <li>{@link org.apache.directory.fortress.core.model.Role}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
+ * <li>{@link org.apache.directory.fortress.core.model.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
+ * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
  * </ol>
  * </p>
  *
