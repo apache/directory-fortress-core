@@ -92,13 +92,13 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
         VUtil.assertNotNullOrEmpty( password, GlobalErrIds.USER_PW_NULL, getFullMethodName( CLS_NM, methodName ) );
         User inUser = new User( userId );
         inUser.setContextId( contextId );
-        // false tells the User Read not to fetch roles.
+
+        // Determine if user valid.
         User user = userP.read( inUser, false );
         user.setPassword( password );
         user.setContextId( contextId );
         Session ftSess = userP.authenticate( user );
         ftSess.setUser( user );
-
         return ftSess;
     }
 
@@ -289,7 +289,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
         role.setUserId( session.getUserId() );
         List<UserRole> uRoles;
         List<UserRole> sRoles = session.getRoles();
-        // If session already has role activated log an error and throw an exception:
+        // If session already has same role activated:
         if ( sRoles != null && sRoles.contains( role ) )
         {
             String info = getFullMethodName( CLS_NM, methodName ) + " User [" + session.getUserId() + "] Role ["

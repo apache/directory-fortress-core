@@ -432,7 +432,6 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
             throw new SecurityException( GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null );
         }
         // search for all users assigned this role and deassign:
-        //role.setContextId(this.contextId);
         List<User> users = userP.getAssignedUsers( role );
         if ( users != null )
         {
