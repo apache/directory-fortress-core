@@ -48,7 +48,7 @@ Steps to complete:
 <ol>
     <li>Set java and maven home env variables.</li>
 
-    <br/>
+    <br>
 
     <li>
         Change directory:
@@ -70,7 +70,8 @@ cp build.properties.example build.properties
 
     <li>
         Edit the build.properties in root folder of package.
-        These parameters will be used to generate config artifacts: <b>config/fortress.properties</b> and <b>ldap/setup/refreshLDAPData.xml</b>, needed later on.
+        These parameters will be used to generate config artifacts: <b>config/fortress.properties</b> and <b>ldap/setup/refreshLDAPData.xml</b>,
+        needed later on.
         <br/>
         Change the settings to:
 
@@ -86,7 +87,7 @@ ldap.server.type=apacheds
     </li>
 
     <li>
-        Build fortress core.  This step will generate config artifacts using settings from build.properties.
+        Build fortress core. This step will generate config artifacts using settings from build.properties.
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
 mvn install
@@ -179,7 +180,8 @@ mvn test -Dtest=FortressJUnitTest
 mvn test -Pcli
                     </p>
                 </pre>
-        This program provides a command line interface for driving the fortress APIs.  It is useful for ad-hoc and automated updates to the data.  It's instruction manual is here:
+        This program provides a command line interface for driving the fortress APIs. It is useful for ad-hoc and
+        automated updates to the data. It's instruction manual is here:
         <a href="../cli/package-summary.html">Fortress CLI Instruction Manual</a>
     </li>
 
@@ -192,26 +194,31 @@ mvn test -Pcli
 mvn test -Pconsole
                     </p>
                 </pre>
-        This program provides an interfactive console for driving the fortress functions.  It is useful for testing and ad-hoc updates to the data.
+        This program provides an interfactive console for driving the fortress functions. It is useful for testing and
+        ad-hoc updates to the data.
         <br/><br/>
         <ol type="a">
             <li>Start at the Main Menu:
-                <br/><img src="./screenshot-fortress-console-main.png" height="50%" width="40%" alt="Fortress Console Main"/>
+                <br/><img src="./screenshot-fortress-console-main.png" height="50%" width="40%"
+                          alt="Fortress Console Main"/>
                 <br/>Enter option to perform a particular manager function.
             </li>
             <br/>
             <li>Option '1' for RBAC Admin Manager Functions:
-                <br/><img src="./screenshot-fortress-console-rbac-admin.png" height="50%" width="25%" alt="Fortress Console Admin"/>
+                <br/><img src="./screenshot-fortress-console-rbac-admin.png" height="50%" width="25%"
+                          alt="Fortress Console Admin"/>
                 <br/>Add, Update and Delete RBAC entities.
             </li>
             <br/>
             <li>Option '2' for RBAC Review Manager Functions:
-                <br/><img src="./screenshot-fortress-console-rbac-review.png" height="50%" width="35%" alt="Fortress Console Review"/>
+                <br/><img src="./screenshot-fortress-console-rbac-review.png" height="50%" width="35%"
+                          alt="Fortress Console Review"/>
                 <br/>Read and Search RBAC entities.
             </li>
             <br/>
             <li>Option '3' for RBAC Access Manager Functions:
-                <br/><img src="./screenshot-fortress-console-rbac-access.png" height="50%" width="35%" alt="Fortress Console Access Mgr Tests"/>
+                <br/><img src="./screenshot-fortress-console-rbac-access.png" height="50%" width="35%"
+                          alt="Fortress Console Access Mgr Tests"/>
                 <br/>Test RBAC runtime functions like createSession and checkAccess.
             </li>
             <br/>

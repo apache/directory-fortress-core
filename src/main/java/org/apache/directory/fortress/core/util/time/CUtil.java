@@ -60,7 +60,7 @@ import java.util.StringTokenizer;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class CUtil
+public final class CUtil
 {
     private static final String CLS_NM = CUtil.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );

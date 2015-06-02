@@ -18,59 +18,60 @@
  *
 -->
 <html>
-  <head>
+<head>
     <title>Fortress Command Line Interpreter Reference Manual</title>
-  </head>
-  <body>
-    <p>
-      <A HREF="package-summary.html">Click here</A> 
-      for Reference Manual which shows how the Command Line Interpreter
-      drives the Fortress APIs from a command prompt.
-    </p>
+</head>
+<body>
+<p>
+    <A HREF="package-summary.html">Click here</A>
+    for Reference Manual which shows how the Command Line Interpreter
+    drives the Fortress APIs from a command prompt.
+</p>
 
-    <h2>Instructions to start and use the Fortress CLI program</h2>
-    <br/>Note: Information to set up environment of Fortress runtime, check out file named <b>README.txt</b> 
-        found in root folder of Fortress SDK package.
-    <ol>
-      <li>Open shell prompt within FORTRESS_HOME folder and enter the following</li>
-      <li>export JAVA_HOME=/path to the root folder of your java SDK, version 7 and beyond required</li>
-      <li>export M2_HOME=/path to the root folder of your Apache Maven installation, version 3 and beyond required</li>
-      <li>$M2_HOME/bin/mvn -Pcli test</li>
-      <li>This will fire Fortress ant target which then starts the CLI. The CLI syntax will be described in detail
-        below.</li>
-    </ol>
+<h2>Instructions to start and use the Fortress CLI program</h2>
+<br/>Note: Information to set up environment of Fortress runtime, check out file named <b>README.txt</b>
+found in root folder of Fortress SDK package.
+<ol>
+    <li>Open shell prompt within FORTRESS_HOME folder and enter the following</li>
+    <li>export JAVA_HOME=/path to the root folder of your java SDK, version 7 and beyond required</li>
+    <li>export M2_HOME=/path to the root folder of your Apache Maven installation, version 3 and beyond required</li>
+    <li>$M2_HOME/bin/mvn -Pcli test</li>
+    <li>This will fire Fortress ant target which then starts the CLI. The CLI syntax will be described in detail
+        below.
+    </li>
+</ol>
 
-    <h2>Command Line Interpreter Reference Manual</h2>
-    Once started, the Fortress CLI runs in interactive mode which means it runs continuously waiting for user to enter 
-    a valid commands or terminate. Every CLI command is structured in the following format:<br/>
+<h2>Command Line Interpreter Reference Manual</h2>
+Once started, the Fortress CLI runs in interactive mode which means it runs continuously waiting for user to enter
+a valid commands or terminate. Every CLI command is structured in the following format:<br/>
 
-    <p><b>group function options</b><br/><br/>
-    
+<p><b>group function options</b><br/><br/>
+
     For example:
-    <pre>admin auser -u hounddog42 -p myNewP@$$w0rd -o development</pre>
-    In this example the group is 'admin', the function is 'auser' or add user, and the options are -u for userid, 
-    -p for password and -o that points to a valid USERS OrgUnit node.
-    Despite being called an 'option', so named parameters may or may not be required for a given function. Option 
-    names are always preceded by a dash ('-') when entered. Option values must be enclosed within single quotes '' 
-    or double quotes "" if value contains multiple Strings separated by whitespace. For example the user description 
-    value can be entered like this: -d "This description contains more than one word" or this: -d 'This description 
-    also contains more than one word'.
-    <br/>
-    <br/>Below is reference manual for Fortress' CLI commands
-    <br/>
+<pre>admin auser -u hounddog42 -p myNewP@$$w0rd -o development</pre>
+In this example the group is 'admin', the function is 'auser' or add user, and the options are -u for userid,
+-p for password and -o that points to a valid USERS OrgUnit node.
+Despite being called an 'option', so named parameters may or may not be required for a given function. Option
+names are always preceded by a dash ('-') when entered. Option values must be enclosed within single quotes ''
+or double quotes "" if value contains multiple Strings separated by whitespace. For example the user description
+value can be entered like this: -d "This description contains more than one word" or this: -d 'This description
+also contains more than one word'.
+<br/>
+<br/>Below is reference manual for Fortress' CLI commands
+<br/>
 
-    <h2>Groups</h2>
-    
-    Currently the following groups of functions are supported:
-    <ul>
-      <li>admin - used to setup RBAC policies</li>
-      <li>review - used to interrogate RBAC policies</li>
-      <li>system - used to test RBAC policies</li>
-      <li>dadmin - used to setup ARBAC (administrative role based access control) policies</li>
-      <li>group - used to setup LDAP Group policies</li>
-    </ul>
+<h2>Groups</h2>
 
-    <h2>Sample run to add new User to LDAP</h2>
+Currently the following groups of functions are supported:
+<ul>
+    <li>admin - used to setup RBAC policies</li>
+    <li>review - used to interrogate RBAC policies</li>
+    <li>system - used to test RBAC policies</li>
+    <li>dadmin - used to setup ARBAC (administrative role based access control) policies</li>
+    <li>group - used to setup LDAP Group policies</li>
+</ul>
+
+<h2>Sample run to add new User to LDAP</h2>
     <pre>
         [echo] Run the Fortress Command Line Interpreter
         [java] 2011-12-03 21:10:02,431 (INFO ) CLI Options include admin, review, system, dadmin
@@ -88,1955 +89,2130 @@
              [java] 2011-12-03 21:41:37,750 (INFO ) CLI Options include admin, review, system, dadmin
              [java] 2011-12-03 21:41:37,751 (INFO ) Enter one from above or 'q' to quit
      </pre>
-    
-    <p>
-        This remainder of document is a command reference document to show how the Fortress CLI works.
-    <ol type="I">
+
+<p>
+    This remainder of document is a command reference document to show how the Fortress CLI works.
+<ol type="I">
     <li>
 
-<h2>Administrative Commands</h2>
-This section contains a guide for the <b>functions</b> and <b>options</b> that fall in the <b>admin</b> group.
-<ol type="A">
-  <li>
-    <h3>auser : function to add a new User</h3>
+        <h2>Administrative Commands</h2>
+        This section contains a guide for the <b>functions</b> and <b>options</b> that fall in the <b>admin</b> group.
+        <ol type="A">
+            <li>
+                <h3>auser : function to add a new User</h3>
 
-    <p>
-        This command creates a new RBAC user. The command is valid only if the new user is
-        not already a member of the USERS data set. The USER data set is updated. The new user
-        does not own any session at the time of its creation.
-    </p>
+                <p>
+                    This command creates a new RBAC user. The command is valid only if the new user is
+                    not already a member of the USERS data set. The USER data set is updated. The new user
+                    does not own any session at the time of its creation.
+                </p>
 
-    <h4>required parameters</h4>
-    <ul>
-        <li>u : userId - maps to INetOrgPerson uid</li>
-        <li>p : password - used to authenticate the User</li>
-        <li>o : orgUnit - contains the name of an already existing User OU node</li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>w : pwPolicy - contains the name of an already existing OpenLDAP password policy node</li>
-        <li>c : cn - maps to INetOrgPerson common name attribute</li>
-        <li>s : sn - maps to INetOrgPerson surname attribute</li>
-        <li>d : description - maps to INetOrgPerson description attribute</li>
-        <li>3 : title - maps to INetOrgPerson title attribute</li>
-        <li>4 : employeeType - maps to INetOrgPerson employeeType attribute</li>
-        <li>y : phones * - multi-occurring attribute maps to organizationalPerson telephoneNumber attribute</li>
-        <li>Y : mobiles * - multi-occurring attribute maps to INetOrgPerson mobile attribute</li>
-        <li>@ : emails * - multi-occurring attribute maps to INetOrgPerson mail attribute</li>
-        <li>> : address * - multi-occurring attribute maps to organizationalPerson postalAddress attribute</li>
-        <li>< : state - maps to organizationalPerson st attribute</li>
-        <li>3 : city - maps to organizationalPerson l attribute</li>
-        <li>z : postalCode - maps to postalCode description attribute</li>
-        <li>2 : postalOfficeBox - maps to organizationalPerson postOfficeBox attribute</li>
-        <li>b : beginTime - HHMM - determines begin hour user may activate session</li>
-        <li>e : endTime - HHMM - determines end hour user may activate session.</li>
-        <li>B : beginDate - YYYYMMDD - determines date when user may sign on</li>
-        <li>E : endDate - YYYYMMDD - indicates latest date user may sign on</li>
-        <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
-        <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
-        <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
-        <li>t : timeout - number in seconds of session inactivity time allowed</li>
-        <li>v : properties * - multi-occurring attribute contains property key and values are separated with a ':'. e.g.
-            mykey1:myvalue1
-        </li>
-        <li>r : roles * - multi-occurring attribute contains the name of already existing role to assign to user</li>
-        <li>a : adminRoles * - multi-occurring attribute contains the name of already existing adminRole to assign to
-            user
-        </li>
-        <li>X : protocol - alphanumeric string used for groups</li>
-        <li>M : member - contains userId of member to a group</li>
-    </ul>
+                <h4>required parameters</h4>
+                <ul>
+                    <li>u : userId - maps to INetOrgPerson uid</li>
+                    <li>p : password - used to authenticate the User</li>
+                    <li>o : orgUnit - contains the name of an already existing User OU node</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>w : pwPolicy - contains the name of an already existing OpenLDAP password policy node</li>
+                    <li>c : cn - maps to INetOrgPerson common name attribute</li>
+                    <li>s : sn - maps to INetOrgPerson surname attribute</li>
+                    <li>d : description - maps to INetOrgPerson description attribute</li>
+                    <li>3 : title - maps to INetOrgPerson title attribute</li>
+                    <li>4 : employeeType - maps to INetOrgPerson employeeType attribute</li>
+                    <li>y : phones * - multi-occurring attribute maps to organizationalPerson telephoneNumber
+                        attribute
+                    </li>
+                    <li>Y : mobiles * - multi-occurring attribute maps to INetOrgPerson mobile attribute</li>
+                    <li>@ : emails * - multi-occurring attribute maps to INetOrgPerson mail attribute</li>
+                    <li>> : address * - multi-occurring attribute maps to organizationalPerson postalAddress attribute
+                    </li>
+                    <li>< : state - maps to organizationalPerson st attribute</li>
+                    <li>3 : city - maps to organizationalPerson l attribute</li>
+                    <li>z : postalCode - maps to postalCode description attribute</li>
+                    <li>2 : postalOfficeBox - maps to organizationalPerson postOfficeBox attribute</li>
+                    <li>b : beginTime - HHMM - determines begin hour user may activate session</li>
+                    <li>e : endTime - HHMM - determines end hour user may activate session.</li>
+                    <li>B : beginDate - YYYYMMDD - determines date when user may sign on</li>
+                    <li>E : endDate - YYYYMMDD - indicates latest date user may sign on</li>
+                    <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
+                    <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
+                    <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on
+                    </li>
+                    <li>t : timeout - number in seconds of session inactivity time allowed</li>
+                    <li>v : properties * - multi-occurring attribute contains property key and values are separated with
+                        a ':'. e.g.
+                        mykey1:myvalue1
+                    </li>
+                    <li>r : roles * - multi-occurring attribute contains the name of already existing role to assign to
+                        user
+                    </li>
+                    <li>a : adminRoles * - multi-occurring attribute contains the name of already existing adminRole to
+                        assign to
+                        user
+                    </li>
+                    <li>X : protocol - alphanumeric string used for groups</li>
+                    <li>M : member - contains userId of member to a group</li>
+                </ul>
 
-    <h4>example</h4>
-    <ul>
-        <li>admin auser -u testuser1 -p mypasword123 -o dev1</li>
-        <li>admin auser -u testuser2 -p mypasword456 -o dev1 -r oamRole1 -d mydescription -b 0800 -e 1700 -B 20111203 -E
-            20111231 -l 20111215 -n 20111217 -m 17 -t 30 -v n1:v1 -v n2:v2
-        </li>
-        <li>admin auser -u testuser3 -p mypasword789 -o dev1 -z 1111111 -2 123 -y 555-555-5555 -y 444-444-4444 ->
-            "joshuatree1 one two three" -> "joshuatree2 four five six" -< CA -3 twentyninepalms -Y 333-333-3333
-        </li>
-    </ul>
-</li>
-<br/>
+                <h4>example</h4>
+                <ul>
+                    <li>admin auser -u testuser1 -p mypasword123 -o dev1</li>
+                    <li>admin auser -u testuser2 -p mypasword456 -o dev1 -r oamRole1 -d mydescription -b 0800 -e 1700 -B
+                        20111203 -E
+                        20111231 -l 20111215 -n 20111217 -m 17 -t 30 -v n1:v1 -v n2:v2
+                    </li>
+                    <li>admin auser -u testuser3 -p mypasword789 -o dev1 -z 1111111 -2 123 -y 555-555-5555 -y
+                        444-444-4444 ->
+                        "joshuatree1 one two three" -> "joshuatree2 four five six" -< CA -3 twentyninepalms -Y
+                        333-333-3333
+                    </li>
+                </ul>
+            </li>
+            <br/>
 
-<li>
-    <h3>uuser : function to update an existing user in LDAP</h3>
+            <li>
+                <h3>uuser : function to update an existing user in LDAP</h3>
 
-    <p>
-        This method performs an update on User entity in directory. Prior to making this call the entity must exist in
-        directory.
-    </p>
+                <p>
+                    This method performs an update on User entity in directory. Prior to making this call the entity
+                    must exist in
+                    directory.
+                </p>
 
-    <h4>required parameters</h4>
-    <ul>
-        <li>u : userId - maps to INetOrgPerson uid</li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>p : password - used to authenticate the User</li>
-        <li>o : orgUnit - contains the name of an already existing User OU node</li>
-        <li>w : pwPolicy - contains the name of an already existing OpenLDAP password policy node</li>
-        <li>c : cn - maps to INetOrgPerson common name attribute</li>
-        <li>s : sn - maps to INetOrgPerson surname attribute</li>
-        <li>d : description - maps to INetOrgPerson description attribute</li>
-        <li>3 : title - maps to INetOrgPerson title attribute</li>
-        <li>4 : employeeType - maps to INetOrgPerson employeeType attribute</li>
-        <li>y : phones * - multi-occurring attribute maps to organizationalPerson telephoneNumber attribute</li>
-        <li>Y : mobiles * - multi-occurring attribute maps to INetOrgPerson mobile attribute</li>
-        <li>@ : emails * - multi-occurring attribute maps to INetOrgPerson mail attribute</li>
-        <li>> : address * - multi-occurring attribute maps to organizationalPerson postalAddress attribute</li>
-        <li>< : state - maps to organizationalPerson st attribute</li>
-        <li>3 : city - maps to organizationalPerson l attribute</li>
-        <li>z : postalCode - maps to postalCode description attribute</li>
-        <li>2 : postalOfficeBox - maps to organizationalPerson postOfficeBox attribute</li>
-        <li>b : beginTime - HHMM - determines begin hour user may activate session</li>
-        <li>e : endTime - HHMM - determines end hour user may activate session.</li>
-        <li>B : beginDate - YYYYYYMMDD - determines date when user may sign on</li>
-        <li>E : endDate - YYYYMMDD - indicates latest date user may sign on</li>
-        <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
-        <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
-        <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
-        <li>t : timeout - number in seconds of session inactivity time allowed</li>
-        <li>v : properties * - multi-occurring attribute contains property key and values are separated with a ':'. e.g.
-            mykey1:myvalue1
-        </li>
-        <li>r : roles * - multi-occurring attribute contains the name of already existing role to assign to user</li>
-        <li>a : adminRoles * - multi-occurring attribute contains the name of already existing adminRole to assign to
-            user
-        </li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin uuser -u testuser1 -d mynewdescription</li>
-        <li>admin uuser -u testuser2 -p mynewpasword456 -r oamRole2 -b 0805 -e 1701 -B 20111203 -E 20111231 -l 20111215
-            -n 20111217 -m 17 -t 30 -v n1:v1 -v n2:v2
-        </li>
-        <li>admin uuser -u testuser3 -p password123 -z 1111111 -2 123 -y 555-555-5555 -y 444-444-4444 -> "joshuatree1
-            one two three" -> "joshuatree2 four five six" -< CA -3 twentyninepalms -Y 333-333-3333
-        </li>
-    </ul>
-</li>
-<br/>
+                <h4>required parameters</h4>
+                <ul>
+                    <li>u : userId - maps to INetOrgPerson uid</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>p : password - used to authenticate the User</li>
+                    <li>o : orgUnit - contains the name of an already existing User OU node</li>
+                    <li>w : pwPolicy - contains the name of an already existing OpenLDAP password policy node</li>
+                    <li>c : cn - maps to INetOrgPerson common name attribute</li>
+                    <li>s : sn - maps to INetOrgPerson surname attribute</li>
+                    <li>d : description - maps to INetOrgPerson description attribute</li>
+                    <li>3 : title - maps to INetOrgPerson title attribute</li>
+                    <li>4 : employeeType - maps to INetOrgPerson employeeType attribute</li>
+                    <li>y : phones * - multi-occurring attribute maps to organizationalPerson telephoneNumber
+                        attribute
+                    </li>
+                    <li>Y : mobiles * - multi-occurring attribute maps to INetOrgPerson mobile attribute</li>
+                    <li>@ : emails * - multi-occurring attribute maps to INetOrgPerson mail attribute</li>
+                    <li>> : address * - multi-occurring attribute maps to organizationalPerson postalAddress attribute
+                    </li>
+                    <li>< : state - maps to organizationalPerson st attribute</li>
+                    <li>3 : city - maps to organizationalPerson l attribute</li>
+                    <li>z : postalCode - maps to postalCode description attribute</li>
+                    <li>2 : postalOfficeBox - maps to organizationalPerson postOfficeBox attribute</li>
+                    <li>b : beginTime - HHMM - determines begin hour user may activate session</li>
+                    <li>e : endTime - HHMM - determines end hour user may activate session.</li>
+                    <li>B : beginDate - YYYYYYMMDD - determines date when user may sign on</li>
+                    <li>E : endDate - YYYYMMDD - indicates latest date user may sign on</li>
+                    <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
+                    <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
+                    <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on
+                    </li>
+                    <li>t : timeout - number in seconds of session inactivity time allowed</li>
+                    <li>v : properties * - multi-occurring attribute contains property key and values are separated with
+                        a ':'. e.g.
+                        mykey1:myvalue1
+                    </li>
+                    <li>r : roles * - multi-occurring attribute contains the name of already existing role to assign to
+                        user
+                    </li>
+                    <li>a : adminRoles * - multi-occurring attribute contains the name of already existing adminRole to
+                        assign to
+                        user
+                    </li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin uuser -u testuser1 -d mynewdescription</li>
+                    <li>admin uuser -u testuser2 -p mynewpasword456 -r oamRole2 -b 0805 -e 1701 -B 20111203 -E 20111231
+                        -l 20111215
+                        -n 20111217 -m 17 -t 30 -v n1:v1 -v n2:v2
+                    </li>
+                    <li>admin uuser -u testuser3 -p password123 -z 1111111 -2 123 -y 555-555-5555 -y 444-444-4444 ->
+                        "joshuatree1
+                        one two three" -> "joshuatree2 four five six" -< CA -3 twentyninepalms -Y 333-333-3333
+                    </li>
+                </ul>
+            </li>
+            <br/>
 
-<li>
-    <h3>duser : function to delete a user from LDAP</h3>
+            <li>
+                <h3>duser : function to delete a user from LDAP</h3>
 
-    <p>
-        This command deletes an existing user from the RBAC database. The command is valid
-        if and only if the user to be deleted is a member of the USERS data set. The USERS and
-        UA data sets and the assigned_users function are updated. This method performs a "hard" delete.
-        It completely removes all data associated with this user from the directory. User entity must exist
-        in directory prior to making this call else exception will be thrown.
-    </p>
+                <p>
+                    This command deletes an existing user from the RBAC database. The command is valid
+                    if and only if the user to be deleted is a member of the USERS data set. The USERS and
+                    UA data sets and the assigned_users function are updated. This method performs a "hard" delete.
+                    It completely removes all data associated with this user from the directory. User entity must exist
+                    in directory prior to making this call else exception will be thrown.
+                </p>
 
-    <h4>required parameters</h4>
-    <ul>
-        <li>u : userId - maps to INetOrgPerson uid</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin duser -u testuser1</li>
-    </ul>
-</li>
-<br/>
+                <h4>required parameters</h4>
+                <ul>
+                    <li>u : userId - maps to INetOrgPerson uid</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin duser -u testuser1</li>
+                </ul>
+            </li>
+            <br/>
 
-<li>
-    <h3>change : function to change a user's password</h3>
+            <li>
+                <h3>change : function to change a user's password</h3>
 
-    <p>
-        OpenLDAP password policies will be enforced if in effect at the time of this function call.
-    </p>
+                <p>
+                    OpenLDAP password policies will be enforced if in effect at the time of this function call.
+                </p>
 
-    <h4>required parameters</h4>
-    <ul>
-        <li>u : userId - maps to INetOrgPerson uid</li>
-        <li>p : password - contains the User's old password</li>
-        <li>V : newPassword - contains the User's new password</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin change -u testuser1 -p mypasword123 -V mynewpassword456</li>
-    </ul>
-</li>
-<br/>
+                <h4>required parameters</h4>
+                <ul>
+                    <li>u : userId - maps to INetOrgPerson uid</li>
+                    <li>p : password - contains the User's old password</li>
+                    <li>V : newPassword - contains the User's new password</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin change -u testuser1 -p mypasword123 -V mynewpassword456</li>
+                </ul>
+            </li>
+            <br/>
 
-<li>
-    <h3>reset : function to perform an administrative reset on user password</h3>
+            <li>
+                <h3>reset : function to perform an administrative reset on user password</h3>
 
-    <p>
-        Used by administrator to change a user's password when they have forgotten old password or if the password is
-        expired. When OpenLDAP policies are in effect this will force User to change their password the next time
-        authenticate.
-    </p>
-    <h4>required parameters</h4>
-    <ul>
-        <li>u : userId - maps to INetOrgPerson uid</li>
-        <li>V : newPassword - contains the User's new password</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin reset -u testuser1 -V temp777</li>
-    </ul>
-</li>
-<br/>
+                <p>
+                    Used by administrator to change a user's password when they have forgotten old password or if the
+                    password is
+                    expired. When OpenLDAP policies are in effect this will force User to change their password the next
+                    time
+                    authenticate.
+                </p>
+                <h4>required parameters</h4>
+                <ul>
+                    <li>u : userId - maps to INetOrgPerson uid</li>
+                    <li>V : newPassword - contains the User's new password</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin reset -u testuser1 -V temp777</li>
+                </ul>
+            </li>
+            <br/>
 
-<li>
-    <h3>lock : LOCK_USER_ACCOUNT</h3>
+            <li>
+                <h3>lock : LOCK_USER_ACCOUNT</h3>
 
-    <p>
-        Used to lock a user's account in LDAP
-    </p>
-    <h4>required parameters</h4>
-    <ul>
-        <li>u : userId - maps to INetOrgPerson uid</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin lock -u testuser1</li>
-    </ul>
-</li>
-<br/>
+                <p>
+                    Used to lock a user's account in LDAP
+                </p>
+                <h4>required parameters</h4>
+                <ul>
+                    <li>u : userId - maps to INetOrgPerson uid</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin lock -u testuser1</li>
+                </ul>
+            </li>
+            <br/>
 
-<li>
-    <h3>unlock : UNLOCK_USER_ACCOUNT</h3>
+            <li>
+                <h3>unlock : UNLOCK_USER_ACCOUNT</h3>
 
-    <p>
-        Used to unlock a user's account in so they may sign on again to LDAP. Note this will not fix an expired password
-        (which needs to be changed by user or reset by admin)
-    </p>
-    <h4>required parameters</h4>
-    <ul>
-        <li>u : userId - maps to INetOrgPerson uid</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin unlock -u testuser1</li>
-    </ul>
-</li>
-<br/>
+                <p>
+                    Used to unlock a user's account in so they may sign on again to LDAP. Note this will not fix an
+                    expired password
+                    (which needs to be changed by user or reset by admin)
+                </p>
+                <h4>required parameters</h4>
+                <ul>
+                    <li>u : userId - maps to INetOrgPerson uid</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin unlock -u testuser1</li>
+                </ul>
+            </li>
+            <br/>
 
-<li>
-    <h3>arole : Add a new Role</h3>
+            <li>
+                <h3>arole : Add a new Role</h3>
 
-    <p>
-        This command creates a new role. The command is valid if and only if the new role is not already
-        a member of the ROLES data set. The ROLES data set is updated. Initially, no user or permission is
-        assigned to the new role.
-    </p>
+                <p>
+                    This command creates a new role. The command is valid if and only if the new role is not already
+                    a member of the ROLES data set. The ROLES data set is updated. Initially, no user or permission is
+                    assigned to the new role.
+                </p>
 
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name to use for the Role to be created.</li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>d : description - maps to description attribute on organizationalRole object class</li>
-        <li>b : beginTime - HHMM - determines begin hour role may be activated into user's RBAC session</li>
-        <li>e : endTime - HHMM - determines end hour role may be activated into user's RBAC session.</li>
-        <li>B : beginDate - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
-        <li>E : endDate - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
-        <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
-        <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
-        <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's
-            RBAC session
-        </li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin arole -n trole1</li>
-        <li>admin arole -n trole2 -d roledescription -b 0900 -e 1800 -B 20120101 -E 20990101 -m 1234567</li>
-    </ul>
-</li>
-<br/>
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name to use for the Role to be created.</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>d : description - maps to description attribute on organizationalRole object class</li>
+                    <li>b : beginTime - HHMM - determines begin hour role may be activated into user's RBAC session</li>
+                    <li>e : endTime - HHMM - determines end hour role may be activated into user's RBAC session.</li>
+                    <li>B : beginDate - YYYYMMDD - determines date when role may be activated into user's RBAC session
+                    </li>
+                    <li>E : endDate - YYYYMMDD - indicates latest date role may be activated into user's RBAC session
+                    </li>
+                    <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
+                    <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
+                    <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated
+                        into user's
+                        RBAC session
+                    </li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin arole -n trole1</li>
+                    <li>admin arole -n trole2 -d roledescription -b 0900 -e 1800 -B 20120101 -E 20990101 -m 1234567</li>
+                </ul>
+            </li>
+            <br/>
 
-<li>
-    <h3>urole : Update an existing Role</h3>
+            <li>
+                <h3>urole : Update an existing Role</h3>
 
-    <p>
-        Method will update a Role entity in the directory. The role must exist in role container prior to this call.
-    </p>
+                <p>
+                    Method will update a Role entity in the directory. The role must exist in role container prior to
+                    this call.
+                </p>
 
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name for already existing Role to be updated</li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>d : description - maps to description attribute on organizationalRole object class</li>
-        <li>b : beginTime - HHMM - determines begin hour role may be activated into user's RBAC session</li>
-        <li>e : endTime - HHMM - determines end hour role may be activated into user's RBAC session.</li>
-        <li>B : beginDate - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
-        <li>E : endDate - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
-        <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
-        <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
-        <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's
-            RBAC session
-        </li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin urole -n trole1 -d newdesc</li>
-        <li>admin urole -n trole2 -b 0800 -B 20111231 -m 23456</li>
-    </ul>
-</li>
-<br/>
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name for already existing Role to be updated</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>d : description - maps to description attribute on organizationalRole object class</li>
+                    <li>b : beginTime - HHMM - determines begin hour role may be activated into user's RBAC session</li>
+                    <li>e : endTime - HHMM - determines end hour role may be activated into user's RBAC session.</li>
+                    <li>B : beginDate - YYYYMMDD - determines date when role may be activated into user's RBAC session
+                    </li>
+                    <li>E : endDate - YYYYMMDD - indicates latest date role may be activated into user's RBAC session
+                    </li>
+                    <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
+                    <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
+                    <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated
+                        into user's
+                        RBAC session
+                    </li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin urole -n trole1 -d newdesc</li>
+                    <li>admin urole -n trole2 -b 0800 -B 20111231 -m 23456</li>
+                </ul>
+            </li>
+            <br/>
 
-<li>
-    <h3>drole : Delete a Role</h3>
+            <li>
+                <h3>drole : Delete a Role</h3>
 
-    <p>
-        This command deletes an existing role from the RBAC database. The command is valid
-        if and only if the role to be deleted is a member of the ROLES data set. If role
-        assignments to USERS or PERMISSIONS exist this command will delete those as well.
-    </p>
+                <p>
+                    This command deletes an existing role from the RBAC database. The command is valid
+                    if and only if the role to be deleted is a member of the ROLES data set. If role
+                    assignments to USERS or PERMISSIONS exist this command will delete those as well.
+                </p>
 
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name for already existing Role to be deleted</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin drole -n trole1</li>
-    </ul>
-</li>
-<br/>
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name for already existing Role to be deleted</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin drole -n trole1</li>
+                </ul>
+            </li>
+            <br/>
 
-<li>
-    <h3>asgnrole : Assign a Role to a User</h3>
+            <li>
+                <h3>asgnrole : Assign a Role to a User</h3>
 
-    <p>
-        This command assigns a user to a role.
-    </p>
-    <ul>
-        <li> The command is valid if and only if:
-        <li> The user is a member of the USERS data set
-        <li> The role is a member of the ROLES data set
-        <li> The user is not already assigned to the role
-        <li> The SSD constraints are satisfied after assignment.
-    </ul>
-    <p>
-        Successful completion of this op, the following occurs:
-    </p>
-    <ul>
-        <li> User entity (resides in people container) has role assignment added to aux object class attached to actual
-            user record.
-        <li> Role entity (resides in role container) has userId added as role occupant.
-        <li> (optional) Temporal constraints may be associated with <code>ftUserAttrs</code> aux object class based on:
-            <ul>
-                <li>b : beginTime - HHMM - determines begin hour role may be activated into user's RBAC session</li>
-                <li>e : endTime - HHMM - determines end hour role may be activated into user's RBAC session.</li>
-                <li>B : beginDate - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
-                <li>E : endDate - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
-                <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
-                <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
-                <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into
-                    user's RBAC session
-                </li>
-            </ul>
-    </ul>
+                <p>
+                    This command assigns a user to a role.
+                </p>
+                <ul>
+                    <li> The command is valid if and only if:
+                    <li> The user is a member of the USERS data set
+                    <li> The role is a member of the ROLES data set
+                    <li> The user is not already assigned to the role
+                    <li> The SSD constraints are satisfied after assignment.
+                </ul>
+                <p>
+                    Successful completion of this op, the following occurs:
+                </p>
+                <ul>
+                    <li> User entity (resides in people container) has role assignment added to aux object class
+                        attached to actual
+                        user record.
+                    <li> Role entity (resides in role container) has userId added as role occupant.
+                    <li> (optional) Temporal constraints may be associated with <code>ftUserAttrs</code> aux object
+                        class based on:
+                        <ul>
+                            <li>b : beginTime - HHMM - determines begin hour role may be activated into user's RBAC
+                                session
+                            </li>
+                            <li>e : endTime - HHMM - determines end hour role may be activated into user's RBAC
+                                session.
+                            </li>
+                            <li>B : beginDate - YYYYMMDD - determines date when role may be activated into user's RBAC
+                                session
+                            </li>
+                            <li>E : endDate - YYYYMMDD - indicates latest date role may be activated into user's RBAC
+                                session
+                            </li>
+                            <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
+                            <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
+                            <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be
+                                activated into
+                                user's RBAC session
+                            </li>
+                        </ul>
+                </ul>
 
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name for already existing Role to be assigned</li>
-        <li>u : userId - contains the userId for existing User</li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>b : beginTime - HHMM - determines begin hour role may be activated into user's RBAC session</li>
-        <li>e : endTime - HHMM - determines end hour role may be activated into user's RBAC session.</li>
-        <li>B : beginDate - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
-        <li>E : endDate - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
-        <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
-        <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
-        <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's
-            RBAC session
-        </li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin asgnrole -u testuser2 -n trole2</li>
-        <li>admin asgnrole -u testuser2 -n trole2 -b 1200 -e 2359 -B 20120101 -E 20120131 -m 1234567</li>
-    </ul>
-</li>
-<br/>
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name for already existing Role to be assigned</li>
+                    <li>u : userId - contains the userId for existing User</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>b : beginTime - HHMM - determines begin hour role may be activated into user's RBAC session</li>
+                    <li>e : endTime - HHMM - determines end hour role may be activated into user's RBAC session.</li>
+                    <li>B : beginDate - YYYYMMDD - determines date when role may be activated into user's RBAC session
+                    </li>
+                    <li>E : endDate - YYYYMMDD - indicates latest date role may be activated into user's RBAC session
+                    </li>
+                    <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
+                    <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
+                    <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated
+                        into user's
+                        RBAC session
+                    </li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin asgnrole -u testuser2 -n trole2</li>
+                    <li>admin asgnrole -u testuser2 -n trole2 -b 1200 -e 2359 -B 20120101 -E 20120131 -m 1234567</li>
+                </ul>
+            </li>
+            <br/>
 
-<li>
-    <h3>dsgnrole : Deassign a Role from a User</h3>
+            <li>
+                <h3>dsgnrole : Deassign a Role from a User</h3>
 
-    <p>
-        This command deletes the assignment of the User from the Role entities. The command is
-        valid if and only if the user is a member of the USERS data set, the role is a member of
-        the ROLES data set, and the user is assigned to the role.
-        Any sessions that currently have this role activated will not be effected.
-    </p>
-    <br/>Successful completion includes:
-    <ul>
-        <li>User entity in USER data set has role assignment removed.</li>
-        <li>Role entity in ROLE data set has userId removed as role occupant.</li>
-        <li>(optional) Temporal constraints will be removed from user aux object if set prior to call.</li>
-    </ul>
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name for already existing Role to be deassigned</li>
-        <li>u : userId - contains the userId for existing User</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin dsgnrole -u testuser2 -n trole2</li>
-    </ul>
-</li>
-<br/>
+                <p>
+                    This command deletes the assignment of the User from the Role entities. The command is
+                    valid if and only if the user is a member of the USERS data set, the role is a member of
+                    the ROLES data set, and the user is assigned to the role.
+                    Any sessions that currently have this role activated will not be effected.
+                </p>
+                <br/>Successful completion includes:
+                <ul>
+                    <li>User entity in USER data set has role assignment removed.</li>
+                    <li>Role entity in ROLE data set has userId removed as role occupant.</li>
+                    <li>(optional) Temporal constraints will be removed from user aux object if set prior to call.</li>
+                </ul>
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name for already existing Role to be deassigned</li>
+                    <li>u : userId - contains the userId for existing User</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin dsgnrole -u testuser2 -n trole2</li>
+                </ul>
+            </li>
+            <br/>
 
-<li>
-    <h3>arel : ADD_ROLE_INHERITANCE</h3>
+            <li>
+                <h3>arel : ADD_ROLE_INHERITANCE</h3>
 
-    <p>
-        This commands establishes a new immediate inheritance relationship parentRole <<-- childRole between existing
-        roles parentRole, childRole.
+                <p>
+                    This commands establishes a new immediate inheritance relationship parentRole <<-- childRole between
+                    existing
+                    roles parentRole, childRole.
 
-    <p>
-        The command is valid if and only if:
-    </p>
-    <ul>
-        <li> The parentRole and childRole are members of the ROLES data set.
-        <li> The parentRole is not an immediate ascendant of childRole.
-        <li> The childRole does not properly inherit parentRole (in order to avoid cycle creation).
-    </ul>
+                <p>
+                    The command is valid if and only if:
+                </p>
+                <ul>
+                    <li> The parentRole and childRole are members of the ROLES data set.
+                    <li> The parentRole is not an immediate ascendant of childRole.
+                    <li> The childRole does not properly inherit parentRole (in order to avoid cycle creation).
+                </ul>
 
-    <h4>required parameters</h4>
-    <ul>
-        <li>A : ascendant - contains the name of existing Role to be parent</li>
-        <li>D : descendant - contains the name of existing Role to be child</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin arel -A trole1 -D trole2</li>
-    </ul>
-</li>
-<br/>
+                <h4>required parameters</h4>
+                <ul>
+                    <li>A : ascendant - contains the name of existing Role to be parent</li>
+                    <li>D : descendant - contains the name of existing Role to be child</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin arel -A trole1 -D trole2</li>
+                </ul>
+            </li>
+            <br/>
 
-<li>
-    <h3>drel : DELETE_ROLE_INHERITANCE</h3>
-    This command deletes an existing immediate inheritance relationship parentRole <<-- childRole.
-    <p>
-        command is valid if and only if:
-    </p>
-    <ul>
-        <li> The roles parentRole and childRole are members of the ROLES data set.
-        <li> The parentRole is an immediate ascendant of childRole.
-        <li> The new inheritance relation is computed as the reflexive-transitive closure of the immediate inheritance
-            relation resulted after deleting the relationship parentRole <<-- childRole.
-    </ul>
+            <li>
+                <h3>drel : DELETE_ROLE_INHERITANCE</h3>
+                This command deletes an existing immediate inheritance relationship parentRole <<-- childRole.
+                <p>
+                    command is valid if and only if:
+                </p>
+                <ul>
+                    <li> The roles parentRole and childRole are members of the ROLES data set.
+                    <li> The parentRole is an immediate ascendant of childRole.
+                    <li> The new inheritance relation is computed as the reflexive-transitive closure of the immediate
+                        inheritance
+                        relation resulted after deleting the relationship parentRole <<-- childRole.
+                </ul>
 
-    <h4>required parameters</h4>
-    <ul>
-        <li>A : ascendant - contains the name of parent Role to be removed as parent</li>
-        <li>D : descendant - contains the name of child Role to be removed as child</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin drel -A trole1 -D trole2</li>
-    </ul>
-</li>
-<br/>
+                <h4>required parameters</h4>
+                <ul>
+                    <li>A : ascendant - contains the name of parent Role to be removed as parent</li>
+                    <li>D : descendant - contains the name of child Role to be removed as child</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin drel -A trole1 -D trole2</li>
+                </ul>
+            </li>
+            <br/>
 
-<li>
-    <h3>asset : CREATE_SSD_SET</h3>
-    This command creates a named SSD set of roles and sets the cardinality n of its subsets
-    that cannot have common users.
-    <p>
-        The command is valid if and only if:
-    </p>
-    <ul>
-        <li>The name of the SSD set is not already in use.
-        <li> All the roles in the SSD set are members of the ROLES data set.
-        <li> n is a natural number greater than or equal to 2 and less than or equal to the cardinality of the SSD role
-            set.
-        <li> The SSD constraint for the new role set is satisfied.
-    </ul>
+            <li>
+                <h3>asset : CREATE_SSD_SET</h3>
+                This command creates a named SSD set of roles and sets the cardinality n of its subsets
+                that cannot have common users.
+                <p>
+                    The command is valid if and only if:
+                </p>
+                <ul>
+                    <li>The name of the SSD set is not already in use.
+                    <li> All the roles in the SSD set are members of the ROLES data set.
+                    <li> n is a natural number greater than or equal to 2 and less than or equal to the cardinality of
+                        the SSD role
+                        set.
+                    <li> The SSD constraint for the new role set is satisfied.
+                </ul>
 
 
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of new SSD role set to be added</li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>r : roles * - multi-occurring attribute contains the RBAC Role names to be added to this set</li>
-        <li>C : cardinality - default is 2 which is one more than maximum number of Roles that may be assigned to User
-            from a particular set
-        </li>
-        <li>d : description - contains any safe text</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin asset -n mytestssd -r trole1 -r trole3 -r trole5 -r trole6 -c 2 -d only1of4canAssign</li>
-        <li>admin asset -n mytestssd -r trole1 -r trole3 -r trole5 -r trole6 -c 3 -d only2of4canAssign</li>
-    </ul>
-</li>
-<br/>
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of new SSD role set to be added</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>r : roles * - multi-occurring attribute contains the RBAC Role names to be added to this set
+                    </li>
+                    <li>C : cardinality - default is 2 which is one more than maximum number of Roles that may be
+                        assigned to User
+                        from a particular set
+                    </li>
+                    <li>d : description - contains any safe text</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin asset -n mytestssd -r trole1 -r trole3 -r trole5 -r trole6 -c 2 -d only1of4canAssign</li>
+                    <li>admin asset -n mytestssd -r trole1 -r trole3 -r trole5 -r trole6 -c 3 -d only2of4canAssign</li>
+                </ul>
+            </li>
+            <br/>
 
-<li>
-    <h3>dsset : DELETE_SSD_SET</h3>
+            <li>
+                <h3>dsset : DELETE_SSD_SET</h3>
 
-    <p>
-        This command deletes a SSD role set completely. The command is valid if and only if the SSD role set exists.
-    </p>
+                <p>
+                    This command deletes a SSD role set completely. The command is valid if and only if the SSD role set
+                    exists.
+                </p>
 
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of existing SSD role set to be removed</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin dsset -n mytestssd</li>
-    </ul>
-</li>
-<br/>
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of existing SSD role set to be removed</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin dsset -n mytestssd</li>
+                </ul>
+            </li>
+            <br/>
 
-<li>
-    <h3>adset : CREATE_DSD_SET</h3>
+            <li>
+                <h3>adset : CREATE_DSD_SET</h3>
 
-    <p>
-        This command creates a named DSD set of roles and sets an associated cardinality n.
-        The DSD constraint stipulates that the DSD role set cannot contain n or more roles
-        simultaneously active in the same session.
+                <p>
+                    This command creates a named DSD set of roles and sets an associated cardinality n.
+                    The DSD constraint stipulates that the DSD role set cannot contain n or more roles
+                    simultaneously active in the same session.
 
-    <p>
-        The command is valid if and only if:
-    <ul>
-        <li> The name of the DSD set is not already in use.
-        <li> All the roles in the DSD set are members of the ROLES data set.
-        <li> n is a natural number greater than or equal to 2 and less than or equal to the cardinality of the DSD role
-            set.
-        <li> The DSD constraint for the new role set is satisfied.
-    </ul>
+                <p>
+                    The command is valid if and only if:
+                <ul>
+                    <li> The name of the DSD set is not already in use.
+                    <li> All the roles in the DSD set are members of the ROLES data set.
+                    <li> n is a natural number greater than or equal to 2 and less than or equal to the cardinality of
+                        the DSD role
+                        set.
+                    <li> The DSD constraint for the new role set is satisfied.
+                </ul>
 
-<h4>required parameters</h4>
-<ul>
-    <li>n : name - contains the name of new DSD role set to be added</li>
-</ul>
-<h4>optional parameters</h4>
-<ul>
-    <li>r : roles * - multi-occurring attribute contains the RBAC Role names to be added to this set</li>
-    <li>C : cardinality - default is 2 which is one more than maximum number of Roles that may be activated into RBAC
-        Session from a particular set
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of new DSD role set to be added</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>r : roles * - multi-occurring attribute contains the RBAC Role names to be added to this set
+                    </li>
+                    <li>C : cardinality - default is 2 which is one more than maximum number of Roles that may be
+                        activated into RBAC
+                        Session from a particular set
+                    </li>
+                    <li>d : description - contains any safe text</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin adset -n mytestdsd -r trole1 -r trole3 -r trole5 -r trole6 -c 2 -d only1of4canActivate
+                    </li>
+                    <li>admin adset -n mytestdsd -r trole1 -r trole3 -r trole5 -r trole6 -c 3 -d only2of4canActivate
+                    </li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>ddset : DELETE_DSD_SET</h3>
+
+                <p>
+                    This command deletes a DSD role set completely. The command is valid if and only if the DSD role set
+                    exists.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of existing DSD role set to be removed</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin ddset -n mytestdsd</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>aobj : ADD_POBJ</h3>
+
+                <p>
+                    This method will add permission object to perms container in directory. The perm object must not
+                    exist before
+                    making this call.
+                    A PermObj instance exists in a hierarchical, one-many relationship between itself and children as
+                    stored in ldap
+                    tree: PermObj*->Permission.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of new object being added</li>
+                    <li>o : orgUnit - contains the name of an existing PERMS OrgUnit this object is associated with</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>d : description - any safe text</li>
+                    <li>T : type - contains any safe text</li>
+                    <li>v : properties * - multi-occurring property key and values are separated with a ':'. e.g.
+                        mykey1:myvalue1
+                    </li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin aobj -n mytestobject -o app1</li>
+                    <li>admin aobj -n myobject2 -o app1 -d TestObject -t anything -v key1:val1 -v key2:val2</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>uobj : UPDATE_POBJ</h3>
+
+                <p>
+                    This method will update permission object in perms container in directory. The perm object must
+                    exist before
+                    making this call.
+                    A PermObj instance exists in a hierarchical, one-many relationship between itself and children as
+                    stored in ldap
+                    tree: PermObj*->Permission.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of exising object being updated</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>o : orgUnit - contains the name of an existing PERMS OrgUnit this object is associated with</li>
+                    <li>d : description - any safe text</li>
+                    <li>T : type - contains any safe text</li>
+                    <li>v : properties * - multi-occurring property key and values are separated with a ':'. e.g.
+                        mykey1:myvalue1
+                    </li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin uobj -n mytestobject -o app2 -d ChangedOrgUnit</li>
+                    <li>admin uobj -n myobject2 -o app1 -d ChangeDescription</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>dobj : DELETE_POBJ</h3>
+
+                <p>
+                    This method will remove permission object to perms container in directory. This method will also
+                    remove
+                    in associated permission objects that are attached to this object.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of exising object being targeted for removal</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin dobj -n mytestobject -o app1</li>
+                </ul>
+            </li>
+            <br/>
+            <li>
+                <h3>aperm : ADD_PERM</h3>
+
+                <p>
+                    This method will add permission operation to an existing permission object which resides under
+                    ou=Permissions,ou=RBAC,dc=yourHostName,dc=com container in directory information tree.
+                    The perm operation entity may have Role or User associations. The target Permission must not exist
+                    prior to
+                    calling.
+                    A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent
+                    and itself as
+                    stored in ldap tree: PermObj*->Permission.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of existing object being targeted for the permission add</li>
+                    <li>O : opName - contains the name of new permission operation being added</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>r : roles * - multi occurring attribute contains RBAC Roles that permission operation is being
+                        granted to
+                    </li>
+                    <li>v : properties * - multi-occurring property key and values are separated with a ':'. e.g.
+                        mykey1:myvalue1
+                    </li>
+                    <li>T : type - any safe text</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin aperm -n mytestobject -O myoperation -d CreateNewPermission</li>
+                    <li>admin aperm -n myobject2 -O myoperation2 -r trole1 -r trole5</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>uperm : UPDATE_PERM</h3>
+
+                <p>
+                    This method will update permission operation pre-existing in target directory under
+                    ou=Permissions,ou=RBAC,dc=yourHostName,dc=com container in directory information tree.
+                    The perm operation entity may also contain Role or User associations to add or remove using this
+                    function.
+                    The perm operation must exist before making this call. Only non-null attributes will be updated.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of existing object being targeted for the permission update</li>
+                    <li>O : opName - contains the name of existing permission operation being updated</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>r : roles * - multi-occurring attribute contains RBAC Roles that permission operation is being
+                        granted to
+                    </li>
+                    <li>v : properties * - multi-occurring property key and values are separated with a ':'. e.g.
+                        mykey1:myvalue1
+                    </li>
+                    <li>T : type - any safe text</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin uperm -n myobject2 -O myoperation2 -r trole6 -D ReplaceExistingGrantsWithThisRole</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>dperm : DELETE_PERM</h3>
+
+                <p>
+                    This method will remove permission operation entity from permission object. A Fortress permission is
+                    PermObj*->Permission.
+                    The perm operation must exist before making this call.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of existing object being targeted for the permission delete</li>
+                    <li>O : opName - contains the name of existing permission operation that will be deleted</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin dperm -n mytestobject -O myoperation -d CreateNewPermission</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>grant : GRANT</h3>
+
+                <p>
+                    This command grants a role the permission to perform an operation on an object to a role.
+                    The command is implemented by granting permission by setting the access control list of the object
+                    involved.
+                    The command is valid if and only if the pair (operation, object) represents a permission, and the
+                    role is a
+                    member of the ROLES data set.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the object name</li>
+                    <li>O : opName - contains the operation name</li>
+                    <li>R : roleName - contains the role name</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin grant -n mytestobject -O myoperation -R trole1</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>revoke : REVOKE </h3>
+
+                <p>
+                    This command revokes the permission to perform an operation on an object from the set
+                    of permissions assigned to a role. The command is implemented by setting the access control
+                    list of the object involved.
+                    The command is valid if and only if the pair (operation, object) represents a permission,
+                    the role is a member of the ROLES data set, and the permission is assigned to that role.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the object name</li>
+                    <li>O : opName - contains the operation name</li>
+                    <li>R : roleName - contains the role name</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>admin revoke -n mytestobject -O myoperation -R trole1</li>
+                </ul>
+            </li>
+            <br/>
+
+        </ol>
     </li>
-    <li>d : description - contains any safe text</li>
-</ul>
-<h4>example</h4>
-<ul>
-    <li>admin adset -n mytestdsd -r trole1 -r trole3 -r trole5 -r trole6 -c 2 -d only1of4canActivate</li>
-    <li>admin adset -n mytestdsd -r trole1 -r trole3 -r trole5 -r trole6 -c 3 -d only2of4canActivate</li>
-</ul>
-</li><br/>
-
-<li>
-    <h3>ddset : DELETE_DSD_SET</h3>
-
-    <p>
-        This command deletes a DSD role set completely. The command is valid if and only if the DSD role set exists.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of existing DSD role set to be removed</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin ddset -n mytestdsd</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>aobj : ADD_POBJ</h3>
-
-    <p>
-        This method will add permission object to perms container in directory. The perm object must not exist before
-        making this call.
-        A PermObj instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap
-        tree: PermObj*->Permission.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of new object being added</li>
-        <li>o : orgUnit - contains the name of an existing PERMS OrgUnit this object is associated with</li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>d : description - any safe text</li>
-        <li>T : type - contains any safe text</li>
-        <li>v : properties * - multi-occurring property key and values are separated with a ':'. e.g. mykey1:myvalue1
-        </li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin aobj -n mytestobject -o app1</li>
-        <li>admin aobj -n myobject2 -o app1 -d TestObject -t anything -v key1:val1 -v key2:val2</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>uobj : UPDATE_POBJ</h3>
-
-    <p>
-        This method will update permission object in perms container in directory. The perm object must exist before
-        making this call.
-        A PermObj instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap
-        tree: PermObj*->Permission.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of exising object being updated</li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>o : orgUnit - contains the name of an existing PERMS OrgUnit this object is associated with</li>
-        <li>d : description - any safe text</li>
-        <li>T : type - contains any safe text</li>
-        <li>v : properties * - multi-occurring property key and values are separated with a ':'. e.g. mykey1:myvalue1
-        </li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin uobj -n mytestobject -o app2 -d ChangedOrgUnit</li>
-        <li>admin uobj -n myobject2 -o app1 -d ChangeDescription</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>dobj : DELETE_POBJ</h3>
-
-    <p>
-        This method will remove permission object to perms container in directory. This method will also remove
-        in associated permission objects that are attached to this object.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of exising object being targeted for removal</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin dobj -n mytestobject -o app1</li>
-    </ul>
-</li>
-<br/>
-<li>
-    <h3>aperm : ADD_PERM</h3>
-
-    <p>
-        This method will add permission operation to an existing permission object which resides under
-        ou=Permissions,ou=RBAC,dc=yourHostName,dc=com container in directory information tree.
-        The perm operation entity may have Role or User associations. The target Permission must not exist prior to
-        calling.
-        A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent and itself as
-        stored in ldap tree: PermObj*->Permission.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of existing object being targeted for the permission add</li>
-        <li>O : opName - contains the name of new permission operation being added</li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>r : roles * - multi occurring attribute contains RBAC Roles that permission operation is being granted to
-        </li>
-        <li>v : properties * - multi-occurring property key and values are separated with a ':'. e.g. mykey1:myvalue1
-        </li>
-        <li>T : type - any safe text</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin aperm -n mytestobject -O myoperation -d CreateNewPermission</li>
-        <li>admin aperm -n myobject2 -O myoperation2 -r trole1 -r trole5</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>uperm : UPDATE_PERM</h3>
-
-    <p>
-        This method will update permission operation pre-existing in target directory under
-        ou=Permissions,ou=RBAC,dc=yourHostName,dc=com container in directory information tree.
-        The perm operation entity may also contain Role or User associations to add or remove using this function.
-        The perm operation must exist before making this call. Only non-null attributes will be updated.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of existing object being targeted for the permission update</li>
-        <li>O : opName - contains the name of existing permission operation being updated</li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>r : roles * - multi-occurring attribute contains RBAC Roles that permission operation is being granted to
-        </li>
-        <li>v : properties * - multi-occurring property key and values are separated with a ':'. e.g. mykey1:myvalue1
-        </li>
-        <li>T : type - any safe text</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin uperm -n myobject2 -O myoperation2 -r trole6 -D ReplaceExistingGrantsWithThisRole</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>dperm : DELETE_PERM</h3>
-
-    <p>
-        This method will remove permission operation entity from permission object. A Fortress permission is
-        PermObj*->Permission.
-        The perm operation must exist before making this call.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of existing object being targeted for the permission delete</li>
-        <li>O : opName - contains the name of existing permission operation that will be deleted</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin dperm -n mytestobject -O myoperation -d CreateNewPermission</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>grant : GRANT</h3>
-
-    <p>
-        This command grants a role the permission to perform an operation on an object to a role.
-        The command is implemented by granting permission by setting the access control list of the object involved.
-        The command is valid if and only if the pair (operation, object) represents a permission, and the role is a
-        member of the ROLES data set.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the object name</li>
-        <li>O : opName - contains the operation name</li>
-        <li>R : roleName - contains the role name</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin grant -n mytestobject -O myoperation -R trole1</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>revoke : REVOKE </h3>
-
-    <p>
-        This command revokes the permission to perform an operation on an object from the set
-        of permissions assigned to a role. The command is implemented by setting the access control
-        list of the object involved.
-        The command is valid if and only if the pair (operation, object) represents a permission,
-        the role is a member of the ROLES data set, and the permission is assigned to that role.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the object name</li>
-        <li>O : opName - contains the operation name</li>
-        <li>R : roleName - contains the role name</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>admin revoke -n mytestobject -O myoperation -R trole1</li>
-    </ul>
-</li>
-<br/>
-
-</ol>
-</li>
-<li>
-
-<h3>Delegated Admin Commands</h3>
-
-<ol type="A">
-
-<li>
-    <h3>arole : Add a new ADMIN_Role</h3>
-
-    <p>
-        This command creates a new admin role. The command is valid if and only if the new admin role is not
-        already a member of the ADMIN ROLES data set. The ADMIN ROLES data set is updated.
-        Initially, no user or permission is assigned to the new role.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of the new AdminRole being targeted for addition to LDAP</li>
-    </ul>
-
-    <h4>optional parameters</h4>
-    <ul>
-        <li>d : description - contains any safe text</li>
-        <li>P : osPs * - multi-occurring attribute used to set associations to existing PERMS OrgUnits</li>
-        <li>U : osUs * - multi-occurring attribute used to set associations to existing USERS OrgUnits</li>
-        <li>x : beginRange - contains the name of an existing RBAC Role that represents the lowest role in hierarchy
-            that administrator (whoever has this AdminRole activated) controls
-        </li>
-        <li>w : endRange - contains the name of an existing RBAC Role that represents that highest role in hierarchy
-            that administrator may control
-        </li>
-        <li>y : beginInclusive - if 'true' the RBAC Role specified in beginRange is also controlled by the posessor of
-            this AdminRole
-        </li>
-        <li>z : endInclusive - if 'true' the RBAC Role specified in endRange is also controlled by the
-            administratrator
-        </li>
-        <li>b : beginTime - HHMM - determines begin hour adminRole may be activated into user's ARBAC session</li>
-        <li>e : endTime - HHMM - determines end hour adminRole may be activated into user's ARBAC session.</li>
-        <li>B : beginDate - YYYYMMDD - determines date when adminRole may be activated into user's ARBAC session</li>
-        <li>E : endDate - YYYYMMDD - indicates latest date adminRole may be activated into user's ARBAC session</li>
-        <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
-        <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
-        <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's
-            ARBAC session
-        </li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin arole -n arole1</li>
-        <li>dadmin arole -n arole2 -P app1 -P app2 -U dev1 -U dev2 -x role3 -w role1 -y true -z true -d
-            adminroledescription -b 0900 -e 1800 -B 20120101 -E 20990101 -m 1234567
-        </li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>urole : Update an existing ADMIN_Role</h3>
-
-    <p>
-        Method will update a admin Role entity in the directory. The role must exist in admin role container prior to
-        this call.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of existing AdminRole being targeted for update</li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>d : description - contains any safe text</li>
-        <li>P : osPs * - multi-occurring attribute used to set associations to existing PERMS OrgUnits</li>
-        <li>U : osUs * - multi-occurring attribute used to set associations to existing USERS OrgUnits</li>
-        <li>x : beginRange - contains the name of an existing RBAC Role that represents the lowest role in hierarchy
-            that administrator (whoever has this AdminRole activated) controls
-        </li>
-        <li>w : endRange - contains the name of an existing RBAC Role that represents that highest role in hierarchy
-            that administrator may control
-        </li>
-        <li>y : beginInclusive - if 'true' the RBAC Role specified in beginRange is also controlled by the posessor of
-            this AdminRole
-        </li>
-        <li>z : endInclusive - if 'true' the RBAC Role specified in endRange is also controlled by the
-            administratrator
-        </li>
-        <li>b : beginTime - HHMM - determines begin hour adminRole may be activated into user's ARBAC session</li>
-        <li>e : endTime - HHMM - determines end hour adminRole may be activated into user's ARBAC session.</li>
-        <li>B : beginDate - YYYYMMDD - determines date when adminRole may be activated into user's ARBAC session</li>
-        <li>E : endDate - YYYYMMDD - indicates latest date adminRole may be activated into user's ARBAC session</li>
-        <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
-        <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
-        <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's
-            ARBAC session
-        </li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin urole -n arole1 -d updatedescription</li>
-        <li>dadmin urole -n arole2 -x role4 -w role1 -y true -z false</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>drole : Delete an ADMIN_Role</h3>
-
-    <p>
-        This command deletes an existing admin role from the ARBAC database. The command is valid
-        if and only if the admin role to be deleted is a member of the ADMIN ROLES data set and has been
-        deassigned from all users.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of existing AdminRole being targeted for deletion.</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin drole -n arole1</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>asgnrole : Assign an ADMIN_Role to a User</h3>
-
-    <p>
-        This command assigns a user to an admin role.
-        Successful completion of this op, the following occurs:
-    </p>
-    <ul>
-        <li> User entity (resides in people container) has role assignment added to aux object class attached to actual
-            user record.
-        <li> AdminRole entity (resides in admin role container) has userId added as role occupant.
-        <li> (optional) Temporal constraints may be associated with <code>ftUserAttrs</code> aux object class based on:
-    </ul>
-    <ul>
-        <li> timeout - number in seconds of session inactivity time allowed.
-        <li> beginDate - YYYYMMDD - determines date when role may be activated.
-        <li> endDate - YYYYMMDD - indicates latest date role may be activated.
-        <li> beginLockDate - YYYYMMDD - determines beginning of enforced inactive status
-        <li> endLockDate - YYYYMMDD - determines end of enforced inactive status.
-        <li> beginTime - HHMM - determines begin hour role may be activated in user's session.
-        <li> endTime - HHMM - determines end hour role may be activated in user's session.*
-        <li> dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of week role may be activated.
-    </ul>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name for already existing AdminRole to be assigned</li>
-        <li>u : userId - contains the userId for existing User</li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>b : beginTime - HHMM - determines begin hour AdminRole may be activated into user's RBAC session</li>
-        <li>e : endTime - HHMM - determines end hour AdminRole may be activated into user's RBAC session.</li>
-        <li>B : beginDate - YYYYMMDD - determines date when AdminRole may be activated into user's RBAC session</li>
-        <li>E : endDate - YYYYMMDD - indicates latest date AdminRole may be activated into user's RBAC session</li>
-        <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
-        <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
-        <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's
-            ARBAC session
-        </li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin asgnrole -u testuser2 -n arole1</li>
-        <li>dadmin asgnrole -u testuser2 -n arole2 -b 1200 -e 2359 -B 20120101 -E 20120131 -m 1234567</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>dsgnrole : Deassign a ADMIN_Role from a User</h3>
-
-    <p>
-        This method removes assigned admin role from user entity. Both user and admin role entities must exist and have
-        role relationship
-        before calling this method.
-        Successful completion:
-        del Role to User assignment in User data set
-        AND
-        User to Role assignment in Admin Role data set.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name for already existing AdminRole to be deassigned</li>
-        <li>u : userId - contains the userId for existing User</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin dsgnrole -u testuser2 -n arole1</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>arel : ADD_ADMIN_ROLE_INHERITANCE</h3>
-
-        This commands establishes a new immediate inheritance relationship with parent orgunit <<-- child orgunit
-    <p>
-        The command is valid if and only if:
-    </p>
-    <ul>
-        <li> The parent and child are members of the ORGUNITS data set.
-        <li> The parent is not an immediate ascendant of child.
-        <li> The child does not properly inherit parent (in order to avoid cycle creation).
-    </ul>
-
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>A : ascendant - contains the name of parent AdminRole to be added as parent</li>
-        <li>D : descendant - contains the name of child AdminRole to be added as child</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin arel -A arole1 -D arole2</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>drel : DELETE_ADMIN_ROLE_INHERITANCE</h3>
-
-        This command deletes an existing immediate inheritance relationship parent <<-- child.
-
-    <p>
-        The command is valid if and only if:
-    </p>
-    <ul>
-        <li> The orgunits parent and child are members of the ORGUNITS data set.
-        <li> The parent is an immediate ascendant of child.
-        <li> The new inheritance relation is computed as the reflexive-transitive closure of the immediate inheritance
-            relation resulted after deleting the relationship parent <<-- child.
-    </ul>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>A : ascendant - contains the name of parent AdminRole to be removed as parent</li>
-        <li>D : descendant - contains the name of child AdminRole to be removed as child</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin drel -A arole1 -D arole2</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>auou : ADD_USERORG</h3>
-
-    <p>
-        Command adds a new USERS OrgUnit entity to OrgUnit dataset.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of new USERS OrgUnit to be added</li>
-        <li>d : description - contains any safe text</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin auou -n UserOrg1</li>
-        <li>dadmin auou -n UserOrg2 -d description-contains-any-safe-text</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>uuou : UPDATE_USERORG</h3>
-
-    <p>
-        Command updates a USERS OrgUnit entity to OrgUnit dataset.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of existing USERS OrgUnit to be updated</li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>d : description - contains any safe text</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin uuou -n UserOrg2 -d updated-description-contains-any-safe-text</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>duou : DELETE_USERORG</h3>
-
-    <p>
-        Command removes an existing USERS OrgUnit entity from the OrgUnit dataset.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of existing USERS OrgUnit to be deleted</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin duou -n UserOrg1</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>aurel : ADD_USERORG_INHERITANCE</h3>
-
-        This commands establishes a new immediate inheritance relationship with parent USERS orgunit <<-- child orgunit
-    <p>
-        The command is valid if and only if:
-    </p>
-    <ul>
-        <li> The parent and child are members of the USERS ORGUNITS data set.
-        <li> The parent is not an immediate ascendant of child.
-        <li> The child does not properly inherit parent (in order to avoid cycle creation).
-    </ul>
-
-    <p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>A : ascendant - contains the name of existing USERS OrgUnit to be new parent</li>
-        <li>D : descendant - contains the name of existing USERS OrgUnit to be new child</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin aurel -A UserOrg1 -D UserOrg2</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>durel : DELETE_USERORG_INHERITANCE</h3>
-        This command deletes an existing immediate inheritance relationship parent <<-- child.
-
-    <p>
-        The command is valid if and only if:
-    </p>
-    <ul>
-        <li> The orgunits parent and child are members of the USERS ORGUNITS data set.
-        <li> The parent is an immediate ascendant of child.
-        <li> The new inheritance relation is computed as the reflexive-transitive closure of the immediate inheritance
-            relation resulted after deleting the relationship parent <<-- child.
-    </ul>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>A : ascendant - contains the name of existing USERS OrgUnit to be removed as parent</li>
-        <li>D : descendant - contains the name of existing USERS OrgUnit to be removed as child</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin durel -A UserOrg1 -D UserOrg2</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>apou : ADD_PERMORG</h3>
-
-    <p>
-        Command adds a new PERMS OrgUnit entity to OrgUnit dataset.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of new existing PERMS OrgUnit to be added</li>
-        <li>d : description - contains any safe text</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin apou -n PermOrg1</li>
-        <li>dadmin apou -n PermOrg2 -d description-contains-any-safe-text</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>upou : UPDATE_PERMORG</h3>
-
-    <p>
-        Command updates a PERMS OrgUnit entity to OrgUnit dataset.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of existing PERMS OrgUnit to be updated</li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>d : description - contains any safe text</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin upou -n PermOrg1 -d description-contains-any-safe-text</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>dpou : DELETE_PERMORG</h3>
-
-    <p>
-        Command removes an existing PERMS OrgUnit entity from the OrgUnit dataset.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of existing PERMS OrgUnit to be deleted</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin dpou -n PermOrg2</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>aprel : ADD_PERMORG_INHERITANCE</h3>
-
-        This commands establishes a new immediate inheritance relationship with parent PERMS orgunit <<-- child orgunit
-
-    <p>
-        The command is valid if and only if:
-    </p>
-    <ul>
-        <li> The parent and child are members of the USERS ORGUNITS data set.
-        <li> The parent is not an immediate ascendant of child.
-        <li> The child does not properly inherit parent (in order to avoid cycle creation).
-    </ul>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>A : ascendant - contains the name of existing PERMS OrgUnit to be new parent</li>
-        <li>D : descendant - contains the name of existing PERMS OrgUnit to be new child</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin aprel -A PermOrg1 -D PermOrg2</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>dprel : DELETE_PERMORG_INHERITANCE</h3>
-
-        This command deletes an existing immediate inheritance relationship parent <<-- child.
-    <p>
-        The command is valid if and only if:
-    </p>
-    <ul>
-        <li> The orgunits parent and child are members of the PERMS ORGUNITS data set.
-        <li> The parent is an immediate ascendant of child.
-        <li> The new inheritance relation is computed as the reflexive-transitive closure of the immediate inheritance
-            relation resulted after deleting the relationship parent <<-- child.
-    </ul>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>A : ascendant - contains the name of existing PERMS OrgUnit to be removed as parent</li>
-        <li>D : descendant - contains the name of existing PERMS OrgUnit to be removed as child</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin dprel -A PermOrg1 -D PermOrg2</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>aobj : ADD_ADMIN_POBJ</h3>
-
-    <p>
-        This method will add administrative permission object to perms container in directory. The perm object must not
-        exist before making this call.
-        A PermObj instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap
-        tree: PermObj*->Permission.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of new administrative object being added</li>
-        <li>o : orgUnit - contains the name of an existing PERMS OrgUnit this administrative object is associated with
-        </li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>d : description - contains safe text</li>
-        <li>T : type - any safe text</li>
-        <li>v : properties * - multi-occurring property key and values are separated with a ':'. e.g. mykey1:myvalue1
-        </li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin aobj -n mytestobject -o app1</li>
-        <li>dadmin aobj -n myobject2 -o app1 -d TestObject -t anything -v key1:val1 -v key2:val2</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>uobj : UPDATE_ADMIN_POBJ</h3>
-
-    <p>
-        This method will update an administrative permission object in perms container in directory. The perm object
-        must exist before making this call.
-        A PermObj instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap
-        tree: PermObj*->Permission.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of existing administrative object being targeted for update</li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>o : orgUnit - contains the name of existing PERMS OrgUnit to associate administrative object with</li>
-        <li>d : description - contains any safe text</li>
-        <li>T : type - any safe text</li>
-        <li>v : properties * - multi-occurring property key and values are separated with a ':'. e.g. mykey1:myvalue1
-        </li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin uobj -n mytestobject -o app2 -d ChangedOrgUnit</li>
-        <li>dadmin uobj -n myobject2 -o app1 -d ChangeDescription</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>dobj : DELETE_POBJ</h3>
-
-    <p>
-        This method will remove an administrative permission object to perms container in directory. This method will
-        also remove
-        in associated permission objects that are attached to this object.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of existing administrative object being targeted for delete</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin dobj -n mytestobject -o app1</li>
-    </ul>
-</li>
-<br/>
-<li>
-    <h3>aperm : ADD_ADMIN_PERM</h3>
-
-    <p>
-        This method will add an administrative permission operation to an existing permission object which resides under
-        ou=AdminPermis,ou=ARBAC,dc=yourHostName,dc=com container in directory information tree.
-        The perm operation entity may have AdminRole or User associations. The target Permission must not exist prior to
-        calling.
-        A Fortress Administrative Permission instance exists in a hierarchical, one-many relationship between its parent
-        and itself as stored in ldap tree: PermObj*->Permission.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of existing administrative object being targeted for the permission add</li>
-        <li>O : opName - contains the name of new administrative permission operation being added</li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>v : properties * - multi-occurring property key and values are separated with a ':'. e.g. mykey1:myvalue1
-        </li>
-        <li>T : type - any safe text</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin aperm -n mytestobject -O myoperation -d CreateNewAdminPermission</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>uperm : UPDATE_ADMIN_PERM</h3>
-
-    <p>
-        This method will update an administrative permission operation pre-existing in target directory under
-        ou=AdminPermis,ou=ARBAC,dc=yourHostName,dc=com container in directory information tree.
-        The perm operation entity may also contain AdminRole or User associations to add or remove using this function.
-        The perm operation must exist before making this call. Only non-null attributes will be updated.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of existing administrative object being targeted for the permission update</li>
-        <li>O : opName - contains the name of existing administrative permission operation being updated</li>
-    </ul>
-    <h4>optional parameters</h4>
-    <ul>
-        <li>v : properties * - multi-occurring property key and values are separated with a ':'. e.g. mykey1:myvalue1
-        </li>
-        <li>T : type - any safe text</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin uperm -n mytestobject -O myoperation -d new-description</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>dperm : DELETE_ADMIN_PERM</h3>
-
-    <p>
-        This method will remove an administrative permission operation entity from permission object. A Fortress
-        administrative permission is PermObj*->Permission.
-        The perm operation must exist before making this call.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the name of existing administrative object being targeted for the permission delete</li>
-        <li>O : opName - contains the name of existing administrative permission operation that will be deleted</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin dperm -n mytestobject -O myoperation -d CreateNewAdminPermission</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>grant : GRANT ADMIN</h3>
-
-    <p>
-        This command grants an adminRole the administrative permission to perform an operation on an object to a role.
-        The command is implemented by granting permission by setting the access control list of the object involved.
-        The command is valid if and only if the pair (operation, object) represents a permission, and the role is a
-        member of the ADMIN_ROLES data set.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the administrative object name</li>
-        <li>O : opName - contains the administrative operation name</li>
-        <li>R : roleName - contains the adminRole name</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin grant -n mytestobject -O myoperation -R arole1</li>
-    </ul>
-</li>
-<br/>
-
-<li>
-    <h3>revoke : REVOKE ADMIN</h3>
-
-    <p>
-        This command revokes the permission to perform an operation on an object from the set
-        of permissions assigned to an adminRole. The command is implemented by setting the access control
-        list of the object involved.
-        The command is valid if and only if the pair (operation, object) represents a permission,
-        the role is a member of the ADMIN_ROLES data set, and the permission is assigned to that role.
-    </p>
-
-    <h4>required parameters</h4>
-    <ul>
-        <li>n : name - contains the administrative object name</li>
-        <li>O : opName - contains the administrative operation name</li>
-        <li>R : roleName - contains the adminRole name</li>
-    </ul>
-    <h4>example</h4>
-    <ul>
-        <li>dadmin revoke -n mytestobject -O myoperation -R arole1</li>
-    </ul>
-</li>
-<br/>
-</ol>
-
-</li>
-<li>
-
-    <h3>Review Commands</h3>
-
-    <ol type="A">
-        <li>
-            <h3>ruser : READ_USER</h3>
-
-            <p>
-                This function reads a User object from the directory. The userId is not case sensitive.
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>u : userId - maps to INetOrgPerson uid</li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li>review ruser -u testuser1</li>
-            </ul>
-        </li>
-        <br/>
-
-        <li>
-            <h3>fuser : FIND_USERS</h3>
+    <li>
+
+        <h3>Delegated Admin Commands</h3>
+
+        <ol type="A">
+
+            <li>
+                <h3>arole : Add a new ADMIN_Role</h3>
+
+                <p>
+                    This command creates a new admin role. The command is valid if and only if the new admin role is not
+                    already a member of the ADMIN ROLES data set. The ADMIN ROLES data set is updated.
+                    Initially, no user or permission is assigned to the new role.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of the new AdminRole being targeted for addition to LDAP</li>
+                </ul>
+
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>d : description - contains any safe text</li>
+                    <li>P : osPs * - multi-occurring attribute used to set associations to existing PERMS OrgUnits</li>
+                    <li>U : osUs * - multi-occurring attribute used to set associations to existing USERS OrgUnits</li>
+                    <li>x : beginRange - contains the name of an existing RBAC Role that represents the lowest role in
+                        hierarchy
+                        that administrator (whoever has this AdminRole activated) controls
+                    </li>
+                    <li>w : endRange - contains the name of an existing RBAC Role that represents that highest role in
+                        hierarchy
+                        that administrator may control
+                    </li>
+                    <li>y : beginInclusive - if 'true' the RBAC Role specified in beginRange is also controlled by the
+                        posessor of
+                        this AdminRole
+                    </li>
+                    <li>z : endInclusive - if 'true' the RBAC Role specified in endRange is also controlled by the
+                        administratrator
+                    </li>
+                    <li>b : beginTime - HHMM - determines begin hour adminRole may be activated into user's ARBAC
+                        session
+                    </li>
+                    <li>e : endTime - HHMM - determines end hour adminRole may be activated into user's ARBAC session.
+                    </li>
+                    <li>B : beginDate - YYYYMMDD - determines date when adminRole may be activated into user's ARBAC
+                        session
+                    </li>
+                    <li>E : endDate - YYYYMMDD - indicates latest date adminRole may be activated into user's ARBAC
+                        session
+                    </li>
+                    <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
+                    <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
+                    <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated
+                        into user's
+                        ARBAC session
+                    </li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin arole -n arole1</li>
+                    <li>dadmin arole -n arole2 -P app1 -P app2 -U dev1 -U dev2 -x role3 -w role1 -y true -z true -d
+                        adminroledescription -b 0900 -e 1800 -B 20120101 -E 20990101 -m 1234567
+                    </li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>urole : Update an existing ADMIN_Role</h3>
+
+                <p>
+                    Method will update a admin Role entity in the directory. The role must exist in admin role container
+                    prior to
+                    this call.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of existing AdminRole being targeted for update</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>d : description - contains any safe text</li>
+                    <li>P : osPs * - multi-occurring attribute used to set associations to existing PERMS OrgUnits</li>
+                    <li>U : osUs * - multi-occurring attribute used to set associations to existing USERS OrgUnits</li>
+                    <li>x : beginRange - contains the name of an existing RBAC Role that represents the lowest role in
+                        hierarchy
+                        that administrator (whoever has this AdminRole activated) controls
+                    </li>
+                    <li>w : endRange - contains the name of an existing RBAC Role that represents that highest role in
+                        hierarchy
+                        that administrator may control
+                    </li>
+                    <li>y : beginInclusive - if 'true' the RBAC Role specified in beginRange is also controlled by the
+                        posessor of
+                        this AdminRole
+                    </li>
+                    <li>z : endInclusive - if 'true' the RBAC Role specified in endRange is also controlled by the
+                        administratrator
+                    </li>
+                    <li>b : beginTime - HHMM - determines begin hour adminRole may be activated into user's ARBAC
+                        session
+                    </li>
+                    <li>e : endTime - HHMM - determines end hour adminRole may be activated into user's ARBAC session.
+                    </li>
+                    <li>B : beginDate - YYYYMMDD - determines date when adminRole may be activated into user's ARBAC
+                        session
+                    </li>
+                    <li>E : endDate - YYYYMMDD - indicates latest date adminRole may be activated into user's ARBAC
+                        session
+                    </li>
+                    <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
+                    <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
+                    <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated
+                        into user's
+                        ARBAC session
+                    </li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin urole -n arole1 -d updatedescription</li>
+                    <li>dadmin urole -n arole2 -x role4 -w role1 -y true -z false</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>drole : Delete an ADMIN_Role</h3>
+
+                <p>
+                    This command deletes an existing admin role from the ARBAC database. The command is valid
+                    if and only if the admin role to be deleted is a member of the ADMIN ROLES data set and has been
+                    deassigned from all users.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of existing AdminRole being targeted for deletion.</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin drole -n arole1</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>asgnrole : Assign an ADMIN_Role to a User</h3>
+
+                <p>
+                    This command assigns a user to an admin role.
+                    Successful completion of this op, the following occurs:
+                </p>
+                <ul>
+                    <li> User entity (resides in people container) has role assignment added to aux object class
+                        attached to actual
+                        user record.
+                    <li> AdminRole entity (resides in admin role container) has userId added as role occupant.
+                    <li> (optional) Temporal constraints may be associated with <code>ftUserAttrs</code> aux object
+                        class based on:
+                </ul>
+                <ul>
+                    <li> timeout - number in seconds of session inactivity time allowed.
+                    <li> beginDate - YYYYMMDD - determines date when role may be activated.
+                    <li> endDate - YYYYMMDD - indicates latest date role may be activated.
+                    <li> beginLockDate - YYYYMMDD - determines beginning of enforced inactive status
+                    <li> endLockDate - YYYYMMDD - determines end of enforced inactive status.
+                    <li> beginTime - HHMM - determines begin hour role may be activated in user's session.
+                    <li> endTime - HHMM - determines end hour role may be activated in user's session.*
+                    <li> dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of week role may be
+                        activated.
+                </ul>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name for already existing AdminRole to be assigned</li>
+                    <li>u : userId - contains the userId for existing User</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>b : beginTime - HHMM - determines begin hour AdminRole may be activated into user's RBAC
+                        session
+                    </li>
+                    <li>e : endTime - HHMM - determines end hour AdminRole may be activated into user's RBAC session.
+                    </li>
+                    <li>B : beginDate - YYYYMMDD - determines date when AdminRole may be activated into user's RBAC
+                        session
+                    </li>
+                    <li>E : endDate - YYYYMMDD - indicates latest date AdminRole may be activated into user's RBAC
+                        session
+                    </li>
+                    <li>l : beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
+                    <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
+                    <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated
+                        into user's
+                        ARBAC session
+                    </li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin asgnrole -u testuser2 -n arole1</li>
+                    <li>dadmin asgnrole -u testuser2 -n arole2 -b 1200 -e 2359 -B 20120101 -E 20120131 -m 1234567</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>dsgnrole : Deassign a ADMIN_Role from a User</h3>
+
+                <p>
+                    This method removes assigned admin role from user entity. Both user and admin role entities must
+                    exist and have
+                    role relationship
+                    before calling this method.
+                    Successful completion:
+                    del Role to User assignment in User data set
+                    AND
+                    User to Role assignment in Admin Role data set.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name for already existing AdminRole to be deassigned</li>
+                    <li>u : userId - contains the userId for existing User</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin dsgnrole -u testuser2 -n arole1</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>arel : ADD_ADMIN_ROLE_INHERITANCE</h3>
+
+                This commands establishes a new immediate inheritance relationship with parent orgunit <<-- child
+                orgunit
+                <p>
+                    The command is valid if and only if:
+                </p>
+                <ul>
+                    <li> The parent and child are members of the ORGUNITS data set.
+                    <li> The parent is not an immediate ascendant of child.
+                    <li> The child does not properly inherit parent (in order to avoid cycle creation).
+                </ul>
+
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>A : ascendant - contains the name of parent AdminRole to be added as parent</li>
+                    <li>D : descendant - contains the name of child AdminRole to be added as child</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin arel -A arole1 -D arole2</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>drel : DELETE_ADMIN_ROLE_INHERITANCE</h3>
+
+                This command deletes an existing immediate inheritance relationship parent <<-- child.
+
+                <p>
+                    The command is valid if and only if:
+                </p>
+                <ul>
+                    <li> The orgunits parent and child are members of the ORGUNITS data set.
+                    <li> The parent is an immediate ascendant of child.
+                    <li> The new inheritance relation is computed as the reflexive-transitive closure of the immediate
+                        inheritance
+                        relation resulted after deleting the relationship parent <<-- child.
+                </ul>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>A : ascendant - contains the name of parent AdminRole to be removed as parent</li>
+                    <li>D : descendant - contains the name of child AdminRole to be removed as child</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin drel -A arole1 -D arole2</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>auou : ADD_USERORG</h3>
+
+                <p>
+                    Command adds a new USERS OrgUnit entity to OrgUnit dataset.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of new USERS OrgUnit to be added</li>
+                    <li>d : description - contains any safe text</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin auou -n UserOrg1</li>
+                    <li>dadmin auou -n UserOrg2 -d description-contains-any-safe-text</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>uuou : UPDATE_USERORG</h3>
+
+                <p>
+                    Command updates a USERS OrgUnit entity to OrgUnit dataset.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of existing USERS OrgUnit to be updated</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>d : description - contains any safe text</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin uuou -n UserOrg2 -d updated-description-contains-any-safe-text</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>duou : DELETE_USERORG</h3>
+
+                <p>
+                    Command removes an existing USERS OrgUnit entity from the OrgUnit dataset.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of existing USERS OrgUnit to be deleted</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin duou -n UserOrg1</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>aurel : ADD_USERORG_INHERITANCE</h3>
+
+                This commands establishes a new immediate inheritance relationship with parent USERS orgunit <<-- child
+                orgunit
+                <p>
+                    The command is valid if and only if:
+                </p>
+                <ul>
+                    <li> The parent and child are members of the USERS ORGUNITS data set.
+                    <li> The parent is not an immediate ascendant of child.
+                    <li> The child does not properly inherit parent (in order to avoid cycle creation).
+                </ul>
+
+                <p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>A : ascendant - contains the name of existing USERS OrgUnit to be new parent</li>
+                    <li>D : descendant - contains the name of existing USERS OrgUnit to be new child</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin aurel -A UserOrg1 -D UserOrg2</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>durel : DELETE_USERORG_INHERITANCE</h3>
+                This command deletes an existing immediate inheritance relationship parent <<-- child.
+
+                <p>
+                    The command is valid if and only if:
+                </p>
+                <ul>
+                    <li> The orgunits parent and child are members of the USERS ORGUNITS data set.
+                    <li> The parent is an immediate ascendant of child.
+                    <li> The new inheritance relation is computed as the reflexive-transitive closure of the immediate
+                        inheritance
+                        relation resulted after deleting the relationship parent <<-- child.
+                </ul>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>A : ascendant - contains the name of existing USERS OrgUnit to be removed as parent</li>
+                    <li>D : descendant - contains the name of existing USERS OrgUnit to be removed as child</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin durel -A UserOrg1 -D UserOrg2</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>apou : ADD_PERMORG</h3>
+
+                <p>
+                    Command adds a new PERMS OrgUnit entity to OrgUnit dataset.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of new existing PERMS OrgUnit to be added</li>
+                    <li>d : description - contains any safe text</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin apou -n PermOrg1</li>
+                    <li>dadmin apou -n PermOrg2 -d description-contains-any-safe-text</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>upou : UPDATE_PERMORG</h3>
+
+                <p>
+                    Command updates a PERMS OrgUnit entity to OrgUnit dataset.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of existing PERMS OrgUnit to be updated</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>d : description - contains any safe text</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin upou -n PermOrg1 -d description-contains-any-safe-text</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>dpou : DELETE_PERMORG</h3>
+
+                <p>
+                    Command removes an existing PERMS OrgUnit entity from the OrgUnit dataset.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of existing PERMS OrgUnit to be deleted</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin dpou -n PermOrg2</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>aprel : ADD_PERMORG_INHERITANCE</h3>
+
+                This commands establishes a new immediate inheritance relationship with parent PERMS orgunit <<-- child
+                orgunit
+
+                <p>
+                    The command is valid if and only if:
+                </p>
+                <ul>
+                    <li> The parent and child are members of the USERS ORGUNITS data set.
+                    <li> The parent is not an immediate ascendant of child.
+                    <li> The child does not properly inherit parent (in order to avoid cycle creation).
+                </ul>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>A : ascendant - contains the name of existing PERMS OrgUnit to be new parent</li>
+                    <li>D : descendant - contains the name of existing PERMS OrgUnit to be new child</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin aprel -A PermOrg1 -D PermOrg2</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>dprel : DELETE_PERMORG_INHERITANCE</h3>
+
+                This command deletes an existing immediate inheritance relationship parent <<-- child.
+                <p>
+                    The command is valid if and only if:
+                </p>
+                <ul>
+                    <li> The orgunits parent and child are members of the PERMS ORGUNITS data set.
+                    <li> The parent is an immediate ascendant of child.
+                    <li> The new inheritance relation is computed as the reflexive-transitive closure of the immediate
+                        inheritance
+                        relation resulted after deleting the relationship parent <<-- child.
+                </ul>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>A : ascendant - contains the name of existing PERMS OrgUnit to be removed as parent</li>
+                    <li>D : descendant - contains the name of existing PERMS OrgUnit to be removed as child</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin dprel -A PermOrg1 -D PermOrg2</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>aobj : ADD_ADMIN_POBJ</h3>
+
+                <p>
+                    This method will add administrative permission object to perms container in directory. The perm
+                    object must not
+                    exist before making this call.
+                    A PermObj instance exists in a hierarchical, one-many relationship between itself and children as
+                    stored in ldap
+                    tree: PermObj*->Permission.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of new administrative object being added</li>
+                    <li>o : orgUnit - contains the name of an existing PERMS OrgUnit this administrative object is
+                        associated with
+                    </li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>d : description - contains safe text</li>
+                    <li>T : type - any safe text</li>
+                    <li>v : properties * - multi-occurring property key and values are separated with a ':'. e.g.
+                        mykey1:myvalue1
+                    </li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin aobj -n mytestobject -o app1</li>
+                    <li>dadmin aobj -n myobject2 -o app1 -d TestObject -t anything -v key1:val1 -v key2:val2</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>uobj : UPDATE_ADMIN_POBJ</h3>
+
+                <p>
+                    This method will update an administrative permission object in perms container in directory. The
+                    perm object
+                    must exist before making this call.
+                    A PermObj instance exists in a hierarchical, one-many relationship between itself and children as
+                    stored in ldap
+                    tree: PermObj*->Permission.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of existing administrative object being targeted for update</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>o : orgUnit - contains the name of existing PERMS OrgUnit to associate administrative object
+                        with
+                    </li>
+                    <li>d : description - contains any safe text</li>
+                    <li>T : type - any safe text</li>
+                    <li>v : properties * - multi-occurring property key and values are separated with a ':'. e.g.
+                        mykey1:myvalue1
+                    </li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin uobj -n mytestobject -o app2 -d ChangedOrgUnit</li>
+                    <li>dadmin uobj -n myobject2 -o app1 -d ChangeDescription</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>dobj : DELETE_POBJ</h3>
+
+                <p>
+                    This method will remove an administrative permission object to perms container in directory. This
+                    method will
+                    also remove
+                    in associated permission objects that are attached to this object.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of existing administrative object being targeted for delete</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin dobj -n mytestobject -o app1</li>
+                </ul>
+            </li>
+            <br/>
+            <li>
+                <h3>aperm : ADD_ADMIN_PERM</h3>
+
+                <p>
+                    This method will add an administrative permission operation to an existing permission object which
+                    resides under
+                    ou=AdminPermis,ou=ARBAC,dc=yourHostName,dc=com container in directory information tree.
+                    The perm operation entity may have AdminRole or User associations. The target Permission must not
+                    exist prior to
+                    calling.
+                    A Fortress Administrative Permission instance exists in a hierarchical, one-many relationship
+                    between its parent
+                    and itself as stored in ldap tree: PermObj*->Permission.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of existing administrative object being targeted for the permission
+                        add
+                    </li>
+                    <li>O : opName - contains the name of new administrative permission operation being added</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>v : properties * - multi-occurring property key and values are separated with a ':'. e.g.
+                        mykey1:myvalue1
+                    </li>
+                    <li>T : type - any safe text</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin aperm -n mytestobject -O myoperation -d CreateNewAdminPermission</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>uperm : UPDATE_ADMIN_PERM</h3>
+
+                <p>
+                    This method will update an administrative permission operation pre-existing in target directory
+                    under
+                    ou=AdminPermis,ou=ARBAC,dc=yourHostName,dc=com container in directory information tree.
+                    The perm operation entity may also contain AdminRole or User associations to add or remove using
+                    this function.
+                    The perm operation must exist before making this call. Only non-null attributes will be updated.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of existing administrative object being targeted for the permission
+                        update
+                    </li>
+                    <li>O : opName - contains the name of existing administrative permission operation being updated
+                    </li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>v : properties * - multi-occurring property key and values are separated with a ':'. e.g.
+                        mykey1:myvalue1
+                    </li>
+                    <li>T : type - any safe text</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin uperm -n mytestobject -O myoperation -d new-description</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>dperm : DELETE_ADMIN_PERM</h3>
+
+                <p>
+                    This method will remove an administrative permission operation entity from permission object. A
+                    Fortress
+                    administrative permission is PermObj*->Permission.
+                    The perm operation must exist before making this call.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of existing administrative object being targeted for the permission
+                        delete
+                    </li>
+                    <li>O : opName - contains the name of existing administrative permission operation that will be
+                        deleted
+                    </li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin dperm -n mytestobject -O myoperation -d CreateNewAdminPermission</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>grant : GRANT ADMIN</h3>
+
+                <p>
+                    This command grants an adminRole the administrative permission to perform an operation on an object
+                    to a role.
+                    The command is implemented by granting permission by setting the access control list of the object
+                    involved.
+                    The command is valid if and only if the pair (operation, object) represents a permission, and the
+                    role is a
+                    member of the ADMIN_ROLES data set.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the administrative object name</li>
+                    <li>O : opName - contains the administrative operation name</li>
+                    <li>R : roleName - contains the adminRole name</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin grant -n mytestobject -O myoperation -R arole1</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>revoke : REVOKE ADMIN</h3>
+
+                <p>
+                    This command revokes the permission to perform an operation on an object from the set
+                    of permissions assigned to an adminRole. The command is implemented by setting the access control
+                    list of the object involved.
+                    The command is valid if and only if the pair (operation, object) represents a permission,
+                    the role is a member of the ADMIN_ROLES data set, and the permission is assigned to that role.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the administrative object name</li>
+                    <li>O : opName - contains the administrative operation name</li>
+                    <li>R : roleName - contains the adminRole name</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>dadmin revoke -n mytestobject -O myoperation -R arole1</li>
+                </ul>
+            </li>
+            <br/>
+        </ol>
+
+    </li>
+    <li>
+
+        <h3>Review Commands</h3>
+
+        <ol type="A">
+            <li>
+                <h3>ruser : READ_USER</h3>
+
+                <p>
+                    This function reads a User object from the directory. The userId is not case sensitive.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>u : userId - maps to INetOrgPerson uid</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>review ruser -u testuser1</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>fuser : FIND_USERS</h3>
 
                 This function searches for matching users on the userId field. It uses a search filter of:
 <pre>
  String filter = "(&amp;(objectclass=" + objectClassImpl + ")(" + GlobalIds.UID + "=" + searchVal + "*))";
 </pre>
-            which will return all Users that match the leading characters of the search field which is case insensitive.
-            This logs the results using log4j to allow output to be logged to console or file.
-
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>u : userId - contains the leading characters that map to INetOrgPerson uid field in LDAP</li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li>review fuser -u test</li>
-            </ul>
-        </li>
-        <br/>
-
-        <li>
-            <h3>asgnuser : ASSIGNED_USERS</h3>
-
-            <p>
-                This function returns all Users who are assigned a particular Role.
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>n : name - contains the name for already existing RBAC Role</li>
-            </ul>
-            <h4>example</h4>
-            Return all Users who are assigned an RBAC role named 'role1'.
-            <ul>
-                <li>review asgnuser -n -role1</li>
-            </ul>
-        </li>
-        <br/>
-
-        <li>
-            <h3>rrole : READ_ROLE</h3>
-
-            <p>
-                This function reads a Role object from the directory. The Role name is not case sensitive.
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>n : name - contains the name for already existing RBAC Role</li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li>review rrole -n role1</li>
-            </ul>
-        </li>
-        <br/>
-
-        <li>
-            <h3>frole : FIND_ROLES</h3>
-
-            <p>
-                This function searches for matching Roles on the name field. It will return all Roles that match the
-                leading characters of the search field which is case insensitive. This logs the results using log4j to
-                allow output to be logged to console or file.
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>n : name - contains all or some of the leading characters to a matching set of Roles in the
-                    directory
-                </li>
-            </ul>
-            <h4>example</h4>
-            Return all Roles where the name begins with the characters 'role':
-            <ul>
-                <li>review frole -n role</li>
-            </ul>
-        </li>
-        <br/>
-
-        <li>
-            <h3>robj : READ_POBJ</h3>
-
-            <p>
-                This function reads a Permission Object from the directory. The object name is not case sensitive.
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>n : name - contains the name for already existing RBAC PermObj</li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li>review robj -n mytestobject</li>
-            </ul>
-        </li>
-        <br/>
-
-        <li>
-            <h3>fobj : FIND_POBJS</h3>
-
-            <p>
-                This function searches for matching Permission Objects on the name field. It will return all PermObjs
-                that match the leading characters of the search field which is case insensitive. This logs the results
-                using log4j to allow output to be logged to console or file.
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>n : name - contains all or some of the leading characters to a matching set of Permission Objects in
-                    the directory
-                </li>
-            </ul>
-            <h4>example</h4>
-            Return all PermObjs where the name begins with the characters 'my':
-            <ul>
-                <li>review robj -n my</li>
-            </ul>
-        </li>
-        <br/>
-
-        <li>
-            <h3>rperm : READ_PERM</h3>
-
-            <p>
-                This function reads a Permission Operation from the directory. The permission object and operation names
-                are not case sensitive.
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>n : name - contains the name of existing object being targeted for the query</li>
-                <li>O : opName - contains the name of permission operation being targeted for the query</li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li>review rperm -n mytestobject -O myoperation</li>
-            </ul>
-        </li>
-        <br/>
-
-        <li>
-            <h3>fperm : FIND_PERMS</h3>
-
-            <p>
-                This function searches for matching Permission Operations on the name fields of the Permission Object
-                and Operation attributes. It will return all Permissions that match the leading characters of the search
-                fields which are not case insensitive. This logs the results using log4j to allow output to be logged to
-                console or file.
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>n : name - contains all or some of the leading characters of the set of existing objects being
-                    targeted for the query
-                </li>
-                <li>O : opName - contains all or some of the leading characters of the set of permission operations
-                    (that correpond with the result set of PermObjs) being targeted for the query
-                </li>
-            </ul>
-            <h4>example</h4>
-            Return all Permissions where the Object name begins with name field 'mytest' and Operation name begins with
-            the characters 'my':
-            <ul>
-                <li>review fperm -n mytest -O my</li>
-            </ul>
-        </li>
-        <br/>
-
-    </ol>
-</li>
-
-<li>
-
-    <h3>Group Commands</h3>
-
-    <ol type="A">
-
-        <li>
-            <h3>agroup : ADD_GROUP</h3>
-
-            <p>
-                This function adds a new LDAP group to the directory.
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>n : name - contains the name to use for new LDAP group.  It must be unique.</li>
-                <li>M : members * - multi-occurring attribute (must include at least one) - maps to userId in LDAP directory"</li>
-            </ul>
-            <h4>optional parameters</h4>
-            <ul>
-                <li>d : description - maps to description attribute on object class</li>
-                <li>X : protocol - used to specify protocol</li>
-                <li>v : properties * - multi-occurring attribute contains property key and values are separated with a '='.  e.g.: key1=val1</li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li>group agroup -n footest1 -d "Test LDAP Groups 001" -M demouser4 -v key1=val1 -v key2=val2 -X ssh</li>
-                <li>group agroup -n footest2 -d "Test LDAP Groups 001" -M demouser5 -M demouser6 -v key3=val3 -v key4=val4 -X rdp</li>
-            </ul>
-        </li>
-
-
-        <li>
-            <h3>ugroup : UPDATE_GROUP</h3>
-
-            <p>
-                Modify existing group node.  The name is required.  Does not update members or properties.
-                Use ASSIGN_GROUP, DEASSIGN_GROUP, ADD_GROUP_PROP or DEL_GROUP_PROP for multi-occurring attributes.
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>n : name - contains the name of an existing LDAP group.</li>
-            </ul>
-            <h4>optional parameters</h4>
-            <ul>
-                <li>M : members * - multi-occurring attribute maps to a userId in the LDAP directory"</li>
-                <li>d : description - maps to description attribute on object class</li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li>group ugroup -n footest1 -d "Update Test LDAP Groups 001" -X ssh2</li>
-            </ul>
-        </li>
-
-
-        <li>
-            <h3>dgroup : DELETE_GROUP</h3>
-
-            <p>
-                This function removes an LDAP group from the directory.
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>n : name - contains the name of an existing LDAP group.</li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li>group dgroup -n footest1</li>
-            </ul>
-        </li>
-
-
-        <li>
-            <h3>asgngroup : ASSIGN_GROUP</h3>
-
-            <p>
-                This function adds a user as a member to an existing LDAP group in the directory.
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>n : name - contains the name of an existing LDAP group.</li>
-                <li>M : members * - multi-occurring attribute (must include at least one) - maps to userId in LDAP directory"</li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li>group asgngroup -n footest1 -M demouser5</li>
-            </ul>
-        </li>
-
-        <li>
-            <h3>dsgngroup : DEASSIGN_GROUP</h3>
-
-            <p>
-                This function removes a user as a member from an existing LDAP group in the directory.
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>n : name - contains the name of an existing LDAP group.</li>
-                <li>M : members * - multi-occurring attribute (must include at least one) - maps to userId in LDAP directory"</li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li>group dsgngroup -n footest1 -M demouser5</li>
-            </ul>
-        </li>
-
-        <li>
-            <h3>agprop : ADD_GROUP_PROP</h3>
-
-            <p>
-                This function adds one or more properties to an existing LDAP group.
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>n : name - contains the name of an existing LDAP group.</li>
-                <li>v : properties * - multi-occurring property key and values are separated with a '='. e.g. mykey1=myvalue1</li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li>group agprop -n footest1 -v key5=val5</li>
-            </ul>
-        </li>
-
-        <li>
-            <h3>dgprop : DEL_GROUP_PROP</h3>
-
-            <p>
-                This function removes one or more properties from an existing LDAP group.
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>n : name - contains the name of an existing LDAP group.</li>
-                <li>v : properties * - multi-occurring property key and values are separated with a '='. e.g. mykey1=myvalue1</li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li>group dgprop -n footest1 -v key5=val5</li>
-            </ul>
-        </li>
-
-        <li>
-            <h3>rgroup : READ_GROUP</h3>
-
-            <p>
-                This function reads and displays to console an existing LDAP group. The Group name is not case sensitive.
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>n : name - contains the full name for already existing Group</li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li>group fgroup -n footest1</li>
-            </ul>
-        </li>
-
-        <li>
-            <h3>fgroup : FIND_GROUPS</h3>
-
-            <p>
-                This function searches and displays to console existing LDAP groups found as target of search. The Group name is not case sensitive.
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li>n : name - contains the full name for already existing Group</li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li>group fgroup -n fo</li>
-            </ul>
-        </li>
-
-        <br/>
-    </ol>
-    <!-- end group -->
-</li>
-
-
-<li>
-
-    <h3>System Commands</h3>
-
-    <ol type="A">
-        <li>
-            <h3>createsession : CREATE_SESSION</h3>
-
-            <p>
-
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>optional parameters</h4>
-            <ul>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li></li>
-                <li></li>
-            </ul>
-        </li>
-        <br/>
-
-        <li>
-            <h3>authenticate : AUTHENTICATE</h3>
-
-            <p>
-
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>optional parameters</h4>
-            <ul>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li></li>
-                <li></li>
-            </ul>
-        </li>
-        <br/>
-
-        <li>
-            <h3>assignedroles : ASSIGNED_ROLES</h3>
-
-            <p>
-
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>optional parameters</h4>
-            <ul>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li></li>
-                <li></li>
-            </ul>
-        </li>
-        <br/>
-
-        <li>
-            <h3>checkaccess : CHECK_ACCESS</h3>
-
-            <p>
-
-            </p>
-
-            <h4>required parameters</h4>
-            <ul>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>optional parameters</h4>
-            <ul>
-                <li></li>
-                <li></li>
-            </ul>
-            <h4>example</h4>
-            <ul>
-                <li></li>
-                <li></li>
-            </ul>
-        </li>
-        <br/>
-    </ol>
-</li>
+                which will return all Users that match the leading characters of the search field which is case
+                insensitive.
+                This logs the results using log4j to allow output to be logged to console or file.
+
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>u : userId - contains the leading characters that map to INetOrgPerson uid field in LDAP</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>review fuser -u test</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>asgnuser : ASSIGNED_USERS</h3>
+
+                <p>
+                    This function returns all Users who are assigned a particular Role.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name for already existing RBAC Role</li>
+                </ul>
+                <h4>example</h4>
+                Return all Users who are assigned an RBAC role named 'role1'.
+                <ul>
+                    <li>review asgnuser -n -role1</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>rrole : READ_ROLE</h3>
+
+                <p>
+                    This function reads a Role object from the directory. The Role name is not case sensitive.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name for already existing RBAC Role</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>review rrole -n role1</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>frole : FIND_ROLES</h3>
+
+                <p>
+                    This function searches for matching Roles on the name field. It will return all Roles that match the
+                    leading characters of the search field which is case insensitive. This logs the results using log4j
+                    to
+                    allow output to be logged to console or file.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains all or some of the leading characters to a matching set of Roles in the
+                        directory
+                    </li>
+                </ul>
+                <h4>example</h4>
+                Return all Roles where the name begins with the characters 'role':
+                <ul>
+                    <li>review frole -n role</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>robj : READ_POBJ</h3>
+
+                <p>
+                    This function reads a Permission Object from the directory. The object name is not case sensitive.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name for already existing RBAC PermObj</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>review robj -n mytestobject</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>fobj : FIND_POBJS</h3>
+
+                <p>
+                    This function searches for matching Permission Objects on the name field. It will return all
+                    PermObjs
+                    that match the leading characters of the search field which is case insensitive. This logs the
+                    results
+                    using log4j to allow output to be logged to console or file.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains all or some of the leading characters to a matching set of Permission
+                        Objects in
+                        the directory
+                    </li>
+                </ul>
+                <h4>example</h4>
+                Return all PermObjs where the name begins with the characters 'my':
+                <ul>
+                    <li>review robj -n my</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>rperm : READ_PERM</h3>
+
+                <p>
+                    This function reads a Permission Operation from the directory. The permission object and operation
+                    names
+                    are not case sensitive.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of existing object being targeted for the query</li>
+                    <li>O : opName - contains the name of permission operation being targeted for the query</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>review rperm -n mytestobject -O myoperation</li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>fperm : FIND_PERMS</h3>
+
+                <p>
+                    This function searches for matching Permission Operations on the name fields of the Permission
+                    Object
+                    and Operation attributes. It will return all Permissions that match the leading characters of the
+                    search
+                    fields which are not case insensitive. This logs the results using log4j to allow output to be
+                    logged to
+                    console or file.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains all or some of the leading characters of the set of existing objects being
+                        targeted for the query
+                    </li>
+                    <li>O : opName - contains all or some of the leading characters of the set of permission operations
+                        (that correpond with the result set of PermObjs) being targeted for the query
+                    </li>
+                </ul>
+                <h4>example</h4>
+                Return all Permissions where the Object name begins with name field 'mytest' and Operation name begins
+                with
+                the characters 'my':
+                <ul>
+                    <li>review fperm -n mytest -O my</li>
+                </ul>
+            </li>
+            <br/>
+
+        </ol>
+    </li>
+
+    <li>
+
+        <h3>Group Commands</h3>
+
+        <ol type="A">
+
+            <li>
+                <h3>agroup : ADD_GROUP</h3>
+
+                <p>
+                    This function adds a new LDAP group to the directory.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name to use for new LDAP group. It must be unique.</li>
+                    <li>M : members * - multi-occurring attribute (must include at least one) - maps to userId in LDAP
+                        directory"
+                    </li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>d : description - maps to description attribute on object class</li>
+                    <li>X : protocol - used to specify protocol</li>
+                    <li>v : properties * - multi-occurring attribute contains property key and values are separated with
+                        a '='. e.g.: key1=val1
+                    </li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>group agroup -n footest1 -d "Test LDAP Groups 001" -M demouser4 -v key1=val1 -v key2=val2 -X
+                        ssh
+                    </li>
+                    <li>group agroup -n footest2 -d "Test LDAP Groups 001" -M demouser5 -M demouser6 -v key3=val3 -v
+                        key4=val4 -X rdp
+                    </li>
+                </ul>
+            </li>
+
+
+            <li>
+                <h3>ugroup : UPDATE_GROUP</h3>
+
+                <p>
+                    Modify existing group node. The name is required. Does not update members or properties.
+                    Use ASSIGN_GROUP, DEASSIGN_GROUP, ADD_GROUP_PROP or DEL_GROUP_PROP for multi-occurring attributes.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of an existing LDAP group.</li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li>M : members * - multi-occurring attribute maps to a userId in the LDAP directory"</li>
+                    <li>d : description - maps to description attribute on object class</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>group ugroup -n footest1 -d "Update Test LDAP Groups 001" -X ssh2</li>
+                </ul>
+            </li>
+
+
+            <li>
+                <h3>dgroup : DELETE_GROUP</h3>
+
+                <p>
+                    This function removes an LDAP group from the directory.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of an existing LDAP group.</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>group dgroup -n footest1</li>
+                </ul>
+            </li>
+
+
+            <li>
+                <h3>asgngroup : ASSIGN_GROUP</h3>
+
+                <p>
+                    This function adds a user as a member to an existing LDAP group in the directory.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of an existing LDAP group.</li>
+                    <li>M : members * - multi-occurring attribute (must include at least one) - maps to userId in LDAP
+                        directory"
+                    </li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>group asgngroup -n footest1 -M demouser5</li>
+                </ul>
+            </li>
+
+            <li>
+                <h3>dsgngroup : DEASSIGN_GROUP</h3>
+
+                <p>
+                    This function removes a user as a member from an existing LDAP group in the directory.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of an existing LDAP group.</li>
+                    <li>M : members * - multi-occurring attribute (must include at least one) - maps to userId in LDAP
+                        directory"
+                    </li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>group dsgngroup -n footest1 -M demouser5</li>
+                </ul>
+            </li>
+
+            <li>
+                <h3>agprop : ADD_GROUP_PROP</h3>
+
+                <p>
+                    This function adds one or more properties to an existing LDAP group.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of an existing LDAP group.</li>
+                    <li>v : properties * - multi-occurring property key and values are separated with a '='. e.g.
+                        mykey1=myvalue1
+                    </li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>group agprop -n footest1 -v key5=val5</li>
+                </ul>
+            </li>
+
+            <li>
+                <h3>dgprop : DEL_GROUP_PROP</h3>
+
+                <p>
+                    This function removes one or more properties from an existing LDAP group.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the name of an existing LDAP group.</li>
+                    <li>v : properties * - multi-occurring property key and values are separated with a '='. e.g.
+                        mykey1=myvalue1
+                    </li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>group dgprop -n footest1 -v key5=val5</li>
+                </ul>
+            </li>
+
+            <li>
+                <h3>rgroup : READ_GROUP</h3>
+
+                <p>
+                    This function reads and displays to console an existing LDAP group. The Group name is not case
+                    sensitive.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the full name for already existing Group</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>group fgroup -n footest1</li>
+                </ul>
+            </li>
+
+            <li>
+                <h3>fgroup : FIND_GROUPS</h3>
+
+                <p>
+                    This function searches and displays to console existing LDAP groups found as target of search. The
+                    Group name is not case sensitive.
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li>n : name - contains the full name for already existing Group</li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li>group fgroup -n fo</li>
+                </ul>
+            </li>
+
+            <br/>
+        </ol>
+        <!-- end group -->
+    </li>
+
+
+    <li>
+
+        <h3>System Commands</h3>
+
+        <ol type="A">
+            <li>
+                <h3>createsession : CREATE_SESSION</h3>
+
+                <p>
+
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>authenticate : AUTHENTICATE</h3>
+
+                <p>
+
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>assignedroles : ASSIGNED_ROLES</h3>
+
+                <p>
+
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </li>
+            <br/>
+
+            <li>
+                <h3>checkaccess : CHECK_ACCESS</h3>
+
+                <p>
+
+                </p>
+
+                <h4>required parameters</h4>
+                <ul>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <h4>optional parameters</h4>
+                <ul>
+                    <li></li>
+                    <li></li>
+                </ul>
+                <h4>example</h4>
+                <ul>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </li>
+            <br/>
+        </ol>
+    </li>
 </ol>
 <p>
-    The <b>org.apache.directory.fortress.cli.CommandLineInterpreter</b> drives the Fortress APIs. For more info on how the Fortress
+    The <b>org.apache.directory.fortress.cli.CommandLineInterpreter</b> drives the Fortress APIs. For more info on how
+    the Fortress
     APIs work, check out Fortress SDK Javadoc.
 </p>
 </body>

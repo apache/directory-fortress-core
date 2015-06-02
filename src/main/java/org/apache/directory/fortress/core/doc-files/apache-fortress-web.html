@@ -18,134 +18,134 @@
  *
 -->
 <html>
-   <head>
-       <title>Apache Fortress Ten Minute Guide</title>
-       <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
-   </head>
-   <body>
-   <hr>
+<head>
+    <title>Apache Fortress Ten Minute Guide</title>
+    <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style"/>
+</head>
+<body>
+<hr>
 
-   <fieldset>
-       <legend><b>Navigation Links</b></legend>
-       <ul>
-           <li><a href="./apache-directory-server.html">Setup Apache Directory Server</a></li>
-           <li><a href="./apache-directory-studio.html">Setup Apache Directory Studio</a></li>
-           <li><a href="./apache-fortress-core.html">Build Apache Fortress Core</a></li>
-           <li><a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a></li>
-           <li><a href="./apache-tomcat.html">Setup Apache Tomcat Web Server</a></li>
-           <li><a href="./apache-fortress-web.html">Build Apache Fortress Web</a></li>
-           <li><a href="./apache-fortress-rest.html">Build Apache Fortress Rest</a></li>
-       </ul>
-       <li><a href="./ten-minute-guide.html">Ten Minute Guide</a></li>
-   </fieldset>
-   <hr>
-   <p>
+<fieldset>
+    <legend><b>Navigation Links</b></legend>
+    <ul>
+        <li><a href="./apache-directory-server.html">Setup Apache Directory Server</a></li>
+        <li><a href="./apache-directory-studio.html">Setup Apache Directory Studio</a></li>
+        <li><a href="./apache-fortress-core.html">Build Apache Fortress Core</a></li>
+        <li><a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a></li>
+        <li><a href="./apache-tomcat.html">Setup Apache Tomcat Web Server</a></li>
+        <li><a href="./apache-fortress-web.html">Build Apache Fortress Web</a></li>
+        <li><a href="./apache-fortress-rest.html">Build Apache Fortress Rest</a></li>
+    </ul>
+    <li><a href="./ten-minute-guide.html">Ten Minute Guide</a></li>
+</fieldset>
+<hr>
+<p>
 
-   <h3>Build Apache Fortress Web</h3>
-   <img src="screenshot-fortress-web.png" height="50%" width="40%" alt="Fortress Web Users">
+<h3>Build Apache Fortress Web</h3>
+<img src="screenshot-fortress-web.png" height="50%" width="40%" alt="Fortress Web Users">
 
+<h4>This section describes how to install and use the Fortress Web Application for RBAC Administration </h4>
 
-      <h4>This section describes how to install and use the Fortress Web Application for RBAC Administration </h4>
+<ol>
 
-      <ol>
+    <li>Set java and maven home env variables.</li>
 
-          </li>
+    <br>
 
-          <li>Set java and maven home env variables.</li>
-
-          <br>
-
-          <li>
-              Change directory:
+    <li>
+        Change directory:
             <pre>
                 <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
 cd directory-fortress-commander/
                 </p>
             </pre>
-          </li>
+    </li>
 
-          <li>
-              Copy the fortress.properties, created on step <a href="./apache-fortress-core.html">Build Apache Fortress Core</a>, to this package's resource folder.
+    <li>
+        Copy the fortress.properties, created on step <a href="./apache-fortress-core.html">Build Apache Fortress
+        Core</a>, to this package's resource folder.
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
 cp [directory-fortress-core]/config/fortress.properties [directory-fortress-commander]/src/main/resources
                     </p>
                 </pre>
-              Where [directory-fortress-core] is base folder of the fortress core source package and [directory-fortress-commander] is the current package's home folder.
-          </li>
+        Where [directory-fortress-core] is base folder of the fortress core source package and
+        [directory-fortress-commander] is the current package's home folder.
+    </li>
 
-          <br>
+    <br>
 
-          <li>
-              To load policies for testing into ldap, run this command:
+    <li>
+        To load policies for testing into ldap, run this command:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
 mvn install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml
                     </p>
                 </pre>
-          </li>
+    </li>
 
-          <li>
-              To deploy fortress web, run this command:
+    <li>
+        To deploy fortress web, run this command:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
 mvn tomcat:deploy
                     </p>
                 </pre>
-          </li>
+    </li>
 
-          <li>
-              To redeploy:
+    <li>
+        To redeploy:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
 mvn tomcat:redeploy
                     </p>
                 </pre>
-          </li>
+    </li>
 
-          <li>
-              Connect to web app:
-              <br><br>
-              <a href="http://localhost:8080/fortress-web">http://localhost:8080/fortress-web</a>,
-          </li>
+    <li>
+        Connect to web app:
+        <br><br>
+        <a href="http://localhost:8080/fortress-web">http://localhost:8080/fortress-web</a>,
+    </li>
 
-          <br>
+    <br>
 
-          <li>
-              Try the various user accounts, notice how each has different policies:
-              <br><br>
-              <ol type="a">
-                  <li>
-                      <b>userId</b>: <i>test</i>, <b>password</b>: <i>password</i>
-                  </li>
-                  <br>
-                  <li>
-                      <b>userId</b>: <i>test1</i>, <b>password</b>: <i>password</i>
-                  </li>
-                  <br>
-                  <li>
-                      <b>userId</b>: <i>test2</i>, <b>password</b>: <i>password</i>
-                  </li>
-                  <br>
-                  <li>
-                      <b>userId</b>: <i>test3</i>, <b>password</b>: <i>password</i>
-                  </li>
-              </ol>
-          </li>
+    <li>
+        Try the various user accounts, notice how each has different policies:
+        <br><br>
+        <ol type="a">
+            <li>
+                <b>userId</b>: <i>test</i>, <b>password</b>: <i>password</i>
+            </li>
+            <br>
+            <li>
+                <b>userId</b>: <i>test1</i>, <b>password</b>: <i>password</i>
+            </li>
+            <br>
+            <li>
+                <b>userId</b>: <i>test2</i>, <b>password</b>: <i>password</i>
+            </li>
+            <br>
+            <li>
+                <b>userId</b>: <i>test3</i>, <b>password</b>: <i>password</i>
+            </li>
+        </ol>
+    </li>
 
-          <br>
+    <br>
 
-          <li>
-              Run the Selenium Web driver integration tests:
+    <li>
+        Run the Selenium Web driver integration tests:
                 <pre>
                     <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
 mvn test -Dtest=FortressWebSeleniumITCase
                     </p>
                 </pre>
-          </li>
+    </li>
 
-      </ol>
+</ol>
 
-   </body>
-   <p style="font: monospace; color: black; font-size: 6pt">Copyright 2003-2015, The Apache Software Foundation. All Rights Reserved.</p>
+</body>
+<p style="font: monospace; color: black; font-size: 6pt">Copyright 2003-2015, The Apache Software Foundation. All Rights
+    Reserved.</p>
 </html>

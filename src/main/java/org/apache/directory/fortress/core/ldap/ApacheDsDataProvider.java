@@ -163,7 +163,7 @@ public abstract class ApacheDsDataProvider
             LOG.info( "javax.net.debug: {}" + IS_SSL_DEBUG );
             System.setProperty( "javax.net.ssl.trustStore", GlobalIds.TRUST_STORE );
             System.setProperty( "javax.net.ssl.trustStorePassword", GlobalIds.TRUST_STORE_PW );
-            System.setProperty( "javax.net.debug", new Boolean( IS_SSL_DEBUG ).toString() );
+            System.setProperty( "javax.net.debug", Boolean.valueOf( IS_SSL_DEBUG ).toString() );
         }
 
         LdapConnectionConfig config = new LdapConnectionConfig();

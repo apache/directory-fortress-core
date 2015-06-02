@@ -18,38 +18,36 @@
  *
 -->
 <html>
-  <head>
+<head>
     <title>Apache Fortress Ten Minute Guide</title>
     <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style"/>
-  </head>
+</head>
 
-  <body>
-    <hr>
-      <fieldset>
-        <legend><b>Navigation Links</b></legend>
-        <ul>
-          <li><a href="./apache-directory-server.html">Setup Apache Directory Server</a></li>
-          <li><a href="./apache-directory-studio.html">Setup Apache Directory Studio</a></li>
-          <li><a href="./apache-fortress-core.html">Build Apache Fortress Core</a></li>
-          <li><a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a></li>
-          <li><a href="./apache-tomcat.html">Setup Apache Tomcat Web Server</a></li>
-          <li><a href="./apache-fortress-web.html">Build Apache Fortress Web</a></li>
-          <li><a href="./apache-fortress-rest.html">Build Apache Fortress Rest</a></li>
-        </ul>
-        <li><a href="./ten-minute-guide.html">Ten Minute Guide</a></li>
-      </fieldset>
-    <hr>
-    <p>
+<body>
+<hr>
+<fieldset>
+    <legend><b>Navigation Links</b></legend>
+    <ul>
+        <li><a href="./apache-directory-server.html">Setup Apache Directory Server</a></li>
+        <li><a href="./apache-directory-studio.html">Setup Apache Directory Studio</a></li>
+        <li><a href="./apache-fortress-core.html">Build Apache Fortress Core</a></li>
+        <li><a href="./apache-fortress-realm.html">Build Apache Fortress Realm</a></li>
+        <li><a href="./apache-tomcat.html">Setup Apache Tomcat Web Server</a></li>
+        <li><a href="./apache-fortress-web.html">Build Apache Fortress Web</a></li>
+        <li><a href="./apache-fortress-rest.html">Build Apache Fortress Rest</a></li>
+    </ul>
+    <li><a href="./ten-minute-guide.html">Ten Minute Guide</a></li>
+</fieldset>
+<hr>
+<h3>Setup Apache Directory Server</h3>
+<img src="apacheds-logo.jpeg"/>
+<br/><br/>
 
-    <h3>Setup Apache Directory Server</h3>
-    <img src="apacheds-logo.jpeg"/>
-    <br/><br/>
-    
-    <h4>This section provides instructions to install the Apache Directory Server which is needed by Fortress</h4>
-    Steps to install:
-    <ol>
+<h4>This section provides instructions to install the Apache Directory Server which is needed by Fortress</h4>
+Steps to install:
+<ol>
 
-      <li>
+    <li>
         Download and install Apache Directory Server
         <br/><br/>
         For 32-bit (as root):
@@ -60,7 +58,7 @@ chmod a+x *.bin
 ./apacheds-2.0.0-M19-32bit.bin
           </p>
         </pre>
-        
+
         For 64-bit (as root):
         <pre>
           <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
@@ -70,27 +68,27 @@ chmod a+x *.bin
           </p>
         </pre>
         Unless you know what you're doing, accept the defaults.
-      </li>
+    </li>
 
-      <br/>
+    <br/>
 
-      <li>
-        If you have trouble pulling you can get binaries here: 
+    <li>
+        If you have trouble pulling you can get binaries here:
         <a href="http://directory.apache.org/apacheds/downloads.html">Apache Directory Downloads Page</a>.
-      </li>
+    </li>
 
-      <br/>
+    <br/>
 
-      <li>
+    <li>
         Edit ApacheDS conf file
         <pre>
           <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
 sudo vi /opt/apacheds-2.0.0-M19/conf/wrapper.conf
           </p>
         </pre>
-      </li>
+    </li>
 
-      <li>
+    <li>
         Add location of java:
         <pre>
           <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
@@ -98,17 +96,17 @@ wrapper.java.command=/path/java/bin/java
           </p>
         </pre>
         Where 'path' equals fully qualified location of target machine's java.
-      </li>
+    </li>
 
-      <br/>
+    <br/>
 
-      <li>
+    <li>
         Save and exit.
-      </li>
+    </li>
 
-      <br/>
+    <br/>
 
-      <li>
+    <li>
         After installation start the directory server process.
 
         From system command prompt (as root):
@@ -117,23 +115,22 @@ wrapper.java.command=/path/java/bin/java
 /etc/init.d/apacheds-2.0.0-M19-default start
           </p>
         </pre>
-      </li>
+    </li>
 
-      <li>
+    <li>
         Check the status of server process.
 
         From system command prompt (as root):
         <pre>
           <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-/etc/init.d/apacheds-2.0.0-M19-default status
-ApacheDS - default is running (70041).
+/etc/init.d/apacheds-2.0.0-M19-default status ApacheDS - default is running (70041).
           </p>
         </pre>
-      </li>
+    </li>
 
-      <br/>
-    </ol>
-  </body>
-  <p style="font: monospace; color: black; font-size: 6pt">Copyright 2003-2015, The Apache Software Foundation. 
+    <br/>
+</ol>
+</body>
+<p style="font: monospace; color: black; font-size: 6pt">Copyright 2003-2015, The Apache Software Foundation.
     All RightsReserved.</p>
 </html>
