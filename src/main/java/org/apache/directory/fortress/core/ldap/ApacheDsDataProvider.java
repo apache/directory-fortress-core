@@ -144,6 +144,9 @@ public abstract class ApacheDsDataProvider
 
     private static final PasswordPolicy PP_REQ_CTRL = new PasswordPolicyImpl();
 
+    private static final char[] LDAP_META_CHARS = loadLdapEscapeChars();
+    private static final String[] LDAP_REPL_VALS = loadValidLdapVals();
+
     static
     {
         String host = Config.getProperty( GlobalIds.LDAP_HOST, "localhost" );
@@ -1375,7 +1378,7 @@ public abstract class ApacheDsDataProvider
 
             if ( GlobalIds.LDAP_FILTER_SIZE_FOUND )
             {
-                value = VUtil.escapeLDAPSearchFilter( value );
+                value = escapeLDAPSearchFilter( value );
             }
         }
 
@@ -1545,5 +1548,109 @@ public abstract class ApacheDsDataProvider
     public static LdapCounters getLdapCounters()
     {
         return COUNTERS;
+    }
+
+
+    /**
+     *
+     */
+    private static char[] loadLdapEscapeChars()
+    {
+        if ( !GlobalIds.LDAP_FILTER_SIZE_FOUND )
+        {
+            return null;
+        }
+
+        char[] ldapMetaChars = new char[GlobalIds.LDAP_FILTER_SIZE];
+
+        for ( int i = 1;; i++ )
+        {
+            String prop = GlobalIds.LDAP_FILTER + i;
+            String value = Config.getProperty( prop );
+
+            if ( value == null )
+            {
+                break;
+            }
+
+            ldapMetaChars[i - 1] = value.charAt( 0 );
+        }
+
+        return ldapMetaChars;
+    }
+
+
+    /**
+     *
+     */
+    private static String[] loadValidLdapVals()
+    {
+        if ( !GlobalIds.LDAP_FILTER_SIZE_FOUND )
+        {
+            return null;
+        }
+
+        String[] ldapReplacements = new String[GlobalIds.LDAP_FILTER_SIZE];
+
+        for ( int i = 1;; i++ )
+        {
+            String prop = GlobalIds.LDAP_SUB + i;
+            String value = Config.getProperty( prop );
+
+            if ( value == null )
+            {
+                break;
+            }
+
+            ldapReplacements[i - 1] = value;
+        }
+
+        return ldapReplacements;
+    }
+
+
+    /**
+     * Perform encoding on supplied input string for certain unsafe ascii characters.  These chars may be unsafe
+     * because ldap reserves some
+     * characters as operands.  Safe encoding safeguards from malicious scripting input errors that are possible iff
+     * data filtering
+     * did not get performed before being passed into dao layer.
+     *
+     * @param filter contains the data to filter.
+     * @return possibly modified input string for matched characters.
+     */
+    protected static String escapeLDAPSearchFilter( String filter )
+    {
+        StringBuilder sb = new StringBuilder();
+        int filterLen = filter.length();
+
+        for ( int i = 0; i < filterLen; i++ )
+        {
+            boolean found = false;
+            char curChar = filter.charAt( i );
+            int j = 0;
+
+            for ( ; j < GlobalIds.LDAP_FILTER_SIZE; j++ )
+            {
+                if ( LDAP_META_CHARS[j] > curChar )
+                {
+                    break;
+                }
+                else if ( curChar == LDAP_META_CHARS[j] )
+                {
+                    sb.append( "\\" );
+                    sb.append( LDAP_REPL_VALS[j] );
+                    found = true;
+                    break;
+                }
+            }
+
+            if ( !found )
+            {
+                sb.append( curChar );
+            }
+        }
+
+        return sb.toString();
     }
 }
