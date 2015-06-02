@@ -23,7 +23,7 @@ package org.apache.directory.fortress.core;
 /**
  * This exception is declared to be thrown by all APIs within Fortress Manager interfaces: ({@link AdminMgr}, {@link AccessMgr},
  * {@link ReviewMgr},{@link PwPolicyMgr},{@link AuditMgr},{@link DelAdminMgr},
- * {@link DelAccessMgr},{@link DelReviewMgr},{@link org.apache.directory.fortress.core.cfg.ConfigMgr}).
+ * {@link DelAccessMgr},{@link DelReviewMgr},{@link ConfigMgr}).
  * <h3>
  * <p/>The original exception thrown may be of this type or one of its extensions
  * </h3>

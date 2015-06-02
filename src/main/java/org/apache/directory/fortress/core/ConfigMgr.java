@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.cfg;
+package org.apache.directory.fortress.core;
 
 
 import org.apache.directory.fortress.core.SecurityException;

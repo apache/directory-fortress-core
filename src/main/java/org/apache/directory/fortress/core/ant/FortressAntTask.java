@@ -47,15 +47,15 @@ import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.PwPolicyMgr;
 import org.apache.directory.fortress.core.PwPolicyMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.cfg.ConfigMgr;
-import org.apache.directory.fortress.core.cfg.ConfigMgrFactory;
+import org.apache.directory.fortress.core.ConfigMgr;
+import org.apache.directory.fortress.core.ConfigMgrFactory;
 import org.apache.directory.fortress.core.ldap.container.OrganizationalUnit;
 import org.apache.directory.fortress.core.ldap.container.OrganizationalUnitP;
 import org.apache.directory.fortress.core.ldap.suffix.Suffix;
 import org.apache.directory.fortress.core.ldap.suffix.SuffixP;
 
 import org.apache.directory.fortress.core.model.AdminRole;
-import org.apache.directory.fortress.core.rbac.ClassUtil;
+import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.model.Context;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PermGrant;
@@ -160,7 +160,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * org.apache.directory.fortress.core.model.OrgUnit)} USER and PERM</li>
  * <li>Delete User and Perm OUs {@link org.apache.directory.fortress.core.DelAdminMgr#delete(org.apache.directory.fortress.core.model.OrgUnit)} USER and
  * PERM</li>
- * <li>Delete Configuration Entries {@link org.apache.directory.fortress.core.cfg.ConfigMgr#delete(String, java.util.Properties)}</li>
+ * <li>Delete Configuration Entries {@link org.apache.directory.fortress.core.ConfigMgr#delete(String, java.util.Properties)}</li>
  * <li>Delete Containers {@link OrganizationalUnitP#delete(OrganizationalUnit)}</li>
  * <li>Delete Suffix {@link org.apache.directory.fortress.core.ldap.suffix.SuffixP#delete(org.apache.directory.fortress.core.ldap.suffix.Suffix)}}</li>
  * <li>Add Suffix {@link SuffixP#add(Suffix)}}</li>

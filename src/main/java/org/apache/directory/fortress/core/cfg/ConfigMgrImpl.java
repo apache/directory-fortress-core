@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.cfg;
 
+import org.apache.directory.fortress.core.ConfigMgr;
 import org.apache.directory.fortress.core.SecurityException;
 
 import java.util.Properties;

@@ -17,17 +17,20 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.cfg;
+package org.apache.directory.fortress.core;
 
+import org.apache.directory.fortress.core.ConfigMgr;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.rbac.ClassUtil;
+import org.apache.directory.fortress.core.cfg.Config;
+import org.apache.directory.fortress.core.cfg.ConfigMgrImpl;
+import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.rest.ConfigMgrRestImpl;
 
 /**
  * Creates an instance of the ConfigMgr object.
  * <p/>
- * The default implementation class is specified as {@link ConfigMgrImpl} but can be overridden by
+ * The default implementation class is specified as {@link org.apache.directory.fortress.core.cfg.ConfigMgrImpl} but can be overridden by
  * adding the {@link org.apache.directory.fortress.core.GlobalIds#CONFIG_IMPLEMENTATION} config property.
  * <p/>
 
@@ -36,7 +39,7 @@ import org.apache.directory.fortress.core.rest.ConfigMgrRestImpl;
  */
 public final class ConfigMgrFactory
 {
-    private static String configClassName = Config.getProperty(GlobalIds.CONFIG_IMPLEMENTATION);
+    private static String configClassName = Config.getProperty( GlobalIds.CONFIG_IMPLEMENTATION );
     private final static String ENABLE_REST = "enable.mgr.impl.rest";
     private static final boolean IS_REST = ((Config.getProperty(ENABLE_REST) != null) && (Config.getProperty(ENABLE_REST).equalsIgnoreCase("true")));
 
@@ -46,9 +49,9 @@ public final class ConfigMgrFactory
     }
 
     /**
-     * Create and return a reference to {@link ConfigMgr} object.
+     * Create and return a reference to {@link org.apache.directory.fortress.core.ConfigMgr} object.
      *
-     * @return instance of {@link ConfigMgr}.
+     * @return instance of {@link org.apache.directory.fortress.core.ConfigMgr}.
      * @throws org.apache.directory.fortress.core.SecurityException in the event of failure during instantiation.
      */
     public static ConfigMgr createInstance()
@@ -59,6 +62,7 @@ public final class ConfigMgrFactory
         {
             if(IS_REST)
             {
+                // todo: this creates a cycle with rest package:
                 configClassName = ConfigMgrRestImpl.class.getName();
             }
             else

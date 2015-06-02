@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.rbac;
+package org.apache.directory.fortress.core.util;
 
 
 import org.apache.directory.fortress.core.CfgException;
@@ -40,7 +40,7 @@ import java.io.InputStream;
  * <li>{@link org.apache.directory.fortress.core.DelReviewMgrFactory}</li>
  * <li>{@link org.apache.directory.fortress.core.PwPolicyMgrFactory}</li>
  * <li>{@link org.apache.directory.fortress.core.ReviewMgrFactory}</li>
- * <li>{@link org.apache.directory.fortress.core.cfg.ConfigMgrFactory}</li>
+ * <li>{@link org.apache.directory.fortress.core.ConfigMgrFactory}</li>
  * </ol>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

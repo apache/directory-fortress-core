@@ -24,7 +24,7 @@ import java.util.List;
 
 
 /**
- * The class is used by {@link FortressAntTask} to load {@link org.apache.directory.fortress.core.ant.ConfigAnt}s used to drive {@link org.apache.directory.fortress.core.cfg.ConfigMgr#delete(String, java.util.Properties)}.
+ * The class is used by {@link FortressAntTask} to load {@link org.apache.directory.fortress.core.ant.ConfigAnt}s used to drive {@link org.apache.directory.fortress.core.ConfigMgr#delete(String, java.util.Properties)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>This class name, 'Delconfig', is used for the xml tag in the load script.</p>
  * <pre>

@@ -21,7 +21,7 @@ package org.apache.directory.fortress.core;
 
 import org.apache.directory.fortress.core.cfg.Config;
 import org.apache.directory.fortress.core.rbac.AccelMgrImpl;
-import org.apache.directory.fortress.core.rbac.ClassUtil;
+import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 /**

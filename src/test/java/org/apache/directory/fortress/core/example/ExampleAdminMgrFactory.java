@@ -21,7 +21,7 @@ package org.apache.directory.fortress.core.example;
 
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.cfg.Config;
-import org.apache.directory.fortress.core.rbac.ClassUtil;
+import org.apache.directory.fortress.core.util.ClassUtil;
 
 /**
  * Factory class used to instantiate the ExampleAdminMgrImpl.

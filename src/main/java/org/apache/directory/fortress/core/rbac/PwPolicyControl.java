@@ -20,6 +20,8 @@
 package org.apache.directory.fortress.core.rbac;
 
 
+import org.apache.directory.fortress.core.model.PwMessage;
+
 /**
  * Interface is used to allow pluggable password policy interrogation.
  *

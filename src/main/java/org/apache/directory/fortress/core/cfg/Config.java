@@ -25,6 +25,8 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.directory.fortress.core.ConfigMgr;
+import org.apache.directory.fortress.core.ConfigMgrFactory;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

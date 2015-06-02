@@ -21,7 +21,7 @@ package org.apache.directory.fortress.core;
 
 import org.apache.directory.fortress.core.cfg.Config;
 import org.apache.directory.fortress.core.rbac.AuditMgrImpl;
-import org.apache.directory.fortress.core.rbac.ClassUtil;
+import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.rest.AuditMgrRestImpl;
 import org.apache.directory.fortress.core.util.attr.VUtil;

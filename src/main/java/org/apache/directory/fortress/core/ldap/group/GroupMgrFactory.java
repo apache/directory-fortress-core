@@ -23,7 +23,7 @@ import org.apache.directory.api.util.Strings;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.cfg.Config;
-import org.apache.directory.fortress.core.rbac.ClassUtil;
+import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.util.attr.VUtil;

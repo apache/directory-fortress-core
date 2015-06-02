@@ -59,7 +59,7 @@ import java.util.List;
  * <li> {@link org.apache.directory.fortress.core.AdminMgr}
  * <li> {@link org.apache.directory.fortress.core.AdminMgr}
  * <li> {@link org.apache.directory.fortress.core.DelAdminMgr}
- * <li> {@link org.apache.directory.fortress.core.cfg.ConfigMgr}
+ * <li> {@link org.apache.directory.fortress.core.ConfigMgr}
  * <li> {@link org.apache.directory.fortress.core.PwPolicyMgr}
  * </ul>
  * <h4>

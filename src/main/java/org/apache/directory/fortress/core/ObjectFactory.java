@@ -22,7 +22,6 @@ package org.apache.directory.fortress.core;
 
 import org.apache.directory.fortress.core.ldap.group.Group;
 import org.apache.directory.fortress.core.model.*;
-import org.apache.directory.fortress.core.rbac.*;
 import org.apache.directory.fortress.core.rest.FortRequest;
 import org.apache.directory.fortress.core.rest.FortResponse;
 
@@ -330,7 +329,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rbac.Warning }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.Warning }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortWarning")
     public JAXBElement<Warning> createFortWarning( Warning value )
