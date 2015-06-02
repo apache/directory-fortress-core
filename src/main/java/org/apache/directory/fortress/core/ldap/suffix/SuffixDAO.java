@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.ldap.suffix;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.entry.DefaultEntry;
@@ -167,7 +168,7 @@ final class SuffixDAO extends ApacheDsDataProvider
         String dn = SchemaConstants.DC_AT + "=" + se.getName() + "," + SchemaConstants.DC_AT + "=" + se.getDc();
 
         // only use this domain component variable if it has been set in the build.properties file:
-        if ( VUtil.isNotNullOrEmpty( se.getDc2() ) && !se.getDc2().equals( "${suffix.dc2}" ) )
+        if ( StringUtils.isNotEmpty( se.getDc2() ) && !se.getDc2().equals( "${suffix.dc2}" ) )
         {
             dn += "," + SchemaConstants.DC_AT + "=" + se.getDc2();
         }

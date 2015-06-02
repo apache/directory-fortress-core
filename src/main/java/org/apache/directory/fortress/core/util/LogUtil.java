@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.util;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalIds;
@@ -50,7 +51,7 @@ public final class LogUtil
     {
         if ( LOG.isDebugEnabled() || LOG.isInfoEnabled() || LOG.isWarnEnabled() || LOG.isErrorEnabled() )
         {
-            if ( VUtil.isNotNullOrEmpty( getContext() ) )
+            if ( StringUtils.isNotEmpty( getContext() ) )
             {
                 msg = getContext() + " " + msg;
             }
@@ -79,7 +80,7 @@ public final class LogUtil
         String contextId = null;
         String tenant = System.getProperty( GlobalIds.TENANT );
         
-        if ( VUtil.isNotNullOrEmpty( tenant ) && !tenant.equals( "${tenant}" ) )
+        if ( StringUtils.isNotEmpty( tenant ) && !tenant.equals( "${tenant}" ) )
         {
             contextId = tenant;
         }

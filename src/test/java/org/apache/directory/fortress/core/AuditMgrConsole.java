@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
 import org.apache.directory.fortress.core.model.Bind;
 import org.apache.directory.fortress.core.model.AuthZ;
@@ -269,7 +270,7 @@ class AuditMgrConsole
             uAudit.setOpName(val);
             System.out.println("Enter userId to search Audit AuthZs with:");
             val = ReaderUtil.readLn();
-            if(VUtil.isNotNullOrEmpty(val))
+            if(StringUtils.isNotEmpty( val ))
             {
                 uAudit.setUserId(val);
                 System.out.println("size=" + val.length() + " val=" + val);
@@ -308,7 +309,7 @@ class AuditMgrConsole
             UserAudit uAudit = new UserAudit();
             System.out.println("Enter userId to search Audit AuthZs with:");
             String val = ReaderUtil.readLn();
-            if(VUtil.isNotNullOrEmpty(val))
+            if(StringUtils.isNotEmpty( val ))
             {
                 uAudit.setUserId(val);
                 System.out.println("size=" + val.length() + " val=" + val);
@@ -346,7 +347,7 @@ class AuditMgrConsole
             UserAudit uAudit = new UserAudit();
             System.out.println("Enter userId to search Audit AuthZs with:");
             String val = ReaderUtil.readLn();
-            if(VUtil.isNotNullOrEmpty(val))
+            if(StringUtils.isNotEmpty( val ))
             {
                 uAudit.setUserId(val);
                 System.out.println("size=" + val.length() + " val=" + val);
@@ -644,7 +645,7 @@ class AuditMgrConsole
             UserAudit uAudit = new UserAudit();
             System.out.println("Enter userId to search Audit Mods with:");
             String val = ReaderUtil.readLn();
-            if(VUtil.isNotNullOrEmpty(val))
+            if(StringUtils.isNotEmpty( val ))
             {
                 uAudit.setUserId(val);
                 System.out.println("size=" + val.length() + " val=" + val);
@@ -738,7 +739,7 @@ class AuditMgrConsole
             UserAudit uAudit = new UserAudit();
             System.out.println("Enter userId to search Audit Mods with or NULL for skip:");
             String val = ReaderUtil.readLn();
-            if(VUtil.isNotNullOrEmpty(val))
+            if(StringUtils.isNotEmpty( val ))
             {
                 uAudit.setUserId(val);
                 System.out.println("size=" + val.length() + " val=" + val);
@@ -779,14 +780,14 @@ class AuditMgrConsole
 
             System.out.println("Enter admin object name to search Audit Mods with or NULL for skip:");
             val = ReaderUtil.readLn();
-            if(VUtil.isNotNullOrEmpty(val))
+            if(StringUtils.isNotEmpty( val ))
             {
                 uAudit.setObjName(val);
                 System.out.println("size=" + val.length() + " val=" + val);
             }
             System.out.println("Enter admin operation name to search Audit Mods with or NULL for skip:");
             val = ReaderUtil.readLn();
-            if(VUtil.isNotNullOrEmpty(val))
+            if(StringUtils.isNotEmpty( val ))
             {
                 uAudit.setOpName(val);
                 System.out.println("size=" + val.length() + " val=" + val);
@@ -811,7 +812,7 @@ class AuditMgrConsole
             UserAudit uAudit = new UserAudit();
             System.out.println("Enter userId to search Audit AuthZs with:");
             String val = ReaderUtil.readLn();
-            if(VUtil.isNotNullOrEmpty(val))
+            if( StringUtils.isNotEmpty( val ))
             {
                 uAudit.setUserId(val);
                 System.out.println("size=" + val.length() + " val=" + val);

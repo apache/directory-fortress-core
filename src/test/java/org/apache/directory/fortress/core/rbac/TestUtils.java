@@ -33,6 +33,7 @@ import java.util.TreeSet;
 import junit.framework.TestCase;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.time.Constraint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -66,7 +67,7 @@ public class TestUtils extends TestCase
         // This property can be overriden with system property:
         String tenant = System.getProperty( GlobalIds.TENANT );
         
-        if ( VUtil.isNotNullOrEmpty( tenant ) && !tenant.equals( "${tenant}" ) )
+        if ( StringUtils.isNotEmpty( tenant ) && !tenant.equals( "${tenant}" ) )
         {
             contextId = tenant;
         }
@@ -273,7 +274,7 @@ public class TestUtils extends TestCase
         Set<String> vSets = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
         try
         {
-            if ( VUtil.isNotNullOrEmpty( szInput ) )
+            if ( StringUtils.isNotEmpty( szInput ) )
             {
                 StringTokenizer charSetTkn = new StringTokenizer( szInput, TestUtils.DELIMITER_TEST_DATA );
                 if ( charSetTkn.countTokens() > 0 )

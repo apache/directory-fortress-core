@@ -23,6 +23,7 @@ package org.apache.directory.fortress.core.rbac;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
@@ -164,7 +165,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
             entry.add( ROLE_NM, entity.getName() );
 
             // description field is optional on this object class:
-            if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+            if ( StringUtils.isNotEmpty( entity.getDescription() ) )
             {
                 entry.add( SchemaConstants.DESCRIPTION_AT, entity.getDescription() );
             }
@@ -176,7 +177,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
             loadAttrs( entity.getOsU(), entry, ROLE_OSU );
             String szRaw = entity.getRoleRangeRaw();
 
-            if ( VUtil.isNotNullOrEmpty( szRaw ) )
+            if ( StringUtils.isNotEmpty( szRaw ) )
             {
                 entry.add( ROLE_RANGE, szRaw );
             }
@@ -218,7 +219,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         {
             List<Modification> mods = new ArrayList<Modification>();
 
-            if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+            if ( StringUtils.isNotEmpty( entity.getDescription() ) )
             {
                 mods.add( new DefaultModification(
                     ModificationOperation.REPLACE_ATTRIBUTE,
@@ -238,7 +239,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
             {
                 String szRawData = CUtil.setConstraint( entity );
 
-                if ( VUtil.isNotNullOrEmpty( szRawData ) )
+                if ( StringUtils.isNotEmpty( szRawData ) )
                 {
                     mods.add( new DefaultModification(
                         ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.CONSTRAINT, szRawData ) );
@@ -249,7 +250,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
             loadAttrs( entity.getOsP(), mods, ROLE_OSP );
             String szRaw = entity.getRoleRangeRaw();
 
-            if ( VUtil.isNotNullOrEmpty( szRaw ) )
+            if ( StringUtils.isNotEmpty( szRaw ) )
             {
                 mods.add( new DefaultModification(
                     ModificationOperation.REPLACE_ATTRIBUTE, ROLE_RANGE, szRaw ) );

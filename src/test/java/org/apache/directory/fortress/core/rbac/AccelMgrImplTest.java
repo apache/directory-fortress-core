@@ -26,6 +26,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
@@ -238,7 +239,7 @@ public class AccelMgrImplTest extends TestCase
                     for ( String[] op : opArray )
                     {
                         Permission goodPerm;
-                        if( VUtil.isNotNullOrEmpty( PermTestData.getObjId( opArray[j] ) ) )
+                        if( StringUtils.isNotEmpty( PermTestData.getObjId( opArray[j] ) ) )
                         {
                             // with an objectId:
                             goodPerm = new Permission(

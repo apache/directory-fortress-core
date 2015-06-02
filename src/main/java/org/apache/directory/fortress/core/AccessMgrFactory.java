@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.rbac.AccessMgrImpl;
 import org.apache.directory.fortress.core.util.ClassUtil;
@@ -64,7 +65,7 @@ public final class AccessMgrFactory
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
 
         AccessMgr accessMgr;
-        if (!VUtil.isNotNullOrEmpty(accessClassName))
+        if (!StringUtils.isNotEmpty( accessClassName ))
         {
             if(GlobalIds.IS_REST)
             {

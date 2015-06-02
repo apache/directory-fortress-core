@@ -159,7 +159,7 @@ public class UserRole extends FortEntity implements Serializable, Constraint
             String[] tokens = StringUtils.splitPreserveAllTokens( szRawData, GlobalIds.DELIMITER );
             for ( int i = 0; i < tokens.length; i++ )
             {
-                if ( VUtil.isNotNullOrEmpty( tokens[i] ) )
+                if ( StringUtils.isNotEmpty( tokens[i] ) )
                 {
                     switch ( i )
                     {

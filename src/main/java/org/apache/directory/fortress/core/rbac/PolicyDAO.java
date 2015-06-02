@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
@@ -484,84 +485,84 @@ final class PolicyDAO extends ApacheDsDataProvider
         entity.setName( getAttribute( le, SchemaConstants.CN_AT ) );
         String val = getAttribute( le, OLPW_MIN_AGE );
 
-        if ( VUtil.isNotNullOrEmpty( val ) )
+        if ( StringUtils.isNotEmpty( val ) )
         {
             entity.setMinAge( Integer.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_MAX_AGE );
 
-        if ( VUtil.isNotNullOrEmpty( val ) )
+        if ( StringUtils.isNotEmpty( val ) )
         {
             entity.setMaxAge( Long.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_IN_HISTORY );
 
-        if ( VUtil.isNotNullOrEmpty( val ) )
+        if ( StringUtils.isNotEmpty( val ) )
         {
             entity.setInHistory( Short.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_CHECK_QUALITY );
 
-        if ( VUtil.isNotNullOrEmpty( val ) )
+        if ( StringUtils.isNotEmpty( val ) )
         {
             entity.setCheckQuality( Short.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_MIN_LENGTH );
 
-        if ( VUtil.isNotNullOrEmpty( val ) )
+        if ( StringUtils.isNotEmpty( val ) )
         {
             entity.setMinLength( Short.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_EXPIRE_WARNING );
 
-        if ( VUtil.isNotNullOrEmpty( val ) )
+        if ( StringUtils.isNotEmpty( val ) )
         {
             entity.setExpireWarning( Long.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_GRACE_LOGIN_LIMIT );
 
-        if ( VUtil.isNotNullOrEmpty( val ) )
+        if ( StringUtils.isNotEmpty( val ) )
         {
             entity.setGraceLoginLimit( Short.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_LOCKOUT );
 
-        if ( VUtil.isNotNullOrEmpty( val ) )
+        if ( StringUtils.isNotEmpty( val ) )
         {
             entity.setLockout( Boolean.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_LOCKOUT_DURATION );
 
-        if ( VUtil.isNotNullOrEmpty( val ) )
+        if ( StringUtils.isNotEmpty( val ) )
         {
             entity.setLockoutDuration( Integer.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_MAX_FAILURE );
 
-        if ( VUtil.isNotNullOrEmpty( val ) )
+        if ( StringUtils.isNotEmpty( val ) )
         {
             entity.setMaxFailure( Short.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_FAILURE_COUNT_INTERVAL );
 
-        if ( VUtil.isNotNullOrEmpty( val ) )
+        if ( StringUtils.isNotEmpty( val ) )
         {
             entity.setFailureCountInterval( Short.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_MUST_CHANGE );
 
-        if ( VUtil.isNotNullOrEmpty( val ) )
+        if ( StringUtils.isNotEmpty( val ) )
         {
             //noinspection BooleanConstructorCall
             entity.setMustChange( Boolean.valueOf( val ) );
@@ -569,14 +570,14 @@ final class PolicyDAO extends ApacheDsDataProvider
 
         val = getAttribute( le, OLPW_ALLOW_USER_CHANGE );
 
-        if ( VUtil.isNotNullOrEmpty( val ) )
+        if ( StringUtils.isNotEmpty( val ) )
         {
             entity.setAllowUserChange( Boolean.valueOf( val ) );
         }
 
         val = getAttribute( le, OLPW_SAFE_MODIFY );
 
-        if ( VUtil.isNotNullOrEmpty( val ) )
+        if ( StringUtils.isNotEmpty( val ) )
         {
             entity.setSafeModify( Boolean.valueOf( val ) );
         }

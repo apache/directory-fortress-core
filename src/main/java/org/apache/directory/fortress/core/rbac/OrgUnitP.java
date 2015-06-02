@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.slf4j.Logger;
@@ -424,7 +425,7 @@ public final class OrgUnitP
     {
         VUtil.safeText( entity.getName(), GlobalIds.OU_LEN );
 
-        if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+        if ( StringUtils.isNotEmpty( entity.getDescription() ) )
         {
             VUtil.description( entity.getDescription() );
         }
@@ -459,7 +460,7 @@ public final class OrgUnitP
     {
         String key = type;
 
-        if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) )
+        if ( StringUtils.isNotEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) )
         {
             key += ":" + contextId;
         }

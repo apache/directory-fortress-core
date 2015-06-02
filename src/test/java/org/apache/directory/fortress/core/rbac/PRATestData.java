@@ -25,6 +25,7 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -995,7 +996,7 @@ public class PRATestData extends TestCase
     public static boolean isCanGrant( String[] ura )
     {
         boolean isCanGrant = false;
-        if ( VUtil.isNotNullOrEmpty( ura[CAN_ASSIGN_COL] ) && ura[CAN_ASSIGN_COL].equalsIgnoreCase( "T" ) )
+        if ( StringUtils.isNotEmpty( ura[CAN_ASSIGN_COL] ) && ura[CAN_ASSIGN_COL].equalsIgnoreCase( "T" ) )
         {
             isCanGrant = true;
         }
@@ -1006,7 +1007,7 @@ public class PRATestData extends TestCase
     public static boolean isCanRevoke( String[] ura )
     {
         boolean isCanRevoke = false;
-        if ( VUtil.isNotNullOrEmpty( ura[CAN_ASSIGN_COL] )
+        if ( StringUtils.isNotEmpty( ura[CAN_ASSIGN_COL] )
             && ura[CAN_ASSIGN_COL].equalsIgnoreCase( "T" ) )
         {
             isCanRevoke = true;

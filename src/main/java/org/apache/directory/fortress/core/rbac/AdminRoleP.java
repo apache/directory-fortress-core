@@ -23,6 +23,7 @@ package org.apache.directory.fortress.core.rbac;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.OrgUnit;
@@ -310,7 +311,7 @@ public final class AdminRoleP
     {
         VUtil.safeText( entity.getName(), GlobalIds.ROLE_LEN );
 
-        if ( VUtil.isNotNullOrEmpty( entity.getBeginRange() ) && VUtil.isNotNullOrEmpty( entity.getEndRange() ) )
+        if ( StringUtils.isNotEmpty( entity.getBeginRange() ) && StringUtils.isNotEmpty( entity.getEndRange() ) )
         {
             VUtil.safeText( entity.getBeginRange(), GlobalIds.ROLE_LEN );
             VUtil.safeText( entity.getEndRange(), GlobalIds.ROLE_LEN );
@@ -333,20 +334,20 @@ public final class AdminRoleP
                 throw new SecurityException( GlobalErrIds.ARLE_INVLD_RANGE, error );
             }
         }
-        else if ( !VUtil.isNotNullOrEmpty( entity.getBeginRange() ) && VUtil.isNotNullOrEmpty( entity.getEndRange() ) )
+        else if ( !StringUtils.isNotEmpty( entity.getBeginRange() ) && StringUtils.isNotEmpty( entity.getEndRange() ) )
         {
             String error = "validate role name [" + entity.getName() + "] begin range value null or empty.";
             LOG.warn( error );
             throw new SecurityException( GlobalErrIds.ARLE_BEGIN_RANGE_NULL, error );
         }
-        else if ( VUtil.isNotNullOrEmpty( entity.getBeginRange() ) && !VUtil.isNotNullOrEmpty( entity.getEndRange() ) )
+        else if ( StringUtils.isNotEmpty( entity.getBeginRange() ) && !StringUtils.isNotEmpty( entity.getEndRange() ) )
         {
             String error = "validate role name [" + entity.getName() + "] end range value null or empty.";
             LOG.warn( error );
             throw new SecurityException( GlobalErrIds.ARLE_END_RANGE_NULL, error );
         }
 
-        if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+        if ( StringUtils.isNotEmpty( entity.getDescription() ) )
         {
             VUtil.description( entity.getDescription() );
         }
@@ -356,37 +357,37 @@ public final class AdminRoleP
             VUtil.timeout( entity.getTimeout() );
         }
 
-        if ( VUtil.isNotNullOrEmpty( entity.getBeginTime() ) )
+        if ( StringUtils.isNotEmpty( entity.getBeginTime() ) )
         {
             VUtil.beginTime( entity.getBeginTime() );
         }
 
-        if ( VUtil.isNotNullOrEmpty( entity.getEndTime() ) )
+        if ( StringUtils.isNotEmpty( entity.getEndTime() ) )
         {
             VUtil.endTime( entity.getEndTime() );
         }
 
-        if ( VUtil.isNotNullOrEmpty( entity.getBeginDate() ) )
+        if ( StringUtils.isNotEmpty( entity.getBeginDate() ) )
         {
             VUtil.beginDate( entity.getBeginDate() );
         }
 
-        if ( VUtil.isNotNullOrEmpty( entity.getEndDate() ) )
+        if ( StringUtils.isNotEmpty( entity.getEndDate() ) )
         {
             VUtil.endDate( entity.getEndDate() );
         }
 
-        if ( VUtil.isNotNullOrEmpty( entity.getDayMask() ) )
+        if ( StringUtils.isNotEmpty( entity.getDayMask() ) )
         {
             VUtil.dayMask( entity.getDayMask() );
         }
 
-        if ( VUtil.isNotNullOrEmpty( entity.getBeginLockDate() ) )
+        if ( StringUtils.isNotEmpty( entity.getBeginLockDate() ) )
         {
             VUtil.beginDate( entity.getBeginDate() );
         }
 
-        if ( VUtil.isNotNullOrEmpty( entity.getEndLockDate() ) )
+        if ( StringUtils.isNotEmpty( entity.getEndLockDate() ) )
         {
             VUtil.endDate( entity.getEndLockDate() );
         }

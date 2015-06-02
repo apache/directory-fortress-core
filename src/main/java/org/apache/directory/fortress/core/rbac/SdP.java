@@ -23,6 +23,7 @@ package org.apache.directory.fortress.core.rbac;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.Role;
@@ -196,7 +197,7 @@ public final class SdP
     {
         // TODO: Add more validations here:
         VUtil.safeText( entity.getName(), GlobalIds.OU_LEN );
-        if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+        if ( StringUtils.isNotEmpty( entity.getDescription() ) )
         {
             VUtil.description( entity.getDescription() );
         }

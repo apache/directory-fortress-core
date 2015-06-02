@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.cli;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.ldap.group.Group;
 import org.apache.directory.fortress.core.model.Address;
@@ -304,7 +305,7 @@ public class Options implements java.io.Serializable
     {
         char[] pw = null;
         String szPw = (String) parser.getOptionValue(password);
-        if (VUtil.isNotNullOrEmpty(szPw))
+        if (StringUtils.isNotEmpty(szPw))
         {
             pw = szPw.toCharArray();
         }
@@ -315,7 +316,7 @@ public class Options implements java.io.Serializable
     {
         char[] pw = null;
         String szPw = (String) parser.getOptionValue(newPassword);
-        if (VUtil.isNotNullOrEmpty(szPw))
+        if ( StringUtils.isNotEmpty( szPw ))
         {
             pw = szPw.toCharArray();
         }

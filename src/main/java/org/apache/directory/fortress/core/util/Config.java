@@ -25,6 +25,7 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.ConfigMgr;
 import org.apache.directory.fortress.core.ConfigMgrFactory;
 import org.apache.directory.fortress.core.util.attr.VUtil;
@@ -397,14 +398,14 @@ public final class Config
         String PREFIX = "getExternalConfig override name [{}] value [{}]";
         // Check to see if the ldap host has been overridden by a system property:
         String szValue = System.getProperty( EXT_LDAP_HOST );
-        if( VUtil.isNotNullOrEmpty( szValue ))
+        if( StringUtils.isNotEmpty( szValue ))
         {
             config.setProperty( GlobalIds.LDAP_HOST, szValue );
             LOG.info( PREFIX, GlobalIds.LDAP_HOST, szValue );
         }
         // Check to see if the ldap port has been overridden by a system property:
         szValue = System.getProperty( EXT_LDAP_PORT );
-        if( VUtil.isNotNullOrEmpty( szValue ))
+        if( StringUtils.isNotEmpty( szValue ))
         {
             config.setProperty( GlobalIds.LDAP_PORT, szValue );
             LOG.info( PREFIX, GlobalIds.LDAP_PORT, szValue );
@@ -412,7 +413,7 @@ public final class Config
 
         // Check to see if the admin pool uid has been overridden by a system property:
         szValue = System.getProperty( EXT_LDAP_ADMIN_POOL_UID );
-        if( VUtil.isNotNullOrEmpty( szValue ))
+        if( StringUtils.isNotEmpty( szValue ))
         {
             config.setProperty( GlobalIds.LDAP_ADMIN_POOL_UID, szValue );
             // never display ldap admin userid name to log:
@@ -421,7 +422,7 @@ public final class Config
 
         // Check to see if the admin pool pw has been overridden by a system property:
         szValue = System.getProperty( EXT_LDAP_ADMIN_POOL_PW );
-        if( VUtil.isNotNullOrEmpty( szValue ))
+        if( StringUtils.isNotEmpty( szValue ))
         {
             config.setProperty( GlobalIds.LDAP_ADMIN_POOL_PW, szValue );
             // never display password of any type to log:
@@ -430,7 +431,7 @@ public final class Config
 
         // Check to see if the admin pool min connections has been overridden by a system property:
         szValue = System.getProperty( EXT_LDAP_ADMIN_POOL_MIN );
-        if( VUtil.isNotNullOrEmpty( szValue ))
+        if( StringUtils.isNotEmpty( szValue ))
         {
             config.setProperty( GlobalIds.LDAP_ADMIN_POOL_MIN, szValue );
             LOG.info( PREFIX, GlobalIds.LDAP_ADMIN_POOL_MIN, szValue );
@@ -438,7 +439,7 @@ public final class Config
 
         // Check to see if the admin pool max connections has been overridden by a system property:
         szValue = System.getProperty( EXT_LDAP_ADMIN_POOL_MAX );
-        if( VUtil.isNotNullOrEmpty( szValue ))
+        if( StringUtils.isNotEmpty( szValue ))
         {
             config.setProperty( GlobalIds.LDAP_ADMIN_POOL_MAX, Integer.valueOf( szValue ) );
             LOG.info( PREFIX, GlobalIds.LDAP_ADMIN_POOL_MAX, szValue );
@@ -446,7 +447,7 @@ public final class Config
 
         // Check to see if ssl enabled parameter has been overridden by a system property:
         szValue = System.getProperty( EXT_ENABLE_LDAP_SSL );
-        if( VUtil.isNotNullOrEmpty( szValue ))
+        if( StringUtils.isNotEmpty( szValue ))
         {
             config.setProperty( GlobalIds.ENABLE_LDAP_SSL, szValue );
             LOG.info( PREFIX, GlobalIds.ENABLE_LDAP_SSL, szValue );
@@ -454,7 +455,7 @@ public final class Config
 
         // Check to see if the ssl debug enabled parameter has been overridden by a system property:
         szValue = System.getProperty( EXT_ENABLE_LDAP_SSL_DEBUG );
-        if( VUtil.isNotNullOrEmpty( szValue ))
+        if( StringUtils.isNotEmpty( szValue ))
         {
             config.setProperty( GlobalIds.ENABLE_LDAP_SSL_DEBUG, szValue );
             LOG.info( PREFIX, GlobalIds.ENABLE_LDAP_SSL_DEBUG, szValue );
@@ -462,7 +463,7 @@ public final class Config
 
         // Check to see if the trust store location has been overridden by a system property:
         szValue = System.getProperty( EXT_TRUST_STORE );
-        if( VUtil.isNotNullOrEmpty( szValue ))
+        if( StringUtils.isNotEmpty( szValue ))
         {
             config.setProperty( GlobalIds.TRUST_STORE, szValue );
             LOG.info( PREFIX, GlobalIds.TRUST_STORE, szValue );
@@ -470,7 +471,7 @@ public final class Config
 
         // Check to see if the trust store password has been overridden by a system property:
         szValue = System.getProperty( EXT_TRUST_STORE_PW );
-        if( VUtil.isNotNullOrEmpty( szValue ))
+        if( StringUtils.isNotEmpty( szValue ))
         {
             config.setProperty( GlobalIds.TRUST_STORE_PW, szValue );
             // never display password value to log:
@@ -479,7 +480,7 @@ public final class Config
 
         // Check to see if the trust store set parameter has been overridden by a system property:
         szValue = System.getProperty( EXT_SET_TRUST_STORE_PROP );
-        if( VUtil.isNotNullOrEmpty( szValue ))
+        if( StringUtils.isNotEmpty( szValue ))
         {
             config.setProperty( GlobalIds.SET_TRUST_STORE_PROP, szValue );
             LOG.info( PREFIX, GlobalIds.SET_TRUST_STORE_PROP, szValue );
@@ -487,7 +488,7 @@ public final class Config
 
         // Check to see if the config realm name has been overridden by a system property:
         szValue = System.getProperty( EXT_CONFIG_REALM );
-        if( VUtil.isNotNullOrEmpty( szValue ))
+        if( StringUtils.isNotEmpty( szValue ))
         {
             config.setProperty( GlobalIds.CONFIG_REALM, szValue );
             LOG.info( PREFIX, GlobalIds.CONFIG_REALM, szValue );
@@ -495,7 +496,7 @@ public final class Config
 
         // Check to see if the ldap server type has been overridden by a system property:
         szValue = System.getProperty( EXT_SERVER_TYPE  );
-        if( VUtil.isNotNullOrEmpty( szValue ))
+        if( StringUtils.isNotEmpty( szValue ))
         {
             config.setProperty( GlobalIds.SERVER_TYPE, szValue );
             LOG.info( PREFIX, GlobalIds.SERVER_TYPE, szValue );

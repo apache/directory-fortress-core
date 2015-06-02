@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.rbac.PwPolicyMgrImpl;
@@ -65,7 +66,7 @@ public final class PwPolicyMgrFactory
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
         PwPolicyMgr policyMgr;
 
-        if (!VUtil.isNotNullOrEmpty(policyClassName))
+        if (!StringUtils.isNotEmpty( policyClassName ))
         {
             if(GlobalIds.IS_REST)
             {

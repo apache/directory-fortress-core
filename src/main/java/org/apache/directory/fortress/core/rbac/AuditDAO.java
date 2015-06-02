@@ -23,6 +23,7 @@ package org.apache.directory.fortress.core.rbac;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
@@ -241,7 +242,7 @@ final class AuditDAO extends ApacheDsDataProvider
             String filter = GlobalIds.FILTER_PREFIX + ACCESS_AUTHZ_CLASS_NM + ")(";
             String userId;
 
-            if ( VUtil.isNotNullOrEmpty( audit.getUserId() ) )
+            if ( StringUtils.isNotEmpty( audit.getUserId() ) )
             {
                 userId = audit.getUserId();
                 filter += REQDN + "=" + SchemaConstants.UID_AT + "=" + userId + "," + userRoot + ")(" +
@@ -613,16 +614,16 @@ final class AuditDAO extends ApacheDsDataProvider
             String filter = "(&(|(objectclass=" + ACCESS_MOD_CLASS_NM + ")";
             filter += "(objectclass=" + ACCESS_ADD_CLASS_NM + "))";
 
-            if ( VUtil.isNotNullOrEmpty( audit.getDn() ) )
+            if ( StringUtils.isNotEmpty( audit.getDn() ) )
             {
                 filter += "(" + REQDN + "=" + audit.getDn() + ")";
             }
 
-            if ( VUtil.isNotNullOrEmpty( audit.getObjName() ) )
+            if ( StringUtils.isNotEmpty( audit.getObjName() ) )
             {
                 filter += "(|(" + REQMOD + "=" + GlobalIds.FT_MODIFIER_CODE + ":= " + audit.getObjName() + ".";
 
-                if ( VUtil.isNotNullOrEmpty( audit.getOpName() ) )
+                if ( StringUtils.isNotEmpty( audit.getOpName() ) )
                 {
                     filter += audit.getOpName();
                 }
@@ -630,7 +631,7 @@ final class AuditDAO extends ApacheDsDataProvider
                 filter += "*)";
                 filter += "(" + REQMOD + "=" + GlobalIds.FT_MODIFIER_CODE + ":+ " + audit.getObjName() + ".";
 
-                if ( VUtil.isNotNullOrEmpty( audit.getOpName() ) )
+                if ( StringUtils.isNotEmpty( audit.getOpName() ) )
                 {
                     filter += audit.getOpName();
                 }
@@ -638,7 +639,7 @@ final class AuditDAO extends ApacheDsDataProvider
                 filter += "*))";
             }
 
-            if ( VUtil.isNotNullOrEmpty( audit.getInternalUserId() ) )
+            if ( StringUtils.isNotEmpty( audit.getInternalUserId() ) )
             {
                 filter += "(|(" + REQMOD + "=" + GlobalIds.FT_MODIFIER + ":= " + audit.getInternalUserId() + ")";
                 filter += "(" + REQMOD + "=" + GlobalIds.FT_MODIFIER + ":+ " + audit.getInternalUserId() + "))";

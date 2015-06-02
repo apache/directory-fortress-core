@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.rbac.ReviewMgrImpl;
@@ -65,7 +66,7 @@ public final class ReviewMgrFactory
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
         ReviewMgr reviewMgr;
 
-        if (!VUtil.isNotNullOrEmpty(reviewClassName))
+        if (!StringUtils.isNotEmpty( reviewClassName ))
         {
             if(GlobalIds.IS_REST)
             {

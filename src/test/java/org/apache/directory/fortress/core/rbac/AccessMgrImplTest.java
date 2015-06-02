@@ -29,6 +29,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.Session;
@@ -749,7 +750,7 @@ public class AccessMgrImplTest extends TestCase
                     for ( String[] op : opArray )
                     {
                         Permission goodPerm;
-                        if( VUtil.isNotNullOrEmpty( PermTestData.getObjId( opArray[j] ) ) )
+                        if( StringUtils.isNotEmpty( PermTestData.getObjId( opArray[j] ) ) )
                         {
                             // with an objectId:
                             goodPerm = new Permission(
@@ -770,7 +771,7 @@ public class AccessMgrImplTest extends TestCase
                                 PermTestData.getName( obj ) + "] operationName [" + PermTestData.getName( op ) + "]",
                             accessMgr.checkAccess( session, goodPerm ) );
                         Permission badPerm;
-                        if( VUtil.isNotNullOrEmpty( PermTestData.getObjId( opArrayBad[j] ) ) )
+                        if( StringUtils.isNotEmpty( PermTestData.getObjId( opArrayBad[j] ) ) )
                         {
                             // with an objectId:
                             badPerm = new Permission(

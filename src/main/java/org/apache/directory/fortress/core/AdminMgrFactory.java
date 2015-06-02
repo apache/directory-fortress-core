@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.rbac.AdminMgrImpl;
 import org.apache.directory.fortress.core.util.ClassUtil;
@@ -67,7 +68,7 @@ public final class AdminMgrFactory
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
         AdminMgr adminMgr;
 
-        if (!VUtil.isNotNullOrEmpty(adminClassName))
+        if (!StringUtils.isNotEmpty( adminClassName ))
         {
             if(GlobalIds.IS_REST)
             {

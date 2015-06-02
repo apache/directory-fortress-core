@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.rbac.AccelMgrImpl;
 import org.apache.directory.fortress.core.util.ClassUtil;
@@ -63,7 +64,7 @@ public final class AccelMgrFactory
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
         AccelMgr accelMgr;
-        if (!VUtil.isNotNullOrEmpty(accelClassName))
+        if (!StringUtils.isNotEmpty( accelClassName ))
         {
             accelMgr = new AccelMgrImpl();
         }

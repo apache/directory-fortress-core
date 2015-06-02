@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicy;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
@@ -415,7 +416,7 @@ final class UserDAO extends ApacheDsDataProvider
             myEntry.add( SchemaConstants.UID_AT, entity.getUserId() );
 
             // CN is required on inetOrgPerson object class, if caller did not set, use the userId:
-            if ( !VUtil.isNotNullOrEmpty( entity.getCn() ) )
+            if ( !StringUtils.isNotEmpty( entity.getCn() ) )
             {
                 entity.setCn( entity.getUserId() );
             }
@@ -423,7 +424,7 @@ final class UserDAO extends ApacheDsDataProvider
             myEntry.add( SchemaConstants.CN_AT, entity.getCn() );
 
             // SN is required on inetOrgPerson object class, if caller did not set, use the userId:
-            if ( !VUtil.isNotNullOrEmpty( entity.getSn() ) )
+            if ( !StringUtils.isNotEmpty( entity.getSn() ) )
             {
                 entity.setSn( entity.getUserId() );
             }
@@ -436,39 +437,39 @@ final class UserDAO extends ApacheDsDataProvider
                     {} ) );
             myEntry.add( SchemaConstants.DISPLAY_NAME_AT, entity.getCn() );
 
-            if ( VUtil.isNotNullOrEmpty( entity.getTitle() ) )
+            if ( StringUtils.isNotEmpty( entity.getTitle() ) )
             {
                 myEntry.add( SchemaConstants.TITLE_AT, entity.getTitle() );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getEmployeeType() ) )
+            if ( StringUtils.isNotEmpty( entity.getEmployeeType() ) )
             {
                 myEntry.add( EMPLOYEE_TYPE, entity.getEmployeeType() );
             }
 
             /*
                         TODO: add RFC2307BIS
-                        if ( VUtil.isNotNullOrEmpty( entity.getUidNumber() ) )
+                        if ( StringUtils.isNotEmpty( entity.getUidNumber() ) )
                         {
                             myEntry.add( UID_NUMBER, entity.getUidNumber() );
                         }
 
-                        if ( VUtil.isNotNullOrEmpty( entity.getGidNumber() ) )
+                        if ( StringUtils.isNotEmpty( entity.getGidNumber() ) )
                         {
                             myEntry.add( GID_NUMBER, entity.getGidNumber() );
                         }
 
-                        if ( VUtil.isNotNullOrEmpty( entity.getHomeDirectory() ) )
+                        if ( StringUtils.isNotEmpty( entity.getHomeDirectory() ) )
                         {
                             myEntry.add( HOME_DIRECTORY, entity.getHomeDirectory() );
                         }
 
-                        if ( VUtil.isNotNullOrEmpty( entity.getLoginShell() ) )
+                        if ( StringUtils.isNotEmpty( entity.getLoginShell() ) )
                         {
                             myEntry.add( LOGIN_SHELL, entity.getLoginShell() );
                         }
 
-                        if ( VUtil.isNotNullOrEmpty( entity.getGecos() ) )
+                        if ( StringUtils.isNotEmpty( entity.getGecos() ) )
                         {
                             myEntry.add( GECOS, entity.getGecos() );
                         }
@@ -486,19 +487,19 @@ final class UserDAO extends ApacheDsDataProvider
                 myEntry.add( SYSTEM_USER, entity.isSystem().toString().toUpperCase() );
             }
 
-            if ( GlobalIds.IS_OPENLDAP && VUtil.isNotNullOrEmpty( entity.getPwPolicy() ) )
+            if ( GlobalIds.IS_OPENLDAP && StringUtils.isNotEmpty( entity.getPwPolicy() ) )
             {
                 String pwdPolicyDn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + "," + getRootDn(
                     entity.getContextId(), GlobalIds.PPOLICY_ROOT );
                 myEntry.add( OPENLDAP_POLICY_SUBENTRY, pwdPolicyDn );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getOu() ) )
+            if ( StringUtils.isNotEmpty( entity.getOu() ) )
             {
                 myEntry.add( SchemaConstants.OU_AT, entity.getOu() );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+            if ( StringUtils.isNotEmpty( entity.getDescription() ) )
             {
                 myEntry.add( SchemaConstants.DESCRIPTION_AT, entity.getDescription() );
             }
@@ -549,19 +550,19 @@ final class UserDAO extends ApacheDsDataProvider
         {
             List<Modification> mods = new ArrayList<Modification>();
 
-            if ( VUtil.isNotNullOrEmpty( entity.getCn() ) )
+            if ( StringUtils.isNotEmpty( entity.getCn() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.CN_AT,
                     entity.getCn() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getSn() ) )
+            if ( StringUtils.isNotEmpty( entity.getSn() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.SN_AT,
                     entity.getSn() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getOu() ) )
+            if ( StringUtils.isNotEmpty( entity.getOu() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.OU_AT,
                     entity.getOu() ) );
@@ -573,25 +574,25 @@ final class UserDAO extends ApacheDsDataProvider
                     .USER_PASSWORD_AT, new String( entity.getPassword() ) ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+            if ( StringUtils.isNotEmpty( entity.getDescription() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants
                     .DESCRIPTION_AT, entity.getDescription() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getEmployeeType() ) )
+            if ( StringUtils.isNotEmpty( entity.getEmployeeType() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, EMPLOYEE_TYPE, entity
                     .getEmployeeType() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getTitle() ) )
+            if ( StringUtils.isNotEmpty( entity.getTitle() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.TITLE_AT,
                     entity.getTitle() ) );
             }
 
-            if ( GlobalIds.IS_OPENLDAP && VUtil.isNotNullOrEmpty( entity.getPwPolicy() ) )
+            if ( GlobalIds.IS_OPENLDAP && StringUtils.isNotEmpty( entity.getPwPolicy() ) )
             {
                 String szDn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + "," + getRootDn( entity
                     .getContextId(), GlobalIds.PPOLICY_ROOT );
@@ -611,7 +612,7 @@ final class UserDAO extends ApacheDsDataProvider
                 entity.setName( entity.getUserId() );
                 String szRawData = CUtil.setConstraint( entity );
 
-                if ( VUtil.isNotNullOrEmpty( szRawData ) )
+                if ( StringUtils.isNotEmpty( szRawData ) )
                 {
                     mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.CONSTRAINT,
                         szRawData ) );
@@ -1135,7 +1136,7 @@ final class UserDAO extends ApacheDsDataProvider
         {
             //String filter;
             StringBuilder filterbuf = new StringBuilder();
-            if ( VUtil.isNotNullOrEmpty( user.getUserId() ) )
+            if ( StringUtils.isNotEmpty( user.getUserId() ) )
             {
                 // place a wild card after the input userId:
                 String searchVal = encodeSafeText( user.getUserId(), GlobalIds.USERID_LEN );
@@ -1147,7 +1148,7 @@ final class UserDAO extends ApacheDsDataProvider
                 filterbuf.append( searchVal );
                 filterbuf.append( "*))" );
             }
-            else if ( VUtil.isNotNullOrEmpty( user.getInternalId() ) )
+            else if ( StringUtils.isNotEmpty( user.getInternalId() ) )
             {
                 // internalUserId search
                 String searchVal = encodeSafeText( user.getInternalId(), GlobalIds.USERID_LEN );
@@ -2087,7 +2088,7 @@ final class UserDAO extends ApacheDsDataProvider
                 entity.setReset( true );
             }
             String szPolicy = getAttribute( entry, OPENLDAP_POLICY_SUBENTRY );
-            if ( VUtil.isNotNullOrEmpty( szPolicy ) )
+            if ( StringUtils.isNotEmpty( szPolicy ) )
             {
                 entity.setPwPolicy( getRdn( szPolicy ) );
             }
@@ -2288,42 +2289,42 @@ final class UserDAO extends ApacheDsDataProvider
                 }
             }
 
-            if ( VUtil.isNotNullOrEmpty( address.getCity() ) )
+            if ( StringUtils.isNotEmpty( address.getCity() ) )
             {
                 entry.add( SchemaConstants.L_AT, address.getCity() );
             }
 
-            //if(VUtil.isNotNullOrEmpty(address.getCountry()))
+            //if(StringUtils.isNotEmpty(address.getCountry()))
             //{
             //    attrs.add(GlobalIds.COUNTRY, address.getAddress1());
             //}
 
-            if ( VUtil.isNotNullOrEmpty( address.getPostalCode() ) )
+            if ( StringUtils.isNotEmpty( address.getPostalCode() ) )
             {
                 entry.add( SchemaConstants.POSTALCODE_AT, address.getPostalCode() );
             }
 
-            if ( VUtil.isNotNullOrEmpty( address.getPostOfficeBox() ) )
+            if ( StringUtils.isNotEmpty( address.getPostOfficeBox() ) )
             {
                 entry.add( SchemaConstants.POSTOFFICEBOX_AT, address.getPostOfficeBox() );
             }
 
-            if ( VUtil.isNotNullOrEmpty( address.getState() ) )
+            if ( StringUtils.isNotEmpty( address.getState() ) )
             {
                 entry.add( SchemaConstants.ST_AT, address.getState() );
             }
 
-            if ( VUtil.isNotNullOrEmpty( address.getBuilding() ) )
+            if ( StringUtils.isNotEmpty( address.getBuilding() ) )
             {
                 entry.add( SchemaConstants.PHYSICAL_DELIVERY_OFFICE_NAME_AT, address.getBuilding() );
             }
 
-            if ( VUtil.isNotNullOrEmpty( address.getDepartmentNumber() ) )
+            if ( StringUtils.isNotEmpty( address.getDepartmentNumber() ) )
             {
                 entry.add( DEPARTMENT_NUMBER, address.getDepartmentNumber() );
             }
 
-            if ( VUtil.isNotNullOrEmpty( address.getRoomNumber() ) )
+            if ( StringUtils.isNotEmpty( address.getRoomNumber() ) )
             {
                 entry.add( ROOM_NUMBER, address.getRoomNumber() );
             }
@@ -2353,43 +2354,43 @@ final class UserDAO extends ApacheDsDataProvider
                 }
             }
 
-            if ( VUtil.isNotNullOrEmpty( address.getCity() ) )
+            if ( StringUtils.isNotEmpty( address.getCity() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.L_AT,
                     address.getCity() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( address.getPostalCode() ) )
+            if ( StringUtils.isNotEmpty( address.getPostalCode() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants
                     .POSTALCODE_AT, address.getPostalCode() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( address.getPostOfficeBox() ) )
+            if ( StringUtils.isNotEmpty( address.getPostOfficeBox() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants
                     .POSTOFFICEBOX_AT, address.getPostOfficeBox() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( address.getState() ) )
+            if ( StringUtils.isNotEmpty( address.getState() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.ST_AT,
                     address.getState() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( address.getBuilding() ) )
+            if ( StringUtils.isNotEmpty( address.getBuilding() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants
                     .PHYSICAL_DELIVERY_OFFICE_NAME_AT, address.getBuilding() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( address.getDepartmentNumber() ) )
+            if ( StringUtils.isNotEmpty( address.getDepartmentNumber() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, DEPARTMENT_NUMBER,
                     address.getDepartmentNumber() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( address.getRoomNumber() ) )
+            if ( StringUtils.isNotEmpty( address.getRoomNumber() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, ROOM_NUMBER, address
                     .getRoomNumber() ) );

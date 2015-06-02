@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.input.InputHandler;
@@ -856,7 +857,7 @@ public class FortressAntTask extends Task implements InputHandler
             try
             {
                 String testClassName = Config.getProperty( getTaskName() );
-                if ( !VUtil.isNotNullOrEmpty( testClassName ) )
+                if ( !StringUtils.isNotEmpty( testClassName ) )
                 {
                     testClassName = "org.apache.directory.fortress.core.rbac.FortressAntLoadTest";
                 }

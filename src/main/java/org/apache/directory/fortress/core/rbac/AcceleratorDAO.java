@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.rbac;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -174,7 +175,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
             rbacCheckAccessRequest.setObject( perm.getObjName() );
 
             // objectId is optional
-            if ( VUtil.isNotNullOrEmpty( perm.getObjId() ) )
+            if ( StringUtils.isNotEmpty( perm.getObjId() ) )
             {
                 rbacCheckAccessRequest.setObjectId( perm.getObjId() );
             }

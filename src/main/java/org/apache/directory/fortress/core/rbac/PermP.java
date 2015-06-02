@@ -23,6 +23,7 @@ package org.apache.directory.fortress.core.rbac;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
@@ -514,22 +515,22 @@ public final class PermP
                 //log.warn(error);
                 throw new ValidationException( GlobalErrIds.PERM_OU_INVALID, error );
             }
-            if ( VUtil.isNotNullOrEmpty( pObj.getObjName() ) )
+            if ( StringUtils.isNotEmpty( pObj.getObjName() ) )
             {
                 VUtil.description( pObj.getObjName() );
             }
-            if ( VUtil.isNotNullOrEmpty( pObj.getOu() ) )
+            if ( StringUtils.isNotEmpty( pObj.getOu() ) )
             {
                 VUtil.orgUnit( pObj.getOu() );
             }
-            if ( VUtil.isNotNullOrEmpty( pObj.getDescription() ) )
+            if ( StringUtils.isNotEmpty( pObj.getDescription() ) )
             {
                 VUtil.description( pObj.getDescription() );
             }
         }
         else
         {
-            if ( VUtil.isNotNullOrEmpty( pObj.getOu() ) )
+            if ( StringUtils.isNotEmpty( pObj.getOu() ) )
             {
                 VUtil.orgUnit( pObj.getOu() );
                 // ensure ou exists in the OS-P pool:
@@ -542,7 +543,7 @@ public final class PermP
                     throw new ValidationException( GlobalErrIds.PERM_OU_INVALID, error );
                 }
             }
-            if ( VUtil.isNotNullOrEmpty( pObj.getDescription() ) )
+            if ( StringUtils.isNotEmpty( pObj.getDescription() ) )
             {
                 VUtil.description( pObj.getDescription() );
             }
@@ -569,11 +570,11 @@ public final class PermP
                 VUtil.description( pOp.getOpName() );
             }
         }
-        if ( VUtil.isNotNullOrEmpty( pOp.getType() ) )
+        if ( StringUtils.isNotEmpty( pOp.getType() ) )
         {
             VUtil.description( pOp.getType() );
         }
-        if ( VUtil.isNotNullOrEmpty( pOp.getDescription() ) )
+        if ( StringUtils.isNotEmpty( pOp.getDescription() ) )
         {
             VUtil.description( pOp.getDescription() );
         }

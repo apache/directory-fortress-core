@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.rbac;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
@@ -538,7 +539,7 @@ final class SDUtil
     private static String getContextId(String contextId)
     {
         String szContextId = GlobalIds.HOME;
-        if(VUtil.isNotNullOrEmpty(contextId) && !contextId.equals(GlobalIds.NULL))
+        if( StringUtils.isNotEmpty( contextId ) && !contextId.equals(GlobalIds.NULL))
         {
             szContextId = contextId;
         }

@@ -30,6 +30,7 @@ import java.util.StringTokenizer;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.UserRole;
@@ -3259,7 +3260,7 @@ public class RoleTestData extends TestCase
     public static Set<String> getRelationships( String[] rle )
     {
         Set<String> parents = new HashSet<>();
-        if ( VUtil.isNotNullOrEmpty( rle[RELATIONSHIP_COL] ) )
+        if ( StringUtils.isNotEmpty( rle[RELATIONSHIP_COL] ) )
         {
             StringTokenizer charSetTkn = new StringTokenizer( rle[RELATIONSHIP_COL], TestUtils.DELIMITER_TEST_DATA );
             if ( charSetTkn.countTokens() > 0 )
@@ -3278,7 +3279,7 @@ public class RoleTestData extends TestCase
     public static List<String> getRelationshipList( String[] rle )
     {
         List<String> parents = new ArrayList<>();
-        if ( VUtil.isNotNullOrEmpty( rle[RELATIONSHIP_COL] ) )
+        if ( StringUtils.isNotEmpty( rle[RELATIONSHIP_COL] ) )
         {
             StringTokenizer charSetTkn = new StringTokenizer( rle[RELATIONSHIP_COL], TestUtils.DELIMITER_TEST_DATA );
             if ( charSetTkn.countTokens() > 0 )
@@ -3302,7 +3303,7 @@ public class RoleTestData extends TestCase
     public static Set<String> getInheritances( String[] rle )
     {
         Set<String> rels = new HashSet<>();
-        if ( VUtil.isNotNullOrEmpty( rle[INHERITANCE_COL] ) )
+        if ( StringUtils.isNotEmpty( rle[INHERITANCE_COL] ) )
         {
             StringTokenizer charSetTkn = new StringTokenizer( rle[INHERITANCE_COL], TestUtils.DELIMITER_TEST_DATA );
             if ( charSetTkn.countTokens() > 0 )
@@ -3326,7 +3327,7 @@ public class RoleTestData extends TestCase
     public static boolean isCreate( String[] rle )
     {
         boolean isAsc = false;
-        if ( VUtil.isNotNullOrEmpty( rle[INHERITANCE_FLAG_COL] ) && rle[INHERITANCE_FLAG_COL].equalsIgnoreCase( "C" ) )
+        if ( StringUtils.isNotEmpty( rle[INHERITANCE_FLAG_COL] ) && rle[INHERITANCE_FLAG_COL].equalsIgnoreCase( "C" ) )
         {
             isAsc = true;
         }
@@ -3343,7 +3344,7 @@ public class RoleTestData extends TestCase
     public static boolean isTree( String[] rle )
     {
         boolean result = false;
-        if ( VUtil.isNotNullOrEmpty( rle[INHERITANCE_FLAG_COL] ) && rle[INHERITANCE_FLAG_COL].equalsIgnoreCase( "T" ) )
+        if ( StringUtils.isNotEmpty( rle[INHERITANCE_FLAG_COL] ) && rle[INHERITANCE_FLAG_COL].equalsIgnoreCase( "T" ) )
         {
             result = true;
         }
@@ -3444,7 +3445,7 @@ public class RoleTestData extends TestCase
     public static Set<String> getMembers( String[] rle )
     {
         Set<String> mems = new HashSet<>();
-        if ( VUtil.isNotNullOrEmpty( rle[MEMBERS] ) )
+        if ( StringUtils.isNotEmpty( rle[MEMBERS] ) )
         {
             StringTokenizer charSetTkn = new StringTokenizer( rle[MEMBERS], TestUtils.DELIMITER_TEST_DATA );
             if ( charSetTkn.countTokens() > 0 )
@@ -3469,7 +3470,7 @@ public class RoleTestData extends TestCase
     public static Map<String, String> getMembers(String[] rle)
     {
         Map<String, String> mems = new HashMap<>();
-        if(org.apache.directory.fortress.core.util.attr.VUtil.isNotNullOrEmpty(rle[MEMBERS]))
+        if(org.apache.directory.fortress.core.util.attr.StringUtils.isNotEmpty(rle[MEMBERS]))
         {
             StringTokenizer charSetTkn = new StringTokenizer(rle[MEMBERS], TestUtils.DELIMITER_TEST_DATA);
             if (charSetTkn.countTokens() > 0)

@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.example.Example;
 import org.apache.directory.fortress.core.example.ExampleAdminMgr;
@@ -388,7 +389,7 @@ class AdminMgrConsole
 
             System.out.println("Enter password policy (or NULL to skip):");
             String policy = ReaderUtil.readLn();
-            if(VUtil.isNotNullOrEmpty(policy))
+            if( StringUtils.isNotEmpty( policy ))
             {
                 ue.setPwPolicy(policy);
             }
@@ -407,7 +408,7 @@ class AdminMgrConsole
             ue.setMobile("444-222-3333");
 */
             User ue2 = am.addUser(ue);
-            if(VUtil.isNotNullOrEmpty(ue.getRoles()))
+            if(VUtil.isNotNullOrEmpty( ue.getRoles() ) )
             {
                 for(UserRole uRole : ue.getRoles())
                 {

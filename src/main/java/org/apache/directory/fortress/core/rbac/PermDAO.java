@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
@@ -231,13 +232,13 @@ final class PermDAO extends ApacheDsDataProvider
             entry.add( SchemaConstants.OU_AT, entity.getOu() );
 
             // description is optional:
-            if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+            if ( StringUtils.isNotEmpty( entity.getDescription() ) )
             {
                 entry.add( SchemaConstants.DESCRIPTION_AT, entity.getDescription() );
             }
 
             // type is optional:
-            if ( VUtil.isNotNullOrEmpty( entity.getType() ) )
+            if ( StringUtils.isNotEmpty( entity.getType() ) )
             {
                 entry.add( TYPE, entity.getType() );
             }
@@ -285,19 +286,19 @@ final class PermDAO extends ApacheDsDataProvider
         {
             List<Modification> mods = new ArrayList<Modification>();
 
-            if ( VUtil.isNotNullOrEmpty( entity.getOu() ) )
+            if ( StringUtils.isNotEmpty( entity.getOu() ) )
             {
                 mods.add( new DefaultModification(
                     ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.OU_AT, entity.getOu() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+            if ( StringUtils.isNotEmpty( entity.getDescription() ) )
             {
                 mods.add( new DefaultModification(
                     ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.DESCRIPTION_AT, entity.getDescription() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getType() ) )
+            if ( StringUtils.isNotEmpty( entity.getType() ) )
             {
                 mods.add( new DefaultModification(
                     ModificationOperation.REPLACE_ATTRIBUTE, TYPE, entity.getType() ) );
@@ -391,7 +392,7 @@ final class PermDAO extends ApacheDsDataProvider
             entry.add( GlobalIds.FT_IID, entity.getInternalId() );
 
             // description is optional:
-            if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+            if ( StringUtils.isNotEmpty( entity.getDescription() ) )
             {
                 entry.add( SchemaConstants.DESCRIPTION_AT, entity.getDescription() );
             }
@@ -403,13 +404,13 @@ final class PermDAO extends ApacheDsDataProvider
             entry.add( SchemaConstants.CN_AT, entity.getAbstractName() );
 
             // objectid is optional:
-            if ( VUtil.isNotNullOrEmpty( entity.getObjId() ) )
+            if ( StringUtils.isNotEmpty( entity.getObjId() ) )
             {
                 entry.add( GlobalIds.POBJ_ID, entity.getObjId() );
             }
 
             // type is optional:
-            if ( VUtil.isNotNullOrEmpty( entity.getType() ) )
+            if ( StringUtils.isNotEmpty( entity.getType() ) )
             {
                 entry.add( TYPE, entity.getType() );
             }
@@ -462,20 +463,20 @@ final class PermDAO extends ApacheDsDataProvider
         {
             List<Modification> mods = new ArrayList<Modification>();
 
-            if ( VUtil.isNotNullOrEmpty( entity.getAbstractName() ) )
+            if ( StringUtils.isNotEmpty( entity.getAbstractName() ) )
             {
                 // the abstract name is the human readable identifier:
                 mods.add( new DefaultModification(
                     ModificationOperation.REPLACE_ATTRIBUTE, PERM_NAME, entity.getAbstractName() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+            if ( StringUtils.isNotEmpty( entity.getDescription() ) )
             {
                 mods.add( new DefaultModification(
                     ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.DESCRIPTION_AT, entity.getDescription() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getType() ) )
+            if ( StringUtils.isNotEmpty( entity.getType() ) )
             {
 
                 mods.add( new DefaultModification(

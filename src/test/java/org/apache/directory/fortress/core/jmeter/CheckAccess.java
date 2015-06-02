@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.jmeter;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
@@ -161,7 +162,7 @@ public class CheckAccess extends AbstractJavaSamplerClient
     public void setupTest( JavaSamplerContext samplerContext )
     {
         ctr = 0;
-        if(!VUtil.isNotNullOrEmpty( userId ))
+        if(!StringUtils.isNotEmpty( userId ))
         {
             // Load userids are format:  loadtestuserN - where N is a number between 0 and 99.
             // i.e. loadtestuser0,  loadtestuser1,  ... loadtestuser99
@@ -179,7 +180,7 @@ public class CheckAccess extends AbstractJavaSamplerClient
                 User user = new User(userId);
                 // positive test case:
                 user.setPassword( "secret".toCharArray() );
-                if( VUtil.isNotNullOrEmpty( val ) && val.equals( "1" ))
+                if( StringUtils.isNotEmpty( val ) && val.equals( "1" ))
                 {
                     message = "AC SETUP CreateSession, User: " + user.getUserId() + ", key: " + key + ", TID: " + getThreadId();
                     isFortress = false;
@@ -209,7 +210,7 @@ public class CheckAccess extends AbstractJavaSamplerClient
                     session = accessMgr.createSession( user, false );
                 }
 /*
-                if( VUtil.isNotNullOrEmpty( val ) && val.equals( "1" ))
+                if( StringUtils.isNotEmpty( val ) && val.equals( "1" ))
                 {
                     message = "FT SETUP CreateSession, User: " + user.getUserId() + ", key: " + key + ", TID: " + getThreadId();
                     isFortress = true;

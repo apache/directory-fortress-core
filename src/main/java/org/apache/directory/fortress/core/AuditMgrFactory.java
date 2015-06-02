@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.rbac.AuditMgrImpl;
 import org.apache.directory.fortress.core.util.ClassUtil;
@@ -65,7 +66,7 @@ public final class AuditMgrFactory
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
         AuditMgr auditMgr;
 
-        if (!VUtil.isNotNullOrEmpty(auditClassName))
+        if (!StringUtils.isNotEmpty( auditClassName ))
         {
             if(GlobalIds.IS_REST)
             {

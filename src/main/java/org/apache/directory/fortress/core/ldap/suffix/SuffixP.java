@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.ldap.suffix;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -118,7 +119,7 @@ public class SuffixP
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.SUFX_NAME_INVLD, error );
         }
-        if ( !VUtil.isNotNullOrEmpty( entity.getName() ) )
+        if ( !StringUtils.isNotEmpty( entity.getName() ) )
         {
             String error = "validate name validation failed, null or empty value";
             LOG.warn( error );
@@ -131,14 +132,14 @@ public class SuffixP
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.SUFX_DCTOP_INVLD, error );
         }
-        if ( !VUtil.isNotNullOrEmpty( entity.getDc() ) )
+        if ( !StringUtils.isNotEmpty( entity.getDc() ) )
         {
             String error = "validate dc validation failed, null or empty value";
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.SUFX_DCTOP_NULL, error );
         }
         VUtil.safeText( entity.getDescription(), GlobalIds.DESC_LEN );
-        if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+        if ( StringUtils.isNotEmpty( entity.getDescription() ) )
         {
             VUtil.description( entity.getDescription() );
         }

@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
@@ -163,7 +164,7 @@ final class SdDAO extends ApacheDsDataProvider
             entry.add( SD_SET_NM, entity.getName() );
 
             // description field is optional on this object class:
-            if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+            if ( StringUtils.isNotEmpty( entity.getDescription() ) )
             {
                 entry.add( SchemaConstants.DESCRIPTION_AT, entity.getDescription() );
             }
@@ -214,7 +215,7 @@ final class SdDAO extends ApacheDsDataProvider
         {
             List<Modification> mods = new ArrayList<Modification>();
 
-            if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+            if ( StringUtils.isNotEmpty( entity.getDescription() ) )
             {
                 mods.add( new DefaultModification(
                     ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.DESCRIPTION_AT, entity.getDescription() ) );

@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.ldap.group.Group;
 import org.apache.directory.fortress.core.ldap.group.GroupMgr;
 import org.apache.directory.fortress.core.ldap.group.GroupMgrFactory;
@@ -105,12 +106,12 @@ class GroupMgrConsole
 
             System.out.println("Enter member userId or NULL to skip");
             String userId = ReaderUtil.readLn();
-            if (VUtil.isNotNullOrEmpty( userId ))
+            if ( StringUtils.isNotEmpty( userId ))
                 group.setMember( userId );
 
             System.out.println("Enter property key or NULL to skip");
             String key = ReaderUtil.readLn();
-            if (VUtil.isNotNullOrEmpty( key ))
+            if (StringUtils.isNotEmpty( key ))
             {
                 System.out.println("Enter property value");
                 String value = ReaderUtil.readLn();

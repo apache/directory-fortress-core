@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.ldap.container;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.entry.DefaultEntry;
@@ -86,7 +87,7 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
         LdapConnection ld = null;
         String nodeDn = SchemaConstants.OU_AT + "=" + oe.getName() + ",";
 
-        if ( VUtil.isNotNullOrEmpty( oe.getParent() ) )
+        if ( StringUtils.isNotEmpty( oe.getParent() ) )
         {
             nodeDn += SchemaConstants.OU_AT + "=" + oe.getParent() + ",";
         }
@@ -128,7 +129,7 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
         LdapConnection ld = null;
         String nodeDn = SchemaConstants.OU_AT + "=" + oe.getName() + ",";
 
-        if ( VUtil.isNotNullOrEmpty( oe.getParent() ) )
+        if ( StringUtils.isNotEmpty( oe.getParent() ) )
         {
             nodeDn += SchemaConstants.OU_AT + "=" + oe.getParent() + ",";
         }

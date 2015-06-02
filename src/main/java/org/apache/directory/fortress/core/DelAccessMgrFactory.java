@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.rbac.DelAccessMgrImpl;
@@ -66,7 +67,7 @@ public final class DelAccessMgrFactory
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
         DelAccessMgr accessMgr;
 
-        if (!VUtil.isNotNullOrEmpty(accessClassName))
+        if (!StringUtils.isNotEmpty( accessClassName ))
         {
             if(GlobalIds.IS_REST)
             {

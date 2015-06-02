@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PwPolicy;
@@ -716,11 +717,11 @@ public final class UserP
      */
     private void validate( UserRole uRole ) throws ValidationException
     {
-        if ( !VUtil.isNotNullOrEmpty( uRole.getUserId() ) )
+        if ( !StringUtils.isNotEmpty( uRole.getUserId() ) )
         {
             throw new ValidationException( GlobalErrIds.USER_ID_NULL, CLS_NM + ".validate userId is NULL" );
         }
-        if ( !VUtil.isNotNullOrEmpty( uRole.getName() ) )
+        if ( !StringUtils.isNotEmpty( uRole.getName() ) )
         {
             throw new ValidationException( GlobalErrIds.ROLE_NM_NULL, CLS_NM + ".validate name is NULL" );
         }
@@ -747,12 +748,12 @@ public final class UserP
             VUtil.userId( entity.getUserId() );
 
             // the cn attribute is optional as input.  entity will default to userId if cn not set by caller on add:
-            if ( VUtil.isNotNullOrEmpty( entity.getCn() ) )
+            if ( StringUtils.isNotEmpty( entity.getCn() ) )
             {
                 VUtil.safeText( entity.getCn(), GlobalIds.CN_LEN );
             }
             // the sn attribute is optional as input.  entity will default to userId if sn not set by caller on add:
-            if ( VUtil.isNotNullOrEmpty( entity.getSn() ) )
+            if ( StringUtils.isNotEmpty( entity.getSn() ) )
             {
                 VUtil.safeText( entity.getSn(), GlobalIds.SN_LEN );
             }
@@ -762,7 +763,7 @@ public final class UserP
                 VUtil.password( entity.getPassword() );
             }
             // the OU attribute is required:
-            if ( !VUtil.isNotNullOrEmpty( entity.getOu() ) )
+            if ( !StringUtils.isNotEmpty( entity.getOu() ) )
             {
                 String error = "OU validation failed, null or empty value";
                 throw new ValidationException( GlobalErrIds.ORG_NULL_USER, error );
@@ -778,7 +779,7 @@ public final class UserP
                 throw new ValidationException( GlobalErrIds.USER_OU_INVALID, error );
             }
             // description attribute is optional:
-            if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+            if ( StringUtils.isNotEmpty( entity.getDescription() ) )
             {
                 VUtil.description( entity.getDescription() );
             }
@@ -786,11 +787,11 @@ public final class UserP
         else
         {
             // on User update, all attributes are optional:
-            if ( VUtil.isNotNullOrEmpty( entity.getCn() ) )
+            if ( StringUtils.isNotEmpty( entity.getCn() ) )
             {
                 VUtil.safeText( entity.getCn(), GlobalIds.CN_LEN );
             }
-            if ( VUtil.isNotNullOrEmpty( entity.getSn() ) )
+            if ( StringUtils.isNotEmpty( entity.getSn() ) )
             {
                 VUtil.safeText( entity.getSn(), GlobalIds.SN_LEN );
             }
@@ -798,7 +799,7 @@ public final class UserP
             {
                 VUtil.password( entity.getPassword() );
             }
-            if ( VUtil.isNotNullOrEmpty( entity.getOu() ) )
+            if ( StringUtils.isNotEmpty( entity.getOu() ) )
             {
                 VUtil.orgUnit( entity.getOu() );
                 // ensure ou exists in the OS-U pool:
@@ -811,14 +812,14 @@ public final class UserP
                     throw new ValidationException( GlobalErrIds.USER_OU_INVALID, error );
                 }
             }
-            if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+            if ( StringUtils.isNotEmpty( entity.getDescription() ) )
             {
                 VUtil.description( entity.getDescription() );
             }
         }
 
         // 1 OpenLDAP password policy name must be valid if set:
-        if ( VUtil.isNotNullOrEmpty( entity.getPwPolicy() ) )
+        if ( StringUtils.isNotEmpty( entity.getPwPolicy() ) )
         {
             PwPolicy policy = new PwPolicy( entity.getPwPolicy() );
             policy.setContextId( entity.getContextId() );

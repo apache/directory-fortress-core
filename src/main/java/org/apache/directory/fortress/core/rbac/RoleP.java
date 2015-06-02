@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core.rbac;
 
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
@@ -269,7 +270,7 @@ public final class RoleP
         throws ValidationException
     {
         VUtil.safeText( entity.getName(), GlobalIds.ROLE_LEN );
-        if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+        if ( StringUtils.isNotEmpty( entity.getDescription() ) )
         {
             VUtil.description( entity.getDescription() );
         }
@@ -277,31 +278,31 @@ public final class RoleP
         {
             VUtil.timeout( entity.getTimeout() );
         }
-        if ( VUtil.isNotNullOrEmpty( entity.getBeginTime() ) )
+        if ( StringUtils.isNotEmpty( entity.getBeginTime() ) )
         {
             VUtil.beginTime( entity.getBeginTime() );
         }
-        if ( VUtil.isNotNullOrEmpty( entity.getEndTime() ) )
+        if ( StringUtils.isNotEmpty( entity.getEndTime() ) )
         {
             VUtil.endTime( entity.getEndTime() );
         }
-        if ( VUtil.isNotNullOrEmpty( entity.getBeginDate() ) )
+        if ( StringUtils.isNotEmpty( entity.getBeginDate() ) )
         {
             VUtil.beginDate( entity.getBeginDate() );
         }
-        if ( VUtil.isNotNullOrEmpty( entity.getEndDate() ) )
+        if ( StringUtils.isNotEmpty( entity.getEndDate() ) )
         {
             VUtil.endDate( entity.getEndDate() );
         }
-        if ( VUtil.isNotNullOrEmpty( entity.getDayMask() ) )
+        if ( StringUtils.isNotEmpty( entity.getDayMask() ) )
         {
             VUtil.dayMask( entity.getDayMask() );
         }
-        if ( VUtil.isNotNullOrEmpty( entity.getBeginLockDate() ) )
+        if ( StringUtils.isNotEmpty( entity.getBeginLockDate() ) )
         {
             VUtil.beginDate( entity.getBeginDate() );
         }
-        if ( VUtil.isNotNullOrEmpty( entity.getEndLockDate() ) )
+        if ( StringUtils.isNotEmpty( entity.getEndLockDate() ) )
         {
             VUtil.endDate( entity.getEndLockDate() );
         }

@@ -31,6 +31,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ldap.group.Group;
@@ -181,7 +182,7 @@ public class CommandLineInterpreter
                     + DELEGATED_ADMIN + ", " + GROUP );
                 LOG.info( "Enter one from above or 'q' to quit" );
                 input = br.readLine();
-                if ( VUtil.isNotNullOrEmpty( input ) )
+                if ( StringUtils.isNotEmpty( input ) )
                 {
                     if ( "Q".equalsIgnoreCase( input ) )
                     {
@@ -1458,7 +1459,7 @@ public class CommandLineInterpreter
         boolean success = false;
         // This property can be overriden with system property:
         String tenant = System.getProperty( GlobalIds.TENANT );
-        if ( VUtil.isNotNullOrEmpty( tenant ) && !tenant.equals( "${tenant}" ) )
+        if ( StringUtils.isNotEmpty( tenant ) && !tenant.equals( "${tenant}" ) )
         {
             contextId = tenant;
         }

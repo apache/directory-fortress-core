@@ -25,6 +25,7 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -995,7 +996,7 @@ public class URATestData extends TestCase
     public static boolean isCanAssign( String[] ura )
     {
         boolean isCanAssign = false;
-        if ( VUtil.isNotNullOrEmpty( ura[CAN_ASSIGN_COL] ) && ura[CAN_ASSIGN_COL].equalsIgnoreCase( "T" ) )
+        if ( StringUtils.isNotEmpty( ura[CAN_ASSIGN_COL] ) && ura[CAN_ASSIGN_COL].equalsIgnoreCase( "T" ) )
         {
             isCanAssign = true;
         }
@@ -1006,7 +1007,7 @@ public class URATestData extends TestCase
     public static boolean isCanDeassign( String[] ura )
     {
         boolean isCanDeassign = false;
-        if ( VUtil.isNotNullOrEmpty( ura[CAN_ASSIGN_COL] ) && ura[CAN_ASSIGN_COL].equalsIgnoreCase( "T" ) )
+        if ( StringUtils.isNotEmpty( ura[CAN_ASSIGN_COL] ) && ura[CAN_ASSIGN_COL].equalsIgnoreCase( "T" ) )
         {
             isCanDeassign = true;
         }

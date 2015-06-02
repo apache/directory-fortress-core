@@ -29,7 +29,9 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 
+import jodd.util.StringUtil;
 import junit.framework.TestCase;
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.Address;
 import org.apache.directory.fortress.core.model.User;
@@ -6512,7 +6514,7 @@ public class UserTestData extends TestCase
     public static String getBeginDate( String[] usr )
     {
         String value = null;
-        if(VUtil.isNotNullOrEmpty( usr[BDATE_COL] ))
+        if(StringUtil.isNotEmpty( usr[BDATE_COL] ))
             value = usr[BDATE_COL];
         return value;
     }
@@ -6525,7 +6527,7 @@ public class UserTestData extends TestCase
     public static String getEndDate( String[] usr )
     {
         String value = null;
-        if(VUtil.isNotNullOrEmpty( usr[EDATE_COL] ))
+        if(StringUtil.isNotEmpty( usr[EDATE_COL] ))
             value = usr[EDATE_COL];
         return value;
     }
@@ -6538,7 +6540,7 @@ public class UserTestData extends TestCase
     public static String getBeginLockDate( String[] usr )
     {
         String value = null;
-        if(VUtil.isNotNullOrEmpty( usr[BLOCKDATE_COL] ))
+        if(StringUtil.isNotEmpty( usr[BLOCKDATE_COL] ))
             value = usr[BLOCKDATE_COL];
         return value;
     }
@@ -6551,7 +6553,7 @@ public class UserTestData extends TestCase
     public static String getEndLockDate( String[] usr )
     {
         String value = null;
-        if(VUtil.isNotNullOrEmpty( usr[ELOCKDATE_COL] ))
+        if(StringUtil.isNotEmpty( usr[ELOCKDATE_COL] ))
             value = usr[ELOCKDATE_COL];
         return value;
     }
@@ -6819,7 +6821,7 @@ public class UserTestData extends TestCase
 
         try
         {
-            if ( VUtil.isNotNullOrEmpty( szInput[col] ) )
+            if ( StringUtil.isNotEmpty( szInput[col] ) )
             {
                 address = new Address();
                 StringTokenizer charSetTkn = new StringTokenizer( szInput[col], TestUtils.DELIMITER_TEST_DATA );
@@ -6891,7 +6893,7 @@ public class UserTestData extends TestCase
         {
             String input = szInput[col];
 
-            if ( VUtil.isNotNullOrEmpty( input ) )
+            if ( StringUtils.isNotEmpty( input ) )
             {
                 StringTokenizer charSetTkn = new StringTokenizer( input, TestUtils.DELIMITER_TEST_DATA );
 

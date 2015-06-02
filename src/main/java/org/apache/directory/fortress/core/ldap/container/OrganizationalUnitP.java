@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.ldap.container;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -120,7 +121,7 @@ public class OrganizationalUnitP
             throw new ValidationException( GlobalErrIds.CNTR_NAME_INVLD, error );
         }
         
-        if ( !VUtil.isNotNullOrEmpty( entity.getName() ) )
+        if ( !StringUtils.isNotEmpty( entity.getName() ) )
         {
             String error = "validate name validation failed, null or empty value";
             LOG.warn( error );
@@ -136,7 +137,7 @@ public class OrganizationalUnitP
             throw new ValidationException( GlobalErrIds.CNTR_PARENT_INVLD, error );
         }
         
-        if ( VUtil.isNotNullOrEmpty( entity.getDescription() ) )
+        if ( StringUtils.isNotEmpty( entity.getDescription() ) )
         {
             VUtil.description( entity.getDescription() );
         }

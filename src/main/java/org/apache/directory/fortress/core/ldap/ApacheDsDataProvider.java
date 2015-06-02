@@ -29,6 +29,7 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.pool.PoolableObjectFactory;
 import org.apache.commons.pool.impl.GenericObjectPool;
 import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicy;
@@ -171,8 +172,8 @@ public abstract class ApacheDsDataProvider
         config.setUseSsl( IS_SSL );
         //config.setTrustManagers( new NoVerificationTrustManager() );
 
-        if ( IS_SSL && VUtil.isNotNullOrEmpty( GlobalIds.TRUST_STORE )
-            && VUtil.isNotNullOrEmpty( GlobalIds.TRUST_STORE_PW ) )
+        if ( IS_SSL && StringUtils.isNotEmpty( GlobalIds.TRUST_STORE )
+            && StringUtils.isNotEmpty( GlobalIds.TRUST_STORE_PW ) )
         {
             // validate certificates but allow self-signed certs if within this truststore:
             config.setTrustManagers( new LdapClientTrustStoreManager( GlobalIds.TRUST_STORE, GlobalIds.TRUST_STORE_PW
@@ -236,7 +237,7 @@ public abstract class ApacheDsDataProvider
 
         // This pool of access log connections is used by {@link org.apache.directory.fortress.AuditMgr}.
         // To enable, set {@code log.admin.user} && {@code log.admin.pw} inside fortress.properties file:
-        if ( VUtil.isNotNullOrEmpty( LDAP_LOG_POOL_UID ) && VUtil.isNotNullOrEmpty( LDAP_LOG_POOL_PW ) )
+        if ( StringUtils.isNotEmpty( LDAP_LOG_POOL_UID ) && StringUtils.isNotEmpty( LDAP_LOG_POOL_PW ) )
         {
             // TODO: Initializing the log pool in static block requires static props set within fortress.properties.
             // To make this dynamic requires moving this code outside of static block AND storing the connection metadata inside fortress config node (in ldap).
@@ -247,8 +248,8 @@ public abstract class ApacheDsDataProvider
 
             logConfig.setUseSsl( IS_SSL );
 
-            if ( IS_SSL && VUtil.isNotNullOrEmpty( GlobalIds.TRUST_STORE )
-                && VUtil.isNotNullOrEmpty( GlobalIds.TRUST_STORE_PW ) )
+            if ( IS_SSL && StringUtils.isNotEmpty( GlobalIds.TRUST_STORE )
+                && StringUtils.isNotEmpty( GlobalIds.TRUST_STORE_PW ) )
             {
                 // validate certificates but allow self-signed certs if within this truststore:
                 logConfig.setTrustManagers( new LdapClientTrustStoreManager( GlobalIds.TRUST_STORE,
@@ -289,7 +290,7 @@ public abstract class ApacheDsDataProvider
         String szDn = Config.getProperty( root );
 
         // The contextId must not be null, or "HOME" or "null"
-        if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) && !contextId
+        if ( StringUtils.isNotEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) && !contextId
             .equals( GlobalIds.HOME ) )
         {
             int idx = szDn.indexOf( Config.getProperty( GlobalIds.SUFFIX ) );
@@ -326,7 +327,7 @@ public abstract class ApacheDsDataProvider
     protected String getRootDn( String contextId )
     {
         StringBuilder dn = new StringBuilder();
-        if ( VUtil.isNotNullOrEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) && !contextId
+        if ( StringUtils.isNotEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) && !contextId
             .equals( GlobalIds.HOME ) )
         {
             dn.append( SchemaConstants.OU_AT ).append( "=" ).append( contextId ).append( "," +
@@ -423,17 +424,17 @@ public abstract class ApacheDsDataProvider
 
         if ( GlobalIds.IS_AUDIT && ( entity != null ) && ( entity.getAdminSession() != null ) )
         {
-            if ( VUtil.isNotNullOrEmpty( entity.getAdminSession().getInternalUserId() ) )
+            if ( StringUtils.isNotEmpty( entity.getAdminSession().getInternalUserId() ) )
             {
                 entry.add( GlobalIds.FT_MODIFIER, entity.getAdminSession().getInternalUserId() );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getModCode() ) )
+            if ( StringUtils.isNotEmpty( entity.getModCode() ) )
             {
                 entry.add( GlobalIds.FT_MODIFIER_CODE, entity.getModCode() );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getModId() ) )
+            if ( StringUtils.isNotEmpty( entity.getModId() ) )
             {
                 entry.add( GlobalIds.FT_MODIFIER_ID, entity.getModId() );
             }
@@ -687,21 +688,21 @@ public abstract class ApacheDsDataProvider
     {
         if ( GlobalIds.IS_AUDIT && ( entity != null ) && ( entity.getAdminSession() != null ) )
         {
-            if ( VUtil.isNotNullOrEmpty( entity.getAdminSession().getInternalUserId() ) )
+            if ( StringUtils.isNotEmpty( entity.getAdminSession().getInternalUserId() ) )
             {
                 Modification modification = new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE,
                     GlobalIds.FT_MODIFIER, entity.getAdminSession().getInternalUserId() );
                 mods.add( modification );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getModCode() ) )
+            if ( StringUtils.isNotEmpty( entity.getModCode() ) )
             {
                 Modification modification = new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE,
                     GlobalIds.FT_MODIFIER_CODE, entity.getModCode() );
                 mods.add( modification );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getModId() ) )
+            if ( StringUtils.isNotEmpty( entity.getModId() ) )
             {
                 Modification modification = new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE,
                     GlobalIds.FT_MODIFIER_ID, entity.getModId() );
@@ -1362,7 +1363,7 @@ public abstract class ApacheDsDataProvider
      */
     protected String encodeSafeText( String value, int validLen ) throws LdapException
     {
-        if ( VUtil.isNotNullOrEmpty( value ) )
+        if ( StringUtils.isNotEmpty( value ) )
         {
             int length = value.length();
 

@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.util.time.CUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
@@ -227,7 +228,7 @@ public class AdminRole extends Role implements Administrator
     @Override
     public void setRoleRangeRaw( String szRaw )
     {
-        if ( VUtil.isNotNullOrEmpty( szRaw ) )
+        if ( StringUtils.isNotEmpty( szRaw ) )
         {
             int bindx = szRaw.indexOf( '(' );
             if ( bindx > -1 )

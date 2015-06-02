@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.util.time;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.CfgException;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.ObjectFactory;
@@ -81,7 +82,7 @@ public class CUtil
      */
     public static void setConstraint( String inputString, Constraint constraint )
     {
-        if ( VUtil.isNotNullOrEmpty( inputString ) )
+        if ( StringUtils.isNotEmpty( inputString ) )
         {
             StringTokenizer tkn = new StringTokenizer( inputString, GlobalIds.DELIMITER, true );
             if ( tkn.countTokens() > 0 )
@@ -234,31 +235,31 @@ public class CUtil
         {
             VUtil.timeout( c1.getTimeout() );
         }
-        if ( VUtil.isNotNullOrEmpty( c1.getBeginTime() ) )
+        if ( StringUtils.isNotEmpty( c1.getBeginTime() ) )
         {
             VUtil.beginTime( c1.getBeginTime() );
         }
-        if ( VUtil.isNotNullOrEmpty( c1.getEndTime() ) )
+        if ( StringUtils.isNotEmpty( c1.getEndTime() ) )
         {
             VUtil.endTime( c1.getEndTime() );
         }
-        if ( VUtil.isNotNullOrEmpty( c1.getBeginDate() ) )
+        if ( StringUtils.isNotEmpty( c1.getBeginDate() ) )
         {
             VUtil.beginDate( c1.getBeginDate() );
         }
-        if ( VUtil.isNotNullOrEmpty( c1.getEndDate() ) )
+        if ( StringUtils.isNotEmpty( c1.getEndDate() ) )
         {
             VUtil.endDate( c1.getEndDate() );
         }
-        if ( VUtil.isNotNullOrEmpty( c1.getDayMask() ) )
+        if ( StringUtils.isNotEmpty( c1.getDayMask() ) )
         {
             VUtil.dayMask( c1.getDayMask() );
         }
-        if ( VUtil.isNotNullOrEmpty( c1.getBeginLockDate() ) )
+        if ( StringUtils.isNotEmpty( c1.getBeginLockDate() ) )
         {
             VUtil.beginDate( c1.getBeginLockDate() );
         }
-        if ( VUtil.isNotNullOrEmpty( c1.getEndLockDate() ) )
+        if ( StringUtils.isNotEmpty( c1.getEndLockDate() ) )
         {
             VUtil.endDate( c1.getEndLockDate() );
         }
@@ -286,59 +287,59 @@ public class CUtil
         {
             trgC.setTimeout( srcC.getTimeout() );
         }
-        if ( VUtil.isNotNullOrEmpty( trgC.getBeginTime() ) )
+        if ( StringUtils.isNotEmpty( trgC.getBeginTime() ) )
         {
             VUtil.beginTime( trgC.getBeginTime() );
         }
-        else if ( VUtil.isNotNullOrEmpty( srcC.getBeginTime() ) )
+        else if ( StringUtils.isNotEmpty( srcC.getBeginTime() ) )
         {
             trgC.setBeginTime( srcC.getBeginTime() );
         }
-        if ( VUtil.isNotNullOrEmpty( trgC.getEndTime() ) )
+        if ( StringUtils.isNotEmpty( trgC.getEndTime() ) )
         {
             VUtil.endTime( trgC.getEndTime() );
         }
-        else if ( VUtil.isNotNullOrEmpty( srcC.getEndTime() ) )
+        else if ( StringUtils.isNotEmpty( srcC.getEndTime() ) )
         {
             trgC.setEndTime( srcC.getEndTime() );
         }
-        if ( VUtil.isNotNullOrEmpty( trgC.getBeginDate() ) )
+        if ( StringUtils.isNotEmpty( trgC.getBeginDate() ) )
         {
             VUtil.beginDate( trgC.getBeginDate() );
         }
-        else if ( VUtil.isNotNullOrEmpty( srcC.getBeginDate() ) )
+        else if ( StringUtils.isNotEmpty( srcC.getBeginDate() ) )
         {
             trgC.setBeginDate( srcC.getBeginDate() );
         }
-        if ( VUtil.isNotNullOrEmpty( trgC.getEndDate() ) )
+        if ( StringUtils.isNotEmpty( trgC.getEndDate() ) )
         {
             VUtil.endDate( trgC.getEndDate() );
         }
-        else if ( VUtil.isNotNullOrEmpty( srcC.getEndDate() ) )
+        else if ( StringUtils.isNotEmpty( srcC.getEndDate() ) )
         {
             trgC.setEndDate( srcC.getEndDate() );
         }
-        if ( VUtil.isNotNullOrEmpty( trgC.getDayMask() ) )
+        if ( StringUtils.isNotEmpty( trgC.getDayMask() ) )
         {
             VUtil.dayMask( trgC.getDayMask() );
         }
-        else if ( VUtil.isNotNullOrEmpty( srcC.getDayMask() ) )
+        else if ( StringUtils.isNotEmpty( srcC.getDayMask() ) )
         {
             trgC.setDayMask( srcC.getDayMask() );
         }
-        if ( VUtil.isNotNullOrEmpty( trgC.getBeginLockDate() ) )
+        if ( StringUtils.isNotEmpty( trgC.getBeginLockDate() ) )
         {
             VUtil.beginDate( trgC.getBeginLockDate() );
         }
-        else if ( VUtil.isNotNullOrEmpty( srcC.getBeginLockDate() ) )
+        else if ( StringUtils.isNotEmpty( srcC.getBeginLockDate() ) )
         {
             trgC.setBeginLockDate( srcC.getBeginLockDate() );
         }
-        if ( VUtil.isNotNullOrEmpty( trgC.getEndLockDate() ) )
+        if ( StringUtils.isNotEmpty( trgC.getEndLockDate() ) )
         {
             VUtil.endDate( trgC.getEndLockDate() );
         }
-        else if ( VUtil.isNotNullOrEmpty( srcC.getEndLockDate() ) )
+        else if ( StringUtils.isNotEmpty( srcC.getEndLockDate() ) )
         {
             trgC.setEndLockDate( srcC.getEndLockDate() );
         }
@@ -386,35 +387,35 @@ public class CUtil
         // Both variables must be instantiated before being passed in to this method.
         trgC.setTimeout( srcC.getTimeout() );
 
-        if ( VUtil.isNotNullOrEmpty( srcC.getName() ) )
+        if ( StringUtils.isNotEmpty( srcC.getName() ) )
         {
             trgC.setName( srcC.getName() );
         }
-        if ( VUtil.isNotNullOrEmpty( srcC.getBeginTime() ) )
+        if ( StringUtils.isNotEmpty( srcC.getBeginTime() ) )
         {
             trgC.setBeginTime( srcC.getBeginTime() );
         }
-        if ( VUtil.isNotNullOrEmpty( srcC.getEndTime() ) )
+        if ( StringUtils.isNotEmpty( srcC.getEndTime() ) )
         {
             trgC.setEndTime( srcC.getEndTime() );
         }
-        if ( VUtil.isNotNullOrEmpty( srcC.getDayMask() ) )
+        if ( StringUtils.isNotEmpty( srcC.getDayMask() ) )
         {
             trgC.setDayMask( srcC.getDayMask() );
         }
-        if ( VUtil.isNotNullOrEmpty( srcC.getBeginDate() ) )
+        if ( StringUtils.isNotEmpty( srcC.getBeginDate() ) )
         {
             trgC.setBeginDate( srcC.getBeginDate() );
         }
-        if ( VUtil.isNotNullOrEmpty( srcC.getEndDate() ) )
+        if ( StringUtils.isNotEmpty( srcC.getEndDate() ) )
         {
             trgC.setEndDate( srcC.getEndDate() );
         }
-        if ( VUtil.isNotNullOrEmpty( srcC.getBeginLockDate() ) )
+        if ( StringUtils.isNotEmpty( srcC.getBeginLockDate() ) )
         {
             trgC.setBeginLockDate( srcC.getBeginLockDate() );
         }
-        if ( VUtil.isNotNullOrEmpty( srcC.getEndLockDate() ) )
+        if ( StringUtils.isNotEmpty( srcC.getEndLockDate() ) )
         {
             trgC.setEndLockDate( srcC.getEndLockDate() );
         }

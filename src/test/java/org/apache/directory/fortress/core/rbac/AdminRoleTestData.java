@@ -26,6 +26,7 @@ import java.util.StringTokenizer;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.util.time.Constraint;
 import org.slf4j.Logger;
@@ -905,7 +906,7 @@ public class AdminRoleTestData extends TestCase
     private static Set<String> getOsU( String[] rle )
     {
         Set<String> members = new HashSet<>();
-        if ( VUtil.isNotNullOrEmpty( rle[OSU] ) )
+        if ( StringUtils.isNotEmpty( rle[OSU] ) )
         {
             StringTokenizer charSetTkn = new StringTokenizer( rle[OSU], TestUtils.DELIMITER_TEST_DATA );
             if ( charSetTkn.countTokens() > 0 )
@@ -924,7 +925,7 @@ public class AdminRoleTestData extends TestCase
     private static Set<String> getOsP( String[] rle )
     {
         Set<String> members = new HashSet<>();
-        if ( VUtil.isNotNullOrEmpty( rle[OSP] ) )
+        if ( StringUtils.isNotEmpty( rle[OSP] ) )
         {
             StringTokenizer charSetTkn = new StringTokenizer( rle[OSP], TestUtils.DELIMITER_TEST_DATA );
             if ( charSetTkn.countTokens() > 0 )
@@ -955,7 +956,7 @@ public class AdminRoleTestData extends TestCase
     private static boolean isBeginInclusive( String[] rle )
     {
         boolean result = false;
-        if ( VUtil.isNotNullOrEmpty( rle[IS_BEGIN_INCLUSIVE] )
+        if ( StringUtils.isNotEmpty( rle[IS_BEGIN_INCLUSIVE] )
             && rle[IS_BEGIN_INCLUSIVE].equalsIgnoreCase( "T" ) )
         {
             result = true;
@@ -968,7 +969,7 @@ public class AdminRoleTestData extends TestCase
     private static boolean isEndInclusive( String[] rle )
     {
         boolean result = false;
-        if ( VUtil.isNotNullOrEmpty( rle[IS_END_INCLUSIVE] ) && rle[IS_END_INCLUSIVE].equalsIgnoreCase( "T" ) )
+        if ( StringUtils.isNotEmpty( rle[IS_END_INCLUSIVE] ) && rle[IS_END_INCLUSIVE].equalsIgnoreCase( "T" ) )
         {
             result = true;
         }

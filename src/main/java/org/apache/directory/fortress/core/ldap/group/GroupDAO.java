@@ -21,6 +21,7 @@
 package org.apache.directory.fortress.core.ldap.group;
 
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
@@ -108,7 +109,7 @@ final class GroupDAO extends ApacheDsDataProvider
             loadAttrs( group.getMembers(), myEntry, SchemaConstants.MEMBER_AT );
             loadProperties( group.getProperties(), myEntry, GROUP_PROPERTY_ATTR_IMPL, '=' );
 
-            if ( VUtil.isNotNullOrEmpty( group.getDescription() ) )
+            if ( StringUtils.isNotEmpty( group.getDescription() ) )
             {
                 myEntry.add( SchemaConstants.DESCRIPTION_AT, group.getDescription() );
             }
@@ -146,13 +147,13 @@ final class GroupDAO extends ApacheDsDataProvider
             LOG.debug( "update group dn [{}]", nodeDn );
             List<Modification> mods = new ArrayList<Modification>();
 
-            if ( VUtil.isNotNullOrEmpty( group.getDescription() ) )
+            if ( StringUtils.isNotEmpty( group.getDescription() ) )
             {
                 mods.add( new DefaultModification(
                     ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.DESCRIPTION_AT, group.getDescription() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( group.getProtocol() ) )
+            if ( StringUtils.isNotEmpty( group.getProtocol() ) )
             {
                 mods.add( new DefaultModification(
                     ModificationOperation.REPLACE_ATTRIBUTE, GROUP_PROTOCOL_ATTR_IMPL, group.getProtocol() ) );

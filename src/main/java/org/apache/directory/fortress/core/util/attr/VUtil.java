@@ -26,6 +26,7 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
@@ -104,7 +105,7 @@ public final class VUtil
      */
     public static void orgUnit( String orgUnitId ) throws ValidationException
     {
-        if ( !isNotNullOrEmpty( orgUnitId ) )
+        if ( !StringUtils.isNotEmpty( orgUnitId ) )
         {
             String error = "orgUnit is null";
             throw new ValidationException( GlobalErrIds.ORG_NULL, error );
@@ -166,7 +167,7 @@ public final class VUtil
      */
     public static void safeText( String value, int validLen ) throws ValidationException
     {
-        if ( !isNotNullOrEmpty( value ) )
+        if ( !StringUtils.isNotEmpty( value ) )
         {
             String error = "safeText null value";
             throw new ValidationException( GlobalErrIds.CONST_NULL_TEXT, error );
@@ -192,7 +193,7 @@ public final class VUtil
      */
     public static void userId( String userId ) throws ValidationException
     {
-        if ( !isNotNullOrEmpty( userId ) )
+        if ( !StringUtils.isNotEmpty( userId ) )
         {
             String error = "userId validation failed, null or empty value";
             throw new ValidationException( GlobalErrIds.USER_ID_NULL, error );
@@ -302,7 +303,7 @@ public final class VUtil
     public static void beginDate( String beginDate )
         throws ValidationException
     {
-        if ( isNotNullOrEmpty( beginDate ) )
+        if ( StringUtils.isNotEmpty( beginDate ) )
         {
             if ( ( beginDate.compareToIgnoreCase( GlobalIds.NONE ) != 0 ) &&
                 ( ( beginDate.length() != DATE_LEN ) || checkDate( beginDate ) ) )
@@ -326,7 +327,7 @@ public final class VUtil
      */
     public static void endDate( String endDate ) throws ValidationException
     {
-        if ( isNotNullOrEmpty( endDate ) )
+        if ( StringUtils.isNotEmpty( endDate ) )
         {
             if ( endDate.compareToIgnoreCase( GlobalIds.NONE ) != 0 )
             {
@@ -352,7 +353,7 @@ public final class VUtil
      */
     public static void dayMask( String dayMask ) throws ValidationException
     {
-        if ( isNotNullOrEmpty( dayMask ) )
+        if ( StringUtils.isNotEmpty( dayMask ) )
         {
             if ( dayMask.compareToIgnoreCase( GlobalIds.ALL ) != 0 )
             {
@@ -470,7 +471,7 @@ public final class VUtil
     public static void assertNotNullOrEmpty( String value, int errorCode, String method )
         throws ValidationException
     {
-        if ( !isNotNullOrEmpty( value ) )
+        if ( !StringUtils.isNotEmpty( value ) )
         {
             String error = "assertContext detected null entity for method [" + method + "], error code ["
                 + errorCode + "]";
@@ -517,10 +518,12 @@ public final class VUtil
      * @param value contains the reference to string.
      * @return boolean if validation succeeds.
      */
+/*
     public static boolean isNotNullOrEmpty( String value )
     {
         return ( value != null ) && ( value.length() > 0 );
     }
+*/
 
 
     /**

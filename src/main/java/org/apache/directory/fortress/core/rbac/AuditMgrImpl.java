@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.rbac;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.AuditMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.ReviewMgrFactory;
@@ -220,7 +221,7 @@ public class AuditMgrImpl extends Manageable implements AuditMgr
         String methodName = "searchAdminMods";
         assertContext(CLS_NM, methodName, uAudit, GlobalErrIds.AUDT_INPUT_NULL);
         checkAccess(CLS_NM, methodName);
-        if (VUtil.isNotNullOrEmpty(uAudit.getUserId()))
+        if ( StringUtils.isNotEmpty( uAudit.getUserId() ))
         {
             ReviewMgr rMgr = ReviewMgrFactory.createInstance(this.contextId);
             User user = rMgr.readUser(new User(uAudit.getUserId()));

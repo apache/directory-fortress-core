@@ -169,7 +169,7 @@ public class UserAdminRole extends UserRole implements Administrator
             String[] tokens = StringUtils.splitPreserveAllTokens( szRawData, GlobalIds.DELIMITER );
             for ( int i = 0; i < tokens.length; i++ )
             {
-                if ( VUtil.isNotNullOrEmpty( tokens[i] ) )
+                if ( StringUtils.isNotEmpty( tokens[i] ) )
                 {
                     switch ( i )
                     {
@@ -325,7 +325,7 @@ public class UserAdminRole extends UserRole implements Administrator
                 sb.append( org );
             }
         }
-        if ( VUtil.isNotNullOrEmpty( this.getRoleRangeRaw() ) )
+        if ( StringUtils.isNotEmpty( this.getRoleRangeRaw() ) )
         {
             sb.append( GlobalIds.DELIMITER );
             sb.append( R );
@@ -348,7 +348,7 @@ public class UserAdminRole extends UserRole implements Administrator
     @Override
     public void setRoleRangeRaw( String szRaw )
     {
-        if ( VUtil.isNotNullOrEmpty( szRaw ) )
+        if ( StringUtils.isNotEmpty( szRaw ) )
         {
             int bindx = szRaw.indexOf( LEFT_PAREN );
             if ( bindx > -1 )

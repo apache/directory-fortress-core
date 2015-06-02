@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core.cfg;
 
 import java.util.Properties;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
@@ -122,7 +123,7 @@ final class ConfigP
     void delete( String name )
         throws SecurityException
     {
-        if ( !VUtil.isNotNullOrEmpty( name ) )
+        if ( !StringUtils.isNotEmpty( name ) )
         {
             String error = "delete detected null config realm name";
             LOG.warn( error );
@@ -178,7 +179,7 @@ final class ConfigP
     private void validate( String name, Properties entity )
         throws ValidationException
     {
-        if ( !VUtil.isNotNullOrEmpty( name ) )
+        if ( !StringUtils.isNotEmpty( name ) )
         {
             String error = "validate detected null config realm name";
             LOG.warn( error );

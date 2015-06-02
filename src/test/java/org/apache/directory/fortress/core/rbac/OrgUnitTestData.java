@@ -27,6 +27,7 @@ import java.util.StringTokenizer;
 
 import junit.framework.TestCase;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -846,7 +847,7 @@ public class OrgUnitTestData extends TestCase
     {
         String relationShip = ole[RELATIONSHIP_COL];
 
-        if ( VUtil.isNotNullOrEmpty( relationShip ) )
+        if ( StringUtils.isNotEmpty( relationShip ) )
         {
             StringTokenizer charSetTkn = new StringTokenizer( relationShip, TestUtils.DELIMITER_TEST_DATA );
 
@@ -874,7 +875,7 @@ public class OrgUnitTestData extends TestCase
         Set<String> rels = new HashSet<>();
         String inheritances = ole[INHERITANCE_COL];
 
-        if ( VUtil.isNotNullOrEmpty( inheritances ) )
+        if ( StringUtils.isNotEmpty( inheritances ) )
         {
             StringTokenizer charSetTkn = new StringTokenizer( inheritances, TestUtils.DELIMITER_TEST_DATA );
 
