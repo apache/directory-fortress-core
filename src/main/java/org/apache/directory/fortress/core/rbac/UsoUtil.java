@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.locks.ReadWriteLock;
 
+import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.Relationship;

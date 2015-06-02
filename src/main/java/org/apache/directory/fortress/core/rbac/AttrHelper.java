@@ -17,16 +17,17 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.util.attr;
+package org.apache.directory.fortress.core.rbac;
 
 import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
 import org.apache.directory.api.ldap.model.name.Dn;
 import org.apache.directory.api.ldap.model.name.Rdn;
 import org.apache.directory.api.util.DateUtils;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.rbac.Administrator;
+import org.apache.directory.fortress.core.model.Administrator;
 import org.apache.directory.fortress.core.model.AuthZ;
 import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import java.text.ParseException;
 import java.util.Date;

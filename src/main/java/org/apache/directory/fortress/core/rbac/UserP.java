@@ -41,7 +41,6 @@ import org.apache.directory.fortress.core.ObjectFactory;
 import org.apache.directory.fortress.core.PasswordException;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.util.time.CUtil;
 

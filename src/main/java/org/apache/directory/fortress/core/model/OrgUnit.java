@@ -20,8 +20,6 @@
 package org.apache.directory.fortress.core.model;
 
 
-import org.apache.directory.fortress.core.rbac.Graphable;
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;

@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.slf4j.Logger;

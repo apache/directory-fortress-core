@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

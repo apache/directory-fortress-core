@@ -33,7 +33,6 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-import org.apache.directory.fortress.core.rbac.Graphable;
 import org.apache.directory.fortress.core.util.time.CUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
 

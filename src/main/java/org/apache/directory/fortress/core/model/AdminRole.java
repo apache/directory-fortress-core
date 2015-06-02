@@ -28,7 +28,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
-import org.apache.directory.fortress.core.rbac.Administrator;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.util.time.CUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;

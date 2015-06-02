@@ -26,6 +26,7 @@ import java.util.TreeSet;
 import java.util.concurrent.locks.ReadWriteLock;
 
 import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.UserAdminRole;

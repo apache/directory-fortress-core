@@ -22,7 +22,7 @@ package org.apache.directory.fortress.core.ldap.group;
 
 import org.apache.directory.fortress.core.model.FortEntity;
 import org.apache.directory.fortress.core.model.Props;
-import org.apache.directory.fortress.core.util.attr.AttrHelper;
+import org.apache.directory.fortress.core.rbac.AttrHelper;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

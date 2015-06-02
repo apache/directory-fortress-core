@@ -41,7 +41,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
-import org.apache.directory.fortress.core.util.attr.AttrHelper;
+import org.apache.directory.fortress.core.rbac.AttrHelper;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 

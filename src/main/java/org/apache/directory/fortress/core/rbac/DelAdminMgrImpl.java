@@ -33,7 +33,6 @@ import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.util.time.CUtil;
-import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import java.util.List;

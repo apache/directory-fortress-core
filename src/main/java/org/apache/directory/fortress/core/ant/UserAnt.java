@@ -24,7 +24,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.util.attr.AttrHelper;
+import org.apache.directory.fortress.core.rbac.AttrHelper;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import java.io.File;

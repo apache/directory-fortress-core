@@ -29,6 +29,7 @@ import java.util.TreeSet;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.Relationship;
 import org.jgrapht.graph.SimpleDirectedGraph;

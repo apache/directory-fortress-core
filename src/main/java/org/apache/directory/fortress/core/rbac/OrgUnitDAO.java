@@ -40,6 +40,7 @@ import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.api.ldap.model.name.Dn;
 import org.apache.directory.api.util.Strings;
+import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
