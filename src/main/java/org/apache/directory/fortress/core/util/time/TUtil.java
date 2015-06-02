@@ -20,7 +20,10 @@
 package org.apache.directory.fortress.core.util.time;
 
 
-import java.util.GregorianCalendar;
+import org.apache.directory.api.util.DateUtils;
+
+import java.text.ParseException;
+import java.util.*;
 
 
 /**
@@ -82,5 +85,35 @@ public final class TUtil
         time.currentTime = Integer.valueOf( szCurrentTime );
         time.date = szYear + szMonth + szDay;
         return time;
+    }
+
+
+    /**
+     * Convert from raw ldap generalized time format to {@link java.util.Date}.
+     * to decode the string.
+     *
+     * @param inputString containing raw ldap generalized time formatted string.
+     * @return converted to {@link java.util.Date}.
+     */
+    public static java.util.Date decodeGeneralizedTime(String inputString) throws ParseException
+    {
+        java.util.Date aDate = null;
+        aDate = DateUtils.getDate( inputString );
+        return aDate;
+    }
+
+
+    /**
+     * Convert from java date {@link java.util.Date} format to raw ldap generalized time format.
+     * to encode the string.
+     *
+     * @param date reference to standard java date.
+     * @return converted to standardized ldap generalized time format.
+     */
+    public static String encodeGeneralizedTime(java.util.Date date)
+    {
+        String szTime = null;
+        szTime = DateUtils.getGeneralizedTime( date );
+        return szTime;
     }
 }

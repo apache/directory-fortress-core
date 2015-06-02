@@ -22,15 +22,12 @@ package org.apache.directory.fortress.core.util.attr;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
 import org.apache.directory.api.ldap.model.name.Dn;
 import org.apache.directory.api.ldap.model.name.Rdn;
-import org.apache.directory.api.util.DateUtils;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.Administrator;
 import org.apache.directory.fortress.core.model.AuthZ;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.util.ObjUtil;
 
-import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Properties;
@@ -230,35 +227,5 @@ public final class AttrHelper
             }
         }
         return pOp;
-    }
-
-
-    /**
-     * Convert from raw ldap generalized time format to {@link java.util.Date}.
-     * to decode the string.
-     *
-     * @param inputString containing raw ldap generalized time formatted string.
-     * @return converted to {@link java.util.Date}.
-     */
-    public static Date decodeGeneralizedTime(String inputString) throws ParseException
-    {
-        Date aDate = null;
-        aDate = DateUtils.getDate( inputString );
-        return aDate;
-    }
-
-
-    /**
-     * Convert from java date {@link java.util.Date} format to raw ldap generalized time format.
-     * to encode the string.
-     *
-     * @param date reference to standard java date.
-     * @return converted to standardized ldap generalized time format.
-     */
-    public static String encodeGeneralizedTime(Date date)
-    {
-        String szTime = null;
-        szTime = DateUtils.getGeneralizedTime( date );
-        return szTime;
     }
 }

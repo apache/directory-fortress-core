@@ -36,6 +36,7 @@ import org.apache.directory.fortress.core.model.Bind;
 import org.apache.directory.fortress.core.model.Mod;
 import org.apache.directory.fortress.core.model.UserAudit;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
+import org.apache.directory.fortress.core.util.time.TUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -261,7 +262,7 @@ final class AuditDAO extends ApacheDsDataProvider
 
             if ( audit.getBeginDate() != null )
             {
-                String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );
+                String szTime = TUtil.encodeGeneralizedTime( audit.getBeginDate() );
                 filter += "(" + REQEND + ">=" + szTime + ")";
             }
 
@@ -332,7 +333,7 @@ final class AuditDAO extends ApacheDsDataProvider
 
             if ( audit.getBeginDate() != null )
             {
-                String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );
+                String szTime = TUtil.encodeGeneralizedTime( audit.getBeginDate() );
                 filter += "(" + REQEND + ">=" + szTime + ")";
             }
 
@@ -422,7 +423,7 @@ final class AuditDAO extends ApacheDsDataProvider
 
             if ( audit.getBeginDate() != null )
             {
-                String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );
+                String szTime = TUtil.encodeGeneralizedTime( audit.getBeginDate() );
                 filter += "(" + REQEND + ">=" + szTime + ")";
             }
 
@@ -487,7 +488,7 @@ final class AuditDAO extends ApacheDsDataProvider
 
                 if ( audit.getBeginDate() != null )
                 {
-                    String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );
+                    String szTime = TUtil.encodeGeneralizedTime( audit.getBeginDate() );
                     filter += "(" + REQEND + ">=" + szTime + ")";
                 }
 
@@ -504,7 +505,7 @@ final class AuditDAO extends ApacheDsDataProvider
 
                 if ( audit.getBeginDate() != null )
                 {
-                    String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );
+                    String szTime = TUtil.encodeGeneralizedTime( audit.getBeginDate() );
                     filter += "(" + REQEND + ">=" + szTime + ")";
                 }
 
@@ -562,7 +563,7 @@ final class AuditDAO extends ApacheDsDataProvider
 
             if ( audit.getBeginDate() != null )
             {
-                String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );
+                String szTime = TUtil.encodeGeneralizedTime( audit.getBeginDate() );
                 filter += "(" + REQEND + ">=" + szTime + ")";
             }
 
@@ -646,13 +647,13 @@ final class AuditDAO extends ApacheDsDataProvider
 
             if ( audit.getBeginDate() != null )
             {
-                String szTime = AttrHelper.encodeGeneralizedTime( audit.getBeginDate() );
+                String szTime = TUtil.encodeGeneralizedTime( audit.getBeginDate() );
                 filter += "(" + REQEND + ">=" + szTime + ")";
             }
 
             if ( audit.getEndDate() != null )
             {
-                String szTime = AttrHelper.encodeGeneralizedTime( audit.getEndDate() );
+                String szTime = TUtil.encodeGeneralizedTime( audit.getEndDate() );
                 filter += "(" + REQEND + "<=" + szTime + ")";
             }
 

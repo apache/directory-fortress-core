@@ -28,6 +28,7 @@ import org.apache.directory.fortress.core.impl.TestUtils;
 import org.apache.directory.fortress.core.model.UserAudit;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
+import org.apache.directory.fortress.core.util.time.TUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.text.ParseException;
@@ -159,7 +160,7 @@ class AuditMgrConsole
                 Date aDate = null;
                 try
                 {
-                    aDate = AttrHelper.decodeGeneralizedTime(aBind.getReqEnd());
+                    aDate = TUtil.decodeGeneralizedTime( aBind.getReqEnd() );
                 }
                 catch (ParseException pe)
                 {
@@ -436,7 +437,7 @@ class AuditMgrConsole
                 Date aDate = null;
                 try
                 {
-                    aDate = AttrHelper.decodeGeneralizedTime(authZ.getReqEnd());
+                    aDate = TUtil.decodeGeneralizedTime(authZ.getReqEnd());
                 }
                 catch (ParseException pe)
                 {
@@ -528,7 +529,7 @@ class AuditMgrConsole
                 Date aDate = null;
                 try
                 {
-                    aDate = AttrHelper.decodeGeneralizedTime(authZ.getReqEnd());
+                    aDate = TUtil.decodeGeneralizedTime(authZ.getReqEnd());
                 }
                 catch (ParseException pe)
                 {
