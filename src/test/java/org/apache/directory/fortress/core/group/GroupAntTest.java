@@ -27,7 +27,7 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.apache.directory.fortress.core.ant.Addgroup;
-import org.apache.directory.fortress.core.ldap.group.Group;
+import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.ldap.group.GroupMgr;
 import org.apache.directory.fortress.core.ldap.group.GroupMgrFactory;
 import org.slf4j.Logger;

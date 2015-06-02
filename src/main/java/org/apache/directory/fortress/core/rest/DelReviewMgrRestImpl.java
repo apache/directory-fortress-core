@@ -29,7 +29,7 @@ import org.apache.directory.fortress.core.rbac.Manageable;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 import java.util.ArrayList;
 import java.util.List;

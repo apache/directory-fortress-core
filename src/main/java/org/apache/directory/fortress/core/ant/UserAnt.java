@@ -22,11 +22,12 @@ package org.apache.directory.fortress.core.ant;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -425,7 +426,7 @@ public class UserAnt extends User
         if ( StringUtils.isNotEmpty( photo ) )
         {
             byte[] jpeg = getJpegPhoto( photo );
-            if ( VUtil.isNotNullOrEmpty( jpeg ) )
+            if ( ObjUtil.isNotNullOrEmpty( jpeg ) )
             {
                 setJpegPhoto( jpeg );
             }

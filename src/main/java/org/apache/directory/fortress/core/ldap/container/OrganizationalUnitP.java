@@ -21,6 +21,7 @@ package org.apache.directory.fortress.core.ldap.container;
 
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.model.OrganizationalUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,17 +29,17 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 
 /**
  * Process module for the container node used for grouping  related nodes within Fortress directory structure. The organizational unit represents
  * the middle nodes that act as containers for other nodes, i.e. ou=People container which groups Users.
- * The organizational unit data is passed using {@link OrganizationalUnit} class.  This class does perform simple data validations.
+ * The organizational unit data is passed using {@link org.apache.directory.fortress.core.model.OrganizationalUnit} class.  This class does perform simple data validations.
  * The {@link org.apache.directory.fortress.core.ant.FortressAntTask#addContainers()} method calls the {@link #add} from this class during initial base loads.
  * Removal {@link org.apache.directory.fortress.core.ant.FortressAntTask#deleteContainers()} is performed during regression tests and should never
  * be executed targeting enabled production directory system datasets.<BR>
- * This class will accept {@link OrganizationalUnit}, and forward on to it's corresponding DAO class {@link OrganizationalUnitDAO} for add/delete of container.
+ * This class will accept {@link org.apache.directory.fortress.core.model.OrganizationalUnit}, and forward on to it's corresponding DAO class {@link OrganizationalUnitDAO} for add/delete of container.
  * <p>
  * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions (

@@ -17,11 +17,9 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.ldap.group;
+package org.apache.directory.fortress.core.model;
 
 
-import org.apache.directory.fortress.core.model.FortEntity;
-import org.apache.directory.fortress.core.model.Props;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
 
 import javax.xml.bind.annotation.XmlAccessType;

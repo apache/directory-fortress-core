@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.ldap.group.Group;
+import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.ldap.group.GroupMgr;
 import org.apache.directory.fortress.core.ldap.group.GroupMgrFactory;
 import org.apache.directory.fortress.core.model.Address;
@@ -45,12 +45,13 @@ import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.Relationship;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
 
 
@@ -711,7 +712,7 @@ public class CommandLineInterpreter
                 LOG.info( command );
                 User user = options.getUser();
                 List<User> outUsers = reviewMgr.findUsers( user );
-                if ( VUtil.isNotNullOrEmpty( outUsers ) )
+                if ( ObjUtil.isNotNullOrEmpty( outUsers ) )
                 {
                     int ctr = 0;
                     for ( User outUser : outUsers )
@@ -727,7 +728,7 @@ public class CommandLineInterpreter
                 LOG.info( command );
                 Role inRole = options.getRole();
                 List<User> outUsers = reviewMgr.assignedUsers( inRole );
-                if ( VUtil.isNotNullOrEmpty( outUsers ) )
+                if ( ObjUtil.isNotNullOrEmpty( outUsers ) )
                 {
                     for ( User outUser : outUsers )
                     {
@@ -749,7 +750,7 @@ public class CommandLineInterpreter
                 LOG.info( command );
                 String inRoleNm = options.getName();
                 List<Role> outRoles = reviewMgr.findRoles( inRoleNm );
-                if ( VUtil.isNotNullOrEmpty( outRoles ) )
+                if ( ObjUtil.isNotNullOrEmpty( outRoles ) )
                 {
                     int ctr = 0;
                     for ( Role outRole : outRoles )
@@ -789,7 +790,7 @@ public class CommandLineInterpreter
                 LOG.info( command );
                 PermObj inPermObj = options.getPermObj();
                 List<PermObj> outPermObjs = reviewMgr.findPermObjs( inPermObj );
-                if ( VUtil.isNotNullOrEmpty( outPermObjs ) )
+                if ( ObjUtil.isNotNullOrEmpty( outPermObjs ) )
                 {
                     int ctr = 0;
                     for ( PermObj outPermObj : outPermObjs )
@@ -814,7 +815,7 @@ public class CommandLineInterpreter
                 LOG.info( command );
                 Permission inPerm = options.getPermission();
                 List<Permission> outPerms = reviewMgr.findPermissions( inPerm );
-                if ( VUtil.isNotNullOrEmpty( outPerms ) )
+                if ( ObjUtil.isNotNullOrEmpty( outPerms ) )
                 {
                     int ctr = 0;
                     for ( Permission outPerm : outPerms )
@@ -950,7 +951,7 @@ public class CommandLineInterpreter
                 LOG.info( command );
                 Group inGroup = options.getGroup();
                 List<Group> groups = groupMgr.find( inGroup );
-                if ( VUtil.isNotNullOrEmpty( groups ) )
+                if ( ObjUtil.isNotNullOrEmpty( groups ) )
                 {
                     for ( Group outGroup : groups )
                     {
@@ -963,7 +964,7 @@ public class CommandLineInterpreter
                 command = ASSIGN_GROUP;
                 LOG.info( command );
                 Group group = options.getGroup();
-                if ( VUtil.isNotNullOrEmpty( group.getMembers() ) )
+                if ( ObjUtil.isNotNullOrEmpty( group.getMembers() ) )
                 {
                     for ( String member : group.getMembers() )
                     {
@@ -976,7 +977,7 @@ public class CommandLineInterpreter
                 command = DEASSIGN_GROUP;
                 LOG.info( command );
                 Group group = options.getGroup();
-                if ( VUtil.isNotNullOrEmpty( group.getMembers() ) )
+                if ( ObjUtil.isNotNullOrEmpty( group.getMembers() ) )
                 {
                     for ( String member : group.getMembers() )
                     {
@@ -989,7 +990,7 @@ public class CommandLineInterpreter
                 command = ADD_GROUP_PROP;
                 LOG.info( command );
                 Group group = options.getGroup();
-                if ( VUtil.isNotNullOrEmpty( group.getProperties() ) )
+                if ( ObjUtil.isNotNullOrEmpty( group.getProperties() ) )
                 {
                     for ( Enumeration<?> e = group.getProperties().propertyNames(); e.hasMoreElements(); )
                     {
@@ -1004,7 +1005,7 @@ public class CommandLineInterpreter
                 command = DELETE_GROUP_PROP;
                 LOG.info( command );
                 Group group = options.getGroup();
-                if ( VUtil.isNotNullOrEmpty( group.getProperties() ) )
+                if ( ObjUtil.isNotNullOrEmpty( group.getProperties() ) )
                 {
                     for ( Enumeration<?> e = group.getProperties().propertyNames(); e.hasMoreElements(); )
                     {
@@ -1121,7 +1122,7 @@ public class CommandLineInterpreter
     private Set<String> loadCommandSet( String[] otherArgs )
     {
         Set<String> commands = null;
-        if ( VUtil.isNotNullOrEmpty( otherArgs ) )
+        if ( ObjUtil.isNotNullOrEmpty( otherArgs ) )
         {
             commands = new HashSet<>();
             Collections.addAll( commands, otherArgs );
@@ -1140,14 +1141,14 @@ public class CommandLineInterpreter
         {
             printRow( type, "NAME", role.getName() );
             printRow( type, "IID ", role.getId() );
-            if ( VUtil.isNotNullOrEmpty( role.getParents() ) )
+            if ( ObjUtil.isNotNullOrEmpty( role.getParents() ) )
             {
                 for ( String parentRole : role.getParents() )
                 {
                     printRow( type, "PRLE", parentRole );
                 }
             }
-            if ( VUtil.isNotNullOrEmpty( role.getChildren() ) )
+            if ( ObjUtil.isNotNullOrEmpty( role.getChildren() ) )
             {
                 for ( String childRole : role.getChildren() )
                 {
@@ -1171,7 +1172,7 @@ public class CommandLineInterpreter
             printRow( type, "TYPE", perm.getType() );
         }
 
-        if ( VUtil.isNotNullOrEmpty( perm != null ? perm.getRoles() : null ) )
+        if ( ObjUtil.isNotNullOrEmpty( perm != null ? perm.getRoles() : null ) )
         {
             for ( String roleName : perm.getRoles() )
             {
@@ -1181,7 +1182,7 @@ public class CommandLineInterpreter
 
         if ( perm != null )
         {
-            if ( VUtil.isNotNullOrEmpty( perm.getUsers() ) )
+            if ( ObjUtil.isNotNullOrEmpty( perm.getUsers() ) )
             {
                 for ( String userId : perm.getUsers() )
                 {
@@ -1189,7 +1190,7 @@ public class CommandLineInterpreter
                 }
             }
 
-            if ( VUtil.isNotNullOrEmpty( perm.getProperties() ) )
+            if ( ObjUtil.isNotNullOrEmpty( perm.getProperties() ) )
             {
                 printSeparator();
                 int ctr = 0;
@@ -1217,7 +1218,7 @@ public class CommandLineInterpreter
             printRow( type, "TYPE", permObj.getType() );
             printRow( type, "OU  ", permObj.getOu() );
         }
-        if ( VUtil.isNotNullOrEmpty( permObj != null ? permObj.getProperties() : null ) )
+        if ( ObjUtil.isNotNullOrEmpty( permObj != null ? permObj.getProperties() : null ) )
         {
             printSeparator();
             int ctr = 0;
@@ -1281,13 +1282,13 @@ public class CommandLineInterpreter
             printPhone( type, user.getPhones(), "PHNE" );
             printPhone( type, user.getPhones(), "MOBL" );
 
-            if ( VUtil.isNotNullOrEmpty( user.getRoles() ) )
+            if ( ObjUtil.isNotNullOrEmpty( user.getRoles() ) )
             {
                 for ( UserRole ur : user.getRoles() )
                 {
                     printSeparator();
                     printTemporal( "R", ur, "RBACROLE" );
-                    if ( VUtil.isNotNullOrEmpty( ur.getParents() ) )
+                    if ( ObjUtil.isNotNullOrEmpty( ur.getParents() ) )
                     {
                         for ( String parentRole : ur.getParents() )
                         {
@@ -1296,7 +1297,7 @@ public class CommandLineInterpreter
                     }
                 }
             }
-            if ( VUtil.isNotNullOrEmpty( user.getAdminRoles() ) )
+            if ( ObjUtil.isNotNullOrEmpty( user.getAdminRoles() ) )
             {
                 for ( UserAdminRole ur : user.getAdminRoles() )
                 {
@@ -1305,7 +1306,7 @@ public class CommandLineInterpreter
                     printAdminRole( "A", ur );
                 }
             }
-            if ( VUtil.isNotNullOrEmpty( user.getProperties() ) )
+            if ( ObjUtil.isNotNullOrEmpty( user.getProperties() ) )
             {
                 printSeparator();
                 int ctr = 0;
@@ -1332,7 +1333,7 @@ public class CommandLineInterpreter
             printRow( type, "NAME ", group.getName() );
             printRow( type, "DESC", group.getDescription() );
             printRow( type, "PROT", group.getProtocol() );
-            if ( VUtil.isNotNullOrEmpty( group.getMembers() ) )
+            if ( ObjUtil.isNotNullOrEmpty( group.getMembers() ) )
             {
                 int memctr = 0;
                 for ( String member : group.getMembers() )
@@ -1340,7 +1341,7 @@ public class CommandLineInterpreter
                     printRow( type, "MEMBER[" + ++memctr + "]", member );
                 }
             }
-            if ( VUtil.isNotNullOrEmpty( group.getProperties() ) )
+            if ( ObjUtil.isNotNullOrEmpty( group.getProperties() ) )
             {
                 int propctr = 0;
                 for ( Enumeration<?> e = group.getProperties().propertyNames(); e.hasMoreElements(); )
@@ -1382,7 +1383,7 @@ public class CommandLineInterpreter
         {
             printRow( type, "TYPE", label );
             System.out.println( label );
-            if ( VUtil.isNotNullOrEmpty( address.getAddresses() ) )
+            if ( ObjUtil.isNotNullOrEmpty( address.getAddresses() ) )
             {
                 for ( String addr : address.getAddresses() )
                 {
@@ -1419,11 +1420,11 @@ public class CommandLineInterpreter
         {
             printRow( type, "BEGR", ur.getBeginRange() );
             printRow( type, "ENDR", ur.getEndRange() );
-            if ( VUtil.isNotNullOrEmpty( ur.getOsP() ) )
+            if ( ObjUtil.isNotNullOrEmpty( ur.getOsP() ) )
             {
                 printRow( type, "POUS", "" + ur.getOsP() );
             }
-            if ( VUtil.isNotNullOrEmpty( ur.getOsU() ) )
+            if ( ObjUtil.isNotNullOrEmpty( ur.getOsU() ) )
             {
                 printRow( type, "UOUS", "" + ur.getOsU() );
             }

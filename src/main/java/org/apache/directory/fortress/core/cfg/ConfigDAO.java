@@ -33,6 +33,7 @@ import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.util.Config;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 import org.slf4j.Logger;
@@ -43,7 +44,7 @@ import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 
 /**
@@ -165,7 +166,7 @@ final class ConfigDAO extends ApacheDsDataProvider
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
-            if ( VUtil.isNotNullOrEmpty( props ) )
+            if ( ObjUtil.isNotNullOrEmpty( props ) )
             {
                 loadProperties( props, mods, GlobalIds.PROPS, true );
             }
@@ -231,7 +232,7 @@ final class ConfigDAO extends ApacheDsDataProvider
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
-            if ( VUtil.isNotNullOrEmpty( props ) )
+            if ( ObjUtil.isNotNullOrEmpty( props ) )
             {
                 removeProperties( props, mods, GlobalIds.PROPS );
             }

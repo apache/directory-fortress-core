@@ -31,7 +31,8 @@ import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.ObjUtil;
 
 
 /**
@@ -204,7 +205,7 @@ public final class RoleP
      */
     void addOccupant( List<UserRole> uRoles, String userDn, String contextId ) throws SecurityException
     {
-        if ( VUtil.isNotNullOrEmpty( uRoles ) )
+        if ( ObjUtil.isNotNullOrEmpty( uRoles ) )
         {
             for ( UserRole uRole : uRoles )
             {
@@ -274,7 +275,7 @@ public final class RoleP
         {
             VUtil.description( entity.getDescription() );
         }
-        if ( VUtil.isNotNullOrEmpty( entity.getTimeout() ) )
+        if ( ObjUtil.isNotNullOrEmpty( entity.getTimeout() ) )
         {
             VUtil.timeout( entity.getTimeout() );
         }

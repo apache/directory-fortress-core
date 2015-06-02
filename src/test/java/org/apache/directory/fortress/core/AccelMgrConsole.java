@@ -27,7 +27,7 @@ import org.apache.directory.fortress.core.model.UserRole;
 
 import java.util.List;
 
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

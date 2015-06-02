@@ -28,6 +28,7 @@ import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +37,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 
 /**
@@ -218,7 +219,7 @@ public final class AdminRoleP
     void addOccupant( List<UserAdminRole> uRoles, String userDn, String contextId )
         throws SecurityException
     {
-        if ( VUtil.isNotNullOrEmpty( uRoles ) )
+        if ( ObjUtil.isNotNullOrEmpty( uRoles ) )
         {
             for ( UserAdminRole uRole : uRoles )
             {
@@ -392,12 +393,12 @@ public final class AdminRoleP
             VUtil.endDate( entity.getEndLockDate() );
         }
 
-        if ( VUtil.isNotNullOrEmpty( entity.getOsU() ) )
+        if ( ObjUtil.isNotNullOrEmpty( entity.getOsU() ) )
         {
             validateOrgs( entity.getOsU(), OrgUnit.Type.USER, entity.getContextId() );
         }
 
-        if ( VUtil.isNotNullOrEmpty( entity.getOsP() ) )
+        if ( ObjUtil.isNotNullOrEmpty( entity.getOsP() ) )
         {
             validateOrgs( entity.getOsP(), OrgUnit.Type.PERM, entity.getContextId() );
         }

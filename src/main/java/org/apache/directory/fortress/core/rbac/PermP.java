@@ -35,7 +35,8 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.ObjUtil;
 
 
 /**
@@ -579,7 +580,7 @@ public final class PermP
             VUtil.description( pOp.getDescription() );
         }
         // Validate Role Grants:
-        if ( VUtil.isNotNullOrEmpty( pOp.getRoles() ) )
+        if ( ObjUtil.isNotNullOrEmpty( pOp.getRoles() ) )
         {
             Set<String> roles = pOp.getRoles();
             if ( pOp.isAdmin() )
@@ -604,7 +605,7 @@ public final class PermP
             }
         }
         // Validate User Grants:
-        if ( VUtil.isNotNullOrEmpty( pOp.getUsers() ) )
+        if ( ObjUtil.isNotNullOrEmpty( pOp.getUsers() ) )
         {
             Set<String> users = pOp.getUsers();
             UserP up = new UserP();

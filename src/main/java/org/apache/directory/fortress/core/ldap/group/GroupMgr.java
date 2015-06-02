@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core.ldap.group;
 
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.model.User;
 
 import java.util.List;
@@ -40,8 +41,8 @@ public interface GroupMgr extends Manageable
     /**
      * Create a new group node.,
      *
-     * @param group contains {@link Group}.
-     * @return {@link Group} containing entity just added.
+     * @param group contains {@link org.apache.directory.fortress.core.model.Group}.
+     * @return {@link org.apache.directory.fortress.core.model.Group} containing entity just added.
      * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
      */
     Group add( Group group ) throws org.apache.directory.fortress.core.SecurityException;

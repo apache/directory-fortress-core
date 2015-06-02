@@ -22,7 +22,7 @@ package org.apache.directory.fortress.core.example;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 import java.util.List;
 

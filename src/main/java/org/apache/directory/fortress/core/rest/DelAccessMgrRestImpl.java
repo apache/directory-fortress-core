@@ -30,7 +30,7 @@ import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 import org.apache.directory.fortress.core.SecurityException;
 
 import java.util.List;

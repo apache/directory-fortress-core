@@ -20,13 +20,15 @@
 package org.apache.directory.fortress.core;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.ldap.group.Group;
+import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.ldap.group.GroupMgr;
 import org.apache.directory.fortress.core.ldap.group.GroupMgrFactory;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 import java.util.Enumeration;
 import java.util.List;
+
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -251,7 +253,7 @@ class GroupMgrConsole
             System.out.println("    name        [" + outGroup.getName() + "]");
             System.out.println("    desc        [" + outGroup.getDescription() + "]");
             System.out.println("    protocol    [" + outGroup.getProtocol() + "]");
-            if ( VUtil.isNotNullOrEmpty( outGroup.getMembers() ) )
+            if ( ObjUtil.isNotNullOrEmpty( outGroup.getMembers() ) )
             {
                 int ctr = 0;
                 for (String member : outGroup.getMembers() )
@@ -259,7 +261,7 @@ class GroupMgrConsole
                     System.out.println("    member[" + ctr++ + "]=" + member);
                 }
             }
-            if ( VUtil.isNotNullOrEmpty( outGroup.getProperties() ) )
+            if ( ObjUtil.isNotNullOrEmpty( outGroup.getProperties() ) )
             {
                 int ctr = 0;
                 for (Enumeration e = outGroup.getProperties().propertyNames(); e.hasMoreElements();)
@@ -289,7 +291,7 @@ class GroupMgrConsole
             Group inGroup = new Group( ReaderUtil.readLn() );
 
             List<Group> outGroups = groupMgr.find( inGroup );
-            if(VUtil.isNotNullOrEmpty( outGroups ))
+            if(ObjUtil.isNotNullOrEmpty( outGroups ))
             {
                 int grpctr = 0;
                 for( Group outGroup : outGroups )
@@ -298,7 +300,7 @@ class GroupMgrConsole
                     System.out.println("    name        [" + outGroup.getName() + "]");
                     System.out.println("    desc        [" + outGroup.getDescription() + "]");
                     System.out.println("    protocol    [" + outGroup.getProtocol() + "]");
-                    if ( VUtil.isNotNullOrEmpty( outGroup.getMembers() ) )
+                    if ( ObjUtil.isNotNullOrEmpty( outGroup.getMembers() ) )
                     {
                         int memberctr = 0;
                         for (String member : outGroup.getMembers() )
@@ -306,7 +308,7 @@ class GroupMgrConsole
                             System.out.println("    member[" + memberctr++ + "]=" + member);
                         }
                     }
-                    if ( VUtil.isNotNullOrEmpty( outGroup.getProperties() ) )
+                    if ( ObjUtil.isNotNullOrEmpty( outGroup.getProperties() ) )
                     {
                         int propctr = 0;
                         for (Enumeration e = outGroup.getProperties().propertyNames(); e.hasMoreElements();)

@@ -35,7 +35,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.Address;
 import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
 
 
@@ -6369,7 +6370,7 @@ public class UserTestData extends TestCase
     {
         List<String> expected = getEmails( usr );
 
-        if ( VUtil.isNotNullOrEmpty( expected ) )
+        if ( ObjUtil.isNotNullOrEmpty( expected ) )
         {
             assertNotNull( UserTestData.class.getName() + ".assertEmail null for user: " + getUserId( usr ), emails );
 
@@ -6719,7 +6720,7 @@ public class UserTestData extends TestCase
 
         getElements( props, szInput, PROPS_COL );
 
-        if ( VUtil.isNotNullOrEmpty( props ) )
+        if ( ObjUtil.isNotNullOrEmpty( props ) )
         {
             properties = new Properties();
 

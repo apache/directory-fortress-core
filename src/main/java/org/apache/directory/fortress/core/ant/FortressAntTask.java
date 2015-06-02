@@ -27,12 +27,13 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.input.InputHandler;
 import org.apache.tools.ant.input.InputRequest;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.ldap.group.Group;
+import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.ldap.group.GroupMgr;
 import org.apache.directory.fortress.core.ldap.group.GroupMgrFactory;
 import org.slf4j.Logger;
@@ -50,9 +51,9 @@ import org.apache.directory.fortress.core.PwPolicyMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ConfigMgr;
 import org.apache.directory.fortress.core.ConfigMgrFactory;
-import org.apache.directory.fortress.core.ldap.container.OrganizationalUnit;
+import org.apache.directory.fortress.core.model.OrganizationalUnit;
 import org.apache.directory.fortress.core.ldap.container.OrganizationalUnitP;
-import org.apache.directory.fortress.core.ldap.suffix.Suffix;
+import org.apache.directory.fortress.core.model.Suffix;
 import org.apache.directory.fortress.core.ldap.suffix.SuffixP;
 
 import org.apache.directory.fortress.core.model.AdminRole;
@@ -70,7 +71,7 @@ import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.Testable;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 
 /**
@@ -163,7 +164,7 @@ import org.apache.directory.fortress.core.util.attr.VUtil;
  * PERM</li>
  * <li>Delete Configuration Entries {@link org.apache.directory.fortress.core.ConfigMgr#delete(String, java.util.Properties)}</li>
  * <li>Delete Containers {@link OrganizationalUnitP#delete(OrganizationalUnit)}</li>
- * <li>Delete Suffix {@link org.apache.directory.fortress.core.ldap.suffix.SuffixP#delete(org.apache.directory.fortress.core.ldap.suffix.Suffix)}}</li>
+ * <li>Delete Suffix {@link org.apache.directory.fortress.core.ldap.suffix.SuffixP#delete(org.apache.directory.fortress.core.model.Suffix)}}</li>
  * <li>Add Suffix {@link SuffixP#add(Suffix)}}</li>
  * <li>Add Containers {@link OrganizationalUnitP#add(OrganizationalUnit)}</li>
  * <li>Add Configuration Parameters {@link ConfigMgr#add(String, java.util.Properties)}</li>
@@ -940,14 +941,14 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void assignUser( User user ) throws SecurityException
     {
-        if ( VUtil.isNotNullOrEmpty( user.getRoles() ) )
+        if ( ObjUtil.isNotNullOrEmpty( user.getRoles() ) )
         {
             for ( UserRole uRole : user.getRoles() )
             {
                 adminMgr.assignUser( uRole );
             }
         }
-        if ( VUtil.isNotNullOrEmpty( user.getAdminRoles() ) )
+        if ( ObjUtil.isNotNullOrEmpty( user.getAdminRoles() ) )
         {
             for ( UserAdminRole uAdminRoleRole : user.getAdminRoles() )
             {
@@ -1065,7 +1066,7 @@ public class FortressAntTask extends Task implements InputHandler
             for ( Group group : groups )
             {
                 List<String> members = group.getMembers();
-                if ( VUtil.isNotNullOrEmpty( members ) )
+                if ( ObjUtil.isNotNullOrEmpty( members ) )
                 {
                     for ( String member : members )
                     {
@@ -1106,7 +1107,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<Group> groups = delgroupmember.getGroups();
             for ( Group group : groups )
             {
-                if ( VUtil.isNotNullOrEmpty( group.getMembers() ) )
+                if ( ObjUtil.isNotNullOrEmpty( group.getMembers() ) )
                 {
                     for ( String member : group.getMembers() )
                     {
@@ -1147,7 +1148,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<Group> groups = addgroupproperty.getGroups();
             for ( Group group : groups )
             {
-                if ( VUtil.isNotNullOrEmpty( group.getProperties() ) )
+                if ( ObjUtil.isNotNullOrEmpty( group.getProperties() ) )
                 {
                     for ( Enumeration<?> e = group.getProperties().propertyNames(); e.hasMoreElements(); )
                     {
@@ -1190,7 +1191,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<Group> groups = delgroupproperty.getGroups();
             for ( Group group : groups )
             {
-                if ( VUtil.isNotNullOrEmpty( group.getProperties() ) )
+                if ( ObjUtil.isNotNullOrEmpty( group.getProperties() ) )
                 {
                     for ( Enumeration<?> e = group.getProperties().propertyNames(); e.hasMoreElements(); )
                     {

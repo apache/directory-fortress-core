@@ -28,7 +28,7 @@ import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.SDSet;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 
 /**

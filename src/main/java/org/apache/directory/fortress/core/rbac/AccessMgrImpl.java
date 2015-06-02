@@ -30,7 +30,8 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.util.time.CUtil;
 
 
@@ -307,7 +308,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
         uRoles = ue.getRoles();
         int indx;
         // Is the role activation target valid for this user?
-        if ( !VUtil.isNotNullOrEmpty( uRoles ) || ( ( indx = uRoles.indexOf( role ) ) == -1 ) )
+        if ( !ObjUtil.isNotNullOrEmpty( uRoles ) || ( ( indx = uRoles.indexOf( role ) ) == -1 ) )
         {
             String info = getFullMethodName( CLS_NM, methodName ) + " Role [" + role.getName() + "] User ["
                 + session.getUserId() + "] role not authorized for user.";

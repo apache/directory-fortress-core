@@ -25,7 +25,7 @@ import org.apache.directory.fortress.core.rbac.AuditMgrImpl;
 import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.rest.AuditMgrRestImpl;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 /**
  * Creates an instance of the AuditMgr object.

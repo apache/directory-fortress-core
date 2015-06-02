@@ -36,7 +36,8 @@ import org.apache.directory.fortress.core.rbac.TestUtils;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -408,7 +409,7 @@ class AdminMgrConsole
             ue.setMobile("444-222-3333");
 */
             User ue2 = am.addUser(ue);
-            if(VUtil.isNotNullOrEmpty( ue.getRoles() ) )
+            if( ObjUtil.isNotNullOrEmpty( ue.getRoles() ) )
             {
                 for(UserRole uRole : ue.getRoles())
                 {

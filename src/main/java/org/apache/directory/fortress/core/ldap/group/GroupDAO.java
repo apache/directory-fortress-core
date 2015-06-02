@@ -34,6 +34,7 @@ import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.model.ObjectFactory;

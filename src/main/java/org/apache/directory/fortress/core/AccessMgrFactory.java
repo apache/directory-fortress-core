@@ -24,7 +24,7 @@ import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.rbac.AccessMgrImpl;
 import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.rest.AccessMgrRestImpl;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 /**
  * Creates an instance of the AccessMgr object.

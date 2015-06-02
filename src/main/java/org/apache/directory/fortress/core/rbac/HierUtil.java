@@ -32,13 +32,14 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.Relationship;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 
 /**
@@ -693,13 +694,13 @@ final class HierUtil
     static Hier loadHier( String contextId, List<Graphable> descendants )
     {
         Hier hier = new Hier();
-        if ( VUtil.isNotNullOrEmpty( descendants ) )
+        if ( ObjUtil.isNotNullOrEmpty( descendants ) )
         {
             hier.setContextId( contextId );
             for ( Graphable descendant : descendants )
             {
                 Set<String> parents = descendant.getParents();
-                if ( VUtil.isNotNullOrEmpty( parents ) )
+                if ( ObjUtil.isNotNullOrEmpty( parents ) )
                 {
                     for ( String parent : parents )
                     {

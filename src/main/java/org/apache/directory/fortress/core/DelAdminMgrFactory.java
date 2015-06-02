@@ -25,7 +25,7 @@ import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.rbac.DelAdminMgrImpl;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.rest.DelAdminMgrRestImpl;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 /**
  * Creates an instance of the DelAdminMgr object.

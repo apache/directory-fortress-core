@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 import org.apache.directory.fortress.core.util.cache.Cache;
 import org.apache.directory.fortress.core.util.cache.CacheMgr;
 

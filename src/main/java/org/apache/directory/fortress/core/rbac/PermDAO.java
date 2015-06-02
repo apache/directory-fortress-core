@@ -48,6 +48,7 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.CreateException;
@@ -58,7 +59,7 @@ import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 
 /**
@@ -245,7 +246,7 @@ final class PermDAO extends ApacheDsDataProvider
 
             // props are optional as well:
             //if the props is null don't try to load these attributes
-            if ( VUtil.isNotNullOrEmpty( entity.getProperties() ) )
+            if ( ObjUtil.isNotNullOrEmpty( entity.getProperties() ) )
             {
                 loadProperties( entity.getProperties(), entry, GlobalIds.PROPS );
             }
@@ -304,7 +305,7 @@ final class PermDAO extends ApacheDsDataProvider
                     ModificationOperation.REPLACE_ATTRIBUTE, TYPE, entity.getType() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getProperties() ) )
+            if ( ObjUtil.isNotNullOrEmpty( entity.getProperties() ) )
             {
                 loadProperties( entity.getProperties(), mods, GlobalIds.PROPS, true );
             }
@@ -422,7 +423,7 @@ final class PermDAO extends ApacheDsDataProvider
 
             // props are optional as well:
             //if the props is null don't try to load these attributes
-            if ( VUtil.isNotNullOrEmpty( entity.getProperties() ) )
+            if ( ObjUtil.isNotNullOrEmpty( entity.getProperties() ) )
             {
                 loadProperties( entity.getProperties(), entry, GlobalIds.PROPS );
             }
@@ -958,7 +959,7 @@ final class PermDAO extends ApacheDsDataProvider
         boolean result = false;
         Set<String> userIds = permission.getUsers();
 
-        if ( VUtil.isNotNullOrEmpty( userIds ) && userIds.contains( session.getUserId() ) )
+        if ( ObjUtil.isNotNullOrEmpty( userIds ) && userIds.contains( session.getUserId() ) )
         {
             // user is assigned directly to this permission, no need to look further.
             return true;
@@ -966,7 +967,7 @@ final class PermDAO extends ApacheDsDataProvider
 
         Set<String> roles = permission.getRoles();
 
-        if ( VUtil.isNotNullOrEmpty( roles ) )
+        if ( ObjUtil.isNotNullOrEmpty( roles ) )
         {
             if ( permission.isAdmin() )
             {
@@ -1275,7 +1276,7 @@ final class PermDAO extends ApacheDsDataProvider
                 roles = RoleUtil.getAscendants( role.getName(), role.getContextId() );
             }
 
-            if ( VUtil.isNotNullOrEmpty( roles ) )
+            if ( ObjUtil.isNotNullOrEmpty( roles ) )
             {
                 filterbuf.append( "|(" );
                 filterbuf.append( ROLES );
@@ -1350,7 +1351,7 @@ final class PermDAO extends ApacheDsDataProvider
             filterbuf.append( ")(|" );
             Set<String> roles = RoleUtil.getInheritedRoles( user.getRoles(), user.getContextId() );
 
-            if ( VUtil.isNotNullOrEmpty( roles ) )
+            if ( ObjUtil.isNotNullOrEmpty( roles ) )
             {
                 for ( String uRole : roles )
                 {
@@ -1483,7 +1484,7 @@ final class PermDAO extends ApacheDsDataProvider
             {
                 roles = RoleUtil.getInheritedRoles( session.getRoles(), session.getContextId() );
             }
-            if ( VUtil.isNotNullOrEmpty( roles ) )
+            if ( ObjUtil.isNotNullOrEmpty( roles ) )
             {
                 for ( String uRole : roles )
                 {

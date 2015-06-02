@@ -25,7 +25,7 @@ import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.rbac.PwPolicyMgrImpl;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.rest.PwPolicyMgrRestImpl;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 /**
  * Creates an instance of the PwPolicyMgr object.

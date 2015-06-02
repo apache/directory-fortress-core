@@ -47,7 +47,8 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.util.time.CUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 
@@ -226,7 +227,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
                     SchemaConstants.DESCRIPTION_AT, entity.getDescription() ) );
             }
 
-            if ( VUtil.isNotNullOrEmpty( entity.getOccupants() ) )
+            if ( ObjUtil.isNotNullOrEmpty( entity.getOccupants() ) )
             {
                 for ( String name : entity.getOccupants() )
                 {

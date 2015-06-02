@@ -21,7 +21,7 @@ package org.apache.directory.fortress.core.cli;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.ldap.group.Group;
+import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.model.Address;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.OrgUnit;

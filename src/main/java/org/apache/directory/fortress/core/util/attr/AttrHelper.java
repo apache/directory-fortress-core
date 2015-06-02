@@ -27,6 +27,8 @@ import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.Administrator;
 import org.apache.directory.fortress.core.model.AuthZ;
 import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.ObjUtil;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -209,7 +211,7 @@ public final class AttrHelper
         // Here the sample reqDN=ftOpNm=TOP2_2+ftObjId=002,ftObjNm=TOB2_1,ou=Permissions,ou=RBAC,dc=example,dc=com
         // Will be mapped to objName=TOB2_1, opName=TOP2_2, objId=002, in the returned permission object.
         Dn dn = new Dn( authZ.getReqDN() );
-        if(dn != null && dn.getRdns() != null && VUtil.isNotNullOrEmpty( dn.getRdns() ) )
+        if(dn != null && dn.getRdns() != null && ObjUtil.isNotNullOrEmpty( dn.getRdns() ) )
         {
             for( Rdn rdn : dn.getRdns() )
             {

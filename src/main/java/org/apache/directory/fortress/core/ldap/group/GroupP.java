@@ -22,13 +22,14 @@ package org.apache.directory.fortress.core.ldap.group;
 
 import org.apache.directory.api.util.Strings;
 import org.apache.directory.fortress.core.ValidationException;
+import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 import java.util.List;
 

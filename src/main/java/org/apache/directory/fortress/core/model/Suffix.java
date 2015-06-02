@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.ldap.suffix;
+package org.apache.directory.fortress.core.model;
 
 
 /**

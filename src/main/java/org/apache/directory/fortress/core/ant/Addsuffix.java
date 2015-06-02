@@ -22,10 +22,10 @@ package org.apache.directory.fortress.core.ant;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.directory.fortress.core.ldap.suffix.Suffix;
+import org.apache.directory.fortress.core.model.Suffix;
 
 /**
- * The class is used by {@link FortressAntTask} to create new {@link org.apache.directory.fortress.core.ldap.suffix.Suffix} used to drive {@link org.apache.directory.fortress.core.ldap.suffix.SuffixP#add(org.apache.directory.fortress.core.ldap.suffix.Suffix)}.
+ * The class is used by {@link FortressAntTask} to create new {@link org.apache.directory.fortress.core.model.Suffix} used to drive {@link org.apache.directory.fortress.core.ldap.suffix.SuffixP#add(org.apache.directory.fortress.core.model.Suffix)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>This class name, 'Addsuffix', is used for the xml tag in the load script.</p>
  * <pre>
@@ -74,7 +74,7 @@ public class Addsuffix
     /**
      * Used by {@link FortressAntTask#addSuffixes()} to retrieve list of Suffixes as defined in input xml file.
      *
-     * @return collection containing {@link org.apache.directory.fortress.core.ldap.suffix.Suffix}s targeted for insertion.
+     * @return collection containing {@link org.apache.directory.fortress.core.model.Suffix}s targeted for insertion.
      */
     public List<Suffix> getSuffixes()
     {

@@ -20,8 +20,6 @@
 package org.apache.directory.fortress.core.model;
 
 
-import org.apache.directory.fortress.core.ldap.group.Group;
-
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
@@ -336,7 +334,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.ldap.group.Group }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link Group }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortGroup")
     public JAXBElement<Group> createFortGroup( Group value )

@@ -26,7 +26,7 @@ import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 /**
  * Creates an instance of the ConfigMgr object.

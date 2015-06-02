@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.util.attr;
+package org.apache.directory.fortress.core.model;
 
 
 import java.text.ParseException;
@@ -27,6 +27,7 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
@@ -215,7 +216,7 @@ public final class VUtil
      */
     public static void properties( Properties props ) throws ValidationException
     {
-        if ( isNotNullOrEmpty( props ) )
+        if ( ObjUtil.isNotNullOrEmpty( props ) )
         {
             for ( Enumeration<?> e = props.propertyNames(); e.hasMoreElements(); )
             {
@@ -489,7 +490,7 @@ public final class VUtil
     public static void assertNotNullOrEmpty( char[] value, int errorCode, String method )
         throws ValidationException
     {
-        if ( !isNotNullOrEmpty( value ) )
+        if ( !ObjUtil.isNotNullOrEmpty( value ) )
         {
             String error = "assertContext detected null entity for method [" + method + "], error code ["
                 + errorCode + "]";
@@ -498,84 +499,99 @@ public final class VUtil
     }
 
 
-    /**
+/*
+    */
+/**
      * Method will return true if string array reference is not null or empty.
      *
      * @param value contains the reference to string array.
      * @return boolean if validation succeeds.
-     */
+     *//*
+
     public static boolean isNotNullOrEmpty( String[] value )
     {
         return ( value != null ) && ( value.length > 0 );
     }
 
 
-    /**
+    */
+/**
      * Method will return true if string reference is not null or empty.
      *
      * @param value contains the reference to string.
      * @return boolean if validation succeeds.
-     */
+     *//*
+
     public static boolean isNotNullOrEmpty( char[] value )
     {
         return ( value != null ) && ( value.length > 0 );
     }
 
 
-    /**
+    */
+/**
      * Method will return true if list is not null or empty.
      *
      * @param list contains the reference to list.
      * @return boolean if validation succeeds.
-     */
+     *//*
+
     public static boolean isNotNullOrEmpty( Collection<?> list )
     {
         return ( list != null ) && ( list.size() > 0 );
     }
 
 
-    /**
+    */
+/**
      * Method will return true if props is not null or empty.
      *
      * @param props contains the reference to props.
      * @return boolean if validation succeeds.
-     */
+     *//*
+
     public static boolean isNotNullOrEmpty( Properties props )
     {
         return ( props != null ) && ( props.size() > 0 );
     }
 
 
-    /**
+    */
+/**
      * Method will return true if input is not null or empty.
      *
      * @param iVal contains the reference to Integer variable.
      * @return boolean if validation succeeds.
-     */
+     *//*
+
     public static boolean isNotNullOrEmpty( Integer iVal )
     {
         return ( iVal != null );
     }
 
 
-    /**
+    */
+/**
      * Method will return true if input is not null or empty.
      *
      * @param bVal contains the reference to Boolean variable.
      * @return boolean if validation succeeds.
-     */
+     *//*
+
     public static boolean isNotNullOrEmpty( Boolean bVal )
     {
         return ( bVal != null );
     }
 
 
-    /**
+    */
+/**
      * Method will return true if byte array reference is not null or empty.
      *
      * @param value contains the reference to byte array.
      * @return boolean if validation succeeds.
-     */
+     *//*
+
     public static boolean isNotNullOrEmpty( byte[] value )
     {
         boolean result = false;
@@ -585,4 +601,5 @@ public final class VUtil
         }
         return result;
     }
+*/
 }

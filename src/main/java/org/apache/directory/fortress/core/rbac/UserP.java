@@ -33,6 +33,7 @@ import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,7 +44,7 @@ import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.PasswordException;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 import org.apache.directory.fortress.core.util.time.CUtil;
 
 
@@ -321,7 +322,7 @@ public final class UserP
         // Ensure this user isn't listed in Fortress config as a system user that can't be removed via API.
         // Is there a match between this userId and a Fortress system user?
         User checkUser = read( user, true );
-        if ( VUtil.isNotNullOrEmpty( checkUser.isSystem() ) && checkUser.isSystem() )
+        if ( ObjUtil.isNotNullOrEmpty( checkUser.isSystem() ) && checkUser.isSystem() )
         {
             String warning = "softDelete userId [" + user.getUserId()
                 + "] can't be removed due to policy violation, rc=" + GlobalErrIds.USER_PLCY_VIOLATION;
@@ -346,7 +347,7 @@ public final class UserP
         // Ensure this user isn't listed in Fortress config as a system user that can't be removed via API.
         // Is there a match between this userId and a Fortress system user?
         User checkUser = read( user, true );
-        if ( VUtil.isNotNullOrEmpty( checkUser.isSystem() ) && checkUser.isSystem() )
+        if ( ObjUtil.isNotNullOrEmpty( checkUser.isSystem() ) && checkUser.isSystem() )
         {
             String warning = "delete userId [" + user.getUserId()
                 + "] can't be removed due to policy violation, rc=" + GlobalErrIds.USER_PLCY_VIOLATION;
@@ -461,7 +462,7 @@ public final class UserP
             session = createSession( user );
         }
         // Did the caller pass in a set of roles for selective activation?
-        if ( VUtil.isNotNullOrEmpty( user.getRoles() ) )
+        if ( ObjUtil.isNotNullOrEmpty( user.getRoles() ) )
         {
             // Process selective activation of user's RBAC roles into session:
             List<UserRole> rlsActual = session.getRoles();
@@ -758,7 +759,7 @@ public final class UserP
                 VUtil.safeText( entity.getSn(), GlobalIds.SN_LEN );
             }
             // password is not required on user object but user cannot execute AccessMgr or DelAccessMgr methods w/out pw.
-            if ( VUtil.isNotNullOrEmpty( entity.getPassword() ) )
+            if ( ObjUtil.isNotNullOrEmpty( entity.getPassword() ) )
             {
                 VUtil.password( entity.getPassword() );
             }
@@ -795,7 +796,7 @@ public final class UserP
             {
                 VUtil.safeText( entity.getSn(), GlobalIds.SN_LEN );
             }
-            if ( VUtil.isNotNullOrEmpty( entity.getPassword() ) )
+            if ( ObjUtil.isNotNullOrEmpty( entity.getPassword() ) )
             {
                 VUtil.password( entity.getPassword() );
             }
@@ -836,7 +837,7 @@ public final class UserP
         CUtil.validate( entity );
 
         // 3 Validate or copy constraints on RBAC roles:
-        if ( VUtil.isNotNullOrEmpty( entity.getRoles() ) )
+        if ( ObjUtil.isNotNullOrEmpty( entity.getRoles() ) )
         {
             RoleP rp = new RoleP();
             List<UserRole> roles = entity.getRoles();
@@ -850,7 +851,7 @@ public final class UserP
         }
 
         // 4 Validate and copy constraints on Administrative roles:
-        if ( VUtil.isNotNullOrEmpty( entity.getAdminRoles() ) )
+        if ( ObjUtil.isNotNullOrEmpty( entity.getAdminRoles() ) )
         {
             List<UserAdminRole> uRoles = entity.getAdminRoles();
             for ( UserAdminRole uare : uRoles )

@@ -32,7 +32,8 @@ import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.util.cache.Cache;
 import org.apache.directory.fortress.core.util.cache.CacheMgr;
 import org.apache.directory.fortress.core.util.cache.DsdCacheEntry;
@@ -117,7 +118,7 @@ final class SDUtil
         ReviewMgr rMgr = ReviewMgrFactory.createInstance(user.getContextId());
         Set<String> rls = rMgr.authorizedRoles(user);
         // Need to proceed?
-        if (!VUtil.isNotNullOrEmpty(rls))
+        if (!ObjUtil.isNotNullOrEmpty(rls))
         {
             return;
         }
@@ -161,7 +162,7 @@ final class SDUtil
     {
         // get all activated roles from user's session:
         List<UserRole> rls = session.getRoles();
-        if (!VUtil.isNotNullOrEmpty(rls))
+        if (!ObjUtil.isNotNullOrEmpty(rls))
         {
             // An empty list of roles was passed in the session variable.
             // No need to continue.
@@ -300,7 +301,7 @@ final class SDUtil
         contextId = getContextId(contextId);
         Set<SDSet> dsdRetSets = new HashSet<>();
         // Need to proceed?
-        if (!VUtil.isNotNullOrEmpty(authorizedRoleSet))
+        if (!ObjUtil.isNotNullOrEmpty(authorizedRoleSet))
         {
             return dsdRetSets;
         }
@@ -368,7 +369,7 @@ final class SDUtil
             Role role = new Role(roleName);
             role.setContextId(contextId);
             List<SDSet> dsdList = sp.search(role, SDSet.SDType.DYNAMIC);
-            if (VUtil.isNotNullOrEmpty(dsdList))
+            if (ObjUtil.isNotNullOrEmpty(dsdList))
             {
                 for (SDSet dsd : dsdList)
                 {
@@ -423,7 +424,7 @@ final class SDUtil
         role.setContextId(contextId);
         List<SDSet> dsdList = sp.search(role, SDSet.SDType.DYNAMIC);
         Set<SDSet> finalSet = new HashSet<>(dsdList);
-        if (VUtil.isNotNullOrEmpty(dsdList))
+        if ( ObjUtil.isNotNullOrEmpty( dsdList ))
         {
             for (SDSet dsd : dsdList)
             {

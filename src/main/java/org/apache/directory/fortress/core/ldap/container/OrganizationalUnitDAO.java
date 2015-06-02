@@ -28,6 +28,7 @@ import org.apache.directory.api.ldap.model.entry.Entry;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.RemoveException;
+import org.apache.directory.fortress.core.model.OrganizationalUnit;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 import org.slf4j.Logger;

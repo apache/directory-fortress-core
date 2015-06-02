@@ -28,6 +28,7 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.openldap.accelerator.api.addRole.RbacAddRoleRequest;
 import org.openldap.accelerator.api.addRole.RbacAddRoleRequestImpl;
 import org.openldap.accelerator.api.addRole.RbacAddRoleResponse;
@@ -50,7 +51,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 
 import java.util.ArrayList;
@@ -103,7 +104,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
             rbacCreateSessionRequest.setUserIdentity( user.getUserId() );
             rbacCreateSessionRequest.setPassword( new String( user.getPassword() ) );
 
-            if ( VUtil.isNotNullOrEmpty( user.getRoles() ) )
+            if ( ObjUtil.isNotNullOrEmpty( user.getRoles() ) )
             {
                 for ( UserRole userRole : user.getRoles() )
                 {
@@ -371,7 +372,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
                 sessionRolesRequest );
             LOG.debug( "sessionRoles result: {}", sessionRolesResponse.getLdapResult().getResultCode().getResultCode() );
 
-            if ( VUtil.isNotNullOrEmpty( sessionRolesResponse.getRoles() ) )
+            if ( ObjUtil.isNotNullOrEmpty( sessionRolesResponse.getRoles() ) )
             {
                 userRoleList = new ArrayList<UserRole>();
 

@@ -32,9 +32,10 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.apache.directory.fortress.core.util.time.CUtil;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 
 import java.util.List;
 import java.util.Set;
@@ -199,7 +200,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         AdminRole re = admRP.update(role);
         // search for all users assigned this role and update:
         List<User> users = userP.getAssignedUsers(role);
-        if(VUtil.isNotNullOrEmpty(users))
+        if(ObjUtil.isNotNullOrEmpty(users))
         {
             final AdminMgr aMgr = AdminMgrFactory.createInstance(this.contextId);
             for (User ue : users)
@@ -417,7 +418,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         {
             // Ensure the org unit is not assigned to any users, but set the sizeLimit to "true" to limit result set size.
             List<User> assignedUsers = userP.search(entity, true);
-            if (VUtil.isNotNullOrEmpty(assignedUsers))
+            if (ObjUtil.isNotNullOrEmpty(assignedUsers))
             {
                 String error =  methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedUsers.size() + "] users before deletion";
                 throw new SecurityException(GlobalErrIds.ORG_DEL_FAILED_USER, error, null);
@@ -428,7 +429,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
             // Ensure the org unit is not assigned to any permission objects but set the sizeLimit to "true" to limit result set size..
             // pass a "false" which places no restrictions on how many records server returns.
             List<PermObj> assignedPerms = permP.search(entity, false);
-            if (VUtil.isNotNullOrEmpty(assignedPerms))
+            if (ObjUtil.isNotNullOrEmpty(assignedPerms))
             {
                 String error =  methodName + " orgunit [" + entity.getName() + "] must unassign [" + assignedPerms.size() + "] perm objs before deletion";
                 throw new SecurityException(GlobalErrIds.ORG_DEL_FAILED_PERM, error, null);
@@ -701,7 +702,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         cOrg.delParent(parent.getName());
         setAdminData(CLS_NM, methodName, cOrg);
         // are there any parents left?
-        if(!VUtil.isNotNullOrEmpty(cOrg.getParents()))
+        if(!ObjUtil.isNotNullOrEmpty(cOrg.getParents()))
         {
             // The updates only update non-empty multi-occurring attributes
             // so if last parent assigned, so must remove the attribute completely:
@@ -893,7 +894,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         cRole2.setContextId(this.contextId);
         setAdminData(CLS_NM, methodName, cRole2);
         // are there any parents left?
-        if(!VUtil.isNotNullOrEmpty(cRole2.getParents()))
+        if(!ObjUtil.isNotNullOrEmpty( cRole2.getParents() ))
         {
             // The updates only update non-empty multi-occurring attributes
             // so if last parent assigned, so must remove the attribute completely:

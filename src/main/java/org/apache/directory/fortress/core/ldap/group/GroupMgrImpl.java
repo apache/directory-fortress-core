@@ -23,9 +23,11 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.ReviewMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.rbac.Manageable;
 import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.ObjUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,8 +51,8 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     /**
      * Create a new group node.  Must have a name and at least one member.
      *
-     * @param group contains {@link Group}.
-     * @return {@link Group} containing entity just added.
+     * @param group contains {@link org.apache.directory.fortress.core.model.Group}.
+     * @return {@link org.apache.directory.fortress.core.model.Group} containing entity just added.
      * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
      */
     @Override
@@ -233,7 +235,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
 
     private void loadUserDns( Group group ) throws SecurityException
     {
-        if( VUtil.isNotNullOrEmpty( group.getMembers() ))
+        if( ObjUtil.isNotNullOrEmpty( group.getMembers() ))
         {
             ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
             List<String> userDns = new ArrayList<String>();

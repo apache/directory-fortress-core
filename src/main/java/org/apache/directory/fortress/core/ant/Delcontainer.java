@@ -19,14 +19,14 @@
  */
 package org.apache.directory.fortress.core.ant;
 
-import org.apache.directory.fortress.core.ldap.container.OrganizationalUnit;
+import org.apache.directory.fortress.core.model.OrganizationalUnit;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 /**
- * The class is used by {@link FortressAntTask} to remove {@link org.apache.directory.fortress.core.ldap.container.OrganizationalUnit}s  used to drive {@link org.apache.directory.fortress.core.ldap.container.OrganizationalUnitP#delete(org.apache.directory.fortress.core.ldap.container.OrganizationalUnit)}.
+ * The class is used by {@link FortressAntTask} to remove {@link org.apache.directory.fortress.core.model.OrganizationalUnit}s  used to drive {@link org.apache.directory.fortress.core.ldap.container.OrganizationalUnitP#delete(org.apache.directory.fortress.core.model.OrganizationalUnit)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
  * <p>This class name, 'Delcontainer', is used for the xml tag in the load script.</p>
  * <pre>
@@ -95,7 +95,7 @@ public class Delcontainer
     /**
      * Used by {@link FortressAntTask#deleteContainers()} to retrieve list of OrganizationalUnits as defined in input xml file.
      *
-     * @return collection containing {@link org.apache.directory.fortress.core.ldap.container.OrganizationalUnit}s targeted for removal.
+     * @return collection containing {@link org.apache.directory.fortress.core.model.OrganizationalUnit}s targeted for removal.
      */
     public List<OrganizationalUnit> getContainers()
     {

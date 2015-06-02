@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core;
 
 
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.rbac.TestUtils;
@@ -29,7 +30,7 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
 
 import java.util.ArrayList;
@@ -479,7 +480,7 @@ class ReviewMgrConsole
         if ( address != null )
         {
             System.out.println( label );
-            if ( VUtil.isNotNullOrEmpty( address.getAddresses() ) )
+            if ( ObjUtil.isNotNullOrEmpty( address.getAddresses() ) )
             {
                 for ( String addr : address.getAddresses() )
                 {

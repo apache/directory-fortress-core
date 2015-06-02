@@ -30,13 +30,14 @@ import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.Relationship;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
 import org.apache.directory.fortress.core.util.cache.Cache;
 import org.apache.directory.fortress.core.util.cache.CacheMgr;
 
@@ -158,7 +159,7 @@ public final class UsoUtil
         // create Set with case insensitive comparator:
         Set<String> iOUs = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
         
-        if ( VUtil.isNotNullOrEmpty( ous ) )
+        if ( ObjUtil.isNotNullOrEmpty( ous ) )
         {
             for ( OrgUnit ou : ous )
             {
@@ -166,7 +167,7 @@ public final class UsoUtil
                 iOUs.add( name );
                 Set<String> parents = HierUtil.getAscendants( name, getGraph( contextId ) );
                 
-                if ( VUtil.isNotNullOrEmpty( parents ) )
+                if ( ObjUtil.isNotNullOrEmpty( parents ) )
                 {
                     iOUs.addAll( parents );
                 }

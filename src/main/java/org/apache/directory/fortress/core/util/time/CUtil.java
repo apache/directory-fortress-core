@@ -31,7 +31,8 @@ import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.model.Warning;
-import org.apache.directory.fortress.core.util.attr.VUtil;
+import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.ObjUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -231,7 +232,7 @@ public class CUtil
     public static void validate( Constraint c1 )
         throws ValidationException
     {
-        if ( VUtil.isNotNullOrEmpty( c1.getTimeout() ) )
+        if ( ObjUtil.isNotNullOrEmpty( c1.getTimeout() ) )
         {
             VUtil.timeout( c1.getTimeout() );
         }
@@ -279,11 +280,11 @@ public class CUtil
         throws ValidationException
     {
         //VUtil.timeout(trgC.getTimeout());
-        if ( VUtil.isNotNullOrEmpty( trgC.getTimeout() ) )
+        if ( ObjUtil.isNotNullOrEmpty( trgC.getTimeout() ) )
         {
             srcC.setTimeout( trgC.getTimeout() );
         }
-        else if ( VUtil.isNotNullOrEmpty( srcC.getTimeout() ) )
+        else if ( ObjUtil.isNotNullOrEmpty( srcC.getTimeout() ) )
         {
             trgC.setTimeout( srcC.getTimeout() );
         }
@@ -445,8 +446,8 @@ public class CUtil
             return;
         }
         // no need to continue if the role list is empty and we're trying to check role constraints:
-        else if ( type == ConstraintType.ROLE && !VUtil.isNotNullOrEmpty( session.getRoles() )
-            && !VUtil.isNotNullOrEmpty( session.getAdminRoles() ) )
+        else if ( type == ConstraintType.ROLE && !ObjUtil.isNotNullOrEmpty( session.getRoles() )
+            && !ObjUtil.isNotNullOrEmpty( session.getAdminRoles() ) )
         {
             if ( LOG.isDebugEnabled() )
             {
@@ -471,7 +472,7 @@ public class CUtil
             // Check the constraints for each role assignment:
             else
             {
-                if ( VUtil.isNotNullOrEmpty( session.getRoles() ) )
+                if ( ObjUtil.isNotNullOrEmpty( session.getRoles() ) )
                 {
                     // now check the constraint on every rbac role activation candidate contained within session object:
                     ListIterator<UserRole> roleItems = session.getRoles().listIterator();
@@ -492,7 +493,7 @@ public class CUtil
                         }
                     }
                 }
-                if ( VUtil.isNotNullOrEmpty( session.getAdminRoles() ) )
+                if ( ObjUtil.isNotNullOrEmpty( session.getAdminRoles() ) )
                 {
                     // now check the constraint on every arbac role activation candidate contained within session object:
                     ListIterator roleItems = session.getAdminRoles().listIterator();
@@ -516,7 +517,7 @@ public class CUtil
 
         // now perform DSD validation on session's rbac roles:
         if ( checkDsd && DSDVALIDATOR != null && DSDVALIDATOR.length() > 0 && type == ConstraintType.ROLE
-            && VUtil.isNotNullOrEmpty( session.getRoles() ) )
+            && ObjUtil.isNotNullOrEmpty( session.getRoles() ) )
         {
             Validator dsdVal = ( Validator ) ClassUtil.createInstance( DSDVALIDATOR );
             dsdVal.validate( session, session.getUser(), null );

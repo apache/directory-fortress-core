@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.core.ant;
 
-import org.apache.directory.fortress.core.ldap.group.Group;
+import org.apache.directory.fortress.core.model.Group;
 
 import java.util.ArrayList;
 import java.util.List;
