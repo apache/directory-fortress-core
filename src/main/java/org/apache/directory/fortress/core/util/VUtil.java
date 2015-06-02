@@ -17,22 +17,19 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.model;
+package org.apache.directory.fortress.core.util;
 
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.util.Config;
 
 
 /**

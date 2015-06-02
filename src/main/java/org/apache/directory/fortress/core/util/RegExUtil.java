@@ -17,14 +17,13 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.model;
+package org.apache.directory.fortress.core.util;
 
 
 import org.apache.directory.api.util.Strings;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.util.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +35,7 @@ import java.util.regex.Pattern;
  *  Regular expression utilities to perform data validations on Fortress attributes.  These utils use the standard
  * java regular expression library.
  *
- * @author     Shawn McKinney
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 final class RegExUtil
 {
@@ -67,7 +66,7 @@ final class RegExUtil
      * @param  value Contains the string to check.
      * @exception org.apache.directory.fortress.core.ValidationException  In the event the data validation fails.
      */
-    public static void safeText( String value ) throws ValidationException
+    static void safeText( String value ) throws ValidationException
     {
         if ( Strings.isEmpty( SAFE_TEXT_PATTERN_STRING ) )
         {

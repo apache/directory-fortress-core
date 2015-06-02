@@ -31,7 +31,7 @@ import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.VUtil;
 import org.apache.directory.fortress.core.util.ObjUtil;
 
 
@@ -53,7 +53,7 @@ import org.apache.directory.fortress.core.util.ObjUtil;
  *
  * @author Kevin McKinney
  */
-public final class RoleP
+final class RoleP
 {
     private static RoleDAO rDao = new RoleDAO();
 

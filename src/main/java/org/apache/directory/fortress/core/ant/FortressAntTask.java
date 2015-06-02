@@ -52,9 +52,9 @@ import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ConfigMgr;
 import org.apache.directory.fortress.core.ConfigMgrFactory;
 import org.apache.directory.fortress.core.model.OrganizationalUnit;
-import org.apache.directory.fortress.core.ldap.container.OrganizationalUnitP;
+import org.apache.directory.fortress.core.impl.OrganizationalUnitP;
 import org.apache.directory.fortress.core.model.Suffix;
-import org.apache.directory.fortress.core.ldap.suffix.SuffixP;
+import org.apache.directory.fortress.core.impl.SuffixP;
 
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.util.ClassUtil;
@@ -163,7 +163,7 @@ import org.apache.directory.fortress.core.util.Testable;
  * PERM</li>
  * <li>Delete Configuration Entries {@link org.apache.directory.fortress.core.ConfigMgr#delete(String, java.util.Properties)}</li>
  * <li>Delete Containers {@link OrganizationalUnitP#delete(OrganizationalUnit)}</li>
- * <li>Delete Suffix {@link org.apache.directory.fortress.core.ldap.suffix.SuffixP#delete(org.apache.directory.fortress.core.model.Suffix)}}</li>
+ * <li>Delete Suffix {@link org.apache.directory.fortress.core.impl.SuffixP#delete(org.apache.directory.fortress.core.model.Suffix)}}</li>
  * <li>Add Suffix {@link SuffixP#add(Suffix)}}</li>
  * <li>Add Containers {@link OrganizationalUnitP#add(OrganizationalUnit)}</li>
  * <li>Add Configuration Parameters {@link ConfigMgr#add(String, java.util.Properties)}</li>

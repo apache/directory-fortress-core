@@ -57,7 +57,7 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public final class PolicyP
+final class PolicyP
 {
     private static final String CLS_NM = PolicyP.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );

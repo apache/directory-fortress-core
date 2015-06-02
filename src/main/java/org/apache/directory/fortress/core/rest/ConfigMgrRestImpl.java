@@ -25,7 +25,7 @@ import org.apache.directory.fortress.core.ConfigMgr;
 import org.apache.directory.fortress.core.model.FortRequest;
 import org.apache.directory.fortress.core.model.FortResponse;
 import org.apache.directory.fortress.core.model.Props;
-import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.VUtil;
 
 import java.util.Properties;
 

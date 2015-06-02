@@ -44,7 +44,7 @@ import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.PasswordException;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.VUtil;
 import org.apache.directory.fortress.core.util.time.CUtil;
 
 
@@ -65,7 +65,7 @@ import org.apache.directory.fortress.core.util.time.CUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public final class UserP
+final class UserP
 {
     //private static final boolean IS_SESSION_PROPS_ENABLED = Config.getBoolean( "user.session.props.enabled", false );
     private static final String CLS_NM = UserP.class.getName();

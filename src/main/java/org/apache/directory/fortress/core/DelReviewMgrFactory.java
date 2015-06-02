@@ -25,7 +25,7 @@ import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.impl.DelReviewMgrImpl;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.rest.DelReviewMgrRestImpl;
-import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.VUtil;
 
 /**
  * Creates an instance of the DelReviewMgr object.

@@ -35,7 +35,7 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.VUtil;
 import org.apache.directory.fortress.core.util.ObjUtil;
 
 
@@ -57,7 +57,7 @@ import org.apache.directory.fortress.core.util.ObjUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public final class PermP
+final class PermP
 {
     /**
      * Description of the Field

@@ -22,7 +22,7 @@ package org.apache.directory.fortress.core.ant;
 
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.OrganizationalUnit;
-import org.apache.directory.fortress.core.ldap.container.OrganizationalUnitP;
+import org.apache.directory.fortress.core.impl.OrganizationalUnitP;
 import org.junit.Test;
 
 public class TestAddOrgunit

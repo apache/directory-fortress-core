@@ -27,7 +27,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
-import org.apache.directory.fortress.core.model.VUtil;
 
 import java.io.File;
 import java.io.IOException;

@@ -27,7 +27,7 @@ import org.apache.directory.fortress.core.model.FortRequest;
 import org.apache.directory.fortress.core.model.FortResponse;
 import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.PwPolicy;
-import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.VUtil;
 
 import java.util.List;
 

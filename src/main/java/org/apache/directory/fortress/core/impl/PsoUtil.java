@@ -63,7 +63,7 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public final class PsoUtil
+final class PsoUtil
 {
     private static final Cache psoCache;
     private static OrgUnitP orgUnitP = new OrgUnitP();

@@ -31,7 +31,7 @@ import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.List;
 
-import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -35,7 +35,7 @@ import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.apache.directory.fortress.core.util.time.CUtil;
-import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.VUtil;
 
 import java.util.List;
 import java.util.Set;

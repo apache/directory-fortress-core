@@ -23,7 +23,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.impl.AccelMgrImpl;
 import org.apache.directory.fortress.core.util.ClassUtil;
-import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.VUtil;
 
 /**
  * Creates an instance of the AccelMgr object.

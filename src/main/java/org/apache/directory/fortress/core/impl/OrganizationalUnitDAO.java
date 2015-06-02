@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.ldap.container;
+package org.apache.directory.fortress.core.impl;
 
 
 import org.apache.commons.lang.StringUtils;

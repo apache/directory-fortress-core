@@ -24,7 +24,7 @@ import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.model.FortEntity;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.model.VUtil;
+import org.apache.directory.fortress.core.util.VUtil;
 
 /**
  * Abstract class allows outside clients to manage security and multi-tenant concerns within the Fortress runtime.

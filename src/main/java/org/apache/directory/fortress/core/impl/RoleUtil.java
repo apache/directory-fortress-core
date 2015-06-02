@@ -64,7 +64,7 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public final class RoleUtil implements ParentUtil
+final class RoleUtil implements ParentUtil
 {
     private static final Cache roleCache;
     private static final RoleP roleP = new RoleP();
@@ -99,7 +99,7 @@ public final class RoleUtil implements ParentUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return boolean result, 'true' indicates parent/child relationship exists.
      */
-    public static boolean isParent( String child, String parent, String contextId )
+    static boolean isParent( String child, String parent, String contextId )
     {
         boolean result = false;
         Set<String> parents = getAscendants( child, contextId );
@@ -118,7 +118,7 @@ public final class RoleUtil implements ParentUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of Role names are descendants {@link org.apache.directory.fortress.core.model.Role}s of given parent.
      */
-    public static Set<String> getDescendants( String roleName, String contextId )
+    static Set<String> getDescendants( String roleName, String contextId )
     {
         return HierUtil.getDescendants( roleName.toUpperCase(), getGraph( contextId ) );
     }
@@ -131,7 +131,7 @@ public final class RoleUtil implements ParentUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of Role names are children {@link org.apache.directory.fortress.core.model.Role}s of given parent.
      */
-    public static Set<String> getChildren( String roleName, String contextId )
+    static Set<String> getChildren( String roleName, String contextId )
     {
         return HierUtil.getChildren( roleName.toUpperCase(), getGraph( contextId ) );
     }
@@ -144,7 +144,7 @@ public final class RoleUtil implements ParentUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of Role names that are ascendants of given child.
      */
-    public static Set<String> getAscendants( String roleName, String contextId )
+    static Set<String> getAscendants( String roleName, String contextId )
     {
         return HierUtil.getAscendants( roleName.toUpperCase(), getGraph( contextId ) );
     }
@@ -197,7 +197,7 @@ public final class RoleUtil implements ParentUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return contains Set of all authorized RBAC Roles for a given User.
      */
-    public static Set<String> getInheritedRoles( List<UserRole> uRoles, String contextId )
+    static Set<String> getInheritedRoles( List<UserRole> uRoles, String contextId )
     {
         // create Set with case insensitive comparator:
         Set<String> iRoles = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
