@@ -41,20 +41,20 @@ import javax.xml.bind.annotation.XmlType;
  * (3) DAO layer where persistence with the OpenLDAP server occurs.
  * <h4>Fortress Processing Layers</h4>
  * <ol>
- * <li>Manager layer:  {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl}, {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl}, {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl},...</li>
- * <li>Process layer:  {@link org.apache.directory.fortress.core.rbac.UserP}, {@link org.apache.directory.fortress.core.rbac.RoleP}, {@link org.apache.directory.fortress.core.rbac.PermP},...</li>
- * <li>DAO layer: {@link org.apache.directory.fortress.core.rbac.UserDAO}, {@link org.apache.directory.fortress.core.rbac.RoleDAO}, {@link org.apache.directory.fortress.core.rbac.PermDAO},...</li>
+ * <li>Manager layer:  {@link org.apache.directory.fortress.core.impl.AdminMgrImpl}, {@link org.apache.directory.fortress.core.impl.AccessMgrImpl}, {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl},...</li>
+ * <li>Process layer:  {@link org.apache.directory.fortress.core.impl.UserP}, {@link org.apache.directory.fortress.core.impl.RoleP}, {@link org.apache.directory.fortress.core.impl.PermP},...</li>
+ * <li>DAO layer: {@link org.apache.directory.fortress.core.impl.UserDAO}, {@link org.apache.directory.fortress.core.impl.RoleDAO}, {@link org.apache.directory.fortress.core.impl.PermDAO},...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br />
- * For example, this entity requires {@link #objName} and {@link #ou} attributes set before passing into {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl} or  {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl} APIs.
+ * For example, this entity requires {@link #objName} and {@link #ou} attributes set before passing into {@link org.apache.directory.fortress.core.impl.AdminMgrImpl} or  {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl} APIs.
  * Create methods usually require more attributes (than Read) due to constraints enforced between entities.
  * <p/>
  * <h4>PermObj entity attribute usages include</h4>
  * <ul>
- * <li>{@link #setObjName} and {@link #setOu} attributes set before calling {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl#addPermObj(PermObj)}.
- * <li>{@link #addProperty} may be set before calling {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl#addPermObj(PermObj)}.
- * <li>{@link #getProperty} may be set after calling {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl#findPermObjs(PermObj)}.
+ * <li>{@link #setObjName} and {@link #setOu} attributes set before calling {@link org.apache.directory.fortress.core.impl.AdminMgrImpl#addPermObj(PermObj)}.
+ * <li>{@link #addProperty} may be set before calling {@link org.apache.directory.fortress.core.impl.AdminMgrImpl#addPermObj(PermObj)}.
+ * <li>{@link #getProperty} may be set after calling {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl#findPermObjs(PermObj)}.
  * </ul>
  * <p/>
  * <h4>More Permission entity notes</h4>

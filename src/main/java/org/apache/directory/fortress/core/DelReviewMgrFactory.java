@@ -22,7 +22,7 @@ package org.apache.directory.fortress.core;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.ClassUtil;
-import org.apache.directory.fortress.core.rbac.DelReviewMgrImpl;
+import org.apache.directory.fortress.core.impl.DelReviewMgrImpl;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.rest.DelReviewMgrRestImpl;
 import org.apache.directory.fortress.core.model.VUtil;

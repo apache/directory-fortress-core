@@ -28,8 +28,8 @@ import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 import org.apache.directory.fortress.core.ant.Addgroup;
 import org.apache.directory.fortress.core.model.Group;
-import org.apache.directory.fortress.core.ldap.group.GroupMgr;
-import org.apache.directory.fortress.core.ldap.group.GroupMgrFactory;
+import org.apache.directory.fortress.core.GroupMgr;
+import org.apache.directory.fortress.core.GroupMgrFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

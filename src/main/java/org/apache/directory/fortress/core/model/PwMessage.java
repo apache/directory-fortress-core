@@ -50,7 +50,7 @@ public interface PwMessage
 
 
     /**
-     * Contains the message that corresponds to password.  These messages map to {@link org.apache.directory.fortress.core.rbac.GlobalPwMsgIds#pwMsgs}
+     * Contains the message that corresponds to password.  These messages map to {@link org.apache.directory.fortress.core.impl.GlobalPwMsgIds#pwMsgs}
      *
      * @param message
      */
@@ -60,7 +60,7 @@ public interface PwMessage
     /**
      * Return the message that corresponds to last password check.
      *
-     * @return message maps to {@link org.apache.directory.fortress.core.rbac.GlobalPwMsgIds#pwMsgs}
+     * @return message maps to {@link org.apache.directory.fortress.core.impl.GlobalPwMsgIds#pwMsgs}
      */
     String getMsg();
 
@@ -82,7 +82,7 @@ public interface PwMessage
 
 
     /**
-     * Return the warning id that pertain to User's password. This attribute maps to values between 0 and 100 contained within here {@link org.apache.directory.fortress.core.rbac.GlobalPwMsgIds}
+     * Return the warning id that pertain to User's password. This attribute maps to values between 0 and 100 contained within here {@link org.apache.directory.fortress.core.impl.GlobalPwMsgIds}
      *
      * @param warning contains warning id.
      */
@@ -95,7 +95,7 @@ public interface PwMessage
     //void setWarningId(int warning);
 
     /**
-     * Set the warning id that pertain to User's password. This attribute maps to values between 0 and 100 contained within here {@link org.apache.directory.fortress.core.rbac.GlobalPwMsgIds}
+     * Set the warning id that pertain to User's password. This attribute maps to values between 0 and 100 contained within here {@link org.apache.directory.fortress.core.impl.GlobalPwMsgIds}
      *
      * @return warning contains warning id.
      */
@@ -105,17 +105,17 @@ public interface PwMessage
     //int getWarningId();
 
     /**
-     * Set the error id that pertain to User's password. This attribute maps to values greater than or equal to 100 contained within here {@link org.apache.directory.fortress.core.rbac.GlobalPwMsgIds}
+     * Set the error id that pertain to User's password. This attribute maps to values greater than or equal to 100 contained within here {@link org.apache.directory.fortress.core.impl.GlobalPwMsgIds}
      *
-     * @param error contains error id that maps to {@link org.apache.directory.fortress.core.rbac.GlobalPwMsgIds#pwIds}
+     * @param error contains error id that maps to {@link org.apache.directory.fortress.core.impl.GlobalPwMsgIds#pwIds}
      */
     void setErrorId( int error );
 
 
     /**
-     * Return the error id that pertain to User's password. This attribute maps to values greater than or equal to 100 contained within here {@link org.apache.directory.fortress.core.rbac.GlobalPwMsgIds}
+     * Return the error id that pertain to User's password. This attribute maps to values greater than or equal to 100 contained within here {@link org.apache.directory.fortress.core.impl.GlobalPwMsgIds}
      *
-     * @return error contains error id that maps to {@link org.apache.directory.fortress.core.rbac.GlobalPwMsgIds#pwIds}
+     * @return error contains error id that maps to {@link org.apache.directory.fortress.core.impl.GlobalPwMsgIds#pwIds}
      */
     int getErrorId();
 

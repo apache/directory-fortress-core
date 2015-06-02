@@ -21,9 +21,6 @@ package org.apache.directory.fortress.core;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.Group;
-import org.apache.directory.fortress.core.ldap.group.GroupMgr;
-import org.apache.directory.fortress.core.ldap.group.GroupMgrFactory;
-import org.apache.directory.fortress.core.model.VUtil;
 
 import java.util.Enumeration;
 import java.util.List;

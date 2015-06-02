@@ -88,7 +88,7 @@
                 <config props="adminrole.root:@ADMINROLES_DN@"/>
                 <config props="adminperm.root:@ADMINPERMS_DN@"/>
                 <config props="example.root:ou=Examples,@SUFFIX@"/>
-                <!--config props="accessmgr.implementation:org.apache.directory.fortress.core.rbac.AccessMgrImpl"/-->
+                <!--config props="accessmgr.implementation:org.apache.directory.fortress.core.impl.AccessMgrImpl"/-->
                 <!--config props="auditmgr.implementation:org.apache.directory.fortress.audit.AuditMgrImpl"/-->
                 <config props="audit.root:@AUDITS_DN@"/>
                 <config props="superadmin.role:fortress-core-super-admin"/>
@@ -97,7 +97,7 @@
                 <config props="temporal.validator.2:org.apache.directory.fortress.core.util.time.Timeout"/>
                 <config props="temporal.validator.3:org.apache.directory.fortress.core.util.time.ClockTime"/>
                 <config props="temporal.validator.4:org.apache.directory.fortress.core.util.time.Day"/>
-                <config props="temporal.validator.dsd:org.apache.directory.fortress.core.rbac.DSDChecker"/>
+                <config props="temporal.validator.dsd:org.apache.directory.fortress.core.impl.DSDChecker"/>
                 <config props="user.objectclass:inetOrgPerson"/>
                 <config props="group.objectclass:@GROUP_OBJECT_CLASS@"/>
                 <config props="group.protocol:@GROUP_PROTOCOL@"/>
@@ -162,9 +162,9 @@
                 <config props="temporal.validator.2:org.apache.directory.fortress.core.util.time.Timeout"/>
                 <config props="temporal.validator.3:org.apache.directory.fortress.core.util.time.ClockTime"/>
                 <config props="temporal.validator.4:org.apache.directory.fortress.core.util.time.Day"/>
-                <config props="temporal.validator.dsd:org.apache.directory.fortress.core.rbac.DSDChecker"/>
-                <config props="accessmgr.implementation:org.apache.directory.fortress.core.rbac.AccessMgrImpl"/>
-                <config props="auditmgr.implementation:org.apache.directory.fortress.core.rbac.AuditMgrImpl"/>
+                <config props="temporal.validator.dsd:org.apache.directory.fortress.core.impl.DSDChecker"/>
+                <config props="accessmgr.implementation:org.apache.directory.fortress.core.impl.AccessMgrImpl"/>
+                <config props="auditmgr.implementation:org.apache.directory.fortress.core.impl.AuditMgrImpl"/>
                 <config props="user.objectclass:inetOrgPerson"/>
                 <config props="group.objectclass:@GROUP_OBJECT_CLASS@"/>
                 <config props="group.protocol:@GROUP_PROTOCOL@"/>

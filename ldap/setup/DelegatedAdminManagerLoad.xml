@@ -36,255 +36,255 @@
             </addadminrole>
 
             <addpermgrant>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AuditMgrImpl" opName="searchBinds" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AuditMgrImpl" opName="searchAuthZs" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AuditMgrImpl" opName="getUserAuthZs" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AuditMgrImpl" opName="searchUserSessions" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AuditMgrImpl" opName="searchAdminMods" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AuditMgrImpl" opName="searchInvalidUsers" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AuditMgrImpl" opName="searchBinds" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AuditMgrImpl" opName="searchAuthZs" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AuditMgrImpl" opName="getUserAuthZs" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AuditMgrImpl" opName="searchUserSessions" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AuditMgrImpl" opName="searchAdminMods" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AuditMgrImpl" opName="searchInvalidUsers" roleNm="fortress-core-super-admin" admin="true"/>
 
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="readPermission" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="readPermObj" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="findPermissions" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="findPermObjs" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="readRole" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="findRoles" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="readUser" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="findUsers" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="assignedUsers" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="assignedRoles" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="authorizedUsers" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="authorizedRoles" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="rolePermissions" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="userPermissions" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="permissionRoles" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="authorizedPermissionRoles" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="permissionUsers" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="authorizedPermissionUsers" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="ssdRoleSets" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="ssdRoleSet" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="ssdRoleSetRoles" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="ssdRoleSetCardinality" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="dsdRoleSets" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="ssdSets" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="dsdRoleSet" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="dsdRoleSetRoles" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="dsdRoleSetCardinality" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="dsdSets" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="readPermission" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="readPermObj" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findPermissions" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findPermObjs" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="readRole" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findRoles" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="readUser" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findUsers" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="assignedUsers" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="assignedRoles" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="authorizedUsers" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="authorizedRoles" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="rolePermissions" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="userPermissions" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="permissionRoles" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="authorizedPermissionRoles" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="permissionUsers" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="authorizedPermissionUsers" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="ssdRoleSets" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="ssdRoleSet" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="ssdRoleSetRoles" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="ssdRoleSetCardinality" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdRoleSets" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="ssdSets" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdRoleSet" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdRoleSetRoles" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdRoleSetCardinality" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdSets" roleNm="fortress-core-super-admin" admin="true"/>
 
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelReviewMgrImpl" opName="readRole" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelReviewMgrImpl" opName="findRoles" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelReviewMgrImpl" opName="assignedRoles" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelReviewMgrImpl" opName="assignedUsers" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelReviewMgrImpl" opName="readOU" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelReviewMgrImpl" opName="searchOU" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="readRole" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="findRoles" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="assignedRoles" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="assignedUsers" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="readOU" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="searchOU" roleNm="fortress-core-super-admin" admin="true"/>
 
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addUser" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="disableUser" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deleteUser" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="updateUser" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="changePassword" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="lockUserAccount" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="unlockUserAccount" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="resetPassword" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addRole" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deleteRole" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="updateRole" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="assignUser" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deassignUser" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addPermission" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addPermObj" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deletePermission" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deletePermObj" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="updatePermission" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="updatePermObj" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="grantPermission" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="revokePermission" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="grantPermissionUser" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="revokePermissionUser" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addDescendant" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addAscendant" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addInheritance" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deleteInheritance" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="createSsdSet" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="updateSsdSet" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addSsdRoleMember" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deleteSsdRoleMember" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deleteSsdSet" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="setSsdSetCardinality" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="createDsdSet" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="updateDsdSet" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addDsdRoleMember" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deleteDsdRoleMember" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deleteDsdSet" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="setDsdSetCardinality" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addUser" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="disableUser" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteUser" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="updateUser" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="changePassword" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="lockUserAccount" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="unlockUserAccount" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="resetPassword" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addRole" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteRole" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="updateRole" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="assignUser" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deassignUser" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addPermission" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addPermObj" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deletePermission" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deletePermObj" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="updatePermission" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="updatePermObj" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="grantPermission" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="revokePermission" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="grantPermissionUser" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="revokePermissionUser" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addDescendant" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addAscendant" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addInheritance" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteInheritance" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="createSsdSet" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="updateSsdSet" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addSsdRoleMember" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteSsdRoleMember" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteSsdSet" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="setSsdSetCardinality" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="createDsdSet" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="updateDsdSet" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addDsdRoleMember" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteDsdRoleMember" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteDsdSet" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="setDsdSetCardinality" roleNm="fortress-core-super-admin" admin="true"/>
 
-                <permgrant objName="org.apache.directory.fortress.core.rbac.PwPolicyMgrImpl" opName="add" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.PwPolicyMgrImpl" opName="update" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.PwPolicyMgrImpl" opName="delete" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.PwPolicyMgrImpl" opName="updateUserPolicy" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.PwPolicyMgrImpl" opName="deletePasswordPolicy" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.PwPolicyMgrImpl" opName="search" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" opName="add" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" opName="update" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" opName="delete" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" opName="updateUserPolicy" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" opName="deletePasswordPolicy" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" opName="search" roleNm="fortress-core-super-admin" admin="true"/>
 
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="addRole" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="deleteRole" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="updateRole" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="assignUser" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="deassignUser" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="addOU" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="updateOU" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="deleteOU" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="addDescendantOU" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="addAscendantOU" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="addInheritanceOU" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="deleteInheritanceOU" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="addDescendantRole" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="addAscendantRole" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="addInheritanceRole" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="deleteInheritanceRole" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="addRole" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="deleteRole" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="updateRole" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="assignUser" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="deassignUser" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="addOU" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="updateOU" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="deleteOU" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="addDescendantOU" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="addAscendantOU" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="addInheritanceOU" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="deleteInheritanceOU" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="addDescendantRole" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="addAscendantRole" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="addInheritanceRole" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="deleteInheritanceRole" roleNm="fortress-core-super-admin" admin="true"/>
 
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="add" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="update" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="delete" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="addProperty" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="deleteProperty" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="assign" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="deassign" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="read" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="find" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="findWithUsers" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="add" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="update" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="delete" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="addProperty" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="deleteProperty" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="assign" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="deassign" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="read" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="find" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="findWithUsers" roleNm="fortress-core-super-admin" admin="true"/>
 
             </addpermgrant>
 
             <addpermobj>
-                <permobj objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" description="ARBAC02 admin policies" ou="default" type="ARBAC" admin="true"/>
-                <permobj objName="org.apache.directory.fortress.core.rbac.PwPolicyMgrImpl" description="Password policies" ou="default" type="ARBAC" admin="true"/>
-                <permobj objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" description="RBAC admin policies" ou="default" type="ARBAC" admin="true"/>
-                <permobj objName="org.apache.directory.fortress.core.rbac.DelReviewMgrImpl" description="ARBAC review policies" ou="default" type="ARBAC" admin="true"/>
-                <permobj objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" description="RBAC review policies" ou="default" type="ARBAC" admin="true"/>
-                <permobj objName="org.apache.directory.fortress.core.rbac.AuditMgrImpl" description="RBAC audit review" ou="default" type="ARBAC" admin="true"/>
-                <permobj objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" description="LDAP Group admin policies" ou="default" type="ARBAC" admin="true"/>
+                <permobj objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" description="ARBAC02 admin policies" ou="default" type="ARBAC" admin="true"/>
+                <permobj objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" description="Password policies" ou="default" type="ARBAC" admin="true"/>
+                <permobj objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" description="RBAC admin policies" ou="default" type="ARBAC" admin="true"/>
+                <permobj objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" description="ARBAC review policies" ou="default" type="ARBAC" admin="true"/>
+                <permobj objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" description="RBAC review policies" ou="default" type="ARBAC" admin="true"/>
+                <permobj objName="org.apache.directory.fortress.core.impl.AuditMgrImpl" description="RBAC audit review" ou="default" type="ARBAC" admin="true"/>
+                <permobj objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" description="LDAP Group admin policies" ou="default" type="ARBAC" admin="true"/>
             </addpermobj>
 
             <addpermop>
 
-                <permop objName="org.apache.directory.fortress.core.rbac.AuditMgrImpl" opName="searchBinds" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AuditMgrImpl" opName="searchAuthZs" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AuditMgrImpl" opName="getUserAuthZs" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AuditMgrImpl" opName="searchUserSessions" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AuditMgrImpl" opName="searchAdminMods" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AuditMgrImpl" opName="searchInvalidUsers" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AuditMgrImpl" opName="searchBinds" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AuditMgrImpl" opName="searchAuthZs" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AuditMgrImpl" opName="getUserAuthZs" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AuditMgrImpl" opName="searchUserSessions" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AuditMgrImpl" opName="searchAdminMods" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AuditMgrImpl" opName="searchInvalidUsers" admin="true"/>
 
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="readPermission" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="readPermObj" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="findPermissions" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="findPermObjs" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="readRole" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="findRoles" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="readUser" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="findUsers" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="assignedUsers" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="assignedRoles" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="authorizedUsers" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="authorizedRoles" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="rolePermissions" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="userPermissions" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="permissionRoles" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="authorizedPermissionRoles" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="permissionUsers" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="authorizedPermissionUsers" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="ssdRoleSets" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="ssdRoleSet" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="ssdRoleSetRoles" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="ssdRoleSetCardinality" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="dsdRoleSets" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="ssdSets" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="dsdRoleSet" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="dsdRoleSetRoles" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="dsdRoleSetCardinality" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.ReviewMgrImpl" opName="dsdSets" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="readPermission" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="readPermObj" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findPermissions" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findPermObjs" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="readRole" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findRoles" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="readUser" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findUsers" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="assignedUsers" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="assignedRoles" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="authorizedUsers" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="authorizedRoles" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="rolePermissions" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="userPermissions" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="permissionRoles" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="authorizedPermissionRoles" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="permissionUsers" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="authorizedPermissionUsers" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="ssdRoleSets" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="ssdRoleSet" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="ssdRoleSetRoles" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="ssdRoleSetCardinality" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdRoleSets" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="ssdSets" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdRoleSet" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdRoleSetRoles" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdRoleSetCardinality" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdSets" admin="true"/>
 
-                <permop objName="org.apache.directory.fortress.core.rbac.DelReviewMgrImpl" opName="readRole" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelReviewMgrImpl" opName="findRoles" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelReviewMgrImpl" opName="assignedRoles" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelReviewMgrImpl" opName="assignedUsers" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelReviewMgrImpl" opName="readOU" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelReviewMgrImpl" opName="searchOU" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="readRole" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="findRoles" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="assignedRoles" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="assignedUsers" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="readOU" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="searchOU" admin="true"/>
 
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addUser" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="disableUser" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deleteUser" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="updateUser" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="changePassword" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="lockUserAccount" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="unlockUserAccount" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="resetPassword" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addRole" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deleteRole" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="updateRole" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="assignUser" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deassignUser" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addPermission" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addPermObj" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deletePermission" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deletePermObj" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="updatePermission" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="updatePermObj" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="grantPermission" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="revokePermission" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="grantPermissionUser" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="revokePermissionUser" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addDescendant" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addAscendant" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addInheritance" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deleteInheritance" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="createSsdSet" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="updateSsdSet" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addSsdRoleMember" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deleteSsdRoleMember" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deleteSsdSet" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="setSsdSetCardinality" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="createDsdSet" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="updateDsdSet" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="addDsdRoleMember" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deleteDsdRoleMember" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="deleteDsdSet" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.AdminMgrImpl" opName="setDsdSetCardinality" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addUser" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="disableUser" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteUser" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="updateUser" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="changePassword" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="lockUserAccount" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="unlockUserAccount" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="resetPassword" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addRole" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteRole" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="updateRole" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="assignUser" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deassignUser" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addPermission" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addPermObj" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deletePermission" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deletePermObj" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="updatePermission" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="updatePermObj" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="grantPermission" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="revokePermission" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="grantPermissionUser" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="revokePermissionUser" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addDescendant" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addAscendant" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addInheritance" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteInheritance" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="createSsdSet" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="updateSsdSet" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addSsdRoleMember" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteSsdRoleMember" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteSsdSet" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="setSsdSetCardinality" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="createDsdSet" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="updateDsdSet" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addDsdRoleMember" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteDsdRoleMember" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteDsdSet" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="setDsdSetCardinality" admin="true"/>
 
-                <permop objName="org.apache.directory.fortress.core.rbac.PwPolicyMgrImpl" opName="add" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.PwPolicyMgrImpl" opName="update" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.PwPolicyMgrImpl" opName="delete" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.PwPolicyMgrImpl" opName="updateUserPolicy" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.PwPolicyMgrImpl" opName="deletePasswordPolicy" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.PwPolicyMgrImpl" opName="search" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" opName="add" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" opName="update" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" opName="delete" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" opName="updateUserPolicy" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" opName="deletePasswordPolicy" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" opName="search" admin="true"/>
 
-                <permop objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="addRole" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="deleteRole" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="updateRole" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="assignUser" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="deassignUser" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="addOU" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="updateOU" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="deleteOU" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="addDescendantOU" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="addAscendantOU" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="addInheritanceOU" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="deleteInheritanceOU" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="addDescendantRole" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="addAscendantRole" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="addInheritanceRole" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.rbac.DelAdminMgrImpl" opName="deleteInheritanceRole" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="addRole" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="deleteRole" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="updateRole" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="assignUser" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="deassignUser" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="addOU" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="updateOU" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="deleteOU" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="addDescendantOU" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="addAscendantOU" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="addInheritanceOU" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="deleteInheritanceOU" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="addDescendantRole" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="addAscendantRole" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="addInheritanceRole" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.DelAdminMgrImpl" opName="deleteInheritanceRole" admin="true"/>
 
-                <permop objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="add" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="update" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="delete" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="addProperty" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="deleteProperty" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="read" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="find" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="findWithUsers" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="assign" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.ldap.group.GroupMgrImpl" opName="deassign" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="add" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="update" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="delete" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="addProperty" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="deleteProperty" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="read" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="find" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="findWithUsers" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="assign" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="deassign" admin="true"/>
             </addpermop>
 
          </FortressAdmin>

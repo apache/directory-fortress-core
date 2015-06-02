@@ -23,14 +23,13 @@ package org.apache.directory.fortress.core;
 import org.apache.directory.fortress.core.util.ObjUtil;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.model.OrgUnit;
-import org.apache.directory.fortress.core.rbac.TestUtils;
+import org.apache.directory.fortress.core.impl.TestUtils;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.Address;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.model.VUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
 
 import java.util.ArrayList;

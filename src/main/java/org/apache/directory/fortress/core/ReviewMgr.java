@@ -262,7 +262,7 @@ public interface ReviewMgr extends Manageable
      * This function returns the set of users assigned to a given role. The function is valid if and
      * only if the role is a member of the ROLES data set.
      * The max number of users returned is constrained by limit argument.
-     * This method is used by the Websphere realm component.  This method does NOT use hierarchical rbac.
+     * This method is used by the Websphere realm component.  This method does NOT use hierarchical impl.
      * <h4>required parameters</h4>
      * <ul>
      * <li>{@link Role#name} - contains the name to use for the Role targeted for search.</li>

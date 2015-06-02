@@ -85,7 +85,7 @@ temporal.validator.3=org.apache.directory.fortress.core.util.time.ClockTime
 temporal.validator.4=org.apache.directory.fortress.core.util.time.Day
 
 # enabling this property will enable Dynamic Separation of Duty constraint checks on role activations:
-temporal.validator.dsd=org.apache.directory.fortress.core.rbac.DSDChecker
+temporal.validator.dsd=org.apache.directory.fortress.core.impl.DSDChecker
 
 # Users in the following list cannot be deleted using OAM admin functions (AdminMgr.deleteUser, AdminMgr.forceDeleteUser)
 sys.user.1=oamTU6User1
@@ -95,8 +95,8 @@ sys.user.4=oamTU6User4
 sys.user.5=oamTU6User5
 
 # Fortress Class Definitions:  NOT NEEDED UNLESS OVERIDING DEFAULT IMPLEMENTATIONS
-accessmgr.implementation=org.apache.directory.fortress.core.rbac.AccessMgrImpl
-auditmgr.implementation=org.apache.directory.fortress.core.rbac.AuditMgrImpl
+accessmgr.implementation=org.apache.directory.fortress.core.impl.AccessMgrImpl
+auditmgr.implementation=org.apache.directory.fortress.core.impl.AuditMgrImpl
 
 dao.connector=@LDAP_CLIENT_TYPE@
 

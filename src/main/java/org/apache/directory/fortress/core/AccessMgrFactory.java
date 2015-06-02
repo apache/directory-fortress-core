@@ -21,7 +21,7 @@ package org.apache.directory.fortress.core;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.rbac.AccessMgrImpl;
+import org.apache.directory.fortress.core.impl.AccessMgrImpl;
 import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.rest.AccessMgrRestImpl;
 import org.apache.directory.fortress.core.model.VUtil;

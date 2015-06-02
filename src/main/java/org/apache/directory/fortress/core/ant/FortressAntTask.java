@@ -34,8 +34,8 @@ import org.apache.tools.ant.input.InputHandler;
 import org.apache.tools.ant.input.InputRequest;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.model.Group;
-import org.apache.directory.fortress.core.ldap.group.GroupMgr;
-import org.apache.directory.fortress.core.ldap.group.GroupMgrFactory;
+import org.apache.directory.fortress.core.GroupMgr;
+import org.apache.directory.fortress.core.GroupMgrFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,7 +71,6 @@ import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.Testable;
-import org.apache.directory.fortress.core.model.VUtil;
 
 
 /**
@@ -860,7 +859,7 @@ public class FortressAntTask extends Task implements InputHandler
                 String testClassName = Config.getProperty( getTaskName() );
                 if ( !StringUtils.isNotEmpty( testClassName ) )
                 {
-                    testClassName = "org.apache.directory.fortress.core.rbac.FortressAntLoadTest";
+                    testClassName = "org.apache.directory.fortress.core.impl.FortressAntLoadTest";
                 }
                 // Use reflexion to avoid core dependency on test classes located under FORTRESS_HOME/src/main/test
                 Testable tester = ( Testable ) ClassUtil.createInstance( testClassName );

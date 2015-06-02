@@ -24,7 +24,7 @@ import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
 import org.apache.directory.fortress.core.model.Bind;
 import org.apache.directory.fortress.core.model.AuthZ;
 import org.apache.directory.fortress.core.model.Mod;
-import org.apache.directory.fortress.core.rbac.TestUtils;
+import org.apache.directory.fortress.core.impl.TestUtils;
 import org.apache.directory.fortress.core.model.UserAudit;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.util.attr.AttrHelper;

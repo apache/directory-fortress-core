@@ -27,7 +27,7 @@ import org.apache.directory.fortress.core.DelAdminMgr;
 import org.apache.directory.fortress.core.DelAdminMgrFactory;
 import org.apache.directory.fortress.core.DelReviewMgrFactory;
 import org.apache.directory.fortress.core.model.OrgUnit;
-import org.apache.directory.fortress.core.rbac.TestUtils;
+import org.apache.directory.fortress.core.impl.TestUtils;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;

@@ -27,7 +27,7 @@ import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.rbac.TestUtils;
+import org.apache.directory.fortress.core.impl.TestUtils;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;

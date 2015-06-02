@@ -346,7 +346,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
 
     /**
      * Return the list of User's RBAC Roles that have been activated into User's session.  This list will not include
-     * ascendant RBAC roles which may be retrieved using {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl#authorizedRoles(Session)}.
+     * ascendant RBAC roles which may be retrieved using {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#authorizedRoles(Session)}.
      *
      * @return List containing User's RBAC roles.  This list may be empty if User not assigned RBAC.
      */

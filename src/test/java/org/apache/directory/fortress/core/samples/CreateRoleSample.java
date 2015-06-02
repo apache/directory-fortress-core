@@ -27,7 +27,7 @@ import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.ReviewMgrFactory;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.rbac.TestUtils;
+import org.apache.directory.fortress.core.impl.TestUtils;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;

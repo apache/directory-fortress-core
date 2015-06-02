@@ -24,7 +24,7 @@ import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.FortRequest;
 import org.apache.directory.fortress.core.model.FortResponse;
-import org.apache.directory.fortress.core.rbac.Manageable;
+import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
@@ -552,7 +552,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
      * This function returns the set of users assigned to a given role. The function is valid if and
      * only if the role is a member of the ROLES data set.
      * The max number of users returned is constrained by limit argument.
-     * This method is used by the Websphere realm component.  This method does NOT use hierarchical rbac.
+     * This method is used by the Websphere realm component.  This method does NOT use hierarchical impl.
      * <h4>required parameters</h4>
      * <ul>
      * <li>{@link Role#name} - contains the name to use for the Role targeted for search.</li>

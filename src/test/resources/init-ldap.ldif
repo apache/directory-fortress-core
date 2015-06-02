@@ -107,7 +107,7 @@ ftProps: perm.root:ou=Permissions,ou=RBAC,dc=example,dc=com
 ftProps: ldap.filter.size:15
 ftProps: field.length:130
 ftProps: user.session.props.enabled:false
-ftProps: temporal.validator.dsd:org.apache.directory.fortress.core.rbac.DSDChecker
+ftProps: temporal.validator.dsd:org.apache.directory.fortress.core.impl.DSDChecker
 ftProps: enable.audit:true
 ftProps: ldap.sub.9:2f
 ftProps: ldap.sub.8:2d
@@ -177,7 +177,7 @@ ftProps: perm.root:ou=Permissions,ou=RBAC,dc=example,dc=com
 ftProps: ldap.filter.size:15
 ftProps: field.length:130
 ftProps: user.session.props.enabled:false
-ftProps: temporal.validator.dsd:org.apache.directory.fortress.core.rbac.DSDChecker
+ftProps: temporal.validator.dsd:org.apache.directory.fortress.core.impl.DSDChecker
 ftProps: enable.audit:true
 ftProps: ldap.sub.9:2f
 ftProps: ldap.sub.8:2d

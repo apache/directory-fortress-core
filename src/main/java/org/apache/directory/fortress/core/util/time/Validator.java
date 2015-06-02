@@ -42,7 +42,7 @@ import org.apache.directory.fortress.core.model.Session;
  * <li>Days of week: {@link Day}</li>
  * <li>Timeout:      {@link Timeout}</li>
  * <li>Lock dates:   {@link LockDate}</li>
- * <li>DSDs:         {@link org.apache.directory.fortress.core.rbac.DSDChecker}</li>
+ * <li>DSDs:         {@link org.apache.directory.fortress.core.impl.DSDChecker}</li>
  * </ol>
  * </p>
  * <h4> Constraint Error Codes </h4>

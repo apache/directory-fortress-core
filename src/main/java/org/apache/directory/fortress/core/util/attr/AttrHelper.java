@@ -27,7 +27,6 @@ import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.Administrator;
 import org.apache.directory.fortress.core.model.AuthZ;
 import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.VUtil;
 import org.apache.directory.fortress.core.util.ObjUtil;
 
 import java.text.ParseException;
@@ -38,7 +37,7 @@ import java.util.Properties;
 
 /**
  * Class contains static utilities for various conversions of ldap data to application entity and back.  These methods are called by the
- * Fortress DAO's, i.e. {@link org.apache.directory.fortress.core.rbac.UserDAO}.
+ * Fortress DAO's, i.e. {@link org.apache.directory.fortress.core.impl.UserDAO}.
  * These are low-level data utilities and no validations are performed.  These apis should not be called by outside programs.
  * <p/>
  * This class is thread safe.

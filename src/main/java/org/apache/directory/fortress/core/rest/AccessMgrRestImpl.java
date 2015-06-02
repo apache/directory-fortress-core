@@ -24,8 +24,8 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.FortRequest;
 import org.apache.directory.fortress.core.model.FortResponse;
-import org.apache.directory.fortress.core.rbac.AccessMgrImpl;
-import org.apache.directory.fortress.core.rbac.Manageable;
+import org.apache.directory.fortress.core.impl.AccessMgrImpl;
+import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
@@ -125,7 +125,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
      * <li> fail for any user who is locked by OpenLDAP's policies {@link User#isLocked()}, regardless of trusted flag being set as parm on API.
      * <li> evaluate temporal {@link org.apache.directory.fortress.core.util.time.Constraint}(s) on {@link User}, {@link UserRole} and {@link org.apache.directory.fortress.core.model.UserAdminRole} entities.
      * <li> process selective role activations into User RBAC Session {@link User#roles}.
-     * <li> check Dynamic Separation of Duties {@link org.apache.directory.fortress.core.rbac.DSDChecker#validate(Session, org.apache.directory.fortress.core.util.time.Constraint, org.apache.directory.fortress.core.util.time.Time)} on {@link User#roles}.
+     * <li> check Dynamic Separation of Duties {@link org.apache.directory.fortress.core.impl.DSDChecker#validate(Session, org.apache.directory.fortress.core.util.time.Constraint, org.apache.directory.fortress.core.util.time.Time)} on {@link User#roles}.
      * <li> process selective administrative role activations {@link User#adminRoles}.
      * <li> return a {@link Session} containing {@link Session#getUser()}, {@link Session#getRoles()} and (if admin user) {@link Session#getAdminRoles()} if everything checks out good.
      * <li> throw a checked exception that will be {@link org.apache.directory.fortress.core.SecurityException} or its derivation.
@@ -198,7 +198,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
     }
 
     /**
-     * Perform user rbac authorization.  This function returns a Boolean value meaning whether the subject of a given session is
+     * Perform user impl authorization.  This function returns a Boolean value meaning whether the subject of a given session is
      * allowed or not to perform a given operation on a given object. The function is valid if and
      * only if the session is a valid Fortress session, the object is a member of the OBJS data set,
      * and the operation is a member of the OPS data set. The session's subject has the permission

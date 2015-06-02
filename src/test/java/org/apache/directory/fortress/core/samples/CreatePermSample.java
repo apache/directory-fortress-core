@@ -28,7 +28,7 @@ import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.rbac.TestUtils;
+import org.apache.directory.fortress.core.impl.TestUtils;
 import org.apache.directory.fortress.core.model.User;
 import junit.framework.Test;
 import junit.framework.TestCase;

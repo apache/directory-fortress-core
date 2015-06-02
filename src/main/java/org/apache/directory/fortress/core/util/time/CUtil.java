@@ -54,7 +54,7 @@ import java.util.StringTokenizer;
  * <li>{@link org.apache.directory.fortress.core.GlobalIds#VALIDATOR_PROPS}2={@link Timeout}</li>
  * <li>{@link org.apache.directory.fortress.core.GlobalIds#VALIDATOR_PROPS}3={@link ClockTime}</li>
  * <li>{@link org.apache.directory.fortress.core.GlobalIds#VALIDATOR_PROPS}4={@link Day}</li>
- * <li>{@link org.apache.directory.fortress.core.GlobalIds#DSD_VALIDATOR_PROP}={@link org.apache.directory.fortress.core.rbac.DSDChecker}</li>
+ * <li>{@link org.apache.directory.fortress.core.GlobalIds#DSD_VALIDATOR_PROP}={@link org.apache.directory.fortress.core.impl.DSDChecker}</li>
  * </ol>
  * </p>
  *
@@ -474,7 +474,7 @@ public class CUtil
             {
                 if ( ObjUtil.isNotNullOrEmpty( session.getRoles() ) )
                 {
-                    // now check the constraint on every rbac role activation candidate contained within session object:
+                    // now check the constraint on every impl role activation candidate contained within session object:
                     ListIterator<UserRole> roleItems = session.getRoles().listIterator();
 
                     while ( roleItems.hasNext() )
@@ -515,7 +515,7 @@ public class CUtil
             }
         }
 
-        // now perform DSD validation on session's rbac roles:
+        // now perform DSD validation on session's impl roles:
         if ( checkDsd && DSDVALIDATOR != null && DSDVALIDATOR.length() > 0 && type == ConstraintType.ROLE
             && ObjUtil.isNotNullOrEmpty( session.getRoles() ) )
         {

@@ -40,13 +40,13 @@ import org.apache.directory.fortress.core.util.time.Constraint;
  * (3) DAO layer where persistence with the OpenLDAP server occurs.
  * <h4>Fortress Processing Layers</h4>
  * <ol>
- * <li>Manager layer: {@link org.apache.directory.fortress.core.rbac.DelAdminMgrImpl}, {@link org.apache.directory.fortress.core.rbac.DelAccessMgrImpl}, {@link org.apache.directory.fortress.core.rbac.DelReviewMgrImpl},...</li>
- * <li>Process layer: {@link org.apache.directory.fortress.core.rbac.AdminRoleP}, {@link org.apache.directory.fortress.core.rbac.OrgUnitP},...</li>
- * <li>DAO layer: {@link org.apache.directory.fortress.core.rbac.AdminRoleDAO}, {@link org.apache.directory.fortress.core.rbac.OrgUnitDAO},...</li>
+ * <li>Manager layer: {@link org.apache.directory.fortress.core.impl.DelAdminMgrImpl}, {@link org.apache.directory.fortress.core.impl.DelAccessMgrImpl}, {@link org.apache.directory.fortress.core.impl.DelReviewMgrImpl},...</li>
+ * <li>Process layer: {@link org.apache.directory.fortress.core.impl.AdminRoleP}, {@link org.apache.directory.fortress.core.impl.OrgUnitP},...</li>
+ * <li>DAO layer: {@link org.apache.directory.fortress.core.impl.AdminRoleDAO}, {@link org.apache.directory.fortress.core.impl.OrgUnitDAO},...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br />
- * For example, this entity requires {@link #name} set before passing into {@link org.apache.directory.fortress.core.rbac.DelAdminMgrImpl} or  {@link org.apache.directory.fortress.core.rbac.DelReviewMgrImpl} APIs.
+ * For example, this entity requires {@link #name} set before passing into {@link org.apache.directory.fortress.core.impl.DelAdminMgrImpl} or  {@link org.apache.directory.fortress.core.impl.DelReviewMgrImpl} APIs.
  * Create methods usually require more attributes (than Read) due to constraints enforced between entities.
  * <p/>
  * This entity extends the {@link org.apache.directory.fortress.core.model.Role} entity and is used to store the ARBAC AdminRole assignments that comprise the many-to-many relationships between Users and Administrative Permissions.

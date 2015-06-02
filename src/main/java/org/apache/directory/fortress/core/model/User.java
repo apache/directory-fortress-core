@@ -45,9 +45,9 @@ import org.apache.directory.fortress.core.util.time.Constraint;
  * <p/>
  * <h4>Fortress Processing Layers</h4>
  * <ol>
- * <li>Manager layer:  {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl}, {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl}, {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl},...</li>
- * <li>Process layer:  {@link org.apache.directory.fortress.core.rbac.UserP}, {@link org.apache.directory.fortress.core.rbac.RoleP}, {@link org.apache.directory.fortress.core.rbac.PermP},...</li>
- * <li>DAO layer: {@link org.apache.directory.fortress.core.rbac.UserDAO}, {@link org.apache.directory.fortress.core.rbac.RoleDAO}, {@link org.apache.directory.fortress.core.rbac.PermDAO},...</li>
+ * <li>Manager layer:  {@link org.apache.directory.fortress.core.impl.AdminMgrImpl}, {@link org.apache.directory.fortress.core.impl.AccessMgrImpl}, {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl},...</li>
+ * <li>Process layer:  {@link org.apache.directory.fortress.core.impl.UserP}, {@link org.apache.directory.fortress.core.impl.RoleP}, {@link org.apache.directory.fortress.core.impl.PermP},...</li>
+ * <li>DAO layer: {@link org.apache.directory.fortress.core.impl.UserDAO}, {@link org.apache.directory.fortress.core.impl.RoleDAO}, {@link org.apache.directory.fortress.core.impl.PermDAO},...</li>
  * </ol>
  * Fortress clients must first instantiate the data entity before invoking one of the Manager APIs.  The caller must first
  * provide enough information to uniquely identity target record for the particular ldap operation performed.<br />
@@ -57,11 +57,11 @@ import org.apache.directory.fortress.core.util.time.Constraint;
  * <p/>
  * <h4>User entity attribute usages include</h4>
  * <ul>
- * <li>{@link #setPassword(char[])} must be set before calling {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl#authenticate} and {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl#createSession(User, boolean)} (unless trusted).
- * <li>{@link #setOu} is required before calling {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl#addUser(User)} to add a new user to ldap.
- * <li>{@link #setRoles} will be set for {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl#createSession(User, boolean)} when selective RBAC Role activation is required.
- * <li>{@link #setAdminRoles} will be set for {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl#createSession(User, boolean)} when selective Administrative Role activation is required.
- * <li>{@link #setPwPolicy} may be set for {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl#updateUser(User)} to assign User to a policy {@link org.apache.directory.fortress.core.model.PwPolicy}.
+ * <li>{@link #setPassword(char[])} must be set before calling {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#authenticate} and {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#createSession(User, boolean)} (unless trusted).
+ * <li>{@link #setOu} is required before calling {@link org.apache.directory.fortress.core.impl.AdminMgrImpl#addUser(User)} to add a new user to ldap.
+ * <li>{@link #setRoles} will be set for {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#createSession(User, boolean)} when selective RBAC Role activation is required.
+ * <li>{@link #setAdminRoles} will be set for {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#createSession(User, boolean)} when selective Administrative Role activation is required.
+ * <li>{@link #setPwPolicy} may be set for {@link org.apache.directory.fortress.core.impl.AdminMgrImpl#updateUser(User)} to assign User to a policy {@link org.apache.directory.fortress.core.model.PwPolicy}.
  * <li>{@link #password} is the only case sensitive attribute on this entity.
  * </ul>
  * <p/>
@@ -863,7 +863,7 @@ public class User extends FortEntity implements Constraint, Serializable
 
     /**
      * Set the optional password attribute associated for a User.  Note, this value is required before User will pass Fortress
-     * authentication in {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl#createSession(User, boolean)}.
+     * authentication in {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#createSession(User, boolean)}.
      * Even though password is char[] format here it will be stored on the ldap server (using server-side controls) in configurable and standard hashed formats.
      *
      * @param password maps to 'userPassword' attribute in 'inetOrgPerson' object class.
@@ -988,7 +988,7 @@ public class User extends FortEntity implements Constraint, Serializable
 
     /**
      * Returns orgUnit name for User.  This attribute is validated and constrained by Fortress and must contain name of existing User OU.
-     * This attribute is required on {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl#addUser(User)} but not on {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl#readUser(User)}.
+     * This attribute is required on {@link org.apache.directory.fortress.core.impl.AdminMgrImpl#addUser(User)} but not on {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl#readUser(User)}.
      *
      * @return value that is mapped to 'ou' in 'inetOrgPerson' object class.
      */
@@ -1000,7 +1000,7 @@ public class User extends FortEntity implements Constraint, Serializable
 
     /**
      * Set the orgUnit name associated with User.  This attribute is validated and constrained by Fortress and must contain name of existing User OU.
-     * This attribute is required on {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl#addUser(User)} but not on {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl#readUser(User)}.
+     * This attribute is required on {@link org.apache.directory.fortress.core.impl.AdminMgrImpl#addUser(User)} but not on {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl#readUser(User)}.
      *
      * @param ou mapped to same name in 'inetOrgPerson' object class.
      */

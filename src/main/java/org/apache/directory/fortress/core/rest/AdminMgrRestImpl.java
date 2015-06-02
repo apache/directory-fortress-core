@@ -33,7 +33,7 @@ import org.apache.directory.fortress.core.model.RoleRelationship;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.rbac.Manageable;
+import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.VUtil;
 
 

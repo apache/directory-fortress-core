@@ -25,7 +25,7 @@ import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.AdminMgrFactory;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.ReviewMgrFactory;
-import org.apache.directory.fortress.core.rbac.TestUtils;
+import org.apache.directory.fortress.core.impl.TestUtils;
 import org.apache.directory.fortress.core.model.User;
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -22,7 +22,7 @@ package org.apache.directory.fortress.core;
 
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.rbac.TestUtils;
+import org.apache.directory.fortress.core.impl.TestUtils;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.VUtil;

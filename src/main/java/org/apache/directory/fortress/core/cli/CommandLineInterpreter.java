@@ -35,8 +35,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.Group;
-import org.apache.directory.fortress.core.ldap.group.GroupMgr;
-import org.apache.directory.fortress.core.ldap.group.GroupMgrFactory;
+import org.apache.directory.fortress.core.GroupMgr;
+import org.apache.directory.fortress.core.GroupMgrFactory;
 import org.apache.directory.fortress.core.model.Address;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
@@ -51,7 +51,6 @@ import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.Relationship;
-import org.apache.directory.fortress.core.model.VUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
 
 

@@ -265,7 +265,7 @@
 
        <!-- ########### Test properties ########################### -->
        <property name="test.sample.entry" value="org.apache.directory.fortress.core.samples.AllSamplesJUnitTest"/>
-       <property name="test.regression.entry"  value="org.apache.directory.fortress.core.rbac.FortressJUnitTest"/>
+       <property name="test.regression.entry"  value="org.apache.directory.fortress.core.impl.FortressJUnitTest"/>
        <property name="test.failonerror" value="false" />
        <property name="test.showoutput" value="yes" />
 
@@ -516,7 +516,7 @@
             <sysproperty key="tenant" value="${tenant}"/>
             <classpath refid="test.class.path"/>
             <formatter type="plain" usefile="false"/>
-            <test name="org.apache.directory.fortress.core.rbac.apacheds.FortressJUnitApachedsTest"/>
+            <test name="org.apache.directory.fortress.core.impl.apacheds.FortressJUnitApachedsTest"/>
         </junit>
     </target>
 
@@ -529,7 +529,7 @@
             <sysproperty key="tenant" value="${tenant}"/>
             <classpath refid="test.class.path"/>
             <formatter type="plain" usefile="false"/>
-            <test name="org.apache.directory.fortress.core.rbac.accelerator.TestAccelerator"/>
+            <test name="org.apache.directory.fortress.core.impl.accelerator.TestAccelerator"/>
         </junit>
     </target>
 
@@ -542,7 +542,7 @@
             <sysproperty key="tenant" value="${tenant}"/>
             <classpath refid="test.class.path"/>
             <formatter type="plain" usefile="false"/>
-            <test name="org.apache.directory.fortress.core.rbac.AccelMgrImplTest"/>
+            <test name="org.apache.directory.fortress.core.impl.AccelMgrImplTest"/>
         </junit>
     </target>
 
@@ -1051,7 +1051,7 @@
     </target>
 
     <!-- =================================
-          copy the slapd rbac accelerator overlay libs from install to bin folder
+          copy the slapd impl accelerator overlay libs from install to bin folder
          ================================= -->
     <target name="copy-rbac-libs" depends="init" >
         <echo message="###############  Copy rbac libs ${openldap.install.artifact.dir} to openldap lib folder ${slapd.module.dir}"/>
@@ -1063,7 +1063,7 @@
     </target>
 
     <!-- =================================
-          copy the slapd rbac accelerator overlay libs from install to bin folder
+          copy the slapd impl accelerator overlay libs from install to bin folder
          ================================= -->
     <target name="copy-ssl-keys" depends="init" >
         <echo message="###############  Copy SSL keys from ${src.slapd.ssl.keys.dir} to ${dst.slapd.ssl.keys.dir}"/>

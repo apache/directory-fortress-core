@@ -21,7 +21,7 @@ package org.apache.directory.fortress.core;
 
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.OrgUnit;
-import org.apache.directory.fortress.core.rbac.TestUtils;
+import org.apache.directory.fortress.core.impl.TestUtils;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Role;

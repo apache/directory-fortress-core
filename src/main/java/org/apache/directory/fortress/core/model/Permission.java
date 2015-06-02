@@ -58,21 +58,21 @@ import javax.xml.bind.annotation.XmlType;
  * (3) DAO layer where persistence with the OpenLDAP server occurs.
  * <h4>Fortress Processing Layers</h4>
  * <ol>
- * <li>Manager layer:  {@link org.apache.directory.fortress.core.rbac.AdminMgrImpl}, {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl}, {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl},...</li>
- * <li>Process layer:  {@link org.apache.directory.fortress.core.rbac.UserP}, {@link org.apache.directory.fortress.core.rbac.RoleP}, {@link org.apache.directory.fortress.core.rbac.PermP},...</li>
- * <li>DAO layer: {@link org.apache.directory.fortress.core.rbac.UserDAO}, {@link org.apache.directory.fortress.core.rbac.RoleDAO}, {@link org.apache.directory.fortress.core.rbac.PermDAO},...</li>
+ * <li>Manager layer:  {@link org.apache.directory.fortress.core.impl.AdminMgrImpl}, {@link org.apache.directory.fortress.core.impl.AccessMgrImpl}, {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl},...</li>
+ * <li>Process layer:  {@link org.apache.directory.fortress.core.impl.UserP}, {@link org.apache.directory.fortress.core.impl.RoleP}, {@link org.apache.directory.fortress.core.impl.PermP},...</li>
+ * <li>DAO layer: {@link org.apache.directory.fortress.core.impl.UserDAO}, {@link org.apache.directory.fortress.core.impl.RoleDAO}, {@link org.apache.directory.fortress.core.impl.PermDAO},...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br />
- * For example, this entity requires {@link #setObjName} and {@link #setOpName} attributes set before passing into {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl} APIs.
+ * For example, this entity requires {@link #setObjName} and {@link #setOpName} attributes set before passing into {@link org.apache.directory.fortress.core.impl.AccessMgrImpl} APIs.
  * Create methods usually require more attributes (than Read) due to constraints enforced between entities.
  * <p/>
  * <h4>Permission entity attribute usages include</h4>
  * <ul>
- * <li>{@link #setObjName} and {@link #setOpName} attributes set before calling {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl#checkAccess(Session, Permission)}.
- * <li>{@link #getRoles} may be set after calling {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl#readPermission(Permission)} or {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl#sessionPermissions(Session)}.
+ * <li>{@link #setObjName} and {@link #setOpName} attributes set before calling {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#checkAccess(Session, Permission)}.
+ * <li>{@link #getRoles} may be set after calling {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl#readPermission(Permission)} or {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#sessionPermissions(Session)}.
  *
- * <li>{@link #getUsers} may be set after calling {@link org.apache.directory.fortress.core.rbac.ReviewMgrImpl#readPermission(Permission)} or {@link org.apache.directory.fortress.core.rbac.AccessMgrImpl#sessionPermissions(Session)}.
+ * <li>{@link #getUsers} may be set after calling {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl#readPermission(Permission)} or {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#sessionPermissions(Session)}.
  *
  * </ul>
  * <p/>

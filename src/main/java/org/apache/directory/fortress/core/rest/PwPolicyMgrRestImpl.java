@@ -25,7 +25,7 @@ import org.apache.directory.fortress.core.PwPolicyMgr;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.FortRequest;
 import org.apache.directory.fortress.core.model.FortResponse;
-import org.apache.directory.fortress.core.rbac.Manageable;
+import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.PwPolicy;
 import org.apache.directory.fortress.core.model.VUtil;
 
