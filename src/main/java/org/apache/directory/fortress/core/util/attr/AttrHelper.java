@@ -27,7 +27,6 @@ import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.Administrator;
 import org.apache.directory.fortress.core.model.AuthZ;
 import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import java.text.ParseException;
 import java.util.Date;

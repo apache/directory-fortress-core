@@ -19,10 +19,6 @@
  */
 package org.apache.directory.fortress.core.model;
 
-import org.apache.directory.fortress.core.model.FortEntity;
-import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.Role;
-
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;

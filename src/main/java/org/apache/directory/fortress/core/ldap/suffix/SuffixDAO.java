@@ -33,7 +33,6 @@ import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.RemoveException;
-import org.apache.directory.fortress.core.util.attr.VUtil;
 
 
 /**

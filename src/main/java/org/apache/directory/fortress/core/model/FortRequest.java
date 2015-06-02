@@ -19,9 +19,6 @@
  */
 package org.apache.directory.fortress.core.model;
 
-import org.apache.directory.fortress.core.model.FortEntity;
-import org.apache.directory.fortress.core.model.Session;
-
 import javax.xml.bind.annotation.*;
 
 /**

@@ -48,7 +48,6 @@ import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 import org.apache.directory.fortress.core.model.PwPolicy;
-import org.apache.directory.fortress.core.util.attr.VUtil;
 
 
 /**

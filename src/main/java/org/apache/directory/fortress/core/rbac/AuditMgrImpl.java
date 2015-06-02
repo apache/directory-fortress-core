@@ -30,7 +30,6 @@ import org.apache.directory.fortress.core.model.Bind;
 import org.apache.directory.fortress.core.model.Mod;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAudit;
-import org.apache.directory.fortress.core.util.attr.VUtil;
 
 import java.util.List;
 

@@ -40,7 +40,6 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.util.LogUtil;
-import org.apache.directory.fortress.core.util.attr.VUtil;
 
 
 /**

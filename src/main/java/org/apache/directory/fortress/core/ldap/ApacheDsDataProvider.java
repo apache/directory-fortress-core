@@ -78,7 +78,6 @@ import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.model.FortEntity;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.Relationship;
-import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.apache.directory.fortress.core.util.crypto.EncryptUtil;
 import org.apache.directory.fortress.core.util.time.CUtil;
 import org.apache.directory.fortress.core.util.time.Constraint;
