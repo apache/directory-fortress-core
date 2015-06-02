@@ -22,7 +22,7 @@ package org.apache.directory.fortress.core.ldap.group;
 import org.apache.directory.api.util.Strings;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.cfg.Config;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.Session;

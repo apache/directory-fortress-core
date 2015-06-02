@@ -22,8 +22,8 @@ package org.apache.directory.fortress.core.util.time;
 
 import org.apache.directory.fortress.core.CfgException;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.ObjectFactory;
-import org.apache.directory.fortress.core.cfg.Config;
+import org.apache.directory.fortress.core.model.ObjectFactory;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.util.ClassUtil;

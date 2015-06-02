@@ -17,13 +17,10 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core;
+package org.apache.directory.fortress.core.model;
 
 
 import org.apache.directory.fortress.core.ldap.group.Group;
-import org.apache.directory.fortress.core.model.*;
-import org.apache.directory.fortress.core.rest.FortRequest;
-import org.apache.directory.fortress.core.rest.FortResponse;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
@@ -89,7 +86,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rest.FortResponse }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link FortResponse }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortResponse")
     public JAXBElement<FortResponse> createFortResponse( FortResponse value )
@@ -99,7 +96,7 @@ public class ObjectFactory
 
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.rest.FortRequest }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link FortRequest }{@code >}}
      */
     @XmlElementDecl(namespace = "", name = "fortRequest")
     public JAXBElement<FortRequest> createFortRequest( FortRequest value )

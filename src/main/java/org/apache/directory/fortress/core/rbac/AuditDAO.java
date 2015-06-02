@@ -34,12 +34,13 @@ import org.apache.directory.fortress.core.model.AuthZ;
 import org.apache.directory.fortress.core.model.Bind;
 import org.apache.directory.fortress.core.model.Mod;
 import org.apache.directory.fortress.core.model.UserAudit;
+import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.ObjectFactory;
-import org.apache.directory.fortress.core.cfg.Config;
+import org.apache.directory.fortress.core.model.ObjectFactory;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 

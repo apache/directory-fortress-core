@@ -20,7 +20,7 @@
 package org.apache.directory.fortress.core;
 
 import org.apache.directory.api.util.Strings;
-import org.apache.directory.fortress.core.cfg.Config;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.rbac.DelAdminMgrImpl;
 import org.apache.directory.fortress.core.model.Session;

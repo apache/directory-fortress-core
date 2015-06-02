@@ -32,12 +32,13 @@ import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.ObjectFactory;
+import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.PasswordException;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;

@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
-import org.apache.directory.fortress.core.cfg.Config;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.example.Example;
 import org.apache.directory.fortress.core.example.ExampleAdminMgr;
 import org.apache.directory.fortress.core.example.ExampleAdminMgrFactory;

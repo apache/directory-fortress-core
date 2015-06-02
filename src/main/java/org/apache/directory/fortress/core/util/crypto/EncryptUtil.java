@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.core.util.crypto;
 
-import org.apache.directory.fortress.core.cfg.Config;
+import org.apache.directory.fortress.core.util.Config;
 import org.jasypt.util.text.BasicTextEncryptor;
 
 /**

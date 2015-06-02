@@ -43,13 +43,15 @@ import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.cxf.common.util.Base64Utility;
 import org.apache.cxf.helpers.IOUtils;
+import org.apache.directory.fortress.core.model.FortRequest;
+import org.apache.directory.fortress.core.model.FortResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.ObjectFactory;
+import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.RestException;
-import org.apache.directory.fortress.core.cfg.Config;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.model.Props;
 import org.apache.directory.fortress.core.util.crypto.EncryptUtil;
 

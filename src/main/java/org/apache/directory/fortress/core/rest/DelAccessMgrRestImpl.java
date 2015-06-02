@@ -20,6 +20,8 @@
 package org.apache.directory.fortress.core.rest;
 
 import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.model.FortRequest;
+import org.apache.directory.fortress.core.model.FortResponse;
 import org.apache.directory.fortress.core.model.RolePerm;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.DelAccessMgr;

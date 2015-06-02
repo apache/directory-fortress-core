@@ -21,7 +21,7 @@ package org.apache.directory.fortress.core.rbac;
 
 import org.apache.directory.fortress.core.DelAccessMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.cfg.Config;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Role;

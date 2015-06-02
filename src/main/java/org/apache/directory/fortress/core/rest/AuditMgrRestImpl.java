@@ -24,6 +24,8 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.AuthZ;
 import org.apache.directory.fortress.core.model.Bind;
+import org.apache.directory.fortress.core.model.FortRequest;
+import org.apache.directory.fortress.core.model.FortResponse;
 import org.apache.directory.fortress.core.rbac.Manageable;
 import org.apache.directory.fortress.core.model.Mod;
 import org.apache.directory.fortress.core.model.UserAudit;

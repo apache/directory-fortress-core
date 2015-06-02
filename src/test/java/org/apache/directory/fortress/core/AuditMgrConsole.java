@@ -26,7 +26,7 @@ import org.apache.directory.fortress.core.model.Mod;
 import org.apache.directory.fortress.core.rbac.TestUtils;
 import org.apache.directory.fortress.core.model.UserAudit;
 import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.rbac.AttrHelper;
+import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.apache.directory.fortress.core.util.attr.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

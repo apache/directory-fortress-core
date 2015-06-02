@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.cfg;
+package org.apache.directory.fortress.core.util;
 
 
 import java.net.URL;

@@ -31,7 +31,7 @@ import org.apache.directory.fortress.core.model.Warning;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.ObjectFactory;
+import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.util.time.Constraint;
 import org.apache.directory.fortress.core.util.time.Time;
 import org.apache.directory.fortress.core.util.time.Validator;

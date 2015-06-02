@@ -19,12 +19,9 @@
  */
 package org.apache.directory.fortress.core;
 
-import org.apache.directory.fortress.core.ConfigMgr;
-import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.cfg.Config;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.cfg.ConfigMgrImpl;
 import org.apache.directory.fortress.core.util.ClassUtil;
-import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.rest.ConfigMgrRestImpl;
 
 /**

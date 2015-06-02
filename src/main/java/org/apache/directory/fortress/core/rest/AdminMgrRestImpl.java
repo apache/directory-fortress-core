@@ -23,6 +23,8 @@ package org.apache.directory.fortress.core.rest;
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.model.FortRequest;
+import org.apache.directory.fortress.core.model.FortResponse;
 import org.apache.directory.fortress.core.model.PermGrant;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;

@@ -41,7 +41,7 @@ import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
-import org.apache.directory.fortress.core.cfg.Config;
+import org.apache.directory.fortress.core.util.Config;
 
 import java.util.ArrayList;
 import java.util.Arrays;
