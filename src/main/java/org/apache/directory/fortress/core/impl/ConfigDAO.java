@@ -34,6 +34,7 @@ import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.ObjUtil;
+import org.apache.directory.fortress.core.util.PropUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 import org.slf4j.Logger;
@@ -43,7 +44,6 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
-import org.apache.directory.fortress.core.util.attr.AttrHelper;
 
 
 /**
@@ -270,7 +270,7 @@ final class ConfigDAO extends ApacheDsDataProvider
         {
             ld = getAdminConnection();
             Entry findEntry = read( ld, dn, CONFIG_ATRS );
-            props = AttrHelper.getProperties( getAttributes( findEntry, GlobalIds.PROPS ) );
+            props = PropUtil.getProperties( getAttributes( findEntry, GlobalIds.PROPS ) );
         }
         catch ( LdapNoSuchObjectException e )
         {

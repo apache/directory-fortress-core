@@ -49,7 +49,7 @@ import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.util.ObjUtil;
-import org.apache.directory.fortress.core.util.attr.AttrHelper;
+import org.apache.directory.fortress.core.util.PropUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
@@ -1026,7 +1026,7 @@ final class PermDAO extends ApacheDsDataProvider
         entity.setUsers( getAttributeSet( le, USERS ) );
         entity.setType( getAttribute( le, TYPE ) );
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
-        entity.addProperties( AttrHelper.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
+        entity.addProperties( PropUtil.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
         entity.setAdmin( isAdmin );
 
         // TODO: find out the correct way to do this:
@@ -1056,7 +1056,7 @@ final class PermDAO extends ApacheDsDataProvider
         entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setType( getAttribute( le, TYPE ) );
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
-        entity.addProperties( AttrHelper.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
+        entity.addProperties( PropUtil.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
         entity.setAdmin( isAdmin );
         return entity;
     }

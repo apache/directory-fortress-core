@@ -35,6 +35,7 @@ import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueEx
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.fortress.core.model.Group;
+import org.apache.directory.fortress.core.util.PropUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.model.ObjectFactory;
@@ -42,7 +43,6 @@ import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.CreateException;
@@ -494,7 +494,7 @@ final class GroupDAO extends ApacheDsDataProvider
         entity.setProtocol( getAttribute( le, GROUP_PROTOCOL_ATTR_IMPL ) );
         entity.setMembers( getAttributes( le, SchemaConstants.MEMBER_AT ) );
         entity.setMemberDn( true );
-        entity.setProperties( AttrHelper.getProperties( getAttributes( le, GROUP_PROPERTY_ATTR_IMPL ), '=' ) );
+        entity.setProperties( PropUtil.getProperties( getAttributes( le, GROUP_PROPERTY_ATTR_IMPL ), '=' ) );
         entity.setSequenceId( sequence );
 
         return entity;

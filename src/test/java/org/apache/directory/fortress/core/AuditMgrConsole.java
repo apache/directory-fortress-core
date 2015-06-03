@@ -21,13 +21,16 @@ package org.apache.directory.fortress.core;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
+import org.apache.directory.api.ldap.model.name.Dn;
+import org.apache.directory.api.ldap.model.name.Rdn;
 import org.apache.directory.fortress.core.model.Bind;
 import org.apache.directory.fortress.core.model.AuthZ;
 import org.apache.directory.fortress.core.model.Mod;
 import org.apache.directory.fortress.core.impl.TestUtils;
 import org.apache.directory.fortress.core.model.UserAudit;
 import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.util.attr.AttrHelper;
+import org.apache.directory.fortress.core.util.ObjUtil;
+import org.apache.directory.fortress.core.util.AuditUtil;
 import org.apache.directory.fortress.core.util.time.TUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -156,7 +159,7 @@ class AuditMgrConsole
                 */
                 System.out.println("AUTHENTICATION AUDIT RECORD " + ctr++);
                 System.out.println("***************************************");
-                System.out.println("    UserId        " + AttrHelper.getAuthZId(aBind.getReqDN()));
+                System.out.println("    UserId        " + AuditUtil.getAuthZId( aBind.getReqDN() ));
                 Date aDate = null;
                 try
                 {
@@ -450,10 +453,10 @@ class AuditMgrConsole
                     System.out.println("    Access Time     " + formattedDate);
                 }
 
-                System.out.println("    userId          " + AttrHelper.getAuthZId(authZ.getReqAuthzID()));
+                System.out.println("    userId          " + AuditUtil.getAuthZId( authZ.getReqAuthzID() ));
                 try
                 {
-                    Permission pOp = AttrHelper.getAuthZPerm(authZ);
+                    Permission pOp = getAuthZPerm(authZ);
                     System.out.println("    Resource Name   " + pOp.getObjName());
                     System.out.println("    Operation       " + pOp.getOpName());
                     int rCtr = 0;
@@ -482,6 +485,43 @@ class AuditMgrConsole
         {
             System.out.println("AuthZ list empty");
         }
+    }
+
+    /**
+     * Break the authZ eqDn attribute into 1. permission object name, 2. op name and 3. object id (optional).
+     *
+     * @param authZ contains the raw dn format from openldap slapo access log data
+     * @return Permisison containing objName, opName and optionally the objId populated from the raw data.
+     */
+    public static Permission getAuthZPerm(AuthZ authZ) throws LdapInvalidDnException
+    {
+        // This will be returned to the caller:
+        Permission pOp = new Permission();
+        // Break dn into rdns for leaf and parent.  Use the 'type' field in rdn.
+        // The objId value is optional.  If present it will be part of the parent's relative distinguished name..
+        // Here the sample reqDN=ftOpNm=TOP2_2+ftObjId=002,ftObjNm=TOB2_1,ou=Permissions,ou=RBAC,dc=example,dc=com
+        // Will be mapped to objName=TOB2_1, opName=TOP2_2, objId=002, in the returned permission object.
+        Dn dn = new Dn( authZ.getReqDN() );
+        if(dn != null && dn.getRdns() != null && ObjUtil.isNotNullOrEmpty( dn.getRdns() ) )
+        {
+            for( Rdn rdn : dn.getRdns() )
+            {
+                // The rdn type attribute will be mapped to objName, opName and objId fields.
+                switch ( rdn.getType() )
+                {
+                    case GlobalIds.POP_NAME:
+                        pOp.setOpName( rdn.getType() );
+                        break;
+                    case GlobalIds.POBJ_NAME:
+                        pOp.setObjName( rdn.getType() );
+                        break;
+                    case GlobalIds.POBJ_ID:
+                        pOp.setObjId( rdn.getType() );
+                        break;
+                }
+            }
+        }
+        return pOp;
     }
 
     void printfailedAuthNReport(List<AuthZ> list)
@@ -541,7 +581,7 @@ class AuditMgrConsole
                     String formattedDate = formatter.format(aDate);
                     System.out.println("    Access Time     " + formattedDate);
                 }
-                System.out.println("    userId          " + AttrHelper.getAuthZId(authZ.getReqDN()));
+                System.out.println("    userId          " + AuditUtil.getAuthZId( authZ.getReqDN() ));
                 System.out.println("    Success?        " + authZ.getReqEntries().equals("1"));
                 System.out.println("    reqDN           " + authZ.getReqDN());
                 System.out.println();

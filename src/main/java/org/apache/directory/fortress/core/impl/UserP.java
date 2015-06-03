@@ -26,6 +26,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.Administrator;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PwPolicy;
 import org.apache.directory.fortress.core.model.Role;
@@ -34,7 +35,6 @@ import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.ObjUtil;
-import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -862,8 +862,26 @@ final class UserP
                 CUtil.validateOrCopy( outRole, uare );
 
                 // copy the ARBAC AdminRole attributes to UserAdminRole:
-                AttrHelper.copyAdminAttrs( outRole, uare );
+                copyAdminAttrs( outRole, uare );
             }
         }
+    }
+
+    /**
+     * Perform copy on ARBAC attributes.  This is used during assignment of {@link org.apache.directory.fortress.core.model.AdminRole} to {@link org.apache.directory.fortress.core.model.User}.
+     * This method does not perform input validations.
+     *
+     * @param srcR contains source attributes to copy.
+     * @param trgR contains the target reference.
+     */
+    void copyAdminAttrs(Administrator srcR, Administrator trgR)
+    {
+        trgR.setBeginInclusive(srcR.isBeginInclusive());
+        trgR.setEndInclusive(srcR.isEndInclusive());
+        trgR.setBeginRange(srcR.getBeginRange());
+        trgR.setEndRange(srcR.getEndRange());
+        // copy the user and perm pools:
+        trgR.setOsP(srcR.getOsP());
+        trgR.setOsU(srcR.getOsU());
     }
 }

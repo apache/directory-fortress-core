@@ -58,7 +58,7 @@ import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.model.Warning;
 import org.apache.directory.fortress.core.util.ObjUtil;
-import org.apache.directory.fortress.core.util.attr.AttrHelper;
+import org.apache.directory.fortress.core.util.PropUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -2078,7 +2078,7 @@ final class UserDAO extends ApacheDsDataProvider
                 entity.setGecos( getAttribute( entry, GECOS ) );
         */
 
-        entity.addProperties( AttrHelper.getProperties( getAttributes( entry, GlobalIds.PROPS ) ) );
+        entity.addProperties( PropUtil.getProperties( getAttributes( entry, GlobalIds.PROPS ) ) );
 
         if ( GlobalIds.IS_OPENLDAP )
         {

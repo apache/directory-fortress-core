@@ -35,7 +35,7 @@ import org.apache.directory.fortress.core.model.AuthZ;
 import org.apache.directory.fortress.core.model.Bind;
 import org.apache.directory.fortress.core.model.Mod;
 import org.apache.directory.fortress.core.model.UserAudit;
-import org.apache.directory.fortress.core.util.attr.AttrHelper;
+import org.apache.directory.fortress.core.util.AuditUtil;
 import org.apache.directory.fortress.core.util.time.TUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.FinderException;
@@ -279,7 +279,7 @@ final class AuditDAO extends ApacheDsDataProvider
                 AuthZ authZ = getAuthzEntityFromLdapEntry( searchResults.getEntry(), sequence++ );
                 // todo: fix this workaround. This search will return failed role assign searches as well.  
                 // Work around is to remove the ou=People failed searches from user failed searches on authN.
-                if ( !AttrHelper.getAuthZId( authZ.getReqDN() ).equalsIgnoreCase( "People" ) )
+                if ( !AuditUtil.getAuthZId( authZ.getReqDN() ).equalsIgnoreCase( "People" ) )
                 {
                     auditList.add( authZ );
                 }

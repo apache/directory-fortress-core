@@ -20,7 +20,7 @@
 package org.apache.directory.fortress.core.model;
 
 
-import org.apache.directory.fortress.core.util.attr.AttrHelper;
+import org.apache.directory.fortress.core.util.PropUtil;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -287,7 +287,7 @@ public class Group extends FortEntity implements Serializable
      */
     public void setProperties( String properties )
     {
-        setProperties( AttrHelper.getProperties( properties, '=', "," ) );
+        setProperties( PropUtil.getProperties( properties, '=', "," ) );
     }
 
 

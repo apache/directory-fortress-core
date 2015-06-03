@@ -33,7 +33,6 @@ import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.util.ObjUtil;
-import org.apache.directory.fortress.core.util.attr.AttrHelper;
 import org.apache.directory.fortress.core.util.time.CUtil;
 import org.apache.directory.fortress.core.util.VUtil;
 
@@ -282,7 +281,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
         CUtil.validateOrCopy(validRole, uAdminRole);
 
         // copy the ARBAC AdminRole attributes to UserAdminRole:
-        AttrHelper.copyAdminAttrs( validRole, uAdminRole );
+        userP.copyAdminAttrs( validRole, uAdminRole );
         String dn = userP.assign(uAdminRole);
         // copy the admin session info to AdminRole:
         setAdminData(CLS_NM, methodName, validRole);
