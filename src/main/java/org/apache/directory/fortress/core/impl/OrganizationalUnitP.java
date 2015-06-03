@@ -122,7 +122,7 @@ public class OrganizationalUnitP
             throw new ValidationException( GlobalErrIds.CNTR_NAME_INVLD, error );
         }
         
-        if ( !StringUtils.isNotEmpty( entity.getName() ) )
+        if ( StringUtils.isEmpty( entity.getName() ) )
         {
             String error = "validate name validation failed, null or empty value";
             LOG.warn( error );

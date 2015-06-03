@@ -335,13 +335,13 @@ public final class AdminRoleP
                 throw new SecurityException( GlobalErrIds.ARLE_INVLD_RANGE, error );
             }
         }
-        else if ( !StringUtils.isNotEmpty( entity.getBeginRange() ) && StringUtils.isNotEmpty( entity.getEndRange() ) )
+        else if ( StringUtils.isEmpty( entity.getBeginRange() ) && StringUtils.isNotEmpty( entity.getEndRange() ) )
         {
             String error = "validate role name [" + entity.getName() + "] begin range value null or empty.";
             LOG.warn( error );
             throw new SecurityException( GlobalErrIds.ARLE_BEGIN_RANGE_NULL, error );
         }
-        else if ( StringUtils.isNotEmpty( entity.getBeginRange() ) && !StringUtils.isNotEmpty( entity.getEndRange() ) )
+        else if ( StringUtils.isNotEmpty( entity.getBeginRange() ) && StringUtils.isEmpty( entity.getEndRange() ) )
         {
             String error = "validate role name [" + entity.getName() + "] end range value null or empty.";
             LOG.warn( error );

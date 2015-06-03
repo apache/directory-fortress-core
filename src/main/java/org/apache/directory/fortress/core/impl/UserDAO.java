@@ -416,7 +416,7 @@ final class UserDAO extends ApacheDsDataProvider
             myEntry.add( SchemaConstants.UID_AT, entity.getUserId() );
 
             // CN is required on inetOrgPerson object class, if caller did not set, use the userId:
-            if ( !StringUtils.isNotEmpty( entity.getCn() ) )
+            if ( StringUtils.isEmpty( entity.getCn() ) )
             {
                 entity.setCn( entity.getUserId() );
             }
@@ -424,7 +424,7 @@ final class UserDAO extends ApacheDsDataProvider
             myEntry.add( SchemaConstants.CN_AT, entity.getCn() );
 
             // SN is required on inetOrgPerson object class, if caller did not set, use the userId:
-            if ( !StringUtils.isNotEmpty( entity.getSn() ) )
+            if ( StringUtils.isEmpty( entity.getSn() ) )
             {
                 entity.setSn( entity.getUserId() );
             }

@@ -66,7 +66,7 @@ public final class AuditMgrFactory
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
         AuditMgr auditMgr;
 
-        if (!StringUtils.isNotEmpty( auditClassName ))
+        if ( StringUtils.isEmpty( auditClassName ) )
         {
             if(GlobalIds.IS_REST)
             {

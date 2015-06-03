@@ -67,7 +67,7 @@ public final class DelAccessMgrFactory
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
         DelAccessMgr accessMgr;
 
-        if (!StringUtils.isNotEmpty( accessClassName ))
+        if ( StringUtils.isEmpty( accessClassName ) )
         {
             if(GlobalIds.IS_REST)
             {

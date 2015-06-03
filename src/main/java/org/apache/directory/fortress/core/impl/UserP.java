@@ -718,11 +718,11 @@ final class UserP
      */
     private void validate( UserRole uRole ) throws ValidationException
     {
-        if ( !StringUtils.isNotEmpty( uRole.getUserId() ) )
+        if ( StringUtils.isEmpty( uRole.getUserId() ) )
         {
             throw new ValidationException( GlobalErrIds.USER_ID_NULL, CLS_NM + ".validate userId is NULL" );
         }
-        if ( !StringUtils.isNotEmpty( uRole.getName() ) )
+        if ( StringUtils.isEmpty( uRole.getName() ) )
         {
             throw new ValidationException( GlobalErrIds.ROLE_NM_NULL, CLS_NM + ".validate name is NULL" );
         }
@@ -764,7 +764,7 @@ final class UserP
                 VUtil.password( entity.getPassword() );
             }
             // the OU attribute is required:
-            if ( !StringUtils.isNotEmpty( entity.getOu() ) )
+            if ( StringUtils.isEmpty( entity.getOu() ) )
             {
                 String error = "OU validation failed, null or empty value";
                 throw new ValidationException( GlobalErrIds.ORG_NULL_USER, error );

@@ -66,7 +66,7 @@ public final class PwPolicyMgrFactory
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
         PwPolicyMgr policyMgr;
 
-        if (!StringUtils.isNotEmpty( policyClassName ))
+        if ( StringUtils.isEmpty( policyClassName ) )
         {
             if(GlobalIds.IS_REST)
             {

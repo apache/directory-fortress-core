@@ -857,7 +857,7 @@ public class FortressAntTask extends Task implements InputHandler
             try
             {
                 String testClassName = Config.getProperty( getTaskName() );
-                if ( !StringUtils.isNotEmpty( testClassName ) )
+                if ( StringUtils.isEmpty( testClassName ) )
                 {
                     testClassName = "org.apache.directory.fortress.core.impl.FortressAntLoadTest";
                 }

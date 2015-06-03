@@ -120,7 +120,7 @@ public class SuffixP
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.SUFX_NAME_INVLD, error );
         }
-        if ( !StringUtils.isNotEmpty( entity.getName() ) )
+        if ( StringUtils.isEmpty( entity.getName() ) )
         {
             String error = "validate name validation failed, null or empty value";
             LOG.warn( error );
@@ -133,7 +133,7 @@ public class SuffixP
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.SUFX_DCTOP_INVLD, error );
         }
-        if ( !StringUtils.isNotEmpty( entity.getDc() ) )
+        if ( StringUtils.isEmpty( entity.getDc() ) )
         {
             String error = "validate dc validation failed, null or empty value";
             LOG.warn( error );

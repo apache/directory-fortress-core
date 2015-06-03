@@ -64,7 +64,7 @@ public final class AccelMgrFactory
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
         AccelMgr accelMgr;
-        if (!StringUtils.isNotEmpty( accelClassName ))
+        if ( StringUtils.isEmpty( accelClassName ) )
         {
             accelMgr = new AccelMgrImpl();
         }

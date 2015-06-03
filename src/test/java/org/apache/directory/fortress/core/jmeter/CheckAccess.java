@@ -161,7 +161,7 @@ public class CheckAccess extends AbstractJavaSamplerClient
     public void setupTest( JavaSamplerContext samplerContext )
     {
         ctr = 0;
-        if(!StringUtils.isNotEmpty( userId ))
+        if(StringUtils.isEmpty( userId ))
         {
             // Load userids are format:  loadtestuserN - where N is a number between 0 and 99.
             // i.e. loadtestuser0,  loadtestuser1,  ... loadtestuser99

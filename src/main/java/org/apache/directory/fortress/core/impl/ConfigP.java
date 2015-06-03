@@ -123,7 +123,7 @@ final class ConfigP
     void delete( String name )
         throws SecurityException
     {
-        if ( !StringUtils.isNotEmpty( name ) )
+        if ( StringUtils.isEmpty( name ) )
         {
             String error = "delete detected null config realm name";
             LOG.warn( error );
@@ -179,7 +179,7 @@ final class ConfigP
     private void validate( String name, Properties entity )
         throws ValidationException
     {
-        if ( !StringUtils.isNotEmpty( name ) )
+        if ( StringUtils.isEmpty( name ) )
         {
             String error = "validate detected null config realm name";
             LOG.warn( error );

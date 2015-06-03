@@ -66,7 +66,7 @@ public final class DelReviewMgrFactory
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
         DelReviewMgr delReviewMgr;
 
-        if (!StringUtils.isNotEmpty( dReviewClassName ))
+        if ( StringUtils.isEmpty( dReviewClassName ) )
         {
             if(GlobalIds.IS_REST)
             {

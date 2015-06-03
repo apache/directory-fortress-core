@@ -101,7 +101,7 @@ public final class VUtil
      */
     public static void orgUnit( String orgUnitId ) throws ValidationException
     {
-        if ( !StringUtils.isNotEmpty( orgUnitId ) )
+        if ( StringUtils.isEmpty( orgUnitId ) )
         {
             String error = "orgUnit is null";
             throw new ValidationException( GlobalErrIds.ORG_NULL, error );
@@ -163,7 +163,7 @@ public final class VUtil
      */
     public static void safeText( String value, int validLen ) throws ValidationException
     {
-        if ( !StringUtils.isNotEmpty( value ) )
+        if ( StringUtils.isEmpty( value ) )
         {
             String error = "safeText null value";
             throw new ValidationException( GlobalErrIds.CONST_NULL_TEXT, error );
@@ -189,7 +189,7 @@ public final class VUtil
      */
     public static void userId( String userId ) throws ValidationException
     {
-        if ( !StringUtils.isNotEmpty( userId ) )
+        if ( StringUtils.isEmpty( userId ) )
         {
             String error = "userId validation failed, null or empty value";
             throw new ValidationException( GlobalErrIds.USER_ID_NULL, error );
@@ -467,7 +467,7 @@ public final class VUtil
     public static void assertNotNullOrEmpty( String value, int errorCode, String method )
         throws ValidationException
     {
-        if ( !StringUtils.isNotEmpty( value ) )
+        if ( StringUtils.isEmpty( value ) )
         {
             String error = "assertContext detected null entity for method [" + method + "], error code ["
                 + errorCode + "]";

@@ -68,7 +68,7 @@ public final class AdminMgrFactory
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
         AdminMgr adminMgr;
 
-        if (!StringUtils.isNotEmpty( adminClassName ))
+        if ( StringUtils.isEmpty( adminClassName ) )
         {
             if(GlobalIds.IS_REST)
             {

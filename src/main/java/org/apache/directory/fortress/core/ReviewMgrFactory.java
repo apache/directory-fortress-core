@@ -66,7 +66,7 @@ public final class ReviewMgrFactory
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
         ReviewMgr reviewMgr;
 
-        if (!StringUtils.isNotEmpty( reviewClassName ))
+        if ( StringUtils.isEmpty( reviewClassName ) )
         {
             if(GlobalIds.IS_REST)
             {

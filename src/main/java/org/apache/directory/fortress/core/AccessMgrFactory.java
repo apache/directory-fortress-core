@@ -65,7 +65,7 @@ public final class AccessMgrFactory
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
 
         AccessMgr accessMgr;
-        if (!StringUtils.isNotEmpty( accessClassName ))
+        if ( StringUtils.isEmpty( accessClassName ) )
         {
             if(GlobalIds.IS_REST)
             {
