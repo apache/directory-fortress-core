@@ -323,7 +323,7 @@ final class UserP
         // Ensure this user isn't listed in Fortress config as a system user that can't be removed via API.
         // Is there a match between this userId and a Fortress system user?
         User checkUser = read( user, true );
-        if ( ObjUtil.isNotNullOrEmpty( checkUser.isSystem() ) && checkUser.isSystem() )
+        if ( checkUser.isSystem() != null && checkUser.isSystem() )
         {
             String warning = "softDelete userId [" + user.getUserId()
                 + "] can't be removed due to policy violation, rc=" + GlobalErrIds.USER_PLCY_VIOLATION;
@@ -348,7 +348,7 @@ final class UserP
         // Ensure this user isn't listed in Fortress config as a system user that can't be removed via API.
         // Is there a match between this userId and a Fortress system user?
         User checkUser = read( user, true );
-        if ( ObjUtil.isNotNullOrEmpty( checkUser.isSystem() ) && checkUser.isSystem() )
+        if ( checkUser.isSystem() != null && checkUser.isSystem() )
         {
             String warning = "delete userId [" + user.getUserId()
                 + "] can't be removed due to policy violation, rc=" + GlobalErrIds.USER_PLCY_VIOLATION;

@@ -36,7 +36,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.Address;
 import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.model.Constraint;
 
 

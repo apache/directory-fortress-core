@@ -483,7 +483,7 @@ final class UserDAO extends ApacheDsDataProvider
             loadAttrs( entity.getEmails(), myEntry, SchemaConstants.MAIL_AT );
 
             // The following attributes are optional:
-            if ( ObjUtil.isNotNullOrEmpty( entity.isSystem() ) )
+            if ( entity.isSystem() != null )
             {
                 myEntry.add( SYSTEM_USER, entity.isSystem().toString().toUpperCase() );
             }
@@ -601,7 +601,7 @@ final class UserDAO extends ApacheDsDataProvider
                     szDn ) );
             }
 
-            if ( ObjUtil.isNotNullOrEmpty( entity.isSystem() ) )
+            if ( entity.isSystem() != null )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SYSTEM_USER, entity
                     .isSystem().toString().toUpperCase() ) );

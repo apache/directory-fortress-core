@@ -34,7 +34,6 @@ import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.VUtil;
-import org.apache.directory.fortress.core.util.ObjUtil;
 
 
 /**
@@ -278,7 +277,7 @@ final class RoleP
         {
             VUtil.description( entity.getDescription() );
         }
-        if ( ObjUtil.isNotNullOrEmpty( entity.getTimeout() ) )
+        if ( entity.getTimeout() != null )
         {
             constraintValidator.timeout( entity.getTimeout() );
         }

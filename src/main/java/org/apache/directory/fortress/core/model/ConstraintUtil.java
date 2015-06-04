@@ -22,7 +22,6 @@ package org.apache.directory.fortress.core.model;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.util.VUtil;
 
 import java.util.StringTokenizer;
@@ -92,7 +91,7 @@ public class ConstraintUtil
     public static void validate( Constraint c1 )
         throws ValidationException
     {
-        if ( ObjUtil.isNotNullOrEmpty( c1.getTimeout() ) )
+        if ( c1.getTimeout() != null )
         {
             constraintValidator.timeout( c1.getTimeout() );
         }
@@ -285,11 +284,11 @@ public class ConstraintUtil
     public static void validateOrCopy( Constraint srcC, Constraint trgC )
         throws ValidationException
     {
-        if ( ObjUtil.isNotNullOrEmpty( trgC.getTimeout() ) )
+        if ( trgC.getTimeout() != null )
         {
             srcC.setTimeout( trgC.getTimeout() );
         }
-        else if ( ObjUtil.isNotNullOrEmpty( srcC.getTimeout() ) )
+        else if ( srcC.getTimeout() != null )
         {
             trgC.setTimeout( srcC.getTimeout() );
         }

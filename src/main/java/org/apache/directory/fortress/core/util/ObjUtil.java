@@ -20,7 +20,6 @@
 
 package org.apache.directory.fortress.core.util;
 
-import java.util.Collection;
 import java.util.Properties;
 
 /**
@@ -69,30 +68,6 @@ public final class ObjUtil
     public static boolean isNotNullOrEmpty( Properties props )
     {
         return ( props != null ) && ( props.size() > 0 );
-    }
-
-
-    /**
-     * Method will return true if input is not null or empty.
-     *
-     * @param iVal contains the reference to Integer variable.
-     * @return boolean if validation succeeds.
-     */
-    public static boolean isNotNullOrEmpty( Integer iVal )
-    {
-        return ( iVal != null );
-    }
-
-
-    /**
-     * Method will return true if input is not null or empty.
-     *
-     * @param bVal contains the reference to Boolean variable.
-     * @return boolean if validation succeeds.
-     */
-    public static boolean isNotNullOrEmpty( Boolean bVal )
-    {
-        return ( bVal != null );
     }
 
 
