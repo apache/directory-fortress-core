@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
 import org.apache.directory.api.ldap.model.name.Dn;
@@ -29,7 +30,6 @@ import org.apache.directory.fortress.core.model.Mod;
 import org.apache.directory.fortress.core.impl.TestUtils;
 import org.apache.directory.fortress.core.model.UserAudit;
 import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.util.AuditUtil;
 import org.apache.directory.fortress.core.util.time.TUtil;
 import org.slf4j.Logger;
@@ -502,7 +502,7 @@ class AuditMgrConsole
         // Here the sample reqDN=ftOpNm=TOP2_2+ftObjId=002,ftObjNm=TOB2_1,ou=Permissions,ou=RBAC,dc=example,dc=com
         // Will be mapped to objName=TOB2_1, opName=TOP2_2, objId=002, in the returned permission object.
         Dn dn = new Dn( authZ.getReqDN() );
-        if(dn != null && dn.getRdns() != null && ObjUtil.isNotNullOrEmpty( dn.getRdns() ) )
+        if(dn != null && dn.getRdns() != null && CollectionUtils.isNotEmpty( dn.getRdns() ) )
         {
             for( Rdn rdn : dn.getRdns() )
             {

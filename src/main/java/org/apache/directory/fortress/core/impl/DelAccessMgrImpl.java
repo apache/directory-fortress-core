@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.impl;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.DelAccessMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.util.Config;
@@ -30,7 +31,6 @@ import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.util.VUtil;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.util.ObjUtil;
 
 import java.util.List;
 import java.util.Set;
@@ -215,7 +215,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
         List<UserAdminRole> uRoles = ue.getAdminRoles();
         int indx;
         // Is the admin role activation target valid for this user?
-        if (!ObjUtil.isNotNullOrEmpty(uRoles) || ((indx = uRoles.indexOf(role)) == -1))
+        if (!CollectionUtils.isNotEmpty( uRoles ) || ((indx = uRoles.indexOf(role)) == -1))
         {
             String info = getFullMethodName(CLS_NM, methodName) + " Admin Role [" + role.getName() + "] User [" + session.getUserId() + "] adminRole not authorized for user.";
             throw new SecurityException(GlobalErrIds.ARLE_ACTIVATE_FAILED, info);
@@ -323,7 +323,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
     {
         boolean result = false;
         List<UserAdminRole> uaRoles = session.getAdminRoles();
-        if(ObjUtil.isNotNullOrEmpty(uaRoles))
+        if(CollectionUtils.isNotEmpty( uaRoles ))
         {
             // validate user and retrieve user' ou:
             User ue = userP.read(user, false);
@@ -335,7 +335,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
                     break;
                 }
                 Set<String> osUs = uaRole.getOsU();
-                if(ObjUtil.isNotNullOrEmpty(osUs))
+                if(CollectionUtils.isNotEmpty( osUs ))
                 {
                     // create Set with case insensitive comparator:
                     Set<String> osUsFinal = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
@@ -359,7 +359,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
                             {
                                 range.add(uaRole.getBeginRange());
                             }
-                            if(ObjUtil.isNotNullOrEmpty(range))
+                            if(CollectionUtils.isNotEmpty( range ))
                             {
                                 // Does admin role have authority over a role contained with the allowable role range?
                                 if(range.contains(role.getName()))
@@ -395,7 +395,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
     {
         boolean result = false;
         List<UserAdminRole> uaRoles = session.getAdminRoles();
-        if(ObjUtil.isNotNullOrEmpty(uaRoles))
+        if(CollectionUtils.isNotEmpty( uaRoles ))
         {
             // validate perm and retrieve perm's ou:
             PermObj inObj = new PermObj(perm.getObjName());
@@ -409,7 +409,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
                     break;
                 }
                 Set<String> osPs = uaRole.getOsP();
-                if(ObjUtil.isNotNullOrEmpty(osPs))
+                if(CollectionUtils.isNotEmpty( osPs ))
                 {
                     // create Set with case insensitive comparator:
                     Set<String> osPsFinal = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
@@ -432,7 +432,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
                             {
                                 range.add(uaRole.getBeginRange());
                             }
-                            if( ObjUtil.isNotNullOrEmpty( range ))
+                            if( CollectionUtils.isNotEmpty( range ))
                             {
                                 // Does admin role have authority over a role contained with the allowable role range?
                                 if(range.contains(role.getName()))

@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core.impl;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -207,7 +208,7 @@ final class RoleP
      */
     void addOccupant( List<UserRole> uRoles, String userDn, String contextId ) throws SecurityException
     {
-        if ( ObjUtil.isNotNullOrEmpty( uRoles ) )
+        if ( CollectionUtils.isNotEmpty( uRoles ) )
         {
             for ( UserRole uRole : uRoles )
             {

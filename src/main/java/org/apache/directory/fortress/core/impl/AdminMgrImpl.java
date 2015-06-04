@@ -23,6 +23,7 @@ package org.apache.directory.fortress.core.impl;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.Hier;
@@ -33,7 +34,6 @@ import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -1150,7 +1150,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         cRole2.setContextId( this.contextId );
         setAdminData( CLS_NM, methodName, cRole2 );
         // are there any parents left?
-        if ( !ObjUtil.isNotNullOrEmpty( cRole2.getParents() ) )
+        if ( !CollectionUtils.isNotEmpty( cRole2.getParents() ) )
         {
             // The updates only update non-empty multi-occurring attributes
             // so if last parent assigned, so must remove the attribute completely:

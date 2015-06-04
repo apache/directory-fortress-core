@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.Administrator;
@@ -462,7 +463,7 @@ final class UserP
             session = createSession( user );
         }
         // Did the caller pass in a set of roles for selective activation?
-        if ( ObjUtil.isNotNullOrEmpty( user.getRoles() ) )
+        if ( CollectionUtils.isNotEmpty( user.getRoles() ) )
         {
             // Process selective activation of user's RBAC roles into session:
             List<UserRole> rlsActual = session.getRoles();
@@ -837,7 +838,7 @@ final class UserP
         ConstraintUtil.validate( entity );
 
         // 3 Validate or copy constraints on RBAC roles:
-        if ( ObjUtil.isNotNullOrEmpty( entity.getRoles() ) )
+        if ( CollectionUtils.isNotEmpty( entity.getRoles() ) )
         {
             RoleP rp = new RoleP();
             List<UserRole> roles = entity.getRoles();
@@ -851,7 +852,7 @@ final class UserP
         }
 
         // 4 Validate and copy constraints on Administrative roles:
-        if ( ObjUtil.isNotNullOrEmpty( entity.getAdminRoles() ) )
+        if ( CollectionUtils.isNotEmpty( entity.getAdminRoles() ) )
         {
             List<UserAdminRole> uRoles = entity.getAdminRoles();
             for ( UserAdminRole uare : uRoles )

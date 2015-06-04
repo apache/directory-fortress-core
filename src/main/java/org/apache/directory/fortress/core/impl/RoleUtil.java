@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.locks.ReadWriteLock;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Hier;
@@ -32,7 +33,6 @@ import org.apache.directory.fortress.core.model.ParentUtil;
 import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -201,14 +201,14 @@ final class RoleUtil implements ParentUtil
     {
         // create Set with case insensitive comparator:
         Set<String> iRoles = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
-        if ( ObjUtil.isNotNullOrEmpty( uRoles ) )
+        if ( CollectionUtils.isNotEmpty( uRoles ) )
         {
             for ( UserRole uRole : uRoles )
             {
                 String rleName = uRole.getName();
                 iRoles.add( rleName );
                 Set<String> parents = HierUtil.getAscendants( rleName, getGraph( contextId ) );
-                if ( ObjUtil.isNotNullOrEmpty( parents ) )
+                if ( CollectionUtils.isNotEmpty( parents ) )
                 {
                     iRoles.addAll( parents );
                 }
@@ -228,13 +228,13 @@ final class RoleUtil implements ParentUtil
     {
         // create Set with case insensitive comparator:
         Set<String> iRoles = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
-        if ( ObjUtil.isNotNullOrEmpty( roles ) )
+        if ( CollectionUtils.isNotEmpty( roles ) )
         {
             for ( String role : roles )
             {
                 iRoles.add( role );
                 Set<String> parents = HierUtil.getAscendants( role, getGraph( contextId ) );
-                if ( ObjUtil.isNotNullOrEmpty( parents ) )
+                if ( CollectionUtils.isNotEmpty( parents ) )
                 {
                     iRoles.addAll( parents );
                 }
@@ -254,13 +254,13 @@ final class RoleUtil implements ParentUtil
     {
         // create Set with case insensitive comparator:
         Set<String> iRoles = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
-        if ( ObjUtil.isNotNullOrEmpty( roles ) )
+        if ( CollectionUtils.isNotEmpty( roles ) )
         {
             for ( String role : roles )
             {
                 iRoles.add( role );
                 Set<String> children = HierUtil.getDescendants( role, getGraph( contextId ) );
-                if ( ObjUtil.isNotNullOrEmpty( children ) )
+                if ( CollectionUtils.isNotEmpty( children ) )
                 {
                     iRoles.addAll( children );
                 }

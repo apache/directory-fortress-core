@@ -23,6 +23,7 @@ package org.apache.directory.fortress.core.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
@@ -48,7 +49,6 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 
 
@@ -226,7 +226,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
                     SchemaConstants.DESCRIPTION_AT, entity.getDescription() ) );
             }
 
-            if ( ObjUtil.isNotNullOrEmpty( entity.getOccupants() ) )
+            if ( CollectionUtils.isNotEmpty( entity.getOccupants() ) )
             {
                 for ( String name : entity.getOccupants() )
                 {

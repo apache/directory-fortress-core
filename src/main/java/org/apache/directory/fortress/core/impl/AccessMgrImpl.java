@@ -23,6 +23,7 @@ package org.apache.directory.fortress.core.impl;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.AccessMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
@@ -31,7 +32,6 @@ import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.VUtil;
-import org.apache.directory.fortress.core.util.ObjUtil;
 
 
 /**
@@ -307,7 +307,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
         uRoles = ue.getRoles();
         int indx;
         // Is the role activation target valid for this user?
-        if ( !ObjUtil.isNotNullOrEmpty( uRoles ) || ( ( indx = uRoles.indexOf( role ) ) == -1 ) )
+        if ( !CollectionUtils.isNotEmpty( uRoles ) || ( ( indx = uRoles.indexOf( role ) ) == -1 ) )
         {
             String info = getFullMethodName( CLS_NM, methodName ) + " Role [" + role.getName() + "] User ["
                 + session.getUserId() + "] role not authorized for user.";

@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.impl;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GroupMgr;
 import org.apache.directory.fortress.core.ReviewMgr;
@@ -26,7 +27,6 @@ import org.apache.directory.fortress.core.ReviewMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.util.ObjUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -234,7 +234,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
 
     private void loadUserDns( Group group ) throws SecurityException
     {
-        if( ObjUtil.isNotNullOrEmpty( group.getMembers() ))
+        if( CollectionUtils.isNotEmpty( group.getMembers() ))
         {
             ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
             List<String> userDns = new ArrayList<String>();

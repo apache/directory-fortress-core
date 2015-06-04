@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.tools.ant.BuildException;
@@ -940,14 +941,14 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void assignUser( User user ) throws SecurityException
     {
-        if ( ObjUtil.isNotNullOrEmpty( user.getRoles() ) )
+        if ( CollectionUtils.isNotEmpty( user.getRoles() ) )
         {
             for ( UserRole uRole : user.getRoles() )
             {
                 adminMgr.assignUser( uRole );
             }
         }
-        if ( ObjUtil.isNotNullOrEmpty( user.getAdminRoles() ) )
+        if ( CollectionUtils.isNotEmpty( user.getAdminRoles() ) )
         {
             for ( UserAdminRole uAdminRoleRole : user.getAdminRoles() )
             {
@@ -1065,7 +1066,7 @@ public class FortressAntTask extends Task implements InputHandler
             for ( Group group : groups )
             {
                 List<String> members = group.getMembers();
-                if ( ObjUtil.isNotNullOrEmpty( members ) )
+                if ( CollectionUtils.isNotEmpty( members ) )
                 {
                     for ( String member : members )
                     {
@@ -1106,7 +1107,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<Group> groups = delgroupmember.getGroups();
             for ( Group group : groups )
             {
-                if ( ObjUtil.isNotNullOrEmpty( group.getMembers() ) )
+                if ( CollectionUtils.isNotEmpty( group.getMembers() ) )
                 {
                     for ( String member : group.getMembers() )
                     {

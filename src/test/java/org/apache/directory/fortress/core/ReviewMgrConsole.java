@@ -20,7 +20,7 @@
 package org.apache.directory.fortress.core;
 
 
-import org.apache.directory.fortress.core.util.ObjUtil;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.impl.TestUtils;
@@ -479,7 +479,7 @@ class ReviewMgrConsole
         if ( address != null )
         {
             System.out.println( label );
-            if ( ObjUtil.isNotNullOrEmpty( address.getAddresses() ) )
+            if ( CollectionUtils.isNotEmpty( address.getAddresses() ) )
             {
                 for ( String addr : address.getAddresses() )
                 {

@@ -29,10 +29,10 @@ import java.util.TreeSet;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.Relationship;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -693,13 +693,13 @@ final class HierUtil
     static Hier loadHier( String contextId, List<Graphable> descendants )
     {
         Hier hier = new Hier();
-        if ( ObjUtil.isNotNullOrEmpty( descendants ) )
+        if ( CollectionUtils.isNotEmpty( descendants ) )
         {
             hier.setContextId( contextId );
             for ( Graphable descendant : descendants )
             {
                 Set<String> parents = descendant.getParents();
-                if ( ObjUtil.isNotNullOrEmpty( parents ) )
+                if ( CollectionUtils.isNotEmpty( parents ) )
                 {
                     for ( String parent : parents )
                     {

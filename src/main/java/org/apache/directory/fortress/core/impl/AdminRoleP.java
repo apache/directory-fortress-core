@@ -23,13 +23,13 @@ package org.apache.directory.fortress.core.impl;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.ConstraintValidator;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.UserAdminRole;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -221,7 +221,7 @@ public final class AdminRoleP
     void addOccupant( List<UserAdminRole> uRoles, String userDn, String contextId )
         throws SecurityException
     {
-        if ( ObjUtil.isNotNullOrEmpty( uRoles ) )
+        if ( CollectionUtils.isNotEmpty( uRoles ) )
         {
             for ( UserAdminRole uRole : uRoles )
             {
@@ -395,12 +395,12 @@ public final class AdminRoleP
             constraintValidator.endDate( entity.getEndLockDate() );
         }
 
-        if ( ObjUtil.isNotNullOrEmpty( entity.getOsU() ) )
+        if ( CollectionUtils.isNotEmpty( entity.getOsU() ) )
         {
             validateOrgs( entity.getOsU(), OrgUnit.Type.USER, entity.getContextId() );
         }
 
-        if ( ObjUtil.isNotNullOrEmpty( entity.getOsP() ) )
+        if ( CollectionUtils.isNotEmpty( entity.getOsP() ) )
         {
             validateOrgs( entity.getOsP(), OrgUnit.Type.PERM, entity.getContextId() );
         }

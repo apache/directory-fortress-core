@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.impl;
 
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
@@ -28,7 +29,6 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.openldap.accelerator.api.addRole.RbacAddRoleRequest;
 import org.openldap.accelerator.api.addRole.RbacAddRoleRequestImpl;
 import org.openldap.accelerator.api.addRole.RbacAddRoleResponse;
@@ -103,7 +103,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
             rbacCreateSessionRequest.setUserIdentity( user.getUserId() );
             rbacCreateSessionRequest.setPassword( new String( user.getPassword() ) );
 
-            if ( ObjUtil.isNotNullOrEmpty( user.getRoles() ) )
+            if ( CollectionUtils.isNotEmpty( user.getRoles() ) )
             {
                 for ( UserRole userRole : user.getRoles() )
                 {
@@ -371,7 +371,7 @@ final class AcceleratorDAO extends ApacheDsDataProvider
                 sessionRolesRequest );
             LOG.debug( "sessionRoles result: {}", sessionRolesResponse.getLdapResult().getResultCode().getResultCode() );
 
-            if ( ObjUtil.isNotNullOrEmpty( sessionRolesResponse.getRoles() ) )
+            if ( CollectionUtils.isNotEmpty( sessionRolesResponse.getRoles() ) )
             {
                 userRoleList = new ArrayList<UserRole>();
 

@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Properties;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
@@ -550,8 +551,8 @@ public final class VUtil implements ConstraintValidator
             return;
         }
         // no need to continue if the role list is empty and we're trying to check role constraints:
-        else if ( type == ConstraintType.ROLE && !ObjUtil.isNotNullOrEmpty( session.getRoles() )
-            && !ObjUtil.isNotNullOrEmpty( session.getAdminRoles() ) )
+        else if ( type == ConstraintType.ROLE && !CollectionUtils.isNotEmpty( session.getRoles() )
+            && !CollectionUtils.isNotEmpty( session.getAdminRoles() ) )
         {
             if ( LOG.isDebugEnabled() )
             {
@@ -576,7 +577,7 @@ public final class VUtil implements ConstraintValidator
             // Check the constraints for each activated role:
             else
             {
-                if ( ObjUtil.isNotNullOrEmpty( session.getRoles() ) )
+                if ( CollectionUtils.isNotEmpty( session.getRoles() ) )
                 {
                     // now check the constraint on every role activation candidate contained within session object:
                     ListIterator<UserRole> roleItems = session.getRoles().listIterator();
@@ -597,7 +598,7 @@ public final class VUtil implements ConstraintValidator
                         }
                     }
                 }
-                if ( ObjUtil.isNotNullOrEmpty( session.getAdminRoles() ) )
+                if ( CollectionUtils.isNotEmpty( session.getAdminRoles() ) )
                 {
                     // now check the constraint on every arbac role activation candidate contained within session object:
                     ListIterator roleItems = session.getAdminRoles().listIterator();
@@ -621,7 +622,7 @@ public final class VUtil implements ConstraintValidator
 
         // now perform DSD validation on session's impl roles:
         if ( checkDsd && DSDVALIDATOR != null && DSDVALIDATOR.length() > 0 && type == ConstraintType.ROLE
-            && ObjUtil.isNotNullOrEmpty( session.getRoles() ) )
+            && CollectionUtils.isNotEmpty( session.getRoles() ) )
         {
             Validator dsdVal = ( Validator ) ClassUtil.createInstance( DSDVALIDATOR );
             dsdVal.validate( session, session.getUser(), null );

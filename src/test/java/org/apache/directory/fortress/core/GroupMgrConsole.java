@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.Group;
 
@@ -250,7 +251,7 @@ class GroupMgrConsole
             System.out.println("    name        [" + outGroup.getName() + "]");
             System.out.println("    desc        [" + outGroup.getDescription() + "]");
             System.out.println("    protocol    [" + outGroup.getProtocol() + "]");
-            if ( ObjUtil.isNotNullOrEmpty( outGroup.getMembers() ) )
+            if ( CollectionUtils.isNotEmpty( outGroup.getMembers() ) )
             {
                 int ctr = 0;
                 for (String member : outGroup.getMembers() )
@@ -288,7 +289,7 @@ class GroupMgrConsole
             Group inGroup = new Group( ReaderUtil.readLn() );
 
             List<Group> outGroups = groupMgr.find( inGroup );
-            if(ObjUtil.isNotNullOrEmpty( outGroups ))
+            if(CollectionUtils.isNotEmpty( outGroups ))
             {
                 int grpctr = 0;
                 for( Group outGroup : outGroups )
@@ -297,7 +298,7 @@ class GroupMgrConsole
                     System.out.println("    name        [" + outGroup.getName() + "]");
                     System.out.println("    desc        [" + outGroup.getDescription() + "]");
                     System.out.println("    protocol    [" + outGroup.getProtocol() + "]");
-                    if ( ObjUtil.isNotNullOrEmpty( outGroup.getMembers() ) )
+                    if ( CollectionUtils.isNotEmpty( outGroup.getMembers() ) )
                     {
                         int memberctr = 0;
                         for (String member : outGroup.getMembers() )

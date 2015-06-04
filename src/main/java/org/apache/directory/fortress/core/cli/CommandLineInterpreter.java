@@ -31,6 +31,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
@@ -711,7 +712,7 @@ public class CommandLineInterpreter
                 LOG.info( command );
                 User user = options.getUser();
                 List<User> outUsers = reviewMgr.findUsers( user );
-                if ( ObjUtil.isNotNullOrEmpty( outUsers ) )
+                if ( CollectionUtils.isNotEmpty( outUsers ) )
                 {
                     int ctr = 0;
                     for ( User outUser : outUsers )
@@ -727,7 +728,7 @@ public class CommandLineInterpreter
                 LOG.info( command );
                 Role inRole = options.getRole();
                 List<User> outUsers = reviewMgr.assignedUsers( inRole );
-                if ( ObjUtil.isNotNullOrEmpty( outUsers ) )
+                if ( CollectionUtils.isNotEmpty( outUsers ) )
                 {
                     for ( User outUser : outUsers )
                     {
@@ -749,7 +750,7 @@ public class CommandLineInterpreter
                 LOG.info( command );
                 String inRoleNm = options.getName();
                 List<Role> outRoles = reviewMgr.findRoles( inRoleNm );
-                if ( ObjUtil.isNotNullOrEmpty( outRoles ) )
+                if ( CollectionUtils.isNotEmpty( outRoles ) )
                 {
                     int ctr = 0;
                     for ( Role outRole : outRoles )
@@ -789,7 +790,7 @@ public class CommandLineInterpreter
                 LOG.info( command );
                 PermObj inPermObj = options.getPermObj();
                 List<PermObj> outPermObjs = reviewMgr.findPermObjs( inPermObj );
-                if ( ObjUtil.isNotNullOrEmpty( outPermObjs ) )
+                if ( CollectionUtils.isNotEmpty( outPermObjs ) )
                 {
                     int ctr = 0;
                     for ( PermObj outPermObj : outPermObjs )
@@ -814,7 +815,7 @@ public class CommandLineInterpreter
                 LOG.info( command );
                 Permission inPerm = options.getPermission();
                 List<Permission> outPerms = reviewMgr.findPermissions( inPerm );
-                if ( ObjUtil.isNotNullOrEmpty( outPerms ) )
+                if ( CollectionUtils.isNotEmpty( outPerms ) )
                 {
                     int ctr = 0;
                     for ( Permission outPerm : outPerms )
@@ -950,7 +951,7 @@ public class CommandLineInterpreter
                 LOG.info( command );
                 Group inGroup = options.getGroup();
                 List<Group> groups = groupMgr.find( inGroup );
-                if ( ObjUtil.isNotNullOrEmpty( groups ) )
+                if ( CollectionUtils.isNotEmpty( groups ) )
                 {
                     for ( Group outGroup : groups )
                     {
@@ -963,7 +964,7 @@ public class CommandLineInterpreter
                 command = ASSIGN_GROUP;
                 LOG.info( command );
                 Group group = options.getGroup();
-                if ( ObjUtil.isNotNullOrEmpty( group.getMembers() ) )
+                if ( CollectionUtils.isNotEmpty( group.getMembers() ) )
                 {
                     for ( String member : group.getMembers() )
                     {
@@ -976,7 +977,7 @@ public class CommandLineInterpreter
                 command = DEASSIGN_GROUP;
                 LOG.info( command );
                 Group group = options.getGroup();
-                if ( ObjUtil.isNotNullOrEmpty( group.getMembers() ) )
+                if ( CollectionUtils.isNotEmpty( group.getMembers() ) )
                 {
                     for ( String member : group.getMembers() )
                     {
@@ -1140,14 +1141,14 @@ public class CommandLineInterpreter
         {
             printRow( type, "NAME", role.getName() );
             printRow( type, "IID ", role.getId() );
-            if ( ObjUtil.isNotNullOrEmpty( role.getParents() ) )
+            if ( CollectionUtils.isNotEmpty( role.getParents() ) )
             {
                 for ( String parentRole : role.getParents() )
                 {
                     printRow( type, "PRLE", parentRole );
                 }
             }
-            if ( ObjUtil.isNotNullOrEmpty( role.getChildren() ) )
+            if ( CollectionUtils.isNotEmpty( role.getChildren() ) )
             {
                 for ( String childRole : role.getChildren() )
                 {
@@ -1171,7 +1172,7 @@ public class CommandLineInterpreter
             printRow( type, "TYPE", perm.getType() );
         }
 
-        if ( ObjUtil.isNotNullOrEmpty( perm != null ? perm.getRoles() : null ) )
+        if ( CollectionUtils.isNotEmpty( perm != null ? perm.getRoles() : null ) )
         {
             for ( String roleName : perm.getRoles() )
             {
@@ -1181,7 +1182,7 @@ public class CommandLineInterpreter
 
         if ( perm != null )
         {
-            if ( ObjUtil.isNotNullOrEmpty( perm.getUsers() ) )
+            if ( CollectionUtils.isNotEmpty( perm.getUsers() ) )
             {
                 for ( String userId : perm.getUsers() )
                 {
@@ -1281,13 +1282,13 @@ public class CommandLineInterpreter
             printPhone( type, user.getPhones(), "PHNE" );
             printPhone( type, user.getPhones(), "MOBL" );
 
-            if ( ObjUtil.isNotNullOrEmpty( user.getRoles() ) )
+            if ( CollectionUtils.isNotEmpty( user.getRoles() ) )
             {
                 for ( UserRole ur : user.getRoles() )
                 {
                     printSeparator();
                     printTemporal( "R", ur, "RBACROLE" );
-                    if ( ObjUtil.isNotNullOrEmpty( ur.getParents() ) )
+                    if ( CollectionUtils.isNotEmpty( ur.getParents() ) )
                     {
                         for ( String parentRole : ur.getParents() )
                         {
@@ -1296,7 +1297,7 @@ public class CommandLineInterpreter
                     }
                 }
             }
-            if ( ObjUtil.isNotNullOrEmpty( user.getAdminRoles() ) )
+            if ( CollectionUtils.isNotEmpty( user.getAdminRoles() ) )
             {
                 for ( UserAdminRole ur : user.getAdminRoles() )
                 {
@@ -1332,7 +1333,7 @@ public class CommandLineInterpreter
             printRow( type, "NAME ", group.getName() );
             printRow( type, "DESC", group.getDescription() );
             printRow( type, "PROT", group.getProtocol() );
-            if ( ObjUtil.isNotNullOrEmpty( group.getMembers() ) )
+            if ( CollectionUtils.isNotEmpty( group.getMembers() ) )
             {
                 int memctr = 0;
                 for ( String member : group.getMembers() )
@@ -1382,7 +1383,7 @@ public class CommandLineInterpreter
         {
             printRow( type, "TYPE", label );
             System.out.println( label );
-            if ( ObjUtil.isNotNullOrEmpty( address.getAddresses() ) )
+            if ( CollectionUtils.isNotEmpty( address.getAddresses() ) )
             {
                 for ( String addr : address.getAddresses() )
                 {
@@ -1419,11 +1420,11 @@ public class CommandLineInterpreter
         {
             printRow( type, "BEGR", ur.getBeginRange() );
             printRow( type, "ENDR", ur.getEndRange() );
-            if ( ObjUtil.isNotNullOrEmpty( ur.getOsP() ) )
+            if ( CollectionUtils.isNotEmpty( ur.getOsP() ) )
             {
                 printRow( type, "POUS", "" + ur.getOsP() );
             }
-            if ( ObjUtil.isNotNullOrEmpty( ur.getOsU() ) )
+            if ( CollectionUtils.isNotEmpty( ur.getOsU() ) )
             {
                 printRow( type, "UOUS", "" + ur.getOsU() );
             }

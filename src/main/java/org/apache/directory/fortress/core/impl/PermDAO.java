@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
@@ -958,7 +959,7 @@ final class PermDAO extends ApacheDsDataProvider
         boolean result = false;
         Set<String> userIds = permission.getUsers();
 
-        if ( ObjUtil.isNotNullOrEmpty( userIds ) && userIds.contains( session.getUserId() ) )
+        if ( CollectionUtils.isNotEmpty( userIds ) && userIds.contains( session.getUserId() ) )
         {
             // user is assigned directly to this permission, no need to look further.
             return true;
@@ -966,7 +967,7 @@ final class PermDAO extends ApacheDsDataProvider
 
         Set<String> roles = permission.getRoles();
 
-        if ( ObjUtil.isNotNullOrEmpty( roles ) )
+        if ( CollectionUtils.isNotEmpty( roles ) )
         {
             if ( permission.isAdmin() )
             {
@@ -1275,7 +1276,7 @@ final class PermDAO extends ApacheDsDataProvider
                 roles = RoleUtil.getAscendants( role.getName(), role.getContextId() );
             }
 
-            if ( ObjUtil.isNotNullOrEmpty( roles ) )
+            if ( CollectionUtils.isNotEmpty( roles ) )
             {
                 filterbuf.append( "|(" );
                 filterbuf.append( ROLES );
@@ -1350,7 +1351,7 @@ final class PermDAO extends ApacheDsDataProvider
             filterbuf.append( ")(|" );
             Set<String> roles = RoleUtil.getInheritedRoles( user.getRoles(), user.getContextId() );
 
-            if ( ObjUtil.isNotNullOrEmpty( roles ) )
+            if ( CollectionUtils.isNotEmpty( roles ) )
             {
                 for ( String uRole : roles )
                 {
@@ -1483,7 +1484,7 @@ final class PermDAO extends ApacheDsDataProvider
             {
                 roles = RoleUtil.getInheritedRoles( session.getRoles(), session.getContextId() );
             }
-            if ( ObjUtil.isNotNullOrEmpty( roles ) )
+            if ( CollectionUtils.isNotEmpty( roles ) )
             {
                 for ( String uRole : roles )
                 {

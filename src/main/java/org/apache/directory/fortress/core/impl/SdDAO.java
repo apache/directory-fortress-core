@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
@@ -39,7 +40,6 @@ import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueEx
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.fortress.core.model.SDSet;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
@@ -451,7 +451,7 @@ final class SdDAO extends ApacheDsDataProvider
             // Include any parents target role may have:
             Set<String> roles = RoleUtil.getAscendants( role.getName(), role.getContextId() );
 
-            if ( ObjUtil.isNotNullOrEmpty( roles ) )
+            if ( CollectionUtils.isNotEmpty( roles ) )
             {
                 filterbuf.append( "|(" );
                 filterbuf.append( ROLES );
@@ -553,7 +553,7 @@ final class SdDAO extends ApacheDsDataProvider
 
         try
         {
-            if ( ObjUtil.isNotNullOrEmpty( roles ) )
+            if ( CollectionUtils.isNotEmpty( roles ) )
             {
                 StringBuilder filterbuf = new StringBuilder();
                 filterbuf.append( GlobalIds.FILTER_PREFIX );

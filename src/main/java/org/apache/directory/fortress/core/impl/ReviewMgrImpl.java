@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.impl;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.SecurityException;
@@ -30,7 +31,6 @@ import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.VUtil;
-import org.apache.directory.fortress.core.util.ObjUtil;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -500,7 +500,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         User ue = userP.read(user, true);
         List<UserRole> roles = ue.getRoles();
         Set<String> iRoles = null;
-        if (ObjUtil.isNotNullOrEmpty(roles))
+        if (CollectionUtils.isNotEmpty( roles ))
         {
             iRoles = RoleUtil.getInheritedRoles( roles, this.contextId );
         }
@@ -576,7 +576,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         checkAccess(CLS_NM, methodName);
         Permission pe = permP.read(perm);
         List<String> retVals;
-        if(pe != null && ObjUtil.isNotNullOrEmpty(pe.getRoles()))
+        if(pe != null && CollectionUtils.isNotEmpty( pe.getRoles() ))
         {
             retVals = new ArrayList<>(pe.getRoles());
         }
@@ -638,7 +638,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         checkAccess(CLS_NM, methodName);
         Permission pe = permP.read(perm);
         List<String> retVals;
-        if(pe != null && ObjUtil.isNotNullOrEmpty( pe.getUsers() ))
+        if(pe != null && CollectionUtils.isNotEmpty( pe.getUsers() ))
         {
             retVals = new ArrayList<>(pe.getUsers());
         }

@@ -61,18 +61,6 @@ public final class ObjUtil
 
 
     /**
-     * Method will return true if list is not null or empty.
-     *
-     * @param list contains the reference to list.
-     * @return boolean if validation succeeds.
-     */
-    public static boolean isNotNullOrEmpty( Collection<?> list )
-    {
-        return ( list != null ) && ( list.size() > 0 );
-    }
-
-
-    /**
      * Method will return true if props is not null or empty.
      *
      * @param props contains the reference to props.

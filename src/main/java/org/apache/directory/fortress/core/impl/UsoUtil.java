@@ -25,12 +25,12 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.locks.ReadWriteLock;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.Relationship;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -158,7 +158,7 @@ final class UsoUtil
         // create Set with case insensitive comparator:
         Set<String> iOUs = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
         
-        if ( ObjUtil.isNotNullOrEmpty( ous ) )
+        if ( CollectionUtils.isNotEmpty( ous ) )
         {
             for ( OrgUnit ou : ous )
             {
@@ -166,7 +166,7 @@ final class UsoUtil
                 iOUs.add( name );
                 Set<String> parents = HierUtil.getAscendants( name, getGraph( contextId ) );
                 
-                if ( ObjUtil.isNotNullOrEmpty( parents ) )
+                if ( CollectionUtils.isNotEmpty( parents ) )
                 {
                     iOUs.addAll( parents );
                 }

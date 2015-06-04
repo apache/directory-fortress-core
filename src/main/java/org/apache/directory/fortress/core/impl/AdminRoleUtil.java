@@ -25,13 +25,13 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.locks.ReadWriteLock;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.UserAdminRole;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -182,7 +182,7 @@ final class AdminRoleUtil
         // create Set with case insensitive comparator:
         Set<String> iRoles = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
 
-        if ( ObjUtil.isNotNullOrEmpty( uRoles ) )
+        if ( CollectionUtils.isNotEmpty( uRoles ) )
         {
             for ( UserAdminRole uRole : uRoles )
             {
@@ -190,7 +190,7 @@ final class AdminRoleUtil
                 iRoles.add( rleName );
                 Set<String> parents = HierUtil.getAscendants( rleName, getGraph( contextId ) );
 
-                if ( ObjUtil.isNotNullOrEmpty( parents ) )
+                if ( CollectionUtils.isNotEmpty( parents ) )
                 {
                     iRoles.addAll( parents );
                 }

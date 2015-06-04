@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.example.Example;
@@ -36,7 +37,6 @@ import org.apache.directory.fortress.core.impl.TestUtils;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.model.Constraint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -408,7 +408,7 @@ class AdminMgrConsole
             ue.setMobile("444-222-3333");
 */
             User ue2 = am.addUser(ue);
-            if( ObjUtil.isNotNullOrEmpty( ue.getRoles() ) )
+            if( CollectionUtils.isNotEmpty( ue.getRoles() ) )
             {
                 for(UserRole uRole : ue.getRoles())
                 {

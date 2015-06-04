@@ -23,6 +23,7 @@ package org.apache.directory.fortress.core.impl;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -36,7 +37,6 @@ import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.util.VUtil;
-import org.apache.directory.fortress.core.util.ObjUtil;
 
 
 /**
@@ -580,7 +580,7 @@ final class PermP
             VUtil.description( pOp.getDescription() );
         }
         // Validate Role Grants:
-        if ( ObjUtil.isNotNullOrEmpty( pOp.getRoles() ) )
+        if ( CollectionUtils.isNotEmpty( pOp.getRoles() ) )
         {
             Set<String> roles = pOp.getRoles();
             if ( pOp.isAdmin() )
@@ -605,7 +605,7 @@ final class PermP
             }
         }
         // Validate User Grants:
-        if ( ObjUtil.isNotNullOrEmpty( pOp.getUsers() ) )
+        if ( CollectionUtils.isNotEmpty( pOp.getUsers() ) )
         {
             Set<String> users = pOp.getUsers();
             UserP up = new UserP();

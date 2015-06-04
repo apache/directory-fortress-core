@@ -31,6 +31,7 @@ import java.util.TreeSet;
 
 import jodd.util.StringUtil;
 import junit.framework.TestCase;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.Address;
@@ -6369,7 +6370,7 @@ public class UserTestData extends TestCase
     {
         List<String> expected = getEmails( usr );
 
-        if ( ObjUtil.isNotNullOrEmpty( expected ) )
+        if ( CollectionUtils.isNotEmpty( expected ) )
         {
             assertNotNull( UserTestData.class.getName() + ".assertEmail null for user: " + getUserId( usr ), emails );
 
@@ -6719,7 +6720,7 @@ public class UserTestData extends TestCase
 
         getElements( props, szInput, PROPS_COL );
 
-        if ( ObjUtil.isNotNullOrEmpty( props ) )
+        if ( CollectionUtils.isNotEmpty( props ) )
         {
             properties = new Properties();
 

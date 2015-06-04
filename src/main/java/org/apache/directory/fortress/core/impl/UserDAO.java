@@ -25,6 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicy;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
@@ -1273,7 +1274,7 @@ final class UserDAO extends ApacheDsDataProvider
 
             Set<String> roles = RoleUtil.getDescendants( role.getName(), role.getContextId() );
 
-            if ( ObjUtil.isNotNullOrEmpty( roles ) )
+            if ( CollectionUtils.isNotEmpty( roles ) )
             {
                 filterbuf.append( "|(" );
                 filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
@@ -1404,7 +1405,7 @@ final class UserDAO extends ApacheDsDataProvider
             filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
             filterbuf.append( ")(|" );
 
-            if ( ObjUtil.isNotNullOrEmpty( roles ) )
+            if ( CollectionUtils.isNotEmpty( roles ) )
             {
                 for ( String roleVal : roles )
                 {
@@ -2281,7 +2282,7 @@ final class UserDAO extends ApacheDsDataProvider
     {
         if ( address != null )
         {
-            if ( ObjUtil.isNotNullOrEmpty( address.getAddresses() ) )
+            if ( CollectionUtils.isNotEmpty( address.getAddresses() ) )
             {
                 for ( String val : address.getAddresses() )
                 {
@@ -2342,7 +2343,7 @@ final class UserDAO extends ApacheDsDataProvider
     {
         if ( address != null )
         {
-            if ( ObjUtil.isNotNullOrEmpty( address.getAddresses() ) )
+            if ( CollectionUtils.isNotEmpty( address.getAddresses() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants
                     .POSTAL_ADDRESS_AT ) );
