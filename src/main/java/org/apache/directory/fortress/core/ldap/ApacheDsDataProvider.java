@@ -206,7 +206,7 @@ public abstract class ApacheDsDataProvider
                 );
 
             LdapApiService ldapApiService = new StandaloneLdapApiService();
-            if ( LdapApiServiceFactory.isInitialized() == false )
+            if ( !LdapApiServiceFactory.isInitialized() )
             {
                 LdapApiServiceFactory.initialize( ldapApiService );
             }
@@ -738,9 +738,8 @@ public abstract class ApacheDsDataProvider
         searchRequest.setFilter( filter );
         searchRequest.setTypesOnly( attrsOnly );
         searchRequest.addAttributes( attrs );
-        SearchCursor result = connection.search( searchRequest );
 
-        return result;
+        return connection.search( searchRequest );
     }
 
 
@@ -773,9 +772,7 @@ public abstract class ApacheDsDataProvider
         searchRequest.setTypesOnly( attrsOnly );
         searchRequest.addAttributes( attrs );
 
-        SearchCursor result = connection.search( searchRequest );
-
-        return result;
+        return connection.search( searchRequest );
     }
 
 
@@ -809,9 +806,7 @@ public abstract class ApacheDsDataProvider
         searchRequest.setTypesOnly( attrsOnly );
         searchRequest.addAttributes( attrs );
 
-        SearchCursor result = connection.search( searchRequest );
-
-        return result;
+        return connection.search( searchRequest );
     }
 
 
@@ -1069,9 +1064,7 @@ public abstract class ApacheDsDataProvider
      */
     protected Attribute createAttributes( String name, String values[] ) throws LdapException
     {
-        Attribute attr = new DefaultAttribute( name, values );
-
-        return attr;
+        return new DefaultAttribute( name, values );
     }
 
 
@@ -1271,8 +1264,6 @@ public abstract class ApacheDsDataProvider
     {
         if ( props != null && props.size() > 0 )
         {
-            Attribute prop;
-
             for ( Enumeration<?> e = props.propertyNames(); e.hasMoreElements(); )
             {
                 String key = ( String ) e.nextElement();

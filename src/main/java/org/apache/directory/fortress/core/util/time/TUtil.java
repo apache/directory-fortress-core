@@ -97,7 +97,7 @@ public final class TUtil
      */
     public static java.util.Date decodeGeneralizedTime(String inputString) throws ParseException
     {
-        java.util.Date aDate = null;
+        java.util.Date aDate;
         aDate = DateUtils.getDate( inputString );
         return aDate;
     }
@@ -112,7 +112,7 @@ public final class TUtil
      */
     public static String encodeGeneralizedTime(java.util.Date date)
     {
-        String szTime = null;
+        String szTime;
         szTime = DateUtils.getGeneralizedTime( date );
         return szTime;
     }

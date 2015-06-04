@@ -399,11 +399,7 @@ public class Group extends FortEntity implements Serializable
             return false;
         }
 
-        if ( !name.equals( group.name ) )
-        {
-            return false;
-        }
-        return true;
+        return name.equals( group.name );
     }
 
 

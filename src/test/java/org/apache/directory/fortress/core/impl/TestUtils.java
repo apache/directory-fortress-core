@@ -171,7 +171,7 @@ public class TestUtils extends TestCase
         {
             Field field = inClass.getField( fieldLabel );
             Annotation annotation = field.getAnnotation( MyAnnotation.class );
-            if ( annotation instanceof MyAnnotation )
+            if ( annotation != null )
             {
                 MyAnnotation myAnnotation = ( MyAnnotation ) annotation;
                 labelValue = myAnnotation.value();

@@ -460,7 +460,7 @@ class AuditMgrConsole
                     System.out.println("    Resource Name   " + pOp.getObjName());
                     System.out.println("    Operation       " + pOp.getOpName());
                     int rCtr = 0;
-                    if (pOp != null && pOp.getRoles() != null)
+                    if ( pOp.getRoles() != null )
                     {
                         // TODO: fix the NPE that happens here:
                         System.out.println("    Success?        " + authZ.getReqEntries().equals(GlobalIds.AUTHZ_COMPARE_FAILURE_FLAG));

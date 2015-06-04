@@ -433,18 +433,7 @@ public final class OrgUnitP
         if ( entity.getType() == null )
         {
             String error = "validate null or empty org unit type";
-            int errCode;
-
-            if ( entity.getType() == OrgUnit.Type.PERM )
-            {
-                errCode = GlobalErrIds.ORG_TYPE_NULL_PERM;
-            }
-            else
-            {
-                errCode = GlobalErrIds.ORG_TYPE_NULL_USER;
-            }
-
-            throw new SecurityException( errCode, error );
+            throw new SecurityException( GlobalErrIds.ORG_TYPE_NULL, error );
         }
     }
 

@@ -476,8 +476,7 @@ public final class GlobalIds
             String lenProp = Config.getProperty( LDAP_FILTER_SIZE_PROP );
             if ( LDAP_FILTER_SIZE_FOUND )
             {
-                Integer len = Integer.valueOf( lenProp );
-                ldapFilterSize = len;
+                ldapFilterSize = Integer.valueOf( lenProp );
             }
         }
         catch ( java.lang.NumberFormatException nfe )

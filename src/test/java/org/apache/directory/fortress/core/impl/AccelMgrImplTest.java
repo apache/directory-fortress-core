@@ -426,7 +426,6 @@ public class AccelMgrImplTest extends TestCase
                 Session session = accelMgr.createSession( user, false );
                 assertNotNull( session );
                 // remove all roles from the user's session:
-                int ctr = rArray.length;
                 for ( String[] rle : rArray )
                 {
                     // Drop Role:

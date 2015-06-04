@@ -869,7 +869,6 @@ final class PermDAO extends ApacheDsDataProvider
             isAuthZd = isAuthorized( session, outPerm );
 
             // This is done to leave an audit trail in ldap server log:
-            attributeValue = outPerm.getOpName();
             if ( isAuthZd )
             {
                 // Yes, set the operation name onto this attribute for storage into audit trail:

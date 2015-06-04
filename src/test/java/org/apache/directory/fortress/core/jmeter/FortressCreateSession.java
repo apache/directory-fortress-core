@@ -58,7 +58,6 @@ public class FortressCreateSession extends AbstractJavaSamplerClient
         try
         {
             sampleResult.sampleStart();
-            String fiKey = getKey( Thread.currentThread().getId() );
             String message = "FT CreateSession TID: " + getThreadId() + " #:" + ctr++;
             LOG.info( message );
             System.out.println( message );

@@ -965,7 +965,7 @@ final class UserDAO extends ApacheDsDataProvider
             session.setUserId( user.getUserId() );
             ld = getUserConnection();
             BindResponse bindResponse = bind( ld, userDn, user.getPassword() );
-            String info = null;
+            String info;
 
             if ( bindResponse.getLdapResult().getResultCode() != ResultCodeEnum.SUCCESS )
             {

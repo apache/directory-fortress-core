@@ -1216,7 +1216,7 @@ class AdminMgrConsole
             Field field = PolicyTestData.class.getField("POLICIES_TP1");
             Annotation annotation = field.getAnnotation(MyAnnotation.class);
 
-            if (annotation instanceof MyAnnotation)
+            if ( annotation != null )
             {
                 MyAnnotation myAnnotation = (MyAnnotation) annotation;
                 System.out.println("name: " + myAnnotation.name());
@@ -1273,7 +1273,7 @@ class AdminMgrConsole
             Field field = PolicyTestData.class.getField("POLICIES_TP1");
             Annotation annotation = field.getAnnotation(MyAnnotation.class);
             System.out.println("gettin er done...");
-            if (annotation instanceof MyAnnotation)
+            if ( annotation != null )
             {
                 MyAnnotation myAnnotation = (MyAnnotation) annotation;
                 //System.out.println("name: " + "dd");

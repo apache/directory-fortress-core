@@ -1337,7 +1337,7 @@ public class DelegatedMgrImplTest extends TestCase
                 int indx = roles.indexOf( AdminRoleTestData.getRole( rle ) );
                 if ( indx != -1 )
                 {
-                    AdminRole entity = (AdminRole)roles.get( indx );
+                    AdminRole entity = roles.get( indx );
                     assertNotNull( entity );
                     AdminRoleTestData.assertEquals( entity, rle );
                     LOG.debug( "searchAdminRoles [" + entity.getName() + "] successful" );
@@ -2023,8 +2023,7 @@ public class DelegatedMgrImplTest extends TestCase
 
     private static DelReviewMgr getDelegatedReviewMgr() throws SecurityException
     {
-        DelReviewMgr dReviewMgr = DelReviewMgrFactory.createInstance( TestUtils.getContext() );
-        return dReviewMgr;
+        return DelReviewMgrFactory.createInstance( TestUtils.getContext() );
     }
 
 

@@ -106,7 +106,7 @@ public class CheckAccess extends AbstractJavaSamplerClient
             Permission perm = new Permission();
             perm.setObjName( objName );
             perm.setOpName( opName );
-            boolean result = false;
+            boolean result;
             if(isFortress)
             {
                 assertNotNull( accessMgr );

@@ -122,7 +122,7 @@ public final class VUtil implements ConstraintValidator
      *
      * @return reference to newly constructed self.
      */
-    public static final ConstraintValidator getConstraintValidator()
+    public static ConstraintValidator getConstraintValidator()
     {
         return new VUtil();
     }
