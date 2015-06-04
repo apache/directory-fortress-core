@@ -22,19 +22,26 @@
       <title>Package Documentation for org.apache.directory.fortress.core.impl</title>
    </head>
    <body>
+   <p>
+       This package contains the fortress implementation classes for data persistence with the LDAP server.
+       This package contain the classes that are the three layers of processing of fortress:
+       (1) Manager layer - e.g. AdminMgrImpl, AccessMgrImpl, ReviewMgrImpl
+       (2) Process layer - e.g. UserP, RoleP, PermP
+       (3) DAO layer - e.g. UserDAO, RoleDAO, PermDAO
+   </p>
       <p>
       <ol>
-      <li>This package provides data entities and apis that adhere to standards like <a href="http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf">RBAC</a></li>
-      <li>This package provides data entities and APIs that adhere to <a href="http://profsandhu.com/journals/tissec/p113-oh.pdf">ARBAC02</a> model to provide delegated administration capabilities.</li>
-      <li>This package provides data entities and APIs to interrogate <a href="http://openldap.org/">OpenLDAP</a>'s slapd access log to obtain fortress audit trail and historical events.</li>
-      <li>This package provides CRUD APIs for storing config data on the ldap server.</li>
-      <li>This package contains APIs to perform create and teardown the ldap group node.</li>
+      <li>This package provides apis that adhere to standards like <a href="http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf">RBAC</a></li>
+      <li>This package provides apis that adhere to <a href="http://profsandhu.com/journals/tissec/p113-oh.pdf">ARBAC02</a> model to provide delegated administration capabilities.</li>
+      <li>This package provides apis to interrogate <a href="http://openldap.org/">OpenLDAP</a>'s slapd access log to obtain fortress audit trail and historical events.</li>
+      <li>This package provides CRUD apis for storing config data on the ldap server.</li>
+      <li>This package contains apis to perform create and teardown the ldap group node.</li>
       <li>This package uses <a href="http://www.jgrapht.org/">JGraphT</a> to provide hierarchical functionality that is reused within several other packages in the fortress system.</li>
       </ol>
       </p>
       <p>
          The <b>org.apache.directory.fortress.core.impl</b> package data entities may be manipulated by outside
-          programs but the apis contained within this package are for fortress use only.
+          programs but the apis contained within this package are for internal use only.
           The entities include {@link org.apache.directory.fortress.core.model.User User},{@link org.apache.directory.fortress.core.model.Role Role}, {@link org.apache.directory.fortress.core.model.PermObj PermObj}, {@link org.apache.directory.fortress.core.model.Permission Permission}, and more.
           See the corresponding javadoc contained with this package for more info.
       </p>
@@ -48,8 +55,8 @@
        <li><a href="DelegatedReviewMgrImpl.html">DelegatedReviewMgrImpl</a> - This implements using LDAP the <a href="http://profsandhu.com/journals/tissec/p113-oh.pdf">ARBAC02</a> DelegatedReviewMgr interface for performing policy interrogation of provisioned Fortress ARBAC02 entities that reside in LDAP directory.</li>
        <li><a href="PwPolicyMgrImpl.html">PwPolicyMgrImpl</a> - Performs CRUD on OpenLDAP password policies stored in directory.</li>
        <li><a href="AuditMgrImpl.html">AuditMgrImpl</a> - Interrogates Fortress audit data stored in OpenLDAP.</li>
-       <li><a href="ConfigMgrImpl.html">ConfigMgrImpl</a> - CRUD for Fortress config objects.</li>
-       <li><a href="GroupMgrImpl.html">GroupMgrImpl</a> - CRUD for LDAP group objects..</li>
+       <li><a href="ConfigMgrImpl.html">ConfigMgrImpl</a> - CRUD for Fortress config parameters.</li>
+       <li><a href="GroupMgrImpl.html">GroupMgrImpl</a> - CRUD for LDAP group objects.</li>
        </ol>
    </body>
 </html>
