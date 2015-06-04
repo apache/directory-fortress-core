@@ -469,17 +469,17 @@ public final class CUtil
                     throw new ValidationException( rc, info );
                 }
             }
-            // Check the constraints for each role assignment:
+            // Check the constraints for each activated role:
             else
             {
                 if ( ObjUtil.isNotNullOrEmpty( session.getRoles() ) )
                 {
-                    // now check the constraint on every impl role activation candidate contained within session object:
+                    // now check the constraint on every role activation candidate contained within session object:
                     ListIterator<UserRole> roleItems = session.getRoles().listIterator();
 
                     while ( roleItems.hasNext() )
                     {
-                        Constraint constraint = ( Constraint ) roleItems.next();
+                        Constraint constraint = roleItems.next();
                         rc = val.validate( session, constraint, currTime );
 
                         if ( rc > 0 )

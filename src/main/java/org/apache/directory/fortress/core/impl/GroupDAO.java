@@ -251,13 +251,7 @@ final class GroupDAO extends ApacheDsDataProvider
         try
         {
             ld = getAdminConnection();
-            deleteRecursive( ld, nodeDn );
-        }
-        catch ( CursorException e )
-        {
-            String error = "remove group node dn [" + nodeDn + "] caught CursorException="
-                + e.getMessage();
-            throw new RemoveException( GlobalErrIds.GROUP_DELETE_FAILED, error, e );
+            delete( ld, nodeDn, group );
         }
         catch ( LdapException e )
         {
