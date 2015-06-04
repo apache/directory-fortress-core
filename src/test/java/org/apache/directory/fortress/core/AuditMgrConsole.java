@@ -502,7 +502,7 @@ class AuditMgrConsole
         // Here the sample reqDN=ftOpNm=TOP2_2+ftObjId=002,ftObjNm=TOB2_1,ou=Permissions,ou=RBAC,dc=example,dc=com
         // Will be mapped to objName=TOB2_1, opName=TOP2_2, objId=002, in the returned permission object.
         Dn dn = new Dn( authZ.getReqDN() );
-        if(dn != null && dn.getRdns() != null && CollectionUtils.isNotEmpty( dn.getRdns() ) )
+        if( dn.getRdns() != null && CollectionUtils.isNotEmpty( dn.getRdns() ) )
         {
             for( Rdn rdn : dn.getRdns() )
             {

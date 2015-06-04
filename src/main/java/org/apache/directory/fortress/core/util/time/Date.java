@@ -88,7 +88,7 @@ public class Date
                 rc = 0;
             }
         }
-        else if(!noEnd)
+        else
         {
             if (constraint.getBeginDate().compareTo(time.date) <= 0
                 && constraint.getEndDate().compareTo(time.date) >= 0)

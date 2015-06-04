@@ -202,7 +202,7 @@ public class TestUtils extends TestCase
 
             Annotation annotation = field.getAnnotation( MyAnnotation.class );
             //Annotation[] annotations = field.getDeclaredAnnotations();
-            if ( annotation instanceof MyAnnotation )
+            if ( annotation != null )
             {
                 MyAnnotation myAnnotation = ( MyAnnotation ) annotation;
 
