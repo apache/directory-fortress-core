@@ -32,6 +32,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.Constraint;
+import org.apache.directory.fortress.core.model.ConstraintValidator;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.UserRole;
@@ -46,29 +47,29 @@ import org.slf4j.LoggerFactory;
  * This class contains simple data validation utilities.  The data validations include null, length
  * and simple reasonability checking.  All utilities will throw {@link ValidationException} for failures.
  */
-public final class VUtil
+public final class VUtil implements ConstraintValidator
 {
+    /**
+     * enum specifies what type of constraint is being targeted - User or Rold.
+     */
+    public static enum ConstraintType
+    {
+        /**
+         * Specifies {@link org.apache.directory.fortress.core.model.User}
+         */
+        USER,
+        /**
+         * Specifies {@link org.apache.directory.fortress.core.model.Role}
+         */
+        ROLE
+    }
+
     private static final String CLS_NM = VUtil.class.getName();
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static int maximumFieldLen = 130;
     private static final String VALIDATE_LENGTH = "field.length";
-
-    static
-    {
-        String lengthProp = Config.getProperty( VALIDATE_LENGTH );
-        try
-        {
-            if ( lengthProp != null )
-            {
-                Integer len = Integer.valueOf( lengthProp );
-                maximumFieldLen = len;
-            }
-        }
-        catch ( java.lang.NumberFormatException nfe )
-        {
-            //ignore
-        }
-    }
+    private static List<Validator> validators;
+    private static final String DSDVALIDATOR = Config.getProperty( GlobalIds.DSD_VALIDATOR_PROP );
 
     private static final int MAXIMUM_FIELD_LEN = maximumFieldLen;
     private static final int maxFieldLength = MAXIMUM_FIELD_LEN;
@@ -82,25 +83,45 @@ public final class VUtil
     private static final SimpleDateFormat TIME_FORMATER = new SimpleDateFormat( TIME_FORMAT );
     private static final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat( DATE_FORMAT );
 
+    /**
+     * static initializer retrieves Validators names from config and constructs for later processing.
+     */
     static
     {
+        try
+        {
+            validators = getValidators();
+        }
+        catch ( org.apache.directory.fortress.core.SecurityException ex )
+        {
+            LOG.error( "static initialzier caught SecurityException=" + ex.getMessage(), ex );
+        }
+
         String lengthProp = Config.getProperty( VALIDATE_LENGTH );
 
         if ( lengthProp != null )
         {
             maximumFieldLen = Integer.parseInt( lengthProp );
         }
-
         TIME_FORMATER.setLenient( false );
         DATE_FORMATER.setLenient( false );
     }
 
     /**
      * Private constructor
-     *
      */
     private VUtil()
     {
+    }
+
+    /**
+     * This class is an implementation of ConstraintValidator.
+     *
+     * @return reference to newly constructed self.
+     */
+    public static final ConstraintValidator getConstraintValidator()
+    {
+        return new VUtil();
     }
 
     /**
@@ -243,7 +264,7 @@ public final class VUtil
      * @throws org.apache.directory.fortress.core.ValidationException
      *          in the event value falls out of range.
      */
-    public static void timeout( Integer timeout ) throws ValidationException
+    public void timeout( Integer timeout ) throws ValidationException
     {
         if ( ( timeout < 0 ) || ( timeout >= Integer.MAX_VALUE ) )
         {
@@ -260,7 +281,7 @@ public final class VUtil
      * @throws org.apache.directory.fortress.core.ValidationException
      *          in the event value falls out of range.
      */
-    public static void beginTime( String beginTime ) throws ValidationException
+    public void beginTime( String beginTime ) throws ValidationException
     {
         if ( ( beginTime != null ) && ( beginTime.length() == TIME_LEN ) )
         {
@@ -283,7 +304,7 @@ public final class VUtil
      * @param endTime if set, must be equal to {@link #TIME_LEN}.
      * @throws ValidationException in the event value falls out of range.
      */
-    public static void endTime( String endTime ) throws ValidationException
+    public void endTime( String endTime ) throws ValidationException
     {
         if ( ( endTime != null ) && ( endTime.length() == TIME_LEN ) )
         {
@@ -306,7 +327,7 @@ public final class VUtil
      * @param beginDate if set, must be equal to {@link #DATE_LEN}.
      * @throws ValidationException in the event value falls out of range.
      */
-    public static void beginDate( String beginDate )
+    public void beginDate( String beginDate )
         throws ValidationException
     {
         if ( StringUtils.isNotEmpty( beginDate ) )
@@ -331,7 +352,7 @@ public final class VUtil
      * @param endDate if set, must be equal to {@link #DATE_LEN}.
      * @throws ValidationException in the event value falls out of range.
      */
-    public static void endDate( String endDate ) throws ValidationException
+    public void endDate( String endDate ) throws ValidationException
     {
         if ( StringUtils.isNotEmpty( endDate ) )
         {
@@ -357,7 +378,7 @@ public final class VUtil
      * @param dayMask if set, will be validated.
      * @throws ValidationException in the event value falls out of range.
      */
-    public static void dayMask( String dayMask ) throws ValidationException
+    public void dayMask( String dayMask ) throws ValidationException
     {
         if ( StringUtils.isNotEmpty( dayMask ) )
         {
@@ -502,146 +523,6 @@ public final class VUtil
             String error = "assertContext detected null entity for method [" + method + "], error code ["
                 + errorCode + "]";
             throw new ValidationException( errorCode, error );
-        }
-    }
-
-
-/*
-    */
-/**
-     * Method will return true if string array reference is not null or empty.
-     *
-     * @param value contains the reference to string array.
-     * @return boolean if validation succeeds.
-     *//*
-
-    public static boolean isNotNullOrEmpty( String[] value )
-    {
-        return ( value != null ) && ( value.length > 0 );
-    }
-
-
-    */
-/**
-     * Method will return true if string reference is not null or empty.
-     *
-     * @param value contains the reference to string.
-     * @return boolean if validation succeeds.
-     *//*
-
-    public static boolean isNotNullOrEmpty( char[] value )
-    {
-        return ( value != null ) && ( value.length > 0 );
-    }
-
-
-    */
-/**
-     * Method will return true if list is not null or empty.
-     *
-     * @param list contains the reference to list.
-     * @return boolean if validation succeeds.
-     *//*
-
-    public static boolean isNotNullOrEmpty( Collection<?> list )
-    {
-        return ( list != null ) && ( list.size() > 0 );
-    }
-
-
-    */
-/**
-     * Method will return true if props is not null or empty.
-     *
-     * @param props contains the reference to props.
-     * @return boolean if validation succeeds.
-     *//*
-
-    public static boolean isNotNullOrEmpty( Properties props )
-    {
-        return ( props != null ) && ( props.size() > 0 );
-    }
-
-
-    */
-/**
-     * Method will return true if input is not null or empty.
-     *
-     * @param iVal contains the reference to Integer variable.
-     * @return boolean if validation succeeds.
-     *//*
-
-    public static boolean isNotNullOrEmpty( Integer iVal )
-    {
-        return ( iVal != null );
-    }
-
-
-    */
-/**
-     * Method will return true if input is not null or empty.
-     *
-     * @param bVal contains the reference to Boolean variable.
-     * @return boolean if validation succeeds.
-     *//*
-
-    public static boolean isNotNullOrEmpty( Boolean bVal )
-    {
-        return ( bVal != null );
-    }
-
-
-    */
-/**
-     * Method will return true if byte array reference is not null or empty.
-     *
-     * @param value contains the reference to byte array.
-     * @return boolean if validation succeeds.
-     *//*
-
-    public static boolean isNotNullOrEmpty( byte[] value )
-    {
-        boolean result = false;
-        if ( value != null && value.length > 0 )
-        {
-            result = true;
-        }
-        return result;
-    }
-*/
-
-
-private static List<Validator> validators;
-private static final String DSDVALIDATOR = Config.getProperty( GlobalIds.DSD_VALIDATOR_PROP );
-
-
-    /**
-     * enum specifies what type of constraint is being targeted - User or Rold.
-     */
-    public static enum ConstraintType
-    {
-        /**
-         * Specifies {@link org.apache.directory.fortress.core.model.User}
-         */
-        USER,
-        /**
-         * Specifies {@link org.apache.directory.fortress.core.model.Role}
-         */
-        ROLE
-    }
-
-    /**
-     * static initializer retrieves Validators names from config and constructs for later processing.
-     */
-    static
-    {
-        try
-        {
-            validators = getValidators();
-        }
-        catch ( org.apache.directory.fortress.core.SecurityException ex )
-        {
-            LOG.error( "static initialzier caught SecurityException=" + ex.getMessage(), ex );
         }
     }
 

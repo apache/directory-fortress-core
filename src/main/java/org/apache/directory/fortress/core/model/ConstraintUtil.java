@@ -34,6 +34,9 @@ import java.util.StringTokenizer;
  */
 public class ConstraintUtil
 {
+
+    private static final ConstraintValidator constraintValidator = VUtil.getConstraintValidator();
+
     /**
      * Copy source constraint to target. Both must be created before calling this utility.
      *
@@ -91,35 +94,35 @@ public class ConstraintUtil
     {
         if ( ObjUtil.isNotNullOrEmpty( c1.getTimeout() ) )
         {
-            VUtil.timeout( c1.getTimeout() );
+            constraintValidator.timeout( c1.getTimeout() );
         }
         if ( StringUtils.isNotEmpty( c1.getBeginTime() ) )
         {
-            VUtil.beginTime( c1.getBeginTime() );
+            constraintValidator.beginTime( c1.getBeginTime() );
         }
         if ( StringUtils.isNotEmpty( c1.getEndTime() ) )
         {
-            VUtil.endTime( c1.getEndTime() );
+            constraintValidator.endTime( c1.getEndTime() );
         }
         if ( StringUtils.isNotEmpty( c1.getBeginDate() ) )
         {
-            VUtil.beginDate( c1.getBeginDate() );
+            constraintValidator.beginDate( c1.getBeginDate() );
         }
         if ( StringUtils.isNotEmpty( c1.getEndDate() ) )
         {
-            VUtil.endDate( c1.getEndDate() );
+            constraintValidator.endDate( c1.getEndDate() );
         }
         if ( StringUtils.isNotEmpty( c1.getDayMask() ) )
         {
-            VUtil.dayMask( c1.getDayMask() );
+            constraintValidator.dayMask( c1.getDayMask() );
         }
         if ( StringUtils.isNotEmpty( c1.getBeginLockDate() ) )
         {
-            VUtil.beginDate( c1.getBeginLockDate() );
+            constraintValidator.beginDate( c1.getBeginLockDate() );
         }
         if ( StringUtils.isNotEmpty( c1.getEndLockDate() ) )
         {
-            VUtil.endDate( c1.getEndLockDate() );
+            constraintValidator.endDate( c1.getEndLockDate() );
         }
     }
     /**
@@ -282,7 +285,6 @@ public class ConstraintUtil
     public static void validateOrCopy( Constraint srcC, Constraint trgC )
         throws ValidationException
     {
-        //VUtil.timeout(trgC.getTimeout());
         if ( ObjUtil.isNotNullOrEmpty( trgC.getTimeout() ) )
         {
             srcC.setTimeout( trgC.getTimeout() );
@@ -293,7 +295,7 @@ public class ConstraintUtil
         }
         if ( StringUtils.isNotEmpty( trgC.getBeginTime() ) )
         {
-            VUtil.beginTime( trgC.getBeginTime() );
+            constraintValidator.beginTime( trgC.getBeginTime() );
         }
         else if ( StringUtils.isNotEmpty( srcC.getBeginTime() ) )
         {
@@ -301,7 +303,7 @@ public class ConstraintUtil
         }
         if ( StringUtils.isNotEmpty( trgC.getEndTime() ) )
         {
-            VUtil.endTime( trgC.getEndTime() );
+            constraintValidator.endTime( trgC.getEndTime() );
         }
         else if ( StringUtils.isNotEmpty( srcC.getEndTime() ) )
         {
@@ -309,7 +311,7 @@ public class ConstraintUtil
         }
         if ( StringUtils.isNotEmpty( trgC.getBeginDate() ) )
         {
-            VUtil.beginDate( trgC.getBeginDate() );
+            constraintValidator.beginDate( trgC.getBeginDate() );
         }
         else if ( StringUtils.isNotEmpty( srcC.getBeginDate() ) )
         {
@@ -317,7 +319,7 @@ public class ConstraintUtil
         }
         if ( StringUtils.isNotEmpty( trgC.getEndDate() ) )
         {
-            VUtil.endDate( trgC.getEndDate() );
+            constraintValidator.endDate( trgC.getEndDate() );
         }
         else if ( StringUtils.isNotEmpty( srcC.getEndDate() ) )
         {
@@ -325,7 +327,7 @@ public class ConstraintUtil
         }
         if ( StringUtils.isNotEmpty( trgC.getDayMask() ) )
         {
-            VUtil.dayMask( trgC.getDayMask() );
+            constraintValidator.dayMask( trgC.getDayMask() );
         }
         else if ( StringUtils.isNotEmpty( srcC.getDayMask() ) )
         {
@@ -333,7 +335,7 @@ public class ConstraintUtil
         }
         if ( StringUtils.isNotEmpty( trgC.getBeginLockDate() ) )
         {
-            VUtil.beginDate( trgC.getBeginLockDate() );
+            constraintValidator.beginDate( trgC.getBeginLockDate() );
         }
         else if ( StringUtils.isNotEmpty( srcC.getBeginLockDate() ) )
         {
@@ -341,7 +343,7 @@ public class ConstraintUtil
         }
         if ( StringUtils.isNotEmpty( trgC.getEndLockDate() ) )
         {
-            VUtil.endDate( trgC.getEndLockDate() );
+            constraintValidator.endDate( trgC.getEndLockDate() );
         }
         else if ( StringUtils.isNotEmpty( srcC.getEndLockDate() ) )
         {

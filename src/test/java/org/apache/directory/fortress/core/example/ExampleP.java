@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.example;
 
+import org.apache.directory.fortress.core.model.ConstraintValidator;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
@@ -31,6 +32,7 @@ public class ExampleP
 {
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( ExampleP.class.getName() );
     final ExampleDAO el = new ExampleDAO();
+    private static final ConstraintValidator constraintValidator = VUtil.getConstraintValidator();
 
     public Example read(String name)
         throws SecurityException
@@ -114,35 +116,35 @@ public class ExampleP
         }
         if (ee.getTimeout() >= 0)
         {
-            VUtil.timeout(ee.getTimeout());
+            constraintValidator.timeout(ee.getTimeout());
         }
         if (ee.getBeginTime() != null && ee.getBeginTime().length() > 0)
         {
-            VUtil.beginTime(ee.getBeginTime());
+            constraintValidator.beginTime(ee.getBeginTime());
         }
         if (ee.getEndTime() != null && ee.getEndTime().length() > 0)
         {
-            VUtil.endTime(ee.getEndTime());
+            constraintValidator.endTime(ee.getEndTime());
         }
         if (ee.getBeginDate() != null && ee.getBeginDate().length() > 0)
         {
-            VUtil.beginDate(ee.getBeginDate());
+            constraintValidator.beginDate(ee.getBeginDate());
         }
         if (ee.getEndDate() != null && ee.getEndDate().length() > 0)
         {
-            VUtil.endDate(ee.getEndDate());
+            constraintValidator.endDate(ee.getEndDate());
         }
         if (ee.getDayMask() != null && ee.getDayMask().length() > 0)
         {
-            VUtil.dayMask(ee.getDayMask());
+            constraintValidator.dayMask(ee.getDayMask());
         }
         if (ee.getBeginLockDate() != null && ee.getBeginLockDate().length() > 0)
         {
-            VUtil.beginDate(ee.getBeginLockDate());
+            constraintValidator.beginDate(ee.getBeginLockDate());
         }
         if (ee.getEndLockDate() != null && ee.getEndLockDate().length() > 0)
         {
-            VUtil.endDate(ee.getEndLockDate());
+            constraintValidator.endDate(ee.getEndLockDate());
         }
     }
 }

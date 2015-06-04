@@ -28,6 +28,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
+import org.apache.directory.fortress.core.model.ConstraintValidator;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.UserRole;
@@ -56,6 +57,7 @@ import org.apache.directory.fortress.core.util.ObjUtil;
 final class RoleP
 {
     private static RoleDAO rDao = new RoleDAO();
+    private static final ConstraintValidator constraintValidator = VUtil.getConstraintValidator();
 
 
     /**
@@ -277,35 +279,35 @@ final class RoleP
         }
         if ( ObjUtil.isNotNullOrEmpty( entity.getTimeout() ) )
         {
-            VUtil.timeout( entity.getTimeout() );
+            constraintValidator.timeout( entity.getTimeout() );
         }
         if ( StringUtils.isNotEmpty( entity.getBeginTime() ) )
         {
-            VUtil.beginTime( entity.getBeginTime() );
+            constraintValidator.beginTime( entity.getBeginTime() );
         }
         if ( StringUtils.isNotEmpty( entity.getEndTime() ) )
         {
-            VUtil.endTime( entity.getEndTime() );
+            constraintValidator.endTime( entity.getEndTime() );
         }
         if ( StringUtils.isNotEmpty( entity.getBeginDate() ) )
         {
-            VUtil.beginDate( entity.getBeginDate() );
+            constraintValidator.beginDate( entity.getBeginDate() );
         }
         if ( StringUtils.isNotEmpty( entity.getEndDate() ) )
         {
-            VUtil.endDate( entity.getEndDate() );
+            constraintValidator.endDate( entity.getEndDate() );
         }
         if ( StringUtils.isNotEmpty( entity.getDayMask() ) )
         {
-            VUtil.dayMask( entity.getDayMask() );
+            constraintValidator.dayMask( entity.getDayMask() );
         }
         if ( StringUtils.isNotEmpty( entity.getBeginLockDate() ) )
         {
-            VUtil.beginDate( entity.getBeginDate() );
+            constraintValidator.beginDate( entity.getBeginDate() );
         }
         if ( StringUtils.isNotEmpty( entity.getEndLockDate() ) )
         {
-            VUtil.endDate( entity.getEndLockDate() );
+            constraintValidator.endDate( entity.getEndLockDate() );
         }
     }
 }
