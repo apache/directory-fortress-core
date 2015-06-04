@@ -40,6 +40,7 @@ import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
@@ -48,7 +49,6 @@ import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.util.ObjUtil;
-import org.apache.directory.fortress.core.util.time.CUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 
 
@@ -172,7 +172,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
 
             // CN attribute is required for this object class:
             entry.add( SchemaConstants.CN_AT, entity.getName() );
-            entry.add( GlobalIds.CONSTRAINT, CUtil.setConstraint( entity ) );
+            entry.add( GlobalIds.CONSTRAINT, ConstraintUtil.setConstraint( entity ) );
             loadAttrs( entity.getOsP(), entry, ROLE_OSP );
             loadAttrs( entity.getOsU(), entry, ROLE_OSU );
             String szRaw = entity.getRoleRangeRaw();
@@ -237,7 +237,7 @@ final class AdminRoleDAO extends ApacheDsDataProvider
 
             if ( entity.isTemporalSet() )
             {
-                String szRawData = CUtil.setConstraint( entity );
+                String szRawData = ConstraintUtil.setConstraint( entity );
 
                 if ( StringUtils.isNotEmpty( szRawData ) )
                 {

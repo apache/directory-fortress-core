@@ -68,6 +68,7 @@ import org.apache.directory.api.ldap.model.message.controls.ProxiedAuthz;
 import org.apache.directory.api.ldap.model.message.controls.ProxiedAuthzImpl;
 
 import org.apache.directory.api.ldap.model.name.Dn;
+import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.ldap.client.api.LdapConnectionConfig;
 import org.apache.directory.ldap.client.api.LdapConnectionPool;
@@ -79,8 +80,7 @@ import org.apache.directory.fortress.core.model.FortEntity;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.util.crypto.EncryptUtil;
-import org.apache.directory.fortress.core.util.time.CUtil;
-import org.apache.directory.fortress.core.util.time.Constraint;
+import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.ldap.client.api.ValidatingPoolableLdapConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -1079,7 +1079,7 @@ public abstract class ApacheDsDataProvider
      * Convert constraint from raw ldap format to application entity.
      *
      * @param le         ldap entry containing constraint.
-     * @param ftDateTime reference to {@link org.apache.directory.fortress.core.util.time.Constraint} containing formatted data.
+     * @param ftDateTime reference to {@link org.apache.directory.fortress.core.model.Constraint} containing formatted data.
      * @throws LdapInvalidAttributeValueException
      *
      * @throws LdapException in the event of ldap client error.
@@ -1090,7 +1090,7 @@ public abstract class ApacheDsDataProvider
 
         if ( szRawData != null && szRawData.length() > 0 )
         {
-            CUtil.setConstraint( szRawData, ftDateTime );
+            ConstraintUtil.setConstraint( szRawData, ftDateTime );
         }
     }
 

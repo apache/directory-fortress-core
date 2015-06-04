@@ -33,9 +33,6 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-import org.apache.directory.fortress.core.util.time.CUtil;
-import org.apache.directory.fortress.core.util.time.Constraint;
-
 
 /**
  * All entities ({@link User}, {@link Role}, {@link org.apache.directory.fortress.core.model.Permission},
@@ -56,8 +53,8 @@ import org.apache.directory.fortress.core.util.time.Constraint;
  * <h4>Role entity attribute usages include</h4>
  * <ul>
  * <li>{@link #setName} attribute must be set before calling {@link org.apache.directory.fortress.core.impl.AdminMgrImpl#addRole(Role)}, {@link org.apache.directory.fortress.core.impl.AdminMgrImpl#updateRole(Role)} or  {@link org.apache.directory.fortress.core.impl.AdminMgrImpl#deleteRole(Role)}
- * <li>{@link org.apache.directory.fortress.core.util.time.Constraint} may be set <b>before</b> calling method {@link org.apache.directory.fortress.core.impl.AdminMgrImpl#addRole(Role)}.
- * <li>{@link org.apache.directory.fortress.core.util.time.Constraint} will be <b>returned</b> to caller on methods like {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl#readRole(Role)} or {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl#findRoles(String)} iff persisted to entity prior to call.
+ * <li>{@link Constraint} may be set <b>before</b> calling method {@link org.apache.directory.fortress.core.impl.AdminMgrImpl#addRole(Role)}.
+ * <li>{@link Constraint} will be <b>returned</b> to caller on methods like {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl#readRole(Role)} or {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl#findRoles(String)} iff persisted to entity prior to call.
  * </ul>
  * <p/>
  * This entity is used to store the RBAC Role assignments that comprise the many-to-many relationships between {@link User}s and {@link org.apache.directory.fortress.core.model.Permission}s.
@@ -237,7 +234,7 @@ public Role( String name )
  */
 public Role( Constraint con )
 {
-    CUtil.copy( con, this );
+    ConstraintUtil.copy( con, this );
 }
 
 

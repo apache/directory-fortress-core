@@ -21,6 +21,7 @@ package org.apache.directory.fortress.core.util.time;
 
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.Session;
 
 /**
@@ -42,8 +43,8 @@ public class Day
     implements Validator
 {
     /**
-     * This method is called during entity activation, {@link CUtil#validateConstraints} and ensures the current day falls
-     * within {@link Constraint#getDayMask()} range.
+     * This method is called during entity activation, {@link org.apache.directory.fortress.core.util.VUtil#validateConstraints} and ensures the current day falls
+     * within {@link org.apache.directory.fortress.core.model.Constraint#getDayMask()} range.
      *
      * @param session    required for {@link Validator} interface but not used here.
      * @param constraint contains the days of week entity may be activated.  Data mappings listed above.

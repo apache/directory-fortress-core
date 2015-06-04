@@ -32,8 +32,6 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.util.time.CUtil;
-import org.apache.directory.fortress.core.util.time.Constraint;
 
 
 /**
@@ -41,7 +39,7 @@ import org.apache.directory.fortress.core.util.time.Constraint;
  * values.
  * The contents of the UserRole entity will be stored on the User entity in the 'ftRA' (Role name) and 'ftRC'
  * (Temporal Constraints) attributes on the 'ftUserAttrs' object class.
- * The UserRole entity carries elements of {@link org.apache.directory.fortress.core.util.time.Constraint}.  Any attributes of
+ * The UserRole entity carries elements of {@link Constraint}.  Any attributes of
  * Constraint not set within this entity
  * will use same attribute from the {@link org.apache.directory.fortress.core.model.Role} entity.  Thus the UserRole can override
  * Constraint attributes from it's corresponding Role if required by caller.
@@ -127,7 +125,7 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     public UserRole( String userId, Constraint con )
     {
         this.userId = userId;
-        CUtil.copy( con, this );
+        ConstraintUtil.copy( con, this );
     }
 
 

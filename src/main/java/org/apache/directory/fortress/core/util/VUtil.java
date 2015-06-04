@@ -22,14 +22,24 @@ package org.apache.directory.fortress.core.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Properties;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.*;
+import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.Constraint;
+import org.apache.directory.fortress.core.model.ObjectFactory;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.model.Warning;
+import org.apache.directory.fortress.core.util.time.TUtil;
+import org.apache.directory.fortress.core.util.time.Time;
+import org.apache.directory.fortress.core.util.time.Validator;
 import org.slf4j.LoggerFactory;
-import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.ValidationException;
 
 
 /**
@@ -599,4 +609,168 @@ public final class VUtil
         return result;
     }
 */
+
+
+private static List<Validator> validators;
+private static final String DSDVALIDATOR = Config.getProperty( GlobalIds.DSD_VALIDATOR_PROP );
+
+
+    /**
+     * enum specifies what type of constraint is being targeted - User or Rold.
+     */
+    public static enum ConstraintType
+    {
+        /**
+         * Specifies {@link org.apache.directory.fortress.core.model.User}
+         */
+        USER,
+        /**
+         * Specifies {@link org.apache.directory.fortress.core.model.Role}
+         */
+        ROLE
+    }
+
+    /**
+     * static initializer retrieves Validators names from config and constructs for later processing.
+     */
+    static
+    {
+        try
+        {
+            validators = getValidators();
+        }
+        catch ( org.apache.directory.fortress.core.SecurityException ex )
+        {
+            LOG.error( "static initialzier caught SecurityException=" + ex.getMessage(), ex );
+        }
+    }
+
+
+    /**
+     * This utility iterates over all of the Validators initialized for runtime and calls them passing the {@link org.apache.directory.fortress.core.model.Constraint} contained within the
+     * targeted entity.  If a particular {@link org.apache.directory.fortress.core.model.UserRole} violates constraint it will not be activated.  If {@link org.apache.directory.fortress.core.model.User} validation fails a ValidationException will be thrown thus preventing User logon.
+     *
+     * @param session contains {@link org.apache.directory.fortress.core.model.User} and {@link org.apache.directory.fortress.core.model.UserRole} constraints {@link org.apache.directory.fortress.core.model.Constraint} to be checked.
+     * @param type    specifies User {@link ConstraintType#USER} or rOLE {@link ConstraintType#ROLE}.
+     * @param checkDsd will check DSD constraints if true
+     * @throws org.apache.directory.fortress.core.SecurityException in the event validation fails for User or system error occurs.
+     */
+    public static void validateConstraints( Session session, ConstraintType type, boolean checkDsd )
+        throws SecurityException
+    {
+        String location = "validateConstraints";
+        int rc;
+        if ( validators == null )
+        {
+            if ( LOG.isDebugEnabled() )
+            {
+                LOG.debug( "{} userId [{}]  no constraints enabled", location, session.getUserId() );
+            }
+            return;
+        }
+        // no need to continue if the role list is empty and we're trying to check role constraints:
+        else if ( type == ConstraintType.ROLE && !ObjUtil.isNotNullOrEmpty( session.getRoles() )
+            && !ObjUtil.isNotNullOrEmpty( session.getAdminRoles() ) )
+        {
+            if ( LOG.isDebugEnabled() )
+            {
+                LOG.debug( "{} userId [{}]  has no roles assigned", location, session.getUserId() );
+            }
+            return;
+        }
+        for ( Validator val : validators )
+        {
+            Time currTime = TUtil.getCurrentTime();
+            // first check the constraint on the user:
+            if ( type == ConstraintType.USER )
+            {
+                rc = val.validate( session, session.getUser(), currTime );
+                if ( rc > 0 )
+                {
+                    String info = location + " user [" + session.getUserId() + "] was deactivated reason code [" + rc
+                        + "]";
+                    throw new ValidationException( rc, info );
+                }
+            }
+            // Check the constraints for each activated role:
+            else
+            {
+                if ( ObjUtil.isNotNullOrEmpty( session.getRoles() ) )
+                {
+                    // now check the constraint on every role activation candidate contained within session object:
+                    ListIterator<UserRole> roleItems = session.getRoles().listIterator();
+
+                    while ( roleItems.hasNext() )
+                    {
+                        Constraint constraint = roleItems.next();
+                        rc = val.validate( session, constraint, currTime );
+
+                        if ( rc > 0 )
+                        {
+                            String msg = location + " role [" + constraint.getName() + "] for user ["
+                                + session.getUserId() + "] was deactivated reason code [" + rc + "]";
+                            LOG.info( msg );
+                            roleItems.remove();
+                            session.setWarning( new ObjectFactory().createWarning( rc, msg, Warning.Type.ROLE,
+                                constraint.getName() ) );
+                        }
+                    }
+                }
+                if ( ObjUtil.isNotNullOrEmpty( session.getAdminRoles() ) )
+                {
+                    // now check the constraint on every arbac role activation candidate contained within session object:
+                    ListIterator roleItems = session.getAdminRoles().listIterator();
+                    while ( roleItems.hasNext() )
+                    {
+                        Constraint constraint = ( Constraint ) roleItems.next();
+                        rc = val.validate( session, constraint, currTime );
+                        if ( rc > 0 )
+                        {
+                            String msg = location + " admin role [" + constraint.getName() + "] for user ["
+                                + session.getUserId() + "] was deactivated reason code [" + rc + "]";
+                            LOG.info( msg );
+                            roleItems.remove();
+                            session.setWarning( new ObjectFactory().createWarning( rc, msg, Warning.Type.ROLE,
+                                constraint.getName() ) );
+                        }
+                    }
+                }
+            }
+        }
+
+        // now perform DSD validation on session's impl roles:
+        if ( checkDsd && DSDVALIDATOR != null && DSDVALIDATOR.length() > 0 && type == ConstraintType.ROLE
+            && ObjUtil.isNotNullOrEmpty( session.getRoles() ) )
+        {
+            Validator dsdVal = ( Validator ) ClassUtil.createInstance( DSDVALIDATOR );
+            dsdVal.validate( session, session.getUser(), null );
+        }
+        // reset the user's last access timestamp:
+        session.setLastAccess();
+    }
+
+
+    /**
+     * Utility is used internally by this class to retrieve a list of all Validator class names, instantiate and return.
+     *
+     * @return list of type {@link Validator} containing all active validation routines for entity constraint processing.
+     * @throws org.apache.directory.fortress.core.CfgException in the event validator cannot be instantiated.
+     */
+    private static List<Validator> getValidators()
+        throws CfgException
+    {
+        List<Validator> validators = new ArrayList<>();
+        for ( int i = 0;; i++ )
+        {
+            String prop = GlobalIds.VALIDATOR_PROPS + i;
+            String className = Config.getProperty( prop );
+            if ( className == null )
+            {
+                break;
+            }
+
+            validators.add( ( Validator ) ClassUtil.createInstance( className ) );
+        }
+        return validators;
+    }
 }

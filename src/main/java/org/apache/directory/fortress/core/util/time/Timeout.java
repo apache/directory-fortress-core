@@ -21,11 +21,12 @@ package org.apache.directory.fortress.core.util.time;
 
 
 import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.Session;
 
 
 /**
- * This class performs timeout validation for {@link Constraint}.  This validator will ensure the elapsed time an entity is active is less than {@link Constraint#getTimeout()} and {@link Constraint#getEndTime()}
+ * This class performs timeout validation for {@link Constraint}.  This validator will ensure the elapsed time an entity is active is less than {@link org.apache.directory.fortress.core.model.Constraint#getTimeout()} and {@link Constraint#getEndTime()}
  * The timeout is in minutes and is stored as integer value.  i.e. 30 for 30 minutes.  A value of '0' specifies no timeout for a particular entity.
  * <h4> Constraint Targets include</h4>
  * <ol>
@@ -42,7 +43,7 @@ import org.apache.directory.fortress.core.model.Session;
 public class Timeout implements Validator
 {
     /**
-     * This method is called during entity activation, {@link CUtil#validateConstraints} and ensures the elapsed time a particular entity has been activated does not exceed specified.
+     * This method is called during entity activation, {@link org.apache.directory.fortress.core.util.VUtil#validateConstraints} and ensures the elapsed time a particular entity has been activated does not exceed specified.
      * value {@link Constraint#getTimeout()}.
      *
      * @param session    required for {@link Validator} interface but not used here.

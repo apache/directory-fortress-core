@@ -95,9 +95,9 @@ public class AccelMgrImpl extends Manageable implements AccelMgr
      * <li> authenticate user password if trusted == false.
      * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>.
      * <li> fail for any user who is locked by OpenLDAP's policies {@link org.apache.directory.fortress.core.model.User#isLocked()}, regardless of trusted flag being set as parm on API.
-     * <li> evaluate temporal {@link org.apache.directory.fortress.core.util.time.Constraint}(s) on {@link org.apache.directory.fortress.core.model.User}, {@link org.apache.directory.fortress.core.model.UserRole} and {@link org.apache.directory.fortress.core.model.UserAdminRole} entities.
+     * <li> evaluate temporal {@link org.apache.directory.fortress.core.model.Constraint}(s) on {@link org.apache.directory.fortress.core.model.User}, {@link org.apache.directory.fortress.core.model.UserRole} and {@link org.apache.directory.fortress.core.model.UserAdminRole} entities.
      * <li> process selective role activations into User RBAC Session {@link org.apache.directory.fortress.core.model.User#roles}.
-     * <li> check Dynamic Separation of Duties {@link org.apache.directory.fortress.core.impl.DSDChecker#validate(org.apache.directory.fortress.core.model.Session, org.apache.directory.fortress.core.util.time.Constraint, org.apache.directory.fortress.core.util.time.Time)} on {@link org.apache.directory.fortress.core.model.User#roles}.
+     * <li> check Dynamic Separation of Duties {@link org.apache.directory.fortress.core.impl.DSDChecker#validate(org.apache.directory.fortress.core.model.Session, org.apache.directory.fortress.core.model.Constraint, org.apache.directory.fortress.core.util.time.Time)} on {@link org.apache.directory.fortress.core.model.User#roles}.
      * <li> process selective administrative role activations {@link org.apache.directory.fortress.core.model.User#adminRoles}.
      * <li> return a {@link org.apache.directory.fortress.core.model.Session} that contains a reference to an object stored on the RBAC server..
      * <li> throw a checked exception that will be {@link org.apache.directory.fortress.core.SecurityException} or its derivation.

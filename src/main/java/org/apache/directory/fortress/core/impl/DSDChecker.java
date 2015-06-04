@@ -32,14 +32,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.model.ObjectFactory;
-import org.apache.directory.fortress.core.util.time.Constraint;
+import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.util.time.Time;
 import org.apache.directory.fortress.core.util.time.Validator;
 
 
 /**
  * This class performs Dynamic Separation of Duty checking on a collection of roles targeted for
- * activation within a particular user's session.  This method is called from {@link org.apache.directory.fortress.core.util.time.CUtil#validateConstraints} during createSession
+ * activation within a particular user's session.  This method is called from {@link org.apache.directory.fortress.core.util.VUtil#validateConstraints} during createSession
  * sequence for users.  If DSD constraint violation is detected for a particular role method will remove the role
  * from collection of activation candidates and log a warning.  This proc will also consider hierarchical relations
  * between roles (RBAC spec calls these authorized roles).
@@ -64,7 +64,7 @@ public class DSDChecker
 
 
     /**
-     * This method is called during entity activation, {@link org.apache.directory.fortress.core.util.time.CUtil#validateConstraints} and ensures the role does not violate dynamic separation of duty constraints.
+     * This method is called during entity activation, {@link org.apache.directory.fortress.core.util.VUtil#validateConstraints} and ensures the role does not violate dynamic separation of duty constraints.
      *
      * @param session    contains list of RBAC roles {@link org.apache.directory.fortress.core.model.UserRole} targeted for activation.
      * @param constraint required for Validator interface, not used here..

@@ -20,7 +20,7 @@
 package org.apache.directory.fortress.core.example;
 
 
-import org.apache.directory.fortress.core.util.time.Constraint;
+import org.apache.directory.fortress.core.model.Constraint;
 
 import java.rmi.server.UID;
 

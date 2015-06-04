@@ -34,7 +34,7 @@ import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.ObjUtil;
-import org.apache.directory.fortress.core.util.PropUtil;
+import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 import org.slf4j.Logger;

@@ -51,7 +51,7 @@ import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.Relationship;
-import org.apache.directory.fortress.core.util.time.Constraint;
+import org.apache.directory.fortress.core.model.Constraint;
 
 
 /**

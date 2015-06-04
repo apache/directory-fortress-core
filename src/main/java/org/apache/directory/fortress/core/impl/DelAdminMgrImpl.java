@@ -25,6 +25,7 @@ import org.apache.directory.fortress.core.DelAdminMgr;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PermObj;
@@ -33,7 +34,6 @@ import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.util.ObjUtil;
-import org.apache.directory.fortress.core.util.time.CUtil;
 import org.apache.directory.fortress.core.util.VUtil;
 
 import java.util.List;
@@ -213,7 +213,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
                 chgRole.setOsP(role.getOsP());
                 chgRole.setOsU(role.getOsU());
                 uaRoles.remove(chgRole);
-                CUtil.copy(re, chgRole);
+                ConstraintUtil.copy( re, chgRole );
                 uaRoles.add(chgRole);
                 upUe.setUserId(ue.getUserId());
                 upUe.setAdminRole(chgRole);
@@ -278,7 +278,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
 
         // if the UserAdminRole entity doesn't have temporal constraints set already, copy from the AdminRole declaration:
         // if the input role entity attribute doesn't have temporal constraints set, copy from the role declaration:
-        CUtil.validateOrCopy(validRole, uAdminRole);
+        ConstraintUtil.validateOrCopy( validRole, uAdminRole );
 
         // copy the ARBAC AdminRole attributes to UserAdminRole:
         userP.copyAdminAttrs( validRole, uAdminRole );

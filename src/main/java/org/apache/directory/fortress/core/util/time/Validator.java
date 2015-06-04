@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.util.time;
 
 
+import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.Session;
 
 

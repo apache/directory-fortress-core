@@ -34,8 +34,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
-import org.apache.directory.fortress.core.util.time.Constraint;
-
 
 /**
  * All entities ({@link User}, {@link org.apache.directory.fortress.core.model.Role}, {@link org.apache.directory.fortress.core.model.Permission},

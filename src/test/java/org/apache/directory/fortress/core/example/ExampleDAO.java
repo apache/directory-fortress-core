@@ -34,7 +34,7 @@ import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
-import org.apache.directory.fortress.core.util.time.CUtil;
+import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.CreateException;
@@ -110,7 +110,7 @@ public class ExampleDAO extends ApacheDsDataProvider
 
             //AttrHelper.loadTemporalAttrs(entity, attrs);
             entity.setName("EXAMPLE");
-            entry.add( GlobalIds.CONSTRAINT, CUtil.setConstraint( entity ) );
+            entry.add( GlobalIds.CONSTRAINT, ConstraintUtil.setConstraint( entity ) );
             add(ld, entry);
         }
         catch (LdapException e)
@@ -152,7 +152,7 @@ public class ExampleDAO extends ApacheDsDataProvider
 
             }
 
-            String szRawData = CUtil.setConstraint( entity );
+            String szRawData = ConstraintUtil.setConstraint( entity );
             if (szRawData != null && szRawData.length() > 0)
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.CONSTRAINT, szRawData ) );

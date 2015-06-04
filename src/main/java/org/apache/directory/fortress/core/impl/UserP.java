@@ -27,6 +27,7 @@ import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.Administrator;
+import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PwPolicy;
 import org.apache.directory.fortress.core.model.Role;
@@ -45,7 +46,6 @@ import org.apache.directory.fortress.core.PasswordException;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.util.VUtil;
-import org.apache.directory.fortress.core.util.time.CUtil;
 
 
 /**
@@ -390,7 +390,7 @@ final class UserP
             throw new PasswordException( session.getErrorId(), info );
         }
 
-        CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
+        VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
 
         return session;
     }
@@ -453,7 +453,7 @@ final class UserP
             // Create the impl session without authentication of password.
             session = createSessionTrusted( user );
             // Check user temporal constraints.  This op usually performed during authentication.
-            CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
+            VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
         }
         else
         {
@@ -480,7 +480,7 @@ final class UserP
             }
         }
         // Check role temporal constraints + activate roles:
-        CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, true );
+        VUtil.validateConstraints( session, VUtil.ConstraintType.ROLE, true );
         return session;
     }
 
@@ -834,7 +834,7 @@ final class UserP
         }
 
         // 2 Validate constraints on User object:
-        CUtil.validate( entity );
+        ConstraintUtil.validate( entity );
 
         // 3 Validate or copy constraints on RBAC roles:
         if ( ObjUtil.isNotNullOrEmpty( entity.getRoles() ) )
@@ -846,7 +846,7 @@ final class UserP
                 Role inRole = new Role( ure.getName() );
                 inRole.setContextId( entity.getContextId() );
                 Role role = rp.read( inRole );
-                CUtil.validateOrCopy( role, ure );
+                ConstraintUtil.validateOrCopy( role, ure );
             }
         }
 
@@ -859,7 +859,7 @@ final class UserP
                 AdminRole inRole = new AdminRole( uare.getName() );
                 inRole.setContextId( entity.getContextId() );
                 AdminRole outRole = admRoleP.read( inRole );
-                CUtil.validateOrCopy( outRole, uare );
+                ConstraintUtil.validateOrCopy( outRole, uare );
 
                 // copy the ARBAC AdminRole attributes to UserAdminRole:
                 copyAdminAttrs( outRole, uare );

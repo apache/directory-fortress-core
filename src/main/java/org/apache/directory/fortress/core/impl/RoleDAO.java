@@ -36,6 +36,7 @@ import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.CreateException;
@@ -47,7 +48,6 @@ import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.util.time.CUtil;
 
 
 /**
@@ -157,7 +157,7 @@ final class RoleDAO extends ApacheDsDataProvider
 
             // CN attribute is required for this object class:
             entry.add( SchemaConstants.CN_AT, entity.getName() );
-            entry.add( GlobalIds.CONSTRAINT, CUtil.setConstraint( entity ) );
+            entry.add( GlobalIds.CONSTRAINT, ConstraintUtil.setConstraint( entity ) );
 
             // These multi-valued attributes are optional.  The utility function will return quietly if items are not loaded into collection:
             loadAttrs( entity.getParents(), entry, GlobalIds.PARENT_NODES );
@@ -202,7 +202,7 @@ final class RoleDAO extends ApacheDsDataProvider
 
             if ( entity.isTemporalSet() )
             {
-                String szRawData = CUtil.setConstraint( entity );
+                String szRawData = ConstraintUtil.setConstraint( entity );
 
                 if ( StringUtils.isNotEmpty( szRawData ) )
                 {

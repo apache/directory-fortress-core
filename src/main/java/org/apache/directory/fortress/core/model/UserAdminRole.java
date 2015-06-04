@@ -31,15 +31,13 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.util.time.CUtil;
-import org.apache.directory.fortress.core.util.time.Constraint;
 
 
 /**
  * The UserAdminRole entity extends the UserRole and is used to store ARBAC User to AdminRole assignment along with temporal and
  * ARBAC contraint values.
  * The contents of the UserAdminRole entity will be stored on the User entity in the 'ftARA' (AdminRole name) and 'ftARC' (Temporal and ARBAC Constraints) attributes on the 'ftUserAttrs' object class.
- * The UserAdminRole entity carries elements of {@link org.apache.directory.fortress.core.util.time.Constraint}.  Any attributes of Constraint not set within this entity
+ * The UserAdminRole entity carries elements of {@link Constraint}.  Any attributes of Constraint not set within this entity
  * will use same attribute from the {@link AdminRole} entity.  Thus the UserAdminRole can override Constraint attributes from it's corresponding AdminRole if required by caller.
  * <p/>
  * <h4>UserAdminRole Schema</h4>
@@ -148,7 +146,7 @@ public class UserAdminRole extends UserRole implements Administrator
     public UserAdminRole( String userId, Constraint con )
     {
         this.userId = userId;
-        CUtil.copy( con, this );
+        ConstraintUtil.copy( con, this );
     }
 
 

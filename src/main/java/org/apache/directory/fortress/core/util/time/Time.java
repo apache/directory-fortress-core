@@ -20,7 +20,7 @@
 package org.apache.directory.fortress.core.util.time;
 
 /**
- * Class contains a custom timestamp that is processed by {@link Validator} to check {@link Constraint}.
+ * Class contains a custom timestamp that is processed by {@link Validator} to check {@link org.apache.directory.fortress.core.model.Constraint}.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

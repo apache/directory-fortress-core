@@ -555,7 +555,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * <li>{@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's RBAC session</li>
      * </ul>
      *
-     * @param role must contains {@link Role#name} and may contain new description or {@link org.apache.directory.fortress.core.util.time.Constraint}
+     * @param role must contains {@link Role#name} and may contain new description or {@link org.apache.directory.fortress.core.model.Constraint}
      * @throws org.apache.directory.fortress.core.SecurityException
      *          in the event of validation or system error.
      */

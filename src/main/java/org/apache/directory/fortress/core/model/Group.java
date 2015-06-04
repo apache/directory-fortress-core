@@ -20,8 +20,6 @@
 package org.apache.directory.fortress.core.model;
 
 
-import org.apache.directory.fortress.core.util.PropUtil;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;

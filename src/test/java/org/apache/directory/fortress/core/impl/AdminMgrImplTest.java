@@ -27,6 +27,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Role;
@@ -43,7 +44,6 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.util.LogUtil;
-import org.apache.directory.fortress.core.util.time.CUtil;
 
 
 /**
@@ -1441,7 +1441,7 @@ public class AdminMgrImplTest extends TestCase
                     User user = UserTestData.getUser( usr );
                     Role role = RoleTestData.getRole( rle );
                     UserRole uRole = new UserRole();
-                    CUtil.copy( role, uRole );
+                    ConstraintUtil.copy( role, uRole );
                     if ( !setTemporal )
                     {
                         // test the default constraints for role
@@ -1492,7 +1492,7 @@ public class AdminMgrImplTest extends TestCase
                 Role role = RoleTestData.getRole( rArray[i] );
                 UserRole uRole = new UserRole();
                 uRole.setUserId( UserTestData.getUserId( usr ) );
-                CUtil.copy( role, uRole );
+                ConstraintUtil.copy( role, uRole );
                 adminMgr.assignUser( uRole );
                 i++;
             }

@@ -27,7 +27,7 @@ import java.util.*;
 
 
 /**
- * Utility class to convert current time/date into internal format, {@link Time}, used for {@link Constraint} checks {@link CUtil#validateConstraints(org.apache.directory.fortress.core.model.Session, CUtil.ConstraintType, boolean)}.
+ * Utility class to convert current time/date into internal format, {@link Time}, used for {@link org.apache.directory.fortress.core.model.Constraint} checks {@link org.apache.directory.fortress.core.util.VUtil#validateConstraints(org.apache.directory.fortress.core.model.Session, org.apache.directory.fortress.core.util.VUtil.ConstraintType, boolean)}.
  * This utility processes custom date formats and should not be used by external programs.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

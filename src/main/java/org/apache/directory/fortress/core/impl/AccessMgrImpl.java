@@ -32,7 +32,6 @@ import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.VUtil;
 import org.apache.directory.fortress.core.util.ObjUtil;
-import org.apache.directory.fortress.core.util.time.CUtil;
 
 
 /**
@@ -119,9 +118,9 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
      * <li> authenticate user password if trusted == false.
      * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>.
      * <li> fail for any user who is locked by OpenLDAP's policies {@link User#isLocked()}, regardless of trusted flag being set as parm on API.
-     * <li> evaluate temporal {@link org.apache.directory.fortress.core.util.time.Constraint}(s) on {@link User}, {@link org.apache.directory.fortress.core.model.UserRole} and {@link org.apache.directory.fortress.core.model.UserAdminRole} entities.
+     * <li> evaluate temporal {@link org.apache.directory.fortress.core.model.Constraint}(s) on {@link User}, {@link org.apache.directory.fortress.core.model.UserRole} and {@link org.apache.directory.fortress.core.model.UserAdminRole} entities.
      * <li> process selective role activations into User RBAC Session {@link User#roles}.
-     * <li> check Dynamic Separation of Duties {@link org.apache.directory.fortress.core.impl.DSDChecker#validate(Session, org.apache.directory.fortress.core.util.time.Constraint, org.apache.directory.fortress.core.util.time.Time)} on {@link User#roles}.
+     * <li> check Dynamic Separation of Duties {@link org.apache.directory.fortress.core.impl.DSDChecker#validate(Session, org.apache.directory.fortress.core.model.Constraint, org.apache.directory.fortress.core.util.time.Time)} on {@link User#roles}.
      * <li> process selective administrative role activations {@link User#adminRoles}.
      * <li> return a {@link Session} containing {@link Session#getUser()}, {@link Session#getRoles()} and (if admin user) {@link Session#getAdminRoles()} if everything checks out good.
      * <li> throw a checked exception that will be {@link org.apache.directory.fortress.core.SecurityException} or its derivation.
@@ -198,8 +197,8 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
             getFullMethodName( CLS_NM, methodName ) );
         VUtil.assertNotNullOrEmpty( perm.getObjName(), GlobalErrIds.PERM_OBJECT_NULL,
             getFullMethodName( CLS_NM, methodName ) );
-        CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
-        CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, false );
+        VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
+        VUtil.validateConstraints( session, VUtil.ConstraintType.ROLE, false );
         return permP.checkPermission( session, perm );
     }
 
@@ -218,8 +217,8 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
     {
         String methodName = "sessionPermissions";
         assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
-        CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
-        CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, false );
+        VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
+        VUtil.validateConstraints( session, VUtil.ConstraintType.ROLE, false );
         return permP.search( session );
     }
 
@@ -239,8 +238,8 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
     {
         String methodName = "sessionRoles";
         assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
-        CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
-        CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, false );
+        VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
+        VUtil.validateConstraints( session, VUtil.ConstraintType.ROLE, false );
         return session.getRoles();
     }
 
@@ -260,8 +259,8 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
         String methodName = "authorizedRoles";
         assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
         VUtil.assertNotNull( session.getUser(), GlobalErrIds.USER_NULL, CLS_NM + ".authorizedRoles" );
-        CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
-        CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, false );
+        VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
+        VUtil.validateConstraints( session, VUtil.ConstraintType.ROLE, false );
         return RoleUtil.getInheritedRoles( session.getRoles(), this.contextId );
     }
 
@@ -322,7 +321,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
         session.setRole( uRoles.get( indx ) );
 
         // Check role temporal constraints & DSD:
-        CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, false );
+        VUtil.validateConstraints( session, VUtil.ConstraintType.ROLE, false );
     }
 
 

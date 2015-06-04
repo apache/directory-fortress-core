@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.util;
+package org.apache.directory.fortress.core.model;
 
 import org.apache.directory.fortress.core.GlobalIds;
 

@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.util.time;
+package org.apache.directory.fortress.core.model;
 
 
 /**
@@ -239,4 +239,6 @@ public interface Constraint
      * @return String that maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
      */
     String getName();
+
+
 }

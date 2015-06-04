@@ -30,7 +30,7 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.util.time.Constraint;
+import org.apache.directory.fortress.core.model.Constraint;
 
 import java.util.ArrayList;
 import java.util.List;

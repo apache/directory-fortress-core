@@ -29,8 +29,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.time.CUtil;
-import org.apache.directory.fortress.core.util.time.Constraint;
 
 
 /**
@@ -204,7 +202,7 @@ public class AdminRole extends Role implements Administrator
      */
     public AdminRole( Constraint con )
     {
-        CUtil.copy( con, this );
+        ConstraintUtil.copy( con, this );
     }
 
 

@@ -22,13 +22,14 @@ package org.apache.directory.fortress.core.util.time;
 
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.Session;
 
 
 /**
- * This class performs time validation for {@link Constraint}.  This validator will ensure the current time falls between {@link Constraint#getBeginTime()} and {@link Constraint#getEndTime()}
+ * This class performs time validation for {@link org.apache.directory.fortress.core.model.Constraint}.  This validator will ensure the current time falls between {@link org.apache.directory.fortress.core.model.Constraint#getBeginTime()} and {@link Constraint#getEndTime()}
  * The format requires military time, i.e. 0800 for 8:00 am, 1700 for 5:00 pm.  The constant {@link org.apache.directory.fortress.core.GlobalIds#NONE} may be used to disable checks for a particular entity.
- * for {@link Constraint} validations that occur in
+ * for {@link org.apache.directory.fortress.core.model.Constraint} validations that occur in
  * <h4> Constraint Targets include</h4>
  * <ol>
  * <li>{@link org.apache.directory.fortress.core.model.User} maps to 'ftCstr' attribute on 'ftUserAttrs' object class</li>
@@ -45,8 +46,8 @@ public class ClockTime
     implements Validator
 {
     /**
-     * This method is called during entity activation, {@link CUtil#validateConstraints} and ensures the current time is
-     * between {@link Constraint#getBeginTime()} and {@link Constraint#getBeginTime()}.
+     * This method is called during entity activation, {@link org.apache.directory.fortress.core.util.VUtil#validateConstraints} and ensures the current time is
+     * between {@link Constraint#getBeginTime()} and {@link org.apache.directory.fortress.core.model.Constraint#getBeginTime()}.
      *
      * @param session    required for {@link Validator} interface but not used here.
      * @param constraint contains the begin and end times.  Maps listed above.

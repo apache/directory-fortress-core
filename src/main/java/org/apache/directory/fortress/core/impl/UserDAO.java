@@ -49,6 +49,7 @@ import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.fortress.core.model.Address;
 import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PwMessage;
 import org.apache.directory.fortress.core.model.Role;
@@ -58,7 +59,7 @@ import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.model.Warning;
 import org.apache.directory.fortress.core.util.ObjUtil;
-import org.apache.directory.fortress.core.util.PropUtil;
+import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -73,7 +74,6 @@ import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
-import org.apache.directory.fortress.core.util.time.CUtil;
 
 
 /**
@@ -510,7 +510,7 @@ final class UserDAO extends ApacheDsDataProvider
             loadProperties( entity.getProperties(), myEntry, GlobalIds.PROPS );
             // map the userid to the name field in constraint:
             entity.setName( entity.getUserId() );
-            myEntry.add( GlobalIds.CONSTRAINT, CUtil.setConstraint( entity ) );
+            myEntry.add( GlobalIds.CONSTRAINT, ConstraintUtil.setConstraint( entity ) );
             loadAddress( entity.getAddress(), myEntry );
 
             if ( ObjUtil.isNotNullOrEmpty( entity.getJpegPhoto() ) )
@@ -610,7 +610,7 @@ final class UserDAO extends ApacheDsDataProvider
             {
                 // map the userid to the name field in constraint:
                 entity.setName( entity.getUserId() );
-                String szRawData = CUtil.setConstraint( entity );
+                String szRawData = ConstraintUtil.setConstraint( entity );
 
                 if ( StringUtils.isNotEmpty( szRawData ) )
                 {
@@ -2438,7 +2438,7 @@ final class UserDAO extends ApacheDsDataProvider
     /**
      * Given an ldap entry containing ARBAC roles assigned to user, retrieve the raw data and convert to a collection
      * of {@link UserAdminRole}
-     * including {@link org.apache.directory.fortress.core.util.time.Constraint}.
+     * including {@link org.apache.directory.fortress.core.model.Constraint}.
      *
      * @param entry     contains ldap entry to retrieve admin roles from.
      * @param userId    attribute maps to {@link UserAdminRole#userId}.
@@ -2483,7 +2483,7 @@ final class UserDAO extends ApacheDsDataProvider
     /**
      * Given an ldap entry containing RBAC roles assigned to user, retrieve the raw data and convert to a collection
      * of {@link UserRole}
-     * including {@link org.apache.directory.fortress.core.util.time.Constraint}.
+     * including {@link org.apache.directory.fortress.core.model.Constraint}.
      *
      * @param entry     contains ldap entry to retrieve roles from.
      * @param userId    attribute maps to {@link UserRole#userId}.

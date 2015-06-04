@@ -21,6 +21,7 @@ package org.apache.directory.fortress.core.util.time;
 
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.Session;
 
 /**
@@ -42,7 +43,7 @@ public class Date
     implements Validator
 {
     /**
-     * This method is called during entity activation, {@link CUtil#validateConstraints} and ensures the current date is
+     * This method is called during entity activation, {@link org.apache.directory.fortress.core.util.VUtil#validateConstraints} and ensures the current date is
      * between {@link Constraint#getBeginDate()} and {@link Constraint#getEndDate()}.
      *
      * This validation routine allows for either beginDate or endDate to be null or set to "none" which will disable the corresponding check.

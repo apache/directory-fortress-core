@@ -31,7 +31,6 @@ import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.util.VUtil;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.util.ObjUtil;
-import org.apache.directory.fortress.core.util.time.CUtil;
 
 import java.util.List;
 import java.util.Set;
@@ -306,8 +305,8 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
     {
         String methodName = "sessionPermissions";
         assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
-        CUtil.validateConstraints( session, CUtil.ConstraintType.USER, false );
-        CUtil.validateConstraints( session, CUtil.ConstraintType.ROLE, false );
+        VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
+        VUtil.validateConstraints( session, VUtil.ConstraintType.ROLE, false );
         return permP.search( session, true );
     }
 

@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
@@ -41,7 +42,6 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.util.VUtil;
-import org.apache.directory.fortress.core.util.time.CUtil;
 
 
 /**
@@ -488,7 +488,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
      * </ul>
      *
      * @param role must contains {@link Role#name} and may contain new description or
-     * {@link org.apache.directory.fortress.core.util.time.Constraint}
+     * {@link org.apache.directory.fortress.core.model.Constraint}
      * @return Role contains reference to entity operated on.
      * @throws org.apache.directory.fortress.core.SecurityException
      *          in the event of validation or system error.
@@ -573,7 +573,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr
         role.setContextId( this.contextId );
         Role validRole = roleP.read( role );
         // if the input role entity attribute doesn't have temporal constraints set, copy from the role declaration:
-        CUtil.validateOrCopy( validRole, uRole );
+        ConstraintUtil.validateOrCopy( validRole, uRole );
 
         // Assign the Role data to User:
         String dn = userP.assign( uRole );

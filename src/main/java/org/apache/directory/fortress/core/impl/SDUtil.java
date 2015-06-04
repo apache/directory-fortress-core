@@ -36,7 +36,7 @@ import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.util.cache.Cache;
 import org.apache.directory.fortress.core.util.cache.CacheMgr;
 import org.apache.directory.fortress.core.util.cache.DsdCacheEntry;
-import org.apache.directory.fortress.core.util.time.Constraint;
+import org.apache.directory.fortress.core.model.Constraint;
 
 import net.sf.ehcache.search.Attribute;
 import net.sf.ehcache.search.Query;

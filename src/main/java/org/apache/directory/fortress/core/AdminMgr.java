@@ -328,7 +328,7 @@ public interface AdminMgr extends Manageable
      * <li>{@link Role#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
      * <li>{@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user's RBAC session</li>
      * </ul>
-     * @param role Must contains {@link Role#name} and may contain new description or {@link org.apache.directory.fortress.core.util.time.Constraint}
+     * @param role Must contains {@link Role#name} and may contain new description or {@link org.apache.directory.fortress.core.model.Constraint}
      * @return Role contains reference to entity operated on.
      * @throws SecurityException in the event of validation or system error.
      */

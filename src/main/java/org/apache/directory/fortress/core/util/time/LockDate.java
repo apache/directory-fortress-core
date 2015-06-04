@@ -22,10 +22,11 @@ package org.apache.directory.fortress.core.util.time;
 
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.Session;
 
 /**
- * This class performs lock date validation for {@link Constraint}.  This validator will ensure the current date falls outside {@link Constraint#getBeginLockDate()} and {@link Constraint#getEndLockDate()} range.
+ * This class performs lock date validation for {@link org.apache.directory.fortress.core.model.Constraint}.  This validator will ensure the current date falls outside {@link org.apache.directory.fortress.core.model.Constraint#getBeginLockDate()} and {@link Constraint#getEndLockDate()} range.
  * The idea is an entity can be barred from activation for a particular blackout period, i.e. vacation, leave of absence, etc.
  * The data format requires YYYYMMDD, i.e. 20110101 for January 1, 2011.  The constant {@link org.apache.directory.fortress.core.GlobalIds#NONE} may be used to disable checks for a particular entity.
  * <h4> Constraint Targets include</h4>
@@ -44,8 +45,8 @@ public class LockDate
     implements Validator
 {
     /**
-     * This method is called during entity activation, {@link CUtil#validateConstraints} and ensures the current date falls
-     * outside the {@link Constraint#getBeginLockDate()} and {@link Constraint#getEndLockDate()} range.
+     * This method is called during entity activation, {@link org.apache.directory.fortress.core.util.VUtil#validateConstraints} and ensures the current date falls
+     * outside the {@link org.apache.directory.fortress.core.model.Constraint#getBeginLockDate()} and {@link org.apache.directory.fortress.core.model.Constraint#getEndLockDate()} range.
      *
      * This validation routine will automatically pass if either beginLockDate or endLockDate equals null or "none".
      * If both beginLockDate and endLockDate are set the validator will ensure current date does not fall between the date range.
