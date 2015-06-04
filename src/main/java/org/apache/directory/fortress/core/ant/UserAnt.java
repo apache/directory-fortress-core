@@ -21,8 +21,8 @@ package org.apache.directory.fortress.core.ant;
 
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.model.PropUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -425,7 +425,7 @@ public class UserAnt extends User
         if ( StringUtils.isNotEmpty( photo ) )
         {
             byte[] jpeg = getJpegPhoto( photo );
-            if ( ObjUtil.isNotNullOrEmpty( jpeg ) )
+            if ( ArrayUtils.isNotEmpty( jpeg ) )
             {
                 setJpegPhoto( jpeg );
             }

@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.Administrator;
@@ -36,7 +37,6 @@ import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -760,7 +760,7 @@ final class UserP
                 VUtil.safeText( entity.getSn(), GlobalIds.SN_LEN );
             }
             // password is not required on user object but user cannot execute AccessMgr or DelAccessMgr methods w/out pw.
-            if ( ObjUtil.isNotNullOrEmpty( entity.getPassword() ) )
+            if ( ArrayUtils.isNotEmpty( entity.getPassword() ) )
             {
                 VUtil.password( entity.getPassword() );
             }
@@ -797,7 +797,7 @@ final class UserP
             {
                 VUtil.safeText( entity.getSn(), GlobalIds.SN_LEN );
             }
-            if ( ObjUtil.isNotNullOrEmpty( entity.getPassword() ) )
+            if ( ArrayUtils.isNotEmpty( entity.getPassword() ) )
             {
                 VUtil.password( entity.getPassword() );
             }

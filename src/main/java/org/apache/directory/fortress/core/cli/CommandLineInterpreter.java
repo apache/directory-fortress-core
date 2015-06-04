@@ -32,6 +32,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
@@ -41,12 +42,12 @@ import org.apache.directory.fortress.core.GroupMgrFactory;
 import org.apache.directory.fortress.core.model.Address;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.OrgUnit;
@@ -990,7 +991,7 @@ public class CommandLineInterpreter
                 command = ADD_GROUP_PROP;
                 LOG.info( command );
                 Group group = options.getGroup();
-                if ( ObjUtil.isNotNullOrEmpty( group.getProperties() ) )
+                if ( PropUtil.isNotEmpty( group.getProperties() ) )
                 {
                     for ( Enumeration<?> e = group.getProperties().propertyNames(); e.hasMoreElements(); )
                     {
@@ -1005,7 +1006,7 @@ public class CommandLineInterpreter
                 command = DELETE_GROUP_PROP;
                 LOG.info( command );
                 Group group = options.getGroup();
-                if ( ObjUtil.isNotNullOrEmpty( group.getProperties() ) )
+                if ( PropUtil.isNotEmpty( group.getProperties() ) )
                 {
                     for ( Enumeration<?> e = group.getProperties().propertyNames(); e.hasMoreElements(); )
                     {
@@ -1122,7 +1123,7 @@ public class CommandLineInterpreter
     private Set<String> loadCommandSet( String[] otherArgs )
     {
         Set<String> commands = null;
-        if ( ObjUtil.isNotNullOrEmpty( otherArgs ) )
+        if ( ArrayUtils.isNotEmpty( otherArgs ) )
         {
             commands = new HashSet<>();
             Collections.addAll( commands, otherArgs );
@@ -1190,7 +1191,7 @@ public class CommandLineInterpreter
                 }
             }
 
-            if ( ObjUtil.isNotNullOrEmpty( perm.getProperties() ) )
+            if ( PropUtil.isNotEmpty( perm.getProperties() ) )
             {
                 printSeparator();
                 int ctr = 0;
@@ -1218,7 +1219,7 @@ public class CommandLineInterpreter
             printRow( type, "TYPE", permObj.getType() );
             printRow( type, "OU  ", permObj.getOu() );
         }
-        if ( ObjUtil.isNotNullOrEmpty( permObj != null ? permObj.getProperties() : null ) )
+        if ( PropUtil.isNotEmpty( permObj != null ? permObj.getProperties() : null ) )
         {
             printSeparator();
             int ctr = 0;
@@ -1306,7 +1307,7 @@ public class CommandLineInterpreter
                     printAdminRole( "A", ur );
                 }
             }
-            if ( ObjUtil.isNotNullOrEmpty( user.getProperties() ) )
+            if ( PropUtil.isNotEmpty( user.getProperties() ) )
             {
                 printSeparator();
                 int ctr = 0;
@@ -1341,7 +1342,7 @@ public class CommandLineInterpreter
                     printRow( type, "MEMBER[" + ++memctr + "]", member );
                 }
             }
-            if ( ObjUtil.isNotNullOrEmpty( group.getProperties() ) )
+            if ( PropUtil.isNotEmpty( group.getProperties() ) )
             {
                 int propctr = 0;
                 for ( Enumeration<?> e = group.getProperties().propertyNames(); e.hasMoreElements(); )

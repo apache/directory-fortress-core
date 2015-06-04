@@ -33,7 +33,6 @@ import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
@@ -165,7 +164,7 @@ final class ConfigDAO extends ApacheDsDataProvider
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
-            if ( ObjUtil.isNotNullOrEmpty( props ) )
+            if ( PropUtil.isNotEmpty( props ) )
             {
                 loadProperties( props, mods, GlobalIds.PROPS, true );
             }
@@ -231,7 +230,7 @@ final class ConfigDAO extends ApacheDsDataProvider
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
-            if ( ObjUtil.isNotNullOrEmpty( props ) )
+            if ( PropUtil.isNotEmpty( props ) )
             {
                 removeProperties( props, mods, GlobalIds.PROPS );
             }

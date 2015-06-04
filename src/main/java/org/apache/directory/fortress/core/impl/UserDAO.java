@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicy;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
@@ -59,7 +60,6 @@ import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.model.Warning;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
@@ -433,7 +433,7 @@ final class UserDAO extends ApacheDsDataProvider
             myEntry.add( SchemaConstants.SN_AT, entity.getSn() );
 
             // guard against npe
-            myEntry.add( SchemaConstants.USER_PASSWORD_AT, ObjUtil.isNotNullOrEmpty( entity.getPassword() ) ? new
+            myEntry.add( SchemaConstants.USER_PASSWORD_AT, ArrayUtils.isNotEmpty( entity.getPassword() ) ? new
                 String( entity.getPassword() ) : new String( new char[]
                     {} ) );
             myEntry.add( SchemaConstants.DISPLAY_NAME_AT, entity.getCn() );
@@ -514,7 +514,7 @@ final class UserDAO extends ApacheDsDataProvider
             myEntry.add( GlobalIds.CONSTRAINT, ConstraintUtil.setConstraint( entity ) );
             loadAddress( entity.getAddress(), myEntry );
 
-            if ( ObjUtil.isNotNullOrEmpty( entity.getJpegPhoto() ) )
+            if ( ArrayUtils.isNotEmpty( entity.getJpegPhoto() ) )
             {
                 myEntry.add( JPEGPHOTO, entity.getJpegPhoto() );
             }
@@ -569,7 +569,7 @@ final class UserDAO extends ApacheDsDataProvider
                     entity.getOu() ) );
             }
 
-            if ( ObjUtil.isNotNullOrEmpty( entity.getPassword() ) )
+            if ( ArrayUtils.isNotEmpty( entity.getPassword() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants
                     .USER_PASSWORD_AT, new String( entity.getPassword() ) ) );
@@ -620,7 +620,7 @@ final class UserDAO extends ApacheDsDataProvider
                 }
             }
 
-            if ( ObjUtil.isNotNullOrEmpty( entity.getProperties() ) )
+            if ( PropUtil.isNotEmpty( entity.getProperties() ) )
             {
                 loadProperties( entity.getProperties(), mods, GlobalIds.PROPS, true );
             }
@@ -632,7 +632,7 @@ final class UserDAO extends ApacheDsDataProvider
             loadAttrs( entity.getMobiles(), mods, MOBILE );
             loadAttrs( entity.getEmails(), mods, SchemaConstants.MAIL_AT );
 
-            if ( ObjUtil.isNotNullOrEmpty( entity.getJpegPhoto() ) )
+            if ( ArrayUtils.isNotEmpty( entity.getJpegPhoto() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, JPEGPHOTO, entity
                     .getJpegPhoto() ) );
@@ -676,7 +676,7 @@ final class UserDAO extends ApacheDsDataProvider
         {
             List<Modification> mods = new ArrayList<Modification>();
 
-            if ( ObjUtil.isNotNullOrEmpty( entity.getProperties() ) )
+            if ( PropUtil.isNotEmpty( entity.getProperties() ) )
             {
                 loadProperties( entity.getProperties(), mods, GlobalIds.PROPS, replace );
             }

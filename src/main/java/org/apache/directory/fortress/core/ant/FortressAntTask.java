@@ -28,7 +28,7 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.ObjUtil;
+import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.input.InputHandler;
@@ -1148,7 +1148,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<Group> groups = addgroupproperty.getGroups();
             for ( Group group : groups )
             {
-                if ( ObjUtil.isNotNullOrEmpty( group.getProperties() ) )
+                if ( PropUtil.isNotEmpty( group.getProperties() ) )
                 {
                     for ( Enumeration<?> e = group.getProperties().propertyNames(); e.hasMoreElements(); )
                     {
@@ -1191,7 +1191,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<Group> groups = delgroupproperty.getGroups();
             for ( Group group : groups )
             {
-                if ( ObjUtil.isNotNullOrEmpty( group.getProperties() ) )
+                if ( PropUtil.isNotEmpty( group.getProperties() ) )
                 {
                     for ( Enumeration<?> e = group.getProperties().propertyNames(); e.hasMoreElements(); )
                     {

@@ -125,4 +125,16 @@ public final class PropUtil
         }
         return props;
     }
+
+
+    /**
+     * Method will return true if props is not null or empty.
+     *
+     * @param props contains the reference to props.
+     * @return boolean if validation succeeds.
+     */
+    public static boolean isNotEmpty( Properties props )
+    {
+        return ( props != null ) && ( props.size() > 0 );
+    }
 }

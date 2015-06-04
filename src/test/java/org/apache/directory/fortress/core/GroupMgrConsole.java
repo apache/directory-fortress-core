@@ -26,7 +26,7 @@ import org.apache.directory.fortress.core.model.Group;
 import java.util.Enumeration;
 import java.util.List;
 
-import org.apache.directory.fortress.core.util.ObjUtil;
+import org.apache.directory.fortress.core.model.PropUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -259,7 +259,7 @@ class GroupMgrConsole
                     System.out.println("    member[" + ctr++ + "]=" + member);
                 }
             }
-            if ( ObjUtil.isNotNullOrEmpty( outGroup.getProperties() ) )
+            if ( PropUtil.isNotEmpty( outGroup.getProperties() ) )
             {
                 int ctr = 0;
                 for (Enumeration e = outGroup.getProperties().propertyNames(); e.hasMoreElements();)
@@ -306,7 +306,7 @@ class GroupMgrConsole
                             System.out.println("    member[" + memberctr++ + "]=" + member);
                         }
                     }
-                    if ( ObjUtil.isNotNullOrEmpty( outGroup.getProperties() ) )
+                    if ( PropUtil.isNotEmpty( outGroup.getProperties() ) )
                     {
                         int propctr = 0;
                         for (Enumeration e = outGroup.getProperties().propertyNames(); e.hasMoreElements();)

@@ -29,12 +29,14 @@ import java.util.ListIterator;
 import java.util.Properties;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.ConstraintValidator;
 import org.apache.directory.fortress.core.model.ObjectFactory;
+import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.model.Warning;
@@ -245,7 +247,7 @@ public final class VUtil implements ConstraintValidator
      */
     public static void properties( Properties props ) throws ValidationException
     {
-        if ( ObjUtil.isNotNullOrEmpty( props ) )
+        if ( PropUtil.isNotEmpty( props ) )
         {
             for ( Enumeration<?> e = props.propertyNames(); e.hasMoreElements(); )
             {
@@ -519,7 +521,7 @@ public final class VUtil implements ConstraintValidator
     public static void assertNotNullOrEmpty( char[] value, int errorCode, String method )
         throws ValidationException
     {
-        if ( !ObjUtil.isNotNullOrEmpty( value ) )
+        if ( !ArrayUtils.isNotEmpty( value ) )
         {
             String error = "assertContext detected null entity for method [" + method + "], error code ["
                 + errorCode + "]";

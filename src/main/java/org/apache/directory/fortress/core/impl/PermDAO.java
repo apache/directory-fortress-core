@@ -49,7 +49,6 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.util.ObjUtil;
 import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.CreateException;
@@ -246,7 +245,7 @@ final class PermDAO extends ApacheDsDataProvider
 
             // props are optional as well:
             //if the props is null don't try to load these attributes
-            if ( ObjUtil.isNotNullOrEmpty( entity.getProperties() ) )
+            if ( PropUtil.isNotEmpty( entity.getProperties() ) )
             {
                 loadProperties( entity.getProperties(), entry, GlobalIds.PROPS );
             }
@@ -305,7 +304,7 @@ final class PermDAO extends ApacheDsDataProvider
                     ModificationOperation.REPLACE_ATTRIBUTE, TYPE, entity.getType() ) );
             }
 
-            if ( ObjUtil.isNotNullOrEmpty( entity.getProperties() ) )
+            if ( PropUtil.isNotEmpty( entity.getProperties() ) )
             {
                 loadProperties( entity.getProperties(), mods, GlobalIds.PROPS, true );
             }
@@ -423,7 +422,7 @@ final class PermDAO extends ApacheDsDataProvider
 
             // props are optional as well:
             //if the props is null don't try to load these attributes
-            if ( ObjUtil.isNotNullOrEmpty( entity.getProperties() ) )
+            if ( PropUtil.isNotEmpty( entity.getProperties() ) )
             {
                 loadProperties( entity.getProperties(), entry, GlobalIds.PROPS );
             }
