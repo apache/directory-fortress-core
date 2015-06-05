@@ -962,6 +962,14 @@ public abstract class ApacheDsDataProvider
     }
 
 
+    /**
+     * Return the image stored on the entry.
+     *
+     * @param entry contains the image target.
+     * @param attributeName to be retrieved.
+     * @return byte array containing image.
+     * @throws LdapInvalidAttributeValueException contains the system error.
+     */
     protected byte[] getPhoto( Entry entry, String attributeName ) throws LdapInvalidAttributeValueException
     {
         byte[] photo = null;

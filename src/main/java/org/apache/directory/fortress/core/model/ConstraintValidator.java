@@ -34,7 +34,7 @@ public interface ConstraintValidator
      * @throws org.apache.directory.fortress.core.ValidationException
      *          in the event value falls out of range.
      */
-    public void timeout( Integer timeout ) throws ValidationException;
+    void timeout( Integer timeout ) throws ValidationException;
 
     /**
      * Perform simple reasonability check on contraint beginTime value.
@@ -43,33 +43,33 @@ public interface ConstraintValidator
      * @throws org.apache.directory.fortress.core.ValidationException
      *          in the event value falls out of range.
      */
-    public void beginTime( String beginTime ) throws ValidationException;
+    void beginTime( String beginTime ) throws ValidationException;
 
     /**
      * Perform simple reasonability check on contraint endTime value.
      * @param endTime if set, must be between '0000' and '2400'.
      * @throws ValidationException in the event value falls out of range.
      */
-    public void endTime( String endTime ) throws ValidationException;
+    void endTime( String endTime ) throws ValidationException;
 
     /**
      * Perform simple reasonability check on contraint beginDate value.
      * @param beginDate if set, must be format 'YYYYMMDD'.
      * @throws ValidationException in the event value falls out of range.
      */
-    public void beginDate( String beginDate ) throws ValidationException;
+    void beginDate( String beginDate ) throws ValidationException;
 
     /**
      * Perform simple reasonability check on contraint endDate value.
      * @param endDate if set, must be format 'YYYYMMDD'.
      * @throws ValidationException in the event value falls out of range.
      */
-    public void endDate( String endDate ) throws ValidationException;
+    void endDate( String endDate ) throws ValidationException;
 
     /**
      * Perform simple reasonability check on contraint dayMask value.
      * @param dayMask format is '1234567', 1 = Sunday, 2 = Monday, etc.  Any or all of the 'bits' may be left blank.
      * @throws ValidationException in the event value falls out of range.
      */
-    public void dayMask( String dayMask ) throws ValidationException;
+    void dayMask( String dayMask ) throws ValidationException;
 }

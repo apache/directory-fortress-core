@@ -45,7 +45,7 @@ found in root folder of Fortress SDK package.
 Once started, the Fortress CLI runs in interactive mode which means it runs continuously waiting for user to enter
 a valid commands or terminate. Every CLI command is structured in the following format:<br/>
 
-<p><b>group function options</b><br/><br/>
+<p><b>group function options</b><br/><br/></p>
 
     For example:
 <pre>admin auser -u hounddog42 -p myNewP@$$w0rd -o development</pre>
@@ -92,6 +92,7 @@ Currently the following groups of functions are supported:
 
 <p>
     This remainder of document is a command reference document to show how the Fortress CLI works.
+</p>
 <ol type="I">
     <li>
 
@@ -165,12 +166,11 @@ Currently the following groups of functions are supported:
                     </li>
                     <li>admin auser -u testuser3 -p mypasword789 -o dev1 -z 1111111 -2 123 -y 555-555-5555 -y
                         444-444-4444 ->
-                        "joshuatree1 one two three" -> "joshuatree2 four five six" -< CA -3 twentyninepalms -Y
+                        "joshuatree1 one two three" -> "joshuatree2 four five six" -> CA -3 twentyninepalms -Y
                         333-333-3333
                     </li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>uuser : function to update an existing user in LDAP</h3>
@@ -240,7 +240,6 @@ Currently the following groups of functions are supported:
                     </li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>duser : function to delete a user from LDAP</h3>
@@ -262,7 +261,6 @@ Currently the following groups of functions are supported:
                     <li>admin duser -u testuser1</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>change : function to change a user's password</h3>
@@ -282,7 +280,6 @@ Currently the following groups of functions are supported:
                     <li>admin change -u testuser1 -p mypasword123 -V mynewpassword456</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>reset : function to perform an administrative reset on user password</h3>
@@ -304,7 +301,6 @@ Currently the following groups of functions are supported:
                     <li>admin reset -u testuser1 -V temp777</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>lock : LOCK_USER_ACCOUNT</h3>
@@ -321,7 +317,6 @@ Currently the following groups of functions are supported:
                     <li>admin lock -u testuser1</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>unlock : UNLOCK_USER_ACCOUNT</h3>
@@ -340,7 +335,6 @@ Currently the following groups of functions are supported:
                     <li>admin unlock -u testuser1</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>arole : Add a new Role</h3>
@@ -377,7 +371,6 @@ Currently the following groups of functions are supported:
                     <li>admin arole -n trole2 -d roledescription -b 0900 -e 1800 -B 20120101 -E 20990101 -m 1234567</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>urole : Update an existing Role</h3>
@@ -413,7 +406,6 @@ Currently the following groups of functions are supported:
                     <li>admin urole -n trole2 -b 0800 -B 20111231 -m 23456</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>drole : Delete a Role</h3>
@@ -433,7 +425,6 @@ Currently the following groups of functions are supported:
                     <li>admin drole -n trole1</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>asgnrole : Assign a Role to a User</h3>
@@ -506,7 +497,6 @@ Currently the following groups of functions are supported:
                     <li>admin asgnrole -u testuser2 -n trole2 -b 1200 -e 2359 -B 20120101 -E 20120131 -m 1234567</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>dsgnrole : Deassign a Role from a User</h3>
@@ -533,7 +523,6 @@ Currently the following groups of functions are supported:
                     <li>admin dsgnrole -u testuser2 -n trole2</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>arel : ADD_ROLE_INHERITANCE</h3>
@@ -562,7 +551,6 @@ Currently the following groups of functions are supported:
                     <li>admin arel -A trole1 -D trole2</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>drel : DELETE_ROLE_INHERITANCE</h3>
@@ -588,7 +576,6 @@ Currently the following groups of functions are supported:
                     <li>admin drel -A trole1 -D trole2</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>asset : CREATE_SSD_SET</h3>
@@ -605,7 +592,6 @@ Currently the following groups of functions are supported:
                         set.
                     <li> The SSD constraint for the new role set is satisfied.
                 </ul>
-
 
                 <h4>required parameters</h4>
                 <ul>
@@ -627,7 +613,6 @@ Currently the following groups of functions are supported:
                     <li>admin asset -n mytestssd -r trole1 -r trole3 -r trole5 -r trole6 -c 3 -d only2of4canAssign</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>dsset : DELETE_SSD_SET</h3>
@@ -646,7 +631,6 @@ Currently the following groups of functions are supported:
                     <li>admin dsset -n mytestssd</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>adset : CREATE_DSD_SET</h3>
@@ -689,7 +673,6 @@ Currently the following groups of functions are supported:
                     </li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>ddset : DELETE_DSD_SET</h3>
@@ -708,7 +691,6 @@ Currently the following groups of functions are supported:
                     <li>admin ddset -n mytestdsd</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>aobj : ADD_POBJ</h3>
@@ -741,7 +723,6 @@ Currently the following groups of functions are supported:
                     <li>admin aobj -n myobject2 -o app1 -d TestObject -t anything -v key1:val1 -v key2:val2</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>uobj : UPDATE_POBJ</h3>
@@ -774,7 +755,6 @@ Currently the following groups of functions are supported:
                     <li>admin uobj -n myobject2 -o app1 -d ChangeDescription</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>dobj : DELETE_POBJ</h3>
@@ -794,7 +774,7 @@ Currently the following groups of functions are supported:
                     <li>admin dobj -n mytestobject -o app1</li>
                 </ul>
             </li>
-            <br/>
+
             <li>
                 <h3>aperm : ADD_PERM</h3>
 
@@ -830,7 +810,6 @@ Currently the following groups of functions are supported:
                     <li>admin aperm -n myobject2 -O myoperation2 -r trole1 -r trole5</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>uperm : UPDATE_PERM</h3>
@@ -863,7 +842,6 @@ Currently the following groups of functions are supported:
                     <li>admin uperm -n myobject2 -O myoperation2 -r trole6 -D ReplaceExistingGrantsWithThisRole</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>dperm : DELETE_PERM</h3>
@@ -884,7 +862,6 @@ Currently the following groups of functions are supported:
                     <li>admin dperm -n mytestobject -O myoperation -d CreateNewPermission</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>grant : GRANT</h3>
@@ -909,7 +886,6 @@ Currently the following groups of functions are supported:
                     <li>admin grant -n mytestobject -O myoperation -R trole1</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>revoke : REVOKE </h3>
@@ -933,8 +909,6 @@ Currently the following groups of functions are supported:
                     <li>admin revoke -n mytestobject -O myoperation -R trole1</li>
                 </ul>
             </li>
-            <br/>
-
         </ol>
     </li>
     <li>
@@ -1003,7 +977,6 @@ Currently the following groups of functions are supported:
                     </li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>urole : Update an existing ADMIN_Role</h3>
@@ -1062,7 +1035,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin urole -n arole2 -x role4 -w role1 -y true -z false</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>drole : Delete an ADMIN_Role</h3>
@@ -1082,7 +1054,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin drole -n arole1</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>asgnrole : Assign an ADMIN_Role to a User</h3>
@@ -1142,8 +1113,7 @@ Currently the following groups of functions are supported:
                     <li>dadmin asgnrole -u testuser2 -n arole2 -b 1200 -e 2359 -B 20120101 -E 20120131 -m 1234567</li>
                 </ul>
             </li>
-            <br/>
-
+\
             <li>
                 <h3>dsgnrole : Deassign a ADMIN_Role from a User</h3>
 
@@ -1168,7 +1138,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin dsgnrole -u testuser2 -n arole1</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>arel : ADD_ADMIN_ROLE_INHERITANCE</h3>
@@ -1195,7 +1164,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin arel -A arole1 -D arole2</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>drel : DELETE_ADMIN_ROLE_INHERITANCE</h3>
@@ -1223,7 +1191,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin drel -A arole1 -D arole2</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>auou : ADD_USERORG</h3>
@@ -1243,7 +1210,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin auou -n UserOrg2 -d description-contains-any-safe-text</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>uuou : UPDATE_USERORG</h3>
@@ -1265,7 +1231,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin uuou -n UserOrg2 -d updated-description-contains-any-safe-text</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>duou : DELETE_USERORG</h3>
@@ -1283,7 +1248,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin duou -n UserOrg1</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>aurel : ADD_USERORG_INHERITANCE</h3>
@@ -1311,7 +1275,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin aurel -A UserOrg1 -D UserOrg2</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>durel : DELETE_USERORG_INHERITANCE</h3>
@@ -1338,7 +1301,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin durel -A UserOrg1 -D UserOrg2</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>apou : ADD_PERMORG</h3>
@@ -1358,7 +1320,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin apou -n PermOrg2 -d description-contains-any-safe-text</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>upou : UPDATE_PERMORG</h3>
@@ -1380,7 +1341,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin upou -n PermOrg1 -d description-contains-any-safe-text</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>dpou : DELETE_PERMORG</h3>
@@ -1398,7 +1358,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin dpou -n PermOrg2</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>aprel : ADD_PERMORG_INHERITANCE</h3>
@@ -1425,7 +1384,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin aprel -A PermOrg1 -D PermOrg2</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>dprel : DELETE_PERMORG_INHERITANCE</h3>
@@ -1452,7 +1410,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin dprel -A PermOrg1 -D PermOrg2</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>aobj : ADD_ADMIN_POBJ</h3>
@@ -1487,7 +1444,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin aobj -n myobject2 -o app1 -d TestObject -t anything -v key1:val1 -v key2:val2</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>uobj : UPDATE_ADMIN_POBJ</h3>
@@ -1522,7 +1478,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin uobj -n myobject2 -o app1 -d ChangeDescription</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>dobj : DELETE_POBJ</h3>
@@ -1543,7 +1498,7 @@ Currently the following groups of functions are supported:
                     <li>dadmin dobj -n mytestobject -o app1</li>
                 </ul>
             </li>
-            <br/>
+
             <li>
                 <h3>aperm : ADD_ADMIN_PERM</h3>
 
@@ -1578,7 +1533,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin aperm -n mytestobject -O myoperation -d CreateNewAdminPermission</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>uperm : UPDATE_ADMIN_PERM</h3>
@@ -1612,7 +1566,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin uperm -n mytestobject -O myoperation -d new-description</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>dperm : DELETE_ADMIN_PERM</h3>
@@ -1638,7 +1591,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin dperm -n mytestobject -O myoperation -d CreateNewAdminPermission</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>grant : GRANT ADMIN</h3>
@@ -1664,7 +1616,6 @@ Currently the following groups of functions are supported:
                     <li>dadmin grant -n mytestobject -O myoperation -R arole1</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>revoke : REVOKE ADMIN</h3>
@@ -1688,9 +1639,7 @@ Currently the following groups of functions are supported:
                     <li>dadmin revoke -n mytestobject -O myoperation -R arole1</li>
                 </ul>
             </li>
-            <br/>
         </ol>
-
     </li>
     <li>
 
@@ -1713,7 +1662,6 @@ Currently the following groups of functions are supported:
                     <li>review ruser -u testuser1</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>fuser : FIND_USERS</h3>
@@ -1736,7 +1684,6 @@ Currently the following groups of functions are supported:
                     <li>review fuser -u test</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>asgnuser : ASSIGNED_USERS</h3>
@@ -1755,7 +1702,6 @@ Currently the following groups of functions are supported:
                     <li>review asgnuser -n -role1</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>rrole : READ_ROLE</h3>
@@ -1773,7 +1719,6 @@ Currently the following groups of functions are supported:
                     <li>review rrole -n role1</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>frole : FIND_ROLES</h3>
@@ -1797,7 +1742,6 @@ Currently the following groups of functions are supported:
                     <li>review frole -n role</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>robj : READ_POBJ</h3>
@@ -1815,7 +1759,6 @@ Currently the following groups of functions are supported:
                     <li>review robj -n mytestobject</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>fobj : FIND_POBJS</h3>
@@ -1841,7 +1784,6 @@ Currently the following groups of functions are supported:
                     <li>review robj -n my</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>rperm : READ_PERM</h3>
@@ -1862,7 +1804,6 @@ Currently the following groups of functions are supported:
                     <li>review rperm -n mytestobject -O myoperation</li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>fperm : FIND_PERMS</h3>
@@ -1894,8 +1835,6 @@ Currently the following groups of functions are supported:
                     <li>review fperm -n mytest -O my</li>
                 </ul>
             </li>
-            <br/>
-
         </ol>
     </li>
 
@@ -1938,7 +1877,6 @@ Currently the following groups of functions are supported:
                 </ul>
             </li>
 
-
             <li>
                 <h3>ugroup : UPDATE_GROUP</h3>
 
@@ -1962,7 +1900,6 @@ Currently the following groups of functions are supported:
                 </ul>
             </li>
 
-
             <li>
                 <h3>dgroup : DELETE_GROUP</h3>
 
@@ -1979,7 +1916,6 @@ Currently the following groups of functions are supported:
                     <li>group dgroup -n footest1</li>
                 </ul>
             </li>
-
 
             <li>
                 <h3>asgngroup : ASSIGN_GROUP</h3>
@@ -2096,8 +2032,6 @@ Currently the following groups of functions are supported:
                     <li>group fgroup -n fo</li>
                 </ul>
             </li>
-
-            <br/>
         </ol>
         <!-- end group -->
     </li>
@@ -2131,7 +2065,6 @@ Currently the following groups of functions are supported:
                     <li></li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>authenticate : AUTHENTICATE</h3>
@@ -2156,7 +2089,6 @@ Currently the following groups of functions are supported:
                     <li></li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>assignedroles : ASSIGNED_ROLES</h3>
@@ -2181,7 +2113,6 @@ Currently the following groups of functions are supported:
                     <li></li>
                 </ul>
             </li>
-            <br/>
 
             <li>
                 <h3>checkaccess : CHECK_ACCESS</h3>
@@ -2206,7 +2137,6 @@ Currently the following groups of functions are supported:
                     <li></li>
                 </ul>
             </li>
-            <br/>
         </ol>
     </li>
 </ol>
