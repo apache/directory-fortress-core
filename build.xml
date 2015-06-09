@@ -889,6 +889,7 @@
          <replace file="${dst.remote.conf}" token="@KEY_STORE@" value="${key.store}"/>
          <replace file="${dst.remote.conf}" token="@KEY_STORE_PW@" value="${key.store.password}"/>
          <replace file="${dst.remote.conf}" token="@SERVER_TYPE@" value="${ldap.server.type}"/>
+         <replace file="${dst.remote.conf}" token="@IS_AUDIT@" value="${enable.audit}"/>
 
          <echo message="###############  Modify fortress load scripts per user settings  ###############"/>
          <delete file="${dst.load.bootstrap.script}"/>

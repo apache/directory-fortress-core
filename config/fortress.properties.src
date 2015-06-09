@@ -26,6 +26,9 @@ port=@LDAP_PORT@
 # Options are openldap or apacheds (default):
 ldap.server.type=@SERVER_TYPE@
 
+# Audit only works if ldap.server.type == openldap:
+enable.audit=@IS_AUDIT@
+
 # Used for SSL Connection to LDAP Server:
 enable.ldap.ssl=@ENABLE_LDAP_SSL@
 enable.ldap.ssl.debug=@ENABLE_LDAP_SSL_DEBUG@

@@ -68,7 +68,6 @@
             </addcontainer>
 
             <addconfig>
-                <config props="enable.audit:true"/>
                 <config props="config.realm:DEFAULT"/>
                 <config props="min.user.conn:@USR_MIN_CONN@"/>
                 <config props="max.user.conn:@USR_MAX_CONN@"/>
@@ -143,7 +142,6 @@
 
             <addconfig>
                 <config props="config.realm:TOMCAT"/>
-                <config props="enable.audit:true"/>
                 <config props="authn.type:realm"/>
                 <config props="ldap.server.type:@SERVER_TYPE@"/>
                 <config props="clientside.sorting:true"/>
