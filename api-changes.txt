@@ -1,0 +1,85 @@
+Apache Directory Fortress API Change Notice
+Date: June 8, 2015
+This document was created to provide instructions about the latest Fortress Core api changes.
+The changes were made to the source during a recent improvement effort and required the movement of packages.
+
+*******************************************************************************
+SECTION A. Only perform this section if running embedded fortress core apis inside your client programs.
+*******************************************************************************
+
+1. Change the package name used for the current fortress entities classes.
+
+- search and replace the imports:
+import org.apache.directory.fortress.core.rbac;
+
+- with:
+import org.apache.directory.fortress.core.model;
+
+2. If using the fortress notNull utility for Strings, change to use Apache Commons StringUtils instead:
+
+- replace the imports:
+import org.apache.directory.fortress.core.util.attr.VUtil;
+
+- with:
+import org.apache.commons.collections.CollectionUtils;
+
+- replace the statements:
+VUtil.isNotNullOrEmpty
+
+- with:
+StringUtils.isNotNull
+
+3. If using the fortress notNull utility for Collections, use the Apache Commons CollectionUtils instead.
+
+- replace:
+import org.apache.directory.fortress.core.util.attr.VUtil;
+
+- with:
+import org.apache.commons.collections.CollectionUtils;
+
+- search and replace:
+VUtil.isNotNullOrEmpty
+
+- with:
+CollectionUtils.isNotEmpty
+
+(note: 2 & 3 above only apply if using the ‘VUtil.isNotNullOrEmpty' apis inside your code)
+
+4. Use the factories for Manager construction.
+
+- Don’t do this:
+AdminMgr adminMgr = new org.apache.directory.fortress.core.impl.AdminMgrImpl();
+
+- Do this instead:
+AdminMgr adminMgr = AdminMgrFactory.createInstance();
+
+*******************************************************************************
+SECTION B. Only perform this section if needing to preserve an existing fortress DIT to use the latest apis:
+*******************************************************************************
+
+5. if storing fortress properties under the ou=Config node, you may need to change one of the ‘ftProps’ attribute:
+e.g. cn=DEFAULT, ou=Config, dc=example,dc=com:
+
+- Do not use this:
+temporal.validator.dsd:org.apache.directory.fortress.core.rbac.DSDChecker
+
+- Do use this:
+temporal.validator.dsd:org.apache.directory.fortress.core.impl.DSDChecker
+
+6. If storing (and using) the fortress arbac permissions under the ou=AdminPerms node, you may need to change:
+
+- Do not use these attribute values:
+ftObjNm=org.apache.directory.fortress.core.rbac.AdminMgrImpl, ou=AdminPerms, ou=ARBAC, dc=example,dc=com
+ftObjNm=org.apache.directory.fortress.core.rbac.AuditMgrImpl, ou=AdminPerms, ou=ARBAC, dc=example,dc=com
+ftObjNm=org.apache.directory.fortress.core.rbac.DelAdminMgrImpl, ou=AdminPerms, ou=ARBAC, dc=example,dc=com
+ftObjNm=org.apache.directory.fortress.core.rbac.DelReviewMgrImpl, ou=AdminPerms, ou=ARBAC, dc=example,dc=com
+ftObjNm=org.apache.directory.fortress.core.rbac.PwPolicyMgrImpl, ou=AdminPerms, ou=ARBAC, dc=example,dc=com
+ftObjNm=org.apache.directory.fortress.core.rbac.ReviewMgrImpl, ou=AdminPerms, ou=ARBAC, dc=example,dc=com
+
+- Do use these values:
+ftObjNm=org.apache.directory.fortress.core.impl.AdminMgrImpl, ou=AdminPerms, ou=ARBAC, dc=example,dc=com
+ftObjNm=org.apache.directory.fortress.core.impl.AuditMgrImpl, ou=AdminPerms, ou=ARBAC, dc=example,dc=com
+ftObjNm=org.apache.directory.fortress.core.impl.DelAdminMgrImpl, ou=AdminPerms, ou=ARBAC, dc=example,dc=com
+ftObjNm=org.apache.directory.fortress.core.impl.DelReviewMgrImpl, ou=AdminPerms, ou=ARBAC, dc=example,dc=com
+ftObjNm=org.apache.directory.fortress.core.impl.PwPolicyMgrImpl, ou=AdminPerms, ou=ARBAC, dc=example,dc=com
+ftObjNm=org.apache.directory.fortress.core.impl.ReviewMgrImpl, ou=AdminPerms, ou=ARBAC, dc=example,dc=com
