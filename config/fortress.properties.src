@@ -23,6 +23,9 @@
 host=@LDAP_HOST@
 port=@LDAP_PORT@
 
+# Options are openldap or apacheds (default):
+ldap.server.type=@SERVER_TYPE@
+
 # Used for SSL Connection to LDAP Server:
 enable.ldap.ssl=@ENABLE_LDAP_SSL@
 enable.ldap.ssl.debug=@ENABLE_LDAP_SSL_DEBUG@

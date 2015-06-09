@@ -888,7 +888,7 @@
          <replace file="${dst.remote.conf}" token="@TRUST_STORE_SET_PROPW@" value="${trust.store.set.prop}"/>
          <replace file="${dst.remote.conf}" token="@KEY_STORE@" value="${key.store}"/>
          <replace file="${dst.remote.conf}" token="@KEY_STORE_PW@" value="${key.store.password}"/>
-
+         <replace file="${dst.remote.conf}" token="@SERVER_TYPE@" value="${ldap.server.type}"/>
 
          <echo message="###############  Modify fortress load scripts per user settings  ###############"/>
          <delete file="${dst.load.bootstrap.script}"/>
@@ -898,7 +898,6 @@
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX_DC2@" value="${suffix.dc2}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX@" value="${suffix}"/>
 
-         <replace file="${dst.load.bootstrap.script}" token="@SERVER_TYPE@" value="${ldap.server.type}"/>
          <replace file="${dst.load.bootstrap.script}" token="@USERS_DN@" value="${users.dn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@GROUPS_DN@" value="${groups.dn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@ROLES_DN@" value="${roles.dn}"/>
