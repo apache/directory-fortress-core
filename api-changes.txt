@@ -7,7 +7,7 @@ The changes were made to the source during a recent improvement effort and requi
 SECTION A. Only perform this section if running embedded fortress core apis inside your client programs.
 *******************************************************************************
 
-1. Change the package name used for the current fortress entities classes.
+1. Change the package name used for the current fortress entity classes.
 
 - search and replace the imports:
 import org.apache.directory.fortress.core.rbac;
@@ -63,7 +63,7 @@ e.g. cn=DEFAULT, ou=Config, dc=example,dc=com:
 - Do not use this:
 temporal.validator.dsd:org.apache.directory.fortress.core.rbac.DSDChecker
 
-- Do use this:
+- Do use this instead:
 temporal.validator.dsd:org.apache.directory.fortress.core.impl.DSDChecker
 
 6. If storing (and using) the fortress arbac permissions under the ou=AdminPerms node, you may need to change:
