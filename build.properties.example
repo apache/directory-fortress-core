@@ -57,14 +57,21 @@ http.pw=password
 http.host=localhost
 http.port=8080
 http.protocol=http
+# For TLs connections:
+#http.port=8443
+#http.protocol=https
 
 ########################################################################
 # 3. BEGIN LDAP CLIENT CONFIGURATION SECTION: (Ignore if using HTTP):
 ########################################################################
 
-# This param tells fortress what type of ldap server in use:
-#ldap.server.type=openldap
+# This is default, tells fortress what type of ldap server in use:
 ldap.server.type=apacheds
+#ldap.server.type=openldap
+
+# Only works if ldap.server.type=openldap:
+enable.audit=true
+
 # This is the default:
 ldap.client.type=apache
 
