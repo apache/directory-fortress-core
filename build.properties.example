@@ -32,7 +32,7 @@
 ########################################################################
 
 # Use this Fortress Core version:
-version=1.0-RC40-SNAPSHOT
+version=1.0-RC41-SNAPSHOT
 
 # Enable local.mode property if your machine does not have connection to Internet and runtime dependencies have already downloaded to FORTRESS_HOME/lib folder on this machine:
 #local.mode=true
