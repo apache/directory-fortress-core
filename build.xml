@@ -880,6 +880,7 @@
          <replace file="${dst.remote.conf}" token="@REST_HTTP_PW@" value="${http.pw}"/>
          <replace file="${dst.remote.conf}" token="@REST_HTTP_HOST@" value="${http.host}"/>
          <replace file="${dst.remote.conf}" token="@REST_HTTP_PORT@" value="${http.port}"/>
+         <replace file="${dst.remote.conf}" token="@REST_HTTP_PROTOCOL@" value="${http.protocol}"/>
          <replace file="${dst.remote.conf}" token="@LDAP_CLIENT_TYPE@" value="${ldap.client.type}"/>
          <replace file="${dst.remote.conf}" token="@ENABLE_LDAP_SSL@" value="${enable.ldap.ssl}"/>
          <replace file="${dst.remote.conf}" token="@ENABLE_LDAP_SSL_DEBUG@" value="${enable.ldap.ssl.debug}"/>
