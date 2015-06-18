@@ -26,6 +26,7 @@ echo $CONTAINER_PORT
 # configure build.properties
 cp build.properties.example build.properties
 sed -i 's/^ldap\.server\.type=.*/ldap.server.type=openldap/' build.properties
+sed -i 's/^enable\.audit=.*/enable.audit=true/' build.properties
 sed -i 's/^ldap\.host=.*/ldap.host=localhost/' build.properties
 sed -i 's/^ldap\.port=.*/ldap.port='${CONTAINER_PORT}'/' build.properties
 sed -i 's/^suffix\.name=.*/suffix.name=openldap/' build.properties
