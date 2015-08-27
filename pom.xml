@@ -106,7 +106,7 @@
     <version.jgrapht-core>0.9.1</version.jgrapht-core>
     <version.jmeter.core>2.11</version.jmeter.core>
     <version.jmeter.java>2.11</version.jmeter.java>
-    <version.jsr311.api>1.1-ea</version.jsr311.api>
+    <version.javaee.api>7.0</version.javaee.api>
     <version.junit>4.12</version.junit>
     <version.log4j>1.2.17</version.log4j>
     <version.mina.core>2.0.8</version.mina.core>
@@ -378,9 +378,9 @@
     </dependency>
 
     <dependency>
-      <groupId>javax.ws.rs</groupId>
-      <artifactId>jsr311-api</artifactId>
-      <version>${version.jsr311.api}</version>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>${version.javaee.api}</version>
     </dependency>
 
     <dependency>

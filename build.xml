@@ -166,7 +166,7 @@
        <property name="jaxb-xjc.jar" value="${lib.dir}/jaxb-xjc-2.2.4-1.jar"/>
        <property name="jackson-jaxrs.jar" value="${lib.dir}/jackson-jaxrs-1.9.0.jar"/>
        <property name="commons-httpclient.jar" value="${lib.dir}/commons-httpclient-3.1.jar"/>
-       <property name="jsr311-api.jar" value="${lib.dir}/jsr311-api-1.1.1.jar"/>
+       <property name="javaee-api.jar" value="${lib.dir}/javaee-api-7.0.jar"/>
        <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.6.9.jar"/>
        <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.7.5.jar"/>
        <property name="slf4j-jcl.jar" value="${lib.dir}/slf4j-jcl-1.7.5.jar"/>
@@ -193,7 +193,7 @@
            <pathelement location="${jaxb-xjc.jar}"/>
            <pathelement location="${jackson-jaxrs.jar}"/>
            <pathelement location="${commons-httpclient.jar}"/>
-           <pathelement location="${jsr311-api.jar}"/>
+           <pathelement location="${javaee-api.jar}"/>
            <pathelement location="${cxf-common-utilities.jar}"/>
            <pathelement location="${ehcache-core.jar}"/>
            <pathelement location="${mina-core.jar}"/>
@@ -227,7 +227,7 @@
            <pathelement location="${jasypt.jar}"/>
            <pathelement location="${jackson-jaxrs.jar}"/>
            <pathelement location="${commons-httpclient.jar}"/>
-           <pathelement location="${jsr311-api.jar}"/>
+           <pathelement location="${javaee-api.jar}"/>
            <pathelement location="${cxf-common-utilities.jar}"/>
            <pathelement location="${jaxb-api.jar}"/>
            <pathelement location="${jaxb-impl.jar}"/>
