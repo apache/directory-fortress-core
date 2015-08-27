@@ -150,7 +150,7 @@
        <property name="accelerator-api.jar" value="${lib.dir}/accelerator-api-1.0-RC40.jar"/>
        <property name="accelerator-impl.jar" value="${lib.dir}/accelerator-impl-1.0-RC40.jar"/>
        <property name="commons-config.jar" value="${lib.dir}/commons-configuration-1.6.jar"/>
-       <property name="commons-lang.jar" value="${lib.dir}/commons-lang-2.4.jar"/>
+       <property name="commons-lang.jar" value="${lib.dir}/commons-lang-2.6.jar"/>
        <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
        <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
        <property name="commons-io.jar" value="${lib.dir}/commons-io-2.4.jar"/>
@@ -428,7 +428,6 @@
           ================================= -->
     <target name="build" depends="clean,build-jar,build-jar-test,javadoc,javadoc-samples" description="--> create the core Fortress library">
        <copy todir="${dist.dir}" file="${basedir}/LICENSE"/>
-       <copy todir="${dist.dir}" file="${basedir}/LICENSE.cmdLineParser.txt"/>
        <copy todir="${dist.dir}" file="${basedir}/LICENSE.slf4j.txt"/>
        <copy todir="${dist.dir}" file="${basedir}/NOTICE"/>
     </target>

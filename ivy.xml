@@ -27,7 +27,7 @@
         <!-- Fortress core is dependent on these libs: -->
         <dependency org="commons-lang" name="commons-lang" rev="2.4" conf="default->master"/>
         <dependency org="commons-configuration" name="commons-configuration" rev="1.6" conf="default->master"/>
-        <dependency org="commons-lang" name="commons-lang" rev="2.4" conf="default->master"/>
+        <dependency org="commons-lang" name="commons-lang" rev="2.6" conf="default->master"/>
         <dependency org="commons-collections" name="commons-collections" rev="3.2.1" conf="default->master"/>
         <dependency org="commons-logging" name="commons-logging" rev="1.1.1" conf="default->master"/>
         <dependency org="commons-codec" name="commons-codec" rev="1.2" conf="default->master"/>

@@ -29,7 +29,6 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.TreeSet;
 
-import jodd.util.StringUtil;
 import junit.framework.TestCase;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
@@ -6514,7 +6513,7 @@ public class UserTestData extends TestCase
     public static String getBeginDate( String[] usr )
     {
         String value = null;
-        if(StringUtil.isNotEmpty( usr[BDATE_COL] ))
+        if(StringUtils.isNotEmpty( usr[BDATE_COL] ))
             value = usr[BDATE_COL];
         return value;
     }
@@ -6527,7 +6526,7 @@ public class UserTestData extends TestCase
     public static String getEndDate( String[] usr )
     {
         String value = null;
-        if(StringUtil.isNotEmpty( usr[EDATE_COL] ))
+        if(StringUtils.isNotEmpty( usr[EDATE_COL] ))
             value = usr[EDATE_COL];
         return value;
     }
@@ -6540,7 +6539,7 @@ public class UserTestData extends TestCase
     public static String getBeginLockDate( String[] usr )
     {
         String value = null;
-        if(StringUtil.isNotEmpty( usr[BLOCKDATE_COL] ))
+        if(StringUtils.isNotEmpty( usr[BLOCKDATE_COL] ))
             value = usr[BLOCKDATE_COL];
         return value;
     }
@@ -6553,7 +6552,7 @@ public class UserTestData extends TestCase
     public static String getEndLockDate( String[] usr )
     {
         String value = null;
-        if(StringUtil.isNotEmpty( usr[ELOCKDATE_COL] ))
+        if(StringUtils.isNotEmpty( usr[ELOCKDATE_COL] ))
             value = usr[ELOCKDATE_COL];
         return value;
     }
@@ -6821,7 +6820,7 @@ public class UserTestData extends TestCase
 
         try
         {
-            if ( StringUtil.isNotEmpty( szInput[col] ) )
+            if ( StringUtils.isNotEmpty( szInput[col] ) )
             {
                 address = new Address();
                 StringTokenizer charSetTkn = new StringTokenizer( szInput[col], TestUtils.DELIMITER_TEST_DATA );
