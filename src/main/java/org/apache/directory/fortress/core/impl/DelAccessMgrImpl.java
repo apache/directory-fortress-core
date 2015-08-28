@@ -351,7 +351,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
                     {
                         // Get the Role range for admin role:
                         Set<String> range;
-                        if(!uaRole.getBeginRange().equalsIgnoreCase(uaRole.getEndRange()))
+                        if(uaRole.getBeginRange() != null && uaRole.getEndRange() != null && !uaRole.getBeginRange().equalsIgnoreCase(uaRole.getEndRange()))
                         {
                             range = RoleUtil.getAscendants( uaRole.getBeginRange(), uaRole.getEndRange(),
                                 uaRole.isEndInclusive(), this.contextId );
@@ -370,7 +370,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
                             }
                         }
                         // Does admin role have authority over the role?
-                        else if(uaRole.getBeginRange().equalsIgnoreCase(role.getName()))
+                        else if(uaRole.getBeginRange() != null && uaRole.getBeginRange().equalsIgnoreCase(role.getName()))
                         {
                             result = true;
                             break;
@@ -425,7 +425,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
                     {
                         // Get the Role range for admin role:
                         Set<String> range;
-                        if(!uaRole.getBeginRange().equalsIgnoreCase(uaRole.getEndRange()))
+                        if(uaRole.getBeginRange() != null && uaRole.getEndRange() != null && !uaRole.getBeginRange().equalsIgnoreCase(uaRole.getEndRange()))
                         {
                             range = RoleUtil.getAscendants(uaRole.getBeginRange(), uaRole.getEndRange(), uaRole.isEndInclusive(), this.contextId);
                             if(uaRole.isBeginInclusive())
@@ -443,7 +443,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
                             }
                         }
                         // Does admin role have authority over the role?
-                        else if(uaRole.getBeginRange().equalsIgnoreCase(role.getName()))
+                        else if(uaRole.getBeginRange() != null && uaRole.getBeginRange().equalsIgnoreCase(role.getName()))
                         {
                             result = true;
                             break;
