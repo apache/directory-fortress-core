@@ -295,37 +295,33 @@ public class RestUtils
             post.setRequestEntity( entity );
             HttpClient httpclient = new HttpClient();
             int result = httpclient.executeMethod( post );
-            if ( result == HTTP_OK )
+            String error;
+
+            switch ( result )
             {
-                szResponse = IOUtils.toString( post.getResponseBodyAsStream(), "UTF-8" );
-                LOG.debug( "post URI=[{}], function=[{}], response=[{}]", URI, function, szResponse );
-            }
-            else if ( result == HTTP_401_UNAUTHORIZED )
-            {
-                String error = "post URI=[" + URI + "], function=[" + function
-                    + "], 401 function unauthorized on host";
-                LOG.error( error );
-                throw new RestException( GlobalErrIds.REST_UNAUTHORIZED_ERR, error );
-            }
-            else if ( result == HTTP_403_FORBIDDEN )
-            {
-                String error = "post URI=[" + URI + "], function=[" + function
-                    + "], 403 function forbidden on host";
-                LOG.error( error );
-                throw new RestException( GlobalErrIds.REST_FORBIDDEN_ERR, error );
-            }
-            else if ( result == HTTP_404_NOT_FOUND )
-            {
-                String error = "post URI=[" + URI + "], function=[" + function + "], 404 not found from host";
-                LOG.error( error );
-                throw new RestException( GlobalErrIds.REST_NOT_FOUND_ERR, error );
-            }
-            else
-            {
-                String error = "post URI=[" + URI + "], function=[" + function
-                    + "], error received from host: " + result;
-                LOG.error( error );
-                throw new RestException( GlobalErrIds.REST_UNKNOWN_ERR, error );
+                case HTTP_OK :
+                    szResponse = IOUtils.toString( post.getResponseBodyAsStream(), "UTF-8" );
+                    LOG.debug( "post URI=[{}], function=[{}], response=[{}]", URI, function, szResponse );
+                    break;
+                case HTTP_401_UNAUTHORIZED :
+                    error = "post URI=[" + URI + "], function=[" + function
+                        + "], 401 function unauthorized on host";
+                    LOG.error( error );
+                    throw new RestException( GlobalErrIds.REST_UNAUTHORIZED_ERR, error );
+                case HTTP_403_FORBIDDEN :
+                    error = "post URI=[" + URI + "], function=[" + function
+                        + "], 403 function forbidden on host";
+                    LOG.error( error );
+                    throw new RestException( GlobalErrIds.REST_FORBIDDEN_ERR, error );
+                case HTTP_404_NOT_FOUND :
+                    error = "post URI=[" + URI + "], function=[" + function + "], 404 not found from host";
+                    LOG.error( error );
+                    throw new RestException( GlobalErrIds.REST_NOT_FOUND_ERR, error );
+                default :
+                    error = "post URI=[" + URI + "], function=[" + function
+                        + "], error received from host: " + result;
+                    LOG.error( error );
+                    throw new RestException( GlobalErrIds.REST_UNKNOWN_ERR, error );
             }
         }
         catch ( IOException ioe )
