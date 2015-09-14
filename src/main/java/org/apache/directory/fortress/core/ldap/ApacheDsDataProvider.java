@@ -744,39 +744,6 @@ public abstract class ApacheDsDataProvider
 
 
     /**
-     * Perform normal ldap search specifying default batch size.
-     *
-     * @param connection is LdapConnection object used for all communication with host.
-     * @param baseDn     contains address of distinguished name to begin ldap search
-     * @param scope      indicates depth of search starting at basedn.  0 (base dn),
-     *                   1 (one level down) or 2 (infinite) are valid values.
-     * @param filter     contains the search criteria
-     * @param attrs      is the requested list of attributes to return from directory search.
-     * @param attrsOnly  if true pull back attribute names only.
-     * @param batchSize  Will block until this many entries are ready to return from server.  0 indicates to block
-     *                   until all results are ready.
-     * @return result set containing ldap entries returned from directory.
-     * @throws LdapException thrown in the event of error in ldap client or server code.
-     */
-    protected SearchCursor search( LdapConnection connection, String baseDn, SearchScope scope, String filter,
-        String[] attrs, boolean attrsOnly, int batchSize ) throws LdapException
-    {
-        COUNTERS.incrementSearch();
-
-        SearchRequest searchRequest = new SearchRequestImpl();
-
-        searchRequest.setBase( new Dn( baseDn ) );
-        searchRequest.setFilter( filter );
-        searchRequest.setScope( scope );
-        searchRequest.setSizeLimit( batchSize );
-        searchRequest.setTypesOnly( attrsOnly );
-        searchRequest.addAttributes( attrs );
-
-        return connection.search( searchRequest );
-    }
-
-
-    /**
      * Perform normal ldap search specifying default batch size and max entries to return.
      *
      * @param connection is LdapConnection object used for all communication with host.
@@ -786,14 +753,12 @@ public abstract class ApacheDsDataProvider
      * @param filter     contains the search criteria
      * @param attrs      is the requested list of attritubutes to return from directory search.
      * @param attrsOnly  if true pull back attribute names only.
-     * @param batchSize  Will block until this many entries are ready to return from server.  0 indicates to block
-     *                   until all results are ready.
      * @param maxEntries specifies the maximum number of entries to return in this search query.
      * @return result set containing ldap entries returned from directory.
      * @throws LdapException thrown in the event of error in ldap client or server code.
      */
     protected SearchCursor search( LdapConnection connection, String baseDn, SearchScope scope, String filter,
-        String[] attrs, boolean attrsOnly, int batchSize, int maxEntries ) throws LdapException
+        String[] attrs, boolean attrsOnly, int maxEntries ) throws LdapException
     {
         COUNTERS.incrementSearch();
 
@@ -802,7 +767,7 @@ public abstract class ApacheDsDataProvider
         searchRequest.setBase( new Dn( baseDn ) );
         searchRequest.setFilter( filter );
         searchRequest.setScope( scope );
-        searchRequest.setSizeLimit( batchSize );
+        searchRequest.setSizeLimit( maxEntries );
         searchRequest.setTypesOnly( attrsOnly );
         searchRequest.addAttributes( attrs );
 

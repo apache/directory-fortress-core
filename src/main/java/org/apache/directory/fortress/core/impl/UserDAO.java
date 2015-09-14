@@ -1225,8 +1225,7 @@ final class UserDAO extends ApacheDsDataProvider
 
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID,
-                false, GlobalIds
-                .BATCH_SIZE, limit );
+                false, limit );
 
             while ( searchResults.next() )
             {
@@ -1532,8 +1531,7 @@ final class UserDAO extends ApacheDsDataProvider
 
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID,
-                false, GlobalIds
-                .BATCH_SIZE, limit );
+                false, limit );
 
             while ( searchResults.next() )
             {
@@ -1649,7 +1647,7 @@ final class UserDAO extends ApacheDsDataProvider
 
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
-                GlobalIds.BATCH_SIZE, maxLimit );
+                maxLimit );
             long sequence = 0;
 
             while ( searchResults.next() )

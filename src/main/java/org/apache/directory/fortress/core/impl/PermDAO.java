@@ -1206,7 +1206,7 @@ final class PermDAO extends ApacheDsDataProvider
 
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, permRoot,
-                SearchScope.SUBTREE, filterbuf.toString(), PERMISION_OBJ_ATRS, false, GlobalIds.BATCH_SIZE, maxLimit );
+                SearchScope.SUBTREE, filterbuf.toString(), PERMISION_OBJ_ATRS, false, maxLimit );
             long sequence = 0;
 
             while ( searchResults.next() )

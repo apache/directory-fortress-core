@@ -488,7 +488,7 @@ final class RoleDAO extends ApacheDsDataProvider
                 + ROLE_NM + "=" + searchVal + "*))";
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, roleRoot,
-                SearchScope.ONELEVEL, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE, limit );
+                SearchScope.ONELEVEL, filter, ROLE_NM_ATR, false, limit );
 
             while ( searchResults.next() )
             {
