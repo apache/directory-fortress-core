@@ -86,7 +86,7 @@ enable.ldap.ssl=false
 #ldap.host=fortressdemo2.com
 #ldap.port=10636
 #enable.ldap.ssl.debug=true
-#trust.store=/home/smckinn/GIT/fortressDev/directory-fortress-core/src/test/resources/certs/mytruststore
+#trust.store=src/test/resources/certs/mytruststore
 #trust.store.password=changeit
 #trust.store.set.prop=true
 
