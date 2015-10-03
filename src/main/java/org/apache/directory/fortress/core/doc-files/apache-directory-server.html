@@ -50,16 +50,16 @@ Steps to install:
     <li>
         Download and install Apache Directory Server
         <br/><br/>
-        For 32-bit (as root):
+        For 32-bit (as sudo or root):
         <pre>
           <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
 wget http://www.trieuvan.com/apache//directory/apacheds/dist/2.0.0-M20/apacheds-2.0.0-M20-32bit.bin
 chmod a+x *.bin
-./apacheds-2.0.0-M20-64bit.bin
+./apacheds-2.0.0-M20-32bit.bin
           </p>
         </pre>
 
-        For 64-bit (as root):
+        For 64-bit (as sudo or root):
         <pre>
           <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
 wget http://www.trieuvan.com/apache//directory/apacheds/dist/2.0.0-M20/apacheds-2.0.0-M20-64bit.bin
@@ -109,7 +109,7 @@ wrapper.java.command=/path/java/bin/java
     <li>
         After installation start the directory server process.
 
-        From system command prompt (as root):
+        From system command prompt (as sudo or root):
         <pre>
           <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
 /etc/init.d/apacheds-2.0.0-M20-default start
@@ -120,7 +120,7 @@ wrapper.java.command=/path/java/bin/java
     <li>
         Check the status of server process.
 
-        From system command prompt (as root):
+        From system command prompt (as sudo or root):
         <pre>
           <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
 /etc/init.d/apacheds-2.0.0-M20-default status ApacheDS - default is running (70041).
