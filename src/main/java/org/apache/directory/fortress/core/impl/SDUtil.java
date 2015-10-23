@@ -337,7 +337,7 @@ final class SDUtil
                     dsdRetSets.add(entry.getSdSet());
                 }
                 // Remove role member from authorizedRoleSet to preclude from upcoming DSD search:
-                authorizedRoleSet.remove(entry.getMember());
+                //authorizedRoleSet.remove(entry.getMember());
             }
             // Authorized roles remaining in this set correspond to missed cache hits from above:
             if (authorizedRoleSet.size() > 0)
