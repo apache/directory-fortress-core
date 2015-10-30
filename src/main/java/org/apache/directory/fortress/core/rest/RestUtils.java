@@ -23,6 +23,7 @@ package org.apache.directory.fortress.core.rest;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.nio.charset.Charset;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
@@ -41,10 +42,23 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.httpclient.methods.RequestEntity;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
+
+
 import org.apache.cxf.common.util.Base64Utility;
 import org.apache.cxf.helpers.IOUtils;
 import org.apache.directory.fortress.core.model.FortRequest;
 import org.apache.directory.fortress.core.model.FortResponse;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpRequest;
+import org.apache.http.HttpResponse;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.methods.*;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -192,9 +206,10 @@ public class RestUtils
             url += "/" + id3;
         }
         LOG.debug( "get function1:{}, id1:{}, id2:{}, id3:{}, url:{}", function, id, id2, id3, url );
-        GetMethod get = new GetMethod( url );
-        setMethodHeaders( get, userId, password );
-        return handleHttpMethod( get );
+        HttpGet get = new HttpGet(url);
+        setMethodHeaders( get );
+        return handleHttpMethod( get ,HttpClientBuilder.create()
+                .setDefaultCredentialsProvider(getCredentialProvider(userId, password)).build() );
     }
 
 
@@ -210,19 +225,7 @@ public class RestUtils
      */
     public static String get( String id, String id2, String id3, String function ) throws RestException
     {
-        String url = URI + function + "/" + id;
-        if ( id2 != null )
-        {
-            url += "/" + id2;
-        }
-        if ( id3 != null )
-        {
-            url += "/" + id3;
-        }
-        LOG.debug( "get function2:{}, id1:{}, id2:{}, id3:{}, url:{}", function, id, id2, id3, url );
-        GetMethod get = new GetMethod( url );
-        setMethodHeaders( get, HTTP_UID, HTTP_PW );
-        return handleHttpMethod( get );
+        return get( null, null, id, id2, id3, function );
     }
 
 
@@ -238,30 +241,58 @@ public class RestUtils
      */
     public static String post( String userId, String password, String szInput, String function ) throws RestException
     {
-        LOG.debug( "post URI=[{}], function=[{}], request={}", URI, function, szInput );
+        LOG.debug( "post URI=[{}], function=[{}], request=[{}]", URI, function, szInput );
         String szResponse = null;
-        PostMethod post = new PostMethod( URI + function );
-        post.addRequestHeader( "Accept", "text/xml" );
-        setMethodHeaders( post, userId, password );
+//        PostMethod post = new PostMethod( URI + function );
+        HttpPost post = new HttpPost(URI + function);
+        post.addHeader("Accept", "text/xml");
+        setMethodHeaders( post );
         try
         {
-            RequestEntity entity = new StringRequestEntity( szInput, "text/xml; charset=ISO-8859-1", null );
-            post.setRequestEntity( entity );
-            HttpClient httpclient = new HttpClient();
-            int result = httpclient.executeMethod( post );
-            szResponse = IOUtils.toString( post.getResponseBodyAsStream(), "UTF-8" );
-            LOG.debug( "post URI=[{}], function=[{}], response=[{}], result=[{}]", URI, function, szResponse, result );
+            HttpEntity entity = new StringEntity( szInput, ContentType.TEXT_XML );
+            post.setEntity(entity);
+            org.apache.http.client.HttpClient httpclient = HttpClientBuilder.create()
+                    .setDefaultCredentialsProvider(getCredentialProvider(userId, password)).build();
+            HttpResponse response = httpclient.execute(post);
+            String error;
+
+            switch ( response.getStatusLine().getStatusCode() )
+            {
+                case HTTP_OK :
+                    szResponse = IOUtils.toString( response.getEntity().getContent(), "UTF-8" );
+                    LOG.debug( "post URI=[{}], function=[{}], response=[{}]", URI, function, szResponse );
+                    break;
+                case HTTP_401_UNAUTHORIZED :
+                    error = "post URI=[" + URI + "], function=[" + function
+                            + "], 401 function unauthorized on host";
+                    LOG.error( error );
+                    throw new RestException( GlobalErrIds.REST_UNAUTHORIZED_ERR, error );
+                case HTTP_403_FORBIDDEN :
+                    error = "post URI=[" + URI + "], function=[" + function
+                            + "], 403 function forbidden on host";
+                    LOG.error( error );
+                    throw new RestException( GlobalErrIds.REST_FORBIDDEN_ERR, error );
+                case HTTP_404_NOT_FOUND :
+                    error = "post URI=[" + URI + "], function=[" + function + "], 404 not found from host";
+                    LOG.error( error );
+                    throw new RestException( GlobalErrIds.REST_NOT_FOUND_ERR, error );
+                default :
+                    error = "post URI=[" + URI + "], function=[" + function
+                            + "], error received from host: " + response.getStatusLine().getStatusCode();
+                    LOG.error( error );
+                    throw new RestException( GlobalErrIds.REST_UNKNOWN_ERR, error );
+            }
         }
         catch ( IOException ioe )
         {
-            String error = "post URI=[" + URI + "], [" + function + "] caught IOException=" + ioe;
+            String error = "post URI=[" + URI + "], function=[" + function + "] caught IOException=" + ioe;
             LOG.error( error );
             throw new RestException( GlobalErrIds.REST_IO_ERR, error, ioe );
         }
         catch ( WebApplicationException we )
         {
             String error = "post URI=[" + URI + "], function=[" + function
-                + "] caught WebApplicationException=" + we;
+                    + "] caught WebApplicationException=" + we;
             LOG.error( error );
             throw new RestException( GlobalErrIds.REST_WEB_ERR, error, we );
         }
@@ -284,86 +315,34 @@ public class RestUtils
      */
     public static String post( String szInput, String function ) throws RestException
     {
-        LOG.debug( "post URI=[{}], function=[{}], request=[{}]", URI, function, szInput );
-        String szResponse = null;
-        PostMethod post = new PostMethod( URI + function );
-        post.addRequestHeader( "Accept", "text/xml" );
-        setMethodHeaders( post, HTTP_UID, HTTP_PW );
-        try
-        {
-            RequestEntity entity = new StringRequestEntity( szInput, "text/xml; charset=ISO-8859-1", null );
-            post.setRequestEntity( entity );
-            HttpClient httpclient = new HttpClient();
-            int result = httpclient.executeMethod( post );
-            String error;
-
-            switch ( result )
-            {
-                case HTTP_OK :
-                    szResponse = IOUtils.toString( post.getResponseBodyAsStream(), "UTF-8" );
-                    LOG.debug( "post URI=[{}], function=[{}], response=[{}]", URI, function, szResponse );
-                    break;
-                case HTTP_401_UNAUTHORIZED :
-                    error = "post URI=[" + URI + "], function=[" + function
-                        + "], 401 function unauthorized on host";
-                    LOG.error( error );
-                    throw new RestException( GlobalErrIds.REST_UNAUTHORIZED_ERR, error );
-                case HTTP_403_FORBIDDEN :
-                    error = "post URI=[" + URI + "], function=[" + function
-                        + "], 403 function forbidden on host";
-                    LOG.error( error );
-                    throw new RestException( GlobalErrIds.REST_FORBIDDEN_ERR, error );
-                case HTTP_404_NOT_FOUND :
-                    error = "post URI=[" + URI + "], function=[" + function + "], 404 not found from host";
-                    LOG.error( error );
-                    throw new RestException( GlobalErrIds.REST_NOT_FOUND_ERR, error );
-                default :
-                    error = "post URI=[" + URI + "], function=[" + function
-                        + "], error received from host: " + result;
-                    LOG.error( error );
-                    throw new RestException( GlobalErrIds.REST_UNKNOWN_ERR, error );
-            }
-        }
-        catch ( IOException ioe )
-        {
-            String error = "post URI=[" + URI + "], function=[" + function + "] caught IOException=" + ioe;
-            LOG.error( error );
-            throw new RestException( GlobalErrIds.REST_IO_ERR, error, ioe );
-        }
-        catch ( WebApplicationException we )
-        {
-            String error = "post URI=[" + URI + "], function=[" + function
-                + "] caught WebApplicationException=" + we;
-            LOG.error( error );
-            throw new RestException( GlobalErrIds.REST_WEB_ERR, error, we );
-        }
-        finally
-        {
-            // Release current connection to the connection pool.
-            post.releaseConnection();
-        }
-        return szResponse;
+        return post(null,null,szInput, function);
     }
 
+    private static CredentialsProvider getCredentialProvider(String uid, String password) {
+        BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+        credentialsProvider.setCredentials( new AuthScope(HTTP_HOST,Integer.valueOf(HTTP_PORT)),
+                new UsernamePasswordCredentials(uid==null?HTTP_UID:uid,password==null?HTTP_PW:password) );
+        return credentialsProvider;
+    }
 
     /**
      * Set these params into their associated HTTP header vars.
      *
-     * @param httpMethod
-     * @param name
-     * @param password
+     * @param httpRequest
      */
-    private static void setMethodHeaders( HttpMethod httpMethod, String name, String password )
+    private static void setMethodHeaders( HttpRequest httpRequest )
     {
-        if ( httpMethod instanceof PostMethod || httpMethod instanceof PutMethod )
+        if ( httpRequest instanceof HttpPost || httpRequest instanceof HttpPut)
         {
-            httpMethod.setRequestHeader( "Content-Type", "application/xml" );
-            httpMethod.setRequestHeader( "Accept", "application/xml" );
+            httpRequest.addHeader("Content-Type", "application/xml");
+            httpRequest.addHeader("Accept", "application/xml");
         }
         //httpMethod.setDoAuthentication(false);
-        httpMethod.setDoAuthentication( true );
-        httpMethod.setRequestHeader( "Authorization",
-            "Basic " + base64Encode( name + ":" + password ) );
+//        httpRequest.setDoAuthentication(true);
+//        httpRequest.addHeader("Authorization",
+//                "Basic " + base64Encode(name + ":" + password));
+
+
     }
 
 
@@ -382,24 +361,23 @@ public class RestUtils
     /**
      * Process the HTTP method request.
      *
-     * @param httpMethod
+     * @param httpGetRequest
      * @return String containing response
      * @throws Exception
      */
-    private static String handleHttpMethod( HttpMethod httpMethod ) throws RestException
+    private static String handleHttpMethod( HttpRequestBase httpGetRequest ,org.apache.http.client.HttpClient client ) throws RestException
     {
-        HttpClient client = new HttpClient();
         String szResponse = null;
         try
         {
-            int statusCode = client.executeMethod( httpMethod );
-            LOG.debug( "handleHttpMethod Response status : {}", statusCode );
+            HttpResponse response = client.execute( httpGetRequest );
+            LOG.debug( "handleHttpMethod Response status : {}", response.getStatusLine().getStatusCode() );
 
-            Response.Status status = Response.Status.fromStatusCode( statusCode );
+            Response.Status status = Response.Status.fromStatusCode( response.getStatusLine().getStatusCode() );
 
             if ( status == Response.Status.OK )
             {
-                szResponse = httpMethod.getResponseBodyAsString();
+                szResponse = IOUtils.toString( response.getEntity().getContent() );
                 LOG.debug( szResponse );
             }
             else if ( status == Response.Status.FORBIDDEN )
@@ -424,7 +402,7 @@ public class RestUtils
         finally
         {
             // Release current connection to the connection pool.
-            httpMethod.releaseConnection();
+            httpGetRequest.releaseConnection();
         }
         return szResponse;
     }

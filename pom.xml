@@ -93,6 +93,7 @@
     <version.commons.configuration>1.10</version.commons.configuration>
     <version.commons.digester>1.8</version.commons.digester>
     <version.commons.httpclient>3.1</version.commons.httpclient>
+    <version.httpcomponent.httpclient>4.5.1</version.httpcomponent.httpclient>
     <version.commons.io>2.4</version.commons.io>
     <version.commons.lang>2.6</version.commons.lang>
     <version.commons.logging>1.1.1</version.commons.logging>
@@ -173,6 +174,12 @@
       <groupId>commons-httpclient</groupId>
       <artifactId>commons-httpclient</artifactId>
       <version>${version.commons.httpclient}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>${version.httpcomponent.httpclient}</version>
     </dependency>
 
     <dependency>
