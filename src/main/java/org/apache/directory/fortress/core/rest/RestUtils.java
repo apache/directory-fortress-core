@@ -23,7 +23,6 @@ package org.apache.directory.fortress.core.rest;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.nio.charset.Charset;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
@@ -34,15 +33,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.PutMethod;
-import org.apache.commons.httpclient.methods.RequestEntity;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
-
 
 import org.apache.cxf.common.util.Base64Utility;
 import org.apache.cxf.helpers.IOUtils;
@@ -243,17 +233,16 @@ public class RestUtils
     {
         LOG.debug( "post URI=[{}], function=[{}], request=[{}]", URI, function, szInput );
         String szResponse = null;
-//        PostMethod post = new PostMethod( URI + function );
         HttpPost post = new HttpPost(URI + function);
-        post.addHeader("Accept", "text/xml");
+        post.addHeader( "Accept", "text/xml" );
         setMethodHeaders( post );
         try
         {
             HttpEntity entity = new StringEntity( szInput, ContentType.TEXT_XML );
-            post.setEntity(entity);
+            post.setEntity( entity );
             org.apache.http.client.HttpClient httpclient = HttpClientBuilder.create()
                     .setDefaultCredentialsProvider(getCredentialProvider(userId, password)).build();
-            HttpResponse response = httpclient.execute(post);
+            HttpResponse response = httpclient.execute( post );
             String error;
 
             switch ( response.getStatusLine().getStatusCode() )
@@ -296,6 +285,14 @@ public class RestUtils
             LOG.error( error );
             throw new RestException( GlobalErrIds.REST_WEB_ERR, error, we );
         }
+        catch ( java.lang.NoSuchMethodError e )
+        {
+            String error = "post URI=[" + URI + "], function=[" + function
+                + "] caught Exception=" + e;
+            LOG.error( error );
+            e.printStackTrace();
+            throw new RestException( GlobalErrIds.REST_UNKNOWN_ERR, error );
+        }
         finally
         {
             // Release current connection to the connection pool.
@@ -334,15 +331,9 @@ public class RestUtils
     {
         if ( httpRequest instanceof HttpPost || httpRequest instanceof HttpPut)
         {
-            httpRequest.addHeader("Content-Type", "application/xml");
-            httpRequest.addHeader("Accept", "application/xml");
+            httpRequest.addHeader( "Content-Type", "application/xml" );
+            httpRequest.addHeader( "Accept", "application/xml" );
         }
-        //httpMethod.setDoAuthentication(false);
-//        httpRequest.setDoAuthentication(true);
-//        httpRequest.addHeader("Authorization",
-//                "Basic " + base64Encode(name + ":" + password));
-
-
     }
 
 
