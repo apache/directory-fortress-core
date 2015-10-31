@@ -85,14 +85,13 @@
     <version.ant.launcher>1.9.1</version.ant.launcher>
     <version.antlr>2.7.7</version.antlr>
     <version.apacheds>2.0.0-M19</version.apacheds>
-    <version.api.all>1.0.0-M31</version.api.all>
+    <version.api.all>1.0.0-M32</version.api.all>
     <version.commons.beanutils>1.7.0</version.commons.beanutils>
     <version.commons.beanutils-core>1.8.0</version.commons.beanutils-core>
     <version.commons.codec>1.10</version.commons.codec>
     <version.commons.collections>3.2.1</version.commons.collections>
     <version.commons.configuration>1.10</version.commons.configuration>
     <version.commons.digester>1.8</version.commons.digester>
-    <version.commons.httpclient>3.1</version.commons.httpclient>
     <version.httpcomponent.httpclient>4.5.1</version.httpcomponent.httpclient>
     <version.httpcomponent.httpcore>4.4.3</version.httpcomponent.httpcore>
     <version.commons.io>2.4</version.commons.io>
