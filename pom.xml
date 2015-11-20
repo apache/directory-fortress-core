@@ -79,8 +79,8 @@
   <!-- ====================================================== -->
   <properties>
     <!-- Jars -->
-    <version.accelerator.api>1.0-RC40</version.accelerator.api>
-    <version.accelerator.impl>1.0-RC40</version.accelerator.impl>
+    <version.accelerator.api>1.0-RC41</version.accelerator.api>
+    <version.accelerator.impl>1.0-RC41</version.accelerator.impl>
     <version.ant>1.9.4</version.ant>
     <version.ant.launcher>1.9.1</version.ant.launcher>
     <version.antlr>2.7.7</version.antlr>
