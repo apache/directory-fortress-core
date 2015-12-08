@@ -37,66 +37,32 @@ version=1.0-RC41-SNAPSHOT
 # Enable local.mode property if your machine does not have connection to Internet and runtime dependencies have already downloaded to FORTRESS_HOME/lib folder on this machine:
 #local.mode=true
 
-# Set sudo.pw is used by 'init-slapd', 'start-slapd' and 'stop-slapd' tagets on Linux machine when sudo access required, otherwise leave this value blank
-# The sudo.pw variable must be uncommented and left empty iff installing Symas-OpenLDAP package onto Redhat Linux platform:
-#sudo.pw=
+# Ths variable sets default tenant for current running ant process.  It is used during ldap initialization operations.
+tenant=HOME
 
 ########################################################################
-# 2. BEGIN HTTP CLIENT CONFIGURATION SECTION (Ignore if using LDAPv3):
+# 2. BEGIN LDAP CLIENT CONFIGURATION SECTION: (Ignore if using HTTP):
 ########################################################################
 
-# The following optional HTTP parameters are needed when Fortress client communicates though EnMasse HTTP proxy (rather than LDAP) server:
-# Setting the enable.mgr.impl.rest to 'true' sets Fortress instance to use HTTP services rather than LDAPv3 protocol. Default value is 'false':
-# Using REST/HTTP allows Fortress communications to pass through firewalls and other non-LDAP network intermediaries.
-enable.mgr.impl.rest=false
-#enable.mgr.impl.rest=true
-
-# This user account is added automatically during init-slapd or init-apacheds target via 'FortressDemoUsers.xml' policy file:
-http.user=demouser4
-http.pw=password
-http.host=localhost
-http.port=8080
-http.protocol=http
-# For TLs connections:
-#http.port=8443
-#http.protocol=https
-
-########################################################################
-# 3. BEGIN LDAP CLIENT CONFIGURATION SECTION: (Ignore if using HTTP):
-########################################################################
+# Only works if ldap.server.type=openldap:
+#enable.audit=true
 
 # This is default, tells fortress what type of ldap server in use:
 ldap.server.type=apacheds
 #ldap.server.type=openldap
 
-# Only works if ldap.server.type=openldap:
-enable.audit=true
-
-# This is the default:
-ldap.client.type=apache
-
 # These parameters point fortress to LDAP host:
 ldap.host=localhost
 ldap.port=10389
-enable.ldap.ssl=false
-#ldap.uris=ldap://${ldap.host}:${ldap.port}
-
-# These are needed for client SSL connections with LDAP Server:
 #enable.ldap.ssl=true
-#ldap.host=fortressdemo2.com
-#ldap.port=10636
-#enable.ldap.ssl.debug=true
-#trust.store=src/test/resources/certs/mytruststore
-#trust.store.password=changeit
-#trust.store.set.prop=true
 
-# These are needed for slapd startup SSL configuration:
-#ldap.uris=ldap://${ldap.host}:389 ldaps://${ldap.host}:${ldap.port}
+# These are the connection parameters used for LDAP service account:
+root.dn=uid=admin,ou=system
+# This admin pass is bound for fortress.properties used by 'admin' pooled connections:
+cfg.root.pw=secret
 
-# These are needed for slapd server-side SSL configuration:
-#tls.ca.cert.file=ca-cert.pem
-#tls.cert.file=server-cert.pem
-#tls.key.file=server-key.pem
+# This is the default:
+ldap.client.type=apache
 
 # These are used to construct suffix for DIT, i.e. dc=example,dc=com.
 suffix.name=example
@@ -121,14 +87,6 @@ adminperms.dn=ou=AdminPerms,ou=ARBAC,${suffix}
 audits.dn=cn=log
 groups.dn=ou=Groups,${suffix}
 
-# These are the connection parameters used for LDAP service account:
-#root.dn=cn=Manager,${suffix}
-root.dn=uid=admin,ou=system
-# Used to load OpenLDAP admin root password in slapd.conf and was encrypted using 'slappasswd' command:
-root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
-# This OpenLDAP admin root pass is bound for fortress.properties used by 'admin' pooled connections:
-cfg.root.pw=secret
-
 # This specifies the number of default LDAP connections to maintain in the pool:
 admin.min.conn=1
 admin.max.conn=10
@@ -137,16 +95,20 @@ admin.max.conn=10
 user.min.conn=1
 user.max.conn=10
 
-# Used for searching slapd logger.  Comment out for ApacheDS or other directory servers:
-log.admin.user=cn=Manager,cn=log
-log.admin.pw=secret
-
 # Used for slapd logger connection pool.  Leave zeros when using apacheds:
 min.log.conn=1
 max.log.conn=3
 
+# Used for searching slapd logger.  Comment out for ApacheDS or other directory servers:
+#log.admin.user=cn=Manager,cn=log
+#log.admin.pw=secret
+
+# Used for slapd logger connection pool.  Leave zeros when using apacheds:
+#min.log.conn=1
+#max.log.conn=3
+
 ########################################################################
-# 9. GROUP OBJECT CLASS DEFINITIONS
+# 3. GROUP OBJECT CLASS DEFINITIONS
 ########################################################################
 
 # Use Fortress defined LDAP Group objectclass:
@@ -158,3 +120,24 @@ group.properties=configParameter
 #group.objectclass=guacConfigGroup
 #group.protocol=guacConfigProtocol
 #group.properties=guacConfigParameter
+
+########################################################################
+# 4. BEGIN HTTP CLIENT CONFIGURATION SECTION (Ignore if using LDAPv3):
+########################################################################
+
+# The following optional HTTP parameters are needed when Fortress client communicates though EnMasse HTTP proxy (rather than LDAP) server:
+# Setting the enable.mgr.impl.rest to 'true' sets Fortress instance to use HTTP services rather than LDAPv3 protocol. Default value is 'false':
+# Using REST/HTTP allows Fortress communications to pass through firewalls and other non-LDAP network intermediaries.
+enable.mgr.impl.rest=false
+#enable.mgr.impl.rest=true
+
+# This user account is added automatically during init-slapd or init-apacheds target via 'FortressDemoUsers.xml' policy file:
+http.user=demouser4
+http.pw=password
+http.host=localhost
+http.port=8080
+http.protocol=http
+# For TLs connections:
+#http.port=8443
+#http.protocol=https
+

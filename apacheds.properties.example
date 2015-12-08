@@ -1,0 +1,54 @@
+#
+#   Licensed to the Apache Software Foundation (ASF) under one
+#   or more contributor license agreements.  See the NOTICE file
+#   distributed with this work for additional information
+#   regarding copyright ownership.  The ASF licenses this file
+#   to you under the Apache License, Version 2.0 (the
+#   "License"); you may not use this file except in compliance
+#   with the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing,
+#   software distributed under the License is distributed on an
+#   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+#   KIND, either express or implied.  See the License for the
+#   specific language governing permissions and limitations
+#   under the License.
+#
+#
+########################################################################
+# 0. About the fortress apacheds.properties file
+########################################################################
+
+# Use this property file to specify environment settings specific to your environment and fortress runtime components.
+# These parameters will be loaded into the following locations by the Fortress during the init targets within the build.xml ant management utility:
+# a. fortress.properties - Fortress' configuration file tells fortress runtime how to connect to remote resources
+# b. refreshLDAPData.xml - Used by fortress to initialize and base load the LDAP DIT data structures.  Fortress also stores runtime params inside 'ou=Config' container on remote server.
+# c. slapd.conf - This will be used to configure the runtime OpenLDAP server (slapd) if applicable.
+
+########################################################################
+# 3. BEGIN LDAP CLIENT CONFIGURATION SECTION: (Ignore if using HTTP):
+########################################################################
+
+# This is default, tells fortress what type of ldap server in use:
+ldap.server.type=apacheds
+
+# These parameters point fortress to LDAP host:
+ldap.host=localhost
+ldap.port=10389
+enable.ldap.ssl=false
+
+# These are the connection parameters used for LDAP service account:
+root.dn=uid=admin,ou=system
+# This admin pass is bound for fortress.properties used by 'admin' pooled connections:
+cfg.root.pw=secret
+
+# These are needed for client SSL connections with LDAP Server:
+#enable.ldap.ssl=true
+#ldap.host=fortressdemo2.com
+#ldap.port=10636
+#enable.ldap.ssl.debug=true
+#trust.store=src/test/resources/certs/mytruststore
+#trust.store.password=changeit
+#trust.store.set.prop=true

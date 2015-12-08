@@ -83,7 +83,7 @@ The build.properties file is used by the fortress core ant script, build.xml, to
 2. refreshLDAPData.xml - this is the base load script that sets up the DIT structure and populates the config node in LDAP
 
 The fortress.properties are then loaded onto the classpath where it will be found by fortress.  The refreshLDAPData.xml is
-the base load script that can be loaded using this command:
+the base load script that can be loaded using this command:a
 # mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
 
 Anytime you need to refresh the values contained inside the other files, run this command:
