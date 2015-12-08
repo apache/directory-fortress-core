@@ -24,18 +24,18 @@ ________________________________________________________________________________
 
 Covers these sections
 
-SECTION I   - Machine Prereqs
-SECTION II  - Apache Fortress Core and OpenLDAP Quickstart
-SECTION III - Apache Fortress Realm Setup
-SECTION IV  - Apache Tomcat Setup Fortress Usage
-SECTION V   - Apache Fortress Rest Setup
-SECTION VI  - Apache Fortress Web Setup
+SECTION 1 - Machine Prereqs
+SECTION 2 - Apache Fortress Core and OpenLDAP Quickstart
+SECTION 3 - Apache Fortress Realm Setup
+SECTION 4 - Apache Tomcat Setup Fortress Usage
+SECTION 5 - Apache Fortress Rest Setup
+SECTION 6 - Apache Fortress Web Setup
 
-Sections III and beyond are not required for OpenLDAP Accelerator usage
+Sections 3++ are not required for OpenLDAP Accelerator usage
 
 ___________________________________________________________________________________
 ###################################################################################
-SECTION I - Machine Prereqs
+SECTION 1 - Machine Prereqs
 ###################################################################################
 
 - 2 Cores, 4GB RAM
@@ -52,10 +52,8 @@ SECTION I - Machine Prereqs
 
 ___________________________________________________________________________________
 ###################################################################################
-SECTION II - Apache Fortress Core and OpenLDAP Quickstart
+SECTION 2 - Apache Fortress Core and OpenLDAP Quickstart
 ###################################################################################
-
-During this section, you will be asked to install the prerequisite infrastructure to run OpenLDAP accelerator.  Included is the ldap server used by the apache fortress system.
 
 1. download and prepare the package:
 git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
@@ -63,42 +61,63 @@ cd directory-fortress-core
 cp build.properties.example build.properties
 cp slapd.properties.example slapd.properties
 
-2. edit the install script:
+2. Download Symas OpenLDAP Silver Binaries:
+https://symas.com/downloads/
+
+3. Place it under this folder:
+directory-fortress-core/ldap
+
+4. edit the install script:
 vi build.properties
 
-3. add sudo priv to script:
+5. add sudo priv to script (if using sudo on step 7):
 sudo.pw=mysudopassword
 
-4. Install openldap or specify Symas OpenLDAP Silver installation package file name and location.
+6. Update with slapd install for package downladed.
 
-For Debian installs:
-slapd.install=dpkg -i symas-openldap-silver.version.platform.ext
+a. For Debian installs:
+slapd.install=dpkg -i symas-openldap-silver.version.platform.deb
 
-For Redhat:
-slapd.install=rpm -i symas-openldap-silver.x86_64-2.4.43-20151205.rpm
+b. For Redhat:
+slapd.install=rpm -i symas-openldap-silver.version.platform.rpm
 
-5. save and exit
+7. Specify whether you want to enable slapo-rbac overlay:
 
-6. run the maven install:
+a. enable slapo-rbac:
+rbac.accelerator=true
+
+note: to use this option, symas-openldap version 2.4.43++ is required.
+
+b. don't enable slapo-rbac:
+rbac.accelerator=false
+
+8. save and exit
+
+9. run the maven install:
 mvn clean install
 
-7. install, configure and load openldap with DIT and seed data:
+10. install, configure and load openldap with DIT and seed data:
 sudo ./b.sh init-slapd
 
-8. run the fortress core regression tests:
+or if running as priv user:
+./b.sh init-slapd
+
+11. run the fortress core regression tests:
 mvn test -Dtest=FortressJUnitTest
 
-9. run the openldap accelerator regression tests:
+12. run the openldap accelerator regression tests:
 mvn test -Dtest=AccelMgrImplTest
 
-10. all tests should run without errors.
+note: only run this test if slapo-rbac overlay enabled.
 
-11. run the console:
+13. all tests should run without errors.
+
+14. run the console:
 mvn install -Pconsole
 
 ___________________________________________________________________________________
 ###################################################################################
-SECTION III - Apache Fortress Realm Setup
+SECTION 3 - Apache Fortress Realm Setup
 ###################################################################################
 
 During this section, you will be asked to setup Apache Fortress Realm.
@@ -112,7 +131,7 @@ mvn clean install
 
 ___________________________________________________________________________________
 ###################################################################################
-SECTION IV - Apache Tomcat Setup Fortress Usage
+SECTION 4 - Apache Tomcat Setup Fortress Usage
 ###################################################################################
 
 During this section, you will be asked to setup Apache Tomcat 8 and prepare for usage with Apache Fortress
@@ -147,7 +166,7 @@ http://hostname:8080/manager
 
 ___________________________________________________________________________________
 ###################################################################################
-SECTION V - Apache Fortress Rest Setup
+SECTION 5 - Apache Fortress Rest Setup
 ###################################################################################
 
 During this section, you will be asked to setup Apache Fortress Rest Application
@@ -174,7 +193,7 @@ mvn test -Dtest=EmTest
 
 ___________________________________________________________________________________
 ###################################################################################
-SECTION VI - Apache Fortress Web Setup
+SECTION 6 - Apache Fortress Web Setup
 ###################################################################################
 
 During this section, you will be asked to setup Apache Fortress Web Application
