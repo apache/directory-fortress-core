@@ -24,15 +24,14 @@ ________________________________________________________________________________
 
 Covers these sections
 
-SECTION I - Machine Prereqs
-SECTION II - Machine Setup
-SECTION III - Apache Fortress Core and OpenLDAP Quickstart
-SECTION IV - Apache Fortress Realm Setup
-SECTION V - Apache Tomcat Setup Fortress Usage
-SECTION VI - Apache Fortress Rest Setup
-SECTION VI - Apache Fortress Web Setup
+SECTION I   - Machine Prereqs
+SECTION II  - Apache Fortress Core and OpenLDAP Quickstart
+SECTION III - Apache Fortress Realm Setup
+SECTION IV  - Apache Tomcat Setup Fortress Usage
+SECTION V   - Apache Fortress Rest Setup
+SECTION VI  - Apache Fortress Web Setup
 
-Sections IV and beyond are not required for OpenLDAP Accelerator usage
+Sections III and beyond are not required for OpenLDAP Accelerator usage
 
 ___________________________________________________________________________________
 ###################################################################################
@@ -50,33 +49,10 @@ SECTION I - Machine Prereqs
 - Tomcat* v7++
 
 *optional
-___________________________________________________________________________________
-###################################################################################
-SECTION II - Machine Setup
-###################################################################################
-
-During this section you will connect to the host machine that is running inside a public cloud.  This will be your test machine for the duration of the tutorial.
-
-1. Obtain IP, hostname and creds for century-link cloud virtual machine from instructor.
-
-2. log in using ssh:
-ssh student@host-name
-
-3. All of the source necessary to complete the tutorial has been staged under this folder:
-student@GB3SCOLMIRAN01:~$ ls -l /home/student/fortress/
-total 208396
--rw-rw-r-- 1 student student 124306775 Jun 10 21:17 ApacheDirectoryStudio-2.0.0.v20150606-M9-linux.gtk.x86_64.tar.gz
--rw-rw-r-- 1 student student   9147876 Nov 20 09:47 apache-tomcat-8.0.29.tar.gz
-drwxrwxr-x 5 student student      4096 Oct 11 19:00 directory-fortress-commander
-drwxrwxr-x 5 student student      4096 Oct 11 19:01 directory-fortress-enmasse
-drwxrwxr-x 9 student student      4096 Oct 11 19:00 directory-fortress-realm
--rw-rw-r-- 1 student student  63608133 Dec  5 17:09 fortressBuilder-Debian-Silver-x86-64-1.0-RC41.tar.gz
--rw-rw-r-- 1 student student      7236 Dec  5 17:13 README.txt
-student@GB3SCOLMIRAN01:~$
 
 ___________________________________________________________________________________
 ###################################################################################
-SECTION III - Apache Fortress Core and OpenLDAP Quickstart
+SECTION II - Apache Fortress Core and OpenLDAP Quickstart
 ###################################################################################
 
 During this section, you will be asked to install the prerequisite infrastructure to run OpenLDAP accelerator.  Included is the ldap server used by the apache fortress system.
@@ -122,7 +98,7 @@ mvn install -Pconsole
 
 ___________________________________________________________________________________
 ###################################################################################
-SECTION IV - Apache Fortress Realm Setup
+SECTION III - Apache Fortress Realm Setup
 ###################################################################################
 
 During this section, you will be asked to setup Apache Fortress Realm.
@@ -136,7 +112,7 @@ mvn clean install
 
 ___________________________________________________________________________________
 ###################################################################################
-SECTION V - Apache Tomcat Setup Fortress Usage
+SECTION IV - Apache Tomcat Setup Fortress Usage
 ###################################################################################
 
 During this section, you will be asked to setup Apache Tomcat 8 and prepare for usage with Apache Fortress
@@ -171,7 +147,7 @@ http://hostname:8080/manager
 
 ___________________________________________________________________________________
 ###################################################################################
-SECTION VI - Apache Fortress Rest Setup
+SECTION V - Apache Fortress Rest Setup
 ###################################################################################
 
 During this section, you will be asked to setup Apache Fortress Rest Application
@@ -198,7 +174,7 @@ mvn test -Dtest=EmTest
 
 ___________________________________________________________________________________
 ###################################################################################
-SECTION VII - Apache Fortress Web Setup
+SECTION VI - Apache Fortress Web Setup
 ###################################################################################
 
 During this section, you will be asked to setup Apache Fortress Web Application
