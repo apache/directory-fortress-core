@@ -82,8 +82,10 @@ The fortress.properties file is picked off the runtime classpath during startup.
 The combination of fortress and system properties are used as coordinates to read the remote server's configuration entry where the remainder of the properties are stored.
 
 The remote server node's dn is constructed from fortress.property values:
+```
 config.realm=DEFAULT
 config.root=ou=Config,@SUFFIX@
+```
 
 The above would be combined to create the dn: cn=Default, ou=Config, [whatever the @SUFFIX@ is]
 
