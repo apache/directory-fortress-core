@@ -30,6 +30,14 @@
        <property name="user-propfile" value="${user.home}/build.properties"/>
        <property file="${user-propfile}"/>
 
+       <!-- read properties from the slapd.properties, if any -->
+       <property name="slapd-propfile" value="${basedir}/slapd.properties"/>
+       <property file="${slapd-propfile}"/>
+
+       <!-- read properties from the apacheds.properties, if any -->
+       <property name="apacheds-propfile" value="${basedir}/apacheds.properties"/>
+       <property file="${apacheds-propfile}"/>
+
        <!-- ########### Project specific properties ########################### -->
        <property name="project.name" value="Fortress Identity Access Management SDK"/>
        <property name="name" value="fortress"/>

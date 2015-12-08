@@ -1,0 +1,151 @@
+#
+#   Licensed to the Apache Software Foundation (ASF) under one
+#   or more contributor license agreements.  See the NOTICE file
+#   distributed with this work for additional information
+#   regarding copyright ownership.  The ASF licenses this file
+#   to you under the Apache License, Version 2.0 (the
+#   "License"); you may not use this file except in compliance
+#   with the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing,
+#   software distributed under the License is distributed on an
+#   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+#   KIND, either express or implied.  See the License for the
+#   specific language governing permissions and limitations
+#   under the License.
+#
+#
+########################################################################
+# 0. About the fortress slapd.properties file
+########################################################################
+
+# Use this property file to specify environment settings specific to your environment and fortress runtime components when you are using openldap directory server.
+# These parameters will be loaded into the following locations by the Fortress during the init targets within the build.xml ant management utility:
+# a. fortress.properties - Fortress' configuration file tells fortress runtime how to connect to remote resources
+# b. refreshLDAPData.xml - Used by fortress to initialize and base load the LDAP DIT data structures.  Fortress also stores runtime params inside 'ou=Config' container on remote server.
+# c. slapd.conf - This will be used to configure the runtime OpenLDAP server (slapd) if applicable.
+
+########################################################################
+# 1. OVERRIDE WITH OPENLDAP SPECIFIC COORDINATES:
+####################################################################################
+ldap.server.type=openldap
+ldap.host=localhost
+ldap.port=389
+root.dn=cn=Manager,${suffix}
+# Used to load OpenLDAP admin root password in slapd.conf and was encrypted using 'slappasswd' command:
+root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
+cfg.root.pw=secret
+
+# Set sudo.pw is used by 'init-slapd', 'start-slapd' and 'stop-slapd' tagets on Linux machine when sudo access required, otherwise leave this value blank
+# The sudo.pw variable must be uncommented and left empty iff installing Symas-OpenLDAP package onto Redhat Linux platform:
+sudo.pw=temp123
+
+########################################################################
+# 2. BEGIN OPENLDAP SERVER CONFIGURATION SECTION: (Ignore if using HTTP or ApacheDS):
+####################################################################################
+
+# Used for slapd logger connection pool.  Leave zeros when using apacheds:
+min.log.conn=1
+max.log.conn=3
+
+#These are passwords used for LDAP audit log service accounts:
+# Audit Pool:
+log.admin.user=cn=Manager,${log.suffix}
+log.admin.pw=secret
+
+# Only works if ldap.server.type=openldap:
+enable.audit=true
+
+# This OpenLDAP slapd logger password is bound for slapd.conf and was encrypted using 'slappasswd' command:
+log.root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
+
+# More Audit Config:
+log.suffix=cn=log
+log.ops=logops bind writes compare
+
+#ldap.uris=ldap://${ldap.host}:${ldap.port}
+
+# These are needed for client SSL connections with LDAP Server:
+#enable.ldap.ssl=true
+#ldap.host=fortressdemo2.com
+#ldap.port=10636
+#enable.ldap.ssl.debug=true
+#trust.store=src/test/resources/certs/mytruststore
+#trust.store.password=changeit
+#trust.store.set.prop=true
+
+# These are needed for slapd startup SSL configuration:
+#ldap.uris=ldap://${ldap.host}:389 ldaps://${ldap.host}:${ldap.port}
+# These are needed for slapd server-side SSL configuration:
+#tls.ca.cert.file=ca-cert.pem
+#tls.cert.file=server-cert.pem
+#tls.key.file=server-key.pem
+
+# OpenLDAP MDB Backend config is default setting for Fortress::
+db.type=mdb
+dflt.rdrs=maxreaders 64
+dflt.size=maxsize 1000000000
+log.rdrs=maxreaders 64
+log.size=maxsize 1000000000
+dflt.bdb.cache.size=
+dflt.bdb.cache.idle.size=
+log.bdb.cache.size=
+
+# These next params used by 'init-slapd' target to install OpenLDAP to target machine.  Do not change any params below this line unless you know what you are doing:
+
+## Symas OpenLDAP on NIX section:
+openldap.install.artifact.dir=./ldap
+db.root=/var/openldap
+openldap.root=/opt/symas
+slapd.dir=${openldap.root}/etc/openldap
+# to start:
+pid.dir=/var/openldap
+db.dir=${db.root}/dflt
+db.hist.dir=${db.root}/hist
+db.bak.dir=${db.root}/backup/dflt
+db.bak.hist.dir=${db.root}/backup/hist
+
+# unless you know what you're doing, take the default:
+log.dbnosynch=dbnosync
+dflt.dbnosynch=dbnosync
+log.checkpoint=checkpoint   64 5
+dflt.checkpoint=checkpoint    64 5
+
+###########################################################################################
+# 3. BEGIN SYMAS-OPENLDAP INSTALL CONFIGURATION SECTION:
+###########################################################################################
+
+# Each of the options are used for a particular Symas-OpenLDAP platform.Debian 64-bit Silver:
+
+#Debian 64-bit Silver:
+pla4tform=Debian-Silver-x86-64
+#slapd.install=dpkg -i symas-openldap-silver.64_2.4.43-20151204_amd64.deb
+#slapd.uninstall=dpkg -r symas-openldap-silver
+#install.image.dir=/home/smckinn/archives/debian64
+slapd.module.dir=${openldap.root}/lib64/openldap
+slapd.start=${openldap.root}/lib64/slapd -h ldap://${ldap.host}:${ldap.port} -f ${openldap.root}/etc/openldap/slapd.conf -F ${openldap.root}/etc/openldap
+
+# Redhat 64-bit Silver:
+#platform=Redhat-Silver-x86-64
+#slapd.install=rpm -i symas-openldap-silver.x86_64-2.4.43-20151205.rpm
+#slapd.uninstall=rpm -e symas-openldap-silver
+#slapd.module.dir=${openldap.root}/lib64/openldap
+#slapd.start=${openldap.root}/lib64/slapd -h ldap://${ldap.host}:${ldap.port} -f ${openldap.root}/etc/openldap/slapd.conf -F ${openldap.root}/etc/openldap
+
+########################################################################
+# 4. RBAC ACCELERATOR OVERLAY PROPS
+########################################################################
+rbac.accelerator=true
+rbac.module=moduleload slapo-rbac.la
+dds.module=moduleload  dds.la
+monitor.module=moduleload  back_monitor.la
+rbac.dn=dc=rbac
+sessions.dn=cn=rbac
+audit.dn=cn=audit
+db.sess.dir=${db.root}/rbacsess
+db.audit.dir=${db.root}/rbacaudit
+db.rbac.dir=${db.root}/rbacoverlay
+db.bak.audit.dir=${db.root}/backup/rbacaudit
+db.bak.sess.dir=${db.root}/backup/rbacsess
