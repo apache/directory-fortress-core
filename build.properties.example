@@ -22,10 +22,15 @@
 ########################################################################
 
 # Use this property file to specify environment settings specific to your environment and fortress runtime components.
-# These parameters will be loaded into the following locations by the Fortress during the init targets within the build.xml ant management utility:
+# These parameters are bound for the following locations by the Fortress during the init targets within the build.xml ant management utility:
 # a. fortress.properties - Fortress' configuration file tells fortress runtime how to connect to remote resources
 # b. refreshLDAPData.xml - Used by fortress to initialize and base load the LDAP DIT data structures.  Fortress also stores runtime params inside 'ou=Config' container on remote server.
-# c. slapd.conf - This will be used to configure the runtime OpenLDAP server (slapd) if applicable.
+
+# The ant property subsystem is fed using three files:
+# i.   user.properties  - optional, when found, located in user's home directory.  Properties found here take precedence over those following.
+# ii.  slapd.properties - optional, when found, located in root folder of the package.  These props override those found in the build.properties file.
+# iii. build.properties - this file is required and must be located in the root folder of the package.
+# More info on the fortress configuration subsystem in README-CONFIG.txt
 
 ########################################################################
 # 1. BEGIN BASIC CONFIGURATION SECTION
