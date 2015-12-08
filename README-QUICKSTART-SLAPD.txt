@@ -142,7 +142,7 @@ tar -xvf apache-tomcat-8.0.29.tar.gz
 sudo mv apache-tomcat-8.0.29 /usr/local/tomcat8
 
 2. copy the fortress realm proxy jar into tomcat/lib folder:
-sudo cp /home/student/fortress/directory-fortress-realm/proxy/target/fortress-realm-proxy-1.0-RC41-SNAPSHOT.jar /usr/local/tomcat8/lib
+sudo cp ./directory-fortress-realm/proxy/target/fortress-realm-proxy-1.0-RC41-SNAPSHOT.jar /usr/local/tomcat8/lib
 
 3. prepare tomcat fortress usage:
 sudo vi /usr/local/tomcat8/conf/tomcat-users.xml
@@ -173,7 +173,7 @@ During this section, you will be asked to setup Apache Fortress Rest Application
 
 1. download and prepare the package:
 git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git
-cp /home/student/fortress/fortressBuilder-Debian-Silver-x86-64-1.0-RC41/config/fortress.properties directory-fortress-enmasse/src/main/resources
+cp ./directory-fortress-core/config/fortress.properties ./directory-fortress-enmasse/src/main/resources
 cd directory-fortress-enmasse
 
 2. build:
@@ -200,7 +200,7 @@ During this section, you will be asked to setup Apache Fortress Web Application
 
 1. download and prepare the package:
 git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
-cp /home/student/fortress/fortressBuilder-Debian-Silver-x86-64-1.0-RC41/config/fortress.properties directory-fortress-commander/src/main/resources
+cp ./directory-fortress-core/config/fortress.properties ./directory-fortress-commander/src/main/resources
 cd directory-fortress-commander
 
 2. build:
