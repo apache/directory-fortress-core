@@ -32,7 +32,6 @@ This README Covers these sections:
 
  Sections 3++ are not required for OpenLDAP Accelerator usage
 -------------------------------------------------------------------------------
-
 # SECTION 1 - OpenLDAP Machine Prereqs
 - 2 Cores, 4GB RAM
 - Java 7++
