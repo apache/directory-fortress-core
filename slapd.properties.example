@@ -40,7 +40,7 @@ cfg.root.pw=secret
 
 # Set sudo.pw is used by 'init-slapd', 'start-slapd' and 'stop-slapd' tagets on Linux machine when sudo access required, otherwise leave this value blank
 # The sudo.pw variable must be uncommented and left empty iff installing Symas-OpenLDAP package onto Redhat Linux platform:
-sudo.pw=temp123
+#sudo.pw=
 
 ########################################################################
 # 2. BEGIN OPENLDAP SERVER CONFIGURATION SECTION: (Ignore if using HTTP or ApacheDS):
