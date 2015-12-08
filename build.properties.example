@@ -44,9 +44,6 @@ tenant=HOME
 # 2. BEGIN LDAP CLIENT CONFIGURATION SECTION: (Ignore if using HTTP):
 ########################################################################
 
-# Only works if ldap.server.type=openldap:
-#enable.audit=true
-
 # This is default, tells fortress what type of ldap server in use:
 ldap.server.type=apacheds
 #ldap.server.type=openldap
@@ -98,6 +95,9 @@ user.max.conn=10
 # Used for slapd logger connection pool.  Leave zeros when using apacheds:
 min.log.conn=1
 max.log.conn=3
+
+# Only works if ldap.server.type=openldap:
+#enable.audit=true
 
 # Used for searching slapd logger.  Comment out for ApacheDS or other directory servers:
 #log.admin.user=cn=Manager,cn=log

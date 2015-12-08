@@ -33,6 +33,9 @@
 ldap.server.type=openldap
 ldap.host=localhost
 ldap.port=389
+suffix.name=example
+suffix.dc=com
+suffix=dc=${suffix.name},dc=${suffix.dc}
 root.dn=cn=Manager,${suffix}
 # Used to load OpenLDAP admin root password in slapd.conf and was encrypted using 'slappasswd' command:
 root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU

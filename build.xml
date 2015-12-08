@@ -22,10 +22,6 @@
          ================================= -->
    <target name="init">
       <tstamp/>
-       <!-- read user defined properties from the build.properties -->
-       <property name="component-propfile" value="${basedir}/build.properties"/>
-       <property file="${component-propfile}"/>
-
        <!-- read properties from the ${user.home}/propfile, if any -->
        <property name="user-propfile" value="${user.home}/build.properties"/>
        <property file="${user-propfile}"/>
@@ -37,6 +33,10 @@
        <!-- read properties from the apacheds.properties, if any -->
        <property name="apacheds-propfile" value="${basedir}/apacheds.properties"/>
        <property file="${apacheds-propfile}"/>
+
+       <!-- read user defined properties from the build.properties -->
+       <property name="component-propfile" value="${basedir}/build.properties"/>
+       <property file="${component-propfile}"/>
 
        <!-- ########### Project specific properties ########################### -->
        <property name="project.name" value="Fortress Identity Access Management SDK"/>
