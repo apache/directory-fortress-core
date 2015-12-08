@@ -76,42 +76,50 @@ ________________________________________________________________________________
 Fortress uses apache commons configuration system to manage its properties inside its Java runtime environment.
 This subsystem has been hard wired to pick up properties in the following order:
 A. fortress.properties file - found on the classpath of that name.
-B. LDAP configuration node - found by config coordinates set in the fortress.properties file itself.
-C. Java system properties - to override any of the 13 properties listed above.
+B. Java system properties - to override any of the 13 properties listed above.
+C. LDAP configuration node - found by config coordinates set in the fortress.properties file itself.
+
 
 These properties are mutable inside the fortress config subsystem which allows C's values to override B's to override A's.
-
 ___________________________________________________________________________________
 ###################################################################################
 # SECTION 4.  More on Fortress properties
 ###################################################################################
 
-The general idea is the fortress.properties are just enough to find the coordinates to locate an ldap entry on a remote server somewhere.
-The fortress.properties file is picked off the runtime classpath during startup.  It then will read whatever is stored on the
-remote server node in that config node for overrides, followed by those set as java system properties.
+The general flow is the fortress.properties provide the coordinates to locate an ldap entry on a remote server.
+The fortress.properties file is picked off the runtime classpath during startup.  Those props are overridden by any of the java system properties.
+The combination of fortress and system properties are used as coordinates to read the remote server's configuration entry where the remainder of the properties are stored.
 
-The remote server node's dn is constructed using fortress.property values:
+The remote server node's dn is constructed from fortress.property values:
 config.realm=DEFAULT
 config.root=ou=Config,@SUFFIX@
 
-The above would be combined to create the dn:
-ou=Config,dc=[whatever the suffix is]
+The above would be combined to create the dn: cn=Default, ou=Config, [whatever the @SUFFIX@ is]
 
-Anytime you need to reinitialize the properties, the ldap config node and the DIT itself, re-run this command:
+When reinitialization of properties is needed, to the ldap config node or the DIT itself, re-run this command:
 # mvn install
 
 followed by:
-# mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
+A # mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
 
-If you are needing to make changes to an ldap system already in use, simply modify the values inside fortress.properties directly.  If the config
-node must be changed, any general purpose ldapbrowser can be used to to mod its values.  Fortress also has apis to do this, ConfigMgr, for custom
-program utilities.
+or
+
+B # mvn install -Dload.file=./ldap/setup/ConfigNodeUpdate.xml
+
+The A script refreshes the entire LDAP server DIT, which includes deletes of all entries under the suffix, recreating the DIT node structure, and re-adding of the config node.
+B just updates the configuration node with the new values, preserving all other data.
+
+
+If you need to change an existing ldap system already in use by others, you may modify the values inside the fortress.properties directly, skipping the interim step of updating the ant properties files and re-running mvn install.
+If the config node must be changed, use any general purpose ldapbrowser to mod its values.  Fortress also has config apis to use (ConfigMgr) that add, update and delete configuration entries.
+Fortress Web will soon have a configuration dialogue page for doing this.
 
 More notes:
 - Use caution when running the -Dload.file target with 'refreshLDAPData.xml' as that script also deletes all nodes the suffix before it reloads anew.
-- Don't run refreshLDAPData.xml in production.
-- There is nothing preventing you from putting all of the fortress properties inside the fortress.properties file and skipping the remote server step.
-- We want to minimize the number of locations where the same data must be stored.  Imagine a network with hundreds, even thousands of fortress agents running.
+- Use the config node update script if you want to update values in the remote configuration without scrubbing data from the DIT.
+- Don't run refreshLDAPData.xml in production, run ConfigNodeUPdate.xml instead.
+- There is nothing stopping you from placing all properties inside the fortress.properties file and not the configuration node.
+- The idea is to minimize the number of locations where the same data must be stored.  Imagine a network with hundreds, even thousands of fortress agents running.
 - We don't need to replicate the same data everywhere which is where remote config nodes are used.
 - Tailor these procedures to match your requirements.
 - For more info on which parameters are used where, look at the init-fortress-config target located inside the build.xml file.
