@@ -21,7 +21,8 @@
 # 0. About the fortress slapd.properties file
 ########################################################################
 
-# Use this property file to specify environment settings specific to your environment and fortress runtime components when you are using openldap directory server.
+# Use this property file to override environment settings when you are using openldap directory server.
+# The properties found in this file will have precedence over build.properties.
 # These parameters will be loaded into the following locations by the Fortress during the init targets within the build.xml ant management utility:
 # a. fortress.properties - Fortress' configuration file tells fortress runtime how to connect to remote resources
 # b. refreshLDAPData.xml - Used by fortress to initialize and base load the LDAP DIT data structures.  Fortress also stores runtime params inside 'ou=Config' container on remote server.

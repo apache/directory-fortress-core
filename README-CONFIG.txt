@@ -18,85 +18,100 @@
 #
 ___________________________________________________________________________________
 ###################################################################################
-# README-CONFIG.txt for Fortress Core Identity and Access Management SDK
+# README-CONFIG.txt for Fortress Core Configuration Usage
 # Version 1.0-RC41
 # This file contains an overview of the fortress configuration system.
+___________________________________________________________________________________
+###################################################################################
+# SECTION 1.  Fortress Configuration Subsystem Overview
+###################################################################################
+
+Fortress obtains all of its configuration settings from the following two locations:
+
+___________________________________________________________________________________
+A. Ant Property files - Seeds downstream fortress.properties, refreshLDAP.xml and slapd.conf files.
+___________________________________________________________________________________
+
+The ant property subsystem is fed using three files:
+i.   user.properties  - optional, when found, located in user's home directory.  Properties found here take precedence over those following.
+ii.  slapd.properties - optional, when found, located in root folder of the package.  These props override those found in the build.properties file.
+iii. build.properties - this file is required and must be located in the root folder of the package.
+
+The ant configuration task uses the values found above to seed the fortress.properties and the base ldap load script (refreshLDAPData.xml).
+It can also be used to populate the slapd.conf (if needing to configure the openldap server to fortress specs).
+
+___________________________________________________________________________________
+B. Java System Properties - Optional - Used to override fortress properties at runtime.
+___________________________________________________________________________________
+These fortress properties may be overridden at runtime by setting as Java System Properties:
+i.     fortress.host
+ii.    fortress.port
+iii.   fortress.admin.user
+iv.    fortress.admin.pw
+v.     fortress.min.admin.conn
+vi.    fortress.max.admin.conn
+vii.   fortress.enable.ldap.ssl
+viii.  fortress.enable.ldap.ssl.debug
+ix.    fortress.trust.store
+x.     fortress.trust.store.password
+xi.    fortress.trust.store.set.prop
+xii.   fortress.config.realm
+xiii.  fortress.ldap.server.type
 
 ___________________________________________________________________________________
 ###################################################################################
-# SECTION 1.  Overview
+# SECTION 2.  Fortress Configuration Subsystem Targets
 ###################################################################################
 
-Fortress obtains its configuration information from the following three sources:
-1. fortress.properties file.
-2. Java system properties
-3. LDAP entry
+The ant build property files used by the fortress build.xml ant script, pushes attribute values into:
+A. fortress.properties - primary target.  Contains connection coordinates to the remote config node in ldap.
+B. refreshLDAPData.xml - secondary target.  Used to populate an actual ldap config node.
+C. slapd.conf - this is an optional target - only needed when configuring a new openldap server from scratch.
 
-Of the three listed, 1 is mandatory, 2 & 3 are optional.  This means you may copy everything into the fortress.properties
-file and forgo the usage of the other two.  The precedence is same order as listed.
-
-A. fortress.property file:
+___________________________________________________________________________________
 ###################################################################################
-The general idea is the property file contains the coordinates to locate the config entry stored in LDAP.
-
-B. Java system properties:
+# SECTION 3.  Precedence of Artifacts found in the Fortress Configuration Subsystem
 ###################################################################################
-The system properties are only there to allow external subsystems the ability to poke properties in at runtime.  A use case for #2 is a deployed war file, i.e. fortress-web,
-that is downloaded from the Internet and needs to have its ldap configuration parameters overridden to point to proper location.
 
-You can only change these values using the system properties, which are LDAP connection coordinates to config LDAP entry:
-  fortress.host
-  fortress.port
-  fortress.admin.user
-  fortress.admin.pw
-  fortress.min.admin.conn
-  fortress.max.admin.conn
-  fortress.enable.ldap.ssl
-  fortress.enable.ldap.ssl.debug
-  fortress.trust.store
-  fortress.trust.store.password
-  fortress.trust.store.set.prop
-  fortress.config.realm
-  fortress.ldap.server.type
+Fortress uses apache commons configuration system to manage its properties inside its Java runtime environment.
+This subsystem has been hard wired to pick up properties in the following order:
+A. fortress.properties file - found on the classpath of that name.
+B. LDAP configuration node - found by config coordinates set in the fortress.properties file itself.
+C. Java system properties - to override any of the 13 properties listed above.
 
-C. LDAP entry:
+These properties are mutable inside the fortress config subsystem which allows C's values to override B's to override A's.
+
+___________________________________________________________________________________
 ###################################################################################
-The idea is to store most of the parameters inside the LDAP config node to cut back on the number of places things must change.
+# SECTION 4.  More on Fortress properties
+###################################################################################
 
-The fortress configuration subsystem determines the location of the configuration node using the following properties located
-inside either fortress.properties, or overriden by system properties:
+The general idea is the fortress.properties are just enough to find the coordinates to locate an ldap entry on a remote server somewhere.
+The fortress.properties file is picked off the runtime classpath during startup.  It then will read whatever is stored on the
+remote server node in that config node for overrides, followed by those set as java system properties.
 
-# This node contains fortress properties stored on behalf of connecting LDAP clients:
+The remote server node's dn is constructed using fortress.property values:
 config.realm=DEFAULT
-config.root=ou=Config,dc=example,dc=com
+config.root=ou=Config,@SUFFIX@
 
-The properties are stored inside the configuration node in name:value format.  You can view the config node of a
-working fortress DIT to see what's there.
+The above would be combined to create the dn:
+ou=Config,dc=[whatever the suffix is]
 
-___________________________________________________________________________________
-###################################################################################
-# SECTION 2.  How It Works
-###################################################################################
-
-The build.properties file is used by the fortress core ant script, build.xml, to push attribute values into the following locations:
-1. fortress.properties
-2. refreshLDAPData.xml - this is the base load script that sets up the DIT structure and populates the config node in LDAP
-
-The fortress.properties are then loaded onto the classpath where it will be found by fortress.  The refreshLDAPData.xml is
-the base load script that can be loaded using this command:a
-# mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
-
-Anytime you need to refresh the values contained inside the other files, run this command:
+Anytime you need to reinitialize the properties, the ldap config node and the DIT itself, re-run this command:
 # mvn install
 
-This will then use the maven-antrun-plugin to kick off the following ant target within the build.xml file:
+followed by:
+# mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
 
-<ant antfile="${basedir}/build.xml" target="init-fortress-config" />
+If you are needing to make changes to an ldap system already in use, simply modify the values inside fortress.properties directly.  If the config
+node must be changed, any general purpose ldapbrowser can be used to to mod its values.  Fortress also has apis to do this, ConfigMgr, for custom
+program utilities.
 
-Which then copies values from here:
-fortress.properties.src
-refreshLDAPData-src.xml
-
-Replaces values inside the src file tokens @NAME@ with the corresponding value found inside the build.properties.
-
-For more info on which parameters are used where, look at the init-fortress-config target located inside the build.xml file.
+More notes:
+- Use caution when running the -Dload.file target with 'refreshLDAPData.xml' as that script also deletes all nodes the suffix before it reloads anew.
+- Don't run refreshLDAPData.xml in production.
+- There is nothing preventing you from putting all of the fortress properties inside the fortress.properties file and skipping the remote server step.
+- We want to minimize the number of locations where the same data must be stored.  Imagine a network with hundreds, even thousands of fortress agents running.
+- We don't need to replicate the same data everywhere which is where remote config nodes are used.
+- Tailor these procedures to match your requirements.
+- For more info on which parameters are used where, look at the init-fortress-config target located inside the build.xml file.

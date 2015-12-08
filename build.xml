@@ -22,17 +22,13 @@
          ================================= -->
    <target name="init">
       <tstamp/>
-       <!-- read properties from the ${user.home}/propfile, if any -->
+       <!-- read properties from the ${user.home}/propfile, if any, which will take precedence over slapd.properties and build.properties -->
        <property name="user-propfile" value="${user.home}/build.properties"/>
        <property file="${user-propfile}"/>
 
-       <!-- read properties from the slapd.properties, if any -->
+       <!-- read properties from the slapd.properties, if any, which will have precedence over build.properties -->
        <property name="slapd-propfile" value="${basedir}/slapd.properties"/>
        <property file="${slapd-propfile}"/>
-
-       <!-- read properties from the apacheds.properties, if any -->
-       <property name="apacheds-propfile" value="${basedir}/apacheds.properties"/>
-       <property file="${apacheds-propfile}"/>
 
        <!-- read user defined properties from the build.properties -->
        <property name="component-propfile" value="${basedir}/build.properties"/>
