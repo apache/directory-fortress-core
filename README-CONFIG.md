@@ -30,7 +30,7 @@
 -------------------------------------------------------------------------------
 # SECTION 1.  Fortress Configuration Subsystem Overview
 
-The Fortress Configuration Subsystem includes:
+Fortress uses the following source property files to bootstrap configuration:
 
 1. Apache Ant Property Files:
  * user.properties
@@ -39,7 +39,7 @@ The Fortress Configuration Subsystem includes:
 2. Apache Ant script:
  * [build.xml](./build.xml)
 
-Which is used to produce new config artifacts used by fortress:
+Which are used to produce new artifacts used by Fortress runtime:
 
 1. [fortress.properties](./config/fortress.properties.src)
 2. [refreshLDAPData.xml](./ldap/setup/refreshLDAPData-src.xml)
