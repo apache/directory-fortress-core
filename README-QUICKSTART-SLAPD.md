@@ -33,18 +33,11 @@ This README Covers these sections:
  Sections 3++ are not required for OpenLDAP Accelerator usage
 -------------------------------------------------------------------------------
 # SECTION 1 - OpenLDAP Machine Prereqs
-- 2 Cores, 4GB RAM
-- Java 7++
-- git, ant, maven3++
-- Symas OpenLDAP Silver v.2.4.43++
-  + slapo rbac, access log , pwpolicy overlays
-- slapd.properties file tailored for slapd slapo-rbac overlay enablement. This file will be used during section 3 to seed openldap with the correct configuration.
-- Apache Fortress v1.0-RC41++
-  + Core, Realm*, Rest* and Web*
-- Tomcat* v7++
-
- *optional components
-
+ * 2 Cores
+ * 4GB RAM
+ * Java 7++
+ * git
+ * apache ant, maven3++
 ___________________________________________________________________________________
 # SECTION 2 - Apache Fortress Core and OpenLDAP Quickstart
 
