@@ -108,6 +108,14 @@ ________________________________________________________________________________
  ```
  ./b.sh init-slapd
  ```
+ note: b.sh sets runtime java and and invokes ant:
+ ```
+ user@ubuntu:~/directory-fortress-core$ cat b.sh
+ #!/bin/sh
+ export JAVA_HOME=../myjdk
+ export ANT_HOME=../myant
+ $ANT_HOME/bin/ant $1
+ ```
 
 11. Run the fortress core regression tests:
  ```
