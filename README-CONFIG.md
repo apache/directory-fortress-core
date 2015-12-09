@@ -21,15 +21,16 @@
 
 ### This README covers these sections:
  * SECTION 1 - Fortress Configuration Subsystem Overview
+ * SECTION 2 - Fortress Configuration Overrides
  * SECTION 2 - Fortress Configuration Subsystem Targets
  * SECTION 3 - Precedence of Artifacts found in the Fortress Configuration Subsystem
  * SECTION 4 - More on Fortress properties
 -------------------------------------------------------------------------------
 # SECTION 1.  Fortress Configuration Subsystem Overview
 
-### Fortress obtains all of its configuration settings from the following two locations:
+### Fortress configuration files are seeded using Ant property files.
 
-1. Ant Property files - Seeds downstream fortress.properties, refreshLDAPData.xml and slapd.conf files.
+## Ant Property files - Seeds downstream fortress.properties, refreshLDAPData.xml and slapd.conf files.
  The ant property subsystem is fed using three files:
  * user.properties  - optional, when found, located in user's home directory.  Properties found here take precedence over those following.
  * slapd.properties - optional, when found, located in root folder of the package.  These props override those found in the build.properties file.
@@ -38,7 +39,10 @@
  The ant configuration task uses the values found above to seed the fortress.properties and the base ldap load script (refreshLDAPData.xml).
  It can also be used to populate the slapd.conf (if needing to configure the openldap server to fortress specs).
 
-2. Java System Properties - Optional - Used to override fortress properties at runtime.
+-------------------------------------------------------------------------------
+# SECTION 2.  Fortress Configuration Overrides
+
+## Java System Properties - Optional - Used to override fortress properties at runtime.
  These fortress properties may be overridden at runtime by setting as Java System Properties:
  * fortress.host
  * fortress.port
@@ -53,9 +57,8 @@
  * fortress.trust.store.set.prop
  * fortress.config.realm
  * fortress.ldap.server.type
-
 ___________________________________________________________________________________
-# SECTION 2.  Fortress Configuration Subsystem Targets
+# SECTION 3.  Fortress Configuration Subsystem Targets
 
 ### The ant build property files used by the fortress build.xml ant script, pushes attribute values into:
  1. fortress.properties - primary target.  Contains connection coordinates to the remote config node in ldap.
@@ -63,7 +66,7 @@ ________________________________________________________________________________
  3. slapd.conf - this is an optional target - only needed when configuring a new openldap server from scratch.
 
 ___________________________________________________________________________________
-# SECTION 3.  Precedence of Artifacts found in the Fortress Configuration Subsystem
+# SECTION 4.  Precedence of Artifacts found in the Fortress Configuration Subsystem
 
 ### Fortress uses apache commons configuration system to manage its properties inside its Java runtime environment.
 
@@ -75,7 +78,7 @@ This subsystem has been hard wired to pick up properties in the following order:
 
 These properties are mutable inside the fortress config subsystem which allows C's values to override B's to override A's.
 ___________________________________________________________________________________
-# SECTION 4.  More on Fortress properties
+# SECTION 5.  More on Fortress properties
 
 The general flow is the fortress.properties provide the coordinates to locate an ldap entry on a remote server.
 The fortress.properties file is picked off the runtime classpath during startup.  Those props are overridden by any of the java system properties.
