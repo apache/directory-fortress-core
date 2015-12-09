@@ -140,7 +140,7 @@ ________________________________________________________________________________
 
 14. Try the fortress console:
  ```
- mvn install -Pconsole
+ mvn test -Pconsole
  ```
 ___________________________________________________________________________________
 # SECTION 3 - Apache Fortress Realm Setup
