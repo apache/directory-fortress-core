@@ -45,6 +45,10 @@ Which is used to produce new config artifacts used by fortress:
 2. [refreshLDAPData.xml](./ldap/setup/refreshLDAPData-src.xml)
 3. [slapd.conf](./ldap/slapd.conf.src)  (if using openldap)
 
+Notice the substitution parameters, **@name@**, contained within the above config artifacts.  These are used by an Ant config task
+  to replace values into the actual target artifact using values found inside the source property files.  Thus Fortress uses simple Apache Ant
+  substitution to seed implementation specific variables, e.g. host names, ports, pw's, into its config artifacts used at runtime.
+
 -------------------------------------------------------------------------------
 # SECTION 2.  Fortress Ant Property Files
 
