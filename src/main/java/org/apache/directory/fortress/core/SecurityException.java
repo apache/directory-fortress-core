@@ -154,6 +154,7 @@ package org.apache.directory.fortress.core;
  * <li> <code>{@link GlobalErrIds#ACTV_FAILED_TIMEOUT} = 2053;</code>
  * <li> <code>{@link GlobalErrIds#ACTV_FAILED_LOCK} = 2054;</code>
  * <li> <code>{@link GlobalErrIds#ACTV_FAILED_DSD} = 2055;</code>
+ * <li> <code>{@link GlobalErrIds#ACTV_FAILED_AUTHN} = 2056;</code>
  * </ul>
  * <h3>
  * <p/>3000's - Permission Entity
