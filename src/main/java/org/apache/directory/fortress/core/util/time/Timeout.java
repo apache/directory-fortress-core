@@ -23,6 +23,7 @@ package org.apache.directory.fortress.core.util.time;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.util.VUtil;
 
 
 /**
@@ -49,9 +50,10 @@ public class Timeout implements Validator
      * @param session    required for {@link Validator} interface but not used here.
      * @param constraint contains the elapsed time entity may remain inactive in minutes.  Maps listed above.
      * @param time       contains the current timestamp.
+     * @param type       required by interface, not used here.
      * @return '0' if validation succeeds else {@link org.apache.directory.fortress.core.GlobalErrIds#ACTV_FAILED_TIMEOUT} if failed.
      */
-    public int validate( Session session, Constraint constraint, Time time )
+    public int validate( Session session, Constraint constraint, Time time, VUtil.ConstraintType type )
     {
         int rc = GlobalErrIds.ACTV_FAILED_TIMEOUT;
         long timeLimit;

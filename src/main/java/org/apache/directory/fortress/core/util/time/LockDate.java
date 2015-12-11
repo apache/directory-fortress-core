@@ -24,6 +24,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.util.VUtil;
 
 /**
  * This class performs lock date validation for {@link org.apache.directory.fortress.core.model.Constraint}.  This validator will ensure the current date falls outside {@link org.apache.directory.fortress.core.model.Constraint#getBeginLockDate()} and {@link Constraint#getEndLockDate()} range.
@@ -58,7 +59,7 @@ public class LockDate
      * @return '0' if validation succeeds else {@link org.apache.directory.fortress.core.GlobalErrIds#ACTV_FAILED_LOCK} if failed.
      */
     @Override
-    public int validate(Session session, Constraint constraint, Time time)
+    public int validate(Session session, Constraint constraint, Time time, VUtil.ConstraintType type )
     {
         int rc = GlobalErrIds.ACTV_FAILED_LOCK;
 

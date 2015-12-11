@@ -28,6 +28,7 @@ import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.model.Warning;
+import org.apache.directory.fortress.core.util.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -69,10 +70,11 @@ public class DSDChecker
      * @param session    contains list of RBAC roles {@link org.apache.directory.fortress.core.model.UserRole} targeted for activation.
      * @param constraint required for Validator interface, not used here..
      * @param time       required for Validator interface, not used here.
+     * @param type       required by interface, not used here.
      * @return '0' if validation succeeds else {@link org.apache.directory.fortress.core.GlobalErrIds#ACTV_FAILED_DSD} if failed.
      */
     @Override
-    public int validate( Session session, Constraint constraint, Time time )
+    public int validate( Session session, Constraint constraint, Time time, VUtil.ConstraintType type )
         throws org.apache.directory.fortress.core.SecurityException
     {
         int rc = 0;

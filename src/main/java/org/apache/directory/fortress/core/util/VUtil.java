@@ -568,7 +568,7 @@ public final class VUtil implements ConstraintValidator
             // first check the constraint on the user:
             if ( type == ConstraintType.USER )
             {
-                rc = val.validate( session, session.getUser(), currTime );
+                rc = val.validate( session, session.getUser(), currTime, type );
                 if ( rc > 0 )
                 {
                     String info = location + " user [" + session.getUserId() + "] was deactivated reason code [" + rc
@@ -587,7 +587,7 @@ public final class VUtil implements ConstraintValidator
                     while ( roleItems.hasNext() )
                     {
                         Constraint constraint = roleItems.next();
-                        rc = val.validate( session, constraint, currTime );
+                        rc = val.validate( session, constraint, currTime, type );
 
                         if ( rc > 0 )
                         {
@@ -607,7 +607,7 @@ public final class VUtil implements ConstraintValidator
                     while ( roleItems.hasNext() )
                     {
                         Constraint constraint = ( Constraint ) roleItems.next();
-                        rc = val.validate( session, constraint, currTime );
+                        rc = val.validate( session, constraint, currTime, ConstraintType.ROLE );
                         if ( rc > 0 )
                         {
                             String msg = location + " admin role [" + constraint.getName() + "] for user ["
@@ -627,7 +627,7 @@ public final class VUtil implements ConstraintValidator
             && CollectionUtils.isNotEmpty( session.getRoles() ) )
         {
             Validator dsdVal = ( Validator ) ClassUtil.createInstance( DSDVALIDATOR );
-            dsdVal.validate( session, session.getUser(), null );
+            dsdVal.validate( session, session.getUser(), null, null );
         }
         // reset the user's last access timestamp:
         session.setLastAccess();

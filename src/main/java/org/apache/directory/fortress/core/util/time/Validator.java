@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core.util.time;
 
 import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.util.VUtil;
 
 
 /**
@@ -76,9 +77,10 @@ public interface Validator
      * @param session contains the reference to Fortress entities that are targets for constraints.
      * @param constraint contains the temporal attributes.
      * @param time current time of day.
+     * @param type contains type of either role or user constraint.
      * @return activation failure code.
      * @throws org.apache.directory.fortress.core.SecurityException in the event of validation fails or system exception.
      */
-    int validate( Session session, Constraint constraint, Time time )
+    int validate( Session session, Constraint constraint, Time time, VUtil.ConstraintType type )
         throws org.apache.directory.fortress.core.SecurityException;
 }

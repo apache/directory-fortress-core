@@ -24,6 +24,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.util.VUtil;
 
 
 /**
@@ -52,10 +53,11 @@ public class ClockTime
      * @param session    required for {@link Validator} interface but not used here.
      * @param constraint contains the begin and end times.  Maps listed above.
      * @param time       contains the current time.
+     * @param type       required by interface, not used here.
      * @return '0' if validation succeeds else {@link org.apache.directory.fortress.core.GlobalErrIds#ACTV_FAILED_TIME} if failed.
      */
     @Override
-    public int validate( Session session, Constraint constraint, Time time )
+    public int validate( Session session, Constraint constraint, Time time, VUtil.ConstraintType type )
     {
         int rc = GlobalErrIds.ACTV_FAILED_TIME;
 

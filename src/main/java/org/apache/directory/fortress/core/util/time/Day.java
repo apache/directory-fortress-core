@@ -23,6 +23,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.util.VUtil;
 
 /**
  * This class performs lock day of week validation for {@link Constraint}.  This validator will ensure the current day is allowed for {@link Constraint#getDayMask()}.
@@ -49,10 +50,11 @@ public class Day
      * @param session    required for {@link Validator} interface but not used here.
      * @param constraint contains the days of week entity may be activated.  Data mappings listed above.
      * @param time       contains the current time stamp.
+     * @param type       required by interface, not used here.
      * @return '0' if validation succeeds else {@link org.apache.directory.fortress.core.GlobalErrIds#ACTV_FAILED_DAY} if failed.
      */
     @Override
-    public int validate(Session session, Constraint constraint, Time time)
+    public int validate(Session session, Constraint constraint, Time time, VUtil.ConstraintType type )
     {
         int rc = GlobalErrIds.ACTV_FAILED_DAY;
         if (constraint.getDayMask() == null || constraint.getDayMask().compareToIgnoreCase(GlobalIds.ALL) == 0)
