@@ -488,7 +488,7 @@ public final class GlobalErrIds
     public static final int ACTV_FAILED_DSD = 2055;
 
     /**
-     * Entity activation failed due to Dynamic Separation of Duty restriction on Role.
+     * Entity activation failed due to authentication status violation.
      */
     public static final int ACTV_FAILED_AUTHN = 2056;
 
