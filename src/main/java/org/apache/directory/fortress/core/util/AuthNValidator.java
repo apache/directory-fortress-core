@@ -34,24 +34,14 @@ import org.apache.directory.fortress.core.util.time.Validator;
 public abstract class AuthNValidator
     implements Validator
 {
-    protected String getRoleName()
-    {
-        return roleName;
-    }
-
-    protected void setRoleName(String roleName)
-    {
-        this.roleName = roleName;
-    }
-
     private String roleName;
-
-
+    private boolean isAuthenticated;
+    
     /**
      * This method is called during entity activation, {@link org.apache.directory.fortress.core.util.VUtil#validateConstraints} and ensures the current user has been
-     * authenticated before activating the role into their session.
+     * proper authentication status before activating the role into their session.
      *
-     * This validation routine will automatically pass if session.isAuthenticated is true and the role matches the subclasses name.
+     * This validation routine will automatically pass if session.isAuthenticated matches the isAuthenticated member variable AND the role matches the subclasses name AND type == ROLE.
      *
      * @param session    contains the isAuthenticated flag.
      * @param constraint contains the role name.
@@ -63,11 +53,30 @@ public abstract class AuthNValidator
     public int validate(Session session, Constraint constraint, Time time, VUtil.ConstraintType type)
     {
         int rc = 0;
-        if(type == VUtil.ConstraintType.ROLE && constraint.getName().equalsIgnoreCase( roleName ) && !session.isAuthenticated() )
+        if(type == VUtil.ConstraintType.ROLE && constraint.getName().equalsIgnoreCase( roleName ) && session.isAuthenticated() == isAuthenticated() )
         {
             rc = GlobalErrIds.ACTV_FAILED_AUTHN;
         }
         return rc;
     }
-}
 
+    protected String getRoleName()
+    {
+        return roleName;
+    }
+
+    protected void setRoleName(String roleName)
+    {
+        this.roleName = roleName;
+    }
+
+    protected boolean isAuthenticated()
+    {
+        return isAuthenticated;
+    }
+
+    protected void setAuthenticated(boolean isAuthenticated)
+    {
+        this.isAuthenticated = isAuthenticated;
+    }
+}
