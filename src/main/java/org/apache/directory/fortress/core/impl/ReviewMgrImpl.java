@@ -120,8 +120,8 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         throws SecurityException
     {
         String methodName = "readPermObj";
-        assertContext(CLS_NM, methodName, permObj, GlobalErrIds.PERM_OBJECT_NULL);
-        VUtil.assertNotNull(permObj.getObjName(), GlobalErrIds.PERM_OBJECT_NM_NULL, CLS_NM + "." + methodName);
+        assertContext( CLS_NM, methodName, permObj, GlobalErrIds.PERM_OBJECT_NULL );
+        VUtil.assertNotNull( permObj.getObjName(), GlobalErrIds.PERM_OBJECT_NM_NULL, CLS_NM + "." + methodName );
         checkAccess(CLS_NM, methodName);
         return permP.read(permObj);
     }
@@ -144,9 +144,9 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         throws SecurityException
     {
         String methodName = "findPermissions";
-        assertContext(CLS_NM, methodName, permission, GlobalErrIds.PERM_OPERATION_NULL);
+        assertContext( CLS_NM, methodName, permission, GlobalErrIds.PERM_OPERATION_NULL );
         checkAccess(CLS_NM, methodName);
-        return permP.search(permission);
+        return permP.search( permission );
     }
 
     /**
@@ -211,9 +211,9 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
     {
         String methodName = "readRole";
         assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
-        VUtil.assertNotNullOrEmpty(role.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNullOrEmpty( role.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + "." + methodName );
         checkAccess(CLS_NM, methodName);
-        return roleP.read(role);
+        return roleP.read( role );
     }
 
     /**
@@ -229,11 +229,11 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         throws SecurityException
     {
         String methodName = "findRoles";
-        VUtil.assertNotNull(searchVal, GlobalErrIds.ROLE_NM_NULL, CLS_NM + "." + methodName);
-        checkAccess(CLS_NM, methodName);
+        VUtil.assertNotNull( searchVal, GlobalErrIds.ROLE_NM_NULL, CLS_NM + "." + methodName );
+        checkAccess( CLS_NM, methodName );
         Role role = new Role(searchVal);
-        role.setContextId(this.contextId);
-        return roleP.search(role);
+        role.setContextId( this.contextId );
+        return roleP.search( role );
     }
 
     /**
@@ -276,10 +276,10 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         throws SecurityException
     {
         String methodName = "readUser";
-        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
-        VUtil.assertNotNullOrEmpty(user.getUserId(), GlobalErrIds.USER_ID_NULL, CLS_NM + "." + methodName);
-        checkAccess(CLS_NM, methodName);
-        return userP.read(user, true);
+        assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
+        VUtil.assertNotNullOrEmpty( user.getUserId(), GlobalErrIds.USER_ID_NULL, CLS_NM + "." + methodName );
+        checkAccess( CLS_NM, methodName );
+        return userP.read( user, true );
     }
 
     /**
@@ -298,9 +298,9 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         throws SecurityException
     {
         String methodName = "findUsers";
-        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
+        assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
         checkAccess(CLS_NM, methodName);
-        return userP.search(user);
+        return userP.search( user );
     }
 
     /**
@@ -449,11 +449,11 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         throws SecurityException
     {
         String methodName = "assignedRoles";
-        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName);
+        VUtil.assertNotNullOrEmpty( userId, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName );
         checkAccess(CLS_NM, methodName);
         User user = new User(userId);
         user.setContextId(this.contextId);
-        return userP.getAssignedRoles(user);
+        return userP.getAssignedRoles( user );
     }
 
     /**
@@ -473,9 +473,9 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         throws SecurityException
     {
         String methodName = "authorizedUsers";
-        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
-        checkAccess(CLS_NM, methodName);
-        return userP.getAuthorizedUsers(role);
+        assertContext( CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL );
+        checkAccess( CLS_NM, methodName );
+        return userP.getAuthorizedUsers( role );
     }
 
     /**
@@ -522,6 +522,27 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      */
     @Override
     public List<Permission> rolePermissions(Role role)
+        throws SecurityException
+    {
+        return rolePermissions( role, false );
+    }
+
+    /**
+     * This function returns the set of all permissions (op, obj), granted to or inherited by a
+     * given role. The function is valid if and only if the role is a member of the ROLES data
+     * set.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Role#name} - contains the name to use for the Role targeted for search.</li>
+     * </ul>
+     *
+     * @param role contains role name, {@link Role#name} of Role entity Permission is granted to.
+     * @param noInheritance if true will NOT include inherited roles in the search.
+     * @return List of type Permission that contains all perms granted to a role.
+     * @throws SecurityException In the event system error occurs.
+     */
+    @Override
+    public List<Permission> rolePermissions(Role role, boolean noInheritance )
         throws SecurityException
     {
         String methodName = "rolePermissions";

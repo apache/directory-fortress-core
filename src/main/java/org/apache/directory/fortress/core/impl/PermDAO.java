@@ -1234,12 +1234,16 @@ final class PermDAO extends ApacheDsDataProvider
 
 
     /**
-     * @param role
-     * @return
-     * @throws org.apache.directory.fortress.core.FinderException
+     * Search will return a list of matching permissions that are assigned to a given RBAC or Admin role name.
+     * Will search the Admin perms if the "isAdmin" boolean flag is "true", otherwise it will search RBAC perm tree.
+     *
+     * @param role contains the RBAC or Admin Role name targeted for search.
+     * @param noInheritance if true will NOT include inherited roles in the search.
+     * @return List of type Permission containing fully populated matching Permission entities.
+     * @throws org.apache.directory.fortress.core.FinderException in the event of DAO search error.
      *
      */
-    List<Permission> findPermissions( Role role ) throws FinderException
+    List<Permission> findPermissions( Role role, boolean noInheritance ) throws FinderException
     {
         List<Permission> permList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1255,7 +1259,6 @@ final class PermDAO extends ApacheDsDataProvider
         {
             permRoot = getRootDn( role.getContextId(), GlobalIds.PERM_ROOT );
         }
-
         try
         {
             String roleVal = encodeSafeText( role.getName(), GlobalIds.ROLE_LEN );
@@ -1263,17 +1266,18 @@ final class PermDAO extends ApacheDsDataProvider
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( PERM_OP_OBJECT_CLASS_NAME );
             filterbuf.append( ")(" );
-            Set<String> roles;
-
-            if ( role.getClass().equals( AdminRole.class ) )
+            Set<String> roles = null;
+            if( !noInheritance )
             {
-                roles = AdminRoleUtil.getAscendants( role.getName(), role.getContextId() );
+                if ( role.getClass().equals( AdminRole.class ) )
+                {
+                    roles = AdminRoleUtil.getAscendants( role.getName(), role.getContextId() );
+                }
+                else
+                {
+                    roles = RoleUtil.getAscendants( role.getName(), role.getContextId() );
+                }
             }
-            else
-            {
-                roles = RoleUtil.getAscendants( role.getName(), role.getContextId() );
-            }
-
             if ( CollectionUtils.isNotEmpty( roles ) )
             {
                 filterbuf.append( "|(" );

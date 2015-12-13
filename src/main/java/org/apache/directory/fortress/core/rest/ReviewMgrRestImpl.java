@@ -486,7 +486,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         User inUser = new User();
-        inUser.setOu(ou.getName());
+        inUser.setOu( ou.getName() );
         request.setEntity(inUser);
         if (this.adminSess != null)
         {
@@ -528,7 +528,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         List<String> retUsers;
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
-        request.setLimit(limit);
+        request.setLimit( limit );
         request.setEntity(user);
         if (this.adminSess != null)
         {
@@ -617,7 +617,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".assignedUsers");
         List<User> retUsers;
         FortRequest request = new FortRequest();
-        request.setContextId(this.contextId);
+        request.setContextId( this.contextId );
         request.setEntity(role);
         if (this.adminSess != null)
         {
@@ -688,11 +688,11 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
     public List<String> assignedRoles(String userId)
         throws SecurityException
     {
-        VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_NULL, CLS_NM + ".assignedRoles");
+        VUtil.assertNotNullOrEmpty( userId, GlobalErrIds.USER_NULL, CLS_NM + ".assignedRoles" );
         List<String> retUserRoles;
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
-        request.setValue(userId);
+        request.setValue( userId );
         if (this.adminSess != null)
         {
             request.setSession(adminSess);
@@ -727,11 +727,11 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
     public List<User> authorizedUsers(Role role)
         throws SecurityException
     {
-        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".authorizedUsers");
+        VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".authorizedUsers" );
         List<User> retUsers;
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
-        request.setEntity(role);
+        request.setEntity( role );
         if (this.adminSess != null)
         {
             request.setSession(adminSess);
@@ -810,6 +810,27 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
      */
     @Override
     public List<Permission> rolePermissions(Role role)
+        throws SecurityException
+    {
+        return rolePermissions( role, false );
+    }
+
+    /**
+     * This function returns the set of all permissions (op, obj), granted to or inherited by a
+     * given role. The function is valid if and only if the role is a member of the ROLES data
+     * set.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Role#name} - contains the name to use for the Role targeted for search.</li>
+     * </ul>
+     *
+     * @param role contains role name, {@link Role#name} of Role entity Permission is granted to.
+     * @param noInheritance if true will NOT include inherited roles in the search.
+     * @return List of type Permission that contains all perms granted to a role.
+     * @throws SecurityException In the event system error occurs.
+     */
+    @Override
+    public List<Permission> rolePermissions( Role role, boolean noInheritance )
         throws SecurityException
     {
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".rolePermissions");

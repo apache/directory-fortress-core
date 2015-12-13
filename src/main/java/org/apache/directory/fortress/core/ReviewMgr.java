@@ -378,6 +378,24 @@ public interface ReviewMgr extends Manageable
 
 
     /**
+     * This function returns the set of all permissions (op, obj), granted to or inherited by a
+     * given role. The function is valid if and only if the role is a member of the ROLES data
+     * set.
+     * <h4>required parameters</h4>
+     * <ul>
+     * <li>{@link Role#name} - contains the name to use for the Role targeted for search.</li>
+     * </ul>
+     *
+     * @param role contains role name, {@link Role#name} of Role entity Permission is granted to.
+     * @param noInheritance if true will NOT include inherited roles in the search.
+     * @return List of type Permission that contains all perms granted to a role.
+     * @throws SecurityException In the event system error occurs.
+     */
+    List<Permission> rolePermissions( Role role, boolean noInheritance )
+        throws SecurityException;
+
+
+    /**
      * This function returns the set of permissions a given user gets through his/her authorized
      * roles. The function is valid if and only if the user is a member of the USERS data set.
      * <h4>required parameters</h4>

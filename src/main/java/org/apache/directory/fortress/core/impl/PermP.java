@@ -140,12 +140,27 @@ final class PermP
      * DAO class will search the Admin perms if the "isAdmin" boolean flag is "true", otherwise it will search RBAC perm tree.
      *
      * @param role contains the RBAC or Admin Role name targeted for search.
+     * @param noInheritance if true will NOT include inherited roles in the search.
+     * @return List of type Permission containing fully populated matching Permission entities.
+     * @throws SecurityException in the event of DAO search error.
+     */
+    List<Permission> search( Role role, boolean noInheritance ) throws SecurityException
+    {
+        return pDao.findPermissions( role, noInheritance );
+    }
+
+
+    /**
+     * Search will return a list of matching permissions that are assigned to a given RBAC or Admin role name.  The
+     * DAO class will search the Admin perms if the "isAdmin" boolean flag is "true", otherwise it will search RBAC perm tree.
+     *
+     * @param role contains the RBAC or Admin Role name targeted for search.
      * @return List of type Permission containing fully populated matching Permission entities.
      * @throws SecurityException in the event of DAO search error.
      */
     List<Permission> search( Role role ) throws SecurityException
     {
-        return pDao.findPermissions( role );
+        return search( role, false );
     }
 
 
@@ -201,7 +216,7 @@ final class PermP
         List<Permission> list;
         try
         {
-            list = pDao.findPermissions( role );
+            list = search( role );
             for ( Permission perm : list )
             {
                 revoke( perm, role );
@@ -227,7 +242,7 @@ final class PermP
         List<Permission> list;
         try
         {
-            list = pDao.findPermissions( role );
+            list = search( role );
             for ( Permission perm : list )
             {
                 perm.setAdmin( true );
