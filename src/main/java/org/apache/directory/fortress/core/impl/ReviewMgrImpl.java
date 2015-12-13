@@ -548,7 +548,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         String methodName = "rolePermissions";
         assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
         checkAccess(CLS_NM, methodName);
-        return permP.search(role);
+        return permP.search( role, noInheritance );
     }
 
     /**
