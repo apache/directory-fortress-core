@@ -149,6 +149,16 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         return permP.search( permission );
     }
 
+    @Override
+    public List<Permission> findAnyPermissions(Permission permission)
+        throws SecurityException
+    {
+        String methodName = "findPermissions";
+        assertContext( CLS_NM, methodName, permission, GlobalErrIds.PERM_OPERATION_NULL );
+        checkAccess(CLS_NM, methodName);
+        return permP.searchAny( permission );
+    }
+    
     /**
      * Method returns a list of type PermObj that match the perm object search string.
      * <h4>optional parameters</h4>

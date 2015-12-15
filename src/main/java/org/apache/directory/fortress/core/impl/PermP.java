@@ -106,6 +106,11 @@ final class PermP
     {
         return pDao.findPermissions( permission );
     }
+    
+    List<Permission> searchAny( Permission permission ) throws SecurityException
+    {
+        return pDao.findAnyPermissions( permission );
+    }
 
 
     /**

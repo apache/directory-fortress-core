@@ -119,7 +119,17 @@ public interface ReviewMgr extends Manageable
     List<Permission> findPermissions( Permission permission )
         throws SecurityException;
 
-
+    /**
+     * Method returns a list of Permissions that match any part of the permission object or operation.
+     * 
+     * @param permission contains object and operation name search strings.
+     * @return List of type Permission.  Fortress permissions are object->operation mappings.  The permissions may contain
+     *         assigned user, role or group entities as well.
+     * @throws SecurityException thrown in the event of system error.
+     */
+    List<Permission> findAnyPermissions( Permission permission )
+            throws SecurityException;
+    
     /**
      * Method returns a list of type PermObj that match the perm object search string.
      * <h4>optional parameters</h4>

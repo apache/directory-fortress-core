@@ -1116,6 +1116,65 @@ final class PermDAO extends ApacheDsDataProvider
         }
         return permList;
     }
+    
+    List<Permission> findAnyPermissions( Permission permission )
+            throws FinderException
+        {
+            List<Permission> permList = new ArrayList<>();
+            LdapConnection ld = null;
+            String permRoot = getRootDn( permission.isAdmin(), permission.getContextId() );
+
+            try
+            {
+                String permObjVal = encodeSafeText( permission.getObjName(), GlobalIds.PERM_LEN );
+                String permOpVal = encodeSafeText( permission.getOpName(), GlobalIds.PERM_LEN );
+                StringBuilder filterbuf = new StringBuilder();
+                filterbuf.append( GlobalIds.FILTER_PREFIX );
+                filterbuf.append( PERM_OP_OBJECT_CLASS_NAME );
+                filterbuf.append( ")(|" );
+                
+                if(permObjVal != null && permObjVal != ""){
+	                filterbuf.append("(");
+	                filterbuf.append( GlobalIds.POBJ_NAME );
+	                filterbuf.append( "=*" );
+	                filterbuf.append( permObjVal );
+	                filterbuf.append( "*)" );
+                }
+                if(permOpVal != null && permOpVal != ""){
+	                filterbuf.append("(");
+	                filterbuf.append( GlobalIds.POP_NAME );
+	                filterbuf.append( "=*" );
+	                filterbuf.append( permOpVal );
+	                filterbuf.append(  "*)" );
+                }
+                
+                filterbuf.append("))");
+                ld = getAdminConnection();
+                SearchCursor searchResults = search( ld, permRoot,
+                    SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+                long sequence = 0;
+
+                while ( searchResults.next() )
+                {
+                    permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++, permission.isAdmin() ) );
+                }
+            }
+            catch ( LdapException e )
+            {
+                String error = "findPermissions caught LdapException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
+            }
+            catch ( CursorException e )
+            {
+                String error = "findPermissions caught CursorException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
+            }
+            finally
+            {
+                closeAdminConnection( ld );
+            }
+            return permList;
+        }
 
 
     /**

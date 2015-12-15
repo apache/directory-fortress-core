@@ -1467,4 +1467,11 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         }
         return retSet.getCardinality();
     }
+
+	@Override
+	public List<Permission> findAnyPermissions(Permission permission)
+			throws SecurityException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
