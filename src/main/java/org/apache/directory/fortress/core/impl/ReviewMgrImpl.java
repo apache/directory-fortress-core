@@ -130,8 +130,8 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
      * Method returns a list of type Permission that match the perm object search string.
      * <h4>optional parameters</h4>
      * <ul>
-     * <li>{@link Permission#objName} - contains one or more characters of existing object being targeted</li>
-     * <li>{@link Permission#opName} - contains one or more characters of existing permission operation</li>
+     * <li>{@link Permission#objName} - contains one or more characters of existing object being targeted in leading characters.</li>
+     * <li>{@link Permission#opName} - contains one or more characters of existing permission operation in leading characters.</li>
      * </ul>
      *
      * @param permission contains object and operation name search strings.  Each contains 1 or more leading chars that correspond to object or op name.
@@ -149,11 +149,25 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         return permP.search( permission );
     }
 
+    /**
+     * Method returns a list of type Permission that match any part of either {@link Permission#objName} or {@link Permission#opName} search strings.
+     * This method differs from findPermissions in that any permission that matches any part of the perm obj or any part of the perm op will be returned in result set (uses substring string matching).
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link Permission#objName} - contains one or more characters of existing object being targeted</li>
+     * <li>{@link Permission#opName} - contains one or more characters of existing permission operation</li>
+     * </ul>
+     *
+     * @param permission contains object and operation name search strings.  Each contains 1 or more leading chars that correspond to object or op name.
+     * @return List of type Permission.  Fortress permissions are object->operation mappings.  The permissions may contain
+     *         assigned user, role or group entities as well.
+     * @throws SecurityException thrown in the event of system error.
+     */
     @Override
     public List<Permission> findAnyPermissions(Permission permission)
         throws SecurityException
     {
-        String methodName = "findPermissions";
+        String methodName = "findAnyPermissions";
         assertContext( CLS_NM, methodName, permission, GlobalErrIds.PERM_OPERATION_NULL );
         checkAccess(CLS_NM, methodName);
         return permP.searchAny( permission );

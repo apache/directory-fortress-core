@@ -79,6 +79,7 @@ public class HttpIds
     public static final String PERM_ADD = "permAdd";
     public static final String PERM_DELETE = "permDelete";
     public static final String PERM_SEARCH = "permSearch";
+    public static final String PERM_SEARCH_ANY = "permSearchAny";
     public static final String PERM_ROLES = "permRoles";
     public static final String PERM_USERS = "permUsers";
     public static final String PERM_ROLES_AUTHZED = "permRolesAuthzed";

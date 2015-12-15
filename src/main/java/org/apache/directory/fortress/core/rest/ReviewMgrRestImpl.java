@@ -197,6 +197,47 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
     }
 
     /**
+     * Method returns a list of type Permission that match any part of either {@link Permission#objName} or {@link Permission#opName} search strings.
+     * This method differs from findPermissions in that any permission that matches any part of the perm obj or any part of the perm op will be returned in result set (uses substring string matching).
+     * <h4>optional parameters</h4>
+     * <ul>
+     * <li>{@link Permission#objName} - contains one or more characters of existing object being targeted</li>
+     * <li>{@link Permission#opName} - contains one or more characters of existing permission operation</li>
+     * </ul>
+     *
+     * @param permission contains object and operation name search strings.  Each contains 1 or more leading chars that correspond to object or op name.
+     * @return List of type Permission.  Fortress permissions are object->operation mappings.  The permissions may contain
+     *         assigned user, role or group entities as well.
+     * @throws SecurityException thrown in the event of system error.
+     */
+    @Override
+    public List<Permission> findAnyPermissions(Permission permission)
+        throws SecurityException
+    {
+        VUtil.assertNotNull(permission, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".findAnyPermissions");
+        List<Permission> retPerms;
+        FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
+        request.setEntity(permission);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(szRequest, HttpIds.PERM_SEARCH_ANY);
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retPerms = response.getEntities();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retPerms;
+    }
+
+    /**
      * Method returns a list of type PermObj that match the perm object search string.
      * <h4>optional parameters</h4>
      * <ul>
@@ -1467,11 +1508,4 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         }
         return retSet.getCardinality();
     }
-
-	@Override
-	public List<Permission> findAnyPermissions(Permission permission)
-			throws SecurityException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

@@ -1116,7 +1116,15 @@ final class PermDAO extends ApacheDsDataProvider
         }
         return permList;
     }
-    
+
+    /**
+     * Uses substring filters to allow any permission matching the passed in obj and op names.
+     *
+     * @param permission
+     * @return
+     * @throws org.apache.directory.fortress.core.FinderException
+     *
+     */
     List<Permission> findAnyPermissions( Permission permission )
             throws FinderException
         {
@@ -1161,12 +1169,12 @@ final class PermDAO extends ApacheDsDataProvider
             }
             catch ( LdapException e )
             {
-                String error = "findPermissions caught LdapException=" + e.getMessage();
+                String error = "findAnyPermissions caught LdapException=" + e.getMessage();
                 throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
             }
             catch ( CursorException e )
             {
-                String error = "findPermissions caught CursorException=" + e.getMessage();
+                String error = "findAnyPermissions caught CursorException=" + e.getMessage();
                 throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
             }
             finally
