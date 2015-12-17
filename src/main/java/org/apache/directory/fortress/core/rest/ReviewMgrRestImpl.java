@@ -197,6 +197,41 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
     }
 
     /**
+     * Method returns Permission operations for the provided permission object
+     *
+     * @param permObj entity contains the {@link PermObj#objName} of target record.
+     * @return List of type Permission for provided permission object
+     * @throws SecurityException
+     *          thrown in the event of system error.
+     */
+    @Override
+    public List<Permission> findPermissions(PermObj permObj)
+        throws SecurityException
+    {
+        VUtil.assertNotNull(permObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".findObjPermissions");
+        List<Permission> retPerms;
+        FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
+        request.setEntity(permObj);
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.post(szRequest, HttpIds.PERM_OBJ_SEARCH);
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retPerms = response.getEntities();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retPerms;
+    }
+
+    /**
      * Method returns a list of type Permission that match any part of either {@link Permission#objName} or {@link Permission#opName} search strings.
      * This method differs from findPermissions in that any permission that matches any part of the perm obj or any part of the perm op will be returned in result set (uses substring string matching).
      * <h4>optional parameters</h4>
@@ -1508,11 +1543,4 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         }
         return retSet.getCardinality();
     }
-
-	@Override
-	public List<Permission> findPermissions(PermObj permObj)
-			throws SecurityException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

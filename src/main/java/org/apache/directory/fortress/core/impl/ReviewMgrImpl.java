@@ -149,11 +149,19 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         return permP.search( permission );
     }
 
+    /**
+     * Method returns Permission operations for the provided permission object
+     *
+     * @param permObj entity contains the {@link PermObj#objName} of target record.
+     * @return List of type Permission for provided permission object
+     * @throws SecurityException
+     *          thrown in the event of system error.
+     */
 	@Override
 	public List<Permission> findPermissions(PermObj permObj)
 			throws SecurityException {
-        String methodName = "findPermissions";
-        assertContext( CLS_NM, methodName, permObj, GlobalErrIds.PERM_OPERATION_NULL );
+        String methodName = "findObjPermissions";
+        assertContext( CLS_NM, methodName, permObj, GlobalErrIds.PERM_OBJECT_NULL );
         checkAccess(CLS_NM, methodName);
         return permP.searchOperations( permObj );
 	}
