@@ -120,6 +120,17 @@ public interface ReviewMgr extends Manageable
         throws SecurityException;
 
     /**
+     * Method returns Permission operations for the provided permission object
+     * 
+     * @param permObj entity contains the {@link PermObj#objName} of target record.
+     * @return List of type Permission for provided permission object
+     * @throws SecurityException
+     *          thrown in the event of system error.
+     */
+    List<Permission> findPermissions( PermObj permObj ) 
+    	throws SecurityException;
+    
+    /**
      * Method returns a list of Permissions that match any part of the permission object or operation.
      * 
      * @param permission contains object and operation name search strings.

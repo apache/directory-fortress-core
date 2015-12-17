@@ -149,6 +149,15 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
         return permP.search( permission );
     }
 
+	@Override
+	public List<Permission> findPermissions(PermObj permObj)
+			throws SecurityException {
+        String methodName = "findPermissions";
+        assertContext( CLS_NM, methodName, permObj, GlobalErrIds.PERM_OPERATION_NULL );
+        checkAccess(CLS_NM, methodName);
+        return permP.searchOperations( permObj );
+	}
+    
     /**
      * Method returns a list of type Permission that match any part of either {@link Permission#objName} or {@link Permission#opName} search strings.
      * This method differs from findPermissions in that any permission that matches any part of the perm obj or any part of the perm op will be returned in result set (uses substring string matching).

@@ -1117,6 +1117,51 @@ final class PermDAO extends ApacheDsDataProvider
         return permList;
     }
 
+    List<Permission> findPermissionOperations( PermObj permObj )
+            throws FinderException
+        {
+            List<Permission> permList = new ArrayList<>();
+            LdapConnection ld = null;
+            String permRoot = getRootDn( permObj.isAdmin(), permObj.getContextId() );
+
+            try
+            {
+                String permObjVal = encodeSafeText( permObj.getObjName(), GlobalIds.PERM_LEN );
+                StringBuilder filterbuf = new StringBuilder();
+                filterbuf.append( GlobalIds.FILTER_PREFIX );
+                filterbuf.append( PERM_OP_OBJECT_CLASS_NAME );
+                filterbuf.append( ")(" );
+                filterbuf.append( GlobalIds.POBJ_NAME );
+                filterbuf.append( "=" );
+                filterbuf.append( permObjVal );
+                filterbuf.append(  "))" );
+                ld = getAdminConnection();
+                SearchCursor searchResults = search( ld, permRoot,
+                    SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+                long sequence = 0;
+
+                while ( searchResults.next() )
+                {
+                    permList.add( unloadPopLdapEntry( searchResults.getEntry(), sequence++, permObj.isAdmin() ) );
+                }
+            }
+            catch ( LdapException e )
+            {
+                String error = "findPermissions caught LdapException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
+            }
+            catch ( CursorException e )
+            {
+                String error = "findPermissions caught CursorException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
+            }
+            finally
+            {
+                closeAdminConnection( ld );
+            }
+            return permList;
+        }
+    
     /**
      * Uses substring filters to allow any permission matching the passed in obj and op names.
      *

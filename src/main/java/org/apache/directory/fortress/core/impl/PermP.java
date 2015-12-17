@@ -106,6 +106,18 @@ final class PermP
     {
         return pDao.findPermissions( permission );
     }
+    
+    /**
+     * Takes a permission object that contains an object name and returns permisison operations for that object
+     * 
+     * @param permObj Contains full object name
+     * @return List of type Permission containing fully populated matching Permission entities.
+     * @throws SecurityException in the event of DAO search error.
+     */
+    List<Permission> searchOperations( PermObj permObj ) throws SecurityException
+    {
+        return pDao.findPermissionOperations( permObj );
+    }
 
     /**
      * Takes a Permission entity that contains full or partial object name and/or full or partial operation name for search.
