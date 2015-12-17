@@ -162,6 +162,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr
 			throws SecurityException {
         String methodName = "findObjPermissions";
         assertContext( CLS_NM, methodName, permObj, GlobalErrIds.PERM_OBJECT_NULL );
+        VUtil.assertNotNullOrEmpty(permObj.getObjName(), GlobalErrIds.PERM_OBJECT_NM_NULL, CLS_NM + "." + methodName);
         checkAccess(CLS_NM, methodName);
         return permP.searchOperations( permObj );
 	}
