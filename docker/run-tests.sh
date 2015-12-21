@@ -24,6 +24,7 @@ CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports
 echo $CONTAINER_PORT
 
 # configure build.properties
+cp build.properties.example build.properties
 cp slapd.properties.example slapd.properties
 sed -i 's/^ldap\.server\.type=.*/ldap.server.type=openldap/' slapd.properties
 sed -i 's/^enable\.audit=.*/enable.audit=true/' slapd.properties
