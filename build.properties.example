@@ -97,20 +97,16 @@ admin.max.conn=10
 user.min.conn=1
 user.max.conn=10
 
-# Used for slapd logger connection pool.  Leave zeros when using apacheds:
-min.log.conn=1
-max.log.conn=3
-
 # Only works if ldap.server.type=openldap:
 #enable.audit=true
 
-# Used for searching slapd logger.  Comment out for ApacheDS or other directory servers:
-#log.admin.user=cn=Manager,cn=log
-#log.admin.pw=secret
+# Used for searching openldap slapo access log:
+log.admin.user=cn=Manager,cn=log
+log.admin.pw=secret
 
 # Used for slapd logger connection pool.  Leave zeros when using apacheds:
-#min.log.conn=1
-#max.log.conn=3
+min.log.conn=1
+max.log.conn=3
 
 ########################################################################
 # 3. GROUP OBJECT CLASS DEFINITIONS
