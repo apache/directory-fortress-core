@@ -29,7 +29,7 @@ RUN \
     unzip fortressBuilder-Debian-Silver-x86-64-1.0-RC39.zip && \
     chmod a+x -Rf * && \
     # Workaround for FC-33: enable rbac.accelerator=true to enable ACLs in slapd.conf
-    sed -i 's/#rbac\.accelerator=true/rbac\.accelerator=true/' build.properties && \
+    sed -i 's/#rbac\.accelerator=true/rbac\.accelerator=true/' slapd.properties && \
     # Fortress Quickstart README Section II
     sed -i 's/export JAVA_HOME=.*/export JAVA_HOME=\/usr\/lib\/jvm\/java-1.8.0-openjdk-amd64\//' b.sh && \
     ./b.sh dist && \
