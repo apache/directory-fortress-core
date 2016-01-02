@@ -37,7 +37,7 @@
        <!-- ########### Project specific properties ########################### -->
        <property name="project.name" value="Fortress Identity Access Management SDK"/>
        <property name="name" value="fortress"/>
-       <property name="ivy.install.version" value="2.2.0"/>
+       <property name="ivy.install.version" value="2.4.0"/>
        <property name="title" value="Fortress Identity and Access Management SDK for Java ${version}"/>
        <property name="title.samples" value="Fortress Identity and Access Management Samples for Java ${version}"/>
        <property name="vendor" value="Joshua Tree Software"/>
@@ -897,7 +897,7 @@
          <replace file="${dst.remote.conf}" token="@KEY_STORE@" value="${key.store}"/>
          <replace file="${dst.remote.conf}" token="@KEY_STORE_PW@" value="${key.store.password}"/>
          <replace file="${dst.remote.conf}" token="@SERVER_TYPE@" value="${ldap.server.type}"/>
-         <replace file="${dst.remote.conf}" token="@IS_AUDIT@" value="${enable.audit}"/>
+         <replace file="${dst.remote.conf}" token="@IS_AUDIT@" value="${disable.audit}"/>
 
          <echo message="###############  Modify fortress load scripts per user settings  ###############"/>
          <delete file="${dst.load.bootstrap.script}"/>

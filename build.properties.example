@@ -97,8 +97,8 @@ admin.max.conn=10
 user.min.conn=1
 user.max.conn=10
 
-# Only works if ldap.server.type=openldap:
-enable.audit=true
+# Only disable audit IF ldap.server.type=openldap ABND the slapo access log overlay is NOT enabled.  This will save roundtrip w/ server for ldapcompare:
+#disable.audit=true
 
 # Used for searching openldap slapo access log:
 log.admin.user=cn=Manager,cn=log
