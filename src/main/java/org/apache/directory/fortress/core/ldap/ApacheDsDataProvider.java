@@ -424,7 +424,7 @@ public abstract class ApacheDsDataProvider
     {
         COUNTERS.incrementAdd();
 
-        if ( GlobalIds.IS_AUDIT && ( entity != null ) && ( entity.getAdminSession() != null ) )
+        if ( !GlobalIds.IS_AUDIT_DISABLED && ( entity != null ) && ( entity.getAdminSession() != null ) )
         {
             if ( StringUtils.isNotEmpty( entity.getAdminSession().getInternalUserId() ) )
             {
@@ -688,7 +688,7 @@ public abstract class ApacheDsDataProvider
      */
     private void audit( List<Modification> mods, FortEntity entity )
     {
-        if ( GlobalIds.IS_AUDIT && ( entity != null ) && ( entity.getAdminSession() != null ) )
+        if ( !GlobalIds.IS_AUDIT_DISABLED && ( entity != null ) && ( entity.getAdminSession() != null ) )
         {
             if ( StringUtils.isNotEmpty( entity.getAdminSession().getInternalUserId() ) )
             {
