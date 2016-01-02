@@ -1701,7 +1701,7 @@ final class UserDAO extends ApacheDsDataProvider
             modify( ld, userDn, mods );
 
             // The 2nd modify is to update audit attributes on the User entry:
-            if ( GlobalIds.IS_AUDIT && ( entity.getAdminSession() != null ) )
+            if ( !GlobalIds.IS_AUDIT_DISABLED && ( entity.getAdminSession() != null ) )
             {
                 // Because the user modified their own password, set their userId here:
                 //(entity.getAdminSession()).setInternalUserId(entity.getUserId());
