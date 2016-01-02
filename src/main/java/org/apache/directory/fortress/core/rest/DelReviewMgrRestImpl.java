@@ -55,17 +55,9 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
 {
     private static final String CLS_NM = DelReviewMgrRestImpl.class.getName();
 
+
     /**
-     * Method reads Admin Role entity from the admin role container in directory.
-     * <h4>required parameters</h4>
-     * <ul>
-     * <li>{@link AdminRole#name} - contains the name of the new AdminRole being targeted for read</li>
-     * </ul>
-     *
-     * @param role contains role name to be read.
-     * @return AdminRole entity that corresponds with role name.
-     * @throws org.apache.directory.fortress.core.SecurityException
-     *          will be thrown if role not found or system error occurs.
+     * {@inheritDoc}
      */
     @Override
     public AdminRole readRole(AdminRole role)
@@ -96,16 +88,7 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
 
 
     /**
-     * Method will return a list of type Admin Role.
-     * <h4>required parameters</h4>
-     * <ul>
-     * <li>{@link AdminRole#name} - contains all or some chars in the name of AdminRole(s) targeted for search</li>
-     * </ul>
-     *
-     * @param searchVal contains the all or some of the chars corresponding to admin role entities stored in directory.
-     * @return List of type AdminRole containing role entities that match the search criteria.
-     * @throws org.apache.directory.fortress.core.SecurityException
-     *          in the event of system error.
+     * {@inheritDoc}
      */
     @Override
     public List<AdminRole> findRoles(String searchVal)
@@ -134,18 +117,9 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
         return retRoles;
     }
 
+
     /**
-     * This function returns the set of admin roles assigned to a given user. The function is valid if and
-     * only if the user is a member of the USERS data set.
-     * <h4>required parameters</h4>
-     * <ul>
-     * <li>{@link User#userId} - contains the userId associated with the User object targeted for search.</li>
-     * </ul>
-     *
-     * @param user contains userId matching user entity stored in the directory.
-     * @return List of type UserAdminRole containing the user admin role data.
-     * @throws org.apache.directory.fortress.core.SecurityException
-     *          If user not found or system error occurs.
+     * {@inheritDoc}
      */
     @Override
     public List<UserAdminRole> assignedRoles(User user)
@@ -176,17 +150,7 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
 
 
     /**
-     * This method returns the data set of all users who are assigned the given admin role.  This searches the User data set for
-     * AdminRole relationship.  This method does NOT search for hierarchical Admin Roles relationships.
-     * <h4>required parameters</h4>
-     * <ul>
-     * <li>{@link AdminRole#name} - contains the name of AdminRole targeted for search</li>
-     * </ul>
-     *
-     * @param role contains the role name used to search the User data set.
-     * @return List of type User containing the users assigned data.
-     * @throws org.apache.directory.fortress.core.SecurityException
-     *          If system error occurs.
+     * {@inheritDoc}
      */
     @Override
     public List<User> assignedUsers(AdminRole role)
@@ -222,18 +186,7 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
 
 
     /**
-     * Commands reads existing OrgUnit entity from OrgUnit dataset.  The OrgUnit can be either User or Perm and is
-     * set by setting type attribute.
-     * <h4>required parameters</h4>
-     * <ul>
-     * <li>{@link org.apache.directory.fortress.core.model.OrgUnit#name} - contains the name associated with the OrgUnit object targeted for search.</li>
-     * <li>{@link OrgUnit#type} - contains the type of OU:  {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM}</li>
-     * </ul>
-     *
-     * @param entity contains OrgUnit name and type.
-     * @return OrgUnit entity that corresponds with ou name and type.
-     * @throws org.apache.directory.fortress.core.SecurityException
-     *          in the event of data validation or system error.
+     * {@inheritDoc}
      */
     @Override
     public OrgUnit read(OrgUnit entity)
@@ -264,19 +217,7 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
 
 
     /**
-     * Commands searches existing OrgUnit entities from OrgUnit dataset.  The OrgUnit can be either User or Perm and is
-     * set by setting type parameter on API.
-     * <h4>required parameters</h4>
-     * <ul>
-     * <li>{@link org.apache.directory.fortress.core.model.OrgUnit#type} - contains the type of OU:  {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} or {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM}</li>
-     * <li>searchVal - contains some or all of the chars associated with the OrgUnit objects targeted for search.</li>
-     * </ul>
-     *
-     * @param type      either PERM or USER
-     * @param searchVal contains the leading chars that map to {@link OrgUnit#name} on existing OrgUnit(s) targeted for search.
-     * @return List of type OrgUnit containing the OrgUnit data.
-     * @throws org.apache.directory.fortress.core.SecurityException
-     *
+     * {@inheritDoc}
      */
     @Override
     public List<OrgUnit> search(OrgUnit.Type type, String searchVal)

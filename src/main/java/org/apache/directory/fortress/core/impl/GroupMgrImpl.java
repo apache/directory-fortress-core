@@ -48,11 +48,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     private static final GroupP GROUP_P = new GroupP();
 
     /**
-     * Create a new group node.  Must have a name and at least one member.
-     *
-     * @param group contains {@link org.apache.directory.fortress.core.model.Group}.
-     * @return {@link org.apache.directory.fortress.core.model.Group} containing entity just added.
-     * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
+     * {@inheritDoc}
      */
     @Override
     public Group add( Group group ) throws org.apache.directory.fortress.core.SecurityException
@@ -70,13 +66,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     }
 
     /**
-     * Modify existing group node.  The name is required.  Does not update members or properties.
-     * Use {@link GroupMgr#add( Group group, String key, String value )}, {@link GroupMgr#delete( Group group, String key, String value )},
-     * {@link GroupMgr#assign( Group group, String member) }, or {@link GroupMgr#deassign( Group group, String member) } for multi-occurring attributes.
-     *
-     * @param group contains {@link Group}.
-     * @return {@link Group} containing entity just modified.
-     * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
+     * {@inheritDoc}
      */
     @Override
     public Group update( Group group ) throws SecurityException
@@ -89,11 +79,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     }
 
     /**
-     * Delete existing group node.  The name is required.
-     *
-     * @param group contains {@link Group}.
-     * @return {@link Group} containing entity just removed.
-     * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
+     * {@inheritDoc}
      */
     @Override
     public Group delete( Group group ) throws SecurityException
@@ -106,13 +92,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     }
 
     /**
-     * Add a property to an existing group node.  The name is required.
-     *
-     * @param group contains {@link Group}.
-     * @param key contains the property key.
-     * @param value contains contains the property value.
-     * @return {@link Group} containing entity just modified.
-     * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
+     * {@inheritDoc}
      */
     public Group add( Group group, String key, String value ) throws SecurityException
     {
@@ -124,13 +104,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     }
 
     /**
-     * Delete existing group node.  The name is required.
-     *
-     * @param group contains {@link Group}.
-     * @param key contains the property key.
-     * @param value contains contains the property value.
-     * @return {@link Group} containing entity just modified.
-     * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
+     * {@inheritDoc}
      */
     public Group delete( Group group, String key, String value ) throws SecurityException
     {
@@ -142,11 +116,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     }
 
     /**
-     * Read an existing group node.  The name is required.
-     *
-     * @param group contains {@link Group} with name field set with an existing group name.
-     * @return {@link Group} containing entity found.
-     * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
+     * {@inheritDoc}
      */
     @Override
     public Group read( Group group ) throws SecurityException
@@ -159,11 +129,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     }
 
     /**
-     * Search using a full or partial group node.  The name is required.
-     *
-     * @param group contains {@link Group}.
-     * @return List of type {@link Group} containing entities found.
-     * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
+     * {@inheritDoc}
      */
     @Override
     public List<Group> find( Group group ) throws SecurityException
@@ -176,11 +142,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     }
 
     /**
-     * Search for groups by userId.  Member (maps to userId) and is required.
-     *
-     * @param user contains userId that maps to Group member attribute.
-     * @return {@link Group} containing entity just added.
-     * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
+     * {@inheritDoc}
      */
     public List<Group> find( User user ) throws SecurityException
     {
@@ -193,12 +155,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     }
 
     /**
-     * Assign a user to an existing group node.  The name is required and userDn are required.
-     *
-     * @param group contains {@link Group}.
-     * @param member is the relative distinguished name (rdn) of an existing user in ldap.
-     * @return {@link Group} containing entity to assign.
-     * @throws org.apache.directory.fortress.core.SecurityException in the event entry already present or other system error.
+     * {@inheritDoc}
      */
     @Override
     public Group assign( Group group, String member ) throws SecurityException
@@ -213,12 +170,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr
     }
 
     /**
-     * Deassign a user from an existing group node.  The name is required and userDn are required.
-     *
-     * @param group contains {@link Group}.
-     * @param member is the relative distinguished name (rdn) of an existing user in ldap.
-     * @return {@link Group} containing entity to deassign
-     * @throws org.apache.directory.fortress.core.SecurityException in the event entry already present or other system error.
+     * {@inheritDoc}
      */
     @Override
     public Group deassign( Group group, String member ) throws SecurityException

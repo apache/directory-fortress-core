@@ -43,13 +43,7 @@ public class ConfigMgrImpl implements ConfigMgr
     private static final ConfigP cfgP = new ConfigP();
 
     /**
-     * Create a new cfg node with given name and properties.  The name is required.  If node already exists,
-     * a {@link org.apache.directory.fortress.core.SecurityException} with error {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_ALREADY_EXISTS} will be thrown.
-     *
-     * @param name    attribute is required and maps to 'cn' attribute in 'device' object class.
-     * @param inProps contains {@link Properties} with list of name/value pairs to add to existing config node.
-     * @return {@link Properties} containing the collection of name/value pairs just added.
-     * @throws org.apache.directory.fortress.core.SecurityException in the event entry already present or other system error.
+     * {@inheritDoc}
      */
     @Override
     public Properties add(String name, Properties inProps) throws SecurityException
@@ -59,13 +53,7 @@ public class ConfigMgrImpl implements ConfigMgr
 
 
     /**
-     * Update existing cfg node with additional properties, or, replace existing properties.  The name is required.  If node does not exist,
-     * a {@link org.apache.directory.fortress.core.SecurityException} with error {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
-     *
-     * @param name    attribute is required and maps to 'cn' attribute in 'device' object class.
-     * @param inProps contains {@link Properties} with list of name/value pairs to add or update from existing config node.
-     * @return {@link Properties} containing the collection of name/value pairs to be added to existing node.
-     * @throws org.apache.directory.fortress.core.SecurityException in the event entry not present or other system error.
+     * {@inheritDoc}
      */
     @Override
     public Properties update(String name, Properties inProps) throws SecurityException
@@ -74,11 +62,7 @@ public class ConfigMgrImpl implements ConfigMgr
     }
 
     /**
-     * Removes named cfg node from the directory.  The name is required.  If node does not exist,
-     * a {@link org.apache.directory.fortress.core.SecurityException} with error {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
-     *
-     * @param name is required and maps to 'cn' attribute on 'device' object class of node targeted for operation.
-     * @throws org.apache.directory.fortress.core.SecurityException in the event of system error.
+     * {@inheritDoc}
      */
     @Override
     public void delete(String name) throws SecurityException
@@ -87,11 +71,7 @@ public class ConfigMgrImpl implements ConfigMgr
     }
 
     /**
-     * Delete properties from existing cfg node.  The name is required.  If node does not exist,
-     * a {@link org.apache.directory.fortress.core.SecurityException} with error {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
-     *
-     * @param name attribute is required and maps to 'cn' attribute in 'device' object class.
-     * @throws org.apache.directory.fortress.core.SecurityException in the event entry not present or other system error.
+     * {@inheritDoc}
      */
     @Override
     public void delete(String name, Properties inProps) throws SecurityException
@@ -100,12 +80,7 @@ public class ConfigMgrImpl implements ConfigMgr
     }
 
     /**
-     * Read an existing cfg node with given name and return to caller.  The name is required.  If node doesn't exist,
-     * a {@link org.apache.directory.fortress.core.SecurityException} with error {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
-     *
-     * @param name attribute is required and maps to 'cn' attribute in 'device' object class.
-     * @return {@link Properties} containing the collection of name/value pairs just added. Maps to 'ftProps' attribute in 'ftProperties' object class.
-     * @throws SecurityException in the event entry doesn't exist or other system error.
+     * {@inheritDoc}
      */
     @Override
     public Properties read(String name) throws SecurityException

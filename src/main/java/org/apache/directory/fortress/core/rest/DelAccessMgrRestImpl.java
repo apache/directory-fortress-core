@@ -62,15 +62,9 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
 {
     private static final String CLS_NM = DelAccessMgrRestImpl.class.getName();
 
+
     /**
-     * This function will determine if the user contains an AdminRole that is authorized assignment control over
-     * User-Role Assignment (URA).  This adheres to the ARBAC02 functional specification for can-assign URA.
-     *
-     * @param session This object must be instantiated by calling {@link org.apache.directory.fortress.core.AccessMgr#createSession(org.apache.directory.fortress.core.model.User, boolean)} before passing into the method.  No variables need to be set by client after returned from createSession.
-     * @param user    Instantiated User entity requires only valid userId attribute set.
-     * @param role    Instantiated Role entity requires only valid role name attribute set.
-     * @return boolean value true indicates access allowed.
-     * @throws org.apache.directory.fortress.core.SecurityException In the event of data validation error (i.e. invalid userId or role name) or system error.
+     * {@inheritDoc}
      */
     @Override
     public boolean canAssign(Session session, User user, Role role)
@@ -102,15 +96,9 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         return result;
     }
 
+
     /**
-     * This function will determine if the user contains an AdminRole that is authorized revoke control over
-     * User-Role Assignment (URA).  This adheres to the ARBAC02 functional specification for can-revoke URA.
-     *
-     * @param session This object must be instantiated by calling {@link org.apache.directory.fortress.core.AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
-     * @param user    Instantiated User entity requires only valid userId attribute set.
-     * @param role    Instantiated Role entity requires only valid role name attribute set.
-     * @return boolean value true indicates access allowed.
-     * @throws SecurityException In the event of data validation error (i.e. invalid userId or role name) or system error.
+     * {@inheritDoc}
      */
     @Override
     public boolean canDeassign(Session session, User user, Role role)
@@ -142,15 +130,9 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         return result;
     }
 
+
     /**
-     * This function will determine if the user contains an AdminRole that is authorized assignment control over
-     * Permission-Role Assignment (PRA).  This adheres to the ARBAC02 functional specification for can-assign-p PRA.
-     *
-     * @param session This object must be instantiated by calling {@link org.apache.directory.fortress.core.AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
-     * @param perm    Instantiated Permission entity requires valid object name and operation name attributes set.
-     * @param role    Instantiated Role entity requires only valid role name attribute set.
-     * @return boolean value true indicates access allowed.
-     * @throws org.apache.directory.fortress.core.SecurityException In the event of data validation error (i.e. invalid perm or role name) or system error.
+     * {@inheritDoc}
      */
     @Override
     public boolean canGrant(Session session, Role role, Permission perm)
@@ -184,15 +166,9 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         return result;
     }
 
+
     /**
-     * This function will determine if the user contains an AdminRole that is authorized revoke control over
-     * Permission-Role Assignment (PRA).  This adheres to the ARBAC02 functional specification for can-revoke-p PRA.
-     *
-     * @param session This object must be instantiated by calling {@link org.apache.directory.fortress.core.AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
-     * @param perm    Instantiated Permission entity requires valid object name and operation name attributes set.
-     * @param role    Instantiated Role entity requires only valid role name attribute set.
-     * @return boolean value true indicates access allowed.
-     * @throws SecurityException In the event of data validation error (i.e. invalid perm or role name) or system error.
+     * {@inheritDoc}
      */
     @Override
     public boolean canRevoke(Session session, Role role, Permission perm)
@@ -226,20 +202,9 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         return result;
     }
 
+
     /**
-     * This function overrides same in RBAC's AccessMgrImpl, but instead processes permissions contained within AdminPerm dataset.
-     * Function returns a Boolean value containing result of a given administrator's access to perform a given operation on a given object.
-     * The function is valid if and only if the session is a valid Fortress session, the object is a member of the AdminPerm OBJS data set,
-     * and the operation is a member of the AdminPerms OPS data set. The session's subject has the permission
-     * to perform the operation on that object if and only if that permission is assigned to (at least)
-     * one of the session's active roles. This implementation will verify the roles or userId correspond
-     * to the subject's active roles are registered in the object's access control list.
-     *
-     * @param perm object contains obj attribute which is a String and contains the name of the object user is trying to access;
-     * perm object contains operation attribute which is also a String and contains the operation name for the object.
-     * @param session This object must be instantiated by calling {@link org.apache.directory.fortress.core.AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
-     * @return True of user has access, false otherwise.
-     * @throws SecurityException In the event of data validation error (i.e. invalid perm name) or system error.
+     * {@inheritDoc}
      */
     @Override
     public boolean checkAccess(Session session, Permission perm)
@@ -273,20 +238,7 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
 
 
     /**
-     * This function adds an adminRole as an active role of a session whose owner is a given user.
-     * <p>
-     * The function is valid if and only if:
-     * <ul>
-     *  <li> the user is a member of the USERS data set
-     *  <li> the role is a member of the ADMIN ROLES data set
-     *  <li> the session is a valid Fortress session
-     *  <li> the user is authorized to that admin role
-     *  <li> the session is owned by that user.
-     * </ul>
-     * </p>
-     * @param session object contains the user's returned RBAC and ARBAC sessions from the createSession method.
-     * @param role    object contains the adminRole name to be activated into session.
-     * @throws org.apache.directory.fortress.core.SecurityException is thrown if user is not allowed to activate or runtime error occurs with system.
+     * {@inheritDoc}
      */
     @Override
     public void addActiveRole(Session session, UserAdminRole role)
@@ -313,15 +265,9 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         }
     }
 
+
     /**
-     * This function deactivates adminRole from the active adminRole set of a session owned by a given user.
-     * The function is valid if and only if the user is a member of the USERS data set, the
-     * session object contains a valid Fortress session, the session is owned by the user,
-     * and the adminRole is an active adminRole of that session.
-     *
-     * @param session object contains the user's returned RBAC and ARBAC sessions from the createSession method.
-     * @param role    object contains the adminRole name to be deactivated.
-     * @throws org.apache.directory.fortress.core.SecurityException is thrown if user is not allowed to deactivate or runtime error occurs with system.
+     * {@inheritDoc}
      */
     @Override
     public void dropActiveRole(Session session, UserAdminRole role)
@@ -348,12 +294,9 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         }
     }
 
+
     /**
-     * This function returns the active admin roles associated with a session. The function is valid if
-     * and only if the session is a valid Fortress session.
-     * @param session object contains the user's returned RBAC session from the createSession method.
-     * @return List<UserAdminRole> containing all adminRoles active in user's session.  This will NOT contain inherited roles.
-     * @throws SecurityException is thrown if session invalid or system. error.
+     * {@inheritDoc}
      */
     @Override
     public List<UserAdminRole> sessionAdminRoles(Session session)
@@ -380,13 +323,9 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         return roles;
     }
 
+
     /**
-     * This function returns the authorized admin roles associated with a session based on hierarchical relationships. The function is valid if
-     * and only if the session is a valid Fortress session.
-     *
-     * @param session object contains the user's returned ARBAC session from the createSession method.
-     * @return Set<String> containing all adminRoles authorized in user's session.  This will contain inherited roles.
-     * @throws SecurityException is thrown if session invalid or system. error.
+     * {@inheritDoc}
      */
     @Override
     public Set<String> authorizedAdminRoles(Session session)
@@ -416,13 +355,9 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         //throw new java.lang.UnsupportedOperationException();
     }
 
+
     /**
-     * This function returns the ARBAC (administrative) permissions of the session, i.e., the permissions assigned
-     * to its authorized admin roles. The function is valid if and only if the session is a valid Fortress session.
-     *
-     * @param session object contains the user's returned ARBAC session from the createSession method.
-     * @return List<Permission> containing admin permissions (op, obj) active for user's session.
-     * @throws SecurityException in the event runtime error occurs with system.
+     * {@inheritDoc}
      */
     @Override
     public List<Permission> sessionPermissions(Session session)

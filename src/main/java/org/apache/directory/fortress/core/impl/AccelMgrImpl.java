@@ -85,58 +85,7 @@ public class AccelMgrImpl extends Manageable implements AccelMgr
 
 
     /**
-     * Perform user authentication {@link org.apache.directory.fortress.core.model.User#password} and role activations.<br />
-     * This method must be called once per user prior to calling other methods within this class.
-     * The successful result is {@link org.apache.directory.fortress.core.model.Session} that contains target user's RBAC {@link org.apache.directory.fortress.core.model.User#roles} and Admin role {@link org.apache.directory.fortress.core.model.User#adminRoles}.<br />
-     * In addition to checking user password validity it will apply configured password policy checks {@link org.apache.directory.fortress.core.model.User#pwPolicy}..<br />
-     * Method may also store parms passed in for audit trail {@link org.apache.directory.fortress.core.model.FortEntity}.
-     * <h4> This API will...</h4>
-     * <ul>
-     * <li> authenticate user password if trusted == false.
-     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>.
-     * <li> fail for any user who is locked by OpenLDAP's policies {@link org.apache.directory.fortress.core.model.User#isLocked()}, regardless of trusted flag being set as parm on API.
-     * <li> evaluate temporal {@link org.apache.directory.fortress.core.model.Constraint}(s) on {@link org.apache.directory.fortress.core.model.User}, {@link org.apache.directory.fortress.core.model.UserRole} and {@link org.apache.directory.fortress.core.model.UserAdminRole} entities.
-     * <li> process selective role activations into User RBAC Session {@link org.apache.directory.fortress.core.model.User#roles}.
-     * <li> check Dynamic Separation of Duties {@link org.apache.directory.fortress.core.impl.DSDChecker#validate(org.apache.directory.fortress.core.model.Session, org.apache.directory.fortress.core.model.Constraint, org.apache.directory.fortress.core.util.time.Time)} on {@link org.apache.directory.fortress.core.model.User#roles}.
-     * <li> process selective administrative role activations {@link org.apache.directory.fortress.core.model.User#adminRoles}.
-     * <li> return a {@link org.apache.directory.fortress.core.model.Session} that contains a reference to an object stored on the RBAC server..
-     * <li> throw a checked exception that will be {@link org.apache.directory.fortress.core.SecurityException} or its derivation.
-     * <li> throw a {@link SecurityException} for system failures.
-     * <li> throw a {@link org.apache.directory.fortress.core.PasswordException} for authentication and password policy violations.
-     * <li> throw a {@link org.apache.directory.fortress.core.ValidationException} for data validation errors.
-     * <li> throw a {@link org.apache.directory.fortress.core.FinderException} if User id not found.
-     * </ul>
-     * <h4>
-     * The function is valid if and only if:
-     * </h4>
-     * <ul>
-     * <li> the user is a member of the USERS data set
-     * <li> the password is supplied (unless trusted).
-     * <li> the (optional) active role set is a subset of the roles authorized for that user.
-     * </ul>
-     * <h4>
-     * The following attributes may be set when calling this method
-     * </h4>
-     * <ul>
-     * <li> {@link org.apache.directory.fortress.core.model.User#userId} - required
-     * <li> {@link org.apache.directory.fortress.core.model.User#password}
-     * <li> {@link org.apache.directory.fortress.core.model.User#roles} contains a list of RBAC role names authorized for user and targeted for activation within this session.  Default is all authorized RBAC roles will be activated into this Session.
-     * <li> {@link org.apache.directory.fortress.core.model.User#adminRoles} contains a list of Admin role names authorized for user and targeted for activation.  Default is all authorized ARBAC roles will be activated into this Session.
-     * <li> {@link org.apache.directory.fortress.core.model.User#props} collection of name value pairs collected on behalf of User during signon.  For example hostname:myservername or ip:192.168.1.99
-     * </ul>
-     * <h4>
-     * Notes:
-     * </h4>
-     * <ul>
-     * <li> roles that violate Dynamic Separation of Duty Relationships will not be activated into session.
-     * <li> role activations will proceed in same order as supplied to User entity setter, see {@link org.apache.directory.fortress.core.model.User#setRole(String)}.
-     * </ul>
-     * </p>
-     *
-     * @param user Contains {@link org.apache.directory.fortress.core.model.User#userId}, {@link org.apache.directory.fortress.core.model.User#password} (optional if {@code isTrusted} is 'true'), optional {@link org.apache.directory.fortress.core.model.User#roles}, optional {@link org.apache.directory.fortress.core.model.User#adminRoles}
-     * @param isTrusted if true password is not required.
-     * @return Session object will contain authentication result code {@link org.apache.directory.fortress.core.model.Session#errorId},
-     * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
+     * {@inheritDoc}
      */
     @Override
     public Session createSession( User user, boolean isTrusted )
@@ -149,10 +98,7 @@ public class AccelMgrImpl extends Manageable implements AccelMgr
 
 
     /**
-     * This function requests the RBAC server to delete the session from cache.
-     *
-     * @param session object contains the user's returned RBAC session from the createSession method.
-     * @throws SecurityException in the event runtime error occurs with system.
+     * {@inheritDoc}
      */
     @Override
     public void deleteSession( Session session )
@@ -165,12 +111,7 @@ public class AccelMgrImpl extends Manageable implements AccelMgr
 
 
     /**
-     * This function returns the active roles associated with a session. The function is valid if
-     * and only if the session is a valid Fortress session.
-     *
-     * @param session object contains the user's returned RBAC session from the createSession method.
-     * @return List<UserRole> containing all roles active in user's session.  This will NOT contain inherited roles.
-     * @throws SecurityException is thrown if session invalid or system. error.
+     * {@inheritDoc}
      */
     public List<UserRole> sessionRoles(Session session)
         throws SecurityException
@@ -182,18 +123,7 @@ public class AccelMgrImpl extends Manageable implements AccelMgr
 
 
     /**
-     * Perform user impl authorization.  This function returns a Boolean value meaning whether the subject of a given session is
-     * allowed or not to perform a given operation on a given object. The function is valid if and
-     * only if the session is a valid Fortress session, the object is a member of the OBJS data set,
-     * and the operation is a member of the OPS data set. The session's subject has the permission
-     * to perform the operation on that object if and only if that permission is assigned to (at least)
-     * one of the session's active roles. This implementation will verify the roles or userId correspond
-     * to the subject's active roles are registered in the object's access control list.
-     *
-     * @param perm  must contain the object, {@link org.apache.directory.fortress.core.model.Permission#objName}, and operation, {@link org.apache.directory.fortress.core.model.Permission#opName}, of permission User is trying to access.
-     * @param session This object must be instantiated by calling {@link AccessMgrImpl#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
-     * @return True if user has access, false otherwise.
-     * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
+     * {@inheritDoc}
      */
     @Override
     public boolean checkAccess( Session session, Permission perm )
@@ -211,12 +141,7 @@ public class AccelMgrImpl extends Manageable implements AccelMgr
 
 
     /**
-     * This function returns the permissions of the session, i.e., the permissions assigned
-     * to its authorized roles. The function is valid if and only if the session is a valid Fortress session.
-     *
-     * @param session object contains the user's returned RBAC session from the createSession method.
-     * @return List<Permission> containing permissions (op, obj) active for user's session.
-     * @throws SecurityException in the event runtime error occurs with system.
+     * {@inheritDoc}
      */
     @Override
     public List<Permission> sessionPermissions( Session session )
@@ -227,22 +152,7 @@ public class AccelMgrImpl extends Manageable implements AccelMgr
 
 
     /**
-     * This function adds a role as an active role of a session whose owner is a given user.
-     * <p>
-     * The function is valid if and only if:
-     * <ul>
-     * <li> the user is a member of the USERS data set
-     * <li> the role is a member of the ROLES data set
-     * <li> the role inclusion does not violate Dynamic Separation of Duty Relationships
-     * <li> the session is a valid Fortress session
-     * <li> the user is authorized to that role
-     * <li> the session is owned by that user.
-     * </ul>
-     * </p>
-     *
-     * @param session object contains the user's returned RBAC session from the createSession method.
-     * @param role object contains the role name, {@link UserRole#name}, to be activated into session.
-     * @throws SecurityException is thrown if user is not allowed to activate or runtime error occurs with system.
+     * {@inheritDoc}
      */
     @Override
     public void addActiveRole( Session session, UserRole role )
@@ -260,14 +170,7 @@ public class AccelMgrImpl extends Manageable implements AccelMgr
 
 
     /**
-     * This function deletes a role from the active role set of a session owned by a given user.
-     * The function is valid if and only if the user is a member of the USERS data set, the
-     * session object contains a valid Fortress session, the session is owned by the user,
-     * and the role is an active role of that session.
-     *
-     * @param session object contains the user's returned RBAC session from the createSession method.
-     * @param role object contains the role name, {@link UserRole#name}, to be deactivated.
-     * @throws SecurityException is thrown if user is not allowed to deactivate or runtime error occurs with system.
+     * {@inheritDoc}
      */
     @Override
     public void dropActiveRole( Session session, UserRole role )
