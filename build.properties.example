@@ -141,4 +141,5 @@ http.protocol=http
 # For TLs connections:
 #http.port=8443
 #http.protocol=https
+rbac.accelerator=false
 
