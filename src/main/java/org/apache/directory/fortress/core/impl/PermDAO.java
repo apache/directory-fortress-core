@@ -918,7 +918,7 @@ final class PermDAO extends ApacheDsDataProvider
         throws FinderException
     {
         // Audit can be turned off here with fortress config param: 'enable.audit=false'
-        if ( GlobalIds.IS_AUDIT_DISABLED && GlobalIds.IS_OPENLDAP )
+        if ( GlobalIds.IS_OPENLDAP && ! GlobalIds.IS_AUDIT_DISABLED )
         {
             try
             {

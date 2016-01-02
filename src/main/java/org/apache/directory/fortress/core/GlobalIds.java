@@ -49,7 +49,6 @@ public final class GlobalIds
     public static final String HOME = "HOME";
     public static final String TENANT = "tenant";
     private static final String DISABLE_AUDIT = "disable.audit";
-    // This constant is true unless the disable.audit flag is true.
     public static final boolean IS_AUDIT_DISABLED = ( ( Config.getProperty( DISABLE_AUDIT ) != null ) && ( Config
         .getProperty( DISABLE_AUDIT ).equalsIgnoreCase( "true" ) ) );
     private static final String ENABLE_REST = "enable.mgr.impl.rest";
