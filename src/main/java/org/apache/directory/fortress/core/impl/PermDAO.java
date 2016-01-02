@@ -917,7 +917,7 @@ final class PermDAO extends ApacheDsDataProvider
     private void addAuthZAudit( LdapConnection ld, String permDn, String userDn, String attributeValue )
         throws FinderException
     {
-        // Audit can be turned off here with fortress config param: 'enable.audit=false'
+        // Audit can be turned off here with fortress config param: 'disable.audit=true'
         if ( GlobalIds.IS_OPENLDAP && ! GlobalIds.IS_AUDIT_DISABLED )
         {
             try
