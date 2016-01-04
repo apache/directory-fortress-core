@@ -37,30 +37,34 @@ import org.apache.directory.fortress.core.model.UserRole;
  * and maintenance of RBAC element sets and relations; administrative review functions for
  * performing administrative queries; and system functions for creating and managing
  * RBAC attributes on user sessions and making access control decisions.
- * <p/>
- * <hr>
+ * <h3></h3>
  * <h4>RBAC0 - Core</h4>
- * Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions.  API to add, update, delete identity data and perform identity and access control decisions during runtime operations.
- * <p/>
- * <img src="./doc-files/RbacCore.png">
+ * Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions.  API to add, 
+ * update, delete identity data and perform identity and access control decisions during runtime operations.
+ * <p>
+ * <img src="./doc-files/RbacCore.png" alt="Rbac Core">
  * <hr>
  * <h4>RBAC1 - General Hierarchical Roles</h4>
  * Simplifies role engineering tasks using inheritance of one or more parent roles.
- * <p/>
- * <img src="./doc-files/RbacHier.png">
+ * <p>
+ * <img src="./doc-files/RbacHier.png" alt="Rbac Hierarchy">
  * <hr>
  * <h4>RBAC2 - Static Separation of Duty (SSD) Relations</h4>
- * Enforce mutual membership exclusions across role assignments.  Facilitate dual control policies by restricting which roles may be assigned to users in combination.  SSD provide added granularity for authorization limits which help enterprises meet strict compliance regulations.
- * <p/>
- * <img src="./doc-files/RbacSSD.png">
+ * Enforce mutual membership exclusions across role assignments.  Facilitate dual control policies by restricting which 
+ * roles may be assigned to users in combination.  SSD provide added granularity for authorization limits which help 
+ * enterprises meet strict compliance regulations.
+ * <p>
+ * <img src="./doc-files/RbacSSD.png" alt="Rbac SSD">
  * <hr>
  * <h4>RBAC3 - Dynamic Separation of Duty (DSD) Relations</h4>
- * Control allowed role combinations to be activated within an RBAC session.  DSD policies fine tune role policies that facilitate authorization dual control and two man policy restrictions during runtime security checks.
- * <p/>
- * <img src="./doc-files/RbacDSD.png">
+ * Control allowed role combinations to be activated within an RBAC session.  DSD policies fine tune role policies that 
+ * facilitate authorization dual control and two man policy restrictions during runtime security checks.
+ * <p>
+ * <img src="./doc-files/RbacDSD.png" alt="Rbac DSD">
  * <hr>
- * <p/>
- * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} or {@link Manageable#setAdmin(org.apache.directory.fortress.core.model.Session)}) are set.
+ * <p>
+ * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} 
+ * or {@link Manageable#setAdmin(org.apache.directory.fortress.core.model.Session)}) are set.
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public interface AccelMgr extends Manageable
@@ -70,60 +74,105 @@ public interface AccelMgr extends Manageable
      * Perform user authentication {@link User#password} and role activations.
      * <br>
      * This method must be called once per user prior to calling other methods within this class.
-     * The successful result is {@link org.apache.directory.fortress.core.model.Session} that contains target user's RBAC {@link User#roles} and Admin role {@link User#adminRoles}.
+     * The successful result is {@link org.apache.directory.fortress.core.model.Session} that contains target user's RBAC 
+     * {@link User#roles} and 
+     * Admin role {@link User#adminRoles}.
      * <br>
-     * In addition to checking user password validity it will apply configured password policy checks {@link org.apache.directory.fortress.core.model.User#pwPolicy}.
+     * In addition to checking user password validity it will apply configured password policy checks 
+     * {@link org.apache.directory.fortress.core.model.User#pwPolicy}.
      * <br>
      * Method may also store parms passed in for audit trail {@link org.apache.directory.fortress.core.model.FortEntity}.
+     * <h3></h3>
      * <h4>
      * This API will...
      * </h4>
      * <ul>
-     * <li> authenticate user password if trusted == false.
-     * <li> perform <a href="http://www.openldap.org/">OpenLDAP</a> <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>.
-     *
-     * <li> fail for any user who is locked by OpenLDAP's policies {@link org.apache.directory.fortress.core.model.User#isLocked()}, regardless of trusted flag being set as parm on API.
-     * <li> evaluate temporal {@link org.apache.directory.fortress.core.model.Constraint}(s) on {@link User}, {@link UserRole} and {@link org.apache.directory.fortress.core.model.UserAdminRole} entities.
-     * <li> process selective role activations into User RBAC Session {@link User#roles}.
-     * <li> check Dynamic Separation of Duties {@link org.apache.directory.fortress.core.impl.DSDChecker#validate(org.apache.directory.fortress.core.model.Session, org.apache.directory.fortress.core.model.Constraint, org.apache.directory.fortress.core.util.time.Time)} on {@link org.apache.directory.fortress.core.model.User#roles}.
-     * <li> process selective administrative role activations {@link User#adminRoles}.
-     * <li> return a {@link org.apache.directory.fortress.core.model.Session} containing {@link org.apache.directory.fortress.core.model.Session#getUser()}, {@link org.apache.directory.fortress.core.model.Session#getRoles()} and (if admin user) {@link org.apache.directory.fortress.core.model.Session#getAdminRoles()} if everything checks out good.
-     * <li> throw a checked exception that will be {@link SecurityException} or its derivation.
-     * <li> throw a {@link SecurityException} for system failures.
-     * <li> throw a {@link PasswordException} for authentication and password policy violations.
-     * <li> throw a {@link ValidationException} for data validation errors.
-     * <li> throw a {@link FinderException} if User id not found.
+     *   <li>authenticate user password if trusted == false.</li>
+     *   <li>
+     *     perform <a href="http://www.openldap.org/">OpenLDAP</a> 
+     *     <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>.
+     *   </li>
+     *   <li>
+     *     fail for any user who is locked by OpenLDAP's policies 
+     *     {@link org.apache.directory.fortress.core.model.User#isLocked()}, regardless of trusted flag being set as parm 
+     *     on API.
+     *   </li>
+     *   <li>
+     *     evaluate temporal {@link org.apache.directory.fortress.core.model.Constraint}(s) on {@link User}, {@link UserRole} 
+     *     and {@link org.apache.directory.fortress.core.model.UserAdminRole} entities.
+     *   </li>
+     *   <li>process selective role activations into User RBAC Session {@link User#roles}.</li>
+     *   <li>
+     *     check Dynamic Separation of Duties 
+     *     {@link org.apache.directory.fortress.core.impl.DSDChecker#validate(
+     *          org.apache.directory.fortress.core.model.Session, 
+     *          org.apache.directory.fortress.core.model.Constraint, 
+     *          org.apache.directory.fortress.core.util.time.Time,
+     *          org.apache.directory.fortress.core.util.VUtil.ConstraintType)} 
+     *     on {@link org.apache.directory.fortress.core.model.User#roles}.
+     *   </li>
+     *   <li> process selective administrative role activations {@link User#adminRoles}.</li>
+     *   <li> 
+     *     return a {@link org.apache.directory.fortress.core.model.Session} containing 
+     *     {@link org.apache.directory.fortress.core.model.Session#getUser()}, 
+     *     {@link org.apache.directory.fortress.core.model.Session#getRoles()} and (if admin user) 
+     *     {@link org.apache.directory.fortress.core.model.Session#getAdminRoles()} if everything checks out good.
+     *   </li>
+     *   <li> throw a checked exception that will be {@link SecurityException} or its derivation.</li>
+     *   <li> throw a {@link SecurityException} for system failures.</li>
+     *   <li> throw a {@link PasswordException} for authentication and password policy violations.</li>
+     *   <li> throw a {@link ValidationException} for data validation errors.</li>
+     *   <li> throw a {@link FinderException} if User id not found.</li>
      * </ul>
      * <h4>
      * The function is valid if and only if:
      * </h4>
      * <ul>
-     * <li> the user is a member of the USERS data set
-     * <li> the password is supplied (unless trusted).
-     * <li> the (optional) active role set is a subset of the roles authorized for that user.
+     *   <li> the user is a member of the USERS data set</li>
+     *   <li> the password is supplied (unless trusted).</li>
+     *   <li> the (optional) active role set is a subset of the roles authorized for that user.</li>
      * </ul>
      * <h4>
      * The following attributes may be set when calling this method
      * </h4>
      * <ul>
-     * <li> {@link User#userId} - required
-     * <li> {@link org.apache.directory.fortress.core.model.User#password}
-     * <li> {@link org.apache.directory.fortress.core.model.User#roles} contains a list of RBAC role names authorized for user and targeted for activation within this session.  Default is all authorized RBAC roles will be activated into this Session.
-     * <li> {@link org.apache.directory.fortress.core.model.User#adminRoles} contains a list of Admin role names authorized for user and targeted for activation.  Default is all authorized ARBAC roles will be activated into this Session.
-     * <li> {@link User#props} collection of name value pairs collected on behalf of User during signon.  For example hostname:myservername or ip:192.168.1.99
+     *   <li> {@link User#userId} - required</li>
+     *   <li> {@link org.apache.directory.fortress.core.model.User#password}</li>
+     *   <li>
+     *     {@link org.apache.directory.fortress.core.model.User#roles} contains a list of RBAC role names authorized 
+     *     for user and targeted for activation within this session.  Default is all authorized RBAC roles will be 
+     *     activated into this Session.
+     *   </li>
+     *   <li>
+     *     {@link org.apache.directory.fortress.core.model.User#adminRoles} contains a list of Admin role names authorized 
+     *     for user and targeted for activation.  Default is all authorized ARBAC roles will be activated into this Session.
+     *   </li>
+     *   <li>
+     *     {@link User#props} collection of name value pairs collected on behalf of User during signon.  For example 
+     *     hostname:myservername or ip:192.168.1.99
+     *   </li>
      * </ul>
      * <h4>
      * Notes:
      * </h4>
      * <ul>
-     * <li> roles that violate Dynamic Separation of Duty Relationships will not be activated into session.
-     * <li> role activations will proceed in same order as supplied to User entity setter, see {@link User#setRole(String)}.
+     *   <li> roles that violate Dynamic Separation of Duty Relationships will not be activated into session.
+     *   <li>
+     *     role activations will proceed in same order as supplied to User entity setter, see {@link User#setRole(String)}.
+     *   </li>
      * </ul>
-     * <p>
      *
-     * @param user      Contains {@link User#userId}, {@link org.apache.directory.fortress.core.model.User#password} (optional if {@code isTrusted} is 'true'), optional {@link User#roles}, optional {@link org.apache.directory.fortress.core.model.User#adminRoles}
+     * @param user Contains {@link User#userId}, {@link org.apache.directory.fortress.core.model.User#password} 
+     *   (optional if {@code isTrusted} is 'true'), optional {@link User#roles}, optional 
+     *   {@link org.apache.directory.fortress.core.model.User#adminRoles}
      * @param isTrusted if true password is not required.
-     * @return Session object will contain authentication result code {@link org.apache.directory.fortress.core.model.Session#errorId}, RBAC role activations {@link org.apache.directory.fortress.core.model.Session#getRoles()}, Admin Role activations {@link org.apache.directory.fortress.core.model.Session#getAdminRoles()},OpenLDAP pw policy codes {@link org.apache.directory.fortress.core.model.Session#warnings}, {@link org.apache.directory.fortress.core.model.Session#expirationSeconds}, {@link org.apache.directory.fortress.core.model.Session#graceLogins} and more.
+     * @return Session object will contain authentication result code
+     *  {@link org.apache.directory.fortress.core.model.Session#errorId}, 
+     *  RBAC role activations {@link org.apache.directory.fortress.core.model.Session#getRoles()}, 
+     *  Admin Role activations {@link org.apache.directory.fortress.core.model.Session#getAdminRoles()},
+     *  OpenLDAP pw policy codes {@link org.apache.directory.fortress.core.model.Session#warnings}, 
+     *  {@link org.apache.directory.fortress.core.model.Session#expirationSeconds}, 
+     *  {@link org.apache.directory.fortress.core.model.Session#graceLogins} and more.
      * @throws SecurityException
      *          in the event of data validation failure, security policy violation or DAO error.
      */
@@ -132,8 +181,8 @@ public interface AccelMgr extends Manageable
 
 
     /**
-     * This function deletes a fortress session from the RBAC Policy Decision Point inside OpenLDAP RBAC Accelerator.  The function is valid if
-     * and only if the session is a valid Fortress session.
+     * This function deletes a fortress session from the RBAC Policy Decision Point inside OpenLDAP RBAC Accelerator.  
+     * The function is valid if and only if the session is a valid Fortress session.
      *
      * @param session object contains the user's returned RBAC session from the createSession method.
      * @throws SecurityException is thrown if session invalid or system. error.
@@ -155,16 +204,18 @@ public interface AccelMgr extends Manageable
 
 
     /**
-     * Perform user RBAC authorization.  This function returns a Boolean value meaning whether the subject of a given session is
-     * allowed or not to perform a given operation on a given object. The function is valid if and
+     * Perform user RBAC authorization.  This function returns a Boolean value meaning whether the subject of a given 
+     * session is allowed or not to perform a given operation on a given object. The function is valid if and
      * only if the session is a valid Fortress session, the object is a member of the OBJS data set,
      * and the operation is a member of the OPS data set. The session's subject has the permission
      * to perform the operation on that object if and only if that permission is assigned to (at least)
      * one of the session's active roles. This implementation will verify the roles or userId correspond
      * to the subject's active roles are registered in the object's access control list.
      *
-     * @param perm    must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, of permission User is trying to access.
-     * @param session This object must be instantiated by calling {@link AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
+     * @param perm    must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, of 
+     * permission User is trying to access.
+     * @param session This object must be instantiated by calling {@link AccessMgr#createSession} method before passing 
+     * into the method.  No variables need to be set by client after returned from createSession.
      * @return True if user has access, false otherwise.
      * @throws SecurityException
      *          in the event of data validation failure, security policy violation or DAO error.
@@ -177,8 +228,9 @@ public interface AccelMgr extends Manageable
      * This function returns the permissions of the session, i.e., the permissions assigned
      * to its authorized roles. The function is valid if and only if the session is a valid Fortress session.
      *
-     * @param session This object must be instantiated by calling {@link AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
-     * @return List<Permission> containing permissions (op, obj) active for user's session.
+     * @param session This object must be instantiated by calling {@link AccessMgr#createSession} method before passing 
+     * into the method.  No variables need to be set by client after returned from createSession.
+     * @return List&lt;Permission&gt; containing permissions (op, obj) active for user's session.
      * @throws SecurityException is thrown if runtime error occurs with system.
      */
     List<Permission> sessionPermissions( Session session )
@@ -190,14 +242,13 @@ public interface AccelMgr extends Manageable
      * <p>
      * The function is valid if and only if:
      * <ul>
-     * <li> the user is a member of the USERS data set
-     * <li> the role is a member of the ROLES data set
-     * <li> the role inclusion does not violate Dynamic Separation of Duty Relationships
-     * <li> the session is a valid Fortress session
-     * <li> the user is authorized to that role
-     * <li> the session is owned by that user.
+     *   <li> the user is a member of the USERS data set</li>
+     *   <li> the role is a member of the ROLES data set</li>
+     *   <li> the role inclusion does not violate Dynamic Separation of Duty Relationships</li>
+     *   <li> the session is a valid Fortress session</li>
+     *   <li> the user is authorized to that role</li>
+     *   <li> the session is owned by that user.</li>
      * </ul>
-     * </p>
      *
      * @param session object contains the user's returned RBAC session from the createSession method.
      * @param role    object contains the role name, {@link UserRole#name}, to be activated into session.
@@ -214,7 +265,8 @@ public interface AccelMgr extends Manageable
      * and the role is an active role of that session.
      *
      * @param session object contains the user's returned RBAC session from the createSession method.
-     * @param role    object contains the role name, {@link org.apache.directory.fortress.core.model.UserRole#name}, to be deactivated.
+     * @param role    object contains the role name, {@link org.apache.directory.fortress.core.model.UserRole#name}, 
+     * to be deactivated.
      * @throws SecurityException is thrown if user is not allowed to deactivate or runtime error occurs with system.
      */
     void dropActiveRole( Session session, UserRole role )
