@@ -186,7 +186,7 @@ public interface AuditMgr extends Manageable
      * and given timestamp {@link UserAudit#beginDate}.  If the {@link org.apache.directory.fortress.core.model.UserAudit#failedOnly} is true it will
      * return only authentication attempts made with invalid userId.  This event represents either User incorrectly entering userId during signon or
      * possible fraudulent logon attempt by hostile agent.
-     * </p>
+     * <p>
      * This event is generated when Fortress looks up User record prior to LDAP bind operation.
      * <h4>optional parameters</h4>
      * <ul>

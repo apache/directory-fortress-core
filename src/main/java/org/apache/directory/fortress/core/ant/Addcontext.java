@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * The class is used by {@link FortressAntTask} to create new {@link Context} used to define multi-tenant property.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'Addcontext', is used for the xml tag in the load script.</p>
+ * <p>This class name, 'Addcontext', is used for the xml tag in the load script.<p>
  * <pre>
  * {@code
  * <target name="all">
@@ -56,7 +56,7 @@ public class Addcontext
     }
 
     /**
-     * <p>This method name, 'addContext', is used for derived xml tag 'context' in the load script.</p>
+     * <p>This method name, 'addContext', is used for derived xml tag 'context' in the load script.<p>
      * <pre>
      * {@code
      * <addcontext>

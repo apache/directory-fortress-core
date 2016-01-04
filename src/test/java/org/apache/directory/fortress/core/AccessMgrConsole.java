@@ -409,57 +409,57 @@ class AccessMgrConsole
     /**
      * Sample User data contained in Session object:
      * <p/>
-     * S   UID  [demoUser4]:<br />
-     * S   IID  [ccbb2929-bf01-413d-b768-529de4d428e5]<br />
-     * S   ERR  [0]<br />
-     * S   WARN [10]<br />
-     * S   MSG  [checkPwPolicies for userId <demouser4> PASSWORD CHECK SUCCESS]<br />
-     * S   EXP  [0]<br />
-     * S   GRAC [0]<br />
-     * S   AUTH [true]<br />
-     * S   LAST [1297408501356]<br />
-     * S   SID  [fc228713-1242-4061-9d8a-d4860bf8d3d8]<br />
-     * ------------------------------------------<br />
-     * U   UID  [demoUser4]<br />
-     * U   IID  [ccbb2929-bf01-413d-b768-529de4d428e5]<br />
-     * U   CN   [JoeUser4]<br />
-     * U   DESC [Demo Test User 4]<br />
-     * U   OU   [demousrs1]<br />
-     * U   SN   [User4]<br />
-     * U   BDTE [20090101]<br />
-     * U   EDTE [20990101]<br />
-     * U   BLDT [none]<br />
-     * U   ELDT [none]<br />
-     * U   DMSK [1234567]<br />
-     * U   TO   [60]<br />
-     * U   REST [false]<br />
-     * U   PROP[0]=customerNumber VAL=3213432<br />
+     * S   UID  [demoUser4]:<br>
+     * S   IID  [ccbb2929-bf01-413d-b768-529de4d428e5]<br>
+     * S   ERR  [0]<br>
+     * S   WARN [10]<br>
+     * S   MSG  [checkPwPolicies for userId <demouser4> PASSWORD CHECK SUCCESS]<br>
+     * S   EXP  [0]<br>
+     * S   GRAC [0]<br>
+     * S   AUTH [true]<br>
+     * S   LAST [1297408501356]<br>
+     * S   SID  [fc228713-1242-4061-9d8a-d4860bf8d3d8]<br>
+     * ------------------------------------------<br>
+     * U   UID  [demoUser4]<br>
+     * U   IID  [ccbb2929-bf01-413d-b768-529de4d428e5]<br>
+     * U   CN   [JoeUser4]<br>
+     * U   DESC [Demo Test User 4]<br>
+     * U   OU   [demousrs1]<br>
+     * U   SN   [User4]<br>
+     * U   BDTE [20090101]<br>
+     * U   EDTE [20990101]<br>
+     * U   BLDT [none]<br>
+     * U   ELDT [none]<br>
+     * U   DMSK [1234567]<br>
+     * U   TO   [60]<br>
+     * U   REST [false]<br>
+     * U   PROP[0]=customerNumber VAL=3213432<br>
      * <p/>
-     * USER ROLE[0]:<br />
-     * role name <role1><br />
-     * begin time <0000><br />
-     * end time <0000><br />
-     * begin date <none><br />
-     * end date <none><br />
-     * begin lock <none><br />
-     * end lock <none><br />
-     * day mask <all><br />
-     * time out <0><br />
+     * USER ROLE[0]:<br>
+     * role name <role1><br>
+     * begin time <0000><br>
+     * end time <0000><br>
+     * begin date <none><br>
+     * end date <none><br>
+     * begin lock <none><br>
+     * end lock <none><br>
+     * day mask <all><br>
+     * time out <0><br>
      * <p/>
-     * USER ADMIN ROLE[0]:<br />
-     * admin role name <DemoAdminUsers><br />
-     * OsU <null><br />
-     * OsP <null><br />
-     * begin range <null><br />
-     * end range <null><br />
-     * begin time <0000><br />
-     * end time <0000><br />
-     * begin date <none><br />
-     * end date <none><br />
-     * begin lock <none><br />
-     * end lock <none><br />
-     * day mask <all><br />
-     * time out <0><br />
+     * USER ADMIN ROLE[0]:<br>
+     * admin role name <DemoAdminUsers><br>
+     * OsU <null><br>
+     * OsP <null><br>
+     * begin range <null><br>
+     * end range <null><br>
+     * begin time <0000><br>
+     * end time <0000><br>
+     * begin date <none><br>
+     * end date <none><br>
+     * begin lock <none><br>
+     * end lock <none><br>
+     * day mask <all><br>
+     * time out <0><br>
      * <p/>
      */
     void getUser()

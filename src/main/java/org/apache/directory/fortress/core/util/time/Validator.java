@@ -36,7 +36,7 @@ import org.apache.directory.fortress.core.util.VUtil;
  * <li>{@link org.apache.directory.fortress.core.model.AdminRole}</li>
  * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole}</li>
  * </ol>
- * </p>
+ * <p>
  * <h4> Constraint Processors </h4>
  * <ol>
  * <li>Time of day:  {@link ClockTime}</li>
@@ -46,7 +46,7 @@ import org.apache.directory.fortress.core.util.VUtil;
  * <li>Lock dates:   {@link LockDate}</li>
  * <li>DSDs:         {@link org.apache.directory.fortress.core.impl.DSDChecker}</li>
  * </ol>
- * </p>
+ * <p>
  * <h4> Constraint Error Codes </h4>
  * <ol>
  * <li>{@link org.apache.directory.fortress.core.GlobalErrIds#ACTV_FAILED_DAY}</li>
@@ -63,7 +63,7 @@ public interface Validator
 {
     /**
      * This method is called during activation of {@link org.apache.directory.fortress.core.model.UserRole} and {@link org.apache.directory.fortress.core.model.UserAdminRole}
-     * </p>
+     * <p>
      * The following error codes can be returned for validations:
      * <ol>
      * <li>{@link org.apache.directory.fortress.core.GlobalErrIds#ACTV_FAILED_DAY}</li>

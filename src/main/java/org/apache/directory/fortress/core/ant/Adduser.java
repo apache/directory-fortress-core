@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * The class is used by {@link FortressAntTask} to load {@link UserAnt}s used to drive {@link org.apache.directory.fortress.core.AdminMgr#addUser(org.apache.directory.fortress.core.model.User)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'Adduser', is used for the xml tag in the load script.</p>
+ * <p>This class name, 'Adduser', is used for the xml tag in the load script.<p>
  * <pre>
  * {@code
  * <target name="all">
@@ -52,7 +52,7 @@ public class Adduser
     }
 
     /**
-     * <p>This method name, 'addUser', is used for derived xml tag 'user' in the load script.</p>
+     * <p>This method name, 'addUser', is used for derived xml tag 'user' in the load script.<p>
      * <pre>
      * {@code
      * <adduser>

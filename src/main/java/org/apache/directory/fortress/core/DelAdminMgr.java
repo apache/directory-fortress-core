@@ -138,7 +138,7 @@ public interface DelAdminMgr extends Manageable
     /**
      * This command assigns a user to an admin role.
      * Successful completion of this op, the following occurs:
-     * </p>
+     * <p>
      * <ul>
      * <li> User entity (resides in people container) has role assignment added to aux object class attached to actual user record.
      * <li> AdminRole entity (resides in admin role container) has userId added as role occupant.
@@ -269,7 +269,7 @@ public interface DelAdminMgr extends Manageable
      * <li> The child orgunit is not a member of the ORGUNITS data set.
      * <li> The parent orgunit is a member of the ORGUNITS data set.
      * </ul>
-     * </p>
+     * <p>
      * <p> This method:
      * <ul>
      * <li> Adds new orgunit.
@@ -304,7 +304,7 @@ public interface DelAdminMgr extends Manageable
      * <li> The parent is not a member of the ORGUNITS data set.
      * <li> The child is a member of the ORGUNITS data set.
      * </ul>
-     * </p>
+     * <p>
      * <p> This method:
      * <ul>
      * <li> Adds new orgunit.

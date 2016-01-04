@@ -27,7 +27,7 @@ import java.util.List;
  *
  *
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'Addsdset', is used for the xml tag in the load script.</p>
+ * <p>This class name, 'Addsdset', is used for the xml tag in the load script.<p>
  * <pre>
  * {@code
  * <target name="all">
@@ -54,7 +54,7 @@ public class Addsdset
     }
 
     /**
-     * <p>This method name, 'addSdset', is used for derived xml tag 'sdset' in the load script.</p>
+     * <p>This method name, 'addSdset', is used for derived xml tag 'sdset' in the load script.<p>
      * <pre>
      * {@code
      * <addsdset>

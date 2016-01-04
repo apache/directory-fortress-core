@@ -138,9 +138,9 @@ public final class AuditP
      * This method returns a list of failed authentication events for a particular invalid user {@link UserAudit#userId},
      * and given timestamp {@link UserAudit#beginDate}.  If the {@link UserAudit#failedOnly} is true it will
      * return only authentication attempts made with invalid userId.
-     * </p>
+     * <p>
      * This is possible because Fortress performs read on user before the bind.
-     * </p>
+     * <p>
      *
      * @param uAudit This entity is instantiated and populated before invocation.
      * @return a List of objects of type AuthZ.  Each AuthZ object contains one failed authentication event.

@@ -27,11 +27,9 @@ import org.apache.directory.fortress.core.util.VUtil;
 
 /**
  * Creates an instance of the AccelMgr object.
- * <p/>
+ * <p>
  * The default implementation class is specified as {@link AccelMgrImpl} but can be overridden by
  * adding the {@link GlobalIds#ACCEL_IMPLEMENTATION} config property.
- * <p/>
-
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

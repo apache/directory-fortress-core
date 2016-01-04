@@ -29,7 +29,7 @@ import java.util.List;
  * The class is used by {@link FortressAntTask} to load {@link Group}s used to drive
  * {@link org.apache.directory.fortress.core.GroupMgr#add(org.apache.directory.fortress.core.model.Group)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'Delgroup', is used for the xml tag in the load script.</p>
+ * <p>This class name, 'Delgroup', is used for the xml tag in the load script.<p>
  * <pre>
  * {@code
  * <target name="all">
@@ -56,7 +56,7 @@ public class Delgroup
     }
 
     /**
-     * <p>This method name, 'addGroup', is used for derived xml tag 'group' in the load script.</p>
+     * <p>This method name, 'addGroup', is used for derived xml tag 'group' in the load script.<p>
      * <pre>
      * {@code
      *  <delgroup>

@@ -46,7 +46,7 @@ import javax.xml.bind.annotation.XmlType;
  * <li>DAO layer: {@link org.apache.directory.fortress.core.impl.UserDAO}, {@link org.apache.directory.fortress.core.impl.RoleDAO}, {@link org.apache.directory.fortress.core.impl.PermDAO},...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
- * provide enough information to uniquely identity the entity target within ldap.<br />
+ * provide enough information to uniquely identity the entity target within ldap.<br>
  * For example, this entity requires {@link #setName} attribute set before passing into {@link org.apache.directory.fortress.core.impl.AdminMgrImpl} APIs.
  * Create methods sometimes require more attributes (than Read) due to constraints enforced between entities although only {@link Role#setName} is required for {@link Role}.
  * <p/>
@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlType;
  * </ul>
  * <p/>
  * This entity is used to store the RBAC Role assignments that comprise the many-to-many relationships between {@link User}s and {@link org.apache.directory.fortress.core.model.Permission}s.
- * <br />The unique key to locate a Role entity (which is subsequently assigned both to Users and Permissions) is 'Role.name'.<br />
+ * <br>The unique key to locate a Role entity (which is subsequently assigned both to Users and Permissions) is 'Role.name'.<br>
  * <p/>
  * There is a many-to-many relationship between User's, RBAC Roles and Permissions.
  * <h3>{@link User}*<->*{@link Role}*<->*{@link org.apache.directory.fortress.core.model.Permission}</h3>
@@ -126,9 +126,9 @@ import javax.xml.bind.annotation.XmlType;
  * ------------------------------------------
  * </pre>
  * <p/>
- * 3. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity.<br />
- * <code># This aux object class can be used to store custom attributes.</code><br />
- * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br />
+ * 3. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity.<br>
+ * <code># This aux object class can be used to store custom attributes.</code><br>
+ * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br>
  * <pre>
  * ------------------------------------------
  * AC2: Fortress Properties Auxiliary Object Class

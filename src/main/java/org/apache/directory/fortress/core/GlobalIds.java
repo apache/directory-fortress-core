@@ -31,7 +31,7 @@ import org.apache.directory.fortress.core.util.Config;
  * Some of the values for public constants defined here must be known to end users of system to declare system cfg parameters, see {@link org.apache.directory.fortress.core.util.Config}.
  * For example the {@link #SUFFIX} constant uses key name {@code suffix} which must have a corresponding value, i.e. {@code dc=example,dc=com},
  * which tells location of Directory Information Tree to the Fortress runtime processor.
- * </p>
+ * <p>
  * This class is thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * The class is used by {@link FortressAntTask} to delete {@link org.apache.directory.fortress.core.model.OrgUnit}s used to drive {@link org.apache.directory.fortress.core.DelAdminMgr#delete(org.apache.directory.fortress.core.model.OrgUnit)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'Delorgunit', is used for the xml tag in the load script.</p>
+ * <p>This class name, 'Delorgunit', is used for the xml tag in the load script.<p>
  * <pre>
  * {@code
  * <target name="all">
@@ -55,7 +55,7 @@ public class Delorgunit
 
 
     /**
-     * <p>This method name, 'addOrgUnit', is used for derived xml tag 'orgunit' in the load script.</p>
+     * <p>This method name, 'addOrgUnit', is used for derived xml tag 'orgunit' in the load script.<p>
      * <pre>
      * {@code
      * <delorgunit>

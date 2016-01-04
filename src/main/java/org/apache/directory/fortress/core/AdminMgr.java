@@ -346,10 +346,10 @@ public interface AdminMgr extends Manageable
      * <li> The user is not already assigned to the role
      * <li> The SSD constraints are satisfied after assignment.
      * </ul>
-     * </p>
+     * <p>
      * <p>
      * Successful completion of this op, the following occurs:
-     * </p>
+     * <p>
      * <ul>
      * <li> User entity (resides in people container) has role assignment added to aux object class attached to actual user record.
      * <li> Role entity (resides in role container) has userId added as role occupant.
@@ -631,7 +631,7 @@ public interface AdminMgr extends Manageable
      * <li> The childRole is not a member of the ROLES data set.
      * <li> The parentRole is a member of the ROLES data set.
      * </ul>
-     * </p>
+     * <p>
      * <p> This method:
      * <ul>
      * <li> Adds new role.
@@ -672,7 +672,7 @@ public interface AdminMgr extends Manageable
      * <li> The parentRole is not a member of the ROLES data set.
      * <li> The childRole is a member of the ROLES data set.
      * </ul>
-     * </p>
+     * <p>
      * <p> This method:
      * <ul>
      * <li> Adds new role.
@@ -972,7 +972,7 @@ public interface AdminMgr extends Manageable
      * <li> The role to be added is a member of the ROLES data set but not of a member of the DSD role set.
      * <li> The DSD constraint is satisfied after the addition of the role to the SSD role set.
      * </ul>
-     * </p>
+     * <p>
      * <h4>required parameters</h4>
      * <ul>
      * <li>{@link SDSet#name} - contains the name of DSD role set to be modified</li>

@@ -43,7 +43,7 @@ import org.apache.directory.fortress.core.ValidationException;
 
 /**
  * This utility performs base hierarchical processing using this software <a href="http://www.jgrapht.org/">JGraphT</a></li>.
- * </p>
+ * <p>
  * It is used to provide hierarchical processing APIs for the following data sets:
  * <ol>
  * <li>RBAC Role relations are stored in {@code cn=Hierarchies,ou=Roles,ou=RBAC} ldap node and cached as singleton in {@link RoleUtil}</li>

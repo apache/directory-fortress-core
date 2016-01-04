@@ -45,12 +45,12 @@ import javax.xml.bind.annotation.XmlType;
  * <li>DAO layer: {@link org.apache.directory.fortress.core.impl.AdminRoleDAO}, {@link org.apache.directory.fortress.core.impl.OrgUnitDAO},...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
- * provide enough information to uniquely identity the entity target within ldap.<br />
+ * provide enough information to uniquely identity the entity target within ldap.<br>
  * For example, this entity requires {@link #name} and {@link #type} set before passing into {@link org.apache.directory.fortress.core.impl.DelAdminMgrImpl} or  {@link org.apache.directory.fortress.core.impl.DelReviewMgrImpl} APIs.
  * Create methods usually require more attributes (than Read) due to constraints enforced between entities.
  * <p/>
  * This entity implements both User and Permission OU pool functionality that defines org membership of entities for ARBAC02 style admin checks..
- * <br />The unique key to locate an OrgUnit entity (which is subsequently assigned both to Users and Permissions) is 'OrgUnit.name' and 'OrgUnit.Type'.<br />
+ * <br>The unique key to locate an OrgUnit entity (which is subsequently assigned both to Users and Permissions) is 'OrgUnit.name' and 'OrgUnit.Type'.<br>
  * <p/>
  * An OrgUnit name may contain alphanumeric and simple symbols that are safe text (.,:;-_).  Any non-safe text will be
  * encoded before persistence.  Valid names include:
@@ -75,19 +75,19 @@ import javax.xml.bind.annotation.XmlType;
  * <p/>
  * Example to create new ARBAC User OrgUnit:
  * <p/>
- * <code>OrgUnit myUserOU = new OrgUnit("MyUserOrgName", OrgUnit.Type.USER);</code><br />
- * <code>myUserOU.setDescription("This is a test User OrgUnit");</code><br />
- * <code>DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance();</code><br />
- * <code>delAdminMgr.add(myUserOU);</code><br />
+ * <code>OrgUnit myUserOU = new OrgUnit("MyUserOrgName", OrgUnit.Type.USER);</code><br>
+ * <code>myUserOU.setDescription("This is a test User OrgUnit");</code><br>
+ * <code>DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance();</code><br>
+ * <code>delAdminMgr.add(myUserOU);</code><br>
  * <p/>
  * This will create a User OrgUnit that can be used as a target for User OU and AdminRole OS-U assignments.
  * <p/>
  * Example to create new ARBAC Perm OrgUnit:
  * <p/>
- * <code>OrgUnit myPermOU = new OrgUnit("MyPermOrgName", OrgUnit.Type.PERM);</code><br />
- * <code>myPermOU.setDescription("This is a test Perm OrgUnit");</code><br />
- * <code>DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance();</code><br />
- * <code>delAdminMgr.add(myPermOU);</code><br />
+ * <code>OrgUnit myPermOU = new OrgUnit("MyPermOrgName", OrgUnit.Type.PERM);</code><br>
+ * <code>myPermOU.setDescription("This is a test Perm OrgUnit");</code><br>
+ * <code>DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance();</code><br>
+ * <code>delAdminMgr.add(myPermOU);</code><br>
  * <p/>
  * This will create a Perm OrgUnit that can be used as a target for Perm OU and AdminRole OS-P assignments.
  * <p/>

@@ -69,8 +69,8 @@ import org.apache.directory.ldap.client.api.LdapConnection;
  * <li>  ------------------------------------------
  * </ul>
  * <h4>2. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity</h4>
- * <code># This aux object class can be used to store custom attributes.</code><br />
- * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br />
+ * <code># This aux object class can be used to store custom attributes.</code><br>
+ * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br>
  * <ul>
  * <li>  ------------------------------------------
  * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.2</code>

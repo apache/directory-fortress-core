@@ -33,7 +33,7 @@ import org.apache.directory.fortress.core.model.User;
 /**
  * This class supplies static wrapper utilities to provide ARBAC functionality to Fortress internal Manager APIs.
  * The utilities within this class are all static and can not be called by code outside of Fortress.
- * </p>
+ * <p>
  * This class is thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
@@ -154,7 +154,7 @@ final class AdminUtil
 
     /**
      * Method is called by Manager APIs to load contextual information on {@link org.apache.directory.fortress.core.model.FortEntity} and perform checkAccess on Administrative permission.
-     * </p>
+     * <p>
      * The information is used to
      * <ol>
      * <li>Load the administrative User's {@link Session} object into entity.  This is used for checking to ensure administrator has privilege to perform administrative operation.</li>

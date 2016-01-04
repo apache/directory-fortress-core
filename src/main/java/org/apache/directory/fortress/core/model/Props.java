@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  * This class is used as a container for {@code java.util.Properties} for passing to En Masse server.
- * </p>
+ * <p>
  * This class is thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

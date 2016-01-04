@@ -52,7 +52,7 @@ import org.apache.directory.fortress.core.util.VUtil;
  * error id from {@link org.apache.directory.fortress.core.GlobalErrIds}.
  * <p>
  * This class is thread safe.
- * </p>
+ * <p>
 
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

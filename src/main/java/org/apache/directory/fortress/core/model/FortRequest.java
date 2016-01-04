@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.*;
 
 /**
  * This class is used to pass request data to En Masse server.
- * </p>
+ * <p>
  * This class is not thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

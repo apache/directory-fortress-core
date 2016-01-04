@@ -43,22 +43,22 @@ import org.apache.commons.lang.StringUtils;
  * <li>DAO layer: {@link org.apache.directory.fortress.core.impl.AdminRoleDAO}, {@link org.apache.directory.fortress.core.impl.OrgUnitDAO},...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
- * provide enough information to uniquely identity the entity target within ldap.<br />
+ * provide enough information to uniquely identity the entity target within ldap.<br>
  * For example, this entity requires {@link #name} set before passing into {@link org.apache.directory.fortress.core.impl.DelAdminMgrImpl} or  {@link org.apache.directory.fortress.core.impl.DelReviewMgrImpl} APIs.
  * Create methods usually require more attributes (than Read) due to constraints enforced between entities.
  * <p/>
  * This entity extends the {@link org.apache.directory.fortress.core.model.Role} entity and is used to store the ARBAC AdminRole assignments that comprise the many-to-many relationships between Users and Administrative Permissions.
  * In addition it is used to store the ARBAC {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM} and {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} OU information that adheres to the AdminRole entity in the ARBAC02 model.
- * <br />The unique key to locate AdminRole entity (which is subsequently assigned both to Users and administrative Permissions) is {@link AdminRole#name}.<br />
+ * <br>The unique key to locate AdminRole entity (which is subsequently assigned both to Users and administrative Permissions) is {@link AdminRole#name}.<br>
  * <p/>
  * There is a many-to-many relationship between User's, Administrative Roles and Administrative Permissions.
  * <h3>{@link org.apache.directory.fortress.core.model.User}*<->*{@link AdminRole}*<->*{@link org.apache.directory.fortress.core.model.Permission}</h3>
  * Example to create new ARBAC AdminRole:
  * <p/>
- * <code>AdminRole myRole = new AdminRole("MyRoleName");</code><br />
- * <code>myRole.setDescription("This is a test admin role");</code><br />
- * <code>DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance();</code><br />
- * <code>delAdminMgr.addRole(myRole);</code><br />
+ * <code>AdminRole myRole = new AdminRole("MyRoleName");</code><br>
+ * <code>myRole.setDescription("This is a test admin role");</code><br>
+ * <code>DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance();</code><br>
+ * <code>delAdminMgr.addRole(myRole);</code><br>
  * <p/>
  * This will create a AdminRole name that can be used as a target for User-AdminRole assignments and AdminRole-AdminPermission grants.
  * <p/>
@@ -107,9 +107,9 @@ import org.apache.commons.lang.StringUtils;
  * ------------------------------------------
  * </pre>
  * <p/>
- * 3. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity.<br />
- * <code># This aux object class can be used to store custom attributes.</code><br />
- * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br />
+ * 3. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity.<br>
+ * <code># This aux object class can be used to store custom attributes.</code><br>
+ * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br>
  * <pre>
  * ------------------------------------------
  * AC2: Fortress Properties Auxiliary Object Class

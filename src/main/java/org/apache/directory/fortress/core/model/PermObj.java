@@ -46,7 +46,7 @@ import javax.xml.bind.annotation.XmlType;
  * <li>DAO layer: {@link org.apache.directory.fortress.core.impl.UserDAO}, {@link org.apache.directory.fortress.core.impl.RoleDAO}, {@link org.apache.directory.fortress.core.impl.PermDAO},...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
- * provide enough information to uniquely identity the entity target within ldap.<br />
+ * provide enough information to uniquely identity the entity target within ldap.<br>
  * For example, this entity requires {@link #objName} and {@link #ou} attributes set before passing into {@link org.apache.directory.fortress.core.impl.AdminMgrImpl} or  {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl} APIs.
  * Create methods usually require more attributes (than Read) due to constraints enforced between entities.
  * <p/>
@@ -59,7 +59,7 @@ import javax.xml.bind.annotation.XmlType;
  * <p/>
  * <h4>More Permission entity notes</h4>
  * <ul>
- * <li>The {@link PermObj} entity is not used for authorization checks, rather contains {@link org.apache.directory.fortress.core.model.Permission} which are themselves authorization targets.<br />
+ * <li>The {@link PermObj} entity is not used for authorization checks, rather contains {@link org.apache.directory.fortress.core.model.Permission} which are themselves authorization targets.<br>
  * <li>This entity must be associated with a valid Perm OU {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM} that is contained within the {@code ou=OS-P,ou=ARBAC,dc=example,dc=com} location in ldap.
  * <li>The object to operation pairings enable application resources to be mapped to Fortress permissions in a way that is natural for object oriented programming.
  * <li>Permissions = Object {@link PermObj} 1<->* Operations {@link org.apache.directory.fortress.core.model.Permission}
@@ -89,8 +89,8 @@ import javax.xml.bind.annotation.XmlType;
  *  )
  * )
  * 2. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity.
- * This aux object class can be used to store custom attributes<br />
- * The properties collections consist of name/value pairs and are not constrainted by Fortress.<br />
+ * This aux object class can be used to store custom attributes<br>
+ * The properties collections consist of name/value pairs and are not constrainted by Fortress.<br>
  * <pre>
  * ------------------------------------------
  * AC2: Fortress Properties Auxiliary Object Class

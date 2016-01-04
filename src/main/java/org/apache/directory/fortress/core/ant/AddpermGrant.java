@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * The class is used by {@link FortressAntTask} to create new {@link PermGrant}s used to drive {@link org.apache.directory.fortress.core.AdminMgr#grantPermission(org.apache.directory.fortress.core.model.Permission, org.apache.directory.fortress.core.model.Role)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'AddpermGrant', is used for the xml tag in the load script.</p>
+ * <p>This class name, 'AddpermGrant', is used for the xml tag in the load script.<p>
  * <pre>
  * {@code
  * <target name="all">
@@ -55,7 +55,7 @@ public class AddpermGrant
     }
 
     /**
-     * <p>This method name, 'addPermGrant', is used for derived xml tag 'permgrant' in the load script.</p>
+     * <p>This method name, 'addPermGrant', is used for derived xml tag 'permgrant' in the load script.<p>
      * <pre>
      * {@code
      * <addpermgrant>

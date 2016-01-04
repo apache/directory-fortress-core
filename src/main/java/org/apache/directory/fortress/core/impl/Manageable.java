@@ -109,7 +109,7 @@ public abstract class Manageable implements org.apache.directory.fortress.core.M
 
     /**
      * Method is called by Manager APIs to load contextual information on {@link FortEntity}.
-     * </p>
+     * <p>
      * The information is used to
      * <ol>
      * <li>Load the administrative User's {@link Session} object into entity.  This is used for checking to ensure administrator has privilege to perform administrative operation.</li>

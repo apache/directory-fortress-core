@@ -62,9 +62,9 @@ import org.apache.directory.fortress.core.UpdateException;
  * <li>  ------------------------------------------
  * </ul>
  * <p/>
- * 'ftProperties' AUXILIARY Object Class is used to store name/value pairs on target node.<br />
- * <code>This aux object class can be used to store custom attributes.</code><br />
- * <code>The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br />
+ * 'ftProperties' AUXILIARY Object Class is used to store name/value pairs on target node.<br>
+ * <code>This aux object class can be used to store custom attributes.</code><br>
+ * <code>The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br>
  * <ul>
  * <li>  ------------------------------------------
  * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.2</code>

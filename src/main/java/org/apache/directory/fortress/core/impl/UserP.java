@@ -62,7 +62,7 @@ import org.apache.directory.fortress.core.util.VUtil;
  * error id from {@link org.apache.directory.fortress.core.GlobalErrIds}.
  * <p>
  * This class is thread safe.
- * </p>
+ * <p>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -414,7 +414,7 @@ final class UserP
      * <li> return User's RBAC Session containing User and UserRole attributes.
      * <li> throw a SecurityException for authentication failures, other policy violations, data validation errors or system failure.
      * </ul>
-     * </p>
+     * <p>
      * <p>
      * The function is valid if and only if:
      * <ul>
@@ -422,7 +422,7 @@ final class UserP
      * <li> the password is supplied (unless trusted).
      * <li> the (optional) active role set is a subset of the roles authorized for that user.
      * </ul>
-     * </p>
+     * <p>
      * <p>
      * The User parm contains the following (* indicates required)
      * <ul>
@@ -432,14 +432,14 @@ final class UserP
      * <li> List<UserAdminRole> userAdminRoles contains a list of Admin role names authorized for user and targeted for activation.
      * <li> Properties logonProps collection of auditable name/value pairs to store.  For example hostname:myservername or ip:192.168.1.99
      * </ul>
-     * </p>
+     * <p>
      * <p>
      * Notes:
      * <ul>
      * <li> roles that violate Dynamic Separation of Duty Relationships will not be activated into session.
      * <li> role activations will proceed in same order as supplied to User entity setter.
      * </ul>
-     * </p>
+     * <p>
      *
      * @param user    Contains userId, password (optional if "trusted"), optional User RBAC Roles: List<UserRole> rolesToBeActivated., optional User Admin Roles: List<UserAdminRole> adminRolesToBeActivated.
      * @param trusted if true password is not required.
@@ -605,10 +605,10 @@ final class UserP
      * <li> The user is not already assigned to the role
      * <li> The SSD constraints are satisfied after assignment.
      * </ul>
-     * </p>
+     * <p>
      * <p>
      * Successful completion of this op, the following occurs:
-     * </p>
+     * <p>
      * <ul>
      * <li> User entity (resides in people container) has role assignment added to aux object class attached to actual user record.
      * <li> Role entity (resides in role container) has userId added as role occupant.
@@ -662,7 +662,7 @@ final class UserP
     /**
      * This command assigns a user to an admin role.
      * Successful completion of this op, the following occurs:
-     * </p>
+     * <p>
      * <ul>
      * <li> User entity (resides in people container) has role assignment added to aux object class attached to actual user record.
      * <li> AdminRole entity (resides in admin role container) has userId added as role occupant.

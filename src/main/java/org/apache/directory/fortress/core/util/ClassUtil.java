@@ -29,7 +29,7 @@ import java.io.InputStream;
 
 /**
  * General purpose factory uses java reflection to instantiate new Manager object.
- * </p>
+ * <p>
  * This class is called by the Manager factories:
  * <ol>
  * <li>{@link org.apache.directory.fortress.core.AccessMgrFactory}</li>

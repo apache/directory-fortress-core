@@ -23,7 +23,7 @@ package org.apache.directory.fortress.core.model;
 /**
  * This class contains the container node for the OpenLDAP Directory Information Tree.  A container node is used to
  * group other related nodes, i.e. 'ou=People' or 'ou'Roles'.
- * <br />The organizational unit object class is 'organizationalUnit' <br />
+ * <br>The organizational unit object class is 'organizationalUnit' <br>
  * <p/>
  * organizational unit structural object class is used to organize groups of nodes within the DIT.
  * <ul>

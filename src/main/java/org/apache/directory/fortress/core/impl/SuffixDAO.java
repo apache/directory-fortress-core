@@ -38,7 +38,7 @@ import org.apache.directory.fortress.core.RemoveException;
 
 /**
  * This class contains the Suffix node for OpenLDAP Directory Information Tree.
- * <br />The domain component object class is 'dcObject' <br />
+ * <br>The domain component object class is 'dcObject' <br>
  * <p/>
  * dcObject Auxiliary Object Class is used to store basic attributes like domain component names and description.
  * <ul>

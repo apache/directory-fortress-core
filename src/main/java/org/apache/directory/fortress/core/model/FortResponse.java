@@ -25,7 +25,7 @@ import java.util.Set;
 
 /**
  * This class is used to return response data from En Masse server.
- * </p>
+ * <p>
  * This class is not thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

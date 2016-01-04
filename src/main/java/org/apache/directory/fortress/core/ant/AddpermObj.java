@@ -27,7 +27,7 @@ import org.apache.directory.fortress.core.model.PermObj;
 /**
  * The class is used by {@link FortressAntTask} to load {@link PermObj}s used to drive {@link org.apache.directory.fortress.core.AdminMgr#addPermObj(org.apache.directory.fortress.core.model.PermObj)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'AddpermObj', is used for the xml tag in the load script.</p>
+ * <p>This class name, 'AddpermObj', is used for the xml tag in the load script.<p>
  * <pre>
  * {@code
  * <target name="all">
@@ -57,7 +57,7 @@ public class AddpermObj
 
 
     /**
-     * <p>This method name, 'addPermObj', is used for derived xml tag 'permobj' in the load script.</p>
+     * <p>This method name, 'addPermObj', is used for derived xml tag 'permobj' in the load script.<p>
      * <pre>
      * {@code
      * <addpermobj>

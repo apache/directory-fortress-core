@@ -53,7 +53,7 @@ import org.apache.directory.fortress.core.util.time.Validator;
  * <li>{@link org.apache.directory.fortress.core.model.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
  * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
  * </ol>
- * </p>
+ * <p>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

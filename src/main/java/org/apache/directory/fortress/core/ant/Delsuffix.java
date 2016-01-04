@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * The class is used by {@link FortressAntTask} to create new {@link org.apache.directory.fortress.core.model.Suffix} used to drive {@link org.apache.directory.fortress.core.impl.SuffixP#delete(org.apache.directory.fortress.core.model.Suffix)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'Delsuffix', is used for the xml tag in the load script.</p>
+ * <p>This class name, 'Delsuffix', is used for the xml tag in the load script.<p>
  * <pre>
  * {@code
  * <delsuffix>
@@ -57,7 +57,7 @@ public class Delsuffix
     }
 
     /**
-     * <p>This method name, 'addSuffix', is used for derived xml tag 'suffix' in the load script.</p>
+     * <p>This method name, 'addSuffix', is used for derived xml tag 'suffix' in the load script.<p>
      * <pre>
      * {@code
      * <target name="all">

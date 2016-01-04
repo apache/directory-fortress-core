@@ -46,7 +46,7 @@ import org.apache.directory.fortress.core.SecurityException;
  * The class will bootstrap itself during startup and must initialize correctly for the Fortress APIs to work correctly.
  * <p>
  * This object is thread safe but stores a static reference to Apache Commons Configuration {@link #config} object.
- * </p>
+ * <p>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

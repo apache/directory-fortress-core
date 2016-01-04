@@ -181,7 +181,7 @@ public final class AdminRoleP
     /**
      * This command assigns a user to an admin role.
      * Successful completion of this op, the following occurs:
-     * </p>
+     * <p>
      * <ul>
      * <li> User entity (resides in people container) has role assignment added to aux object class attached to actual user record.
      * <li> AdminRole entity (resides in admin role container) has userId added as role occupant.

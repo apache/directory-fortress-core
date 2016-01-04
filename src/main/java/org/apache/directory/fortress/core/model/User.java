@@ -48,9 +48,9 @@ import javax.xml.bind.annotation.XmlType;
  * <li>DAO layer: {@link org.apache.directory.fortress.core.impl.UserDAO}, {@link org.apache.directory.fortress.core.impl.RoleDAO}, {@link org.apache.directory.fortress.core.impl.PermDAO},...</li>
  * </ol>
  * Fortress clients must first instantiate the data entity before invoking one of the Manager APIs.  The caller must first
- * provide enough information to uniquely identity target record for the particular ldap operation performed.<br />
+ * provide enough information to uniquely identity target record for the particular ldap operation performed.<br>
  * For example the User entity requires the {@link User#setUserId} attribute to be set before calling a Manager API.
- * The unique key to locate a User entity in the Fortress DIT is simply the userId field.<br />
+ * The unique key to locate a User entity in the Fortress DIT is simply the userId field.<br>
  * Other ldap operations on User may require additional attributes to be set.
  * <p/>
  * <h4>User entity attribute usages include</h4>
@@ -86,10 +86,10 @@ import javax.xml.bind.annotation.XmlType;
  *
  * <h4>Fortress User Schema</h4>
  *
- * 1. InetOrgPerson Structural Object Class. <br />
- * <code># The inetOrgPerson represents people who are associated with an</code><br />
- * <code># organization in some way.  It is a structural class and is derived</code><br />
- * <code># from the organizationalPerson which is defined in X.521 [X521].</code><br />
+ * 1. InetOrgPerson Structural Object Class. <br>
+ * <code># The inetOrgPerson represents people who are associated with an</code><br>
+ * <code># organization in some way.  It is a structural class and is derived</code><br>
+ * <code># from the organizationalPerson which is defined in X.521 [X521].</code><br>
  * <pre>
  * ------------------------------------------
  * objectclass ( 2.16.840.1.113730.3.2.2
@@ -129,9 +129,9 @@ import javax.xml.bind.annotation.XmlType;
  * ------------------------------------------
  * </pre>
  *
- * 3. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity.<br />
- * <code># This aux object class can be used to store custom attributes.</code><br />
- * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br />
+ * 3. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity.<br>
+ * <code># This aux object class can be used to store custom attributes.</code><br>
+ * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br>
  * <pre>
  * ------------------------------------------
  * AC2: Fortress Properties Auxiliary Object Class

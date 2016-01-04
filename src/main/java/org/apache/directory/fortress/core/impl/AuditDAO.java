@@ -51,7 +51,7 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
  * <p/>
  * <h3>1. Binds</h3>
  * <p/>
- * The auditBind Structural object class is used to store authentication events that can later be queried via ldap API.<br />
+ * The auditBind Structural object class is used to store authentication events that can later be queried via ldap API.<br>
  * <code># The Bind class includes the reqVersion attribute which contains the LDAP</code>
  * <code># protocol version specified in the Bind as well as the reqMethod attribute</code>
  * <code># which contains the Bind Method used in the Bind. This will be the string</code>
@@ -67,19 +67,19 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
  * <li> ------------------------------------------
  * </ul>
  * <h3>2. Authorizations</h3>
- * <code>For  the  Search class the reqScope attribute contains the scope of the</code><br />
- * <code>original search request, using the values specified for  the  LDAP  URL</code><br />
- * <code>format. I.e.  base, one, sub, or subord.  The reqDerefAliases attribute</code><br />
- * <code>is one of never, finding, searching, or always,  denoting  how  aliases</code><br />
- * <code>will  be  processed during the search.  The reqAttrsOnly attribute is a</code><br />
- * <code>Boolean value showing TRUE if only attribute names were  requested,  or</code><br />
- * <code>FALSE  if  attributes  and  their values were requested.  The reqFilter</code><br />
- * <code>attribute carries the filter used in the search request.   The  reqAttr</code><br />
- * <code>attribute  lists  the  requested attributes if specific attributes were</code><br />
- * <code>requested.  The reqEntries attribute is the integer count of  how  many</code><br />
- * <code>entries  were  returned  by  this search request.  The reqSizeLimit and</code><br />
- * <code>reqTimeLimit attributes indicate what  limits  were  requested  on  the</code><br />
- * <code>search operation.</code><br />
+ * <code>For  the  Search class the reqScope attribute contains the scope of the</code><br>
+ * <code>original search request, using the values specified for  the  LDAP  URL</code><br>
+ * <code>format. I.e.  base, one, sub, or subord.  The reqDerefAliases attribute</code><br>
+ * <code>is one of never, finding, searching, or always,  denoting  how  aliases</code><br>
+ * <code>will  be  processed during the search.  The reqAttrsOnly attribute is a</code><br>
+ * <code>Boolean value showing TRUE if only attribute names were  requested,  or</code><br>
+ * <code>FALSE  if  attributes  and  their values were requested.  The reqFilter</code><br>
+ * <code>attribute carries the filter used in the search request.   The  reqAttr</code><br>
+ * <code>attribute  lists  the  requested attributes if specific attributes were</code><br>
+ * <code>requested.  The reqEntries attribute is the integer count of  how  many</code><br>
+ * <code>entries  were  returned  by  this search request.  The reqSizeLimit and</code><br>
+ * <code>reqTimeLimit attributes indicate what  limits  were  requested  on  the</code><br>
+ * <code>search operation.</code><br>
  * <ul>
  * <li>  ------------------------------------------
  * <li> <code>objectclass  (  1.3.6.1.4.1.4203.666.11.5.2.11</code>
@@ -94,17 +94,17 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
  * <p/>
  * <p/>
  * <h3>3. Modifications</h3>
- * The auditModify Structural object class is used to store Fortress update and delete events that can later be queried via ldap API.<br />
+ * The auditModify Structural object class is used to store Fortress update and delete events that can later be queried via ldap API.<br>
  * The deletions can be recorded in this manner and associated with Fortress context because deletions will perform a modification first
  * if audit is enabled.
  * <p/>
- * <code>The Modify operation contains a description  of  modifications  in  the</code><br />
- * <code>reqMod  attribute,  which  was  already  described  above  in  the  Add</code><br />
- * <code>operation. It may optionally  contain  the  previous  contents  of  any</code><br />
- * <code>modified  attributes  in the reqOld attribute, using the same format as</code><br />
- * <code>described above for the Delete operation.  The reqOld attribute is only</code><br />
- * <code>populated  if  the  entry  being modified matches the configured logold</code><br />
- * <code>filter.</code><br />
+ * <code>The Modify operation contains a description  of  modifications  in  the</code><br>
+ * <code>reqMod  attribute,  which  was  already  described  above  in  the  Add</code><br>
+ * <code>operation. It may optionally  contain  the  previous  contents  of  any</code><br>
+ * <code>modified  attributes  in the reqOld attribute, using the same format as</code><br>
+ * <code>described above for the Delete operation.  The reqOld attribute is only</code><br>
+ * <code>populated  if  the  entry  being modified matches the configured logold</code><br>
+ * <code>filter.</code><br>
  * <ul>
  * <li>  ------------------------------------------
  * <li> <code>objectclass (  1.3.6.1.4.1.4203.666.11.5.2.9</code>

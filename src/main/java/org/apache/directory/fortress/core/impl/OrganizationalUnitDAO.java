@@ -41,7 +41,7 @@ import org.apache.directory.fortress.core.GlobalIds;
  * This class provides data access for the standard ldap object class Organizational Unit.  This
  * entity is used to provide containers in DIT for organization of related nodes..
  * A container node is used to group other related nodes, i.e. 'ou=People' or 'ou'Roles'.
- * <br />The organizational unit object class is 'organizationalUnit' <br />
+ * <br>The organizational unit object class is 'organizationalUnit' <br>
  * <p/>
  * The OrganizationalUnitDAO maintains the following structural object class:
  * <p/>

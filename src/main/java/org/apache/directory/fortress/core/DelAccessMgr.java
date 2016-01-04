@@ -135,7 +135,7 @@ public interface DelAccessMgr extends Manageable
      * <li> the user is authorized to that admin role
      * <li> the session is owned by that user.
      * </ul>
-     * </p>
+     * <p>
      *
      * @param session object contains the user's returned RBAC and ARBAC sessions from the createSession method.
      * @param role    object contains the adminRole name to be activated into session.

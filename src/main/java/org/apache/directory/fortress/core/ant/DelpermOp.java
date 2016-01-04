@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * The class is used by {@link FortressAntTask} to load {@link org.apache.directory.fortress.core.ant.PermAnt}s used to drive {@link org.apache.directory.fortress.core.AdminMgr#deletePermission(org.apache.directory.fortress.core.model.Permission)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'DelpermOp', is used for the xml tag in the load script.</p>
+ * <p>This class name, 'DelpermOp', is used for the xml tag in the load script.<p>
  * <pre>
  * {@code
  * <target name="all">
@@ -55,7 +55,7 @@ public class DelpermOp
 
 
     /**
-     * <p>This method name, 'addPermOp', is used for derived xml tag 'permop' in the load script.</p>
+     * <p>This method name, 'addPermOp', is used for derived xml tag 'permop' in the load script.<p>
      * <pre>
      * {@code
      * <delpermop>

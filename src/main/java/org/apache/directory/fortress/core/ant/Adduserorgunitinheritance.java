@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * The class is used by {@link org.apache.directory.fortress.core.ant.FortressAntTask} to load {@link Relationship}s used to drive {@link org.apache.directory.fortress.core.DelAdminMgr#addAscendant(org.apache.directory.fortress.core.model.OrgUnit, org.apache.directory.fortress.core.model.OrgUnit)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'Adduserorgunitinheritance', is used for the xml tag in the load script.</p>
+ * <p>This class name, 'Adduserorgunitinheritance', is used for the xml tag in the load script.<p>
  * <pre>
  * {@code
  * <target name="all">
@@ -54,7 +54,7 @@ public class Adduserorgunitinheritance
     }
 
     /**
-     * <p>This method name, 'addRelationship', is used for derived xml tag 'relationship' in the load script.</p>
+     * <p>This method name, 'addRelationship', is used for derived xml tag 'relationship' in the load script.<p>
      * <pre>
      * {@code
      * <adduserorgunitinheritance>

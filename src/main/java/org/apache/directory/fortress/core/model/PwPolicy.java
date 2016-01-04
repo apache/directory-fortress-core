@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * This class contains the Password Policy entity which is used to pass directives into and out of ldap.
- * <br />The unique key to locate a Policy entity (which is subsequently assigned to Users) is {@link #name}.<br />
+ * <br>The unique key to locate a Policy entity (which is subsequently assigned to Users) is {@link #name}.<br>
  * <p/>
  * <h4>Password Policies</h4>
  * <a href="http://www.openldap.org/">OpenLDAP</a> supports the IETF draft <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10/">Password Policies for LDAP directories</a></li>.  Policies may be applied at the user, group or global level.

@@ -93,57 +93,57 @@ import java.util.UUID;
  * <p/>
  * Sample Data data contained within this Entity.
  * <p/>
- * Ses UID      [demoUser4]:<br />
- * Ses IID      [ccbb2929-bf01-413d-b768-529de4d428e5]<br />
- * Ses ERR      [0]<br />
- * Ses WARN     [10]<br />
- * Ses MSG      [checkPwPolicies for userId <demouser4> PASSWORD CHECK SUCCESS]<br />
- * Ses EXP      [0]<br />
- * Ses GRAC     [0]<br />
- * Ses AUTH     [true]<br />
- * Ses LAST     [1297408501356]<br />
- * Ses SID      [fc228713-1242-4061-9d8a-d4860bf8d3d8]<br />
- * ------------------------------------------<br />
- * Usr UID      [demoUser4]<br />
- * Usr IID      [ccbb2929-bf01-413d-b768-529de4d428e5]<br />
- * Usr CN       [JoeUser4]<br />
- * Usr DESC     [Demo Test User 4]<br />
- * Usr OU       [demousrs1]<br />
- * Usr SN       [User4]<br />
- * Usr BDTE     [20090101]<br />
- * Usr EDTE     [20990101]<br />
- * Usr BLDT     [none]<br />
- * Usr ELDT     [none]<br />
- * Usr DMSK     [1234567]<br />
- * Usr TO       [60]<br />
- * Usr REST     [false]<br />
- * Usr PROP1    [customerNumber, 3213432]<br />
+ * Ses UID      [demoUser4]:<br>
+ * Ses IID      [ccbb2929-bf01-413d-b768-529de4d428e5]<br>
+ * Ses ERR      [0]<br>
+ * Ses WARN     [10]<br>
+ * Ses MSG      [checkPwPolicies for userId <demouser4> PASSWORD CHECK SUCCESS]<br>
+ * Ses EXP      [0]<br>
+ * Ses GRAC     [0]<br>
+ * Ses AUTH     [true]<br>
+ * Ses LAST     [1297408501356]<br>
+ * Ses SID      [fc228713-1242-4061-9d8a-d4860bf8d3d8]<br>
+ * ------------------------------------------<br>
+ * Usr UID      [demoUser4]<br>
+ * Usr IID      [ccbb2929-bf01-413d-b768-529de4d428e5]<br>
+ * Usr CN       [JoeUser4]<br>
+ * Usr DESC     [Demo Test User 4]<br>
+ * Usr OU       [demousrs1]<br>
+ * Usr SN       [User4]<br>
+ * Usr BDTE     [20090101]<br>
+ * Usr EDTE     [20990101]<br>
+ * Usr BLDT     [none]<br>
+ * Usr ELDT     [none]<br>
+ * Usr DMSK     [1234567]<br>
+ * Usr TO       [60]<br>
+ * Usr REST     [false]<br>
+ * Usr PROP1    [customerNumber, 3213432]<br>
  * <p/>
- * USER RBAC ROLE[0]:<br />
- * Rle  role name       [role1]<br />
- * Rle  begin time      [0000]<br />
- * Rle  end time        [0000]<br />
- * Rle  begin date      [20110101]<br />
- * Rle  end date        [none]<br />
- * Rle  begin lock      [none]<br />
- * Rle  end lock        [none]<br />
- * Rle  day mask        [all]<br />
- * Rle  time out        [60]<br />
+ * USER RBAC ROLE[0]:<br>
+ * Rle  role name       [role1]<br>
+ * Rle  begin time      [0000]<br>
+ * Rle  end time        [0000]<br>
+ * Rle  begin date      [20110101]<br>
+ * Rle  end date        [none]<br>
+ * Rle  begin lock      [none]<br>
+ * Rle  end lock        [none]<br>
+ * Rle  day mask        [all]<br>
+ * Rle  time out        [60]<br>
  * <p/>
- * USER ADMIN ROLE[0]:<br />
- * Adm  admin role name [DemoAdminUsers]<br />
- * Adm  OsU             [Dev1]<br />
- * Adm  OsP             [App1]<br />
- * Adm  begin range     [role1]<br />
- * Adm  end range       [role3]<br />
- * Adm  begin time      [0000]<br />
- * Adm  end time        [0000]<br />
- * Adm  begin date      [20110101]<br />
- * Adm  end date        [none]<br />
- * Adm  begin lock      [none]<br />
- * Adm  end lock        [none]<br />
- * Adm  day mask        [23456]<br />
- * Adm  time out        [30]<br />
+ * USER ADMIN ROLE[0]:<br>
+ * Adm  admin role name [DemoAdminUsers]<br>
+ * Adm  OsU             [Dev1]<br>
+ * Adm  OsP             [App1]<br>
+ * Adm  begin range     [role1]<br>
+ * Adm  end range       [role3]<br>
+ * Adm  begin time      [0000]<br>
+ * Adm  end time        [0000]<br>
+ * Adm  begin date      [20110101]<br>
+ * Adm  end date        [none]<br>
+ * Adm  begin lock      [none]<br>
+ * Adm  end lock        [none]<br>
+ * Adm  day mask        [23456]<br>
+ * Adm  time out        [30]<br>
  * <p/>
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -271,47 +271,47 @@ public class Session  extends FortEntity implements PwMessage, Serializable
      *
      * Sample User data contained in Session object:
      * <p/>
-     * ------------------------------------------<br />
-     * U   UID  [demoUser4]<br />
-     * U   IID  [ccbb2929-bf01-413d-b768-529de4d428e5]<br />
-     * U   CN   [JoeUser4]<br />
-     * U   DESC [Demo Test User 4]<br />
-     * U   OU   [demousrs1]<br />
-     * U   SN   [User4]<br />
-     * U   BDTE [20090101]<br />
-     * U   EDTE [20990101]<br />
-     * U   BLDT [none]<br />
-     * U   ELDT [none]<br />
-     * U   DMSK [1234567]<br />
-     * U   TO   [60]<br />
-     * U   REST [false]<br />
-     * U   PROP[0]=customerNumber VAL=3213432<br />
+     * ------------------------------------------<br>
+     * U   UID  [demoUser4]<br>
+     * U   IID  [ccbb2929-bf01-413d-b768-529de4d428e5]<br>
+     * U   CN   [JoeUser4]<br>
+     * U   DESC [Demo Test User 4]<br>
+     * U   OU   [demousrs1]<br>
+     * U   SN   [User4]<br>
+     * U   BDTE [20090101]<br>
+     * U   EDTE [20990101]<br>
+     * U   BLDT [none]<br>
+     * U   ELDT [none]<br>
+     * U   DMSK [1234567]<br>
+     * U   TO   [60]<br>
+     * U   REST [false]<br>
+     * U   PROP[0]=customerNumber VAL=3213432<br>
      * <p/>
-     * USER ROLE[0]:<br />
-     * role name <role1><br />
-     * begin time <0000><br />
-     * end time <0000><br />
-     * begin date <none><br />
-     * end date <none><br />
-     * begin lock <none><br />
-     * end lock <none><br />
-     * day mask <all><br />
-     * time out <0><br />
+     * USER ROLE[0]:<br>
+     * role name <role1><br>
+     * begin time <0000><br>
+     * end time <0000><br>
+     * begin date <none><br>
+     * end date <none><br>
+     * begin lock <none><br>
+     * end lock <none><br>
+     * day mask <all><br>
+     * time out <0><br>
      * <p/>
-     * USER ADMIN ROLE[0]:<br />
-     * admin role name <DemoAdminUsers><br />
-     * OsU <null><br />
-     * OsP <null><br />
-     * begin range <null><br />
-     * end range <null><br />
-     * begin time <0000><br />
-     * end time <0000><br />
-     * begin date <none><br />
-     * end date <none><br />
-     * begin lock <none><br />
-     * end lock <none><br />
-     * day mask <all><br />
-     * time out <0><br />
+     * USER ADMIN ROLE[0]:<br>
+     * admin role name <DemoAdminUsers><br>
+     * OsU <null><br>
+     * OsP <null><br>
+     * begin range <null><br>
+     * end range <null><br>
+     * begin time <0000><br>
+     * end time <0000><br>
+     * begin date <none><br>
+     * end date <none><br>
+     * begin lock <none><br>
+     * end lock <none><br>
+     * day mask <all><br>
+     * time out <0><br>
      * <p/>
      * @return User entity that contains userid, roles and other attributes valid for Session.
      */
@@ -488,47 +488,47 @@ public class Session  extends FortEntity implements PwMessage, Serializable
      * Set a User entity into the Session.
      * Sample User data contained in Session object:
      * <p/>
-     * ------------------------------------------<br />
-     * U   UID  [demoUser4]<br />
-     * U   IID  [ccbb2929-bf01-413d-b768-529de4d428e5]<br />
-     * U   CN   [JoeUser4]<br />
-     * U   DESC [Demo Test User 4]<br />
-     * U   OU   [demousrs1]<br />
-     * U   SN   [User4]<br />
-     * U   BDTE [20090101]<br />
-     * U   EDTE [20990101]<br />
-     * U   BLDT [none]<br />
-     * U   ELDT [none]<br />
-     * U   DMSK [1234567]<br />
-     * U   TO   [60]<br />
-     * U   REST [false]<br />
-     * U   PROP[0]=customerNumber VAL=3213432<br />
+     * ------------------------------------------<br>
+     * U   UID  [demoUser4]<br>
+     * U   IID  [ccbb2929-bf01-413d-b768-529de4d428e5]<br>
+     * U   CN   [JoeUser4]<br>
+     * U   DESC [Demo Test User 4]<br>
+     * U   OU   [demousrs1]<br>
+     * U   SN   [User4]<br>
+     * U   BDTE [20090101]<br>
+     * U   EDTE [20990101]<br>
+     * U   BLDT [none]<br>
+     * U   ELDT [none]<br>
+     * U   DMSK [1234567]<br>
+     * U   TO   [60]<br>
+     * U   REST [false]<br>
+     * U   PROP[0]=customerNumber VAL=3213432<br>
      * <p/>
-     * USER ROLE[0]:<br />
-     * role name <role1><br />
-     * begin time <0000><br />
-     * end time <0000><br />
-     * begin date <none><br />
-     * end date <none><br />
-     * begin lock <none><br />
-     * end lock <none><br />
-     * day mask <all><br />
-     * time out <0><br />
+     * USER ROLE[0]:<br>
+     * role name <role1><br>
+     * begin time <0000><br>
+     * end time <0000><br>
+     * begin date <none><br>
+     * end date <none><br>
+     * begin lock <none><br>
+     * end lock <none><br>
+     * day mask <all><br>
+     * time out <0><br>
      * <p/>
-     * USER ADMIN ROLE[0]:<br />
-     * admin role name <DemoAdminUsers><br />
-     * OsU <null><br />
-     * OsP <null><br />
-     * begin range <null><br />
-     * end range <null><br />
-     * begin time <0000><br />
-     * end time <0000><br />
-     * begin date <none><br />
-     * end date <none><br />
-     * begin lock <none><br />
-     * end lock <none><br />
-     * day mask <all><br />
-     * time out <0><br />
+     * USER ADMIN ROLE[0]:<br>
+     * admin role name <DemoAdminUsers><br>
+     * OsU <null><br>
+     * OsP <null><br>
+     * begin range <null><br>
+     * end range <null><br>
+     * begin time <0000><br>
+     * end time <0000><br>
+     * begin date <none><br>
+     * end date <none><br>
+     * begin lock <none><br>
+     * end lock <none><br>
+     * day mask <all><br>
+     * time out <0><br>
      * <p/>
      * @param user Contains userId, roles and other security attributes used for access control.
      */

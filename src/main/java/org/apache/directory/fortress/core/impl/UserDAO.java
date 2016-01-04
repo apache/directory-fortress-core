@@ -84,9 +84,9 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
  * The Fortress User LDAP schema follows:
  * <p/>
  * <h4>1. InetOrgPerson Structural Object Class </h4>
- * <code># The inetOrgPerson represents people who are associated with an</code><br />
- * <code># organization in some way.  It is a structural class and is derived</code><br />
- * <code># from the organizationalPerson which is defined in X.521 [X521].</code><br />
+ * <code># The inetOrgPerson represents people who are associated with an</code><br>
+ * <code># organization in some way.  It is a structural class and is derived</code><br>
+ * <code># from the organizationalPerson which is defined in X.521 [X521].</code><br>
  * <ul>
  * <li>  ------------------------------------------
  * <li> <code>objectclass ( 2.16.840.1.113730.3.2.2</code>
@@ -104,8 +104,8 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
  * <li>  ------------------------------------------
  * </ul>
  * <h4>2. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity</h4>
- * <code># This aux object class can be used to store custom attributes.</code><br />
- * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br />
+ * <code># This aux object class can be used to store custom attributes.</code><br>
+ * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br>
  * <ul>
  * <li>  ------------------------------------------
  * <li> <code>objectclass ( 1.3.6.1.4.1.38088.3.2</code>

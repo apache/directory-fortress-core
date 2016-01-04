@@ -33,17 +33,17 @@ import java.util.List;
  * This entity class contains OpenLDAP slapd access log records that correspond to modifications made to the directory.
  * <p/>
  * <p/>
- * The auditModify Structural object class is used to store Fortress update and delete events that can later be queried via ldap API.<br />
+ * The auditModify Structural object class is used to store Fortress update and delete events that can later be queried via ldap API.<br>
  * The deletions can be recorded in this manner and associated with Fortress context because deletions will perform a modification first
  * if audit is enabled.
  * <p/>
- * <code>The Modify operation contains a description  of  modifications  in  the</code><br />
- * <code>reqMod  attribute,  which  was  already  described  above  in  the  Add</code><br />
- * <code>operation. It may optionally  contain  the  previous  contents  of  any</code><br />
- * <code>modified  attributes  in the reqOld attribute, using the same format as</code><br />
- * <code>described above for the Delete operation.  The reqOld attribute is only</code><br />
- * <code>populated  if  the  entry  being modified matches the configured logold</code><br />
- * <code>filter.</code><br />
+ * <code>The Modify operation contains a description  of  modifications  in  the</code><br>
+ * <code>reqMod  attribute,  which  was  already  described  above  in  the  Add</code><br>
+ * <code>operation. It may optionally  contain  the  previous  contents  of  any</code><br>
+ * <code>modified  attributes  in the reqOld attribute, using the same format as</code><br>
+ * <code>described above for the Delete operation.  The reqOld attribute is only</code><br>
+ * <code>populated  if  the  entry  being modified matches the configured logold</code><br>
+ * <code>filter.</code><br>
  * <ul>
  * <li>  ------------------------------------------
  * <li> <code>objectclass (  1.3.6.1.4.1.4203.666.11.5.2.9</code>
