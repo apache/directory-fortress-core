@@ -676,8 +676,8 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         entity.setId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         entity.setOccupants( getAttributes( le, ROLE_OCCUPANT ) );
-        entity.setOsPs( getAttributeSet( le, ROLE_OSP ) );
-        entity.setOsUs( getAttributeSet( le, ROLE_OSU ) );
+        entity.setOsPList( getAttributeSet( le, ROLE_OSP ) );
+        entity.setOsUList( getAttributeSet( le, ROLE_OSU ) );
         entity.setName( getAttribute( le, SchemaConstants.CN_AT ) );
         unloadTemporal( le, entity );
         entity.setRoleRangeRaw( getAttribute( le, ROLE_RANGE ) );
