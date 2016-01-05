@@ -30,11 +30,10 @@ import org.apache.directory.fortress.core.util.VUtil;
 /**
  * Creates an instance of the AdminMgr object.
  * The factory allows deployments of Fortress override the default AdminMgrImpl component with another.
- * <p/>
+ * <p>
  * The default class is specified as {@link AdminMgrImpl} but can be overridden by
  * adding the {@link GlobalIds#ADMIN_IMPLEMENTATION} config property.
- * <p/>
-
+ * <p>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
