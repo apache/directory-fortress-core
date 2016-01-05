@@ -21,13 +21,12 @@
  * Version 1.0-RC41
  * last updated: January 5, 2016
 
-
 -------------------------------------------------------------------------------
 # Document Overview
 
 The documents linked by this guide provide the instructions to download, build
-and install Apache Fortress software from source.  It takes about ten minutes
-after completing the steps on this page.
+and install Apache Fortress software from source.  It also shows how to install
+ApacheDS LDAP server and get it working with Fortress.
 
 -------------------------------------------------------------------------------
 # Prerequisites
