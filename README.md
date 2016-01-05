@@ -25,7 +25,7 @@
 # Table of Contents
  * Document Overview
  * Tips for new users of Apache Fortress
- * SECTION 0.  Prerequisites for Apache Fortress Core SDK installation and usage
+ * SECTION 0.  Prerequisites
  * SECTION 1.  Options for installing OpenLDAP to target server environment
  * SECTION 2.  Instructions to pull Apache Fortress Core source code from Apache GIT
  * SECTION 3.  Instructions to build software distribution packages using maven 'install'.
@@ -59,7 +59,7 @@ ________________________________________________________________________________
     http://mail-archives.apache.org/mod_mbox/directory-fortress/
 
 -------------------------------------------------------------------------------
-# SECTION 0 - Prerequisites
+# SECTION 0. Prerequisites
 
 Minimum hardware requirements:
  * 2 Cores
