@@ -19,22 +19,23 @@
  */
 package org.apache.directory.fortress.core.samples;
 
-import org.apache.directory.fortress.core.AccessMgr;
-import org.apache.directory.fortress.core.AccessMgrFactory;
-import org.apache.directory.fortress.core.PasswordException;
-import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.impl.TestUtils;
-import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.model.UserRole;
+import java.util.List;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+
+import org.apache.directory.fortress.core.AccessMgr;
+import org.apache.directory.fortress.core.AccessMgrFactory;
+import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.PasswordException;
+import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.impl.TestUtils;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.List;
 
 /**
  * CreateSessionSample JUnit Test. Fortress Sessions are modeled on the RBAC specification.  Each Session
@@ -230,7 +231,7 @@ public class CreateSessionSample extends TestCase
             for (String roleName : roles)
             {
                 // Add the Role name to list of Roles to be activated on Session.
-                user.setRole(roleName);
+                user.setRoleName(roleName);
             }
 
             // The API will verify User is good and perform Role activations.  Request will fail if User is locked out of ldap for any reason.
