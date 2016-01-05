@@ -35,7 +35,8 @@ public class AuthorizationException extends SecurityException
     /**
      * Create an exception with an error code that maps to {@link GlobalErrIds} and message text.
      *
-     * @param  errorId see {@link GlobalErrIds} for list of valid error codes that can be set.  Valid values between 0 & 100_000.
+     * @param  errorId see {@link GlobalErrIds} for list of valid error codes that can be set.  Valid values between 
+     * 0 &amp; 100_000.
      * @param msg contains textual information including method of origin and description of the root cause.
      */
     public AuthorizationException( int errorId, String msg )
