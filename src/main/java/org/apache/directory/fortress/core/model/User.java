@@ -690,7 +690,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param roleName contains role name to target for activation into {@link org.apache.directory.fortress.core.model.Session}.
      */
-    public void setRole( String roleName )
+    public void setRoleName( String roleName )
     {
         if ( roles == null )
         {
@@ -764,7 +764,7 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param roleName contrains adminRole name.
      */
-    public void setAdminRole( String roleName )
+    public void setAdminRoleName( String roleName )
     {
         if ( adminRoles == null )
         {

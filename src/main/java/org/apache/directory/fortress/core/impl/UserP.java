@@ -27,9 +27,15 @@ import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.PasswordException;
+import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.Administrator;
 import org.apache.directory.fortress.core.model.ConstraintUtil;
+import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PwPolicy;
 import org.apache.directory.fortress.core.model.Role;
@@ -37,16 +43,9 @@ import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.util.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.model.ObjectFactory;
-import org.apache.directory.fortress.core.PasswordException;
-import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.util.VUtil;
 
 
 /**
@@ -882,7 +881,7 @@ final class UserP
         trgR.setBeginRange(srcR.getBeginRange());
         trgR.setEndRange(srcR.getEndRange());
         // copy the user and perm pools:
-        trgR.setOsP(srcR.getOsP());
-        trgR.setOsU(srcR.getOsU());
+        trgR.setOsPs(srcR.getOsP());
+        trgR.setOsUs(srcR.getOsU());
     }
 }

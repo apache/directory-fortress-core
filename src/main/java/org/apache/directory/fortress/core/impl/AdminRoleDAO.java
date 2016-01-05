@@ -41,13 +41,13 @@ import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.model.ConstraintUtil;
-import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.Graphable;
+import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.ldap.client.api.LdapConnection;
 
@@ -676,8 +676,8 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         entity.setId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         entity.setOccupants( getAttributes( le, ROLE_OCCUPANT ) );
-        entity.setOsP( getAttributeSet( le, ROLE_OSP ) );
-        entity.setOsU( getAttributeSet( le, ROLE_OSU ) );
+        entity.setOsPs( getAttributeSet( le, ROLE_OSP ) );
+        entity.setOsUs( getAttributeSet( le, ROLE_OSU ) );
         entity.setName( getAttribute( le, SchemaConstants.CN_AT ) );
         unloadTemporal( le, entity );
         entity.setRoleRangeRaw( getAttribute( le, ROLE_RANGE ) );

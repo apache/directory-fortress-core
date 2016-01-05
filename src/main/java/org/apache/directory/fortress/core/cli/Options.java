@@ -19,11 +19,14 @@
  */
 package org.apache.directory.fortress.core.cli;
 
+import java.util.Vector;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.model.Address;
 import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.Constraint;
+import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
@@ -31,9 +34,6 @@ import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.Constraint;
-
-import java.util.Vector;
 
 /**
  * This converts between Fortress entities and the JArg Options.  It contains attributes passed from JArgs command interpreter.
@@ -411,7 +411,7 @@ public class Options implements java.io.Serializable
             for (Object raw : fractionValues)
             {
                 String szRaw = (String) raw;
-                user.setRole(szRaw);
+                user.setRoleName(szRaw);
             }
         }
     }
@@ -437,7 +437,7 @@ public class Options implements java.io.Serializable
             for (Object raw : fractionValues)
             {
                 String szRaw = (String) raw;
-                user.setAdminRole(szRaw);
+                user.setAdminRoleName(szRaw);
             }
         }
     }

@@ -313,7 +313,7 @@ public class AdminRole extends Role implements Administrator
      * @param osPs is a List of type String containing Perm OU.  This maps to 'ftOSP' attribute on 'ftPools' aux object class.
      */
     @Override
-    public void setOsP( Set<String> osPs )
+    public void setOsPs( Set<String> osPs )
     {
         this.osPs = osPs;
     }
@@ -354,7 +354,7 @@ public class AdminRole extends Role implements Administrator
      * @param osUs is a List of type String containing User OU.  This maps to 'ftOSU' attribute on 'ftPools' aux object class.
      */
     @Override
-    public void setOsU( Set<String> osUs )
+    public void setOsUs( Set<String> osUs )
     {
         this.osUs = osUs;
     }
