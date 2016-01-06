@@ -21,7 +21,8 @@ package org.apache.directory.fortress.core;
 
 
 /**
- * This exception extends {@link SecurityException} and is thrown when Fortress cannot call En Masse to perform a particular operation via RESTful interface.
+ * This exception extends {@link SecurityException} and is thrown when Fortress cannot call En Masse to perform a particular 
+ * operation via RESTful interface.
  * See the {@link GlobalErrIds} javadoc for list of error ids.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
@@ -34,7 +35,8 @@ public class RestException extends SecurityException
 
     /**
      * Create an exception with an error code that maps to {@link GlobalErrIds} and message text.
-     * @param  errorId see {@link GlobalErrIds} for list of valid error codes that can be set.  Valid values between 0 & 100_000.
+     * @param  errorId see {@link GlobalErrIds} for list of valid error codes that can be set.  Valid values between 
+     * 0 &amp; 100_000.
      * @param msg contains textual information including method of origin and description of the root cause.
      */
     public RestException( int errorId, String msg )
@@ -45,7 +47,8 @@ public class RestException extends SecurityException
 
     /**
      * Create exception with error id, message and related exception.
-     * @param  errorId see {@link GlobalErrIds} for list of valid error codes that can be set.  Valid values between 0 & 100_000.
+     * @param  errorId see {@link GlobalErrIds} for list of valid error codes that can be set.  Valid values between 
+     * 0 &amp; 100_000.
      * @param msg contains textual information including method of origin and description of the root cause.
      * @param previousException contains reference to related exception which usually is system related, i.e. ldap.
      */

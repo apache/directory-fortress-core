@@ -25,9 +25,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class is used by {@link FortressAntTask} to create new {@link org.apache.directory.fortress.core.model.OrganizationalUnit}s used to drive {@link org.apache.directory.fortress.core.impl.OrganizationalUnitP#add(org.apache.directory.fortress.core.model.OrganizationalUnit)}.
- * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'Addcontainer', is used for the xml tag in the load script.<p>
+ * The class is used by {@link FortressAntTask} to create new 
+ * {@link org.apache.directory.fortress.core.model.OrganizationalUnit}s used to drive 
+ * {@link org.apache.directory.fortress.core.impl.OrganizationalUnitP#add(
+ *      org.apache.directory.fortress.core.model.OrganizationalUnit)}.
+ * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag 
+ * used by load utility.
+ * <p>
+ * This class name, 'Addcontainer', is used for the xml tag in the load script.
  * <pre>
  * {@code
  * <target name="all">
@@ -55,7 +60,7 @@ public class Addcontainer
     }
 
     /**
-     * <p>This method name, 'addContainer', is used for derived xml tag 'container' in the load script.<p>
+     * This method name, 'addContainer', is used for derived xml tag 'container' in the load script.
      * <pre>
      * {@code
      * <addcontainer>
@@ -84,7 +89,8 @@ public class Addcontainer
 
     /**
      * Used by {@link FortressAntTask#addContainers()} to retrieve list of OrganizationalUnits as defined in input xml file.
-     * @return collection containing {@link org.apache.directory.fortress.core.model.OrganizationalUnit}s targeted for insertion.
+     * @return collection containing {@link org.apache.directory.fortress.core.model.OrganizationalUnit}s targeted for 
+     * insertion.
      */
     public List<OrganizationalUnit> getContainers()
     {

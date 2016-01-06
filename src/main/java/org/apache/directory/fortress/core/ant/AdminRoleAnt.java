@@ -54,11 +54,12 @@ public class AdminRoleAnt extends AdminRole
      * Set the list of Perm OUs as a comma delimited string.  This method will convert from that format to
      * the AdminRole native format which is collection of Strings.
      *
-     * @param osPs
+     * @param osPs The list of Perm OUs
      */
     public void setOSPs( String osPs )
     {
         this.osPs = osPs;
+        
         if ( osPs != null )
         {
             // allow the setter to process comma delimited strings:

@@ -33,10 +33,10 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * This abstract class is extended by other Fortress entities.  It is used to store contextual data that can be used for
  * administrative RBAC checking in addition to associating an audit context with every LDAP operation.
- * <p>
+ * <h3></h3>
  * <h4>Audit Context Schema</h4>
  * The FortEntity Class is used to tag all Fortress LDAP records with variables contained within this auxiliary object class:
- * <p/>
+ * <p>
  * ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.
  * <pre>
  * ------------------------------------------
@@ -53,7 +53,7 @@ import javax.xml.bind.annotation.XmlType;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
+ * <p>
  * This class is not thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
@@ -147,7 +147,7 @@ public abstract class FortEntity
      * Load an ARBAC Session object into this entity.  Once loaded, all Fortress Manager's will perform administrative
      * permission checks against the User who is contained within the Session.
      *
-     * @param adminSession
+     * @param adminSession The ARBAC admin session 
      */
     public void setAdminSession( Session adminSession )
     {

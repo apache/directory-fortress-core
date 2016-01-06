@@ -29,10 +29,9 @@ import org.apache.directory.fortress.core.util.VUtil;
 
 /**
  * Creates an instance of the DelReviewMgr object.
- * <p/>
+ * <p>
  * The default implementation class is specified as {@link DelReviewMgrImpl} but can be overridden by
  * adding the {@link GlobalIds#DELEGATED_REVIEW_IMPLEMENTATION} config property.
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

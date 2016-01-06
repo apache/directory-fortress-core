@@ -25,19 +25,18 @@ import org.apache.directory.fortress.core.model.Session;
 
 /**
  * Interface allows outside clients to manage security and multi-tenant concerns within the Fortress runtime.
- * The {@link #setAdmin(org.apache.directory.fortress.core.model.Session)} method allows A/RBAC sessions to be loaded and allows authorization
- * to be performed on behalf of the user who is contained within the Session object itself.
+ * The {@link #setAdmin(org.apache.directory.fortress.core.model.Session)} method allows A/RBAC sessions to be loaded and 
+ * allows authorization to be performed on behalf of the user who is contained within the Session object itself.
  * The ARBAC permissions will be checked each time outside client makes calls into Fortress API.
  * This interface also allows Fortress clients to operate in a multi-tenant fashion using {@link #setContextId(String)}.
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public interface Manageable
 {
     /**
-     * Use this method to load an administrative user's ARBAC Session object into Manager object which will enable authorization to
-     * be performed on behalf of admin user.
+     * Use this method to load an administrative user's ARBAC Session object into Manager object which will enable 
+     * authorization to be performed on behalf of admin user.
      * Setting Session into this object will enforce ARBAC controls and render this class' implementer thread unsafe.
      *
      * @param session contains a valid Fortress ARBAC Session object.

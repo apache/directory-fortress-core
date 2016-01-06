@@ -29,10 +29,10 @@ import org.apache.directory.fortress.core.util.VUtil;
 
 /**
  * Creates an instance of the DelAdminMgr object.
- * <p/>
+ * <p>
  * The default implementation class is specified as {@link DelAdminMgrImpl} but can be overridden by
  * adding the {@link GlobalIds#DELEGATED_ADMIN_IMPLEMENTATION} config property.
- * <p/>
+ * <p>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

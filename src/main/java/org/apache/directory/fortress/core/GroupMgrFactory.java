@@ -28,11 +28,9 @@ import org.apache.directory.fortress.core.util.VUtil;
 
 /**
  * Creates an instance of the ConfigMgr object.
- * <p/>
- * The default implementation class is specified as {@link org.apache.directory.fortress.core.impl.GroupMgrImpl} but can be overridden by
- * adding the {@link org.apache.directory.fortress.core.GlobalIds#GROUP_IMPLEMENTATION} config property.
- * <p/>
-
+ * <p>
+ * The default implementation class is specified as {@link org.apache.directory.fortress.core.impl.GroupMgrImpl} but can be 
+ * overridden by adding the {@link org.apache.directory.fortress.core.GlobalIds#GROUP_IMPLEMENTATION} config property.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

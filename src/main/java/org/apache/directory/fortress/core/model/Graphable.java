@@ -24,17 +24,21 @@ import java.util.Set;
 
 
 /**
- * The Fortress Graphable interface prescribes attributes that are used to maintain implementor within a simple directed graph.
- * {@link org.apache.directory.fortress.core.model.Role}, {@link org.apache.directory.fortress.core.model.AdminRole}, {@link org.apache.directory.fortress.core.model.OrgUnit} entities.
- * <p/>
+ * The Fortress Graphable interface prescribes attributes that are used to maintain implementor within a simple directed 
+ * graph. {@link org.apache.directory.fortress.core.model.Role}, {@link org.apache.directory.fortress.core.model.AdminRole}, 
+ * {@link org.apache.directory.fortress.core.model.OrgUnit} entities.
+ * <p>
+ * <h3></h3>
  * <h4>Manageable Schema</h4>
- * The entity maps to Fortress LDAP attributetype ( 1.3.6.1.4.1.1.38088.1.28
- * NAME 'ftParents'
- * DESC 'Fortress Parent Nodes'
- * EQUALITY caseIgnoreMatch
- * SUBSTR caseIgnoreSubstringsMatch
- * SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
- * <p/>
+ * The entity maps to Fortress LDAP attributetype :
+ * <pre>
+ * ( 1.3.6.1.4.1.1.38088.1.28
+ *   NAME 'ftParents'
+ *   DESC 'Fortress Parent Nodes'
+ *   EQUALITY caseIgnoreMatch
+ *   SUBSTR caseIgnoreSubstringsMatch
+ *   SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+ * </pre>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -83,6 +87,7 @@ public interface Graphable
     /**
      * Sets the required name attribute on the node.
      *
+     * @param name The name to set
      */
     void setName( String name );
 }

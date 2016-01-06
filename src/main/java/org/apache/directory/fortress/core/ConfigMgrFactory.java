@@ -26,11 +26,10 @@ import org.apache.directory.fortress.core.rest.ConfigMgrRestImpl;
 
 /**
  * Creates an instance of the ConfigMgr object.
- * <p/>
- * The default implementation class is specified as {@link org.apache.directory.fortress.core.impl.ConfigMgrImpl} but can be overridden by
+ * <p>
+ * The default implementation class is specified as {@link org.apache.directory.fortress.core.impl.ConfigMgrImpl} but 
+ * can be overridden by
  * adding the {@link org.apache.directory.fortress.core.GlobalIds#CONFIG_IMPLEMENTATION} config property.
- * <p/>
-
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

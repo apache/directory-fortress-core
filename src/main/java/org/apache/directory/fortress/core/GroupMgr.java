@@ -28,9 +28,8 @@ import java.util.List;
 
 /**
  * This interface prescribes CRUD methods used to manage groups stored within the ldap directory.
- * <p/>
+ * <p>
  * This class is thread safe.
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -48,8 +47,9 @@ public interface GroupMgr extends Manageable
 
     /**
      * Modify existing group node.  The name is required.  Does not update members or properties.
-     * Use {@link GroupMgr#add( Group group, String key, String value )}, {@link GroupMgr#delete( Group group, String key, String value )},
-     * {@link GroupMgr#assign( Group group, String member) }, or {@link GroupMgr#deassign( Group group, String member) } for multi-occurring attributes.
+     * Use {@link GroupMgr#add( Group group, String key, String value )}, {@link GroupMgr#delete( Group group, String key, 
+     * String value )}, {@link GroupMgr#assign( Group group, String member) }, or 
+     * {@link GroupMgr#deassign( Group group, String member) } for multi-occurring attributes.
      *
      * @param group contains {@link Group}.
      * @return {@link Group} containing entity just modified.
