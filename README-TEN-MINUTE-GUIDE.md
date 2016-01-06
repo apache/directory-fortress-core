@@ -68,7 +68,7 @@ Everything else covered in steps that follow.  Tested on Debian & Centos systems
  mvn javadoc:javadoc
  ```
 
-Javadoc note: if using java 8, add this param to the pom.xml:
+ Javadoc note: if using java 8, add this param to the pom.xml:
  ```
  <plugin>
     ...
@@ -81,9 +81,8 @@ Javadoc note: if using java 8, add this param to the pom.xml:
  ```
 
 5. Point your web browser to the following location:
-   file:///[directory-fortress-core]/target/site/apidocs/org/apache/directory/fortress/core/doc-files/ten-minute-guide.html
-
-   (where [directory-fortress-core] is location of current source package)
+ * file:///[directory-fortress-core]/target/site/apidocs/org/apache/directory/fortress/core/doc-files/ten-minute-guide.html
+ * (where [directory-fortress-core] is location of current source package)
 
 6. Follow the steps under 'Navigation Links':
   * Setup Apache Directory Server
