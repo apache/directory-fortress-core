@@ -25,9 +25,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class is used by {@link FortressAntTask} to load {@link org.apache.directory.fortress.core.model.UserRole}s used to drive {@link org.apache.directory.fortress.core.AdminMgr#assignUser(org.apache.directory.fortress.core.model.UserRole)}.
- * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'Adduserrole', is used for the xml tag in the load script.<p>
+ * The class is used by {@link FortressAntTask} to load {@link org.apache.directory.fortress.core.model.UserRole}s used to 
+ * drive {@link org.apache.directory.fortress.core.AdminMgr#assignUser(org.apache.directory.fortress.core.model.UserRole)}.
+ * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml 
+ * tag used by load utility.
+ * <p>
+ * This class name, 'Adduserrole', is used for the xml tag in the load script.
  * <pre>
  * {@code
  * <target name="all">
@@ -54,17 +57,21 @@ public class Adduserrole
     }
 
     /**
-     * <p>This method name, 'addUserRole', is used for derived xml tag 'userrole' in the load script.<p>
+     * This method name, 'addUserRole', is used for derived xml tag 'userrole' in the load script.
      * <pre>
      * {@code
      * <adduserrole>
-     *     <userrole userId="demoUser1" name="role1" beginTime="0800" endTime="0700" beginDate="20110101" endDate="none" beginLockDate="none" endLockDate="none" dayMask="23456" timeout="30"/>
+     *     <userrole userId="demoUser1" name="role1" beginTime="0800" endTime="0700" beginDate="20110101" endDate="none" 
+     *         beginLockDate="none" endLockDate="none" dayMask="23456" timeout="30"/>
      *     <!-- Bad - role end time -->
-     *     <userrole userId="demoUser5" name="role1"  beginTime="0700" endTime="0800" beginDate="20100101" endDate="21000101" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+     *     <userrole userId="demoUser5" name="role1"  beginTime="0700" endTime="0800" beginDate="20100101" endDate="21000101" 
+     *         beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
      *     <!-- Bad - role  begin date -->
-     *     <userrole userId="demoUser7" name="role1"  beginTime="0000" endTime="0000" beginDate="20110110" endDate="21000101" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+     *     <userrole userId="demoUser7" name="role1"  beginTime="0000" endTime="0000" beginDate="20110110" endDate="21000101" 
+     *         beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
      *     <!-- Bad - role  end date -->
-     *     <userrole userId="demoUser9" name="role1"  beginTime="0000" endTime="0000" beginDate="20100101" endDate="20100608" beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
+     *     <userrole userId="demoUser9" name="role1"  beginTime="0000" endTime="0000" beginDate="20100101" endDate="20100608" 
+     *         beginLockDate="none" endLockDate="none" dayMask="all" timeout="0"/>
      * </adduserrole>
      * }
      * </pre>

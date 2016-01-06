@@ -51,7 +51,7 @@ public class ConfigAnt
     /**
      * Set the properties as a String.
      *
-     * @param szProps
+     * @param szProps The properties to set
      */
     public void setProps(String szProps)
     {

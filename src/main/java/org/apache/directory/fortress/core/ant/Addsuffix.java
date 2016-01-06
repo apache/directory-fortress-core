@@ -25,9 +25,12 @@ import java.util.List;
 import org.apache.directory.fortress.core.model.Suffix;
 
 /**
- * The class is used by {@link FortressAntTask} to create new {@link org.apache.directory.fortress.core.model.Suffix} used to drive {@link org.apache.directory.fortress.core.impl.SuffixP#add(org.apache.directory.fortress.core.model.Suffix)}.
- * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'Addsuffix', is used for the xml tag in the load script.<p>
+ * The class is used by {@link FortressAntTask} to create new {@link org.apache.directory.fortress.core.model.Suffix} used 
+ * to drive {@link org.apache.directory.fortress.core.impl.SuffixP#add(org.apache.directory.fortress.core.model.Suffix)}.
+ * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag 
+ * used by load utility.
+ * <p>
+ * This class name, 'Addsuffix', is used for the xml tag in the load script.
  * <pre>
  * {@code
  * <target name="all">
@@ -55,7 +58,7 @@ public class Addsuffix
     }
 
     /**
-     * <p>This method name, 'addSuffix', is used for derived xml tag 'suffix' in the load script.<p>
+     * This method name, 'addSuffix', is used for derived xml tag 'suffix' in the load script.
      * <pre>
      * {@code
      * <addsuffix>

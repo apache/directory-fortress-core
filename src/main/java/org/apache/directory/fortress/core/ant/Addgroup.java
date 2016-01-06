@@ -29,7 +29,8 @@ import java.util.List;
  * {@link org.apache.directory.fortress.core.GroupMgr#add(org.apache.directory.fortress.core.model.Group)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the
  * xml tag used by load utility.
- * <p>This class name, 'Addgroup', is used for the xml tag in the load script.<p>
+ * <p>
+ * This class name, 'Addgroup', is used for the xml tag in the load script.
  * <pre>
  * {@code
  * <target name="all">
@@ -56,11 +57,12 @@ public class Addgroup
     }
 
     /**
-     * <p>This method name, 'addGroup', is used for derived xml tag 'user' in the load script.<p>
+     * This method name, 'addGroup', is used for derived xml tag 'user' in the load script.
      * <pre>
      * {@code
      * <addgroup>
-     *      <group name="test001" protocol="test" description="Test Group 001" members="guser1,guser2,guser3" properties="key1=value1, key2=val 2, key3='VAL 3'" />
+     *      <group name="test001" protocol="test" description="Test Group 001" members="guser1,guser2,guser3" 
+     *             properties="key1=value1, key2=val 2, key3='VAL 3'" />
      * </addgroup>
      * }
      * </pre>
