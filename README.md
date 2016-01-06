@@ -371,21 +371,9 @@ ________________________________________________________________________________
  mvn -Dtest=AllSamplesJUnitTest test
  ```
 
-4. View the samples java doc here:
-
- ```
- $FORTRESS_HOME/dist/docs/samples/index.html
- ```
-
-5. View the fortress-core SDK java doc here:
-
- ```
- $FORTRESS_HOME/dist/docs/api/index.html
- ```
-
 Testing Sample Notes:
- * Test cases are simple and useful for learning how to code using Fortress A/P/R/BAC APIs.
- * Tests should complete without Junit or ant ERRORS.
+ * Test cases are simple and useful for learning how to code using Fortress APIs.
+ * Tests should complete without ERRORS.
  * These tests will load some records into the target ldap server.
  * The target may be run as many times as necessary and should be run at least twice to test the teardown A/P/R/BAC APIs.
  * The 2nd and subsequent times runs, it will tear down the data loaded during the prior run.
