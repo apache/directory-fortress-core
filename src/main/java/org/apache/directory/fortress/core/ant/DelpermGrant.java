@@ -25,9 +25,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class is used by {@link FortressAntTask} to revoke {@link PermGrant}s used to drive {@link org.apache.directory.fortress.core.AdminMgr#revokePermission(org.apache.directory.fortress.core.model.Permission, org.apache.directory.fortress.core.model.Role)}.
- * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'DelpermGrant', is used for the xml tag in the load script.<p>
+ * The class is used by {@link FortressAntTask} to revoke {@link PermGrant}s used to drive 
+ * {@link org.apache.directory.fortress.core.AdminMgr#revokePermission(org.apache.directory.fortress.core.model.Permission, 
+ * org.apache.directory.fortress.core.model.Role)}.
+ * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml 
+ * tag used by load utility.
+ * <p>
+ * This class name, 'DelpermGrant', is used for the xml tag in the load script.
  * <pre>
  * {@code
  * <target name="all">
@@ -56,7 +60,7 @@ public class DelpermGrant
 
 
     /**
-     * <p>This method name, 'addPermGrant', is used for derived xml tag 'permgrant' in the load script.<p>
+     * This method name, 'addPermGrant', is used for derived xml tag 'permgrant' in the load script.
      * <pre>
      * {@code
      * <delpermgrant>

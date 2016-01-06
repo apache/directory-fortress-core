@@ -29,12 +29,12 @@ import java.util.Properties;
  * This Manager impl supplies CRUD methods used to manage properties stored within the ldap directory.
  * The Fortress config nodes are used to remotely share Fortress client specific properties between processes.
  * Fortress places no limits on the number of unique configurations that can be present at one time in the directory.
- * The Fortress client will specify the preferred cfg node by name via a property named, {@link org.apache.directory.fortress.core.GlobalIds#CONFIG_REALM}.
+ * The Fortress client will specify the preferred cfg node by name via a property named, 
+ * {@link org.apache.directory.fortress.core.GlobalIds#CONFIG_REALM}.
  * Each process using Fortress client is free to share an existing node with other processes or create its own unique config
  * instance using the methods within this class.<BR>
- * <p/>
+ * <p>
  * This class is thread safe.
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

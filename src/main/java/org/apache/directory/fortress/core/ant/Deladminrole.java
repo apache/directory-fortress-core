@@ -25,9 +25,12 @@ import java.util.List;
 
 
 /**
- * This class is used by {@link FortressAntTask} to load {@link org.apache.directory.fortress.core.model.AdminRole}s used to drive {@link org.apache.directory.fortress.core.DelAdminMgr#deleteRole(org.apache.directory.fortress.core.model.AdminRole)}.
- * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>The class name, 'Deladminrole', is used for the xml tag in the load script.<p>
+ * This class is used by {@link FortressAntTask} to load {@link org.apache.directory.fortress.core.model.AdminRole}s used to 
+ * drive {@link org.apache.directory.fortress.core.DelAdminMgr#deleteRole(org.apache.directory.fortress.core.model.AdminRole)}.
+ * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag 
+ * used by load utility.
+ * <p>
+ * The class name, 'Deladminrole', is used for the xml tag in the load script.
  * <pre>
  * {@code
  * <target name="all">
@@ -56,7 +59,7 @@ public class Deladminrole
 
 
     /**
-     * <p>This method name, 'addRole', is used for the derived xml tag 'role' in the load script.<p>
+     * This method name, 'addRole', is used for the derived xml tag 'role' in the load script.
      * <pre>
      * {@code
      * <deladminrole>
