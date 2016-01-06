@@ -64,8 +64,8 @@ max.log.conn=3
 log.admin.user=cn=Manager,${log.suffix}
 log.admin.pw=secret
 
-# Only works if ldap.server.type=openldap:
-enable.audit=true
+# Use if ldap.server.type=openldap.  (Default is false):
+#disable.audit=false
 
 # This OpenLDAP slapd logger password is bound for slapd.conf and was encrypted using 'slappasswd' command:
 log.root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
