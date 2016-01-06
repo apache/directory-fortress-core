@@ -30,29 +30,34 @@ import java.util.List;
 
 /**
  * This class is used to perform administrative and review functions on the PWPOLICIES and USERS data sets.
- * <p/>
+ * <h3></h3>
  * <h4>Password Policies</h4>
- * <a href="http://www.openldap.org/">OpenLDAP</a> supports the IETF draft <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10/">Password Policies for LDAP directories</a></li>.  Policies may be applied at the user, group or global level.
- * <p/>
- * <img src="../doc-files/PasswordPolicy.png">
- * <p/>
+ * <a href="http://www.openldap.org/">OpenLDAP</a> supports the IETF draft 
+ * <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10/">Password Policies for LDAP directories</a></li>.  Policies may be applied at the user, group or global level.
+ * <p>
+ * <img src="../doc-files/PasswordPolicy.png" alt="">
+ * <p>
  * Password enforcement options include:
  * <ol>
- * <li>A configurable limit on failed authentication attempts.</li>
- * <li>A counter to track the number of failed authentication attempts.</li>
- * <li>A time frame in which the limit of consecutive failed authentication attempts must happen before action is taken.</li>
- * <li>The action to be taken when the limit is reached. The action will either be nothing, or the account will be locked.</li>
- * <li>An amount of time the account is locked (if it is to be locked) This can be indefinite.</li>
- * <li>Password expiration.</li>
- * <li>Expiration warning</li>
- * <li>Grace authentications</li>
- * <li>Password history</li>
- * <li>Password minimum age</li>
- * <li>Password minimum length</li>
- * <li>Password Change after Reset</li>
- * <li>Safe Modification of Password</li>
+ *   <li>A configurable limit on failed authentication attempts.</li>
+ *   <li>A counter to track the number of failed authentication attempts.</li>
+ *   <li>
+ *     A time frame in which the limit of consecutive failed authentication attempts must happen before action is taken.
+ *   </li>
+ *   <li>
+ *     The action to be taken when the limit is reached. The action will either be nothing, or the account will be locked.
+ *   </li>
+ *   <li>An amount of time the account is locked (if it is to be locked) This can be indefinite.</li>
+ *   <li>Password expiration.</li>
+ *   <li>Expiration warning</li>
+ *   <li>Grace authentications</li>
+ *   <li>Password history</li>
+ *   <li>Password minimum age</li>
+ *   <li>Password minimum length</li>
+ *   <li>Password Change after Reset</li>
+ *   <li>Safe Modification of Password</li>
  * </ol>
- * <p/>
+ * <p>
  * This class is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

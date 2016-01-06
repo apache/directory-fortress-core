@@ -28,11 +28,12 @@ import org.apache.directory.fortress.core.util.VUtil;
 
 /**
  * Abstract class allows outside clients to manage security and multi-tenant concerns within the Fortress runtime.
- * The {@link #setAdmin(org.apache.directory.fortress.core.model.Session)} method allows A/RBAC sessions to be loaded and allows authorization
+ * The {@link #setAdmin(org.apache.directory.fortress.core.model.Session)} method allows A/RBAC sessions to be loaded and 
+ * allows authorization
  * to be performed on behalf of the user who is contained within the Session object itself.
  * The ARBAC permissions will be checked each time outside client makes calls into Fortress API.
  * This interface also allows Fortress clients to operate in a multi-tenant fashion using {@link #setContextId(String)}.
- * <p/>
+ * <p>
  * Implementers of this abstract class will NOT be thread safe because of instance variables that may be set.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
@@ -45,8 +46,8 @@ public abstract class Manageable implements org.apache.directory.fortress.core.M
 
     /**
      * Use this method to load an administrative user's ARBAC Session object into Manager object will enable authorization to
-     * be performed on behalf of admin user.  Setting Session into this object will enforce ARBAC controls and render this class'
-     * implementer thread unsafe.
+     * be performed on behalf of admin user.  Setting Session into this object will enforce ARBAC controls and render this 
+     * class's implementer thread unsafe.
      *
      * @param session contains a valid Fortress A/RBAC Session object.
      */
@@ -90,7 +91,8 @@ public abstract class Manageable implements org.apache.directory.fortress.core.M
     
     
     /**
-     * Every Fortress Manager API (e.g. addUser, updateUser, addRole, ...) will perform authorization on behalf of the caller IFF the {@link AuditMgrImpl#adminSess} has been set before invocation.
+     * Every Fortress Manager API (e.g. addUser, updateUser, addRole, ...) will perform authorization on behalf of the 
+     * caller IFF the {@link AuditMgrImpl#adminSess} has been set before invocation.
      *
      * @param className contains the class name.
      * @param opName contains operation name.
@@ -112,13 +114,20 @@ public abstract class Manageable implements org.apache.directory.fortress.core.M
      * <p>
      * The information is used to
      * <ol>
-     * <li>Load the administrative User's {@link Session} object into entity.  This is used for checking to ensure administrator has privilege to perform administrative operation.</li>
-     * <li>Load the target operation's permission into the audit context.  This is used for Fortress audit log stored in OpenLDAP</li>
+     *   <li>
+     *     Load the administrative User's {@link Session} object into entity.  This is used for checking to ensure 
+     *     administrator has privilege to perform administrative operation.
+     *   </li>
+     *   <li>
+     *     Load the target operation's permission into the audit context.  This is used for Fortress audit log stored in 
+     *     OpenLDAP
+     *   </li>
      * </ol>
      *
      * @param className contains the class name.
      * @param opName contains operation name.
-     * @param entity  used to pass contextual information through Fortress layers for administrative security checks and audit.
+     * @param entity  used to pass contextual information through Fortress layers for administrative security checks and 
+     * audit.
      * @throws org.apache.directory.fortress.core.SecurityException
      *          in the event of data validation or system error.
      */
@@ -135,7 +144,8 @@ public abstract class Manageable implements org.apache.directory.fortress.core.M
 
     
     /**
-     * Method will throw exception if entity reference is null, otherwise will set the contextId of the tenant onto the supplied entity reference.
+     * Method will throw exception if entity reference is null, otherwise will set the contextId of the tenant onto the 
+     * supplied entity reference.
      * @param className contains the class name of caller.
      * @param opName contains operation name of caller.
      * @param entity  used here to pass the tenant id into the Fortress DAO layer..
@@ -150,7 +160,8 @@ public abstract class Manageable implements org.apache.directory.fortress.core.M
 
     
     /**
-     * Method will throw exception if entity reference is null, otherwise will set the contextId of the tenant onto the supplied entity reference.
+     * Method will throw exception if entity reference is null, otherwise will set the contextId of the tenant onto the 
+     * supplied entity reference.
      * 
      * @param methodName contains the full method name of caller.
      * @param entity  used here to pass the tenant id into the Fortress DAO layer..

@@ -26,9 +26,12 @@ import java.util.List;
 
 
 /**
- * The class is used by {@link FortressAntTask} to create new {@link org.apache.directory.fortress.core.model.Suffix} used to drive {@link org.apache.directory.fortress.core.impl.SuffixP#delete(org.apache.directory.fortress.core.model.Suffix)}.
- * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'Delsuffix', is used for the xml tag in the load script.<p>
+ * The class is used by {@link FortressAntTask} to create new {@link org.apache.directory.fortress.core.model.Suffix} used to 
+ * drive {@link org.apache.directory.fortress.core.impl.SuffixP#delete(org.apache.directory.fortress.core.model.Suffix)}.
+ * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml 
+ * tag used by load utility.
+ * <p>
+ * This class name, 'Delsuffix', is used for the xml tag in the load script.
  * <pre>
  * {@code
  * <delsuffix>
@@ -36,12 +39,10 @@ import java.util.List;
  * </delsuffix>
  * }
  * </pre>
- * <font size="3" color="red">
+ * <p style="font-size:2em; color:red;">
  * This class is destructive as it will remove all nodes below the suffix using recursive delete function.<BR>
- * Extreme care should be taken during execution to ensure target dn is correct and permanent removal of data is intended.  There is no
- * 'undo' for this operation.
- * </font>
- * <p/>
+ * Extreme care should be taken during execution to ensure target dn is correct and permanent removal of data is intended. 
+ * There is no 'undo' for this operation.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -57,7 +58,7 @@ public class Delsuffix
     }
 
     /**
-     * <p>This method name, 'addSuffix', is used for derived xml tag 'suffix' in the load script.<p>
+     * This method name, 'addSuffix', is used for derived xml tag 'suffix' in the load script.
      * <pre>
      * {@code
      * <target name="all">
@@ -69,12 +70,10 @@ public class Delsuffix
      * </target>
      * }
      * </pre>
-     * <p/>
-     * <font size="2" color="red">
+     * <p style="font-size:2em; color:red;">
      * This method is destructive and will remove all nodes below.<BR>
      * Extreme care should be taken during execution to ensure target dn is correct and permanent removal of data is intended.  There is no
      * 'undo' for this operation.
-     * </font>
      *
      * @param suffix contains reference to data element targeted for removal..
      */

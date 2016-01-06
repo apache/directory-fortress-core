@@ -26,9 +26,13 @@ import java.util.List;
 
 
 /**
- * The class is used by {@link org.apache.directory.fortress.core.ant.FortressAntTask} to load {@link Relationship}s used to drive {@link org.apache.directory.fortress.core.AdminMgr#deleteInheritance(org.apache.directory.fortress.core.model.Role, org.apache.directory.fortress.core.model.Role)}.
- * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'Delpermorgunitinheritance', is used for the xml tag in the load script.<p>
+ * The class is used by {@link org.apache.directory.fortress.core.ant.FortressAntTask} to load {@link Relationship}s used to 
+ * drive {@link org.apache.directory.fortress.core.AdminMgr#deleteInheritance(org.apache.directory.fortress.core.model.Role, 
+ * org.apache.directory.fortress.core.model.Role)}.
+ * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml 
+ * tag used by load utility.
+ * <p>
+ * This class name, 'Delpermorgunitinheritance', is used for the xml tag in the load script.
  * <pre>
  * {@code
  * <target name="all">
@@ -40,7 +44,6 @@ import java.util.List;
  * </target>
  * }
  * </pre>
- *
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -56,7 +59,7 @@ public class Delpermorgunitinheritance
     }
 
     /**
-     * <p>This method name, 'addRelationship', is used for derived xml tag 'relationship' in the load script.<p>
+     * This method name, 'addRelationship', is used for derived xml tag 'relationship' in the load script.
      * <pre>
      * {@code
      * <delpermorgunitinheritance>

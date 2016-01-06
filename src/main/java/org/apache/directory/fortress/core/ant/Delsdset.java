@@ -24,11 +24,14 @@ import java.util.List;
 
 
 /**
- * The class is used by {@link FortressAntTask} to create new {@link SDSetAnt}s used to drive {@link org.apache.directory.fortress.core.AdminMgr#deleteSsdSet(org.apache.directory.fortress.core.model.SDSet)} or {@link org.apache.directory.fortress.core.AdminMgr#deleteDsdSet(org.apache.directory.fortress.core.model.SDSet)}.
+ * The class is used by {@link FortressAntTask} to create new {@link SDSetAnt}s used to drive 
+ * {@link org.apache.directory.fortress.core.AdminMgr#deleteSsdSet(org.apache.directory.fortress.core.model.SDSet)} or 
+ * {@link org.apache.directory.fortress.core.AdminMgr#deleteDsdSet(org.apache.directory.fortress.core.model.SDSet)}.
  *
- *
- * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'Delsdset', is used for the xml tag in the load script.<p>
+ * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml 
+ * tag used by load utility.
+ * <p>
+ * This class name, 'Delsdset', is used for the xml tag in the load script.
  * <pre>
  * {@code
  * <target name="all">
@@ -55,7 +58,7 @@ public class Delsdset
     }
 
     /**
-     * <p>This method name, 'addSdset', is used for derived xml tag 'sdset' in the load script.<p>
+     * This method name, 'addSdset', is used for derived xml tag 'sdset' in the load script.
      * <pre>
      * {@code
      * <delsdset>

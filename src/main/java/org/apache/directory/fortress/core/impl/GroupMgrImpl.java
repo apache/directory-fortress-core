@@ -35,10 +35,8 @@ import java.util.List;
 /**
  * This Manager impl supplies CRUD methods used to manage groups stored within the ldap directory.
  * LDAP group nodes are used for utility and security functions within various systems and apps.
- * <p/>
+ * <p>
  * This class is thread safe.
- * <p/>
-
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

@@ -26,9 +26,14 @@ import java.util.List;
 
 
 /**
- * The class is used by {@link FortressAntTask} to remove {@link org.apache.directory.fortress.core.model.OrganizationalUnit}s  used to drive {@link org.apache.directory.fortress.core.impl.OrganizationalUnitP#delete(org.apache.directory.fortress.core.model.OrganizationalUnit)}.
- * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag used by load utility.
- * <p>This class name, 'Delcontainer', is used for the xml tag in the load script.<p>
+ * The class is used by {@link FortressAntTask} to remove 
+ * {@link org.apache.directory.fortress.core.model.OrganizationalUnit}s  used to drive 
+ * {@link org.apache.directory.fortress.core.impl.OrganizationalUnitP#delete(
+ * org.apache.directory.fortress.core.model.OrganizationalUnit)}.
+ * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml 
+ * tag used by load utility.
+ * <p>
+ * This class name, 'Delcontainer', is used for the xml tag in the load script.
  * <pre>
  * {@code
  * <target name="all">
@@ -40,13 +45,10 @@ import java.util.List;
  * </target>
  * }
  * </pre>
- * <p/>
- * <font size="4" color="red">
+ * <p style="font-size:2em; color:red;">
  * This class is destructive as it will remove all nodes below the container using recursive delete function.<BR>
  * Extreme care should be taken during execution to ensure target dn is correct and permanent removal of data is intended.  There is no
  * 'undo' for this operation.
- * </font>
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -64,7 +66,7 @@ public class Delcontainer
 
 
     /**
-     * <p>This method name, 'addContainer', is used for derived xml tag 'container' in the load script.<p>
+     * This method name, 'addContainer', is used for derived xml tag 'container' in the load script.
      * <pre>
      * {@code
      * <delcontainer>
