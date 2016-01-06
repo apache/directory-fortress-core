@@ -220,14 +220,10 @@ ________________________________________________________________________________
 # SECTION 7. Instructions for using Apache Fortress and pre-existing or native OpenLDAP installation.
 
 1. Install OpenLDAP using preferred method.
-
-    For example (existing package management system):
-
-        + On Debian systems: http://wiki.debian.org/LDAP/OpenLDAPSetup
-
-        + Ubuntu: https://help.ubuntu.com/community/OpenLDAPServer
-
-        + etc.
+ * For example (existing package management system):
+   * On Debian systems: http://wiki.debian.org/LDAP/OpenLDAPSetup
+   * Ubuntu: https://help.ubuntu.com/community/OpenLDAPServer
+   * etc.
 
 2. Copy fortress schema to openldap schema folder:
 
@@ -246,7 +242,6 @@ include		OPENLDAP_HOME/etc/openldap/schema/fortress.schema
  ```
  moduleload	 ppolicy.la
  ```
-
 
 5. For Fortress audit support, enable slapoaccesslog in slapd.conf:
 
@@ -332,10 +327,8 @@ ________________________________________________________________________________
   ```
 
 2. follow instructions in the command line interpreter reference manual contained within the javadoc:
-
-   file:///[directory-fortress-core]/target/site/apidocs/org/apache/directory/fortress/core/cli/package-summary.html
-
-   (where [directory-fortress-core] is location of current source package)
+ * file:///[directory-fortress-core]/target/site/apidocs/org/apache/directory/fortress/core/cli/package-summary.html
+ * (where [directory-fortress-core] is location of current source package)
 
 ___________________________________________________________________________________
 # SECTION 10. Instructions to load policy data using maven fortress-load.
@@ -344,7 +337,7 @@ Loads policy data into ldap.
 
 1. Create a load file using examples from FORTRESS_HOME/ldap/setup folder.
 
-e.g. myLoadFile.xml
+ e.g. myLoadFile.xml
 
 2. From FORTRESS_HOME folder, enter the following command:
 
@@ -405,7 +398,6 @@ ________________________________________________________________________________
  ```
  mvn -Pconsole test
  ```
-
 ___________________________________________________________________________________
 # SECTION 13. Instructions to performance test fortress core using maven loadtest profile and jmeter.
 
@@ -457,4 +449,4 @@ use the 'encrypt' ant target.
  ```
 
  ___________________________________________________________________________________
- # END OF README
+ #### END OF README
