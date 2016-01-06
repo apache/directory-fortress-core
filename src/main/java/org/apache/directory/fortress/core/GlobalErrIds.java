@@ -21,18 +21,19 @@ package org.apache.directory.fortress.core;
 
 /**
  * This module contains error identifiers that are used when exception need be thrown.
- * The Fortress Manager APIs declare {@code SecurityException} as thrown even though the child exception may vary according to type:
+ * The Fortress Manager APIs declare {@code SecurityException} as thrown even though the child exception may vary according 
+ * to type:
  * <ul>
- * <li>{@link CfgException} in the event the cfg of runtime fails.
- * <li>{@link CreateException} in the event DAO cannot create entity.
- * <li>{@link FinderException} in the event DAO cannot find the entity.
- * <li>{@link PasswordException} in the event user fails password checks.
- * <li>{@link RemoveException} in the event DAO cannot remove entity.
- * <li>{@link SecurityException} in the event security check fails.
- * <li>{@link UpdateException} in the event DAO cannot update entity.
- * <li>{@link ValidationException} in the event entity validation fails.
+ *   <li>{@link CfgException} in the event the cfg of runtime fails.</li>
+ *   <li>{@link CreateException} in the event DAO cannot create entity.</li>
+ *   <li>{@link FinderException} in the event DAO cannot find the entity.</li>
+ *   <li>{@link PasswordException} in the event user fails password checks.</li>
+ *   <li>{@link RemoveException} in the event DAO cannot remove entity.</li>
+ *   <li>{@link SecurityException} in the event security check fails.</li>
+ *   <li>{@link UpdateException} in the event DAO cannot update entity.</li>
+ *   <li>{@link ValidationException} in the event entity validation fails.</li>
  * </ul>
- * <p/>
+ * <p>
  * All Fortress public Manager Impl APIs will throw exception derived from {@link SecurityException} and containing
  * an id that maps to one of these error codes.
  *
@@ -240,7 +241,8 @@ public final class GlobalErrIds
     public static final int USER_PW_NULL = 1009;
 
     /**
-     * The operation failed because the supplied User password is too long.  Ensure the length does not exceed {@link GlobalIds#PASSWORD_LEN}.
+     * The operation failed because the supplied User password is too long.  Ensure the length does not exceed 
+     * {@link GlobalIds#PASSWORD_LEN}.
      */
     public static final int USER_PW_INVLD_LEN = 1010;
 
@@ -679,7 +681,8 @@ public final class GlobalErrIds
     public static final int PSWD_NOT_FOUND = 4005;
 
     /**
-     * The supplied Password policy name failed length check.  Ensure that does not exceed {@link GlobalIds#PWPOLICY_NAME_LEN}.
+     * The supplied Password policy name failed length check.  Ensure that does not exceed 
+     * {@link GlobalIds#PWPOLICY_NAME_LEN}.
      */
     public static final int PSWD_NAME_INVLD_LEN = 4006;
 
