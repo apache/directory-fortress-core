@@ -34,9 +34,9 @@
  * SECTION 6.  Instructions for installing OpenLDAP.
  * SECTION 7.  Instructions for using Apache Fortress with OpenLDAP.
  * SECTION 8.  Instructions to integration test.
- * SECTION 9.  Instructions to load policy data using Apache Fortress load utility.
- * SECTION 10. Instructions to run the command line interpreter (CLI) utility.
- * SECTION 11. Instructions to run the command console.
+ * SECTION 9.  Instructions to load policy data using Apache Fortress Load utility.
+ * SECTION 10. Instructions to run the Apache Fortress Command Line Interpreter (CLI).
+ * SECTION 11. Instructions to run the Apache Fortress Command Console.
  * SECTION 12. Instructions to build and test the Apache Fortress samples.
  * SECTION 13. Instructions to performance test.
  * SECTION 14. Instructions to encrypt LDAP passwords used in config files.
@@ -403,15 +403,15 @@ ________________________________________________________________________________
  ```
 
  Test Notes:
-  * If tests complete without errors Apache Fortress wors with your LDAP server.
+  * If tests complete without errors Apache Fortress works with your LDAP server.
   * These tests load thousands of records into target ldap server.
   * The 2nd and subsequent time test runs, teardown of data occurs.
   * WARNING messages are negative tests in action:
 
 ___________________________________________________________________________________
-# SECTION 9. Instructions to load policy data using Apache Fortress load utility.
+# SECTION 9. Instructions to load policy data using Apache Fortress Load utility.
 
- The Fortress Load utility is useful to create base policy configurations that need to be rerun many times in different test and production environments.
+ The Load utility is useful to create base policy configurations that need to be rerun many times in different test and production environments.
  For samples look here: [./ldap/setup](./ldap/setup).
 
 1. Create a load file using examples from **FORTRESS_HOME**/ldap/setup folder.
@@ -430,9 +430,9 @@ Policy Load Notes:
   * [./target/site/apidocs/org/apache/directory/fortress/core/ant/FortressAntTask.html](./target/site/apidocs/org/apache/directory/fortress/core/ant/FortressAntTask.html)
 
 ___________________________________________________________________________________
-# SECTION 10. Instructions to run the command line interpreter (CLI) utility.
+# SECTION 10. Instructions to run the Apache Fortress Command Line Interpreter (CLI).
 
- The Fortress CLI is useful for ad-hoc policy administration in runtime environments.
+ The CLI is useful for ad-hoc policy administration in runtime environments.
 
 1. From **FORTRESS_HOME** enter the following command:
 
@@ -480,13 +480,13 @@ ________________________________________________________________________________
  2016-01-07 09:18:042 INFO  CommandLineInterpreter:1443 - U   SN   [testuser1]
  ```
 
-5. Or perform any of the other APIs in a shell interpreter, follow instructions in the command line interpreter reference manual contained within the generated javadoc:
+5. Or perform any of the other APIs as a shell program, follow instructions in the command line interpreter reference manual, contained within the generated javadoc:
  * [./target/site/apidocs/org/apache/directory/fortress/core/cli/package-summary.html/package-summary.html](./target/site/apidocs/org/apache/directory/fortress/core/cli/package-summary.html)
 
 ___________________________________________________________________________________
-# SECTION 11. Instructions to run the command console.
+# SECTION 11. Instructions to run the Apache Fortress Command Console.
 
- The Fortress Console is an interactive program that is useful for ad-hoc creating and testing of data.
+ The Command Console is an interactive program that is allows ad-hoc edit and reporting on data stored in LDAP server.
 
 1. From **FORTRESS_HOME** enter the following command:
 
@@ -604,6 +604,21 @@ ________________________________________________________________________________
  mvn -Dtest=AllSamplesJUnitTest test
  ```
 
+4. Sample show how to use the APIs
+ e.g. How to Grant a Permission to a Role:
+
+ ```java
+ AdminMgr adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
+
+ Role inRole = new Role(CreateRoleSample.TEST_ROLE_PREFIX + i);
+
+ // Permissions contain Object to Operation mapping and once created can then be targeted for assignment to Role entities in ldap:
+ Permission inPerm = new Permission(TEST_PERM_OBJECT, TEST_PERM_OPERATION_PREFIX + j);
+
+ // This API grant a Permission to a Role:
+ adminMgr.grantPermission(inPerm, inRole);
+ ```
+
 Sample Notes:
  * Test cases are simple and useful for learning how to code using Apache Fortress APIs.
  * Tests should complete without ERRORS.
@@ -614,11 +629,18 @@ Sample Notes:
 ___________________________________________________________________________________
 # SECTION 13. Instructions to performance test.
 
-To load test fortress createSession or checkAccess performance using jmeter:
+ This section describes the Apache Fortress jmeter test programs.
 
-1. Update .jmx located under **FORTRESS_HOME**/src/test/jmeter folder.
+1. The .jmx files located in [.src/test/jmeter](.src/test/jmeter) folder are used to control test settings.
 
- e.g. ftCheckAccess.jmx
+ * Fortress CheckAccess:
+  [src/test/jmeter/ftCheckAccess.jmx](src/test/jmeter/ftCheckAccess.jmx)
+
+ * Accelerator CheckAccess:
+  [src/test/jmeter/acCheckAccess.jmx](src/test/jmeter/acCheckAccess.jmx)
+
+ * Accelerator CreateSession:
+  [src/test/jmeter/acCreateSession.jmx](src/test/jmeter/acCreateSession.jmx)
 
 2. Load the security policy and users required by the jmeter test routines:
 
@@ -628,14 +650,21 @@ To load test fortress createSession or checkAccess performance using jmeter:
 
 3. From **FORTRESS_HOME** folder, enter the following command from a system prompt:
 
- ```
- mvn -Ploadtest-ftca jmeter:jmeter
- ```
+ * Fortress CheckAccess:
+  ```
+  mvn -Ploadtest-ftca jmeter:jmeter
+  ```
 
-Load Testing Notes:
- * The above maps to ftCheckAccess.jmx
- * jmx files with prefex 'ac' call fortress accelerator functions (which requires special setup NOT covered by this document)
- * jmx files with prefix 'ft' are for fortress functions (which are covered by this document)
+ * Accelerator CheckAccess:
+  ```
+  mvn -Ploadtest-accel jmeter:jmeter
+  ```
+
+ * Accelerator CreateSession:
+  ```
+  mvn -Ploadtest-accel-createsess
+  ```
+ The tests will run and produce measurements for throughput and latency.
 
 ___________________________________________________________________________________
 # SECTION 14. Instructions to encrypt LDAP passwords used in config files.

@@ -921,10 +921,10 @@
     </profile>
 
     <!--
-    To execute: ./m.sh -Ploadtest-acca jmeter:jmeter
+    To execute: ./m.sh -Ploadtest-accel-createsess jmeter:jmeter
     -->
     <profile>
-      <id>loadtest-acca</id>
+      <id>loadtest-accel-createsess</id>
       <build>
         <plugins>
 
