@@ -23,7 +23,6 @@
  * Apache Fortress Core System Architecture Diagram
  ![Apache Fortress Core System Architecture](images/fortress-core-system-arch.png "Apache Fortress Core System Architecture")
 
-
 -------------------------------------------------------------------------------
 # Table of Contents
  * Document Overview
