@@ -396,7 +396,6 @@ ________________________________________________________________________________
  [INFO] ------------------------------------------------------------------------
  ```
  Notice 141 tests ran this time vs 113 the first time.
- ```
 
 5. You can now clear out the test data and policies by running this command again:
  ```
