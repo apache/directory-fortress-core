@@ -406,7 +406,7 @@ ________________________________________________________________________________
   * If tests complete without errors Apache Fortress works with your LDAP server.
   * These tests load thousands of records into target ldap server.
   * The 2nd and subsequent time test runs, teardown of data occurs.
-  * WARNING messages are negative tests in action:
+  * WARNING messages are negative tests in action.
 
 ___________________________________________________________________________________
 # SECTION 9. Instructions to load policy data using Apache Fortress Load utility.
@@ -541,9 +541,6 @@ CHOOSE ADMIN MANAGER FUNCTION:
  M.  Add Role Descendant
  N.  Add SSD Data Set
  O.  Add DSD Data Set
- X.  Test Annotation
- Y.  Add Example
- Z.  Test Config
  Enter q or Q to return to previous menu
  ```
 
@@ -584,7 +581,7 @@ CHOOSE ADMIN MANAGER FUNCTION:
  Enter q or Q to return to previous menu
  ```
 
-6. Etc...
+6. etc... for PW Policy, ARBAC, Groups.
 
 ___________________________________________________________________________________
 # SECTION 12. Instructions to build and test the Apache Fortress samples.
