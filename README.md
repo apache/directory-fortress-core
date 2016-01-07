@@ -27,12 +27,12 @@
  * Tips for first-time users of Apache Fortress
  * SECTION 0.  Prerequisites
  * SECTION 1.  Options for testing Apache Fortress with an LDAP server.
- * SECTION 2.  Instructions to pull Apache Fortress Core source code from Apache GIT
- * SECTION 3.  Instructions to build software package.
- * SECTION 4.  Instructions to configure SDK for target system.
- * SECTION 5.  Instructions for using Apache Fortress and ApacheDS LDAP server.
- * SECTION 6.  Instructions for using Apache Fortress and pre-existing or native OpenLDAP installation.
- * SECTION 7.  Instructions for using Apache Fortress and Symas OpenLDAP server.
+ * SECTION 2.  Instructions for using Apache Fortress and ApacheDS LDAP server.
+ * SECTION 3.  Instructions for using Apache Fortress and Symas OpenLDAP server.
+ * SECTION 4.  Instructions to pull Apache Fortress Core source code from Apache GIT
+ * SECTION 5.  Instructions to build software package.
+ * SECTION 6.  Instructions for installing OpenLDAP.
+ * SECTION 7.  Instructions for using Apache Fortress with OpenLDAP.
  * SECTION 8.  Instructions to integration test.
  * SECTION 9.  Instructions to load policy data using maven fortress-load.
  * SECTION 10. Instructions to run the command line interpreter (CLI) utility.
@@ -82,16 +82,26 @@ ________________________________________________________________________________
 This document contains three options for installing Apache Fortress and configuration with an LDAP server:
 
 1. Apache Fortress and ApacheDS LDAP server (recommended for first-time users).
- * Do **SECTION 5**  Instructions for using Apache Fortress and ApacheDS LDAP server.
+ * Do **SECTION 2**  Instructions for using Apache Fortress and ApacheDS LDAP server.
 2. Apache Fortress and SYMAS OpenLDAP server
- * Do **SECTION 6** Instructions for using Apache Fortress and Symas OpenLDAP server.
-3. Apache Fortress and existing OpenLDAP server
- * Partial instructions under SECTIONS 2, 3, 4, 7, 8
+ * Do **SECTION 3** Apache Fortress and Symas OpenLDAP server.
+3. Apache Fortress and pre-existing OpenLDAP server
+ * Do SECTIONS 4 - 8
 
 ___________________________________________________________________________________
-# SECTION 2. Instructions to pull Apache Fortress source code from Apache GIT repo
+# SECTION 2. Instructions for using Apache Fortress and ApacheDS LDAP server.
 
-SNAPSHOTs from OpenLDAP's GIT Software Repo:
+ * Follow these instructions: [README-TEN-MINUTE-GUIDE.md](./README-TEN-MINUTE-GUIDE.md)
+
+___________________________________________________________________________________
+# SECTION 3. Instructions for using Apache Fortress and Symas OpenLDAP server.
+
+ * Follow these instructions: [README-QUICKSTART-SLAPD.md](./README-QUICKSTART-SLAPD.md)
+
+___________________________________________________________________________________
+# SECTION 4. Instructions to pull Apache Fortress source code from Apache GIT repo
+
+SNAPSHOTs from Apache GIT Software Repo:
 https://git-wip-us.apache.org/repos/asf?p=directory-fortress-core.git
 
 Clone the Apache Fortress Core Git Repo::
@@ -99,7 +109,7 @@ Clone the Apache Fortress Core Git Repo::
  git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
  ```
 ___________________________________________________________________________________
-# SECTION 3. Instructions to build software package.
+# SECTION 5. Instructions to build software package.
 
 1. Set Java and Maven home on machines.
 2. From the FORTRESS_HOME root folder, enter the following command:
@@ -107,10 +117,6 @@ ________________________________________________________________________________
  ```
  mvn clean install
  ```
- Install notes:
- * Fortress source modules will be compiled along with production of java archive (jar)
-  files, javadoc and test distributions.
- * Project artifacts are loaded into $FORTRESS_HOME/target location.
 
 3. From the FORTRESS_HOME root folder, enter the following command:
 
@@ -118,7 +124,7 @@ ________________________________________________________________________________
  mvn javadoc:javadoc
  ```
 
- Javadoc note: if using java 8, add this param to the pom.xml:
+ If using java 8, add this param to the pom.xml:
  ```
 <plugin>
     ...
@@ -137,101 +143,7 @@ Build Notes:
  * Running ```mvn install``` calls out to maven-ant **init-fortress-config** task in [build.xml](./build.xml) to seed properties (more info here: [README-CONFIG](./README-CONFIG.md)).
 
 ___________________________________________________________________________________
-# SECTION 4. Instructions to configure SDK for target system using build.properties file.
-
- * More information about the Fortress Configuration subsystem: [README-CONFIG.md](./README-CONFIG.md)
- * For newcomers just trying to learn the ropes the defaults usually work.
- * Unless you know what you are doing, never change ant substitution parameters within the properties.  These are are anything inside and including '${}'.  i.e. ${param1}.
-
-1. Copy FORTRESS_HOME/build.properties.example to build.properties
- ```
- cp build.properties.example build.properties
- ```
-
-2. Edit the FORTRESS_HOME/build.properties file.
-
- ```
- vi build.properties
- ```
-
-3. Set the LDAP Host and port properties.  Either a valid host name or IP address can be used.  If you are running on the same platform as your LDAP server, localhost will do:
-
- ```
- host=localhost
- port=389
- ```
-
-4. Set the suffix name and domain component.  These will be according to your requirements.  For example suffix.name=example + suffix.dc=com will = 'dc=example,dc=com'.
- ```
- suffix.name=example
- suffix.dc=com
- ```
-
-5. Set the administrative LDAP connection pool parameters:
- ```
- # This value contains dn of user that has read/write access to LDAP DIT:
- root.dn=cn=Manager,${suffix}
-
- # This password is for above admin dn, will be stored in OpenLDAP *slapd.conf*.  It may be hashed using OpenLDAP *slappasswd* command before placing here:
- root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
-
- # This is password is for same user but will be stored as property in *fortress.properties* file.
- cfg.root.pw=secret
-
- # These properties specify the min/max settings for connection pool containing read/write connections to LDAP DIT:
- admin.min.conn=1
-
- # You may need to experiment to determine optimal setting for max.  It should be much less than concurrent number of users.
- admin.max.conn=10
- ```
-
-6. Set user authentication connection pool parameters:
- ```
- user.min.conn=1
- # You may need to experiment to determine optimal setting for max.  It should be much less than concurrent number of users.
- user.max.conn=10
- ```
-
-7. Audit settings (OpenLDAP only):
-
- ```
- # If you don't have slapo-access log overlay enabled, then disable the Fortress audit:
- # Default is false.  This only works if ldap.server.type=openldap:
- disable.audit=true
-
- # Set the audit connection pool parameters:
- # This value contains dn of user that has read/write access to OpenLDAP slapd access log entries:
- log.root.dn=cn=Manager,${log.suffix}
-
- # This password is for above log user dn, will be stored in OpenLDAP *slapd.conf*.  It may be hashed using OpenLDAP *slappasswd* command before placing here:
- log.root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
-
- # This password is for same log user but will be stored as property in *fortress.properties* file.:
- cfg.log.root.pw=secret
-
- # number of connections in pool (to query the slapo access log data):
- log.min.conn=1
- log.max.conn=3
-
- # Set more audit logger parameters (openldap only):
- log.suffix=cn=log
-
- # To enable slapd persistence on the following OpenLDAP operations:
- log.ops=logops search bind writes
- ```
-
-___________________________________________________________________________________
-# SECTION 5. Instructions for using Apache Fortress and ApacheDS LDAP server.
-
- * Follow these instructions: [README-TEN-MINUTE-GUIDE.md](./README-TEN-MINUTE-GUIDE.md)
-
-___________________________________________________________________________________
-# SECTION 6. Instructions for using Apache Fortress and Symas OpenLDAP server.
-
- * Follow these instructions: [README-QUICKSTART-SLAPD.md](./README-QUICKSTART-SLAPD.md)
-
-___________________________________________________________________________________
-# SECTION 7. Instructions for using Apache Fortress and pre-existing or native OpenLDAP installation.
+# SECTION 6. Instructions for installing OpenLDAP.
 
 1. Install OpenLDAP using preferred method.
  * For example (existing package management system):
@@ -315,7 +227,91 @@ include		OPENLDAP_HOME/etc/openldap/schema/fortress.schema
  logpurge 5+00:00 1+00:00
  ```
 
-9. Perform the base load:
+ * More information about the Fortress Configuration subsystem: [README-CONFIG.md](./README-CONFIG.md)
+ * For newcomers just trying to learn the ropes the defaults usually work.
+ * Unless you know what you are doing, never change ant substitution parameters within the properties.  These are are anything inside and including '${}'.  i.e. ${param1}.
+
+___________________________________________________________________________________
+# SECTION 7. Instructions for using Apache Fortress with OpenLDAP.
+
+1. Copy FORTRESS_HOME/build.properties.example to build.properties
+ ```
+ cp build.properties.example build.properties
+ cp slapd.properties.example slapd.properties
+ ```
+
+2. Edit the slapd install properties file:
+ ```
+ vi slapd.properties
+ ```
+
+3. Set the LDAP Host and port properties.  Either a valid host name or IP address can be used.  If you are running on the same platform as your LDAP server, localhost will do:
+
+ ```
+ host=localhost
+ port=389
+ ```
+
+4. Set the suffix name and domain component.  These will be according to your requirements.  For example suffix.name=example + suffix.dc=com will = 'dc=example,dc=com'.
+ ```
+ suffix.name=example
+ suffix.dc=com
+ ```
+
+5. Set the administrative LDAP connection pool parameters:
+ ```
+ # This value contains dn of user that has read/write access to LDAP DIT:
+ root.dn=cn=Manager,${suffix}
+
+ # This password is for above admin dn, will be stored in OpenLDAP *slapd.conf*.  It may be hashed using OpenLDAP *slappasswd* command before placing here:
+ root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
+
+ # This is password is for same user but will be stored as property in *fortress.properties* file.
+ cfg.root.pw=secret
+
+ # These properties specify the min/max settings for connection pool containing read/write connections to LDAP DIT:
+ admin.min.conn=1
+
+ # You may need to experiment to determine optimal setting for max.  It should be much less than concurrent number of users.
+ admin.max.conn=10
+ ```
+
+6. Set user authentication connection pool parameters:
+ ```
+ user.min.conn=1
+ # You may need to experiment to determine optimal setting for max.  It should be much less than concurrent number of users.
+ user.max.conn=10
+ ```
+
+7. Audit settings (OpenLDAP only):
+
+ ```
+ # If you don't have slapo-access log overlay enabled, then disable the Fortress audit:
+ # Default is false.  This only works if ldap.server.type=openldap:
+ disable.audit=true
+
+ # Set the audit connection pool parameters:
+ # This value contains dn of user that has read/write access to OpenLDAP slapd access log entries:
+ log.root.dn=cn=Manager,${log.suffix}
+
+ # This password is for above log user dn, will be stored in OpenLDAP *slapd.conf*.  It may be hashed using OpenLDAP *slappasswd* command before placing here:
+ log.root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
+
+ # This password is for same log user but will be stored as property in *fortress.properties* file.:
+ cfg.log.root.pw=secret
+
+ # number of connections in pool (to query the slapo access log data):
+ log.min.conn=1
+ log.max.conn=3
+
+ # Set more audit logger parameters (openldap only):
+ log.suffix=cn=log
+
+ # To enable slapd persistence on the following OpenLDAP operations:
+ log.ops=logops search bind writes
+ ```
+
+8. Perform the base load:
  ```
  mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
  ```
