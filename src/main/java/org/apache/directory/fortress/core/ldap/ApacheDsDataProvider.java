@@ -604,7 +604,6 @@ public abstract class ApacheDsDataProvider
      * @param dn         contains distinguished node of entry targeted for removal..
      * @param entity     contains audit context.
      * @throws LdapException   in the event system error occurs.
-     * @throws IOException
      * @throws CursorException
      */
     protected void deleteRecursive( LdapConnection connection, String dn, FortEntity entity ) throws LdapException,
@@ -629,7 +628,6 @@ public abstract class ApacheDsDataProvider
      * @param connection     handle to ldap connection.
      * @param recursiveCount keeps track of how many iterations have been performed.
      * @throws LdapException   in the event system error occurs.
-     * @throws IOException
      * @throws CursorException
      */
     private void deleteRecursive( String dn, LdapConnection connection, int recursiveCount ) throws LdapException,
@@ -683,7 +681,6 @@ public abstract class ApacheDsDataProvider
      *
      * @param mods   used to update ldap attributes.
      * @param entity contains audit context.
-     * @throws LdapException in the event of error with ldap client.
      */
     private void audit( List<Modification> mods, FortEntity entity )
     {
@@ -787,11 +784,10 @@ public abstract class ApacheDsDataProvider
      * @param attrsOnly  if true pull back attribute names only.
      * @return entry   containing target ldap node.
      * @throws LdapException   thrown in the event of error in ldap client or server code.
-     * @throws IOException
-     * @throws CursorException
+     * @throws CursorException If we weren't able to fetch an element from the search result
      */
     protected Entry searchNode( LdapConnection connection, String baseDn, SearchScope scope, String filter,
-        String[] attrs, boolean attrsOnly ) throws LdapException, CursorException, IOException
+        String[] attrs, boolean attrsOnly ) throws LdapException, CursorException
     {
         SearchRequest searchRequest = new SearchRequestImpl();
 
@@ -829,11 +825,10 @@ public abstract class ApacheDsDataProvider
      *                   value will be stored in openldap auditsearch record AuthZID's attribute.
      * @return entry   containing target ldap node.
      * @throws LdapException   thrown in the event of error in ldap client or server code.
-     * @throws IOException
-     * @throws CursorException
+     * @throws CursorException If we weren't able to fetch an element from the search result
      */
     protected Entry searchNode( LdapConnection connection, String baseDn, SearchScope scope, String filter,
-        String[] attrs, boolean attrsOnly, String userDn ) throws LdapException, CursorException, IOException
+        String[] attrs, boolean attrsOnly, String userDn ) throws LdapException, CursorException
     {
         COUNTERS.incrementSearch();
 
@@ -901,7 +896,6 @@ public abstract class ApacheDsDataProvider
      * @param entry         contains the target ldap entry.
      * @param attributeName name of ldap attribute to retrieve.
      * @return List of type string containing attribute values.
-     * @throws LdapException in the event of ldap client error.
      */
     protected List<String> getAttributes( Entry entry, String attributeName )
     {
@@ -955,7 +949,6 @@ public abstract class ApacheDsDataProvider
      * @param entry         contains the target ldap entry.
      * @param attributeName name of ldap attribute to retrieve.
      * @return List of type string containing attribute values.
-     * @throws LdapException in the event of ldap client error.
      */
     protected Set<String> getAttributeSet( Entry entry, String attributeName )
     {
@@ -980,9 +973,7 @@ public abstract class ApacheDsDataProvider
      * @param entry         contains the target ldap entry.
      * @param attributeName name of ldap attribute to retrieve.
      * @return value contained in a string variable.
-     * @throws LdapInvalidAttributeValueException
-     *
-     * @throws LdapException in the event of ldap client error.
+     * @throws LdapInvalidAttributeValueException When we weren't able to get the attribute from the entry
      */
     protected String getAttribute( Entry entry, String attributeName ) throws LdapInvalidAttributeValueException
     {
@@ -1011,7 +1002,6 @@ public abstract class ApacheDsDataProvider
      *
      * @param dn contains ldap distinguished name.
      * @return rDn as string.
-     * @throws LdapException in the event of ldap client error.
      */
     protected String getRdn( String dn )
     {
@@ -1047,7 +1037,7 @@ public abstract class ApacheDsDataProvider
      * @param ftDateTime reference to {@link org.apache.directory.fortress.core.model.Constraint} containing formatted data.
      * @throws LdapInvalidAttributeValueException
      *
-     * @throws LdapException in the event of ldap client error.
+     * @throws LdapInvalidAttributeValueException when we weren't able to retrieve the attribute from the entry
      */
     protected void unloadTemporal( Entry le, Constraint ftDateTime ) throws LdapInvalidAttributeValueException
     {
@@ -1066,6 +1056,7 @@ public abstract class ApacheDsDataProvider
      * @param list     list of type string containing attribute values to load into attribute set.
      * @param entry    contains ldap attribute set targeted for adding.
      * @param attrName name of ldap attribute being added.
+     * @throws LdapException If we weren't able to add the attributes into the entry
      */
     protected void loadAttrs( List<String> list, Entry entry, String attrName ) throws LdapException
     {
@@ -1163,7 +1154,7 @@ public abstract class ApacheDsDataProvider
      * @param values   set of type string containing attribute values to load into attribute set.
      * @param entry    contains ldap entry to pull attrs from.
      * @param attrName name of ldap attribute being added.
-     * @throws LdapException
+     * @throws LdapException If we weren't able to add the values into the entry
      */
     protected void loadAttrs( Set<String> values, Entry entry, String attrName ) throws LdapException
     {
@@ -1256,7 +1247,7 @@ public abstract class ApacheDsDataProvider
      * @param props    contains {@link java.util.Properties} targeted for adding to ldap.
      * @param entry    contains ldap entry to pull attrs from.
      * @param attrName contains the name of the ldap attribute to be added.
-     * @throws LdapException
+     * @throws LdapException If we weren't able to add the properies into the entry
      */
     protected void loadProperties( Properties props, Entry entry, String attrName ) throws LdapException
     {
@@ -1289,20 +1280,22 @@ public abstract class ApacheDsDataProvider
      * @param entry    contains ldap entry to push attrs into.
      * @param attrName contains the name of the ldap attribute to be added.
      * @param separator contains the char value used to separate name and value in ldap raw format.
-     * @throws LdapException
+     * @throws LdapException If we weren't able to add the properies into the entry
      */
     protected void loadProperties( Properties props, Entry entry, String attrName, char separator )
         throws LdapException
     {
-        if ( props != null && props.size() > 0 )
+        if ( ( props != null ) && ( props.size() > 0 ) )
         {
             Attribute attr = null;
+            
             for ( Enumeration<?> e = props.propertyNames(); e.hasMoreElements(); )
             {
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
                 String key = ( String ) e.nextElement();
                 String val = props.getProperty( key );
                 String prop = key + separator + val;
+                
                 if ( attr == null )
                 {
                     attr = new DefaultAttribute( attrName );
@@ -1312,6 +1305,7 @@ public abstract class ApacheDsDataProvider
                     attr.add( prop );
                 }
             }
+            
             if ( attr != null )
             {
                 entry.add( attr );
@@ -1321,10 +1315,12 @@ public abstract class ApacheDsDataProvider
 
 
     /**
-     * @param value
-     * @param validLen
+     * Encode some text so that it can be used in a LDAP filter.
+     * 
+     * @param value The value to encode
+     * @param validLen The maximum accepted length of the value. 
      * @return String containing encoded data.
-     * @throws LdapException
+     * @throws LdapException If the value is longer than the maximum value
      */
     protected String encodeSafeText( String value, int validLen ) throws LdapException
     {
@@ -1392,7 +1388,6 @@ public abstract class ApacheDsDataProvider
      * Calls the PoolMgr to close the Admin LDAP connection.
      *
      * @param connection handle to ldap connection object.
-     * @throws Exception
      */
     protected void closeAdminConnection( LdapConnection connection )
     {
@@ -1411,7 +1406,6 @@ public abstract class ApacheDsDataProvider
      * Calls the PoolMgr to close the Log LDAP connection.
      *
      * @param connection handle to ldap connection object.
-     * @throws Exception
      */
     protected void closeLogConnection( LdapConnection connection )
     {
@@ -1430,7 +1424,6 @@ public abstract class ApacheDsDataProvider
      * Calls the PoolMgr to close the User LDAP connection.
      *
      * @param connection handle to ldap connection object.
-     * @throws Exception
      */
     protected void closeUserConnection( LdapConnection connection )
     {
@@ -1449,7 +1442,7 @@ public abstract class ApacheDsDataProvider
      * Calls the PoolMgr to get an Admin connection to the LDAP server.
      *
      * @return ldap connection.
-     * @throws LdapException
+     * @throws LdapException If we had an issue getting an LDAP connection
      */
     protected LdapConnection getAdminConnection() throws LdapException
     {
@@ -1468,7 +1461,7 @@ public abstract class ApacheDsDataProvider
      * Calls the PoolMgr to get an Log connection to the LDAP server.
      *
      * @return ldap connection.
-     * @throws LdapException
+     * @throws LdapException If we had an issue getting an LDAP connection
      */
     protected LdapConnection getLogConnection() throws LdapException
     {
@@ -1487,7 +1480,7 @@ public abstract class ApacheDsDataProvider
      * Calls the PoolMgr to get an User connection to the LDAP server.
      *
      * @return ldap connection.
-     * @throws LdapException
+     * @throws LdapException If we had an issue getting an LDAP connection
      */
     protected LdapConnection getUserConnection() throws LdapException
     {
@@ -1573,10 +1566,8 @@ public abstract class ApacheDsDataProvider
 
     /**
      * Perform encoding on supplied input string for certain unsafe ascii characters.  These chars may be unsafe
-     * because ldap reserves some
-     * characters as operands.  Safe encoding safeguards from malicious scripting input errors that are possible iff
-     * data filtering
-     * did not get performed before being passed into dao layer.
+     * because ldap reserves some characters as operands.  Safe encoding safeguards from malicious scripting input errors 
+     * that are possible if data filtering did not get performed before being passed into dao layer.
      *
      * @param filter contains the data to filter.
      * @return possibly modified input string for matched characters.

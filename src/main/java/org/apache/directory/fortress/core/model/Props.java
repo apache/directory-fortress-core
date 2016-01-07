@@ -39,27 +39,27 @@ import java.util.List;
  *         <p>The following schema fragment specifies the expected content contained within this class.
  *         <p>
  *         <pre>
- *                 &lt;complexType>
- *                   &lt;complexContent>
- *                     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                       &lt;sequence>
- *                         &lt;element name="entry" maxOccurs="unbounded" minOccurs="0">
- *                           &lt;complexType>
- *                             &lt;complexContent>
- *                               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                                 &lt;sequence>
- *                                   &lt;element name="key" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/>
- *                                   &lt;element name="value" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/>
- *                                 &lt;/sequence>
- *                               &lt;/restriction>
- *                             &lt;/complexContent>
- *                           &lt;/complexType>
- *                         &lt;/element>
- *                       &lt;/sequence>
- *                     &lt;/restriction>
- *                   &lt;/complexContent>
- *                 &lt;/complexType>
- *                 </pre>
+ *             &lt;complexType&gt;
+ *               &lt;complexContent&gt;
+ *                 &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                   &lt;sequence&gt;
+ *                     &lt;element name="entry" maxOccurs="unbounded" minOccurs="0"&gt;
+ *                       &lt;complexType&gt;
+ *                         &lt;complexContent&gt;
+ *                           &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *                             &lt;sequence&gt;
+ *                               &lt;element name="key" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/&gt;
+ *                               &lt;element name="value" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/&gt;
+ *                             &lt;/sequence&gt;
+ *                           &lt;/restriction&gt;
+ *                         &lt;/complexContent&gt;
+ *                       &lt;/complexType&gt;
+ *                     &lt;/element&gt;
+ *                   &lt;/sequence&gt;
+ *                 &lt;/restriction&gt;
+ *               &lt;/complexContent&gt;
+ *             &lt;/complexType&gt;
+ *             </pre>
  */
 @XmlRootElement(name = "fortProps")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -111,16 +111,16 @@ public class Props extends FortEntity implements Serializable
      * <p>The following schema fragment specifies the expected content contained within this class.
      *
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence>
-     *         &lt;element name="key" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/>
-     *         &lt;element name="value" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     * &lt;complexType&gt;
+     *   &lt;complexContent&gt;
+     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+     *       &lt;sequence&gt;
+     *         &lt;element name="key" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/&gt;
+     *         &lt;element name="value" type="{http://www.w3.org/2001/XMLSchema}anyType" minOccurs="0"/&gt;
+     *       &lt;/sequence&gt;
+     *     &lt;/restriction&gt;
+     *   &lt;/complexContent&gt;
+     * &lt;/complexType&gt;
      * </pre>
      *
      *

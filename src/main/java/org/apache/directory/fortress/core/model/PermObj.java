@@ -62,7 +62,7 @@ import javax.xml.bind.annotation.XmlType;
  * <li>The {@link PermObj} entity is not used for authorization checks, rather contains {@link org.apache.directory.fortress.core.model.Permission} which are themselves authorization targets.<br>
  * <li>This entity must be associated with a valid Perm OU {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM} that is contained within the {@code ou=OS-P,ou=ARBAC,dc=example,dc=com} location in ldap.
  * <li>The object to operation pairings enable application resources to be mapped to Fortress permissions in a way that is natural for object oriented programming.
- * <li>Permissions = Object {@link PermObj} 1<->* Operations {@link org.apache.directory.fortress.core.model.Permission}
+ * <li>Permissions = Object {@link PermObj} 1&lt;-&gt;* Operations {@link org.apache.directory.fortress.core.model.Permission}
  * <p>
  * <img src="../doc-files/RbacCore.png" alt="">
  * <li>The unique key to locate an Fortress PermObj entity is {@code PermObj#objName}.
@@ -88,6 +88,7 @@ import javax.xml.bind.annotation.XmlType;
  *      ftType
  *  )
  * )
+ * </pre>
  * 2. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity.
  * This aux object class can be used to store custom attributes<br>
  * The properties collections consist of name/value pairs and are not constrainted by Fortress.<br>

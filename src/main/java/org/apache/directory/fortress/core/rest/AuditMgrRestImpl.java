@@ -35,18 +35,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class performs searches across <a href="http://www.openldap.org/">OpenLDAP</a>'s slapd access log using HTTP access to En Masse REST server.
- * The access log events are
+ * This class performs searches across <a href="http://www.openldap.org/">OpenLDAP</a>'s slapd access log using HTTP access 
+ * to En Masse REST server. The access log events are
  * persisted in <a href="http://www.oracle.com/technetwork/database/berkeleydb/overview/index.html">BDB</a>.
- * Audit entries stored on behalf of Fortress operations correspond to runtime authentication {@link org.apache.directory.fortress.core.model.Bind}, authorization {@link org.apache.directory.fortress.core.model.AuthZ} and modification {@link Mod}
+ * Audit entries stored on behalf of Fortress operations correspond to runtime authentication 
+ * {@link org.apache.directory.fortress.core.model.Bind}, authorization 
+ * {@link org.apache.directory.fortress.core.model.AuthZ} and modification {@link Mod}
  * events as they occur automatically on the server when audit is enabled.
+ * <h3></h3>
  * <h4>Audit Interrogator</h4>
  * Provides an OpenLDAP access log retrieval mechanism that enables security event monitoring.
  * <ol>
- * <li>Authentication events:
- * <li>Session enablement events
- * <li>Authorization events
- * <li>Entity mods and deletes
+ *   <li>Authentication events:</li>
+ *   <li>Session enablement events</li>
+ *   <li>Authorization events</li>
+ *   <li>Entity mods and deletes</li>
  * </li>
  * </ol>
  * <img src="../doc-files/Audit.png" alt="">
@@ -57,23 +60,47 @@ import java.util.List;
  * The following APIs generate events subsequently stored in this access log:
  * </h4>
  * <ul>
- * <li> {@link org.apache.directory.fortress.core.AccessMgr}
- * <li> {@link org.apache.directory.fortress.core.AdminMgr}
- * <li> {@link org.apache.directory.fortress.core.AdminMgr}
- * <li> {@link org.apache.directory.fortress.core.DelAdminMgr}
- * <li> {@link org.apache.directory.fortress.core.ConfigMgr}
- * <li> {@link org.apache.directory.fortress.core.PwPolicyMgr}
+ *   <li>{@link org.apache.directory.fortress.core.AccessMgr}</li>
+ *   <li>{@link org.apache.directory.fortress.core.AdminMgr}</li>
+ *   <li>{@link org.apache.directory.fortress.core.AdminMgr}</li>
+ *   <li>{@link org.apache.directory.fortress.core.DelAdminMgr}</li>
+ *   <li>{@link org.apache.directory.fortress.core.ConfigMgr}</li>
+ *   <li>{@link org.apache.directory.fortress.core.PwPolicyMgr}</li>
  * </ul>
  * <h4>
  * The following reports are supported using search input: {@link org.apache.directory.fortress.core.model.UserAudit}
  * </h4>
  * <ul>
- * <li>User Authentications:     <code>List<{@link org.apache.directory.fortress.core.model.Bind}>  {@link org.apache.directory.fortress.core.AuditMgr#searchBinds(org.apache.directory.fortress.core.model.UserAudit)}</code>
- * <li>Invalid Users AuthN:      <code>List<{@link org.apache.directory.fortress.core.model.Bind}>  {@link org.apache.directory.fortress.core.AuditMgr#searchInvalidUsers(org.apache.directory.fortress.core.model.UserAudit)} </code>
- * <li>User Authorizations 1:    <code>List<{@link org.apache.directory.fortress.core.model.AuthZ}> {@link org.apache.directory.fortress.core.AuditMgr#getUserAuthZs(org.apache.directory.fortress.core.model.UserAudit)} </code>
- * <li>User Authorizations 2:    <code>List<{@link org.apache.directory.fortress.core.model.AuthZ}> {@link org.apache.directory.fortress.core.AuditMgr#searchAuthZs(org.apache.directory.fortress.core.model.UserAudit)} </code>
- * <li>User Session Activations: <code>List<{@link Mod}>   {@link org.apache.directory.fortress.core.AuditMgr#searchUserSessions(org.apache.directory.fortress.core.model.UserAudit)} </code>
- * <li>Entity Modifications:     <code>List<{@link Mod}>   {@link org.apache.directory.fortress.core.AuditMgr#searchAdminMods(org.apache.directory.fortress.core.model.UserAudit)} </code>
+ *   <li>
+ *     User Authentications:     <code>List&lt;{@link org.apache.directory.fortress.core.model.Bind}@gt;  
+ *     {@link org.apache.directory.fortress.core.AuditMgr#searchBinds(org.apache.directory.fortress.core.model.UserAudit)}
+ *     </code>
+ *   </li>
+ *   <li>
+ *     Invalid Users AuthN:      <code>List&lt;{@link org.apache.directory.fortress.core.model.Bind}@gt;  
+ *     {@link org.apache.directory.fortress.core.AuditMgr#searchInvalidUsers(
+ *     org.apache.directory.fortress.core.model.UserAudit)} </code>
+ *   </li>
+ *   <li>
+ *     User Authorizations 1:    <code>List&lt;{@link org.apache.directory.fortress.core.model.AuthZ}@gt; 
+ *     {@link org.apache.directory.fortress.core.AuditMgr#getUserAuthZs(org.apache.directory.fortress.core.model.UserAudit)} 
+ *     </code>
+ *   </li>
+ *   <li>
+ *     User Authorizations 2:    <code>List&lt;{@link org.apache.directory.fortress.core.model.AuthZ}@gt; 
+ *     {@link org.apache.directory.fortress.core.AuditMgr#searchAuthZs(org.apache.directory.fortress.core.model.UserAudit)} 
+ *     </code>
+ *   </li>
+ *   <li>
+ *     User Session Activations: <code>List&lt;{@link Mod}@gt;   
+ *     {@link org.apache.directory.fortress.core.AuditMgr#searchUserSessions(
+ *     org.apache.directory.fortress.core.model.UserAudit)} </code>
+ *   </li>
+ *   <li>
+ *     Entity Modifications:     <code>List&lt;{@link Mod}@gt;   
+ *     {@link org.apache.directory.fortress.core.AuditMgr#searchAdminMods(
+ *     org.apache.directory.fortress.core.model.UserAudit)} </code>
+ *   </li>
  * </ul>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

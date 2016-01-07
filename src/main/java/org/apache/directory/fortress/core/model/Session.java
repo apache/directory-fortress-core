@@ -34,70 +34,82 @@ import java.util.UUID;
  * This contains attributes related to a user's RBAC session.
  * The following example shows the mapping to Session attributes on this entity:
  * <p>
- * <ul> <li><code>Session</code>
- * <li> <code>session.getUserId() => demoUser4</code>
- * <li> <code>session.getInternalUserId() => be2dd2e:12a82ba707e:-7fee</code>
- * <li> <code>session.getMessage() => Fortress checkPwPolicies userId <demouser4> VALIDATION GOOD</code>
- * <li> <code>session.getErrorId() => 0</code>
- * <li> <code>session.getWarningId() => 11</code>
- * <li> <code>session.getExpirationSeconds() => 469831</code>
- * <li> <code>session.getGraceLogins() => 0</code>
- * <li> <code>session.getIsAuthenticated() => true</code>
- * <li> <code>session.getLastAccess() => 1283623680440</code>
- * <li> <code>session.getSessionId() => -7410986f:12addeea576:-7fff</code>
- * <li>  ------------------------------------------
- * <li> <code>User user = session.getUser();</code>
- * <ul> <li> <code>user.getUserId() => demoUser4</code>
- * <li> <code>user.getInternalId() => be2dd2e:12a82ba707e:-7fee</code>
- * <li> <code>user.getCn() => JoeUser4</code>
- * <li> <code>user.getDescription() => Demo Test User 4</code>
- * <li> <code>user.getOu() => test</code>
- * <li> <code>user.getSn() => User4</code>
- * <li> <code>user.getBeginDate() => 20090101</code>
- * <li> <code>user.getEndDate() => none</code>
- * <li> <code>user.getBeginLockDate() => none</code>
- * <li> <code>user.getEndLockDate() => none</code>
- * <li> <code>user.getDayMask() => 1234567</code>
- * <li> <code>user.getTimeout() => 60</code>
- * <li> <code>List<UserRole> roles = session.getRoles();</code>
- * <ul> <li><code>UserRole userRole = roles.get(i);</code>
- * <li> <code>userRole.getName() => role1</code>
- * <li> <code>userRole.getBeginTime() => 0000</code>
- * <li> <code>userRole.getEndTime() => 0000</code>
- * <li> <code>userRole.getBeginDate() => none</code>
- * <li> <code>userRole.getEndDate() => none</code>
- * <li> <code>userRole.getBeginLockDate() => null</code>
- * <li> <code>userRole.getEndLockDate() => null</code>
- * <li> <code>userRole.getDayMask() => null</code>
- * <li> <code>userRole.getTimeout() => 0</code>
- * <li> <code>List<UserAdminRole> adminRoles = session.getAdminRoles();</code>
- * </ul>
- * <ul> <li><code>UserAdminRole userAdminRole = adminRoles.get(i);</code>
- * <li> <code>userAdminRole.getName() => DemoAdminUsers</code>
- * <li> <code>userAdminRole.getBeginTime() => 0000</code>
- * <li> <code>userAdminRole.getEndTime() => 0000</code>
- * <li> <code>userAdminRole.getBeginDate() => none</code>
- * <li> <code>userAdminRole.getEndDate() => none</code>
- * <li> <code>userAdminRole.getBeginLockDate() => null</code>
- * <li> <code>userAdminRole.getEndLockDate() => null</code>
- * <li> <code>userAdminRole.getDayMask() => null</code>
- * <li> <code>userAdminRole.getTimeout() => 0</code>
- * <li> <code>userAdminRole.getOsPs() => [ftT3POrg10, ftT4POrg10]</code>
- * <li> <code>userAdminRole.getOsUs() => [ftT1UOrg10, ftT2UOrg10]</code>
- * <li> <code>userAdminRole.getBeginRange() => ftT14Role1</code>
- * <li> <code>userAdminRole.getEndRange() => ftT14Role10</code>
- * <li> <code>userAdminRole.getBeginInclusive() => true</code>
- * <li> <code>userAdminRole.getEndInclusive() => false</code>
- * </ul>
+ * <ul> 
+ *   <li><code>Session</code></li>
+ *   <li><code>session.getUserId() =&gt; demoUser4</code></li>
+ *   <li><code>session.getInternalUserId() =&gt; be2dd2e:12a82ba707e:-7fee</code></li>
+ *   <li><code>session.getMessage() =&gt; Fortress checkPwPolicies userId &lt;demouser4&gt; VALIDATION GOOD</code></li>
+ *   <li><code>session.getErrorId() =&gt; 0</code></li>
+ *   <li><code>session.getWarningId() =&gt; 11</code></li>
+ *   <li><code>session.getExpirationSeconds() =&gt; 469831</code></li>
+ *   <li><code>session.getGraceLogins() =&gt; 0</code></li>
+ *   <li><code>session.getIsAuthenticated() =&gt; true</code></li>
+ *   <li><code>session.getLastAccess() =&gt; 1283623680440</code></li>
+ *   <li><code>session.getSessionId() =&gt; -7410986f:12addeea576:-7fff</code></li>
+ *   <li>------------------------------------------
+ *   <li><code>User user = session.getUser();</code>
+ *   <li>
+ *     <ul>
+ *       <li><code>user.getUserId() =&gt; demoUser4</code></li>
+ *       <li><code>user.getInternalId() =&gt; be2dd2e:12a82ba707e:-7fee</code></li>
+ *       <li><code>user.getCn() =&gt; JoeUser4</code></li>
+ *       <li><code>user.getDescription() =&gt; Demo Test User 4</code></li>
+ *       <li><code>user.getOu() =&gt; test</code></li>
+ *       <li><code>user.getSn() =&gt; User4</code></li>
+ *       <li><code>user.getBeginDate() =&gt; 20090101</code></li>
+ *       <li><code>user.getEndDate() =&gt; none</code></li>
+ *       <li><code>user.getBeginLockDate() =&gt; none</code></li>
+ *       <li><code>user.getEndLockDate() =&gt; none</code></li>
+ *       <li><code>user.getDayMask() =&gt; 1234567</code></li>
+ *       <li><code>user.getTimeout() =&gt; 60</code></li>
+ *       <li><code>List&lt;UserRole&gt; roles = session.getRoles();</code></li>
+ *     </ul>
+ *   </li>
+ *   <li>
+ *     <ul> 
+ *       <li><code>UserRole userRole = roles.get(i);</code></li>
+ *       <li><code>userRole.getName() =&gt; role1</code></li>
+ *       <li><code>userRole.getBeginTime() =&gt; 0000</code></li>
+ *       <li><code>userRole.getEndTime() =&gt; 0000</code></li>
+ *       <li><code>userRole.getBeginDate() =&gt; none</code></li>
+ *       <li><code>userRole.getEndDate() =&gt; none</code></li>
+ *       <li><code>userRole.getBeginLockDate() =&gt; null</code></li>
+ *       <li><code>userRole.getEndLockDate() =&gt; null</code></li>
+ *       <li><code>userRole.getDayMask() =&gt; null</code></li>
+ *       <li><code>userRole.getTimeout() =&gt; 0</code></li>
+ *       <li><code>List&lt;UserAdminRole&gt; adminRoles = session.getAdminRoles();</code></li>
+ *     </ul>
+ *   </li>
+ *   <li>
+ *     <ul>
+ *       <li><code>UserAdminRole userAdminRole = adminRoles.get(i);</code></li>
+ *       <li><code>userAdminRole.getName() =&gt; DemoAdminUsers</code></li>
+ *       <li><code>userAdminRole.getBeginTime() =&gt; 0000</code></li>
+ *       <li><code>userAdminRole.getEndTime() =&gt; 0000</code></li>
+ *       <li><code>userAdminRole.getBeginDate() =&gt; none</code></li>
+ *       <li><code>userAdminRole.getEndDate() =&gt; none</code></li>
+ *       <li><code>userAdminRole.getBeginLockDate() =&gt; null</code></li>
+ *       <li><code>userAdminRole.getEndLockDate() =&gt; null</code></li>
+ *       <li><code>userAdminRole.getDayMask() =&gt; null</code></li>
+ *       <li><code>userAdminRole.getTimeout() =&gt; 0</code></li>
+ *       <li><code>userAdminRole.getOsPs() =&gt; [ftT3POrg10, ftT4POrg10]</code></li>
+ *       <li><code>userAdminRole.getOsUs() =&gt; [ftT1UOrg10, ftT2UOrg10]</code></li>
+ *       <li><code>userAdminRole.getBeginRange() =&gt; ftT14Role1</code></li>
+ *       <li><code>userAdminRole.getEndRange() =&gt; ftT14Role10</code></li>
+ *       <li><code>userAdminRole.getBeginInclusive() =&gt; true</code></li>
+ *       <li><code>userAdminRole.getEndInclusive() =&gt; false</code></li>
+ *     </ul>
+ *   </li>
  * </ul>
  * <p>
+ * 
  * Sample Data data contained within this Entity.
  * <p>
  * Ses UID      [demoUser4]:<br>
  * Ses IID      [ccbb2929-bf01-413d-b768-529de4d428e5]<br>
  * Ses ERR      [0]<br>
  * Ses WARN     [10]<br>
- * Ses MSG      [checkPwPolicies for userId <demouser4> PASSWORD CHECK SUCCESS]<br>
+ * Ses MSG      [checkPwPolicies for userId &lt;demouser4&gt; PASSWORD CHECK SUCCESS]<br>
  * Ses EXP      [0]<br>
  * Ses GRAC     [0]<br>
  * Ses AUTH     [true]<br>
@@ -288,30 +300,30 @@ public class Session  extends FortEntity implements PwMessage, Serializable
      * U   PROP[0]=customerNumber VAL=3213432<br>
      * <p>
      * USER ROLE[0]:<br>
-     * role name <role1><br>
-     * begin time <0000><br>
-     * end time <0000><br>
-     * begin date <none><br>
-     * end date <none><br>
-     * begin lock <none><br>
-     * end lock <none><br>
-     * day mask <all><br>
-     * time out <0><br>
+     * role name &lt;role1&gt;<br>
+     * begin time &lt;0000&gt;<br>
+     * end time &lt;0000&gt;<br>
+     * begin date &lt;none&gt;<br>
+     * end date &lt;none&gt;<br>
+     * begin lock &lt;none&gt;<br>
+     * end lock &lt;none&gt;<br>
+     * day mask &lt;all&gt;<br>
+     * time out &lt;0&gt;<br>
      * <p>
      * USER ADMIN ROLE[0]:<br>
-     * admin role name <DemoAdminUsers><br>
-     * OsU <null><br>
-     * OsP <null><br>
-     * begin range <null><br>
-     * end range <null><br>
-     * begin time <0000><br>
-     * end time <0000><br>
-     * begin date <none><br>
-     * end date <none><br>
-     * begin lock <none><br>
-     * end lock <none><br>
-     * day mask <all><br>
-     * time out <0><br>
+     * admin role name &lt;DemoAdminUsers&gt;<br>
+     * OsU &lt;null&gt;<br>
+     * OsP &lt;null&gt;<br>
+     * begin range &lt;null&gt;<br>
+     * end range &lt;null&gt;<br>
+     * begin time &lt;0000&gt;<br>
+     * end time &lt;0000&gt;<br>
+     * begin date &lt;none&gt;<br>
+     * end date &lt;none&gt;<br>
+     * begin lock &lt;none&gt;<br>
+     * end lock &lt;none&gt;<br>
+     * day mask &lt;all&gt;<br>
+     * time out &lt;0&gt;<br>
      * <p>
      * @return User entity that contains userid, roles and other attributes valid for Session.
      */
@@ -505,30 +517,30 @@ public class Session  extends FortEntity implements PwMessage, Serializable
      * U   PROP[0]=customerNumber VAL=3213432<br>
      * <p>
      * USER ROLE[0]:<br>
-     * role name <role1><br>
-     * begin time <0000><br>
-     * end time <0000><br>
-     * begin date <none><br>
-     * end date <none><br>
-     * begin lock <none><br>
-     * end lock <none><br>
-     * day mask <all><br>
-     * time out <0><br>
+     * role name &lt;role1&gt;<br>
+     * begin time &lt;0000&gt;<br>
+     * end time &lt;0000&gt;<br>
+     * begin date &lt;none&gt;<br>
+     * end date &lt;none&gt;<br>
+     * begin lock &lt;none&gt;<br>
+     * end lock &lt;none&gt;<br>
+     * day mask &lt;all&gt;<br>
+     * time out &lt;0&gt;<br>
      * <p>
      * USER ADMIN ROLE[0]:<br>
-     * admin role name <DemoAdminUsers><br>
-     * OsU <null><br>
-     * OsP <null><br>
-     * begin range <null><br>
-     * end range <null><br>
-     * begin time <0000><br>
-     * end time <0000><br>
-     * begin date <none><br>
-     * end date <none><br>
-     * begin lock <none><br>
-     * end lock <none><br>
-     * day mask <all><br>
-     * time out <0><br>
+     * admin role name &lt;DemoAdminUsers&gt;<br>
+     * OsU &lt;null&gt;<br>
+     * OsP &lt;null&gt;<br>
+     * begin range &lt;null&gt;<br>
+     * end range &lt;null&gt;<br>
+     * begin time &lt;0000&gt;<br>
+     * end time &lt;0000&gt;<br>
+     * begin date &lt;none&gt;<br>
+     * end date &lt;none&gt;<br>
+     * begin lock &lt;none&gt;<br>
+     * end lock &lt;none&gt;<br>
+     * day mask &lt;all&gt;<br>
+     * time out &lt;0&gt;<br>
      * <p>
      * @param user Contains userId, roles and other security attributes used for access control.
      */
