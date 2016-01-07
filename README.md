@@ -377,7 +377,7 @@ ________________________________________________________________________________
 ___________________________________________________________________________________
 # SECTION 11. Instructions to run the command console.
 
-1. From **FORTRESS_HOME** enter the following command:
+From **FORTRESS_HOME** enter the following command:
 
  ```
  mvn -Pconsole test
@@ -414,7 +414,7 @@ To load test fortress createSession or checkAccess performance using jmeter:
 
 1. Update .jmx located under **FORTRESS_HOME**/src/test/jmeter folder.
 
-e.g. ftCheckAccess.jmx
+ e.g. ftCheckAccess.jmx
 
 2. Load the security policy and users required by the jmeter test routines:
 
