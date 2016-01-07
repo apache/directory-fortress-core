@@ -335,6 +335,7 @@ ________________________________________________________________________________
  ```
 
  These will build the Directory Information Tree, load the configuration node and security policy needed for integration testing.
+ Never run in production environment as **refreshLDAPData.xml** tears down all nodes under the target suffix.
 
 2. Next, from **FORTRESS_HOME** enter the following command:
 
