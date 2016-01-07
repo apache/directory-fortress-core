@@ -19,7 +19,7 @@
 -------------------------------------------------------------------------------
 # README for Apache Fortress Core
  * Version 1.0-RC41
- * last updated: January 6, 2016
+ * last updated: January 7, 2016
 
 -------------------------------------------------------------------------------
 # Table of Contents
@@ -328,24 +328,91 @@ Usage Notes:
 ___________________________________________________________________________________
 # SECTION 8. Instructions to integration test.
 
-From **FORTRESS_HOME** enter the following command:
+1. From **FORTRESS_HOME** enter the following commands:
+ ```
+ mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
+ mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml
+ ```
+
+ These will build the Directory Information Tree, load the configuration node and security policy needed for integration testing.
+
+2. Next, from **FORTRESS_HOME** enter the following command:
 
  ```
  mvn -Dtest=FortressJUnitTest test
  ```
 
+ Tests that all of the APIs and security functions work on your LDAP server.
+
+3. Verify the tests worked:
+ ```
+ Tests run: 113, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 196 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
+
+ Results :
+
+ Tests run: 113, Failures: 0, Errors: 0, Skipped: 0
+
+ [INFO]
+ [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
+ [INFO] Executing tasks
+
+ fortress-load:
+ [INFO] Executed tasks
+ [INFO] ------------------------------------------------------------------------
+ [INFO] BUILD SUCCESS
+ [INFO] ------------------------------------------------------------------------
+ [INFO] Total time: 03:19 min
+ [INFO] Finished at: 2016-01-07T09:28:18-06:00
+ [INFO] Final Memory: 27M/532M
+ [INFO] ------------------------------------------------------------------------
+ ```
+
+4. Rerun the tests to verify teardown APIs work:
+ ```
+ mvn -Dtest=FortressJUnitTest test
+ ```
+
+5. Verify that worked also:
+ ```
+ Tests run: 141, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 207.081 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
+
+ Results :
+
+ Tests run: 141, Failures: 0, Errors: 0, Skipped: 0
+
+ [INFO]
+ [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
+ [INFO] Executing tasks
+
+ fortress-load:
+ [INFO] Executed tasks
+ [INFO] ------------------------------------------------------------------------
+ [INFO] BUILD SUCCESS
+ [INFO] ------------------------------------------------------------------------
+ [INFO] Total time: 03:30 min
+ [INFO] Finished at: 2016-01-07T09:33:11-06:00
+ [INFO] Final Memory: 27M/531M
+ [INFO] ------------------------------------------------------------------------
+ ```
+ Notice 141 tests ran this time vs 113 the first time.
+ ```
+
+5. You can now clear out the test data and policies by running this command again:
+ ```
+ mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
+ ```
+
  Test Notes:
-  * If tests complete without Junit ERRORS, current Fortress is certified to run on target ldap server.
-  * Tests load thousands of records into target ldap server.
-  * The 2nd and subsequent time tests runs, teardown of data from prior run occurs.
-  * Should be run at least twice to verify Fortress Core teardown API success.
-  * After this target runs, the organizationalUnit structure must remain in target LDAP DIT.
-  * WARNING log messages are good as these are negative tests in action:
+  * If tests complete without errors Apache Fortress wors with your LDAP server.
+  * These tests load thousands of records into target ldap server.
+  * The 2nd and subsequent time test runs, teardown of data occurs.
+  * WARNING messages are negative tests in action:
 
 ___________________________________________________________________________________
 # SECTION 9. Instructions to load policy data using maven fortress-load.
 
-Loads policy data into ldap.
+ The Fortress Load utility is useful to create base policy configurations that need to be rerun many times in different test and production environments.
+ For samples look here: [./ldap/setup](./ldap/setup).
 
 1. Create a load file using examples from **FORTRESS_HOME**/ldap/setup folder.
 
@@ -365,23 +432,160 @@ Policy Load Notes:
 ___________________________________________________________________________________
 # SECTION 10. Instructions to run the command line interpreter (CLI) utility.
 
+ The Fortress CLI is useful for ad-hoc policy administration in runtime environments.
+
 1. From **FORTRESS_HOME** enter the following command:
 
  ```
  mvn -Pcli test
   ```
 
-2. follow instructions in the command line interpreter reference manual contained within the generated javadoc:
+2. Which starts the Fortress command line interpreter:
+ ```
+ CommandLineInterpreter:176 - Startup to interactive mode success...
+ CommandLineInterpreter:183 - CLI function groups include admin, review, system, dadmin, group
+ CommandLineInterpreter:185 - Enter one from above or 'q' to quit
+ ```
+
+3. Where subsequent commands can be performed.  For example to add a new user:
+ ```
+ admin auser -u testuser1 -p mypasword123 -o dev1
+ 2016-01-07 09:17:030 INFO  CommandLineInterpreter:1078 - arg:admin
+ 2016-01-07 09:17:030 INFO  CommandLineInterpreter:1078 - arg:auser
+ 2016-01-07 09:17:030 INFO  CommandLineInterpreter:1078 - arg:-u
+ 2016-01-07 09:17:030 INFO  CommandLineInterpreter:1078 - arg:testuser1
+ 2016-01-07 09:17:030 INFO  CommandLineInterpreter:1078 - arg:-p
+ 2016-01-07 09:17:030 INFO  CommandLineInterpreter:1078 - arg:-o
+ 2016-01-07 09:17:030 INFO  CommandLineInterpreter:1078 - arg:dev1
+ 2016-01-07 09:17:030 INFO  CommandLineInterpreter:487 - auser
+ 2016-01-07 09:17:030 INFO  CommandLineInterpreter:683 - command:auser was successful
+ 2016-01-07 09:17:030 INFO  CommandLineInterpreter:183 - CLI function groups include admin, review, system, dadmin, group
+ 2016-01-07 09:17:030 INFO  CommandLineInterpreter:185 - Enter one from above or 'q' to quit
+ ```
+
+4. Or to interrogate users:
+ ```
+ review fuser -u testuser1
+ 2016-01-07 09:18:042 INFO  CommandLineInterpreter:1078 - arg:review
+ 2016-01-07 09:18:042 INFO  CommandLineInterpreter:1078 - arg:fuser
+ 2016-01-07 09:18:042 INFO  CommandLineInterpreter:1078 - arg:-u
+ 2016-01-07 09:18:042 INFO  CommandLineInterpreter:1078 - arg:testuser1
+ 2016-01-07 09:18:042 INFO  CommandLineInterpreter:713 - fuser
+ 2016-01-07 09:18:042 INFO  CommandLineInterpreter:1443 - U   CTR  [0]
+ 2016-01-07 09:18:042 INFO  CommandLineInterpreter:1443 - U   UID  [testuser1]
+ 2016-01-07 09:18:042 INFO  CommandLineInterpreter:1443 - U   IID  [20ef2dfd-0b86-41a5-87d6-f7081e455d76]
+ 2016-01-07 09:18:042 INFO  CommandLineInterpreter:1443 - U   CN   [testuser1]
+ 2016-01-07 09:18:042 INFO  CommandLineInterpreter:1443 - U   DESC [null]
+ 2016-01-07 09:18:042 INFO  CommandLineInterpreter:1443 - U   OU   [dev1]
+ 2016-01-07 09:18:042 INFO  CommandLineInterpreter:1443 - U   SN   [testuser1]
+ ```
+
+5. Or perform any of the other APIs in a shell interpreter, follow instructions in the command line interpreter reference manual contained within the generated javadoc:
  * [./target/site/apidocs/org/apache/directory/fortress/core/cli/package-summary.html/package-summary.html](./target/site/apidocs/org/apache/directory/fortress/core/cli/package-summary.html)
 
 ___________________________________________________________________________________
 # SECTION 11. Instructions to run the command console.
 
-From **FORTRESS_HOME** enter the following command:
+ The Fortress Console is an interactive program that is useful for ad-hoc creating and testing of data.
+
+1. From **FORTRESS_HOME** enter the following command:
 
  ```
  mvn -Pconsole test
  ```
+
+2. Is a menu-driven program.  Select option:
+
+ ```
+ CHOOSE FUNCTION:
+ 1. RBAC ADMIN MANAGER
+ 2. RBAC REVIEW MANAGER
+ 3. RBAC ACCESS MANAGER
+ 4. ARBAC ADMIN MANAGER
+ 5. ARBAC REVIEW MANAGER
+ 6. ARBAC ACCESS MANAGER
+ 7. PASSWORD POLICY MANAGER
+ 8. AUDIT MANAGER
+ 9. CONFIG MANAGER
+ A. ENCRYPTION MANAGER
+ B. GROUP MANAGER
+ C. RBAC ACCELERATOR MANAGER
+ Enter q or Q to quit
+ ```
+
+3. Option 1 performs Administrative operations:
+ ```
+CHOOSE ADMIN MANAGER FUNCTION:
+ 1.  Add User
+ 2.  Update User
+ 3.  Delete User
+ 4.  Unlock User
+ 5.  Lock User Account
+ 6.  Reset User Password
+ 7.  Change User Password
+ 8.  Add Perm Object
+ 9.  Add Perm Operation
+ 0.  Delete  Perm
+ A.  Add Role
+ B.  Update Role
+ C.  Delete Role
+ D.  Assign User to Role
+ E.  Deassign User from Role
+ F.  Grant Perm to Role
+ G.  Revoke Perm from Role
+ H.  Grant Perm to User
+ I.  Revoke Perm from User
+ J.  Add Role Inheritance
+ K.  Remove Role Inheritance
+ L.  Add Role Ascendant
+ M.  Add Role Descendant
+ N.  Add SSD Data Set
+ O.  Add DSD Data Set
+ X.  Test Annotation
+ Y.  Add Example
+ Z.  Test Config
+ Enter q or Q to return to previous menu
+ ```
+
+4. Option 2 performs Review operations:
+ ```
+ CHOOSE REVIEW MANAGER FUNCTION:
+ 0. Search Users
+ 1. Search Users by OU
+ 2. Get User by IID
+ 3. Read User
+ 4. Search Permissions
+ 5. Read Permissions
+ 6. Read Role
+ 7. Search Roles
+ 8. Perm Roles
+ 9. Perm Users
+ A. Authorized Users
+ B. Role Permissions
+ C. Get Assigned Roles
+ Enter q or Q to return to previous menu
+ ```
+
+5. Option 3 performs Access operations (for testing):
+ ```
+ CHOOSE ACCESS MANAGER FUNCTION:
+ 1. Authenticate
+ 2. Create Session
+ 3. Create Session Trusted
+ 4. Create Session with Roles Trusted
+ 5. Create Session with Props
+ 6. Check Access - RBAC
+ 7. Session Roles
+ 8. Add Active Role to Session
+ 9. Drop Active Role from Session
+ 0. Show User Data in Session
+ A. Show UserId in Session
+ B. Session Permissions
+ Enter q or Q to return to previous menu
+ ```
+
+6. Etc...
+
 ___________________________________________________________________________________
 # SECTION 12. Instructions to build and test the Apache Fortress samples.
 
@@ -456,6 +660,7 @@ use the 'encrypt' ant target.
  # This OpenLDAP admin root pass is bound for fortress.properties and was hashed using 'encrypt' target in build.xml:
  cfg.log.root.pw=wApnJUnuYZRBTF1zQNxX/Q==
  ```
+
 
  ___________________________________________________________________________________
  #### END OF README
