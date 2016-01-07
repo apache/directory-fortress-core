@@ -34,7 +34,7 @@
  * SECTION 6.  Instructions for installing OpenLDAP.
  * SECTION 7.  Instructions for using Apache Fortress with OpenLDAP.
  * SECTION 8.  Instructions to integration test.
- * SECTION 9.  Instructions to load policy data using maven fortress-load.
+ * SECTION 9.  Instructions to load policy data using Apache Fortress load utility.
  * SECTION 10. Instructions to run the command line interpreter (CLI) utility.
  * SECTION 11. Instructions to run the command console.
  * SECTION 12. Instructions to build and test the Apache Fortress samples.
@@ -409,7 +409,7 @@ ________________________________________________________________________________
   * WARNING messages are negative tests in action:
 
 ___________________________________________________________________________________
-# SECTION 9. Instructions to load policy data using maven fortress-load.
+# SECTION 9. Instructions to load policy data using Apache Fortress load utility.
 
  The Fortress Load utility is useful to create base policy configurations that need to be rerun many times in different test and production environments.
  For samples look here: [./ldap/setup](./ldap/setup).
