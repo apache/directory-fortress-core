@@ -20,6 +20,9 @@
 # README for Apache Fortress Core
  * Version 1.0-RC41
  * last updated: January 7, 2016
+ * Apache Fortress Core System Architecture Diagram
+ ![Apache Fortress Core System Architecture](images/fortress-core-system-arch.png "Apache Fortress Core System Architecture")
+
 
 -------------------------------------------------------------------------------
 # Table of Contents
