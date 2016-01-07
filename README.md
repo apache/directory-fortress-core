@@ -26,7 +26,7 @@
  * Document Overview
  * Tips for first-time users of Apache Fortress
  * SECTION 0.  Prerequisites
- * SECTION 1.  Options for testing Apache Fortress with an LDAP server.
+ * SECTION 1.  Options for using Apache Fortress and LDAP server together.
  * SECTION 2.  Instructions for using Apache Fortress and ApacheDS LDAP server.
  * SECTION 3.  Instructions for using Apache Fortress and Symas OpenLDAP server.
  * SECTION 4.  Instructions to pull Apache Fortress Core source code from Apache GIT
@@ -77,7 +77,7 @@ Notes:
  * Tested on Debian, Centos and Windows machines.
 
 ___________________________________________________________________________________
-# SECTION 1.  Options for testing Apache Fortress with an LDAP server.
+# SECTION 1.  Options for using Apache Fortress and LDAP server together.
 
 This document contains three options for installing Apache Fortress and configuration with an LDAP server:
 
