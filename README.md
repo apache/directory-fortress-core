@@ -234,7 +234,7 @@ include		OPENLDAP_HOME/etc/openldap/schema/fortress.schema
 ___________________________________________________________________________________
 # SECTION 7. Instructions for using Apache Fortress with OpenLDAP.
 
-1. Copy FORTRESS_HOME/build.properties.example to build.properties
+1. Copy FORTRESS_HOME/build.properties.example to build.properties and FORTRESS_HOME/slapd.properties.example to slapd.properties:
  ```
  cp build.properties.example build.properties
  cp slapd.properties.example slapd.properties
