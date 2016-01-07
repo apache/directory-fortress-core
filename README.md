@@ -311,7 +311,12 @@ ________________________________________________________________________________
  log.ops=logops search bind writes
  ```
 
-8. Perform the base load:
+8. Seed the properties into configuration artifacts:
+ ```
+ mvn install
+ ```
+
+9. Perform the base load of Directory Information Tree:
  ```
  mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
  ```
