@@ -106,44 +106,63 @@ ls -l ldap/setup/refreshLDAPData.xml
     </li>
 
     <li>
-        Load the fortress schema contained in <b>ldap/schema/apacheds-fortress.ldif</b> to ApacheDS instance using
-        Apache Directory Studio.
-
+        Load the Apache Fortress schema.
         <br/><br/>
-
         <ol type="A">
+            Choose one option:
+            <br/><br/>
             <li>
-                In Apache Directory Studio LDAP Browser perspective, select Root DSE, right-click, and choose
-                Import->LDIF Import
+                Load the fortress schema contained in <b>ldap/schema/apacheds-fortress.ldif</b> to ApacheDS instance using command line.
+                <pre>
+                    <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+ldapmodify -h localhost -p 10389 -D uid=admin,ou=system -w secret -a -f FORTRESS_HOME/ldap/schema/apacheds-fortress.ldif
+                    </p>
+                </pre>
             </li>
-            <br/><img src="./schema-import-screenshot1.png" height="50%" width="50%" alt="Schema Import"/><br/><br/>
 
-            <br/>
-
-            <li>
-                Next a dialog box will appear where you can enter the fully qualified file name of the fortress schema.
-            </li>
-            <br/><img src="./schema-import-screenshot2.png" height="50%" width="50%" alt="Schema Import 2"/><br/><br/>
-
-            <br/>
-
-            <li>
-                The schema file is located under the fortress core base package/ldap/schema/apacheds-fortress.ldif
-            </li>
-            <br/><img src="./schema-import-screenshot3.png" height="50%" width="50%" alt="Schema Import 3"/><br/><br/>
-
-            <br/>
+            OR
+            <br/><br/>
 
             <li>
-                Verify success by viewing the cn=fortress schema node.
+                Load the fortress schema contained in <b>ldap/schema/apacheds-fortress.ldif</b> to ApacheDS instance using
+                Apache Directory Studio.
+
+                <br/><br/>
+
+                <ol type="i">
+                    <li>
+                        In Apache Directory Studio LDAP Browser perspective, select Root DSE, right-click, and choose
+                        Import->LDIF Import
+                    </li>
+                    <br/><img src="./schema-import-screenshot1.png" height="50%" width="50%" alt="Schema Import"/><br/><br/>
+
+                    <br/>
+
+                    <li>
+                        Next a dialog box will appear where you can enter the fully qualified file name of the fortress schema.
+                    </li>
+                    <br/><img src="./schema-import-screenshot2.png" height="50%" width="50%" alt="Schema Import 2"/><br/><br/>
+
+                    <br/>
+
+                    <li>
+                        The schema file is located under the fortress core base package/ldap/schema/apacheds-fortress.ldif
+                    </li>
+                    <br/><img src="./schema-import-screenshot3.png" height="50%" width="50%" alt="Schema Import 3"/><br/><br/>
+
+                    <br/>
+
+                    <li>
+                        Verify success by viewing the cn=fortress schema node.
+                    </li>
+                    <br/><img src="./schema-import-screenshot4.png" height="50%" width="50%" alt="Schema Import 4"/><br/><br/>
+
+                </ol>
             </li>
-            <br/><img src="./schema-import-screenshot4.png" height="50%" width="50%" alt="Schema Import 4"/><br/><br/>
 
         </ol>
 
     </li>
-
-    <br/>
 
     <li>
         Setup partition in ApacheDS server matching ldap server params in <b>config/fortress.properties</b> file.

@@ -19,7 +19,7 @@
 -------------------------------------------------------------------------------
 # README for Apache Fortress Ten Minute Guide
  * Version 1.0-RC41
- * last updated: January 5, 2016
+ * last updated: January 6, 2016
 
 -------------------------------------------------------------------------------
 # Document Overview
@@ -37,9 +37,8 @@ Minimum hardware requirements:
 
 Minimum software requirements:
  * Java SDK 7++
- * git
- * Apache Ant 1.7++
  * Apache Maven3++
+ * git
 
 Everything else covered in steps that follow.  Tested on Debian & Centos systems.
 
