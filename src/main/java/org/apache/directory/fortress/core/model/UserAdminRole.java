@@ -39,7 +39,7 @@ import org.apache.directory.fortress.core.GlobalIds;
  * The contents of the UserAdminRole entity will be stored on the User entity in the 'ftARA' (AdminRole name) and 'ftARC' (Temporal and ARBAC Constraints) attributes on the 'ftUserAttrs' object class.
  * The UserAdminRole entity carries elements of {@link Constraint}.  Any attributes of Constraint not set within this entity
  * will use same attribute from the {@link AdminRole} entity.  Thus the UserAdminRole can override Constraint attributes from it's corresponding AdminRole if required by caller.
- * <p/>
+ * <p>
  * <h4>UserAdminRole Schema</h4>
  * ftUserAttrs is used to store RBAC and ARBAC Role role assignments and other security attributes on User entity.
  * <pre>
@@ -63,7 +63,6 @@ import org.apache.directory.fortress.core.GlobalIds;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

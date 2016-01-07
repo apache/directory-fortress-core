@@ -128,8 +128,6 @@ public abstract class Manageable implements org.apache.directory.fortress.core.M
      * @param opName contains operation name.
      * @param entity  used to pass contextual information through Fortress layers for administrative security checks and 
      * audit.
-     * @throws org.apache.directory.fortress.core.SecurityException
-     *          in the event of data validation or system error.
      */
     protected final void setAdminData(String className, String opName, FortEntity entity)
     {
@@ -139,6 +137,7 @@ public abstract class Manageable implements org.apache.directory.fortress.core.M
             entity.setAdminSession(this.adminSess);
             entity.setModCode(AdminUtil.getObjName(perm.getObjName()) + "." + perm.getOpName());
         }
+        
         entity.setContextId(this.contextId);
     }
 

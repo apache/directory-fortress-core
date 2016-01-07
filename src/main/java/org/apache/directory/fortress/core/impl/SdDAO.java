@@ -54,7 +54,7 @@ import org.apache.directory.fortress.core.model.Role;
 
 /**
  * This class performs persistence on the RBAC Static Separation of Duties and Dynamic Separation of Duties data sets.
- * <p/>
+ * <p>
  * The Fortress SDSet entity is a composite of the following other Fortress structural and aux object classes:
  * <h4>1. organizationalRole Structural Object Class is used to store basic attributes like cn and description</h4>
  * <ul>
@@ -83,7 +83,7 @@ import org.apache.directory.fortress.core.model.Role;
  * <li> <code>MAY ( ftRoles $ description ) )</code>
  * <li>  ------------------------------------------
  * </ul>
- * <p/>
+ * <p>
  * OR
  * <h4>Dynamic Separation of Duties Set</h4>
  * <ul>
@@ -109,9 +109,8 @@ import org.apache.directory.fortress.core.model.Role;
  * <li> <code>ftModId ) )</code>
  * <li>  ------------------------------------------
  * </ul>
- * <p/>
+ * <p>
  * This class is thread safe.
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

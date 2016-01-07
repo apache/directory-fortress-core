@@ -34,8 +34,8 @@ import org.apache.directory.fortress.core.util.VUtil;
 /**
  * Process module for Separation of Duty Relation data sets. The Fortress SD data set can be of two types:
  * <ol>
- * <li>Static Separation of Duties (SSD)</li>
- * <li>Dynamic Separation of Duties (DSD)</li>
+ *   <li>Static Separation of Duties (SSD)</li>
+ *   <li>Dynamic Separation of Duties (DSD)</li>
  * </ol>
  * The SDSet entity itself distinguishes which is being targeted by {@link org.apache.directory.fortress.core.model.SDSet.SDType} which is equal to {@link org.apache.directory.fortress.core.model.SDSet.SDType#STATIC} or {@link org.apache.directory.fortress.core.model.SDSet.SDType#DYNAMIC}.
  * This class performs data validations and error mapping in addition to calling DAO methods.  It is typically called
@@ -50,7 +50,6 @@ import org.apache.directory.fortress.core.util.VUtil;
  * error id from {@link org.apache.directory.fortress.core.GlobalErrIds}.
  * <p>
  * This class is thread safe.
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

@@ -79,10 +79,10 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 
 /**
  * Data access class for LDAP User entity.
- * <p/>
- * <p/>
+ * <p>
+ * <p>
  * The Fortress User LDAP schema follows:
- * <p/>
+ * <p>
  * <h4>1. InetOrgPerson Structural Object Class </h4>
  * <code># The inetOrgPerson represents people who are associated with an</code><br>
  * <code># organization in some way.  It is a structural class and is derived</code><br>
@@ -115,7 +115,7 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
  * <li> <code>MAY ( ftProps ) ) </code>
  * <li>  ------------------------------------------
  * </ul>
- * <p/>
+ * <p>
  * <h4>3. ftUserAttrs is used to store user RBAC and Admin role assignment and other security attributes on User
  * entity</h4>
  * <ul>
@@ -140,7 +140,7 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
  * <li> <code>ftModId ) )</code>
  * <li>  ------------------------------------------
  * </ul>
- * <p/>
+ * <p>
  * This class is thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

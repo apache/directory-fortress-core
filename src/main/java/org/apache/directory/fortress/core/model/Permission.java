@@ -52,44 +52,75 @@ import javax.xml.bind.annotation.XmlType;
     )
 */
 /**
- * All entities ({@link User}, {@link Role}, {@link Permission},
- * {@link PwPolicy} {@link SDSet} etc...) are used to carry data between three Fortress
- * layers.starting with the (1) Manager layer down thru middle (2) Process layer and it's processing rules into
- * (3) DAO layer where persistence with the LDAP server occurs.
+ * All entities ({@link User}, {@link Role}, {@link Permission}, {@link PwPolicy} {@link SDSet} etc...) are used to carry 
+ * data between three Fortress layers, starting with the (1) Manager layer down thru middle (2) Process layer and it's 
+ * processing rules into (3) DAO layer where persistence with the LDAP server occurs.
+ * <h3></h3>
  * <h4>Fortress Processing Layers</h4>
  * <ol>
- * <li>Manager layer:  {@link org.apache.directory.fortress.core.impl.AdminMgrImpl}, {@link org.apache.directory.fortress.core.impl.AccessMgrImpl}, {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl},...</li>
- * <li>Process layer:  {@link org.apache.directory.fortress.core.impl.UserP}, {@link org.apache.directory.fortress.core.impl.RoleP}, {@link org.apache.directory.fortress.core.impl.PermP},...</li>
- * <li>DAO layer: {@link org.apache.directory.fortress.core.impl.UserDAO}, {@link org.apache.directory.fortress.core.impl.RoleDAO}, {@link org.apache.directory.fortress.core.impl.PermDAO},...</li>
+ *   <li>
+ *     Manager layer:  {@link org.apache.directory.fortress.core.impl.AdminMgrImpl}, 
+ *     {@link org.apache.directory.fortress.core.impl.AccessMgrImpl}, 
+ *     {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl},...
+ *   </li>
+ *   <li>
+ *     Process layer:  {@link org.apache.directory.fortress.core.impl.UserP}, 
+ *     {@link org.apache.directory.fortress.core.impl.RoleP}, {@link org.apache.directory.fortress.core.impl.PermP},...
+ *   </li>
+ *   <li>
+ *     DAO layer: {@link org.apache.directory.fortress.core.impl.UserDAO}, 
+ *     {@link org.apache.directory.fortress.core.impl.RoleDAO}, {@link org.apache.directory.fortress.core.impl.PermDAO},...
+ *   </li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br>
- * For example, this entity requires {@link #setObjName} and {@link #setOpName} attributes set before passing into {@link org.apache.directory.fortress.core.impl.AccessMgrImpl} APIs.
+ * For example, this entity requires {@link #setObjName} and {@link #setOpName} attributes set before passing into 
+ * {@link org.apache.directory.fortress.core.impl.AccessMgrImpl} APIs.
  * Create methods usually require more attributes (than Read) due to constraints enforced between entities.
- * <p/>
  * <h4>Permission entity attribute usages include</h4>
  * <ul>
- * <li>{@link #setObjName} and {@link #setOpName} attributes set before calling {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#checkAccess(Session, Permission)}.
- * <li>{@link #getRoles} may be set after calling {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl#readPermission(Permission)} or {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#sessionPermissions(Session)}.
- *
- * <li>{@link #getUsers} may be set after calling {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl#readPermission(Permission)} or {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#sessionPermissions(Session)}.
- *
+ *   <li>
+ *     {@link #setObjName} and {@link #setOpName} attributes set before calling 
+ *     {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#checkAccess(Session, Permission)}.
+ *   </li>
+ *   <li>
+ *     {@link #getRoles} may be set after calling 
+ *     {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl#readPermission(Permission)} or 
+ *     {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#sessionPermissions(Session)}.
+ *   </li>
+ *   <li>
+ *     {@link #getUsers} may be set after calling 
+ *     {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl#readPermission(Permission)} or 
+ *     {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#sessionPermissions(Session)}.
+ *   </li>
  * </ul>
- * <p/>
  * <h4>More Permission entity notes</h4>
  * <ul>
- * <li>The unique key to locate a Permission entity (which is required for all authZ requests) is {@link Permission#objName} and {@link Permission#opName}.<br>
- * <li>The Permission entity is used to target function points within computer programs needing authorization. This permission model allows a one-to-many relationship between the objects {@link PermObj} and operations {@link Permission}.
- * <p/>
- * <img src="../doc-files/RbacCore.png">
- * <li>The object to operation pairings enable application resources to be mapped to Fortress permissions in a way that is natural for object oriented programming.
- * <li>Permissions = Object {@link PermObj} 1<->* Operations {@link Permission}
- * <li>Permissions in Fortress may also be assigned directly to {@link #users}.
- * <li>Objects {@link #objName}, Operations {@link #opName}, Roles {@link #roles}, Users {@link #users} are not case sensitive for reads or searches.
+ *   <li>
+ *     The unique key to locate a Permission entity (which is required for all authZ requests) is {@link Permission#objName} 
+ *     and {@link Permission#opName}.<br>
+ *   </li>
+ *   <li>
+ *     The Permission entity is used to target function points within computer programs needing authorization. This 
+ *     permission model allows a one-to-many relationship between the objects {@link PermObj} and operations 
+ *     {@link Permission}.
+ *     <p>
+ *     <img src="../doc-files/RbacCore.png" alt="">
+ *   </li>
+ *   <li>
+ *     The object to operation pairings enable application resources to be mapped to Fortress permissions in a way that is 
+ *     natural for object oriented programming.
+ *   </li>
+ *   <li>Permissions = Object {@link PermObj} 1<->* Operations {@link Permission}</li>
+ *   <li>Permissions in Fortress may also be assigned directly to {@link #users}.</li>
+ *   <li>
+ *     Objects {@link #objName}, Operations {@link #opName}, Roles {@link #roles}, Users {@link #users} are not case 
+ *     sensitive for reads or searches.
+ *   </li>
  * </ul>
- * <p/>
- * The application entity that requires authorization will be mapped to the {@link PermObj} entity and the application's methods or operation names
- * will be mapped to {@link Permission} entities.
+ * <p>
+ * The application entity that requires authorization will be mapped to the {@link PermObj} entity and the application's 
+ * methods or operation names will be mapped to {@link Permission} entities.
  * For example, the application entity 'ShoppingCart' has 5 operations - 'create', 'read', 'update', 'delete' and 'checkout'.
  * The following code will create the permissions and perform the necessary grants.
  * <pre>
@@ -130,23 +161,26 @@ import javax.xml.bind.annotation.XmlType;
  *  // log or throw
  * }
  * </pre>
- * <p/>
  * <h4>Notes on the shopping cart example</h4>
  * <ul>
- * <li> {@link User} that activate 'Manager' role into their Sessions will be allowed access to 'ShoppingCart.delete' permission.
- * <li> {@link User} that activate 'Admin' role may perform 'ShoppingCart.update'.
- * <li> {@link User} with 'Customer' role may perform the 'ShoppingCart.create'  'ShoppingCart.read and 'ShoppingCart.checkout'.
- * <li> {@link Role}s must exist in ldap before assignment here, see javadoc {@link Role} for details.
- * <p/>
+ *   <li>
+ *     {@link User} that activate 'Manager' role into their Sessions will be allowed access to 'ShoppingCart.delete' 
+ *     permission.
+ *   </li>
+ *   <li>{@link User} that activate 'Admin' role may perform 'ShoppingCart.update'.</li>
+ *   <li>
+ *     {@link User} with 'Customer' role may perform the 'ShoppingCart.create'  'ShoppingCart.read and 
+ *     'ShoppingCart.checkout'.
+ *   </li>
+ *   <li>{@link Role}s must exist in ldap before assignment here, see javadoc {@link Role} for details.</li>
  * </ul>
- * <p/>
  * <h4>Permission Schema</h4>
  * This Permission entity extends a single standard ldap structural object class, {@code organizationalRole} with
  * one extension structural class, {@code ftOperation}, and two auxiliary object classes, {@code ftProperties}, {@code ftMods}.
  * The following 3 LDAP object classes will be mapped into this entity:
- * <p/>
- * 1. {@code ftOperation} STRUCTURAL Object Class is assigned roles and/or users which grants permissions which can be later checked
- * using either 'checkAccess' or 'sessionPermissions APIs both methods that reside in the 'AccessMgrImpl' class.
+ * <p>
+ * 1. {@code ftOperation} STRUCTURAL Object Class is assigned roles and/or users which grants permissions which can be later 
+ * checked using either 'checkAccess' or 'sessionPermissions APIs both methods that reside in the 'AccessMgrImpl' class.
  * <pre>
  * ------------------------------------------
  * Fortress Operation Structural Object Class
@@ -167,8 +201,11 @@ import javax.xml.bind.annotation.XmlType;
  *      ftUsers $
  *      ftType
  *  )
- *  )
- * 2. {@code ftProperties} AUXILIARY Object Class is used to store optional client or otherwise custom name/value pairs on target entity.<br>
+ * )
+ * ------------------------------------------
+ * </pre>
+ * 2. {@code ftProperties} AUXILIARY Object Class is used to store optional client or otherwise custom name/value pairs on 
+ * target entity.<br>
  * <code># This aux object class can be used to store custom attributes.</code><br>
  * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br>
  * <pre>
@@ -184,7 +221,6 @@ import javax.xml.bind.annotation.XmlType;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
  * 3. {@code ftMods} AUXILIARY Object Class is used to store Fortress audit variables on target entity.
  * <pre>
  * ------------------------------------------
@@ -201,7 +237,6 @@ import javax.xml.bind.annotation.XmlType;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -402,9 +437,10 @@ public class Permission extends FortEntity implements Serializable
 
 
     /**
-     * This attribute is required and sets the authorization target object name.  This name is typically derived from the class name
-     * for component that is the target for Fortress authorization check. For example 'CustomerCheckOutPage'.
-     *
+     * This attribute is required and sets the authorization target object name.  This name is typically derived from the 
+     * class name for component that is the target for Fortress authorization check. For example 'CustomerCheckOutPage'.
+     * 
+     * @param objName The target object name 
      */
     public void setObjName( String objName )
     {
@@ -642,7 +678,7 @@ public class Permission extends FortEntity implements Serializable
      * Properties are optional.
      *
      * @param key   contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
-     * @param value
+     * @param value The property value
      */
     public void addProperty( String key, String value )
     {

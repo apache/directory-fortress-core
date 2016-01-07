@@ -35,9 +35,9 @@ import java.util.List;
  * This class is thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
- *         <p/>
+ *         <p>
  *         <p>The following schema fragment specifies the expected content contained within this class.
- *         <p/>
+ *         <p>
  *         <pre>
  *                 &lt;complexType>
  *                   &lt;complexContent>

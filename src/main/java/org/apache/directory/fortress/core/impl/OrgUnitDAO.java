@@ -57,7 +57,7 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 
 /**
  * This class provides dataaccess to the OrgUnit datasets in LDAP.
- * <p/>
+ * <p>
  * The OrgUnitDAO maintains the following structural and aux object classes:
  * <h4>1. organizationalUnit Structural Object Class is used to store basic attributes like ou and description</h4>
  * <ul>
@@ -97,7 +97,7 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
  * <li> <code>ftModId ) )</code>
  * <li>  ------------------------------------------
  * </ul>
- * <p/>
+ * <p>
  * This class is thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

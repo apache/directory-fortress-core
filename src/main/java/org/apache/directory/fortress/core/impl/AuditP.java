@@ -36,14 +36,14 @@ import org.apache.directory.fortress.core.model.UserAudit;
  * The audit data is passed using {@link org.apache.directory.fortress.core.model.AuthZ} class.  This class does perform simple data validations to ensure data reasonability and
  * the required fields are present..<BR>
  * The methods in this class are called by {@link AuditMgrImpl} methods during audit log interrogations.
- * <p/>
+ * <p>
  * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exception {@link org.apache.directory.fortress.core.FinderException},
  * or {@link org.apache.directory.fortress.core.ValidationException} as {@link SecurityException}s with appropriate
  * error id from {@link org.apache.directory.fortress.core.GlobalErrIds}.
- * <p/>
+ * <p>
  * This class performs simple data validations.
- * <p/>
+ * <p>
  * This class is thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

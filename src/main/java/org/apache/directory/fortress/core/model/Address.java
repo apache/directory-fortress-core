@@ -33,17 +33,17 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * This entity is stored on {@link User} and is used to store postal address information in LDAP.
- * <p/>
+ * <p>
  * Contains data retrieved from the following LDAP attributes:
- * <p/>
+ * <p>
  * <ul>
- * <li>  ------------------------------------------
- * <li> <code>postalAddress</code>
- * <li> <code>st</code>
- * <li> <code>postalCode</code>
- * <li> <code>postOfficeBox</code>
- * <li> <code>c</code>
- * <li>  ------------------------------------------
+ *   <li>  ------------------------------------------</li>
+ *   <li> <code>postalAddress</code></li>
+ *   <li> <code>st</code></li>
+ *   <li> <code>postalCode</code></li>
+ *   <li> <code>postOfficeBox</code></li>
+ *   <li> <code>c</code></li>
+ *   <li>  ------------------------------------------</li>
  * </ul>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

@@ -91,9 +91,8 @@ import org.slf4j.LoggerFactory;
  * Fortress DAO's, i.e. {@link org.apache.directory.fortress.core.impl.UserDAO}. {@link org.apache.directory.fortress.core.impl.RoleDAO},
  * {@link org.apache.directory.fortress.core.impl.PermDAO}, ....
  * These are low-level data utilities, very little if any data validations are performed here.
- * <p/>
+ * <p>
  * This class is thread safe.
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

@@ -408,7 +408,7 @@ class AccessMgrConsole
 
     /**
      * Sample User data contained in Session object:
-     * <p/>
+     * <p>
      * S   UID  [demoUser4]:<br>
      * S   IID  [ccbb2929-bf01-413d-b768-529de4d428e5]<br>
      * S   ERR  [0]<br>
@@ -434,7 +434,7 @@ class AccessMgrConsole
      * U   TO   [60]<br>
      * U   REST [false]<br>
      * U   PROP[0]=customerNumber VAL=3213432<br>
-     * <p/>
+     * <p>
      * USER ROLE[0]:<br>
      * role name <role1><br>
      * begin time <0000><br>
@@ -445,7 +445,7 @@ class AccessMgrConsole
      * end lock <none><br>
      * day mask <all><br>
      * time out <0><br>
-     * <p/>
+     * <p>
      * USER ADMIN ROLE[0]:<br>
      * admin role name <DemoAdminUsers><br>
      * OsU <null><br>
@@ -460,7 +460,6 @@ class AccessMgrConsole
      * end lock <none><br>
      * day mask <all><br>
      * time out <0><br>
-     * <p/>
      */
     void getUser()
     {

@@ -23,8 +23,6 @@ import java.io.Serializable;
 
 /**
  * Contains a parent child data entity that is used for hierarchical processing.  This entity is used to construct edges in graphs.
- * <p/>
-
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

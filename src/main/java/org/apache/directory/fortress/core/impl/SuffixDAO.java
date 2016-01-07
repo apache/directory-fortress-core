@@ -39,7 +39,7 @@ import org.apache.directory.fortress.core.RemoveException;
 /**
  * This class contains the Suffix node for OpenLDAP Directory Information Tree.
  * <br>The domain component object class is 'dcObject' <br>
- * <p/>
+ * <p>
  * dcObject Auxiliary Object Class is used to store basic attributes like domain component names and description.
  * <ul>
  * <li>  ------------------------------------------
@@ -48,7 +48,7 @@ import org.apache.directory.fortress.core.RemoveException;
  * <li> <code>SUP top AUXILIARY MUST dc )</code>
  * <li>  ------------------------------------------
  * </ul>
- * <p/>
+ * <p>
  * Following wikipedia excerpt describes usage of this object <a href="http://http://en.wikipedia.org/wiki/LDAP/">Wikipedia LDAP</a>
  * <font size="2" color="blue">
  * <blockquote>
@@ -60,7 +60,7 @@ import org.apache.directory.fortress.core.RemoveException;
  * Below the top level, the entry names will typically reflect the organization's internal structure or needs rather than DNS names.
  * </blockquote>
  * </font>
- * <p/>
+ * <p>
  * This class is thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
@@ -117,13 +117,12 @@ final class SuffixDAO extends ApacheDsDataProvider
 
 
     /**
-     * <p/>
+     * <p>
      * <font size="4" color="red">
      * This method is destructive as it will remove all nodes below the suffix using recursive delete function.<BR>
      * Extreme care should be taken during execution to ensure target directory is correct and permanent removal of data is intended.  There is no
      * 'undo' for this operation.
      * </font>
-     * <p/>
      *
      * @param se
      * @throws org.apache.directory.fortress.core.RemoveException

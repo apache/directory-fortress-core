@@ -49,10 +49,10 @@ import java.util.List;
  * <li>Entity mods and deletes
  * </li>
  * </ol>
- * <img src="../doc-files/Audit.png">
- * <p/>
+ * <img src="../doc-files/Audit.png" alt="">
+ * <p>
  * All events include Fortress context, see {@link org.apache.directory.fortress.core.model.FortEntity}.
- * <p/>
+ * <p>
  * <h4>
  * The following APIs generate events subsequently stored in this access log:
  * </h4>
@@ -75,7 +75,6 @@ import java.util.List;
  * <li>User Session Activations: <code>List<{@link Mod}>   {@link org.apache.directory.fortress.core.AuditMgr#searchUserSessions(org.apache.directory.fortress.core.model.UserAudit)} </code>
  * <li>Entity Modifications:     <code>List<{@link Mod}>   {@link org.apache.directory.fortress.core.AuditMgr#searchAdminMods(org.apache.directory.fortress.core.model.UserAudit)} </code>
  * </ul>
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

@@ -24,17 +24,17 @@ package org.apache.directory.fortress.core.model;
  * The Fortress Constraint interface prescribes attributes that are used to store, process and retrieve temporal validation attributes on
  * {@link org.apache.directory.fortress.core.model.User}, {@link org.apache.directory.fortress.core.model.UserRole}, {@link org.apache.directory.fortress.core.model.Role},
  * {@link org.apache.directory.fortress.core.model.AdminRole}, {@link org.apache.directory.fortress.core.model.UserAdminRole} entities.
- * <p/>
- * <img src="../../doc-files/TemporalRbac.png">
- * <p/>
+ * <p>
+ * <img src="../../doc-files/TemporalRbac.png" alt="">
+ * <p>
  * <h3>Temporal Constraints on User and Role Assignments</h3>
  * In addition to the standard RBAC support, Fortress provides coverage for temporal constraints on role and user activation into session.
  * Temporal constraints affect when Users may activate Roles within runtime system at a particular point in time.  For example a nurse may be assigned to the "ChargeNurse" role but be limited as to when she is permitted to perform those duties, i.e. weekend graveyard shift.  Another example is a bank teller who is assigned to a "Teller" role but may only act within role between the hours of 9:00 to 5:00 on Monday thru Friday during normal business hours.
  * Additionally Fortress temporal constraints are checked during user authentication to control when a user is actually permitted to sign-on to a system.  The constraints may also be applied to enforce temporary blackout periods to cover vacations, leave of absences, sabbaticals, etc.
- * <p/>
+ * <p>
  * <h4>Constraint Schema</h4>
  * The entity maps to Fortress LDAP Schema object classes:
- * <p/>
+ * <p>
  * 1. ftRls Structural objectclass is used to store the Role information like name and temporal constraint attributes.
  * <ul>
  * <li>  ------------------------------------------
@@ -47,7 +47,7 @@ package org.apache.directory.fortress.core.model;
  * <li> <code>MAY ( description $ ftCstr ) )</code>
  * <li>  ------------------------------------------
  * </ul>
- * <p/>
+ * <p>
  * 2. ftUserAttrs is used to store user RBAC and Admin role assignment and other security attributes on User entity.
  * <ul>
  * <li>  ------------------------------------------
@@ -59,7 +59,7 @@ package org.apache.directory.fortress.core.model;
  * <li> <code>MAY ( ftRC $ ftRA $ ftARC $ ftARA $ ftCstr</code>
  * <li>  ------------------------------------------
  * </ul>
- * <p/>
+ * <p>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

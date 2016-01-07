@@ -48,9 +48,9 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 
 /**
  * This class performs data access for OpenLDAP synch repl log data
- * <p/>
+ * <p>
  * <h3>1. Binds</h3>
- * <p/>
+ * <p>
  * The auditBind Structural object class is used to store authentication events that can later be queried via ldap API.<br>
  * <code># The Bind class includes the reqVersion attribute which contains the LDAP</code>
  * <code># protocol version specified in the Bind as well as the reqMethod attribute</code>
@@ -91,13 +91,13 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
  * <li> <code>reqTimeLimit ) )</code>
  * <li> ------------------------------------------
  * </ul>
- * <p/>
- * <p/>
+ * <p>
+ * <p>
  * <h3>3. Modifications</h3>
  * The auditModify Structural object class is used to store Fortress update and delete events that can later be queried via ldap API.<br>
  * The deletions can be recorded in this manner and associated with Fortress context because deletions will perform a modification first
  * if audit is enabled.
- * <p/>
+ * <p>
  * <code>The Modify operation contains a description  of  modifications  in  the</code><br>
  * <code>reqMod  attribute,  which  was  already  described  above  in  the  Add</code><br>
  * <code>operation. It may optionally  contain  the  previous  contents  of  any</code><br>
@@ -114,9 +114,9 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
  * <li> <code>MAY reqOld MUST reqMod )</code>
  * <li> ------------------------------------------
  * </ul>
- * <p/>
+ * <p>
  * Note this class used descriptions pulled from man pages on slapd access log.
- * <p/>
+ * <p>
  * This class is thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

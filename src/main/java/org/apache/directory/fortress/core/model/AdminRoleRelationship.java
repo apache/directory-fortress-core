@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * This entity is used by en masse to communicate parent and child {@link AdminRole} information to the server.
- * <p/>
+ *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement(name = "fortAdminRoleRelationship")

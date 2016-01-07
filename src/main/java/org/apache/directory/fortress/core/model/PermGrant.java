@@ -31,7 +31,6 @@ import javax.xml.bind.annotation.XmlType;
  * RBAC {@link Role}, or ARBAC {@link AdminRole}.
  * Can also be used to grant Permissions directly to {@link User}s.
  * This entity is used for Ant and En Masse processing only.
- * <p/>
 
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

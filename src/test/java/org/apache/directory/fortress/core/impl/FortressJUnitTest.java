@@ -34,7 +34,7 @@ import org.apache.directory.fortress.core.GlobalIds;
  * 3. Interrogate data - entity and security policy review APIs.
  * 4. Check data - runtime security rule evaluations.
  * 4. Audit data - validate audit log coverage.
- * <p/>
+ * <p>
  * Note 1: Data is retained in LDAP directory after these tests run (assuming the client was able to connect
  * to the LDAP server).
  * Note 2: To delete old test data, run the "FortressJUnitDeleteTest" test cases after success on main (if repeatable

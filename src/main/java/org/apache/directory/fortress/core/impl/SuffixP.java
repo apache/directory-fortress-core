@@ -33,27 +33,29 @@ import org.apache.directory.fortress.core.util.VUtil;
 
 
 /**
- * Process module for the suffix or root node of Fortress directory structure. The suffix represents the topmost node in a directory information
- * tree.  For example dc=companyName,dc=com.  The suffix data is passed using {@link org.apache.directory.fortress.core.model.Suffix} class.  This class does perform simple data validations.
- * The {@link org.apache.directory.fortress.core.ant.FortressAntTask#addSuffixes()} method calls the {@link #add} from this class during initial base loads.
- * Removal {@link org.apache.directory.fortress.core.ant.FortressAntTask#deleteSuffixes()} is performed during regression tests and should never
- * be executed targeting production directory systems.<BR>
- * This class will accept {@link org.apache.directory.fortress.core.model.Suffix}, and forward on to it's corresponding DAO class {@link SuffixDAO} for add/delete of suffix.
+ * Process module for the suffix or root node of Fortress directory structure. The suffix represents the topmost node in a 
+ * directory information tree.  For example dc=companyName,dc=com.  The suffix data is passed using 
+ * {@link org.apache.directory.fortress.core.model.Suffix} class.  This class does perform simple data validations.
+ * The {@link org.apache.directory.fortress.core.ant.FortressAntTask#addSuffixes()} method calls the {@link #add} from this 
+ * class during initial base loads. Removal {@link org.apache.directory.fortress.core.ant.FortressAntTask#deleteSuffixes()} 
+ * is performed during regression tests and should never be executed targeting production directory systems.<br>
+ * This class will accept {@link org.apache.directory.fortress.core.model.Suffix}, and forward on to it's corresponding DAO 
+ * class {@link SuffixDAO} for add/delete of suffix.
  * <p>
- * Class will throw {@link org.apache.directory.fortress.core.SecurityException} to caller in the event of security policy, data constraint violation or system
- * error internal to DAO object. This class will forward DAO exceptions ({@link org.apache.directory.fortress.core.FinderException},
- * {@link org.apache.directory.fortress.core.CreateException},{@link org.apache.directory.fortress.core.UpdateException},{@link org.apache.directory.fortress.core.RemoveException}),
- *  or {@link org.apache.directory.fortress.core.ValidationException} as {@link org.apache.directory.fortress.core.SecurityException}s with appropriate
- * error id from {@link GlobalErrIds}.
+ * Class will throw {@link org.apache.directory.fortress.core.SecurityException} to caller in the event of security policy, 
+ * data constraint violation or system error internal to DAO object. This class will forward DAO exceptions 
+ * ({@link org.apache.directory.fortress.core.FinderException}, {@link org.apache.directory.fortress.core.CreateException},
+ * {@link org.apache.directory.fortress.core.UpdateException},{@link org.apache.directory.fortress.core.RemoveException}),
+ * or {@link org.apache.directory.fortress.core.ValidationException} as 
+ * {@link org.apache.directory.fortress.core.SecurityException}s with appropriate error id from {@link GlobalErrIds}.
+ * <p style="font-size:2em; color:red;">
+ * The {@link #delete} method in this class is destructive as it will remove all nodes below the suffix using recursive 
+ * delete function.<br>
+ * Extreme care should be taken during execution to ensure target dn is correct and permanent removal of data is intended.
+ * There is no 'undo' for this operation.
  * <p>
- * <font size="3" color="red">
- * The {@link #delete} method in this class is destructive as it will remove all nodes below the suffix using recursive delete function.<BR>
- * Extreme care should be taken during execution to ensure target dn is correct and permanent removal of data is intended.  There is no
- * 'undo' for this operation.
- * </font>
- * <p/>
  * Simple error mapping is performed in {@link #validate} class.
- * <p/>
+ * <p>
  * This class is thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
@@ -83,13 +85,11 @@ public class SuffixP
     /**
      * Remove the suffix along with descendant nodes.  This is a destructive method which will remove all DIT nodes under
      * the specified.
-     * <p/>
-     * <font size="2" color="red">
+     * <p>
+     * <p style="font-size:2em; color:red;">
      * This method is destructive and will remove all nodes below.<BR>
      * Extreme care should be taken during execution to ensure target dn is correct and permanent removal of data is intended.  There is no
      * 'undo' for this operation.
-     * </font>
-     * <p/>
      *
      * @param suffix contains the dc name and top level dc for target node.
      * @throws SecurityException in event of validation or system error.

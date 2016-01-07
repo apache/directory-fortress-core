@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlType;
  * {@link org.apache.directory.fortress.core.model.PwPolicy} {@link SDSet} etc...) are used to carry data between three 
  * Fortress layers.starting with the (1) Manager layer down thru middle (2) Process layer and it's processing rules into
  * (3) DAO layer where persistence with the OpenLDAP server occurs.
+ * <h3></h3>
  * <h4>Fortress Processing Layers</h4>
  * <ol>
  *   <li>
@@ -87,7 +88,7 @@ import javax.xml.bind.annotation.XmlType;
  * <br>
  * <p>
  * There is a many-to-many relationship between User's, RBAC Roles and Permissions.
- * <h3>{@link User}*<->*{@link Role}*<->*{@link org.apache.directory.fortress.core.model.Permission}</h3>
+ * <h3>{@link User}*&lt;-&gt;*{@link Role}*&lt;-&gt;*{@link org.apache.directory.fortress.core.model.Permission}</h3>
  * <p>
  * <img src="../doc-files/RbacCore.png" alt="">
  * <p>

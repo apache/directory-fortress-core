@@ -54,7 +54,7 @@ import org.apache.directory.ldap.client.api.LdapConnection;
 
 /**
  * The AdminRoleDAO is called by {@link AdminRoleP} and processes data via its entity {@link org.apache.directory.fortress.core.model.AdminRole}.
- * <p/>
+ * <p>
  * The Fortress AdminRoleDAO uses the following other Fortress structural and aux object classes:
  * <h4>1. ftRls Structural objectclass is used to store the AdminRole information like name, and temporal constraints</h4>
  * <ul>
@@ -102,7 +102,7 @@ import org.apache.directory.ldap.client.api.LdapConnection;
  * <li> <code>ftModId ) )</code>
  * <li>  ------------------------------------------
  * </ul>
- * <p/>
+ * <p>
  * This class is thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

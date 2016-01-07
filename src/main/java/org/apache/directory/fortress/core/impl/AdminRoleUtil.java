@@ -54,12 +54,11 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
  * <li>is a simple directed graph thus does not allow cycles.</li>
  * </ol>
  * After update is performed to ldap, the singleton is refreshed with latest info.
- * <p/>
+ * <p>
  * Static methods on this class are intended for use by other Fortress classes, i.e. {@link DelAdminMgrImpl} and {@link org.apache.directory.fortress.core.impl.PermDAO}
  * and cannot be directly invoked by outside programs.
- * <p/>
+ * <p>
  * This class contains singleton that can be updated but is thread safe.
- * <p/>
 
  *  @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

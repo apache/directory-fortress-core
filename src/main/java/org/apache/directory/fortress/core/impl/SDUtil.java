@@ -50,7 +50,7 @@ import java.util.Set;
 /**
  * This utilty provides functionality necessary for SSD and DSD processing and cannot be called by components outside fortress.
  * This class also contains utility functions for maintaining the SSD and DSD cache.
- * <p/>
+ * <p>
  * This class is thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

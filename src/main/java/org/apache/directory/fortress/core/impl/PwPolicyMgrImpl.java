@@ -33,7 +33,8 @@ import java.util.List;
  * <h3></h3>
  * <h4>Password Policies</h4>
  * <a href="http://www.openldap.org/">OpenLDAP</a> supports the IETF draft 
- * <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10/">Password Policies for LDAP directories</a></li>.  Policies may be applied at the user, group or global level.
+ * <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10/">Password Policies for LDAP directories</a>.
+ * Policies may be applied at the user, group or global level.
  * <p>
  * <img src="../doc-files/PasswordPolicy.png" alt="">
  * <p>

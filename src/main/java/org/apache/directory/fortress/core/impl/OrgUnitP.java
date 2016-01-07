@@ -55,7 +55,6 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
  * error id from {@link GlobalErrIds}.
  * <p>
  * This class uses synchronized data sets ({@link #ouCache} but is thread safe.
- * <p/>
 
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

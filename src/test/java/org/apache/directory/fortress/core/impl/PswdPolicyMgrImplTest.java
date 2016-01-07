@@ -173,9 +173,9 @@ public class PswdPolicyMgrImplTest extends TestCase
 
     /**
      * PT1
-     * <p/>
+     * <p>
      * 5.2.2  pwdMinAge
-     * <p/>
+     * <p>
      * This attribute holds the number of seconds that must elapse between
      * modifications to the password.  If this attribute is not present, 0
      * seconds is assumed.                                                             "chg"
@@ -238,10 +238,10 @@ public class PswdPolicyMgrImplTest extends TestCase
     /**
      * PT2
      * 5.2.3  pwdMaxAge
-     * <p/>
+     * <p>
      * This attribute holds the number of seconds after which a modified
      * password will expire.
-     * <p/>
+     * <p>
      * If this attribute is not present, or if the value is 0 the password
      * does not expire.  If not 0, the value must be greater than or equal
      * to the value of the pwdMinAge.*
@@ -314,10 +314,10 @@ public class PswdPolicyMgrImplTest extends TestCase
     /**
      * PT3
      * 5.2.4  pwdInHistory
-     * <p/>
+     * <p>
      * This attribute specifies the maximum number of used passwords stored
      * in the pwdHistory attribute.
-     * <p/>
+     * <p>
      * If this attribute is not present, or if the value is 0, used
      * passwords are not stored in the pwdHistory attribute and thus may be
      * reused.
@@ -393,7 +393,7 @@ public class PswdPolicyMgrImplTest extends TestCase
     /**
      * PT4
      * 5.2.6  pwdMinLength
-     * <p/>
+     * <p>
      * When quality checking is enabled, this attribute holds the minimum
      * number of characters that must be used in a password.  If this
      * attribute is not present, no minimum password length will be
@@ -457,11 +457,11 @@ public class PswdPolicyMgrImplTest extends TestCase
     /**
      * PT5
      * 5.2.7  pwdExpireWarning
-     * <p/>
+     * <p>
      * This attribute specifies the maximum number of seconds before a
      * password is due to expire that expiration warning messages will be
      * returned to an authenticating user.
-     * <p/>
+     * <p>
      * If this attribute is not present, or if the value is 0 no warnings
      * will be returned.  If not 0, the value must be smaller than the value
      * of the pwdMaxAge attribute.
@@ -538,7 +538,7 @@ public class PswdPolicyMgrImplTest extends TestCase
     /**
      * PT6
      * 5.2.8  pwdGraceAuthNLimit
-     * <p/>
+     * <p>
      * This attribute specifies the number of times an expired password can
      * be used to authenticate.  If this attribute is not present or if the
      * value is 0, authentication will fail.
@@ -618,7 +618,7 @@ public class PswdPolicyMgrImplTest extends TestCase
     /**
      * PT7
      * 5.2.11  pwdMaxFailure
-     * <p/>
+     * <p>
      * This attribute specifies the number of consecutive failed bind
      * attempts after which the password may not be used to authenticate.
      * If this attribute is not present, or if the value is 0, this policy
@@ -698,7 +698,7 @@ public class PswdPolicyMgrImplTest extends TestCase
     /**
      * PT8
      * 5.2.10  pwdLockoutDuration
-     * <p/>
+     * <p>
      * This attribute holds the number of seconds that the password cannot
      * be used to authenticate due to too many failed bind attempts.  If
      * this attribute is not present, or if the value is 0 the password
@@ -786,12 +786,12 @@ public class PswdPolicyMgrImplTest extends TestCase
     /**
      * PT9
      * 5.2.9  pwdLockout
-     * <p/>
+     * <p>
      * This attribute indicates, when its value is "TRUE", that the password
      * may not be used to authenticate after a specified number of
      * consecutive failed bind attempts.  The maximum number of consecutive
      * failed bind attempts is specified in pwdMaxFailure.
-     * <p/>
+     * <p>
      * If this attribute is not present, or if the value is "FALSE", the
      * password may be used to authenticate when the number of failed bind
      * attempts has been reached.
@@ -857,11 +857,11 @@ public class PswdPolicyMgrImplTest extends TestCase
 
     /**
      * PT10
-     * <p/>
+     * <p>
      * This attribute holds the number of seconds after which the password
      * failures are purged from the failure counter, even though no
      * successful authentication occurred.
-     * <p/>
+     * <p>
      * If this attribute is not present, or if its value is 0, the failure
      * counter is only reset by a successful authentication.
      *
@@ -1099,7 +1099,7 @@ public class PswdPolicyMgrImplTest extends TestCase
     /**
      * PT13
      * 5.2.15  pwdSafeModify
-     * <p/>
+     * <p>
      * This attribute specifies whether or not the existing password must be
      * sent along with the new password when being changed.  If this
      * attribute is not present, a "FALSE" value is assumed.
@@ -1153,7 +1153,7 @@ public class PswdPolicyMgrImplTest extends TestCase
     /**
      * PT14
      * 5.2.5  pwdCheckQuality
-     * <p/>
+     * <p>
      * This attribute indicates how the password quality will be verified
      * while being modified or added.  If this attribute is not present, or
      * if the value is '0', quality checking will not be enforced.  A value

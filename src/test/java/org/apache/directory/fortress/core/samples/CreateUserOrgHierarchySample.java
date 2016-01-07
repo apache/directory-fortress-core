@@ -100,7 +100,7 @@ public class CreateUserOrgHierarchySample extends TestCase
      * between the parent and child OrgUnits.  Once the relationship is removed the parent OrgUnit can be removed.
      * User OrgUnit removal is not allowed (SecurityException will be thrown) if ou is assigned to Users in ldap.
      * <p>
-     * <img src="./doc-files/HierUserOrgSimple.png">
+     * <img src="./doc-files/HierUserOrgSimple.png" alt="">
      */
     public static void testDeleteHierUserOrgs()
     {
@@ -143,7 +143,7 @@ public class CreateUserOrgHierarchySample extends TestCase
      * sequence of 1 - 6.  'sampleHierUserOrg1' is the root or highest level OrgUnit in the structure while sampleHierUserOrg6 is the lowest
      * most child.  Fortress OrgUnits may have multiple parents which is demonstrated in testCreateAscendantUserOrgs sample.
      * <p>
-     * <img src="./doc-files/HierUserOrgSimple.png">
+     * <img src="./doc-files/HierUserOrgSimple.png" alt="">
      */
     public static void testCreateHierUserOrgs()
     {
@@ -189,7 +189,7 @@ public class CreateUserOrgHierarchySample extends TestCase
      * relationship with parent before being removed from ldap.  The parent OrgUnit will be removed from ldap last.
      * User OrgUnit removal is not allowed (SecurityException will be thrown) if ou is assigned to Users in ldap.
      * <p>
-     * <img src="./doc-files/HierUserOrgDescendants.png">
+     * <img src="./doc-files/HierUserOrgDescendants.png" alt="">
      */
     public static void testDeleteDescendantUserOrgs()
     {
@@ -235,7 +235,7 @@ public class CreateUserOrgHierarchySample extends TestCase
      * Demonstrate a parent to child OrgUnit structure of one-to-many.  The parent OrgUnit must be created before
      * the call to addDescendant which will Add a new OrgUnit node and set a OrgUnit relationship with parent node.
      * <p>
-     * <img src="./doc-files/HierUserOrgDescendants.png">
+     * <img src="./doc-files/HierUserOrgDescendants.png" alt="">
      */
     public static void testCreateDescendantUserOrgs()
     {
@@ -274,7 +274,7 @@ public class CreateUserOrgHierarchySample extends TestCase
      * be removed from the child before the child can be removed.
      * User OrgUnit removal is not allowed (SecurityException will be thrown) if ou is assigned to Users in ldap.
      * <p>
-     * <img src="./doc-files/HierUserOrgAscendants.png">
+     * <img src="./doc-files/HierUserOrgAscendants.png" alt="">
      */
     public static void testDeleteAscendantUserOrgs()
     {
@@ -319,7 +319,7 @@ public class CreateUserOrgHierarchySample extends TestCase
      * Demonstrate a child to parent OrgUnit structure of one-to-many.  To use this API, the child OrgUnit must be created before
      * the call to addAscendant which will Add a new OrgUnit node and set a OrgUnit relationship with child node.
      * <p>
-     * <img src="./doc-files/HierUserOrgAscendants.png">
+     * <img src="./doc-files/HierUserOrgAscendants.png" alt="">
      */
     public static void testCreateAscendantUserOrgs()
     {

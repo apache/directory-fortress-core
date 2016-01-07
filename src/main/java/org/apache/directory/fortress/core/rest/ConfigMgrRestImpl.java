@@ -36,9 +36,8 @@ import java.util.Properties;
  * The Fortress client will specify the preferred cfg node by name via a property named, {@link org.apache.directory.fortress.core.GlobalIds#CONFIG_REALM}.
  * Each process using Fortress client is free to share an existing node with other processes or create its own unique config
  * instance using the methods within this class.<BR>
- * <p/>
+ * <p>
  * This class is thread safe.
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

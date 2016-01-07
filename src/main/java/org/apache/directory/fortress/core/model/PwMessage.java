@@ -26,8 +26,6 @@ import java.util.List;
 /**
  * Interface is implemented by {@link org.apache.directory.fortress.core.model.Session} and prescribes methods used to return Fortress
  * password messages to the caller.
- * <p/>
-
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

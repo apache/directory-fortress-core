@@ -417,7 +417,7 @@ public class UserAnt extends User
     /**
      * Set a photo on user's record
      *
-     * @param photo
+     * @param photo The photo to store
      */
     public void setPhoto( String photo )
     {

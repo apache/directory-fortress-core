@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * This entity is used by en masse to communicate {@link org.apache.directory.fortress.core.model.Role}, {@link Permission} and {@link org.apache.directory.fortress.core.model.Session} information to the server for access control decisions.
- * <p/>
+ * 
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement(name = "fortRolePerm")

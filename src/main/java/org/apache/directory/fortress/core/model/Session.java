@@ -33,7 +33,7 @@ import java.util.UUID;
 /**
  * This contains attributes related to a user's RBAC session.
  * The following example shows the mapping to Session attributes on this entity:
- * <p/>
+ * <p>
  * <ul> <li><code>Session</code>
  * <li> <code>session.getUserId() => demoUser4</code>
  * <li> <code>session.getInternalUserId() => be2dd2e:12a82ba707e:-7fee</code>
@@ -90,9 +90,9 @@ import java.util.UUID;
  * <li> <code>userAdminRole.getEndInclusive() => false</code>
  * </ul>
  * </ul>
- * <p/>
+ * <p>
  * Sample Data data contained within this Entity.
- * <p/>
+ * <p>
  * Ses UID      [demoUser4]:<br>
  * Ses IID      [ccbb2929-bf01-413d-b768-529de4d428e5]<br>
  * Ses ERR      [0]<br>
@@ -118,7 +118,7 @@ import java.util.UUID;
  * Usr TO       [60]<br>
  * Usr REST     [false]<br>
  * Usr PROP1    [customerNumber, 3213432]<br>
- * <p/>
+ * <p>
  * USER RBAC ROLE[0]:<br>
  * Rle  role name       [role1]<br>
  * Rle  begin time      [0000]<br>
@@ -129,7 +129,7 @@ import java.util.UUID;
  * Rle  end lock        [none]<br>
  * Rle  day mask        [all]<br>
  * Rle  time out        [60]<br>
- * <p/>
+ * <p>
  * USER ADMIN ROLE[0]:<br>
  * Adm  admin role name [DemoAdminUsers]<br>
  * Adm  OsU             [Dev1]<br>
@@ -144,7 +144,7 @@ import java.util.UUID;
  * Adm  end lock        [none]<br>
  * Adm  day mask        [23456]<br>
  * Adm  time out        [30]<br>
- * <p/>
+ * <p>
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 @XmlRootElement(name = "fortSession")
@@ -270,7 +270,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
      * Return the User entity that is associated with this entity.
      *
      * Sample User data contained in Session object:
-     * <p/>
+     * <p>
      * ------------------------------------------<br>
      * U   UID  [demoUser4]<br>
      * U   IID  [ccbb2929-bf01-413d-b768-529de4d428e5]<br>
@@ -286,7 +286,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
      * U   TO   [60]<br>
      * U   REST [false]<br>
      * U   PROP[0]=customerNumber VAL=3213432<br>
-     * <p/>
+     * <p>
      * USER ROLE[0]:<br>
      * role name <role1><br>
      * begin time <0000><br>
@@ -297,7 +297,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
      * end lock <none><br>
      * day mask <all><br>
      * time out <0><br>
-     * <p/>
+     * <p>
      * USER ADMIN ROLE[0]:<br>
      * admin role name <DemoAdminUsers><br>
      * OsU <null><br>
@@ -312,7 +312,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
      * end lock <none><br>
      * day mask <all><br>
      * time out <0><br>
-     * <p/>
+     * <p>
      * @return User entity that contains userid, roles and other attributes valid for Session.
      */
     public User getUser()
@@ -421,7 +421,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
      * This attribute specifies the maximum number of seconds before a
      * password is due to expire that expiration warning messages will be
      * returned to an authenticating user.
-     * <p/>
+     * <p>
      * If this attribute is not present, or if the value is 0 no warnings
      * will be returned.  If not 0, the value must be smaller than the value
      * of the pwdMaxAge attribute.
@@ -474,7 +474,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
      * <li> <code>HISTORY_VIOLATION = 108;</code>
      * <li> <code>ACCOUNT_LOCKED_CONSTRAINTS = 109;</code>
      * </ul>
-     * <p/>
+     * <p>
      *
      * @return int contains the error id that was generated on the user's last authentication.
      */
@@ -487,7 +487,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
     /**
      * Set a User entity into the Session.
      * Sample User data contained in Session object:
-     * <p/>
+     * <p>
      * ------------------------------------------<br>
      * U   UID  [demoUser4]<br>
      * U   IID  [ccbb2929-bf01-413d-b768-529de4d428e5]<br>
@@ -503,7 +503,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
      * U   TO   [60]<br>
      * U   REST [false]<br>
      * U   PROP[0]=customerNumber VAL=3213432<br>
-     * <p/>
+     * <p>
      * USER ROLE[0]:<br>
      * role name <role1><br>
      * begin time <0000><br>
@@ -514,7 +514,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
      * end lock <none><br>
      * day mask <all><br>
      * time out <0><br>
-     * <p/>
+     * <p>
      * USER ADMIN ROLE[0]:<br>
      * admin role name <DemoAdminUsers><br>
      * OsU <null><br>
@@ -529,7 +529,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
      * end lock <none><br>
      * day mask <all><br>
      * time out <0><br>
-     * <p/>
+     * <p>
      * @param user Contains userId, roles and other security attributes used for access control.
      */
     public void setUser( User user )
@@ -646,7 +646,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
      * <li> <code>HISTORY_VIOLATION = 108;</code>
      * <li> <code>ACCOUNT_LOCKED_CONSTRAINTS = 109;</code>
      * </ul>
-     * <p/>
+     * <p>
      *
      * @param error contains the error id that was generated on the user's last authentication.
      */
@@ -672,7 +672,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
      * This attribute specifies the maximum number of seconds before a
      * password is due to expire that expiration warning messages will be
      * returned to an authenticating user.
-     * <p/>
+     * <p>
      * If this attribute is not present, or if the value is 0 no warnings
      * will be returned.  If not 0, the value must be smaller than the value
      * of the pwdMaxAge attribute.

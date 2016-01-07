@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
  * Implement the X509TrustManager interface which will be used during JSSE truststore manager initialization for LDAP
  * client-to-server communications over TLS/SSL.
  * It is used during certificate validation operations within JSSE.
- * <p/>
+ * <p>
  * Note: This class allows self-signed certificates to pass the validation checks.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

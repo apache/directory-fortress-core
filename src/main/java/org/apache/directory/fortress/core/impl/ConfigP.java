@@ -50,7 +50,7 @@ import org.slf4j.LoggerFactory;
  *  error id from {@link org.apache.directory.fortress.core.GlobalErrIds}.
  * <p>
  * This class performs simple data validation on properties to ensure length does not exceed 100 and contents are safe text.
- * <p/>
+ * <p>
 
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
@@ -109,13 +109,13 @@ final class ConfigP
      * Delete existing cfg node which will remove all properties associated with that node.
      * The name is required.  If node does not exist, a {@link SecurityException} with error
      * {@link GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
-     * <p/>
+     * <p>
      * <font size="2" color="red">
      * This method is destructive and will remove the cfg node completely from directory.<BR>
      * Care should be taken during execution to ensure target name is correct and permanent removal of all parameters located
      * there is intended.  There is no 'undo' for this operation.
      * </font>
-     * <p/>
+     * 
      * @param name attribute is required and maps to 'cn' attribute in 'device' object class.
      * @return {@link Properties} containing the collection of name/value pairs to be added to existing node.
      * @throws SecurityException in the event entry not present or other system error.

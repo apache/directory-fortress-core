@@ -29,10 +29,10 @@ import java.io.Serializable;
 
 /**
  * This entity class contains OpenLDAP slapo-accesslog records that correspond to authorization attempts made to the directory.
- * <p/>
+ * <p>
  * The auditCompare Structural object class is used by the slapo-accesslog overlay to store record of fortress authorization events.
  * These events can later be pulled as audit trail using ldap protocol.  The data pertaining to authZ events are stored in this entity record.<br/>
- * <p/>
+ * <p>
  * <pre>
  * ------------------------------------------
  * objectclass (  1.3.6.1.4.1.4203.666.11.5.2.7
@@ -43,9 +43,9 @@ import java.io.Serializable;
  * ------------------------------------------
  * </pre>
  * For the Compare operation the reqAssertion attribute carries the Attribute Value Assertion used in the compare request
- * <p/>
+ * <p>
  * Note this class uses descriptions pulled from man pages on slapo-accesslog.
- * <p/>
+ * <p>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -659,7 +659,7 @@ public class AuthZ extends FortEntity implements Serializable
 
     /**
      * The reqFilter attribute carries the filter used in the search request.
-     * <p/>
+     * <p>
      * For Fortress authorization events this will contain the following:
      * <ul>
      * <li>userId: {@link User#userId}
@@ -678,7 +678,7 @@ public class AuthZ extends FortEntity implements Serializable
 
     /**
      * The reqFilter attribute carries the filter used in the search request.
-     * <p/>
+     * <p>
      * For Fortress authorization events this will contain the following:
      * <ul>
      * <li>userId: {@link User#userId}

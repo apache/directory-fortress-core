@@ -26,8 +26,6 @@ import java.util.Set;
 /**
  * This interface is used by Fortress admin role processing.  It prescribes the APIs that are necessary for an Administrative
  * Role entity to fullfill the ARBAC functionality.
- * <p/>
-
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

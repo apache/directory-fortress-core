@@ -99,7 +99,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      * between the parent and child OrgUnits.  Once the relationship is removed the parent OrgUnit can be removed.
      * Perm OrgUnit removal is not allowed (SecurityException will be thrown) if ou is assigned to PermObjs in ldap.
      * <p>
-     * <img src="./doc-files/HierPermOrgSimple.png">
+     * <img src="./doc-files/HierPermOrgSimple.png" alt="">
      */
     public static void testDeleteHierPermOrgs()
     {
@@ -142,7 +142,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      * sequence of 1 - 6.  'sampleHierPermOrg1' is the root or highest level OrgUnit in the structure while sampleHierPermOrg6 is the lowest
      * most child.  Fortress OrgUnits may have multiple parents which is demonstrated in testCreateAscendantPermOrgs sample.
      * <p>
-     * <img src="./doc-files/HierPermOrgSimple.png">
+     * <img src="./doc-files/HierPermOrgSimple.png" alt="">
      */
     public static void testCreateHierPermOrgs()
     {
@@ -188,7 +188,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      * relationship with parent before being removed from ldap.  The parent OrgUnit will be removed from ldap last.
      * Perm OrgUnit removal is not allowed (SecurityException will be thrown) if ou is assigned to PermObjs in ldap.
      * <p>
-     * <img src="./doc-files/HierPermOrgDescendants.png">
+     * <img src="./doc-files/HierPermOrgDescendants.png" alt="">
      */
     public static void testDeleteDescendantPermOrgs()
     {
@@ -234,7 +234,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      * Demonstrate a parent to child OrgUnit structure of one-to-many.  The parent OrgUnit must be created before
      * the call to addDescendant which will Add a new OrgUnit node and set a OrgUnit relationship with parent node.
      * <p>
-     * <img src="./doc-files/HierPermOrgDescendants.png">
+     * <img src="./doc-files/HierPermOrgDescendants.png" alt="">
      */
     public static void testCreateDescendantPermOrgs()
     {
@@ -273,7 +273,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      * be removed from the child before the child can be removed.
      * Perm OrgUnit removal is not allowed (SecurityException will be thrown) if ou is assigned to PermObjs in ldap.
      * <p>
-     * <img src="./doc-files/HierPermOrgAscendants.png">
+     * <img src="./doc-files/HierPermOrgAscendants.png" alt="">
      */
     public static void testDeleteAscendantPermOrgs()
     {
@@ -318,7 +318,7 @@ public class CreatePermOrgHierarchySample extends TestCase
      * Demonstrate a child to parent OrgUnit structure of one-to-many.  To use this API, the child OrgUnit must be created before
      * the call to addAscendant which will Add a new OrgUnit node and set a OrgUnit relationship with child node.
      * <p>
-     * <img src="./doc-files/HierPermOrgAscendants.png">
+     * <img src="./doc-files/HierPermOrgAscendants.png" alt="">
      */
     public static void testCreateAscendantPermOrgs()
     {

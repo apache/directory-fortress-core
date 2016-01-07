@@ -42,9 +42,9 @@ import org.apache.directory.fortress.core.GlobalIds;
  * entity is used to provide containers in DIT for organization of related nodes..
  * A container node is used to group other related nodes, i.e. 'ou=People' or 'ou'Roles'.
  * <br>The organizational unit object class is 'organizationalUnit' <br>
- * <p/>
+ * <p>
  * The OrganizationalUnitDAO maintains the following structural object class:
- * <p/>
+ * <p>
  * organizationalUnit Structural Object Class is used to store basic attributes like ou and description.
  * <ul>
  * <li>  ------------------------------------------
@@ -60,7 +60,7 @@ import org.apache.directory.fortress.core.GlobalIds;
  * <li> <code>postalAddress $ physicalDeliveryOfficeName $ st $ l $ description ) )</code>
  * <li>  ------------------------------------------
  * </ul>
- * <p/>
+ * <p>
  * This class is thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

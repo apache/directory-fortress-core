@@ -29,7 +29,7 @@ import org.apache.directory.fortress.core.util.time.Validator;
 /**
  * This class performs authentication validation.  This validator will ensure the current user has been authenticated
  * before activating the role into the session.
- * <p/>
+ * <p>
  * <ol>
  * <li> Create a new class, that extends this one.
  * <pre>
@@ -85,7 +85,7 @@ public abstract class AuthNValidator implements Validator
      * This method is called during user-role activation, {@link org.apache.directory.fortress.core.util
      * .VUtil#validateConstraints} and ensures the current user has been
      * proper authentication status before activating the specified role into the session.
-     * <p/>
+     * <p>
      * This validation routine will automatically pass if session.isAuthenticated matches the isAuthenticated member
      * variable AND the role matches the subclasses name AND type == ROLE.
      *

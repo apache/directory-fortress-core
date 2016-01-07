@@ -402,6 +402,8 @@ public class CmdLineParser
     /**
      * Convenience method for adding a string option.
      *
+     * @param shortForm The short form for this option
+     * @param longForm The long form for this option
      * @return the new Option
      */
     public final Option addStringOption( char shortForm, String longForm )
@@ -412,6 +414,7 @@ public class CmdLineParser
     /**
      * Convenience method for adding a string option.
      *
+     * @param longForm The long form for this option
      * @return the new Option
      */
     public final Option addStringOption( String longForm )
@@ -422,6 +425,8 @@ public class CmdLineParser
     /**
      * Convenience method for adding an integer option.
      *
+     * @param shortForm The short form for this option
+     * @param longForm The long form for this option
      * @return the new Option
      */
     public final Option addIntegerOption( char shortForm, String longForm )
@@ -432,6 +437,7 @@ public class CmdLineParser
     /**
      * Convenience method for adding an integer option.
      *
+     * @param longForm The long form for this option
      * @return the new Option
      */
     public final Option addIntegerOption( String longForm )
@@ -442,6 +448,8 @@ public class CmdLineParser
     /**
      * Convenience method for adding a long integer option.
      *
+     * @param shortForm The short form for this option
+     * @param longForm The long form for this option
      * @return the new Option
      */
     public final Option addLongOption( char shortForm, String longForm )
@@ -452,6 +460,7 @@ public class CmdLineParser
     /**
      * Convenience method for adding a long integer option.
      *
+     * @param longForm The long form for this option
      * @return the new Option
      */
     public final Option addLongOption( String longForm )
@@ -462,6 +471,8 @@ public class CmdLineParser
     /**
      * Convenience method for adding a double option.
      *
+     * @param shortForm The short form for this option
+     * @param longForm The long form for this option
      * @return the new Option
      */
     public final Option addDoubleOption( char shortForm, String longForm )
@@ -472,6 +483,7 @@ public class CmdLineParser
     /**
      * Convenience method for adding a double option.
      *
+     * @param longForm The long form for this option
      * @return the new Option
      */
     public final Option addDoubleOption( String longForm )
@@ -482,6 +494,8 @@ public class CmdLineParser
     /**
      * Convenience method for adding a boolean option.
      *
+     * @param shortForm The short form for this option
+     * @param longForm The long form for this option
      * @return the new Option
      */
     public final Option addBooleanOption( char shortForm, String longForm )
@@ -492,6 +506,7 @@ public class CmdLineParser
     /**
      * Convenience method for adding a boolean option.
      *
+     * @param longForm The long form for this option
      * @return the new Option
      */
     public final Option addBooleanOption( String longForm )

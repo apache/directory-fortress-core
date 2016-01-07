@@ -48,10 +48,10 @@ import javax.xml.bind.annotation.XmlType;
  * provide enough information to uniquely identity the entity target within ldap.<br>
  * For example, this entity requires {@link #name} and {@link #type} set before passing into {@link org.apache.directory.fortress.core.impl.DelAdminMgrImpl} or  {@link org.apache.directory.fortress.core.impl.DelReviewMgrImpl} APIs.
  * Create methods usually require more attributes (than Read) due to constraints enforced between entities.
- * <p/>
+ * <p>
  * This entity implements both User and Permission OU pool functionality that defines org membership of entities for ARBAC02 style admin checks..
  * <br>The unique key to locate an OrgUnit entity (which is subsequently assigned both to Users and Permissions) is 'OrgUnit.name' and 'OrgUnit.Type'.<br>
- * <p/>
+ * <p>
  * An OrgUnit name may contain alphanumeric and simple symbols that are safe text (.,:;-_).  Any non-safe text will be
  * encoded before persistence.  Valid names include:
  * <ol>
@@ -66,34 +66,34 @@ import javax.xml.bind.annotation.XmlType;
  * <li>1_2_3</li>
  * <li>etc...</li>
  * </ol>
- * <p/>
+ * <p>
  * There is a Many-to-One relationship between a User and OrgUnit.
  * <h3>{@link User}*<->1 {@link OrgUnit}</h3>
- * <p/>
+ * <p>
  * There is a Many-to-One relationship between a {@link PermObj} object and {@link OrgUnit}.
  * <h3>{@link PermObj}*<->1 {@link OrgUnit}</h3>
- * <p/>
+ * <p>
  * Example to create new ARBAC User OrgUnit:
- * <p/>
+ * <p>
  * <code>OrgUnit myUserOU = new OrgUnit("MyUserOrgName", OrgUnit.Type.USER);</code><br>
  * <code>myUserOU.setDescription("This is a test User OrgUnit");</code><br>
  * <code>DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance();</code><br>
  * <code>delAdminMgr.add(myUserOU);</code><br>
- * <p/>
+ * <p>
  * This will create a User OrgUnit that can be used as a target for User OU and AdminRole OS-U assignments.
- * <p/>
+ * <p>
  * Example to create new ARBAC Perm OrgUnit:
- * <p/>
+ * <p>
  * <code>OrgUnit myPermOU = new OrgUnit("MyPermOrgName", OrgUnit.Type.PERM);</code><br>
  * <code>myPermOU.setDescription("This is a test Perm OrgUnit");</code><br>
  * <code>DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance();</code><br>
  * <code>delAdminMgr.add(myPermOU);</code><br>
- * <p/>
+ * <p>
  * This will create a Perm OrgUnit that can be used as a target for Perm OU and AdminRole OS-P assignments.
- * <p/>
+ * <p>
  * <h4>OrgUnit Schema</h4>
  * The Fortress OrgUnit entity is a composite of the following other Fortress structural and aux object classes:
- * <p/>
+ * <p>
  * 1. organizationalUnit Structural Object Class is used to store basic attributes like ou and description.
  * <pre>
  * ------------------------------------------
@@ -112,7 +112,7 @@ import javax.xml.bind.annotation.XmlType;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
+ * <p>
  * 2. ftOrgUnit Structural objectclass is used to store the OrgUnit internal id.
  * <pre>
  * ------------------------------------------
@@ -131,7 +131,7 @@ import javax.xml.bind.annotation.XmlType;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
+ * <p>
  * 3. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.
  * <pre>
  * ------------------------------------------
@@ -148,7 +148,6 @@ import javax.xml.bind.annotation.XmlType;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -411,7 +410,7 @@ public class OrgUnit extends FortEntity implements Graphable, Serializable
 
 
     /**
-     * @param thatObj
+     * @param thatObj The OrgUnit to compare
      * @return boolean value of 'true if objects match
      */
     public boolean equals( Object thatObj )

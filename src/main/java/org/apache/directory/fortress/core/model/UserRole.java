@@ -43,7 +43,7 @@ import org.apache.directory.fortress.core.GlobalIds;
  * Constraint not set within this entity
  * will use same attribute from the {@link org.apache.directory.fortress.core.model.Role} entity.  Thus the UserRole can override
  * Constraint attributes from it's corresponding Role if required by caller.
- * <p/>
+ * <p>
  * <h4>UserRole Schema</h4>
  * ftUserAttrs is used to store RBAC and ARBAC Role role assignments and other security attributes on User entity.
  * <pre>
@@ -67,7 +67,6 @@ import org.apache.directory.fortress.core.GlobalIds;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

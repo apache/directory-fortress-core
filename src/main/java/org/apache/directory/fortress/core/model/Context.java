@@ -23,7 +23,6 @@ package org.apache.directory.fortress.core.model;
 /**
  * This class contains the Context id which is used as container for segregating data by customer 
  * within the LDAP Directory Information Tree.
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

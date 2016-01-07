@@ -48,9 +48,9 @@ import org.apache.directory.fortress.core.UpdateException;
 /**
  * This class provides data access for the standard ldap object device that has been extended to support name/value pairs.
  * Fortress uses this data structure to store its remote cfg parameters.
- * <p/>
+ * <p>
  * The Fortress Config node is a combination of:
- * <p/>
+ * <p>
  * 'device' Structural Object Class is used to store basic attributes like cn which will be used for config node name.
  * <ul>
  * <li>  ------------------------------------------
@@ -61,7 +61,7 @@ import org.apache.directory.fortress.core.UpdateException;
  * <li> <code>MAY ( serialNumber $ seeAlso $ owner $ ou $ o $ l $ description ) )</code>
  * <li>  ------------------------------------------
  * </ul>
- * <p/>
+ * <p>
  * 'ftProperties' AUXILIARY Object Class is used to store name/value pairs on target node.<br>
  * <code>This aux object class can be used to store custom attributes.</code><br>
  * <code>The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br>
@@ -74,8 +74,7 @@ import org.apache.directory.fortress.core.UpdateException;
  * <li> <code>MAY ( ftProps ) ) </code>
  * <li>  ------------------------------------------
  * </ul>
- * <p/>
- * <p/>
+ * <p>
  * This class is thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

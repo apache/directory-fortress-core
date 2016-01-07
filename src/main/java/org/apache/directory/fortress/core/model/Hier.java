@@ -32,12 +32,12 @@ import org.apache.directory.api.util.Strings;
  * layers starting with the (1) Manager layer down thru middle (2) Process layer and it's processing rules into
  * (3) DAO layer where persistence with the OpenLDAP server occurs.  The clients must instantiate an Fortress entity before use
  * and must provide enough information to uniquely identity target record for reads.
- * <p/>
+ * <p>
  * <h4>Hierarchical Relationship Schema</h4>
- * <p/>
+ * <p>
  * The Fortress ftHier Entity Class is used internal to Fortress and usually does not require manipulation by external program.  The
  * entity is a composite of 3 different LDAP Schema object classes:
- * <p/>
+ * <p>
  * 1. organizationalRole Structural Object Class is used to store basic attributes like cn and description.
  * <pre>
  * ------------------------------------------
@@ -56,7 +56,7 @@ import org.apache.directory.api.util.Strings;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
+ * <p>
  * 2. ftHier AUXILIARY Object Class is used to store parent to child relationships on target entity.
  * <pre>
  * ------------------------------------------
@@ -74,7 +74,7 @@ import org.apache.directory.api.util.Strings;
  *      description
  *  )
  * )
- * <p/>
+ * <p>
  * 3. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.
  * <pre>
  * ------------------------------------------
@@ -91,7 +91,6 @@ import org.apache.directory.api.util.Strings;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

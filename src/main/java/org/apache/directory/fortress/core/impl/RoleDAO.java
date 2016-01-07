@@ -52,7 +52,7 @@ import org.apache.directory.fortress.core.model.Role;
 
 /**
  * This class perform data access for Fortress Role entity.
- * <p/>
+ * <p>
  * The Fortress Role entity is a composite of the following other Fortress structural and aux object classes:
  * <h4>1. ftRls Structural objectclass is used to store the Role information like name and temporal constraint attributes</h4>
  * <ul>
@@ -90,7 +90,7 @@ import org.apache.directory.fortress.core.model.Role;
  * <li> <code>ftModId ) )</code>
  * <li>  ------------------------------------------
  * </ul>
- * <p/>
+ * <p>
  * This class is thread safe.
  *
  * @author Kevin McKinney

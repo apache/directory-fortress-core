@@ -63,7 +63,7 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 
 /**
  * Permission data access class for LDAP. 
- * <p/>
+ * <p>
  * This DAO class maintains the PermObj and Permission entities.
  * <h3>The Fortress PermObj Entity Class is a composite of 3 LDAP Schema object classes</h2>
  * <h4>PermObj Base - ftObject STRUCTURAL Object Class is used to store object name, id and type variables on target entity.</h4>
@@ -147,8 +147,7 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
  * <li>  ------------------------------------------
  * </ul>
  * This class is thread safe.
- * <p/>
- *
+ * 
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 final class PermDAO extends ApacheDsDataProvider

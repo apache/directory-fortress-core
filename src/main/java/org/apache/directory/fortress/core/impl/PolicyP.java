@@ -43,17 +43,15 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
  * needed by {@link org.apache.directory.fortress.core.impl.UserP#validate(org.apache.directory.fortress.core.model.User, boolean)}
  * This class is not intended to be used by external programs.  This class will accept Fortress entity, {@link org.apache.directory.fortress.core.model.PwPolicy}, on its
  * methods, validate contents and forward on to it's corresponding DAO class {@link PolicyDAO}.
- * <p/>
+ * <p>
  * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions ({@link org.apache.directory.fortress.core.FinderException},
  *
  * {@link org.apache.directory.fortress.core.CreateException},{@link org.apache.directory.fortress.core.UpdateException},{@link org.apache.directory.fortress.core.RemoveException}),
  * or {@link org.apache.directory.fortress.core.ValidationException} as {@link SecurityException}s with appropriate
  * error id from {@link org.apache.directory.fortress.core.GlobalErrIds}.
- * <p/>
+ * <p>
  * This class uses one reference to synchronized data set {@link #policyCache} but is thread safe.
- * <p/>
-
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

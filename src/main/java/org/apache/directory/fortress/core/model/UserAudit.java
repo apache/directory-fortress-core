@@ -33,15 +33,15 @@ import java.util.Date;
  * This entity is used to pass search criteria into the {@link org.apache.directory.fortress.core.AuditMgr} APIs, down through the
  * {@link org.apache.directory.fortress.core.impl.AuditP} process layer and finally into the {@link org.apache.directory.fortress.core.impl.AuditDAO} data access layer.  Once the data has been
  * retrieved from the directory it will be passed back to the caller using one of audit output entities.
- * <p/>
+ * <p>
  * All audit data is returned to user using one of the following:
  * <ul>
  * <li> Authorization events: {@link org.apache.directory.fortress.core.model.AuthZ}
  * <li> Authentication events: {@link org.apache.directory.fortress.core.model.Bind}
  * <li> Modification events: {@link org.apache.directory.fortress.core.model.Mod}
  * </ul>
- * <p/>
- * <p/>
+ * <p>
+ * <p>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -110,7 +110,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
 
     /**
      * The failedOnly flag will limit result set to include only authN or authZ events that have failed.
-     * <p/>
+     * <p>
      * <ul>
      * <li>{@link org.apache.directory.fortress.core.impl.AuditMgrImpl#searchInvalidUsers(UserAudit)} maps to ({@link org.apache.directory.fortress.core.impl.AuditDAO#REQENTRIES} == 0)
      * <li>{@link org.apache.directory.fortress.core.impl.AuditMgrImpl#searchAuthZs(UserAudit)} maps to ({@link org.apache.directory.fortress.core.impl.AuditDAO#REQENTRIES} == 0)
@@ -127,7 +127,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
 
     /**
      * The failedOnly flag will limit result set to include only authN or authZ events that have failed.
-     * <p/>
+     * <p>
      * <ul>
      * <li>{@link org.apache.directory.fortress.core.impl.AuditMgrImpl#searchInvalidUsers(UserAudit)} maps to ({@link org.apache.directory.fortress.core.impl.AuditDAO#REQENTRIES} == 0)
      * <li>{@link org.apache.directory.fortress.core.impl.AuditMgrImpl#searchAuthZs(UserAudit)} maps to ({@link org.apache.directory.fortress.core.impl.AuditDAO#REQENTRIES} == 0)

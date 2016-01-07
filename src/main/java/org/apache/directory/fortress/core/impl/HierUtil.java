@@ -59,9 +59,8 @@ import org.apache.directory.fortress.core.ValidationException;
  * <li>constructs and parses simple directed graphs.</li>
  * </ol>
  * Static methods on this class are intended for use by other Fortress classes, and cannot be directly invoked by outside programs.
- * <p/>
+ * <p>
  * This class is thread safe.
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

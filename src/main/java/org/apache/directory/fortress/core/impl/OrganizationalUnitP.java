@@ -33,28 +33,32 @@ import org.apache.directory.fortress.core.util.VUtil;
 
 
 /**
- * Process module for the container node used for grouping  related nodes within Fortress directory structure. The organizational unit represents
- * the middle nodes that act as containers for other nodes, i.e. ou=People container which groups Users.
- * The organizational unit data is passed using {@link org.apache.directory.fortress.core.model.OrganizationalUnit} class.  This class does perform simple data validations.
- * The {@link org.apache.directory.fortress.core.ant.FortressAntTask#addContainers()} method calls the {@link #add} from this class during initial base loads.
- * Removal {@link org.apache.directory.fortress.core.ant.FortressAntTask#deleteContainers()} is performed during regression tests and should never
- * be executed targeting enabled production directory system datasets.<BR>
- * This class will accept {@link org.apache.directory.fortress.core.model.OrganizationalUnit}, and forward on to it's corresponding DAO class {@link OrganizationalUnitDAO} for add/delete of container.
+ * Process module for the container node used for grouping  related nodes within Fortress directory structure. The 
+ * organizational unit represents the middle nodes that act as containers for other nodes, i.e. ou=People container which 
+ * groups Users.
+ * The organizational unit data is passed using {@link org.apache.directory.fortress.core.model.OrganizationalUnit} class.  
+ * This class does perform simple data validations.
+ * The {@link org.apache.directory.fortress.core.ant.FortressAntTask#addContainers()} method calls the {@link #add} from this 
+ * class during initial base loads.
+ * Removal {@link org.apache.directory.fortress.core.ant.FortressAntTask#deleteContainers()} is performed during regression 
+ * tests and should never be executed targeting enabled production directory system datasets.<br>
+ * This class will accept {@link org.apache.directory.fortress.core.model.OrganizationalUnit}, and forward on to it's 
+ * corresponding DAO class {@link OrganizationalUnitDAO} for add/delete of container.
  * <p>
  * Class will throw {@link SecurityException} to caller in the event of security policy, data constraint violation or system
  * error internal to DAO object. This class will forward DAO exceptions (
  * {@link org.apache.directory.fortress.core.CreateException},,{@link org.apache.directory.fortress.core.RemoveException}),
- *  or {@link org.apache.directory.fortress.core.ValidationException} as {@link org.apache.directory.fortress.core.SecurityException}s with appropriate
- *  error id from {@link org.apache.directory.fortress.core.GlobalErrIds}.
+ * or {@link org.apache.directory.fortress.core.ValidationException} as 
+ * {@link org.apache.directory.fortress.core.SecurityException}s with appropriate
+ * error id from {@link org.apache.directory.fortress.core.GlobalErrIds}.
+ * <p style="font-size:2em; color:red;">
+ * The {@link #delete} method in this class is destructive as it will remove all nodes below the container using recursive 
+ * delete function.<br>
+ * Extreme care should be taken during execution to ensure target dn is correct and permanent removal of data is intended.  
+ * There is no 'undo' for this operation.
  * <p>
- * <font size="3" color="red">
- * The {@link #delete} method in this class is destructive as it will remove all nodes below the container using recursive delete function.<BR>
- * Extreme care should be taken during execution to ensure target dn is correct and permanent removal of data is intended.  There is no
- * 'undo' for this operation.
- * </font>
- * <p/>
  * Simple error mapping is performed in {@link #validate} class.
- * <p/>
+ * <p>
  * This class is thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
@@ -70,7 +74,9 @@ public class OrganizationalUnitP
      * node will be inserted after suffix, i.e. ou=NewContainerName, dc=companyName, dc=com.
      *
      * @param orgUnit contains the ou name and description for target node.
-     * @throws org.apache.directory.fortress.core.SecurityException in the event node already present, {@link GlobalErrIds#CNTR_CREATE_FAILED}, validation, {@link GlobalErrIds#CNTR_NAME_NULL}, {@link org.apache.directory.fortress.core.GlobalErrIds#CNTR_NAME_INVLD} or system error.
+     * @throws org.apache.directory.fortress.core.SecurityException in the event node already present, 
+     * {@link GlobalErrIds#CNTR_CREATE_FAILED}, validation, {@link GlobalErrIds#CNTR_NAME_NULL}, 
+     * {@link org.apache.directory.fortress.core.GlobalErrIds#CNTR_NAME_INVLD} or system error.
      */
     public final void add( OrganizationalUnit orgUnit )
         throws SecurityException
@@ -85,16 +91,17 @@ public class OrganizationalUnitP
      * Remove a container from the Directory Information Tree (DIT).  After this operation the
      * node will be removed after suffix.
      *
-     * <p>
-     * <font size="4" color="red">
-     * The {@link #delete} method in this class is destructive as it will remove all nodes below the container using recursive delete function.<BR>
+     * <p style="font-size:2em; color:red;">
+     * The {@link #delete} method in this class is destructive as it will remove all nodes below the container using 
+     * recursive delete function.<br>
      * Extreme care should be taken during execution to ensure target dn is correct and permanent removal of data is intended.  There is no
      * 'undo' for this operation.
-     * </font>
-     * <p/>
      *
      * @param orgUnit contains the ou name of container targeted for removal.
-     * @throws org.apache.directory.fortress.core.SecurityException in the event node not present, {@link org.apache.directory.fortress.core.GlobalErrIds#CNTR_DELETE_FAILED}, validation, {@link org.apache.directory.fortress.core.GlobalErrIds#CNTR_NAME_NULL}, {@link org.apache.directory.fortress.core.GlobalErrIds#CNTR_NAME_INVLD} or system error.
+     * @throws org.apache.directory.fortress.core.SecurityException in the event node not present, 
+     * {@link org.apache.directory.fortress.core.GlobalErrIds#CNTR_DELETE_FAILED}, validation, 
+     * {@link org.apache.directory.fortress.core.GlobalErrIds#CNTR_NAME_NULL}, 
+     * {@link org.apache.directory.fortress.core.GlobalErrIds#CNTR_NAME_INVLD} or system error.
      */
     public final void delete( OrganizationalUnit orgUnit )
         throws SecurityException
@@ -105,8 +112,8 @@ public class OrganizationalUnitP
 
 
     /**
-     * Method will perform simple validations to ensure the integrity of the {@link OrganizationalUnit} entity targeted for insertion
-     * or deletion in directory.
+     * Method will perform simple validations to ensure the integrity of the {@link OrganizationalUnit} entity targeted for 
+     * insertion or deletion in directory.
      *
      * @param entity contains the enum type to validate
      * @throws SecurityException thrown in the event the attribute is null.

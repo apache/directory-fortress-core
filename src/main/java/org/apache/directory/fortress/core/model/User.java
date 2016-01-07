@@ -36,33 +36,63 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * All entities ({@link User}, {@link org.apache.directory.fortress.core.model.Role}, {@link org.apache.directory.fortress.core.model.Permission},
- * {@link org.apache.directory.fortress.core.model.PwPolicy} {@link org.apache.directory.fortress.core.model.SDSet} etc...) are used to carry data between three Fortress
+ * All entities ({@link User}, {@link org.apache.directory.fortress.core.model.Role}, 
+ * {@link org.apache.directory.fortress.core.model.Permission}, {@link org.apache.directory.fortress.core.model.PwPolicy} 
+ * {@link org.apache.directory.fortress.core.model.SDSet} etc...) are used to carry data between three Fortress
  * layers.starting with the (1) Manager layer down thru middle (2) Process layer and it's processing rules into
  * (3) DAO layer where persistence with the OpenLDAP server occurs.
- * <p/>
+ * <p>
+ * <h3></h3>
  * <h4>Fortress Processing Layers</h4>
  * <ol>
- * <li>Manager layer:  {@link org.apache.directory.fortress.core.impl.AdminMgrImpl}, {@link org.apache.directory.fortress.core.impl.AccessMgrImpl}, {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl},...</li>
- * <li>Process layer:  {@link org.apache.directory.fortress.core.impl.UserP}, {@link org.apache.directory.fortress.core.impl.RoleP}, {@link org.apache.directory.fortress.core.impl.PermP},...</li>
- * <li>DAO layer: {@link org.apache.directory.fortress.core.impl.UserDAO}, {@link org.apache.directory.fortress.core.impl.RoleDAO}, {@link org.apache.directory.fortress.core.impl.PermDAO},...</li>
+ *   <li>
+ *     Manager layer:  {@link org.apache.directory.fortress.core.impl.AdminMgrImpl}, 
+ *     {@link org.apache.directory.fortress.core.impl.AccessMgrImpl}, 
+ *     {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl},...
+ *   </li>
+ *   <li>
+ *     Process layer:  {@link org.apache.directory.fortress.core.impl.UserP}, 
+ *     {@link org.apache.directory.fortress.core.impl.RoleP}, {@link org.apache.directory.fortress.core.impl.PermP},...
+ *   </li>
+ *   <li>
+ *     DAO layer: {@link org.apache.directory.fortress.core.impl.UserDAO}, 
+ *     {@link org.apache.directory.fortress.core.impl.RoleDAO}, {@link org.apache.directory.fortress.core.impl.PermDAO},...
+ *   </li>
  * </ol>
  * Fortress clients must first instantiate the data entity before invoking one of the Manager APIs.  The caller must first
  * provide enough information to uniquely identity target record for the particular ldap operation performed.<br>
  * For example the User entity requires the {@link User#setUserId} attribute to be set before calling a Manager API.
  * The unique key to locate a User entity in the Fortress DIT is simply the userId field.<br>
  * Other ldap operations on User may require additional attributes to be set.
- * <p/>
+ * <p>
  * <h4>User entity attribute usages include</h4>
  * <ul>
- * <li>{@link #setPassword(char[])} must be set before calling {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#authenticate} and {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#createSession(User, boolean)} (unless trusted).
- * <li>{@link #setOu} is required before calling {@link org.apache.directory.fortress.core.impl.AdminMgrImpl#addUser(User)} to add a new user to ldap.
- * <li>{@link #setRoles} will be set for {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#createSession(User, boolean)} when selective RBAC Role activation is required.
- * <li>{@link #setAdminRoles} will be set for {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#createSession(User, boolean)} when selective Administrative Role activation is required.
- * <li>{@link #setPwPolicy} may be set for {@link org.apache.directory.fortress.core.impl.AdminMgrImpl#updateUser(User)} to assign User to a policy {@link org.apache.directory.fortress.core.model.PwPolicy}.
- * <li>{@link #password} is the only case sensitive attribute on this entity.
+ *   <li>
+ *     {@link #setPassword(char[])} must be set before calling 
+ *     {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#authenticate} and 
+ *     {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#createSession(User, boolean)} (unless trusted).
+ *   </li>
+ *   <li>
+ *     {@link #setOu} is required before calling {@link org.apache.directory.fortress.core.impl.AdminMgrImpl#addUser(User)} 
+ *     to add a new user to ldap.
+ *   </li>
+ *   <li>
+ *     {@link #setRoles} will be set for 
+ *     {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#createSession(User, boolean)} when selective RBAC Role 
+ *     activation is required.
+ *   </li>
+ *   <li>
+ *     {@link #setAdminRoles} will be set for 
+ *     {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#createSession(User, boolean)} when selective 
+ *     Administrative Role activation is required.
+ *   </li>
+ *   <li>
+ *     {@link #setPwPolicy} may be set for {@link org.apache.directory.fortress.core.impl.AdminMgrImpl#updateUser(User)} to 
+ *     assign User to a policy {@link org.apache.directory.fortress.core.model.PwPolicy}.
+ *   </li>
+ *   <li>{@link #password} is the only case sensitive attribute on this entity.</li>
  * </ul>
- * <p/>
+ * <p>
  * Example to create new Fortress User:
  * <pre>
  * try
@@ -76,13 +106,16 @@ import javax.xml.bind.annotation.XmlType;
  * catch (SecurityException ex)
  * {
  *  // log or throw
- * }</pre>
- * The above code will persist to LDAP a User object that has a userId of "myUserId", a password of "myPassword", a role assignment to "myRoleName", and assigned to organzational unit named "myOU".
- * This User can be used as a target for subsequent User-Role assignments, User-Permission grants, authentication, authorization and more.
+ * }
+ * </pre>
+ * The above code will persist to LDAP a User object that has a userId of "myUserId", a password of "myPassword", a role 
+ * assignment to "myRoleName", and assigned to organzational unit named "myOU". This User can be used as a target for 
+ * subsequent User-Role assignments, User-Permission grants, authentication, authorization and more.
  *
- * This entity aggregates one standard LDAP structural object class, {@code inetOrgPerson} see <a href="http://www.ietf.org/rfc/rfc2798.txt">RFC 2798</a>,
- * along with three auxiliary object extensions supplied by Fortress:  {@code ftUserAttrs}, {@code ftProperties}, {@code ftMods}.
- * The combination of the standard and custom object classes form a single entry within the directory and is represented in this entity class.
+ * This entity aggregates one standard LDAP structural object class, {@code inetOrgPerson} see 
+ * <a href="http://www.ietf.org/rfc/rfc2798.txt">RFC 2798</a>, along with three auxiliary object extensions supplied by 
+ * Fortress:  {@code ftUserAttrs}, {@code ftProperties}, {@code ftMods}. The combination of the standard and custom object 
+ * classes form a single entry within the directory and is represented in this entity class.
  *
  * <h4>Fortress User Schema</h4>
  *
@@ -506,7 +539,6 @@ public class User extends FortEntity implements Constraint, Serializable
      * Required by Constraint Interface but not needed for user entity. Not intended for external use.
      *
      * @return String containing constraint data ready for ldap.
-     * @throws UnsupportedOperationException
      */
     public String getRawData()
     {
@@ -1303,9 +1335,7 @@ public class User extends FortEntity implements Constraint, Serializable
     /**
      * Gets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
      *
-     * @return
-     *     possible object is
-     *     {@link Props }
+     * @return possible object is {@link Props }
      *
      */
     public Props getProps()
@@ -1317,9 +1347,7 @@ public class User extends FortEntity implements Constraint, Serializable
     /**
      * Sets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
      *
-     * @param value
-     *     allowed object is
-     *     {@link Props }
+     * @param value allowed object is {@link Props }
      *
      */
     public void setProps( Props value )
@@ -1333,7 +1361,7 @@ public class User extends FortEntity implements Constraint, Serializable
      * Properties are optional.
      *
      * @param key   contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
-     * @param value
+     * @param value The property value to add
      */
     public void addProperty( String key, String value )
     {
@@ -1422,12 +1450,12 @@ public class User extends FortEntity implements Constraint, Serializable
      * Get address data from entity that was persisted in directory as attributes defined by RFC 2798's LDAP inetOrgPerson Object Class:
      *
      * <ul>
-     * <li>  ------------------------------------------
-     * <li> <code>postalAddress</code>
-     * <li> <code>st</code>
-     * <li> <code>postalCode</code>
-     * <li> <code>postOfficeBox</code>
-     * <li>  ------------------------------------------
+     *   <li>  ------------------------------------------</li>
+     *   <li> <code>postalAddress</code></li>
+     *   <li> <code>st</code></li>
+     *   <li> <code>postalCode</code></li>
+     *   <li> <code>postOfficeBox</code></li>
+     *   <li>  ------------------------------------------</li>
      * </ul>
      *
      * @return {@link Address}
@@ -1447,15 +1475,15 @@ public class User extends FortEntity implements Constraint, Serializable
      * Set address data onto entity that stored in directory as attributes defined by RFC 2798's LDAP inetOrgPerson Object Class:
      *
      * <ul>
-     * <li>  ------------------------------------------
-     * <li> <code>postalAddress</code>
-     * <li> <code>st</code>
-     * <li> <code>postalCode</code>
-     * <li> <code>postOfficeBox</code>
-     * <li>  ------------------------------------------
+     *   <li>  ------------------------------------------</li>
+     *   <li> <code>postalAddress</code></li>
+     *   <li> <code>st</code></li>
+     *   <li> <code>postalCode</code></li>
+     *   <li> <code>postOfficeBox</code></li>
+     *   <li>  ------------------------------------------</li>
      * </ul>
      *
-     * @param address
+     * @param address The addreess to set
      */
     public void setAddress( Address address )
     {
@@ -1592,12 +1620,18 @@ public class User extends FortEntity implements Constraint, Serializable
     }
 
 
+    /**
+     * @return <tt>true</tt> if the SYSTEM flag is set
+     */
     public Boolean isSystem()
     {
         return system;
     }
 
 
+    /**
+     * @param system the SYSTEM flag to set
+     */
     public void setSystem( Boolean system )
     {
         this.system = system;
@@ -1611,7 +1645,7 @@ public class User extends FortEntity implements Constraint, Serializable
      * DESC 'a JPEG image'
      * SYNTAX 1.3.6.1.4.1.1466.115.121.1.28 )
      *
-     * return byte array containing the jpeg image.
+     * @return byte array containing the jpeg image.
      */
     public byte[] getJpegPhoto()
     {

@@ -25,10 +25,8 @@ import java.util.StringTokenizer;
 /**
  * Class contains static utilities for conversions of ldap data to/from audit format
  * These are low-level data utilities and no validations are performed.  These apis should not be called by outside programs.
- * <p/>
+ * <p>
  * This class is thread safe.
- * <p/>
-
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public final class AuditUtil

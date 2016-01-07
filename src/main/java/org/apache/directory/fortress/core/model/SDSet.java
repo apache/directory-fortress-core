@@ -37,7 +37,7 @@ import java.util.UUID;
 /**
  * <h4>Static Separation of Duties Schema</h4>
  * The Fortress SDSet entity is a composite of the following other Fortress structural and aux object classes:
- * <p/>
+ * <p>
  * 1. organizationalRole Structural Object Class is used to store basic attributes like cn and description.
  * <pre>
  * ------------------------------------------
@@ -56,10 +56,11 @@ import java.util.UUID;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
+ * <p>
  * 2. The RBAC Separation of14:14 Duties includes:
- * <p/> Static Separation of Duties
- * <img src="../doc-files/RbacSSD.png">
+ * <p> 
+ * Static Separation of Duties
+ * <img src="../doc-files/RbacSSD.png" alt="">
  * <pre>
  * ------------------------------------------
  * Fortress Dynamic Separation of Duties Structural Object Class
@@ -80,10 +81,11 @@ import java.util.UUID;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
+ * <p>
  * OR
- * <p/> Dynamic Separation of Duties
- * <img src="../doc-files/RbacDSD.png">
+ * <p> 
+ * Dynamic Separation of Duties
+ * <img src="../doc-files/RbacDSD.png" alt="">
  * <pre>
  * ------------------------------------------
  * Fortress Static Separation of Duties Structural Object Class
@@ -104,7 +106,7 @@ import java.util.UUID;
  *)
  * ------------------------------------------
  * </pre>
- * <p/>
+ * <p>
  * 3. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.
  * <pre>
  * ------------------------------------------
@@ -121,7 +123,6 @@ import java.util.UUID;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -303,6 +304,8 @@ public class SDSet extends FortEntity implements Serializable, Comparable<SDSet>
      * the Role membership is mutually exclusive amongst members.  A value of '3' indicates no more than two Roles
      * in set can be assigned to a single User (SSD) or activated within a single Session (DSD).  A value of '4' indicates
      * no more than three Roles may be used at a time, etc...
+     * 
+     * @param cardinality The membership cardinality for SDSet
      *
      */
     public void setCardinality( Integer cardinality )

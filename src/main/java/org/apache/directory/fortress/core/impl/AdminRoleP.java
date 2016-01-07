@@ -54,8 +54,6 @@ import org.apache.directory.fortress.core.util.VUtil;
  * error id from {@link GlobalErrIds}.
  * <p>
  * This class is thread safe.
- * <p/>
-
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

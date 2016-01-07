@@ -29,7 +29,7 @@ import java.io.Serializable;
 
 /**
  * This entity class contains OpenLDAP slapd access log records that correspond to bind attempts made to the directory.
- * <p/>
+ * <p>
  * The auditBind Structural object class is used to store authentication events that can later be queried via ldap API.<br>
  * <code># The Bind class includes the reqVersion attribute which contains the LDAP</code>
  * <code># protocol version specified in the Bind as well as the reqMethod attribute</code>
@@ -45,9 +45,8 @@ import java.io.Serializable;
  * MUST ( reqVersion $ reqMethod ) )</code>
  * ------------------------------------------
  * </pre>
- * <p/>
+ * <p>
  * Note this class used descriptions pulled from man pages on slapd access log.
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

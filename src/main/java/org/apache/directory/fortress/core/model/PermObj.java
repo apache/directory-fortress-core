@@ -49,29 +49,29 @@ import javax.xml.bind.annotation.XmlType;
  * provide enough information to uniquely identity the entity target within ldap.<br>
  * For example, this entity requires {@link #objName} and {@link #ou} attributes set before passing into {@link org.apache.directory.fortress.core.impl.AdminMgrImpl} or  {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl} APIs.
  * Create methods usually require more attributes (than Read) due to constraints enforced between entities.
- * <p/>
+ * <p>
  * <h4>PermObj entity attribute usages include</h4>
  * <ul>
  * <li>{@link #setObjName} and {@link #setOu} attributes set before calling {@link org.apache.directory.fortress.core.impl.AdminMgrImpl#addPermObj(PermObj)}.
  * <li>{@link #addProperty} may be set before calling {@link org.apache.directory.fortress.core.impl.AdminMgrImpl#addPermObj(PermObj)}.
  * <li>{@link #getProperty} may be set after calling {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl#findPermObjs(PermObj)}.
  * </ul>
- * <p/>
+ * <p>
  * <h4>More Permission entity notes</h4>
  * <ul>
  * <li>The {@link PermObj} entity is not used for authorization checks, rather contains {@link org.apache.directory.fortress.core.model.Permission} which are themselves authorization targets.<br>
  * <li>This entity must be associated with a valid Perm OU {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM} that is contained within the {@code ou=OS-P,ou=ARBAC,dc=example,dc=com} location in ldap.
  * <li>The object to operation pairings enable application resources to be mapped to Fortress permissions in a way that is natural for object oriented programming.
  * <li>Permissions = Object {@link PermObj} 1<->* Operations {@link org.apache.directory.fortress.core.model.Permission}
- * <p/>
- * <img src="../doc-files/RbacCore.png">
+ * <p>
+ * <img src="../doc-files/RbacCore.png" alt="">
  * <li>The unique key to locate an Fortress PermObj entity is {@code PermObj#objName}.
  * <li>For sample code usages check out {@link org.apache.directory.fortress.core.model.Permission} javadoc.
  * </ul>
- * <p/>
+ * <p>
  * <h4>PermObj Schema</h4>
  * The Fortress PermObj Entity Class is a composite of 3 different LDAP Schema object classes:
- * <p/>
+ * <p>
  * 1. ftObject STRUCTURAL Object Class is used to store object name, id and type variables on target entity.
  * <pre>
  * Fortress Permission Structural Object Class
@@ -104,7 +104,7 @@ import javax.xml.bind.annotation.XmlType;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
+ * <p>
  * 3. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.
  * <pre>
  * ------------------------------------------
@@ -121,7 +121,6 @@ import javax.xml.bind.annotation.XmlType;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

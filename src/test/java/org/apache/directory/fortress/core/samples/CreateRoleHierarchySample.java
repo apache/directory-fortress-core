@@ -85,7 +85,7 @@ public class CreateRoleHierarchySample extends TestCase
      * between the parent and child Roles.  Once the relationship is removed the parent Role can be removed.
      * Role removal will trigger automatic deassignment from all Users or revocation of Permission as well.
      * <p>
-     * <img src="./doc-files/HierRoleSimple.png">
+     * <img src="./doc-files/HierRoleSimple.png" alt="">
      */
     public static void testDeleteHierRoles()
     {
@@ -127,7 +127,7 @@ public class CreateRoleHierarchySample extends TestCase
      * sequence of 1 - 6.  sampleHierRole1 is the root or highest level Role in the structure while sampleHierRole6 is the lowest
      * most child.  Fortress Roles may have multiple parents which is demonstrated in testCreateAscendantRoles sample.
      * <p>
-     * <img src="./doc-files/HierRoleSimple.png">
+     * <img src="./doc-files/HierRoleSimple.png" alt="">
      */
     public static void testCreateHierRoles()
     {
@@ -170,7 +170,7 @@ public class CreateRoleHierarchySample extends TestCase
      * relationship with parent before being removed from ldap.  The parent Role will be removed from ldap last.
      * Role removal will trigger automatic deassignment from all Users or revocation of Permission as well.
      * <p>
-     * <img src="./doc-files/HierRoleDescendants.png">
+     * <img src="./doc-files/HierRoleDescendants.png" alt="">
      */
     public static void testDeleteDescendantRoles()
     {
@@ -213,7 +213,7 @@ public class CreateRoleHierarchySample extends TestCase
      * Demonstrate a parent to child Role structure of one-to-many.  The parent Role must be created before
      * the call to addDescendant which will Add a new Role node and set a Role relationship with parent node.
      * <p>
-     * <img src="./doc-files/HierRoleDescendants.png">
+     * <img src="./doc-files/HierRoleDescendants.png" alt="">
      */
     public static void testCreateDescendantRoles()
     {
@@ -249,7 +249,7 @@ public class CreateRoleHierarchySample extends TestCase
      * be removed from the child before the child can be removed.
      * Role removal will trigger automatic deassignment from all Users or revocation of Permission as well.
      * <p>
-     * <img src="./doc-files/HierRoleAscendants.png">
+     * <img src="./doc-files/HierRoleAscendants.png" alt="">
      */
     public static void testDeleteAscendantRoles()
     {
@@ -291,7 +291,7 @@ public class CreateRoleHierarchySample extends TestCase
      * Demonstrate a child to parent Role structure of one-to-many.  To use this API, the child Role must be created before
      * the call to addAscendant which will Add a new Role node and set a Role relationship with child node.
      * <p>
-     * <img src="./doc-files/HierRoleAscendants.png">
+     * <img src="./doc-files/HierRoleAscendants.png" alt="">
      */
     public static void testCreateAscendantRoles()
     {

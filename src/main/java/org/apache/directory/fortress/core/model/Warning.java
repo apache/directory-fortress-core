@@ -30,16 +30,16 @@ import java.io.Serializable;
 
 /**
  * This class contains messages that map to warning that occur during role activation and password policy validation.
- * <p/>
+ * <p>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 /**
  * This entity is stored on {@link org.apache.directory.fortress.core.model.Session} and is used to pass warnings
  * that occur during role activation and password policy validation.
- * <p/>
+ * <p>
  * Contains data from event that occurs during session initialization:
- * <p/>
+ * <p>
  * <ul>
  * <li>  ------------------------------------------
  * <li> <code>id</code>

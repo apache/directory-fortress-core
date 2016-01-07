@@ -45,7 +45,6 @@ import java.util.Set;
  * and maintenance of RBAC element sets and relations; administrative review functions for
  * performing administrative queries; and system functions for creating and managing
  * RBAC attributes on user sessions and making access control decisions.
- * <p>
  * <hr>
  * <h3></h3>
  * <h4>RBAC0 - Core</h4>

@@ -30,7 +30,7 @@ import javax.xml.bind.Unmarshaller;
  * This class contains a very simple caching mechanism for storing JAXBContext objects associated with Fortress XML
  * processing.
  * The intent is to reduce the performance penalty for calling JAXBContext.newInstance( class );
- * <p/>
+ * <p>
  * This class is thread safe.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>

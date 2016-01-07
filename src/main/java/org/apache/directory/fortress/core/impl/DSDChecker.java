@@ -39,21 +39,23 @@ import org.apache.directory.fortress.core.util.time.Validator;
 
 
 /**
- * This class performs Dynamic Separation of Duty checking on a collection of roles targeted for
- * activation within a particular user's session.  This method is called from {@link org.apache.directory.fortress.core.util.VUtil#validateConstraints} during createSession
- * sequence for users.  If DSD constraint violation is detected for a particular role method will remove the role
- * from collection of activation candidates and log a warning.  This proc will also consider hierarchical relations
- * between roles (RBAC spec calls these authorized roles).
- * This validator will ensure the role being targeted for activation does not violate RBAC dynamic separation of duty constraints.
+ * This class performs Dynamic Separation of Duty checking on a collection of roles targeted for activation within a 
+ * particular user's session.  This method is called from 
+ * {@link org.apache.directory.fortress.core.util.VUtil#validateConstraints} during createSession sequence for users.  If 
+ * DSD constraint violation is detected for a particular role method will remove the role from collection of activation 
+ * candidates and log a warning.  This proc will also consider hierarchical relations between roles (RBAC spec calls these 
+ * authorized roles).
+ * This validator will ensure the role being targeted for activation does not violate RBAC dynamic separation of duty 
+ * constraints.
+ * <h3></h3>
  * <h4> Constraint Targets include</h4>
  * <ol>
- * <li>{@link org.apache.directory.fortress.core.model.User} maps to 'ftCstr' attribute on 'ftUserAttrs' object class</li>
- * <li>{@link org.apache.directory.fortress.core.model.UserRole} maps to 'ftRC' attribute on 'ftUserAttrs' object class</li>
- * <li>{@link org.apache.directory.fortress.core.model.Role}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link org.apache.directory.fortress.core.model.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
- * <li>{@link org.apache.directory.fortress.core.model.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
+ *   <li>{@link org.apache.directory.fortress.core.model.User} maps to 'ftCstr' attribute on 'ftUserAttrs' object class</li>
+ *   <li>{@link org.apache.directory.fortress.core.model.UserRole} maps to 'ftRC' attribute on 'ftUserAttrs' object class</li>
+ *   <li>{@link org.apache.directory.fortress.core.model.Role}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
+ *   <li>{@link org.apache.directory.fortress.core.model.AdminRole}  maps to 'ftCstr' attribute on 'ftRls' object class</li>
+ *   <li>{@link org.apache.directory.fortress.core.model.UserAdminRole}  maps to 'ftARC' attribute on 'ftRls' object class</li>
  * </ol>
- * <p>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

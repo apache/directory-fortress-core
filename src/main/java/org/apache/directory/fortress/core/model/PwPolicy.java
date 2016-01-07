@@ -29,34 +29,36 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * This class contains the Password Policy entity which is used to pass directives into and out of ldap.
- * <br>The unique key to locate a Policy entity (which is subsequently assigned to Users) is {@link #name}.<br>
- * <p/>
+ * This class contains the Password Policy entity which is used to pass directives into and out of ldap.<br>
+ * The unique key to locate a Policy entity (which is subsequently assigned to Users) is {@link #name}.
+ * <h3></h3>
  * <h4>Password Policies</h4>
- * <a href="http://www.openldap.org/">OpenLDAP</a> supports the IETF draft <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10/">Password Policies for LDAP directories</a></li>.  Policies may be applied at the user, group or global level.
- * <p/>
- * <img src="../doc-files/PasswordPolicy.png">
- * <p/>
+ * <a href="http://www.openldap.org/">OpenLDAP</a> supports the IETF draft 
+ * <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10/">Password Policies for LDAP directories</a>. 
+ * Policies may be applied at the user, group or global level.
+ * <p>
+ * <img src="../doc-files/PasswordPolicy.png" alt="">
+ * <p>
  * Password enforcement options include:
  * <ol>
- * <li>A configurable limit on failed authentication attempts.</li>
- * <li>A counter to track the number of failed authentication attempts.</li>
- * <li>A time frame in which the limit of consecutive failed authentication attempts must happen before action is taken.</li>
- * <li>The action to be taken when the limit is reached. The action will either be nothing, or the account will be locked.</li>
- * <li>An amount of time the account is locked (if it is to be locked) This can be indefinite.</li>
- * <li>Password expiration.</li>
- * <li>Expiration warning</li>
- * <li>Grace authentications</li>
- * <li>Password history</li>
- * <li>Password minimum age</li>
- * <li>Password minimum length</li>
- * <li>Password Change after Reset</li>
- * <li>Safe Modification of Password</li>
+ *   <li>A configurable limit on failed authentication attempts.</li>
+ *   <li>A counter to track the number of failed authentication attempts.</li>
+ *   <li>A time frame in which the limit of consecutive failed authentication attempts must happen before action is taken.</li>
+ *   <li>The action to be taken when the limit is reached. The action will either be nothing, or the account will be locked.</li>
+ *   <li>An amount of time the account is locked (if it is to be locked) This can be indefinite.</li>
+ *   <li>Password expiration.</li>
+ *   <li>Expiration warning</li>
+ *   <li>Grace authentications</li>
+ *   <li>Password history</li>
+ *   <li>Password minimum age</li>
+ *   <li>Password minimum length</li>
+ *   <li>Password Change after Reset</li>
+ *   <li>Safe Modification of Password</li>
  * </ol>
- * <p/>
+ * <p>
  * <h4>Schema</h4>
  * The OpenLDAP Password Policy entity is a composite of the following structural and aux object classes:
- * <p/>
+ * <p>
  * 1. organizationalRole Structural Object Class is used to store basic attributes like cn and description.
  * <pre>
  * ------------------------------------------
@@ -70,14 +72,14 @@ import javax.xml.bind.annotation.XmlType;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
+ * <p>
  * 2. pwdPolicy AUXILIARY Object Class is used to store OpenLDAP Password Policies.
  * <pre>
  * ------------------------------------------
- * objectclass ( 1.3.6.1.4.1.42.2.27.8.2.1</code>
- *  NAME 'pwdPolicy'</code>
- *  SUP top</code>
- *  AUXILIARY</code>
+ * objectclass ( 1.3.6.1.4.1.42.2.27.8.2.1
+ *  NAME 'pwdPolicy'
+ *  SUP top
+ *  AUXILIARY
  *  MUST (
  *      pwdAttribute
  *  )
@@ -90,7 +92,7 @@ import javax.xml.bind.annotation.XmlType;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
+ * <p>
  * 3. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.
  * <pre>
  * ------------------------------------------
@@ -107,7 +109,7 @@ import javax.xml.bind.annotation.XmlType;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
+ * <p>
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -142,7 +144,7 @@ public class PwPolicy extends FortEntity implements Serializable
 
     /**
      * 5.2.1  pwdAttribute
-     * <p/>
+     * <p>
      * This holds the name of the attribute to which the password policy is
      * applied.  For example, the password policy may be applied to the
      * userPassword attribute.
@@ -151,7 +153,7 @@ public class PwPolicy extends FortEntity implements Serializable
 
     /**
      * 5.2.2  pwdMinAge
-     * <p/>
+     * <p>
      * This attribute holds the number of seconds that must elapse between
      * modifications to the password.  If this attribute is not present, 0
      * seconds is assumed.
@@ -162,10 +164,10 @@ public class PwPolicy extends FortEntity implements Serializable
 
     /**
      * 5.2.3  pwdMaxAge
-     * <p/>
+     * <p>
      * This attribute holds the number of seconds after which a modified
      * password will expire.
-     * <p/>
+     * <p>
      * If this attribute is not present, or if the value is 0 the password
      * does not expire.  If not 0, the value must be greater than or equal
      * to the value of the pwdMinAge.
@@ -175,10 +177,10 @@ public class PwPolicy extends FortEntity implements Serializable
 
     /**
      * 5.2.4  pwdInHistory
-     * <p/>
+     * <p>
      * This attribute specifies the maximum number of used passwords stored
      * in the pwdHistory attribute.
-     * <p/>
+     * <p>
      * If this attribute is not present, or if the value is 0, used
      * passwords are not stored in the pwdHistory attribute and thus may be
      * reused.
@@ -188,7 +190,7 @@ public class PwPolicy extends FortEntity implements Serializable
 
     /**
      * 5.2.5  pwdCheckQuality
-     * <p/>
+     * <p>
      * This attribute indicates how the password quality will be verified
      * while being modified or added.  If this attribute is not present, or
      * if the value is '0', quality checking will not be enforced.  A value
@@ -203,7 +205,7 @@ public class PwPolicy extends FortEntity implements Serializable
 
     /**
      * 5.2.6  pwdMinLength
-     * <p/>
+     * <p>
      * When quality checking is enabled, this attribute holds the minimum
      * number of characters that must be used in a password.  If this
      * attribute is not present, no minimum password length will be
@@ -217,11 +219,11 @@ public class PwPolicy extends FortEntity implements Serializable
 
     /**
      * 5.2.7  pwdExpireWarning
-     * <p/>
+     * <p>
      * This attribute specifies the maximum number of seconds before a
      * password is due to expire that expiration warning messages will be
      * returned to an authenticating user.
-     * <p/>
+     * <p>
      * If this attribute is not present, or if the value is 0 no warnings
      * will be returned.  If not 0, the value must be smaller than the value
      * of the pwdMaxAge attribute.
@@ -231,7 +233,7 @@ public class PwPolicy extends FortEntity implements Serializable
 
     /**
      * 5.2.8  pwdGraceAuthNLimit
-     * <p/>
+     * <p>
      * This attribute specifies the number of times an expired password can
      * be used to authenticate.  If this attribute is not present or if the
      * value is 0, authentication will fail.
@@ -241,12 +243,12 @@ public class PwPolicy extends FortEntity implements Serializable
 
     /**
      * 5.2.9  pwdLockout
-     * <p/>
+     * <p>
      * This attribute indicates, when its value is "TRUE", that the password
      * may not be used to authenticate after a specified number of
      * consecutive failed bind attempts.  The maximum number of consecutive
      * failed bind attempts is specified in pwdMaxFailure.
-     * <p/>
+     * <p>
      * If this attribute is not present, or if the value is "FALSE", the
      * password may be used to authenticate when the number of failed bind
      * attempts has been reached.
@@ -256,7 +258,7 @@ public class PwPolicy extends FortEntity implements Serializable
 
     /**
      * 5.2.10  pwdLockoutDuration
-     * <p/>
+     * <p>
      * This attribute holds the number of seconds that the password cannot
      * be used to authenticate due to too many failed bind attempts.  If
      * this attribute is not present, or if the value is 0 the password
@@ -268,7 +270,7 @@ public class PwPolicy extends FortEntity implements Serializable
 
     /**
      * 5.2.11  pwdMaxFailure
-     * <p/>
+     * <p>
      * This attribute specifies the number of consecutive failed bind
      * attempts after which the password may not be used to authenticate.
      * If this attribute is not present, or if the value is 0, this policy
@@ -279,11 +281,11 @@ public class PwPolicy extends FortEntity implements Serializable
 
     /**
      * 5.2.12  pwdFailureCountInterval
-     * <p/>
+     * <p>
      * This attribute holds the number of seconds after which the password
      * failures are purged from the failure counter, even though no
      * successful authentication occurred.
-     * <p/>
+     * <p>
      * If this attribute is not present, or if its value is 0, the failure
      * counter is only reset by a successful authentication.
      */
@@ -292,7 +294,7 @@ public class PwPolicy extends FortEntity implements Serializable
 
     /**
      * 5.2.13  pwdMustChange
-     * <p/>
+     * <p>
      * This attribute specifies with a value of "TRUE" that users must
      * change their passwords when they first bind to the directory after a
      * password is set or reset by a password administrator.  If this
@@ -307,7 +309,7 @@ public class PwPolicy extends FortEntity implements Serializable
 
     /**
      * 5.2.14  pwdAllowUserChange
-     * <p/>
+     * <p>
      * This attribute indicates whether users can change their own
      * passwords, although the change operation is still subject to access
      * control.  If this attribute is not present, a value of "TRUE" is
@@ -319,7 +321,7 @@ public class PwPolicy extends FortEntity implements Serializable
 
     /**
      * 5.2.15  pwdSafeModify
-     * <p/>
+     * <p>
      * This attribute specifies whether or not the existing password must be
      * sent along with the new password when being changed.  If this
      * attribute is not present, a "FALSE" value is assumed.

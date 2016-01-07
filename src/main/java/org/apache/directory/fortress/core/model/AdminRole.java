@@ -46,26 +46,26 @@ import org.apache.commons.lang.StringUtils;
  * provide enough information to uniquely identity the entity target within ldap.<br>
  * For example, this entity requires {@link #name} set before passing into {@link org.apache.directory.fortress.core.impl.DelAdminMgrImpl} or  {@link org.apache.directory.fortress.core.impl.DelReviewMgrImpl} APIs.
  * Create methods usually require more attributes (than Read) due to constraints enforced between entities.
- * <p/>
+ * <p>
  * This entity extends the {@link org.apache.directory.fortress.core.model.Role} entity and is used to store the ARBAC AdminRole assignments that comprise the many-to-many relationships between Users and Administrative Permissions.
  * In addition it is used to store the ARBAC {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM} and {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} OU information that adheres to the AdminRole entity in the ARBAC02 model.
  * <br>The unique key to locate AdminRole entity (which is subsequently assigned both to Users and administrative Permissions) is {@link AdminRole#name}.<br>
- * <p/>
+ * <p>
  * There is a many-to-many relationship between User's, Administrative Roles and Administrative Permissions.
  * <h3>{@link org.apache.directory.fortress.core.model.User}*<->*{@link AdminRole}*<->*{@link org.apache.directory.fortress.core.model.Permission}</h3>
  * Example to create new ARBAC AdminRole:
- * <p/>
+ * <p>
  * <code>AdminRole myRole = new AdminRole("MyRoleName");</code><br>
  * <code>myRole.setDescription("This is a test admin role");</code><br>
  * <code>DelAdminMgr delAdminMgr = DelAdminMgrFactory.createInstance();</code><br>
  * <code>delAdminMgr.addRole(myRole);</code><br>
- * <p/>
+ * <p>
  * This will create a AdminRole name that can be used as a target for User-AdminRole assignments and AdminRole-AdminPermission grants.
- * <p/>
- * <p/>
+ * <p>
+ * <p>
  * <h4>Administrative Role Schema</h4>
  * The Fortress AdminRole entity is a composite of the following other Fortress structural and aux object classes:
- * <p/>
+ * <p>
  * 1. organizationalRole Structural Object Class is used to store basic attributes like cn and description.
  * <pre>
  * ------------------------------------------
@@ -84,7 +84,7 @@ import org.apache.commons.lang.StringUtils;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
+ * <p>
  * 2. ftRls Structural objectclass is used to store the AdminRole information like name, and temporal constraints.
  * <pre>
  * ------------------------------------------
@@ -106,7 +106,7 @@ import org.apache.commons.lang.StringUtils;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
+ * <p>
  * 3. ftProperties AUXILIARY Object Class is used to store client specific name/value pairs on target entity.<br>
  * <code># This aux object class can be used to store custom attributes.</code><br>
  * <code># The properties collections consist of name/value pairs and are not constrainted by Fortress.</code><br>
@@ -123,7 +123,7 @@ import org.apache.commons.lang.StringUtils;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
+ * <p>
  * 4. ftPools Auxiliary object class store the ARBAC Perm and User OU assignments on AdminRole entity.
  * <pre>
  * ------------------------------------------
@@ -140,7 +140,7 @@ import org.apache.commons.lang.StringUtils;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
+ * <p>
  * 5. ftMods AUXILIARY Object Class is used to store Fortress audit variables on target entity.
  * <pre>
  * ------------------------------------------
@@ -157,8 +157,6 @@ import org.apache.commons.lang.StringUtils;
  * )
  * ------------------------------------------
  * </pre>
- * <p/>
-
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
