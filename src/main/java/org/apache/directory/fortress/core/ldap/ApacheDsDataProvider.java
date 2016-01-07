@@ -195,16 +195,15 @@ public abstract class ApacheDsDataProvider
         config.setCredentials( adminPw );
         try
         {
-            System.setProperty( StandaloneLdapApiService.EXTENDED_OPERATIONS_LIST,
-                "org.openldap.accelerator.impl.createSession.RbacCreateSessionFactory,"
-                    + "org.openldap.accelerator.impl.checkAccess.RbacCheckAccessFactory,"
-                    + "org.openldap.accelerator.impl.addRole.RbacAddRoleFactory,"
-                    + "org.openldap.accelerator.impl.dropRole.RbacDropRoleFactory,"
-                    + "org.openldap.accelerator.impl.deleteSession.RbacDeleteSessionFactory,"
-                    + "org.openldap.accelerator.impl.sessionRoles.RbacSessionRolesFactory"
-                );
+            List<String> listExOps = new ArrayList<>();
+            listExOps.add( "org.openldap.accelerator.impl.createSession.RbacCreateSessionFactory" );
+            listExOps.add( "org.openldap.accelerator.impl.checkAccess.RbacCheckAccessFactory" );
+            listExOps.add( "org.openldap.accelerator.impl.addRole.RbacAddRoleFactory" );
+            listExOps.add( "org.openldap.accelerator.impl.dropRole.RbacDropRoleFactory" );
+            listExOps.add( "org.openldap.accelerator.impl.deleteSession.RbacDeleteSessionFactory" );
+            listExOps.add( "org.openldap.accelerator.impl.sessionRoles.RbacSessionRolesFactory" );
+            LdapApiService ldapApiService = new StandaloneLdapApiService( new ArrayList<String>(), listExOps );
 
-            LdapApiService ldapApiService = new StandaloneLdapApiService();
             if ( !LdapApiServiceFactory.isInitialized() )
             {
                 LdapApiServiceFactory.initialize( ldapApiService );
