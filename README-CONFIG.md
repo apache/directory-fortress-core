@@ -143,3 +143,6 @@ B just updates the configuration node with the new values, preserving all other 
  * We don't need to replicate the same data everywhere which is where remote config nodes are used.
  * Tailor these procedures to match your requirements.
  * For more info on which parameters are used where, look at the init-fortress-config target located inside the build.xml file.
+
+ ___________________________________________________________________________________
+  #### END OF README-CONFIG
