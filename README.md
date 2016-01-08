@@ -75,7 +75,7 @@ Minimum software requirements:
  * Java SDK 7++
  * Apache Maven3++
  * *Apache Ant7++ (if doing SECTION 3)*
- 
+
 ___________________________________________________________________________________
 ## SECTION 1.  Options for using Apache Fortress and LDAP server
 
@@ -251,14 +251,65 @@ ________________________________________________________________________________
  logpurge 5+00:00 1+00:00
  ```
 
-9. Create the dirs needed by the new slapd databases:
+9. Enable slapo pwpolicy overlay.
+
+ ```
+ #######################################################################
+ # PW Policy Settings
+ #######################################################################
+ # Enable the Password Policy overlay to enforce password policies on this database.
+ overlay     ppolicy
+ ppolicy_default "cn=PasswordPolicy,ou=Policies,dc=example,dc=com"
+ ppolicy_use_lockout
+ ppolicy_hash_cleartext
+ ```
+
+10. Add to OpenLDAP ACL's.
+
+ ```
+ ### ACLs
+ access to dn="" by * read
+ access to *
+ 	by self write
+ 	by users read
+ 	by anonymous auth
+ 	by sockurl="^ldapi:///$" write
+
+ ### This one allows user to modify their own password (needed for pw policies):
+ ### This also allows user to modify their own ftmod attributes (needed for audit):
+ access to attrs=userpassword
+          by self write
+          by * auth
+ ```
+
+11. A few more for good measure.
+
+ ```
+ # Never allow anonymous binds:
+ disallow bind_anon
+
+ # Speeds up member list processing for ldap group operations:
+ sortvals  roleOccupant
+
+ # Convenience:
+  gentlehup on
+
+ # Sensible defaults:
+ sizelimit 5000
+ timelimit 60
+ threads 8
+ loglevel 32768
+
+ ```
+
+11. Create the dirs needed by the new slapd databases:
 
  ```
  mkdir /var/openldap/dflt
  mkdir /var/openldap/hist
  ```
 
-10. Restart the slapd daemon.  Ensure there are no errors.
+12. Restart the slapd daemon.  Ensure there are no errors.
 ___________________________________________________________________________________
 ## SECTION 8. Instructions for using Apache Fortress with OpenLDAP
 
