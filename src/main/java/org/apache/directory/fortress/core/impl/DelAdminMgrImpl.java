@@ -19,12 +19,15 @@
  */
 package org.apache.directory.fortress.core.impl;
 
+import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.AdminMgrFactory;
 import org.apache.directory.fortress.core.DelAdminMgr;
-import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.Hier;
@@ -35,9 +38,6 @@ import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.util.VUtil;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * This class implements the ARBAC02 DelAdminMgr interface for performing policy administration of Fortress ARBAC entities
@@ -146,8 +146,8 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
                 UserAdminRole chgRole = new UserAdminRole();
                 chgRole.setName(role.getName());
                 chgRole.setUserId(ue.getUserId());
-                chgRole.setOsP(role.getOsP());
-                chgRole.setOsU(role.getOsU());
+                chgRole.setOsPList(role.getOsP());
+                chgRole.setOsUList(role.getOsU());
                 uaRoles.remove(chgRole);
                 ConstraintUtil.copy( re, chgRole );
                 uaRoles.add(chgRole);

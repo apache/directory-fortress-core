@@ -19,21 +19,24 @@
  */
 package org.apache.directory.fortress.core.impl.accelerator;
 
-import org.apache.directory.fortress.core.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import org.apache.directory.fortress.core.AccelMgr;
+import org.apache.directory.fortress.core.AccelMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.impl.TestUtils;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.directory.fortress.core.AccelMgr;
-import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.impl.TestUtils;
-import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.UserRole;
-
-import static org.junit.Assert.*;
 
 public class TestAccelerator
 {
@@ -83,8 +86,8 @@ public class TestAccelerator
             // positive test case:
             user.setUserId( "rbacuser1" );
             user.setPassword( "secret".toCharArray() );
-            user.setRole( "rbacrole1" );
-            user.setRole( "rbacrole2" );
+            user.setRoleName( "rbacrole1" );
+            user.setRoleName( "rbacrole2" );
             session = accelMgr.createSession( user, false );
             assertNotNull( session );
             assertTrue( session.isAuthenticated() );
@@ -188,7 +191,7 @@ public class TestAccelerator
             // positive test case:
             user.setUserId( "rbacuser1" );
             user.setPassword( "secret".toCharArray() );
-            user.setRole( "rbacrole1" );
+            user.setRoleName( "rbacrole1" );
             //user.setRole( "rbacrole2" );
             session = accelMgr.createSession( user, false );
             assertNotNull( session );

@@ -980,8 +980,8 @@ public class AdminRoleTestData extends TestCase
         AdminRole role = ( AdminRole ) getRoleConstraint( rle );
         role.setName( RoleTestData.getName( rle ) );
         role.setDescription( RoleTestData.getDescription( rle ) );
-        role.setOsU( getOsU( rle ) );
-        role.setOsP( getOsP( rle ) );
+        role.setOsUList( getOsU( rle ) );
+        role.setOsPList( getOsP( rle ) );
         role.setBeginRange( getBeginRange( rle ) );
         role.setEndRange( getEndRange( rle ) );
         role.setBeginInclusive( isBeginInclusive( rle ) );
