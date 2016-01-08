@@ -82,11 +82,11 @@ ________________________________________________________________________________
 This document describes three options to use Apache Fortress with:
 
 1. ApacheDS LDAP server (recommended for first-time users).
- * Do **SECTION 2** Apache Fortress and ApacheDS LDAP server.
+ * **SECTION 2** Apache Fortress and ApacheDS LDAP server.
 2. Symas OpenLDAP server (quickstart)
- * Do **SECTION 3** Apache Fortress and Symas OpenLDAP server.
+ * **SECTION 3** Apache Fortress and Symas OpenLDAP server.
 3. Pre-existing OpenLDAP server (advanced)
- * Do **SECTION 4** Apache Fortress and native OpenLDAP server.
+ * **SECTION 4** Apache Fortress and native OpenLDAP server.
 
 ___________________________________________________________________________________
 # SECTION 2. Instructions for using Apache Fortress and ApacheDS LDAP server.
