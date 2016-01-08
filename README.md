@@ -113,6 +113,7 @@ ________________________________________________________________________________
 # SECTION 5. Instructions to build software package.
 
 1. Set Java and Maven home on machines.
+
 2. From the FORTRESS_HOME root folder, enter the following command:
 
  ```
@@ -141,7 +142,7 @@ ________________________________________________________________________________
 
 Build Notes:
  * The Apache Fortress [pom.xml](./pom.xml) may run without connection to Internet iff its dependencies are already present in local or intermediate maven repo.
- * Running ```mvn install``` calls out to maven-ant **init-fortress-config** task in [build.xml](./build.xml) to seed properties (more info here: [README-CONFIG](./README-CONFIG.md)).
+ * Running ```mvn install``` calls out to maven-ant **init-fortress-config** task in [build.xml](./build.xml) to regenerate configuration artifacts (more info here: [README-CONFIG](./README-CONFIG.md)).
 
 ___________________________________________________________________________________
 # SECTION 6. Instructions for installing OpenLDAP.
@@ -235,8 +236,6 @@ include	   OPENLDAP_HOME/etc/openldap/schema/fortress.schema
  logpurge 5+00:00 1+00:00
  ```
 
- *For newcomers just trying to learn the ropes the defaults usually work.*
-
 ___________________________________________________________________________________
 # SECTION 7. Instructions for using Apache Fortress with OpenLDAP.
 
@@ -247,27 +246,27 @@ ________________________________________________________________________________
  cp slapd.properties.example slapd.properties
  ```
 
-2. Edit the slapd install properties file:
+2. Edit the **slapd.properties** file.
 
  ```
  vi slapd.properties
  ```
 
-3. Set the LDAP Host and port properties.  Either a valid host name or IP address can be used.  If you are running on the same platform as your LDAP server, localhost will do:
+3. Set the LDAP Host and port properties.  Either a valid host name or IP address can be used.  If you are running on the same platform as your LDAP server, localhost will do.
 
  ```
  host=localhost
  port=389
  ```
 
-4. Set the suffix name and domain component.  These will be according to your requirements.  For example suffix.name=example + suffix.dc=com will = 'dc=example,dc=com'.
+4. Set the suffix name and domain component.  These may be set according to your requirements.  For example **suffix.name=example** and **suffix.dc=com** turns into **dc=example,dc=com**.
 
  ```
  suffix.name=example
  suffix.dc=com
  ```
 
-5. Set the administrative LDAP connection pool parameters:
+5. Add to the file to enable administrative LDAP connection pool parameters.  This is for all ldap ops except binds and slapo access log searches (audit reads).
 
  ```
  # This value contains dn of user that has read/write access to LDAP DIT:
@@ -286,7 +285,7 @@ ________________________________________________________________________________
  admin.max.conn=10
  ```
 
-6. Set user authentication connection pool parameters:
+6. Add to the file to enable user authentication connection pool.  This is for user bind operations.
 
  ```
  user.min.conn=1
@@ -294,11 +293,11 @@ ________________________________________________________________________________
  user.max.conn=10
  ```
 
-7. Audit settings (OpenLDAP only):
+7. Add to file to enable the slapo access log connection pool and its corresponding audit trail.
 
  ```
  # If you don't have slapo-access log overlay enabled, then disable the Fortress audit:
- # Default is false.  This only works if ldap.server.type=openldap:
+ # The default is 'false'.  This only works if ldap.server.type=openldap:
  disable.audit=true
 
  # Set the audit connection pool parameters:
@@ -322,22 +321,23 @@ ________________________________________________________________________________
  log.ops=logops search bind writes
  ```
 
-8. Seed the properties into configuration artifacts:
+8. Rebuild the configuration artifacts:
 
  ```
  mvn install
  ```
 
-9. Perform the base load of Directory Information Tree:
+9. Perform an initial load to the target LDAP server:
 
  ```
  mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
  ```
 
-Usage Notes:
- * More information about the Fortress Configuration subsystem: [README-CONFIG.md](./README-CONFIG.md)
- * Use caution when running the -Dload.file target with **refreshLDAPData.xml** as that script deletes all nodes beneath the suffix and readds.
- * Sets up the basic Directory Information Tree format and remote configuration nodes (more info here: [README-CONFIG](./README-CONFIG.md)).
+  *Do not run this target with **refreshLDAPData.xml** on production systems as it deletes all nodes beneath the suffix before readding.*
+
+More Usage Notes:
+ * For newcomers just trying to learn the ropes the defaults usually work.
+ * [slapd.properties.example](slapd.properties.example) is where the OpenLDAP server defaults reside.  This file, after being renamed to **slapd.properties**, will override values found in build.properties.  Learn more about the configuration subsystem: [README-CONFIG.md](./README-CONFIG.md)
  * Unless you know what you are doing, don't change ant substitution parameters within the properties.  These are are anything inside and including '${}'.  i.e. ${param1}.
 
 ___________________________________________________________________________________
@@ -416,7 +416,7 @@ ________________________________________________________________________________
  ```
  Notice 141 tests ran this time vs 113 the first time.
 
-6. You can now clear out the test data and policies by running this command again:
+6. You can now clear out the test data and policies by rerunning this command:
 
  ```
  mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
@@ -424,9 +424,8 @@ ________________________________________________________________________________
 
  Test Notes:
   * If tests complete without errors Apache Fortress works with your LDAP server.
-  * These tests load thousands of records into target ldap server.
-  * The 2nd and subsequent time test runs, teardown of data occurs.
-  * WARNING messages are negative tests in action.
+  * These tests load thousands of objects into the target ldap server.  You should clear out the test data in the end.
+  * Warning messages are negative tests in action.
 
 ___________________________________________________________________________________
 # SECTION 9. Instructions to load policy data using Apache Fortress Load utility.
