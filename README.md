@@ -310,6 +310,7 @@ ________________________________________________________________________________
  ```
 
 12. Restart the slapd daemon.  Ensure there are no errors.
+
 ___________________________________________________________________________________
 ## SECTION 8. Instructions for using Apache Fortress with OpenLDAP
 
