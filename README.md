@@ -158,13 +158,22 @@ ________________________________________________________________________________
  cp FORTRESS_HOME/ldap/schema/fortress.schema OPENLDAP_HOME/etc/openldap/schema
  ```
 
-3. Enable Fortress schema in slapd.conf:
+3. Edit slapd.conf
 
  ```
-include		OPENLDAP_HOME/etc/openldap/schema/fortress.schema
+ vi OPENLDAP_HOME/etc/openldap/slapd.conf
+ ```
+
+3. Enable Fortress schema.
+
+ Add to the top of the file:
+ ```
+include	   OPENLDAP_HOME/etc/openldap/schema/fortress.schema
  ```
 
 4. For password policy support, enable pwpolicy overlay in slapd.conf:
+
+ Add right before the ACL definitions:
 
  ```
  moduleload	 ppolicy.la
@@ -232,12 +241,14 @@ ________________________________________________________________________________
 # SECTION 7. Instructions for using Apache Fortress with OpenLDAP.
 
 1. Copy FORTRESS_HOME/build.properties.example to build.properties and FORTRESS_HOME/slapd.properties.example to slapd.properties:
+
  ```
  cp build.properties.example build.properties
  cp slapd.properties.example slapd.properties
  ```
 
 2. Edit the slapd install properties file:
+
  ```
  vi slapd.properties
  ```
@@ -250,12 +261,14 @@ ________________________________________________________________________________
  ```
 
 4. Set the suffix name and domain component.  These will be according to your requirements.  For example suffix.name=example + suffix.dc=com will = 'dc=example,dc=com'.
+
  ```
  suffix.name=example
  suffix.dc=com
  ```
 
 5. Set the administrative LDAP connection pool parameters:
+
  ```
  # This value contains dn of user that has read/write access to LDAP DIT:
  root.dn=cn=Manager,${suffix}
@@ -274,6 +287,7 @@ ________________________________________________________________________________
  ```
 
 6. Set user authentication connection pool parameters:
+
  ```
  user.min.conn=1
  # You may need to experiment to determine optimal setting for max.  It should be much less than concurrent number of users.
@@ -309,11 +323,13 @@ ________________________________________________________________________________
  ```
 
 8. Seed the properties into configuration artifacts:
+
  ```
  mvn install
  ```
 
 9. Perform the base load of Directory Information Tree:
+
  ```
  mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
  ```
@@ -328,6 +344,7 @@ ________________________________________________________________________________
 # SECTION 8. Instructions to integration test.
 
 1. From **FORTRESS_HOME** enter the following commands:
+
  ```
  mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
  mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml
@@ -345,6 +362,7 @@ ________________________________________________________________________________
  Tests that all of the APIs and security functions work on your LDAP server.
 
 3. Verify the tests worked:
+
  ```
  Tests run: 113, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 196 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
 
@@ -368,11 +386,13 @@ ________________________________________________________________________________
  ```
 
 4. Rerun the tests to verify teardown APIs work:
+
  ```
  mvn -Dtest=FortressJUnitTest test
  ```
 
 5. Verify that worked also:
+
  ```
  Tests run: 141, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 207.081 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
 
@@ -396,7 +416,8 @@ ________________________________________________________________________________
  ```
  Notice 141 tests ran this time vs 113 the first time.
 
-5. You can now clear out the test data and policies by running this command again:
+6. You can now clear out the test data and policies by running this command again:
+
  ```
  mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
  ```
@@ -440,6 +461,7 @@ ________________________________________________________________________________
   ```
 
 2. Which starts the Fortress command line interpreter:
+
  ```
  CommandLineInterpreter:176 - Startup to interactive mode success...
  CommandLineInterpreter:183 - CLI function groups include admin, review, system, dadmin, group
@@ -447,6 +469,7 @@ ________________________________________________________________________________
  ```
 
 3. Where subsequent commands can be performed.  For example to add a new user:
+
  ```
  admin auser -u testuser1 -p mypasword123 -o dev1
  2016-01-07 09:17:030 INFO  CommandLineInterpreter:1078 - arg:admin
@@ -463,6 +486,7 @@ ________________________________________________________________________________
  ```
 
 4. Or to interrogate users:
+
  ```
  review fuser -u testuser1
  2016-01-07 09:18:042 INFO  CommandLineInterpreter:1078 - arg:review
@@ -513,6 +537,7 @@ ________________________________________________________________________________
  ```
 
 3. Option 1 performs Administrative operations:
+
  ```
 CHOOSE ADMIN MANAGER FUNCTION:
  1.  Add User
@@ -544,6 +569,7 @@ CHOOSE ADMIN MANAGER FUNCTION:
  ```
 
 4. Option 2 performs Review operations:
+
  ```
  CHOOSE REVIEW MANAGER FUNCTION:
  0. Search Users
@@ -563,6 +589,7 @@ CHOOSE ADMIN MANAGER FUNCTION:
  ```
 
 5. Option 3 performs Access operations (for testing):
+
  ```
  CHOOSE ACCESS MANAGER FUNCTION:
  1. Authenticate
