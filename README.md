@@ -75,6 +75,7 @@ Minimum software requirements:
  * Java SDK 7++
  * Apache Maven3++
  * *Apache Ant7++ (if doing SECTION 3)*
+ 
 ___________________________________________________________________________________
 ## SECTION 1.  Options for using Apache Fortress and LDAP server
 
