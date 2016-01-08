@@ -32,7 +32,7 @@
  * SECTION 2.  Instructions for using Apache Fortress and ApacheDS LDAP server.
  * SECTION 3.  Instructions for using Apache Fortress and Symas OpenLDAP server.
  * SECTION 4.  Instructions for using Apache Fortress and native OpenLDAP server.
- * SECTION 5.  Instructions to pull Apache Fortress Core source code from Apache GIT
+ * SECTION 5.  Instructions to pull Apache Fortress Core source code from GIT.
  * SECTION 6.  Instructions to build software package.
  * SECTION 7.  Instructions for installing OpenLDAP.
  * SECTION 8.  Instructions for using Apache Fortress with OpenLDAP.
@@ -110,7 +110,7 @@ ________________________________________________________________________________
  * SECTION 9.  Instructions to integration test.
 
 ___________________________________________________________________________________
-# SECTION 5. Instructions to pull Apache Fortress source code from Apache GIT repo
+# SECTION 5. Instructions to pull Apache Fortress source code from GIT.
 
 SNAPSHOTs from Apache GIT Software Repo:
 https://git-wip-us.apache.org/repos/asf?p=directory-fortress-core.git
