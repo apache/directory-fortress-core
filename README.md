@@ -31,17 +31,18 @@
  * SECTION 1.  Options for using Apache Fortress and LDAP server together.
  * SECTION 2.  Instructions for using Apache Fortress and ApacheDS LDAP server.
  * SECTION 3.  Instructions for using Apache Fortress and Symas OpenLDAP server.
- * SECTION 4.  Instructions to pull Apache Fortress Core source code from Apache GIT
- * SECTION 5.  Instructions to build software package.
- * SECTION 6.  Instructions for installing OpenLDAP.
- * SECTION 7.  Instructions for using Apache Fortress with OpenLDAP.
- * SECTION 8.  Instructions to integration test.
- * SECTION 9.  Instructions to load policy data using Apache Fortress Load utility.
- * SECTION 10. Instructions to run the Apache Fortress Command Line Interpreter (CLI).
- * SECTION 11. Instructions to run the Apache Fortress Command Console.
- * SECTION 12. Instructions to build and test the Apache Fortress samples.
- * SECTION 13. Instructions to performance test.
- * SECTION 14. Instructions to encrypt LDAP passwords used in config files.
+ * SECTION 4.  Instructions for using Apache Fortress and native OpenLDAP server.
+ * SECTION 5.  Instructions to pull Apache Fortress Core source code from Apache GIT
+ * SECTION 6.  Instructions to build software package.
+ * SECTION 7.  Instructions for installing OpenLDAP.
+ * SECTION 8.  Instructions for using Apache Fortress with OpenLDAP.
+ * SECTION 9.  Instructions to integration test.
+ * SECTION 10. Instructions to load policy data using Apache Fortress Load utility.
+ * SECTION 11. Instructions to run the Apache Fortress Command Line Interpreter (CLI).
+ * SECTION 12. Instructions to run the Apache Fortress Command Console.
+ * SECTION 13. Instructions to build and test the Apache Fortress samples.
+ * SECTION 14. Instructions to performance test.
+ * SECTION 15. Instructions to encrypt LDAP passwords used in config files.
 
 ___________________________________________________________________________________
 # Document Overview
@@ -98,7 +99,18 @@ ________________________________________________________________________________
  * Follow these instructions: [README-QUICKSTART-SLAPD.md](./README-QUICKSTART-SLAPD.md)
 
 ___________________________________________________________________________________
-# SECTION 4. Instructions to pull Apache Fortress source code from Apache GIT repo
+# SECTION 4. Instructions for using Apache Fortress and native OpenLDAP server.
+
+ Do these sections:
+
+ * SECTION 5.  Instructions to pull Apache Fortress Core source code from Apache GIT
+ * SECTION 6.  Instructions to build software package.
+ * SECTION 7.  Instructions for installing OpenLDAP.
+ * SECTION 8.  Instructions for using Apache Fortress with OpenLDAP.
+ * SECTION 9.  Instructions to integration test.
+
+___________________________________________________________________________________
+# SECTION 5. Instructions to pull Apache Fortress source code from Apache GIT repo
 
 SNAPSHOTs from Apache GIT Software Repo:
 https://git-wip-us.apache.org/repos/asf?p=directory-fortress-core.git
@@ -108,7 +120,7 @@ Clone the Apache Fortress Core Git Repo::
  git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
  ```
 ___________________________________________________________________________________
-# SECTION 5. Instructions to build software package.
+# SECTION 6. Instructions to build software package.
 
 1. Set Java and Maven home on machines.
 
@@ -143,7 +155,7 @@ Build Notes:
  * Running ```mvn install``` calls out to maven-ant **init-fortress-config** task in [build.xml](./build.xml) to regenerate configuration artifacts (more info here: [README-CONFIG](./README-CONFIG.md)).
 
 ___________________________________________________________________________________
-# SECTION 6. Instructions for installing OpenLDAP.
+# SECTION 7. Instructions for installing OpenLDAP.
 
 1. Install OpenLDAP using preferred method.
  * For example (existing package management system):
@@ -235,7 +247,7 @@ include	   OPENLDAP_HOME/etc/openldap/schema/fortress.schema
  ```
 
 ___________________________________________________________________________________
-# SECTION 7. Instructions for using Apache Fortress with OpenLDAP.
+# SECTION 8. Instructions for using Apache Fortress with OpenLDAP.
 
 1. Copy FORTRESS_HOME/build.properties.example to build.properties and FORTRESS_HOME/slapd.properties.example to slapd.properties:
 
@@ -339,7 +351,7 @@ More Usage Notes:
  * Unless you know what you are doing, don't change ant substitution parameters within the properties.  These are are anything inside and including '${}'.  i.e. ${param1}.
 
 ___________________________________________________________________________________
-# SECTION 8. Instructions to integration test.
+# SECTION 9. Instructions to integration test.
 
 1. From **FORTRESS_HOME** enter the following commands:
 
@@ -426,7 +438,7 @@ ________________________________________________________________________________
   * Warning messages are negative tests in action.
 
 ___________________________________________________________________________________
-# SECTION 9. Instructions to load policy data using Apache Fortress Load utility.
+# SECTION 10. Instructions to load policy data using Apache Fortress Load utility.
 
  The Load utility is useful to create base policy configurations that need to be rerun many times in different test and production environments.
  For samples look here: [./ldap/setup](./ldap/setup).
@@ -447,7 +459,7 @@ Policy Load Notes:
   * [./target/site/apidocs/org/apache/directory/fortress/core/ant/FortressAntTask.html](./target/site/apidocs/org/apache/directory/fortress/core/ant/FortressAntTask.html)
 
 ___________________________________________________________________________________
-# SECTION 10. Instructions to run the Apache Fortress Command Line Interpreter (CLI).
+# SECTION 11. Instructions to run the Apache Fortress Command Line Interpreter (CLI).
 
  The CLI is useful for ad-hoc policy administration in runtime environments.
 
@@ -504,7 +516,7 @@ ________________________________________________________________________________
  * [./target/site/apidocs/org/apache/directory/fortress/core/cli/package-summary.html/package-summary.html](./target/site/apidocs/org/apache/directory/fortress/core/cli/package-summary.html)
 
 ___________________________________________________________________________________
-# SECTION 11. Instructions to run the Apache Fortress Command Console.
+# SECTION 12. Instructions to run the Apache Fortress Command Console.
 
  The Command Console is an interactive program that is allows ad-hoc edit and reporting on data stored in LDAP server.
 
@@ -607,7 +619,7 @@ CHOOSE ADMIN MANAGER FUNCTION:
 6. etc... for PW Policy, ARBAC, Groups.
 
 ___________________________________________________________________________________
-# SECTION 12. Instructions to build and test the Apache Fortress samples.
+# SECTION 13. Instructions to build and test the Apache Fortress samples.
 
 1. From **FORTRESS_HOME** enter the following command:
 
@@ -647,7 +659,7 @@ Sample Notes:
  * The 2nd and subsequent times runs, it will tear down the data loaded during the prior run.
 
 ___________________________________________________________________________________
-# SECTION 13. Instructions to performance test.
+# SECTION 14. Instructions to performance test.
 
  This section describes the Apache Fortress jmeter test programs.
 
@@ -687,7 +699,7 @@ ________________________________________________________________________________
  The tests will run and produce measurements for throughput and latency.
 
 ___________________________________________________________________________________
-# SECTION 14. Instructions to encrypt LDAP passwords used in config files.
+# SECTION 15. Instructions to encrypt LDAP passwords used in config files.
 
 If you need the passwords for LDAP service accounts to be encrypted before loading into Fortress properties files you can
 use the 'encrypt' ant target.
