@@ -144,7 +144,6 @@ ________________________________________________________________________________
 12. More steps to follow in the [README](README.md) file:
 
  * SECTION 9.  Instructions to integration test.
- * SECTION 10. Instructions to load policy data using Apache Fortress Load utility.
  * SECTION 11. Instructions to run the Apache Fortress Command Line Interpreter (CLI).
  * SECTION 12. Instructions to run the Apache Fortress Command Console.
  * SECTION 13. Instructions to build and test the Apache Fortress samples.
