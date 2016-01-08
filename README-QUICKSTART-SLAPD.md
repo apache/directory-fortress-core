@@ -57,6 +57,8 @@ ________________________________________________________________________________
  cp slapd.properties.example slapd.properties
  ```
 
+ *[slapd.properties.example](slapd.properties.example) is where the OpenLDAP server defaults reside. This file, after being renamed to slapd.properties, will override values found in build.properties. Learn more about the configuration subsystem: [README-CONFIG](README-CONFIG.md)*
+
 2. Download Symas OpenLDAP Silver Binaries:
  https://symas.com/downloads/
 
@@ -106,22 +108,24 @@ ________________________________________________________________________________
 
 8. Save and exit
 
- *The following steps invoke runtime java, ant and maven:*
+9. Prepare your terminal for execution of maven and ant commands.
 
  ```
- export JAVA_HOME=../myjdk
- export ANT_HOME=../myant
- export M2_HOME=../mymaven
+ export JAVA_HOME=[my-jdk]
+ export ANT_HOME=[my-ant]
+ export M2_HOME=[my-mvn]
  export PATH=$PATH:$ANT_HOME/bin:$M2_HOME/bin
  ```
 
-9. Run the maven install:
+10. Run the maven install:
 
  ```
  mvn clean install
  ```
 
-10. Install, configure and load openldap with DIT and seed data:
+ *Use maven to build the software package*
+
+11. Install, configure and load openldap with DIT and seed data:
 
  a. If sudo:
 
@@ -135,27 +139,17 @@ ________________________________________________________________________________
   ant init-slapd
   ```
 
-11. Run the fortress core regression tests:
+ *Use ant to install Symas OpenLDAP to target machine.*
 
- ```
- mvn test -Dtest=FortressJUnitTest
- ```
+12. More steps to follow in the [README](README.md) file:
 
-12. Run the openldap accelerator regression tests:
+ * SECTION 9.  Instructions to integration test.
+ * SECTION 10. Instructions to load policy data using Apache Fortress Load utility.
+ * SECTION 11. Instructions to run the Apache Fortress Command Line Interpreter (CLI).
+ * SECTION 12. Instructions to run the Apache Fortress Command Console.
+ * SECTION 13. Instructions to build and test the Apache Fortress samples.
+ * SECTION 14. Instructions to performance test.
 
- ```
- mvn test -Dtest=AccelMgrImplTest
- ```
-
- *Only run this test if slapo-rbac overlay enabled.*
-
-13. All tests should run without errors.
-
-14. Try the fortress console:
-
- ```
- mvn test -Pconsole
- ```
 ___________________________________________________________________________________
 # SECTION 3 - Apache Fortress Realm Setup
 
