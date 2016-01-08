@@ -99,6 +99,14 @@ ________________________________________________________________________________
 
 8. Save and exit
 
+ note: the following steps invoke runtime java, ant and maven:
+ ```
+ export JAVA_HOME=../myjdk
+ export ANT_HOME=../myant
+ export M2_HOME=../mymaven
+ export PATH=$PATH:$ANT_HOME/bin:$M2_HOME/bin
+ ```
+
 9. Run the maven install:
  ```
  mvn clean install
@@ -108,20 +116,12 @@ ________________________________________________________________________________
 
  a. If sudo:
  ```
- sudo ./b.sh init-slapd
+ sudo ant init-slapd
  ```
 
  b. No sudo, running as priv user:
  ```
- ./b.sh init-slapd
- ```
- note: b.sh sets runtime java and and invokes ant:
- ```
- user@ubuntu:~/directory-fortress-core$ cat b.sh
- #!/bin/sh
- export JAVA_HOME=../myjdk
- export ANT_HOME=../myant
- $ANT_HOME/bin/ant $1
+ ant init-slapd
  ```
 
 11. Run the fortress core regression tests:
@@ -281,3 +281,10 @@ During this section, you will be asked to setup Apache Fortress Web Application
  ```
 
 7. Click on the links, to pull up various views on the data stored in the directory.
+
+8. Run the selenium automated test:
+ ```
+ mvn test -Dtest=FortressWebSeleniumITCase
+ ```
+
+ *Requires Firefox on target machine.*

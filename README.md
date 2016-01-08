@@ -56,7 +56,6 @@ ________________________________________________________________________________
  * This package's Apache Maven [pom.xml](./pom.xml) and Apache Ant [build.xml](./build.xml) files are also found in root folder.
  * Apache Ant usage is deprecated, but is still needed to seed initial config data onto target ldap server.
   * The configuration subsystem [README-CONFIG.md](./README-CONFIG.md) has more details.
-  * Ant does not need to be installed to your target machine.
  * To understand API usage, check out the [samples](./src/test/java/org/apache/directory/fortress/core/samples).
  * Questions about this software package should be directed to its mailing list:
    * http://mail-archives.apache.org/mod_mbox/directory-fortress/
@@ -128,14 +127,14 @@ ________________________________________________________________________________
 
  If using java 8, add this param to the pom.xml:
  ```
-<plugin>
+ <plugin>
     ...
     <artifactId>maven-javadoc-plugin</artifactId>
     <configuration>
         <additionalparam>-Xdoclint:none</additionalparam>
         ...
     </configuration>
-</plugin>
+ </plugin>
  ```
 
 4. View the generated document here: [overview-summary.html](./target/site/apidocs/overview-summary.html).
@@ -177,61 +176,57 @@ include		OPENLDAP_HOME/etc/openldap/schema/fortress.schema
  moduleload  accesslog.la
  ```
 
-6. Add Fortress audit log settings to slapd.conf:
+6. Add Fortress default DB settings to slapd.conf:
 
  ```
- # History DB Settings  (optional, use only if fortress audit is needed)
- # note: the following settings may be tailored to your requirements:
- database	 mdb
+ # Default DB Settings
+ database	mdb
  maxreaders 64
  maxsize 1000000000
- suffix		"cn=log"
+ suffix  "dc=example,dc=com"
+ rootdn  "cn=Manager,dc=example,dc=com"
+ rootpw  "{SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU"
+
+ index uidNumber,gidNumber,objectclass eq
+ index cn,sn,ftObjNm,ftOpNm,ftRoleName,uid,ou eq,sub
+ index ftId,ftPermName,ftRoles,ftUsers,ftRA,ftARA eq
+
+ directory  "/var/openldap/dflt"
+ overlay    accesslog
+ logdb      "cn=log"
+ dbnosync
+ checkpoint	64 5
+ ```
+
+7. Add Fortress audit log settings to slapd.conf:
+
+ ```
+ # History DB Settings  (optional)
+ database	 mdb
+ maxreaders  64
+ maxsize     1000000000
+ suffix      "cn=log"
  rootdn      "cn=Manager,cn=log"
  rootpw      "{SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU"
  index objectClass,reqDN,reqAuthzID,reqStart,reqAttr eq
- directory	"/var/openldap/hist"
+ directory	 "/var/openldap/hist"
  access to *
     by dn.base="cn=Manager,cn=log" write
  dbnosync
  checkpoint   64 5
  ```
 
-7. Add Fortress default DB settings to slapd.conf:
-
- ```
- # Default DB Settings
- # note: the following settings may be tailored to your requirements:
- database	mdb
- maxreaders 64
- maxsize 1000000000
- suffix		"dc=example,dc=com"
- rootdn      "cn=Manager,dc=example,dc=com"
- rootpw      "{SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU"
-
- index uidNumber,gidNumber,objectclass eq
- index cn,sn,ftObjNm,ftOpNm,ftRoleName,uid,ou eq,sub
- index ftId,ftPermName,ftRoles,ftUsers,ftRA,ftARA eq
-
- directory	"/var/openldap/dflt"
- overlay accesslog
- logdb   "cn=log"
- dbnosync
- checkpoint	64 5
- ```
-
 8. More Fortress audit log settings in slapd.conf:
 
  ```
- # Audit Log Settings (optional, use only if fortress audit is needed)
+ # Audit Log Settings (optional)
  # note: the following settings may be tailored to your requirements:
  logops bind writes compare
  logoldattr ftModifier ftModCode ftModId ftRC ftRA ftARC ftARA ftCstr ftId ftPermName ftObjNm ftOpNm ftObjId ftGroups ftRoles ftUsers ftType
  logpurge 5+00:00 1+00:00
  ```
 
- * More information about the Fortress Configuration subsystem: [README-CONFIG.md](./README-CONFIG.md)
- * For newcomers just trying to learn the ropes the defaults usually work.
- * Unless you know what you are doing, never change ant substitution parameters within the properties.  These are are anything inside and including '${}'.  i.e. ${param1}.
+ *For newcomers just trying to learn the ropes the defaults usually work.*
 
 ___________________________________________________________________________________
 # SECTION 7. Instructions for using Apache Fortress with OpenLDAP.
@@ -324,8 +319,10 @@ ________________________________________________________________________________
  ```
 
 Usage Notes:
+ * More information about the Fortress Configuration subsystem: [README-CONFIG.md](./README-CONFIG.md)
  * Use caution when running the -Dload.file target with **refreshLDAPData.xml** as that script deletes all nodes beneath the suffix and readds.
  * Sets up the basic Directory Information Tree format and remote configuration nodes (more info here: [README-CONFIG](./README-CONFIG.md)).
+ * Unless you know what you are doing, don't change ant substitution parameters within the properties.  These are are anything inside and including '${}'.  i.e. ${param1}.
 
 ___________________________________________________________________________________
 # SECTION 8. Instructions to integration test.
