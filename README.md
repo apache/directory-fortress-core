@@ -20,7 +20,7 @@
 # README for Apache Fortress Core
 
  * Version 1.0-RC41
- * last updated: January 7, 2016
+ * last updated: January 8, 2016
  * Apache Fortress Core System Architecture Diagram
  ![Apache Fortress Core System Architecture](images/fortress-core-system-arch.png "Apache Fortress Core System Architecture")
 
@@ -66,32 +66,28 @@ ________________________________________________________________________________
 -------------------------------------------------------------------------------
 ## SECTION 0. Prerequisites
 
-Minimum hardware requirements to test on machine with an LDAP server:
+Minimum hardware requirements to run Apache Fortress and LDAP server:
  * 2 Cores
  * 4GB RAM
 
 Minimum software requirements:
+ * git
  * Java SDK 7++
  * Apache Maven3++
- * git
-
-Notes:
- * Apache Fortress is LDAPv3 compliant.
- * ApacheDS & OpenLDAP are supported options.
- * Tested on Debian, Centos and Windows machines.
-
+ * *Apache Ant7++ (if doing SECTION 3)*
 ___________________________________________________________________________________
 ## SECTION 1.  Options for using Apache Fortress and LDAP server
 
 This document describes three options to use Apache Fortress with:
 
-1. ApacheDS LDAP server (recommended for first-time users)
+1. ApacheDS LDAP server
  * **SECTION 2**. Apache Fortress and ApacheDS LDAP server
-2. Symas OpenLDAP server (quickstart)
+2. Symas OpenLDAP server
  * **SECTION 3**. Apache Fortress and Symas OpenLDAP server
-3. Pre-existing OpenLDAP server (advanced)
+3. Pre-existing OpenLDAP server
  * **SECTION 4**. Apache Fortress and native OpenLDAP server
 
+*Options 1 & 2 are recommended for first-time users.  Option 3 is for advanced users.*
 ___________________________________________________________________________________
 ## SECTION 2. Instructions for using Apache Fortress and ApacheDS LDAP server
 
@@ -254,6 +250,14 @@ ________________________________________________________________________________
  logpurge 5+00:00 1+00:00
  ```
 
+9. Create the dirs needed by the new slapd databases:
+
+ ```
+ mkdir /var/openldap/dflt
+ mkdir /var/openldap/hist
+ ```
+
+10. Restart the slapd daemon.  Ensure there are no errors.
 ___________________________________________________________________________________
 ## SECTION 8. Instructions for using Apache Fortress with OpenLDAP
 
@@ -284,52 +288,48 @@ ________________________________________________________________________________
  suffix.dc=com
  ```
 
-5. Add to the file to enable administrative LDAP connection pool parameters.  This is for all ldap ops except binds and slapo access log searches (audit reads).
+5. Add to the file to enable LDAP connection pool parameters.
 
  ```
- # This value contains dn of user that has read/write access to LDAP DIT:
+ # Here we are testing with slapd's root user.  Never do this in prod envs.
+ # This value contains dn of service account that has read/write access to fortress LDAP DIT:
  root.dn=cn=Manager,${suffix}
 
- # This password is for above admin dn, will be stored in OpenLDAP *slapd.conf*.  It may be hashed using OpenLDAP *slappasswd* command before placing here:
- root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
-
- # This is password is for same user but will be stored as property in *fortress.properties* file.
+ # This the admin password:
  cfg.root.pw=secret
 
- # These properties specify the min/max settings for connection pool containing read/write connections to LDAP DIT:
+ # Specify the min/max settings for ADMIN conn pool w/ both read & write connections to default DB:
  admin.min.conn=1
 
- # You may need to experiment to determine optimal setting for max.  It should be much less than concurrent number of users.
+ # The optimal setting for max is much fewer than concurrent number of users on system.
  admin.max.conn=10
- ```
 
-6. Add to the file to enable user authentication connection pool.  This is for user bind operations.
-
- ```
+ # Specify the min/max settings for USER conn pool with permission to bind to user objects as self:
  user.min.conn=1
- # You may need to experiment to determine optimal setting for max.  It should be much less than concurrent number of users.
+
+ # The optimal setting for max will be much fewer than concurrent number of users.
  user.max.conn=10
  ```
 
-7. Add to file to enable the slapo access log connection pool and its corresponding audit trail.
+6. Enable the fortress audit and its connection pool.
+
+ *This step is optional.*
 
  ```
- # If you don't have slapo-access log overlay enabled, then disable the Fortress audit:
- # The default is 'false'.  This only works if ldap.server.type=openldap:
- disable.audit=true
+ # If you don't have slapo-access log overlay enabled, disable the Fortress audit with this param.
+ # 'true' turns it off.  The default is 'false'.
+ disable.audit=false
 
- # Set the audit connection pool parameters:
- # This value contains dn of user that has read/write access to OpenLDAP slapd access log entries:
+ # This value contains dn of user that has read access to slapd access log database:
  log.root.dn=cn=Manager,${log.suffix}
 
- # This password is for above log user dn, will be stored in OpenLDAP *slapd.conf*.  It may be hashed using OpenLDAP *slappasswd* command before placing here:
- log.root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
-
- # This password is for same log user but will be stored as property in *fortress.properties* file.:
+ # This password is for same log user:
  cfg.log.root.pw=secret
 
- # number of connections in pool (to query the slapo access log data):
+ # The min/max settings for LOG pool w/ read permissions to slapo access log:
  log.min.conn=1
+
+ # Very few needed because only used by AuditMgr during search operations:
  log.max.conn=3
 
  # Set more audit logger parameters (openldap only):
