@@ -159,7 +159,7 @@ ________________________________________________________________________________
  cp FORTRESS_HOME/ldap/schema/fortress.schema OPENLDAP_HOME/etc/openldap/schema
  ```
 
-3. Edit slapd.conf
+3. Edit slapd.conf:
 
  ```
  vi OPENLDAP_HOME/etc/openldap/slapd.conf
@@ -172,7 +172,7 @@ ________________________________________________________________________________
 include	   OPENLDAP_HOME/etc/openldap/schema/fortress.schema
  ```
 
-4. For password policy support, enable pwpolicy overlay in slapd.conf:
+4. For password policy support, enable pwpolicy overlay.
 
  Add right before the ACL definitions:
 
@@ -180,13 +180,13 @@ include	   OPENLDAP_HOME/etc/openldap/schema/fortress.schema
  moduleload	 ppolicy.la
  ```
 
-5. For Fortress audit support, enable slapoaccesslog in slapd.conf:
+5. For Fortress audit support, enable slapo accesslog overlay.
 
  ```
  moduleload  accesslog.la
  ```
 
-6. Add Fortress default DB settings to slapd.conf:
+6. Enable Fortress default DB.
 
  ```
  # Default DB Settings
@@ -208,7 +208,7 @@ include	   OPENLDAP_HOME/etc/openldap/schema/fortress.schema
  checkpoint	64 5
  ```
 
-7. Add Fortress audit log settings to slapd.conf:
+7. Enable Fortress slapo access log DB.
 
  ```
  # History DB Settings  (optional)
@@ -226,7 +226,7 @@ include	   OPENLDAP_HOME/etc/openldap/schema/fortress.schema
  checkpoint   64 5
  ```
 
-8. More Fortress audit log settings in slapd.conf:
+8. Set the slapo access log usage policy on DB.
 
  ```
  # Audit Log Settings (optional)
