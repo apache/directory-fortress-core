@@ -353,10 +353,12 @@ ________________________________________________________________________________
 
   *Do not run this target with **refreshLDAPData.xml** on production systems as it deletes all nodes beneath the suffix before readding.*
 
-More Usage Notes:
- * For newcomers just trying to learn the ropes the defaults usually work.
- * [slapd.properties.example](slapd.properties.example) is where the OpenLDAP server defaults reside.  This file, after being renamed to **slapd.properties**, will override values found in build.properties.  Learn more about the configuration subsystem: [README-CONFIG](./README-CONFIG.md)
- * Unless you know what you are doing, don't change ant substitution parameters within the properties.  These are are anything inside and including '${}'.  i.e. ${param1}.
+More usage notes of fortress build property files:
+ * The defaults usually work.
+ * The [build.properties.example]([build.properties.example) contains defaults for ApacheDS.  This file is required and will activate once renamed to **build.properties**.
+ * The [slapd.properties.example](slapd.properties.example) is optional.  Use *only* when OpenLDAP is the target server.  Once renamed to **slapd.properties**, it will override any values found in the **build.properties** file.
+ * Learn more about the configuration subsystem: [README-CONFIG](./README-CONFIG.md)
+ * Don't change the ant substitution parameters within the properties *unless you know what you're doing*.  These are are the settings inside of curly brackets, e.g. **${param1}**.
 
 ___________________________________________________________________________________
 ## SECTION 9. Instructions to integration test
