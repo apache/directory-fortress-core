@@ -55,7 +55,6 @@ ________________________________________________________________________________
  * This package's Apache Maven [pom.xml](./pom.xml) and Apache Ant [build.xml](./build.xml) files are also found in root folder.
  * Apache Ant usage is deprecated, but is still needed to seed initial config data onto target ldap server.
   * The configuration subsystem [README-CONFIG.md](./README-CONFIG.md) has more details.
- * To understand API usage, check out the [samples](./src/test/java/org/apache/directory/fortress/core/samples).
  * Questions about this software package should be directed to its mailing list:
    * http://mail-archives.apache.org/mod_mbox/directory-fortress/
 
