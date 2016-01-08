@@ -50,7 +50,6 @@ If you don't already have an LDAP server installed, goto **SECTION 1** for optio
 
 ___________________________________________________________________________________
 #  Tips for first-time users
- * Apache Fortress uses an LDAP server to store its policy data.  For options on how to set one up, see **SECTION 1**
  * If you see **FORTRESS_HOME**, refer to the package [root folder](.).
  * If you see **OPENLDAP_HOME**, refer to the root of OpenLDAP binary installation folder, e.g. /opt/etc/openldap
  * This package's Apache Maven [pom.xml](./pom.xml) and Apache Ant [build.xml](./build.xml) files are also found in root folder.
