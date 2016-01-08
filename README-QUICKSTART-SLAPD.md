@@ -17,22 +17,22 @@
    under the License.
 
 # Apache Fortress and OpenLDAP QUICKSTART
+
  Apache Fortress Version 1.0-RC41 System Architecture Diagram
  ![OpenLDAP Accelerator System Architecture](images/fortress-openldap-accel-system-arch.png "OpenLDAP & Apache Fortress System Architecture")
 
 -------------------------------------------------------------------------------
+## Table of Contents
 
-This README Covers:
-
- * SECTION 1 - Prerequisites
- * SECTION 2 - Apache Fortress Core and OpenLDAP Setup
- * SECTION 3 - Apache Fortress Realm Setup
- * SECTION 4 - Apache Tomcat Setup
- * SECTION 5 - Apache Fortress Rest Setup
- * SECTION 6 - Apache Fortress Web Setup
+ * SECTION 1. Prerequisites
+ * SECTION 2. Apache Fortress Core and OpenLDAP Setup
+ * SECTION 3. Apache Fortress Realm Setup
+ * SECTION 4. Apache Tomcat Setup
+ * SECTION 5. Apache Fortress Rest Setup
+ * SECTION 6. Apache Fortress Web Setup
 
 -------------------------------------------------------------------------------
-# SECTION 1 - Prerequisites
+## SECTION 1. Prerequisites
 
 Minimum hardware requirements:
  * 2 Cores
@@ -46,7 +46,7 @@ Minimum software requirements:
 
 Everything else covered in steps that follow.  Tested on Debian & Centos systems.
 ___________________________________________________________________________________
-# SECTION 2 - Apache Fortress Core and OpenLDAP Setup
+## SECTION 2. Apache Fortress Core and OpenLDAP Setup
 
 1. Download and prepare the package:
 
@@ -150,7 +150,7 @@ ________________________________________________________________________________
  * SECTION 14. Instructions to performance test.
 
 ___________________________________________________________________________________
-# SECTION 3 - Apache Fortress Realm Setup
+## SECTION 3. Apache Fortress Realm Setup
 
 During this section, you will be asked to setup Apache Fortress Realm.
 
@@ -168,7 +168,7 @@ During this section, you will be asked to setup Apache Fortress Realm.
  ```
 
 ___________________________________________________________________________________
-# SECTION 4 - Apache Tomcat Setup
+## SECTION 4. Apache Tomcat Setup
 
 During this section, you will be asked to setup Apache Tomcat 8 and prepare for usage with Apache Fortress
 
@@ -223,7 +223,7 @@ During this section, you will be asked to setup Apache Tomcat 8 and prepare for 
  ```
 
 ___________________________________________________________________________________
-# SECTION 5 - Apache Fortress Rest Setup
+## SECTION 5. Apache Fortress Rest Setup
 
 During this section, you will be asked to setup Apache Fortress Rest Application
 
@@ -266,7 +266,7 @@ During this section, you will be asked to setup Apache Fortress Rest Application
  ```
 
 ___________________________________________________________________________________
-# SECTION 6 - Apache Fortress Web Setup
+## SECTION 6. Apache Fortress Web Setup
 
 During this section, you will be asked to setup Apache Fortress Web Application
 

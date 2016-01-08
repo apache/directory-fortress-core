@@ -18,6 +18,7 @@
 
 -------------------------------------------------------------------------------
 # README for Apache Fortress Ten Minute Guide
+
  * Version 1.0-RC41
  * last updated: January 6, 2016
 
@@ -29,7 +30,7 @@ and install Apache Fortress software from source.  It also shows how to install
 ApacheDS LDAP server and get it working with Fortress.
 
 -------------------------------------------------------------------------------
-# Prerequisites
+## Prerequisites
 
 Minimum hardware requirements:
  * 2 Cores
@@ -43,7 +44,7 @@ Minimum software requirements:
 Everything else covered in steps that follow.  Tested on Debian & Centos systems.
 
 -------------------------------------------------------------------------------
-# Instructions for downloading app and generating the install doc:
+## Instructions for downloading app and generating the install doc:
 
 1. Clone the directory-fortress repos from apache git by commands:
 

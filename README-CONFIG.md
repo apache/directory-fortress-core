@@ -19,16 +19,17 @@
 # README for Apache Fortress Configuration Subsystem
 -------------------------------------------------------------------------------
 
-### This README covers these sections:
- * SECTION 1 - Fortress Configuration Subsystem Overview
- * SECTION 2 - Fortress Ant Property Files
- * SECTION 3 - Fortress Configuration Artifacts
- * SECTION 4 - Fortress Configuration Overrides
- * SECTION 5 - Precedence of Artifacts found in the Fortress Configuration Subsystem
- * SECTION 6 - Configuration Subsystem Usage
+## Table of Contents
+
+ * SECTION 1. Fortress Configuration Subsystem Overview.
+ * SECTION 2. Fortress Ant Property Files.
+ * SECTION 3. Fortress Configuration Artifacts.
+ * SECTION 4. Fortress Configuration Overrides.
+ * SECTION 5. Precedence of Artifacts found in the Fortress Configuration Subsystem.
+ * SECTION 6. Configuration Subsystem Usage.
 
 -------------------------------------------------------------------------------
-# SECTION 1.  Fortress Configuration Subsystem Overview
+## SECTION 1.  Fortress Configuration Subsystem Overview
 
 Fortress uses the following source property files to bootstrap configuration:
 
@@ -50,7 +51,7 @@ Notice the substitution parameters, **@name@**, contained within the above confi
   substitution to seed implementation specific variables, e.g. host names, ports, pw's, into its config artifacts used at runtime.
 
 -------------------------------------------------------------------------------
-# SECTION 2.  Fortress Ant Property Files
+## SECTION 2.  Fortress Ant Property Files
 
 Fortress configuration artifacts are seeded using Ant property files.
  * user.properties  - optional, when found, located in user's home directory.  Properties found here take precedence over those following.
@@ -58,7 +59,7 @@ Fortress configuration artifacts are seeded using Ant property files.
  * build.properties - this file is required and must be located in the root folder of the package.
 
 -------------------------------------------------------------------------------
-# SECTION 3.  Fortress Configuration Artifacts
+## SECTION 3.  Fortress Configuration Artifacts
 
 The ant config task, **init-fortress-config**, uses the values found within the Ant property files to seed into the following targets:.
  * fortress.properties - contains name/value pairs inside of a property file.
@@ -66,9 +67,9 @@ The ant config task, **init-fortress-config**, uses the values found within the 
  * slapd.conf files - (optional) used to bind fortress to openldap.
 
 -------------------------------------------------------------------------------
-# SECTION 4.  Fortress Configuration Overrides
+## SECTION 4.  Fortress Configuration Overrides
 
-## Optional - Used to override fortress properties at runtime.
+### Optional - Used to override fortress properties at runtime.
 
  These fortress properties may be overridden at runtime by setting as Java System Properties:
  * fortress.host
@@ -86,19 +87,14 @@ The ant config task, **init-fortress-config**, uses the values found within the 
  * fortress.ldap.server.type
 
 ___________________________________________________________________________________
-# SECTION 5.  Precedence of Artifacts found in the Fortress Configuration Subsystem
-
-### Fortress uses apache commons configuration system to manage its properties inside its Java runtime environment.
+## SECTION 5.  Precedence of Artifacts found in the Fortress Configuration Subsystem
 
 This subsystem has been hard wired to pick up properties in the following order:
  1. fortress.properties file - found on the classpath of that name.
  2. Java system properties - to override any of the 13 properties listed above.
  3. LDAP configuration node - found by config coordinates set in the fortress.properties file itself.
-
-
-These properties are mutable inside the fortress config subsystem which allows C's values to override B's to override A's.
-___________________________________________________________________________________
-# SECTION 6.  Configuration Subsystem Usage
+__________________________________________________________________________________
+## SECTION 6.  Configuration Subsystem Usage
 
 The general flow is the fortress.properties provide the coordinates to locate an ldap entry on a remote server.
 The fortress.properties file is picked off the runtime classpath during startup.  Some props may be overridden as Java system properties.
@@ -130,19 +126,14 @@ Or B
 The A script refreshes the entire LDAP server DIT, which includes deletes of all entries under the suffix, recreating the DIT node structure, and re-adding of the config node.
 B just updates the configuration node with the new values, preserving all other data.
 
- * If you need to change an existing ldap system already in use by others, you may modify the values inside the fortress.properties directly, skipping the interim step of updating the ant properties files and re-running mvn install.
- * If the config node must be changed, use any general purpose ldapbrowser to mod its values.  Fortress also has config apis to use (ConfigMgr) that add, update and delete configuration entries.
- * Fortress Web will soon have a configuration dialogue page for doing this.
 
-### More notes:
- * Use caution when running the -Dload.file target with 'refreshLDAPData.xml' as that script also deletes all nodes the suffix before it reloads anew.
- * Use the config node update script if you want to update values in the remote configuration without scrubbing data from the DIT.
- * Don't run refreshLDAPData.xml in production, run ConfigNodeUPdate.xml instead.
- * There is nothing stopping you from placing all properties inside the fortress.properties file and not the configuration node.
- * The idea is to minimize the number of locations where the same data must be stored.  Imagine a network with hundreds, even thousands of fortress agents running.
- * We don't need to replicate the same data everywhere which is where remote config nodes are used.
- * Tailor these procedures to match your requirements.
- * For more info on which parameters are used where, look at the init-fortress-config target located inside the build.xml file.
+ ### More notes:
+ * Use caution when running the **refreshLDAPData.xml** script.  It deletes all nodes below the suffix before readding.
+ * To change values in a config node, use a general purpose ldapbrowser.  Fortress has config apis for this (ConfigMgr) to perform CRUD on config data.
+ * Another option is to use a script like **ConfigNodeUpdate.xml** to perform the CRUD ops.
+ * You can also *simply* place the properties inside the fortress.properties file (only).  The idea is to minimize the number of locations
+ where the same data must be stored.  Imagine a network with hundreds, even thousands of fortress agents running.  We don't need to replicate the same data everywhere which is where remote config nodes help.
+ * For more info on which parameters are used where, look at the **init-fortress-config** target located inside the [build.xml](build.xml) file.
 
  ___________________________________________________________________________________
   #### END OF README-CONFIG
