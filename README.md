@@ -20,7 +20,7 @@
 # README for Apache Fortress Core
 
  * Version 1.0-RC41
- * last updated: January 8, 2016
+ * last updated: January 9, 2016
  * Apache Fortress Core System Architecture Diagram
  ![Apache Fortress Core System Architecture](images/fortress-core-system-arch.png "Apache Fortress Core System Architecture")
 
@@ -149,7 +149,7 @@ ________________________________________________________________________________
  </plugin>
  ```
 
-4. View the generated document here: [overview-summary.html](./target/site/apidocs/overview-summary.html).
+4. View the generated document here: [./target/site/apidocs/overview-summary.html](./target/site/apidocs/overview-summary.html).
 
 Build Notes:
  * The Apache Fortress [pom.xml](./pom.xml) may run without connection to Internet iff its dependencies are already present in local or intermediate maven repo.
@@ -180,14 +180,14 @@ ________________________________________________________________________________
  vi OPENLDAP_HOME/etc/openldap/slapd.conf
  ```
 
-3. Enable Fortress schema.
+4. Enable Fortress schema.
 
  Add to the top of the file:
  ```
  include OPENLDAP_HOME/etc/openldap/schema/fortress.schema
  ```
 
-4. For password policy support, enable pwpolicy overlay.
+5. For password policy support, enable pwpolicy overlay.
 
  Add right before the ACL definitions:
 
@@ -195,13 +195,13 @@ ________________________________________________________________________________
  moduleload	 ppolicy.la
  ```
 
-5. For Fortress audit support, enable slapo accesslog overlay.
+6. For Fortress audit support, enable slapo accesslog overlay.
 
  ```
  moduleload  accesslog.la
  ```
 
-6. Enable Fortress default DB.
+7. Enable Fortress default DB.
 
  ```
  # Default DB Settings
@@ -223,7 +223,7 @@ ________________________________________________________________________________
  checkpoint	64 5
  ```
 
-7. Enable Fortress slapo access log DB.
+8. Enable Fortress slapo access log DB.
 
  ```
  # History DB Settings  (optional)
@@ -241,7 +241,7 @@ ________________________________________________________________________________
  checkpoint   64 5
  ```
 
-8. Set the slapo access log usage policy on DB.
+9. Set the slapo access log usage policy on DB.
 
  ```
  # Audit Log Settings (optional)
@@ -251,7 +251,7 @@ ________________________________________________________________________________
  logpurge 5+00:00 1+00:00
  ```
 
-9. Enable slapo pwpolicy overlay.
+10. Enable slapo pwpolicy overlay.
 
  ```
  #######################################################################
@@ -264,7 +264,7 @@ ________________________________________________________________________________
  ppolicy_hash_cleartext
  ```
 
-10. Add to OpenLDAP ACL's.
+11. Add to OpenLDAP ACL's.
 
  ```
  ### ACLs
@@ -282,7 +282,7 @@ ________________________________________________________________________________
           by * auth
  ```
 
-11. A few more for good measure.
+12. A few more for good measure.
 
  ```
  # Never allow anonymous binds:
@@ -302,14 +302,18 @@ ________________________________________________________________________________
 
  ```
 
-11. Create the dirs needed by the new slapd databases:
+13. Create the dirs needed by the new slapd databases:
 
  ```
  mkdir /var/openldap/dflt
  mkdir /var/openldap/hist
  ```
 
-12. Restart the slapd daemon.  Ensure there are no errors.
+14. Restart the slapd daemon.  Ensure there are no errors.
+
+Config Notes:
+ * Have a look at sample slapd.conf file: [./ldap/slapd.conf.src](./ldap/slapd.conf.src).
+
 
 ___________________________________________________________________________________
 ## SECTION 8. Instructions for using Apache Fortress with OpenLDAP
