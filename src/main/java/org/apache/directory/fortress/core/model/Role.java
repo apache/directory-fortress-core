@@ -208,8 +208,7 @@ import javax.xml.bind.annotation.XmlType;
         "endDate",
         "endLockDate",
         "endTime",
-        "timeout",
-        "rawData"
+        "timeout"
 })
 @XmlSeeAlso(
     {
@@ -287,8 +286,9 @@ public class Role extends FortEntity implements Constraint, Graphable, java.io.S
     {
         this.rawData = rawData;
     }
-    
-    private String rawData;
+
+    // Do not ship over http.
+    private transient String rawData;
     
     
     /**
