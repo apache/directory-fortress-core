@@ -343,8 +343,8 @@ class AccessMgrConsole
                     UserAdminRole ur = aRoles.get(i);
                     System.out.println("    USER ADMIN ROLE[" + i + "]:");
                     System.out.println("        admin role name [" + ur.getName() + "]");
-                    System.out.println("        OsU [" + ur.getOsU() + "]");
-                    System.out.println("        OsP [" + ur.getOsP() + "]");
+                    System.out.println("        OsU [" + ur.getOsUSet() + "]");
+                    System.out.println("        OsP [" + ur.getOsPSet() + "]");
                     System.out.println("        begin range [" + ur.getBeginRange() + "]");
                     System.out.println("        end range [" + ur.getEndRange() + "]");
                     System.out.println("        begin time [" + ur.getBeginTime() + "]");
@@ -530,8 +530,8 @@ class AccessMgrConsole
                     UserAdminRole ur = aRoles.get(i);
                     System.out.println("    USER ADMIN ROLE[" + i + "]:");
                     System.out.println("        admin role name [" + ur.getName() + "]");
-                    System.out.println("        OsU [" + ur.getOsU() + "]");
-                    System.out.println("        OsP [" + ur.getOsP() + "]");
+                    System.out.println("        OsU [" + ur.getOsUSet() + "]");
+                    System.out.println("        OsP [" + ur.getOsPSet() + "]");
                     System.out.println("        begin range [" + ur.getBeginRange() + "]");
                     System.out.println("        end range [" + ur.getEndRange() + "]");
                     System.out.println("        begin time [" + ur.getBeginTime() + "]");

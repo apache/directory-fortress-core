@@ -881,7 +881,7 @@ final class UserP
         trgR.setBeginRange(srcR.getBeginRange());
         trgR.setEndRange(srcR.getEndRange());
         // copy the user and perm pools:
-        trgR.setOsPList(srcR.getOsP());
-        trgR.setOsUList(srcR.getOsU());
+        trgR.setOsPSet( srcR.getOsPSet() );
+        trgR.setOsUSet( srcR.getOsUSet() );
     }
 }

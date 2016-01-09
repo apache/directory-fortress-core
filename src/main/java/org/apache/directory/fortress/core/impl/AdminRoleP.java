@@ -393,14 +393,14 @@ public final class AdminRoleP
             constraintValidator.endDate( entity.getEndLockDate() );
         }
 
-        if ( CollectionUtils.isNotEmpty( entity.getOsU() ) )
+        if ( CollectionUtils.isNotEmpty( entity.getOsUSet() ) )
         {
-            validateOrgs( entity.getOsU(), OrgUnit.Type.USER, entity.getContextId() );
+            validateOrgs( entity.getOsUSet(), OrgUnit.Type.USER, entity.getContextId() );
         }
 
-        if ( CollectionUtils.isNotEmpty( entity.getOsP() ) )
+        if ( CollectionUtils.isNotEmpty( entity.getOsPSet() ) )
         {
-            validateOrgs( entity.getOsP(), OrgUnit.Type.PERM, entity.getContextId() );
+            validateOrgs( entity.getOsPSet(), OrgUnit.Type.PERM, entity.getContextId() );
         }
     }
 

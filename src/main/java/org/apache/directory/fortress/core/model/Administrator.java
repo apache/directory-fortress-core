@@ -37,7 +37,7 @@ public interface Administrator
      *
      * @return List of type String containing Perm OU.  This maps to 'ftOSP' attribute on 'ftPools' aux object class.
      */
-    Set<String> getOsP();
+    Set<String> getOsPSet();
 
 
     /**
@@ -45,7 +45,7 @@ public interface Administrator
      *
      * @param osPs is a List of type String containing Perm OU.  This maps to 'ftOSP' attribute on 'ftPools' aux object class.
      */
-    void setOsPList( Set<String> osPs );
+    void setOsPSet(Set<String> osPs);
 
 
     /**
@@ -61,7 +61,7 @@ public interface Administrator
      *
      * @return List of type String containing User OU.  This maps to 'ftOSU' attribute on 'ftPools' aux object class.
      */
-    Set<String> getOsU();
+    Set<String> getOsUSet();
 
 
     /**
@@ -69,7 +69,7 @@ public interface Administrator
      *
      * @param osUs is a List of type String containing User OU.  This maps to 'ftOSU' attribute on 'ftPools' aux object class.
      */
-    void setOsUList( Set<String> osUs );
+    void setOsUSet(Set<String> osUs);
 
 
     /**

@@ -173,8 +173,8 @@ final class AdminRoleDAO extends ApacheDsDataProvider
             // CN attribute is required for this object class:
             entry.add( SchemaConstants.CN_AT, entity.getName() );
             entry.add( GlobalIds.CONSTRAINT, ConstraintUtil.setConstraint( entity ) );
-            loadAttrs( entity.getOsP(), entry, ROLE_OSP );
-            loadAttrs( entity.getOsU(), entry, ROLE_OSU );
+            loadAttrs( entity.getOsPSet(), entry, ROLE_OSP );
+            loadAttrs( entity.getOsUSet(), entry, ROLE_OSU );
             String szRaw = entity.getRoleRangeRaw();
 
             if ( StringUtils.isNotEmpty( szRaw ) )
@@ -246,8 +246,8 @@ final class AdminRoleDAO extends ApacheDsDataProvider
                 }
             }
 
-            loadAttrs( entity.getOsU(), mods, ROLE_OSU );
-            loadAttrs( entity.getOsP(), mods, ROLE_OSP );
+            loadAttrs( entity.getOsUSet(), mods, ROLE_OSU );
+            loadAttrs( entity.getOsPSet(), mods, ROLE_OSP );
             String szRaw = entity.getRoleRangeRaw();
 
             if ( StringUtils.isNotEmpty( szRaw ) )
@@ -676,8 +676,8 @@ final class AdminRoleDAO extends ApacheDsDataProvider
         entity.setId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         entity.setOccupants( getAttributes( le, ROLE_OCCUPANT ) );
-        entity.setOsPList( getAttributeSet( le, ROLE_OSP ) );
-        entity.setOsUList( getAttributeSet( le, ROLE_OSU ) );
+        entity.setOsPSet( getAttributeSet( le, ROLE_OSP ) );
+        entity.setOsUSet( getAttributeSet( le, ROLE_OSU ) );
         entity.setName( getAttribute( le, SchemaConstants.CN_AT ) );
         unloadTemporal( le, entity );
         entity.setRoleRangeRaw( getAttribute( le, ROLE_RANGE ) );

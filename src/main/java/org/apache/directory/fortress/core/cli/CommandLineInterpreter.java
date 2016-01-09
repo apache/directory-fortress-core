@@ -1421,13 +1421,13 @@ public class CommandLineInterpreter
         {
             printRow( type, "BEGR", ur.getBeginRange() );
             printRow( type, "ENDR", ur.getEndRange() );
-            if ( CollectionUtils.isNotEmpty( ur.getOsP() ) )
+            if ( CollectionUtils.isNotEmpty( ur.getOsPSet() ) )
             {
-                printRow( type, "POUS", "" + ur.getOsP() );
+                printRow( type, "POUS", "" + ur.getOsPSet() );
             }
-            if ( CollectionUtils.isNotEmpty( ur.getOsU() ) )
+            if ( CollectionUtils.isNotEmpty( ur.getOsUSet() ) )
             {
-                printRow( type, "UOUS", "" + ur.getOsU() );
+                printRow( type, "UOUS", "" + ur.getOsUSet() );
             }
         }
     }

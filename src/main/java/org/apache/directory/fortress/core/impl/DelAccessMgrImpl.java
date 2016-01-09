@@ -264,7 +264,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
                     result = true;
                     break;
                 }
-                Set<String> osUs = uaRole.getOsU();
+                Set<String> osUs = uaRole.getOsUSet();
                 if(CollectionUtils.isNotEmpty( osUs ))
                 {
                     // create Set with case insensitive comparator:
@@ -338,7 +338,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
                     result = true;
                     break;
                 }
-                Set<String> osPs = uaRole.getOsP();
+                Set<String> osPs = uaRole.getOsPSet();
                 if(CollectionUtils.isNotEmpty( osPs ))
                 {
                     // create Set with case insensitive comparator:

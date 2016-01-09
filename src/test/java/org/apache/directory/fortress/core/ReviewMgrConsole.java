@@ -513,8 +513,8 @@ class ReviewMgrConsole
             System.out.println( "    ADMINATTR UID[" + ur.getUserId() + "]:" );
             System.out.println( "        begin range [" + ur.getBeginRange() + "]" );
             System.out.println( "        end range [" + ur.getEndRange() + "]" );
-            System.out.println( "        OsP [" + ur.getOsP() + "]" );
-            System.out.println( "        OsU [" + ur.getOsU() + "]" );
+            System.out.println( "        OsP [" + ur.getOsPSet() + "]" );
+            System.out.println( "        OsU [" + ur.getOsUSet() + "]" );
         }
     }
 

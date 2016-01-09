@@ -77,8 +77,8 @@ class DelegatedReviewMgrConsole
                 System.out.println( "    name      [" + re.getName() + "]" );
                 System.out.println( "    internalId  [" + re.getId() + "]" );
                 System.out.println( "    description [" + re.getDescription() + "]" );
-                System.out.println( "    osU [" + re.getOsU() + "]" );
-                System.out.println( "    osP [" + re.getOsP() + "]" );
+                System.out.println( "    osU [" + re.getOsUSet() + "]" );
+                System.out.println( "    osP [" + re.getOsPSet() + "]" );
                 ReviewMgrConsole.printTemporal( re, "ADMINROLE" );
             }
             else
@@ -112,8 +112,8 @@ class DelegatedReviewMgrConsole
                     System.out.println( "    name      [" + re.getName() + "]" );
                     System.out.println( "    internalId  [" + re.getId() + "]" );
                     System.out.println( "    description [" + re.getDescription() + "]" );
-                    System.out.println( "    osU [" + re.getOsU() + "]" );
-                    System.out.println( "    osP [" + re.getOsP() + "]" );
+                    System.out.println( "    osU [" + re.getOsUSet() + "]" );
+                    System.out.println( "    osP [" + re.getOsPSet() + "]" );
                     ReviewMgrConsole.printTemporal( re, "ADMINROLE" );
                 }
             }
@@ -183,8 +183,8 @@ class DelegatedReviewMgrConsole
             {
                 System.out.println( "USER OBJECT:" );
                 System.out.println( "    admin role  [" + re.getName() + "]" );
-                System.out.println( "    OsU         [" + re.getOsU() + "]" );
-                System.out.println( "    OsP         [" + re.getOsP() + "]" );
+                System.out.println( "    OsU         [" + re.getOsUSet() + "]" );
+                System.out.println( "    OsP         [" + re.getOsPSet() + "]" );
                 ReviewMgrConsole.printTemporal( re, "ADMINROLE" );
             }
             System.out.println( "ENTER to continue" );

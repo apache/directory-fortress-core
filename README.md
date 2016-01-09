@@ -785,6 +785,5 @@ use the 'encrypt' ant target.
  cfg.log.root.pw=wApnJUnuYZRBTF1zQNxX/Q==
  ```
 
-
  ___________________________________________________________________________________
  #### END OF README

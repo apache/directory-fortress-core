@@ -361,8 +361,8 @@ public class AccessMgrSample extends TestCase
                     UserAdminRole ur = aRoles.get( i );
                     LOG.info( "    USER ADMIN ROLE[" + i + "]:" );
                     LOG.info( "        admin role name [" + ur.getName() + "]" );
-                    LOG.info( "        OsU [" + ur.getOsU() + "]" );
-                    LOG.info( "        OsP [" + ur.getOsP() + "]" );
+                    LOG.info( "        OsU [" + ur.getOsUSet() + "]" );
+                    LOG.info( "        OsP [" + ur.getOsPSet() + "]" );
                     LOG.info( "        begin range [" + ur.getBeginRange() + "]" );
                     LOG.info( "        end range [" + ur.getEndRange() + "]" );
                     LOG.info( "        begin time [" + ur.getBeginTime() + "]" );

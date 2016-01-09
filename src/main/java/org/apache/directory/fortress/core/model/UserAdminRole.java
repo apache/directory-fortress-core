@@ -300,9 +300,9 @@ public class UserAdminRole extends UserRole implements Administrator
             sb.append( this.getDayMask() );
         }
 
-        if ( this.getOsU() != null )
+        if ( this.getOsUSet() != null )
         {
-            for ( String org : this.getOsU() )
+            for ( String org : this.getOsUSet() )
             {
                 sb.append( GlobalIds.DELIMITER );
                 sb.append( U );
@@ -311,9 +311,9 @@ public class UserAdminRole extends UserRole implements Administrator
             }
         }
 
-        if ( this.getOsP() != null )
+        if ( this.getOsPSet() != null )
         {
-            for ( String org : this.getOsP() )
+            for ( String org : this.getOsPSet() )
             {
                 sb.append( GlobalIds.DELIMITER );
                 sb.append( P );
@@ -413,7 +413,7 @@ public class UserAdminRole extends UserRole implements Administrator
      * @return List of type String containing Perm OU.  This maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
     @Override
-    public Set<String> getOsP()
+    public Set<String> getOsPSet()
     {
         return osPs;
     }
@@ -425,7 +425,7 @@ public class UserAdminRole extends UserRole implements Administrator
      * @param osPs is a List of type String containing Perm OU.  This maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
     @Override
-    public void setOsPList( Set<String> osPs )
+    public void setOsPSet(Set<String> osPs)
     {
         this.osPs = osPs;
     }
@@ -454,7 +454,7 @@ public class UserAdminRole extends UserRole implements Administrator
      * @return List of type String containing User OU.  This maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
     @Override
-    public Set<String> getOsU()
+    public Set<String> getOsUSet()
     {
         return osUs;
     }
@@ -466,7 +466,7 @@ public class UserAdminRole extends UserRole implements Administrator
      * @param osUs is a List of type String containing User OU.  This maps to 'ftARC' attribute on 'ftUserAttrs' aux object class.
      */
     @Override
-    public void setOsUList( Set<String> osUs )
+    public void setOsUSet(Set<String> osUs)
     {
         this.osUs = osUs;
     }

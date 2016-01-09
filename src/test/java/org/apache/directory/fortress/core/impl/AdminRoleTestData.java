@@ -900,7 +900,7 @@ public class AdminRoleTestData extends TestCase
     private final static int OSP = 18;
 
 
-    private static Set<String> getOsU( String[] rle )
+    private static Set<String> getOsUSet(String[] rle)
     {
         Set<String> members = new HashSet<>();
         if ( StringUtils.isNotEmpty( rle[OSU] ) )
@@ -919,7 +919,7 @@ public class AdminRoleTestData extends TestCase
     }
 
 
-    private static Set<String> getOsP( String[] rle )
+    private static Set<String> getOsPSet(String[] rle)
     {
         Set<String> members = new HashSet<>();
         if ( StringUtils.isNotEmpty( rle[OSP] ) )
@@ -980,8 +980,8 @@ public class AdminRoleTestData extends TestCase
         AdminRole role = ( AdminRole ) getRoleConstraint( rle );
         role.setName( RoleTestData.getName( rle ) );
         role.setDescription( RoleTestData.getDescription( rle ) );
-        role.setOsUList( getOsU( rle ) );
-        role.setOsPList( getOsP( rle ) );
+        role.setOsUSet( getOsUSet( rle ) );
+        role.setOsPSet( getOsPSet( rle ) );
         role.setBeginRange( getBeginRange( rle ) );
         role.setEndRange( getEndRange( rle ) );
         role.setBeginInclusive( isBeginInclusive( rle ) );

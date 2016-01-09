@@ -146,8 +146,8 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr
                 UserAdminRole chgRole = new UserAdminRole();
                 chgRole.setName(role.getName());
                 chgRole.setUserId(ue.getUserId());
-                chgRole.setOsPList(role.getOsP());
-                chgRole.setOsUList(role.getOsU());
+                chgRole.setOsPSet( role.getOsPSet() );
+                chgRole.setOsUSet( role.getOsUSet() );
                 uaRoles.remove(chgRole);
                 ConstraintUtil.copy( re, chgRole );
                 uaRoles.add(chgRole);
