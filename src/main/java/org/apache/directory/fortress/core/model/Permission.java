@@ -20,6 +20,8 @@
 package org.apache.directory.fortress.core.model;
 
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.List;
@@ -761,37 +763,39 @@ public class Permission extends FortEntity implements Serializable
 
 
     /**
-     * Matches the objName and opName from two Permission entities.
+     * Matches the objName, opName and objId from two Permission entities.
      *
-     * @param thatOp contains a Permission entity.
+     * @param o contains a Permission entity.
      * @return boolean indicating both Permissions contain matching objName and opName attributes.
      */
-    public boolean equals( Object thatOp )
+    @Override
+    public boolean equals(Object o)
     {
-        if ( this == thatOp )
+        if ( this == o )
         {
             return true;
         }
-
-        if ( this.getObjName() == null )
+        if ( o == null || getClass() != o.getClass() )
         {
             return false;
         }
 
-        if ( !( thatOp instanceof Permission ) )
+        Permission that = ( Permission ) o;
+
+        if ( StringUtils.isNotEmpty( objId ) ? !objId.equalsIgnoreCase( that.objId ) : StringUtils.isNotEmpty( that.objId ) )
+        {
+            return false;
+        }
+        if ( objName != null ? !objName.equalsIgnoreCase( that.objName ) : that.objName != null )
+        {
+            return false;
+        }
+        if ( opName != null ? !opName.equalsIgnoreCase( that.opName ) : that.opName != null )
         {
             return false;
         }
 
-        Permission thatPermission = ( Permission ) thatOp;
-
-        if ( thatPermission.getObjName() == null )
-        {
-            return false;
-        }
-
-        return ( ( thatPermission.getObjName().equalsIgnoreCase( this.getObjName() ) ) && ( thatPermission
-            .getOpName().equalsIgnoreCase( this.getOpName() ) ) );
+        return true;
     }
 
 

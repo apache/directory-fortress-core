@@ -196,8 +196,7 @@ public class ReviewMgrImplTest extends TestCase
                     assertNotNull( ops );
                     assertTrue( CLS_NM + "searchPermissionOps srchValue [" + srchValue + "] list size check",
                         pOpArray.length == ops.size() );
-
-                    int indx = ops.indexOf( new Permission( PermTestData.getName( obj ), PermTestData.getName( op ) ) );
+                    int indx = ops.indexOf( new Permission( PermTestData.getName( obj ), PermTestData.getName( op ), PermTestData.getObjId( op ) ) );
                     if ( indx != -1 )
                     {
                         Permission entity = ops.get( indx );
@@ -860,8 +859,7 @@ public class ReviewMgrImplTest extends TestCase
                 {
                     for ( String[] op : pOpArray )
                     {
-                        int indx = perms.indexOf( new Permission( PermTestData.getName( obj ), PermTestData
-                            .getName( op ) ) );
+                        int indx = perms.indexOf( new Permission( PermTestData.getName( obj ), PermTestData.getName( op ), PermTestData.getObjId( op ) ) );
                         if ( indx != -1 )
                         {
                             Permission pOp = perms.get( indx );
@@ -1207,8 +1205,8 @@ public class ReviewMgrImplTest extends TestCase
                 {
                     for ( String[] op : pOpArray )
                     {
-                        int indx = perms.indexOf( new Permission( PermTestData.getName( obj ), PermTestData
-                            .getName( op ) ) );
+                        int indx = perms.indexOf( new Permission( PermTestData.getName( obj ), PermTestData.getName(
+                            op ), PermTestData.getObjId( op ) ) );
                         if ( indx != -1 )
                         {
                             Permission pOp = perms.get( indx );
