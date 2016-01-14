@@ -175,9 +175,9 @@ During this section, you will be asked to setup Apache Tomcat 8 and prepare for 
 1. Download and prepare the package:
 
  ```
- wget http://apache.mirrorcatalogs.com/tomcat/tomcat-8/v8.0.29/bin/apache-tomcat-8.0.29.tar.gz
- tar -xvf apache-tomcat-8.0.29.tar.gz
- sudo mv apache-tomcat-8.0.29 /usr/local/tomcat8
+ wget http://www.eu.apache.org/dist/tomcat/tomcat-8/v8.0.30/bin/apache-tomcat-8.0.30.tar.gz
+ tar -xvf apache-tomcat-8.0.30.tar.gz
+ sudo mv apache-tomcat-8.0.30 /usr/local/tomcat8
  ```
  *Change the tomcat version as neeeded - v7 and beyond are ok.*
 
