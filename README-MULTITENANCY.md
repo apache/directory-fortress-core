@@ -17,11 +17,13 @@
 
 -------------------------------------------------------------------------------
 # README for Apache Fortress Multitenancy Configuration
--------------------------------------------------------------------------------
 
+This document describes Apache Fortress multitenacy.
+
+-------------------------------------------------------------------------------
 ## Table of Contents
 
- * SECTION 1. Fortress Multitenancy Overview.
+ * SECTION 1. Multitenancy Overview.
  * SECTION 2. About the Datastructures.
  * SECTION 3. How the APIs work.
  * SECTION 4. How to Setup a New Tenant.
@@ -29,15 +31,17 @@
  * SECTION 6.  Other Tools.
 
 -------------------------------------------------------------------------------
-## SECTION 1.  Fortress Multitenancy Overview
+## SECTION 1.  Multitenancy Overview
 
+From Wikipedia:
 * *Software Multitenancy refers to a software architecture in which a single instance of a software runs on a server and serves multiple tenants. A tenant is a group of users who share a common access with specific privileges to the software instance. With a multitenant architecture, a software application is designed to provide every tenant a dedicated share of the instance including its data, configuration, user management, tenant individual functionality and non-functional properties. Multitenancy contrasts with multi-instance architectures, where separate software instances operate on behalf of different tenants.*
 
  *Commentators regard multitenancy as an important feature of cloud computing.*
 
  https://en.wikipedia.org/wiki/Multitenancy
 
-* More info here: https://symas.com/products/symas-enforcement-foundry/multi-tenancy/
+More here:
+ * https://symas.com/products/symas-enforcement-foundry/multi-tenancy/
 
 -------------------------------------------------------------------------------
 ## SECTION 2.  About the Datastructures
@@ -78,10 +82,11 @@ The tenant id is passed during object instantiation.  For example:
 1. Use the Fortress load utility to set up new tenant contexts.  The *addcontainer* tag can be used to do this:
 
  ```
+ ...
  <addcontainer>
      <container name="acme123" description="ACME 123 tenant context"/>
- ...
  </addcontainer>
+ ...
  ```
 
 2. Or, simply use ldif format to create the new tenant containers.  Import using preferred LDAP client:
@@ -95,6 +100,7 @@ The tenant id is passed during object instantiation.  For example:
 3. After the tenant container has been added, you may use the fortress ant load utility to initialize the DIT for that particular tenant.  For example:
 
  ```
+ ...
  <addcontainer>
      <container name="People" description="Fortress People"/>
      <container name="Policies" description="Fortress Policies"/>
@@ -108,6 +114,7 @@ The tenant id is passed during object instantiation.  For example:
      <container name="AdminRoles" parent="ARBAC" description="Fortress AdminRoles"/>
      <container name="AdminPerms" parent="ARBAC" description="Fortress Admin Permissions"/>
  </addcontainer>
+ ...
  ```
 
 4. When running the fortress ant load, pass the tenant id as a -D parameter on the command line:
