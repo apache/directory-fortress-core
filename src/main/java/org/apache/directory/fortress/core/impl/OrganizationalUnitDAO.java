@@ -92,8 +92,6 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
             nodeDn += SchemaConstants.OU_AT + "=" + oe.getParent() + ",";
         }
 
-        System.out.println("CONTEXTID = " + oe.getContextId());
-
         nodeDn += getRootDn( oe.getContextId() );
 
         try

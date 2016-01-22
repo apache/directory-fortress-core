@@ -374,6 +374,7 @@ public class FortressAntTask extends Task implements InputHandler
             }
             else
             {
+                tenant = TENANT;
                 LOG.info( "FortressAntTask constructor using tenant={}", tenant );
             }
             cfgMgr = ConfigMgrFactory.createInstance();
