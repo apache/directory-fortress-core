@@ -318,6 +318,13 @@ public class FortressAntTask extends Task implements InputHandler
     private Context context;
     // This system property can be used to set the default tenant id:
     private static final String TENANT = System.getProperty( "tenant" );
+    private String tenant;
+
+    public String getTenant()
+    {
+        return tenant;
+    }
+
 
 
     /**
@@ -363,30 +370,28 @@ public class FortressAntTask extends Task implements InputHandler
      */
     public FortressAntTask()
     {
-        String tenant = "";
         try
         {
             // This value is set by system property "tenant":
             if( StringUtils.isEmpty( TENANT ) || TENANT.equals( "${tenant}" ) )
             {
                 // Use the default context:
-                tenant = GlobalIds.HOME;
+                this.tenant = GlobalIds.HOME;
             }
             else
             {
-                tenant = TENANT;
+                this.tenant = TENANT;
                 LOG.info( "FortressAntTask constructor using tenant={}", tenant );
             }
             cfgMgr = ConfigMgrFactory.createInstance();
-            adminMgr = AdminMgrFactory.createInstance( tenant );
-            dAdminMgr = DelAdminMgrFactory.createInstance( tenant );
-            policyMgr = PwPolicyMgrFactory.createInstance( tenant );
-            groupMgr = GroupMgrFactory.createInstance( tenant );
-
+            adminMgr = AdminMgrFactory.createInstance( this.tenant );
+            dAdminMgr = DelAdminMgrFactory.createInstance( this.tenant );
+            policyMgr = PwPolicyMgrFactory.createInstance( this.tenant );
+            groupMgr = GroupMgrFactory.createInstance( this.tenant );
         }
         catch ( SecurityException se )
         {
-            LOG.warn( " FortressAntTask constructor tenant={}, caught SecurityException={}", tenant, se );
+            LOG.warn( " FortressAntTask constructor tenant={}, caught SecurityException={}", this.tenant, se );
         }
     }
 
@@ -979,8 +984,8 @@ public class FortressAntTask extends Task implements InputHandler
             List<UserAnt> users = adduser.getUsers();
             for ( UserAnt user : users )
             {
-                LOG.info( "addUsers userid={} description={} orgUnit={}",
-                    user.getUserId(), user.getDescription(), user.getOu() );
+                LOG.info( "addUsers tenant={} userid={} description={} orgUnit={}",
+                    getTenant(), user.getUserId(), user.getDescription(), user.getOu() );
                 try
                 {
                     addUser( user );
@@ -1013,7 +1018,7 @@ public class FortressAntTask extends Task implements InputHandler
             {
                 adminMgr.updateUser( user );
                 assignUser( user );
-                LOG.info( "addUsers - Update entity - userId={}", user.getUserId() );
+                LOG.info( "addUsers tenant={} Update entity - userId={}", getTenant(), user.getUserId() );
             }
             else
             {
@@ -1123,7 +1128,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<Group> groups = delgroup.getGroups();
             for ( Group group : groups )
             {
-                LOG.info( "deleteGroups name={}", group.getName() );
+                LOG.info( "deleteGroups  tenant={} name={}", getTenant(), group.getName() );
                 try
                 {
                     groupMgr.delete( group );
@@ -1159,15 +1164,15 @@ public class FortressAntTask extends Task implements InputHandler
                 {
                     for ( String member : members )
                     {
-                        LOG.info( "addGroupMembers name={}, member={}", group.getName(), member );
+                        LOG.info( "addGroupMembers tenant={} name={}, member={}", getTenant(), group.getName(), member );
                         try
                         {
                             groupMgr.assign( group, member );
                         }
                         catch ( SecurityException se )
                         {
-                            LOG.warn( "addGroupMembers name [{}], member [{}] caught SecurityException={}",
-                                group.getName(), member, se );
+                            LOG.warn( "addGroupMembers tenant={} name [{}], member [{}] caught SecurityException={}",
+                                getTenant(), group.getName(), member, se );
                         }
                     }
                 }
@@ -1200,21 +1205,21 @@ public class FortressAntTask extends Task implements InputHandler
                 {
                     for ( String member : group.getMembers() )
                     {
-                        LOG.info( "deleteGroupmembers name={}, member={}", group.getName(), member );
+                        LOG.info( "deleteGroupmembers tenant={} name={}, member={}", getTenant(), group.getName(), member );
                         try
                         {
                             groupMgr.deassign( group, member );
                         }
                         catch ( SecurityException se )
                         {
-                            LOG.warn( "deleteGroupmembers name [{}], member [{}] caught SecurityException={}",
-                                group.getName(), member, se );
+                            LOG.warn( "deleteGroupmembers tenant={} name [{}], member [{}] caught SecurityException={}",
+                                getTenant(), group.getName(), member, se );
                         }
                     }
                 }
                 else
                 {
-                    LOG.info( "deleteGroupmembers name={}, no member found", group.getName() );
+                    LOG.info( "deleteGroupmembers tenant={} name={}, no member found", getTenant(), group.getName() );
                 }
             }
         }
@@ -1250,8 +1255,8 @@ public class FortressAntTask extends Task implements InputHandler
                         }
                         catch ( SecurityException se )
                         {
-                            LOG.warn( "addGroupProperties name [{}], key [{}], value [{}] caught SecurityException={}",
-                                group.getName(), key, val, se );
+                            LOG.warn( "addGroupProperties tenant={} name [{}], key [{}], value [{}] caught SecurityException={}",
+                                getTenant(), group.getName(), key, val, se );
                         }
                     }
                 }
@@ -1294,14 +1299,14 @@ public class FortressAntTask extends Task implements InputHandler
                         catch ( SecurityException se )
                         {
                             LOG.warn(
-                                "deleteGroupProperties name [{}], key [{}], value [{}] caught SecurityException={}",
-                                group.getName(), key, val, se );
+                                "deleteGroupProperties tenant={} name [{}], key [{}], value [{}] caught SecurityException={}",
+                                getTenant(), group.getName(), key, val, se );
                         }
                     }
                 }
                 else
                 {
-                    LOG.info( "deleteGroupProperties name={}, no properties found", group.getName() );
+                    LOG.info( "deleteGroupProperties tenant={} name={}, no properties found", getTenant(), group.getName() );
                 }
             }
         }
@@ -1324,7 +1329,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<UserRole> userroles = adduserrole.getUserRoles();
             for ( UserRole userRole : userroles )
             {
-                LOG.info( "addUserRoles userid={} role name={}", userRole.getUserId(), userRole.getName() );
+                LOG.info( "addUserRoles tenant={} userid={} role name={}", getTenant(), userRole.getUserId(), userRole.getName() );
                 try
                 {
                     //Role role = new Role(userRole);
@@ -1357,7 +1362,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<UserRole> userroles = deluserrole.getUserRoles();
             for ( UserRole userRole : userroles )
             {
-                LOG.info( "delUserRoles userid={} role name={}", userRole.getUserId(), userRole.getName() );
+                LOG.info( "delUserRoles tenant={} userid={} role name={}", getTenant(), userRole.getUserId(), userRole.getName() );
                 try
                 {
                     adminMgr.deassignUser( userRole );
@@ -1389,7 +1394,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<Role> roles = addrole.getRoles();
             for ( Role role : roles )
             {
-                LOG.info( "addRoles name={} description={}", role.getName(), role.getDescription() );
+                LOG.info( "addRoles tenant={} name={} description={}", getTenant(), role.getName(), role.getDescription() );
                 try
                 {
                     adminMgr.addRole( role );
@@ -1419,7 +1424,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<Role> roles = delrole.getRoles();
             for ( Role role : roles )
             {
-                LOG.info( "deleteRoles name={}", role.getName() );
+                LOG.info( "deleteRoles tenant={} name={}", getTenant(), role.getName() );
                 try
                 {
                     adminMgr.deleteRole( role );
@@ -1449,7 +1454,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> roles = addroleinheritance.getRelationships();
             for ( Relationship relationship : roles )
             {
-                LOG.info( "addRoleInheritances parent={} child={}", relationship.getParent(), relationship.getChild() );
+                LOG.info( "addRoleInheritances tenant={} parent={} child={}", getTenant(), relationship.getParent(), relationship.getChild() );
                 try
                 {
                     adminMgr.addInheritance( new Role( relationship.getParent() ), new Role( relationship.getChild()
@@ -1457,8 +1462,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addRoleInheritances parent [{}] child [{}] caught SecurityException={}",
-                        relationship.getParent(), relationship.getChild(), se );
+                    LOG.warn( "addRoleInheritances tenant={} parent [{}] child [{}] caught SecurityException={}",
+                        getTenant(), relationship.getParent(), relationship.getChild(), se );
                 }
             }
         }
@@ -1481,7 +1486,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> roles = delroleinheritance.getRelationships();
             for ( Relationship relationship : roles )
             {
-                LOG.info( "deleteRoleInheritances parent={} child={}", relationship.getParent(),
+                LOG.info( "deleteRoleInheritances  tenant={} parent={} child={}", getTenant(), relationship.getParent(),
                     relationship.getChild() );
                 try
                 {
@@ -1490,8 +1495,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deleteRoleInheritances parent [{}] child [{}] caught SecurityException={}",
-                        relationship.getParent(), relationship.getChild(), se );
+                    LOG.warn( "deleteRoleInheritances tenant={} parent [{}] child [{}] caught SecurityException={}",
+                        getTenant(), relationship.getParent(), relationship.getChild(), se );
                 }
             }
         }
@@ -1514,7 +1519,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<SDSetAnt> sds = addsdset.getSdset();
             for ( SDSetAnt sd : sds )
             {
-                LOG.info( "addSdsets name={} description={}", sd.getName(), sd.getDescription() );
+                LOG.info( "addSdsets tenant={} name={} description={}", getTenant(), sd.getName(), sd.getDescription() );
                 try
                 {
                     if ( sd.getType() == SDSet.SDType.STATIC )
@@ -1528,7 +1533,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addSdsets name [{}] caught SecurityException={}", sd.getName() + se );
+                    LOG.warn( "addSdsets tenant={} name [{}] caught SecurityException={}", getTenant(), sd.getName() + se );
                 }
             }
         }
@@ -1551,7 +1556,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<SDSetAnt> sds = delsdset.getSdset();
             for ( SDSetAnt sd : sds )
             {
-                LOG.info( "deleteSdsets name={}", sd.getName() );
+                LOG.info( "deleteSdsets tenant={} name={}", getTenant(), sd.getName() );
                 try
                 {
                     if ( sd.getSetType().equals( "STATIC" ) )
@@ -1566,7 +1571,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deleteSdsets name [{}] caught SecurityException={}", sd.getName(), se );
+                    LOG.warn( "deleteSdsets tenant={} name [{}] caught SecurityException={}", getTenant(), sd.getName(), se );
                 }
             }
         }
@@ -1589,8 +1594,8 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermObj> permObjs = addpermObj.getPermObjs();
             for ( PermObj permObj : permObjs )
             {
-                LOG.info( "addPermObjs objName={} description={} orgUnit={} type={}",
-                    permObj.getObjName(), permObj.getDescription(), permObj.getOu(), permObj.getType() );
+                LOG.info( "addPermObjs tenant={} objName={} description={} orgUnit={} type={}",
+                    getTenant(), permObj.getObjName(), permObj.getDescription(), permObj.getOu(), permObj.getType() );
                 try
                 {
                     try
@@ -1603,7 +1608,7 @@ public class FortressAntTask extends Task implements InputHandler
                         if ( se.getErrorId() == GlobalErrIds.PERM_DUPLICATE )
                         {
                             adminMgr.updatePermObj( permObj );
-                            LOG.info( "addPermObjs update entity objName={} description={} orgUnit={} type={}", permObj.getObjName(), permObj
+                            LOG.info( "addPermObjs tenant={} update entity objName={} description={} orgUnit={} type={}", getTenant(), permObj.getObjName(), permObj
                                 .getDescription(), permObj.getOu(), permObj.getType() );
                         }
                         else
@@ -1638,15 +1643,15 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermObj> permObjs = delpermObj.getObjs();
             for ( PermObj permObj : permObjs )
             {
-                LOG.info( "deletePermObjs objName={} description={}",
-                    permObj.getObjName(), permObj.getDescription() );
+                LOG.info( "deletePermObjs tenant={} objName={} description={}",
+                    getTenant(), permObj.getObjName(), permObj.getDescription() );
                 try
                 {
                     adminMgr.deletePermObj( permObj );
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deletePermObjs name [{}] caught SecurityException={}", permObj.getObjName(), se );
+                    LOG.warn( "deletePermObjs tenant={} name [{}] caught SecurityException={}", getTenant(), permObj.getObjName(), se );
                 }
             }
         }
@@ -1669,7 +1674,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermAnt> permissions = addpermOp.getPermOps();
             for ( PermAnt permission : permissions )
             {
-                LOG.info( "addPermOps name={} objName={}", permission.getOpName(), permission.getObjName() );
+                LOG.info( "addPermOps tenant={} name={} objName={}", getTenant(), permission.getOpName(), permission.getObjName() );
                 try
                 {
                     try
@@ -1682,8 +1687,8 @@ public class FortressAntTask extends Task implements InputHandler
                         if ( se.getErrorId() == GlobalErrIds.PERM_DUPLICATE )
                         {
                             adminMgr.updatePermission( permission );
-                            LOG.info( "addPermOps - update entity - name={} objName={}",
-                                permission.getOpName(), permission.getObjName() );
+                            LOG.info( "addPermOps tenant={} - update entity - name={} objName={}",
+                                getTenant(), permission.getOpName(), permission.getObjName() );
                         }
                         else
                         {
@@ -1693,8 +1698,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addPermOps name [{}] objName [{}] caught SecurityException={}",
-                        permission.getOpName(), permission.getObjName(), se );
+                    LOG.warn( "addPermOps tenant={} name [{}] objName [{}] caught SecurityException={}",
+                        getTenant(), permission.getOpName(), permission.getObjName(), se );
                 }
             }
         }
@@ -1717,15 +1722,15 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermAnt> permissions = delpermOp.getPermOps();
             for ( Permission permission : permissions )
             {
-                LOG.info( "deletePermOps name={} objName={}", permission.getOpName(), permission.getObjName() );
+                LOG.info( "deletePermOps tenant={} name={} objName={}", getTenant(), permission.getOpName(), permission.getObjName() );
                 try
                 {
                     adminMgr.deletePermission( permission );
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deletePermOps name [{}] objName[{}] caught SecurityException={}",
-                        permission.getOpName(), permission.getObjName(), se );
+                    LOG.warn( "deletePermOps tenant={} name [{}] objName[{}] caught SecurityException={}",
+                        getTenant(), permission.getOpName(), permission.getObjName(), se );
                 }
             }
         }
@@ -1748,10 +1753,6 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermGrant> permGrants = addpermGrant.getPermGrants();
             for ( PermGrant permGrant : permGrants )
             {
-                String info = "addPermGrants: Add permission grant object name=" + permGrant.getObjName() + " " +
-                    "operation name=" + permGrant.getOpName() + " object id=" + permGrant.getObjId() + " role name="
-                    + permGrant.getRoleNm() + " userId=" + permGrant.getUserId();
-                LOG.info( info );
                 try
                 {
                     Permission perm = new Permission( permGrant.getObjName(), permGrant.getOpName(),
@@ -1760,10 +1761,12 @@ public class FortressAntTask extends Task implements InputHandler
                     perm.setObjId( permGrant.getObjId() );
                     if ( permGrant.getRoleNm() != null && permGrant.getRoleNm().length() > 0 )
                     {
+                        LOG.info( "addPermGrants tenant={} roleName={} objName={} opName={} objId={}", getTenant(), permGrant.getRoleNm(), permGrant.getObjName(), permGrant.getOpName(), permGrant.getObjId() );
                         adminMgr.grantPermission( perm, new Role( permGrant.getRoleNm() ) );
                     }
                     else if ( permGrant.getUserId() != null && permGrant.getUserId().length() > 0 )
                     {
+                        LOG.info( "addPermGrants tenant={} userId={} objName={} opName={} objId={}", getTenant(), permGrant.getUserId(), permGrant.getObjName(), permGrant.getOpName(), permGrant.getObjId() );
                         adminMgr.grantPermission( perm, new User( permGrant.getUserId() ) );
                     }
                     else
@@ -1798,10 +1801,6 @@ public class FortressAntTask extends Task implements InputHandler
             List<PermGrant> permGrants = delpermGrant.getPermGrants();
             for ( PermGrant permGrant : permGrants )
             {
-                String info = "deletePermGrants: Delete permission grant object name=" + permGrant.getObjName() + " " +
-                    "operation name=" + permGrant.getOpName() + " role name=" + permGrant.getRoleNm() + " userId=" +
-                    permGrant.getUserId();
-                LOG.info( info );
                 try
                 {
                     Permission perm = new Permission( permGrant.getObjName(), permGrant.getOpName(),
@@ -1810,10 +1809,12 @@ public class FortressAntTask extends Task implements InputHandler
                     perm.setObjId( permGrant.getObjId() );
                     if ( permGrant.getRoleNm() != null && permGrant.getRoleNm().length() > 0 )
                     {
+                        LOG.info( "deletePermGrants tenant={} roleName={} objName={} opName={} objId={}", getTenant(), permGrant.getRoleNm(), permGrant.getObjName(), permGrant.getOpName(), permGrant.getObjId() );
                         adminMgr.revokePermission( perm, new Role( permGrant.getRoleNm() ) );
                     }
                     else if ( permGrant.getUserId() != null && permGrant.getUserId().length() > 0 )
                     {
+                        LOG.info( "deletePermGrants tenant={} userId={} objName={} opName={} objId={}", getTenant(), permGrant.getUserId(), permGrant.getObjName(), permGrant.getOpName(), permGrant.getObjId() );
                         adminMgr.revokePermission( perm, new User( permGrant.getUserId() ) );
                     }
                     else
@@ -1848,7 +1849,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<PwPolicy> policies = addpwpolicy.getPolicies();
             for ( PwPolicy policy : policies )
             {
-                LOG.info( "addPolicies name={}", policy.getName() );
+                LOG.info( "addPolicies tenant={} name={}", getTenant(), policy.getName() );
                 try
                 {
                     policyMgr.add( policy );
@@ -1878,14 +1879,14 @@ public class FortressAntTask extends Task implements InputHandler
             List<PwPolicy> policies = delpwpolicy.getPolicies();
             for ( PwPolicy policy : policies )
             {
-                LOG.info( "deletePolicies name={}", policy.getName() );
+                LOG.info( "deletePolicies tenant={} name={}", getTenant(), policy.getName() );
                 try
                 {
                     policyMgr.delete( policy );
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deletePolicies name [{}] caught SecurityException={}", policy.getName(), se );
+                    LOG.warn( "deletePolicies tenant={} name [{}] caught SecurityException={}", getTenant(), policy.getName(), se );
                 }
             }
         }
@@ -1909,7 +1910,7 @@ public class FortressAntTask extends Task implements InputHandler
 
             for ( OrganizationalUnit ou : containers )
             {
-                LOG.info( "addContainers name={} description={}", ou.getName(), ou.getDescription() );
+                LOG.info( "addContainers tenant={} name={} description={}", getTenant(), ou.getName(), ou.getDescription() );
                 try
                 {
                     OrganizationalUnitP op = new OrganizationalUnitP();
@@ -1946,7 +1947,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<OrganizationalUnit> containers = delcontainer.getContainers();
             for ( OrganizationalUnit ou : containers )
             {
-                LOG.info( "deleteContainers name={}", ou.getName() );
+                LOG.info( "deleteContainers tenant={} name={}", getTenant(), ou.getName() );
                 try
                 {
                     OrganizationalUnitP op = new OrganizationalUnitP();
@@ -1960,7 +1961,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deleteContainers name [{}] caught SecurityException={}", ou.getName(), se );
+                    LOG.warn( "deleteContainers tenant={} name [{}] caught SecurityException={}", getTenant(), ou.getName(), se );
                 }
             }
         }
@@ -1984,7 +1985,7 @@ public class FortressAntTask extends Task implements InputHandler
 
             for ( Suffix suffix : suffixes )
             {
-                LOG.info( "addSuffixes name={} description={}", suffix.getName(), suffix.getDescription() );
+                LOG.info( "addSuffixes tenant={} name={} description={}", getTenant(), suffix.getName(), suffix.getDescription() );
                 try
                 {
                     SuffixP sp = new SuffixP();
@@ -1992,7 +1993,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addSuffixes name [{}] caught SecurityException={}", suffix.getName(), se );
+                    LOG.warn( "addSuffixes tenant={} name [{}] caught SecurityException={}", getTenant(), suffix.getName(), se );
                 }
             }
         }
@@ -2015,7 +2016,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<Suffix> suffixes = delsuffix.getSuffixes();
             for ( Suffix suffix : suffixes )
             {
-                LOG.info( "deleteSuffixes name={}", suffix.getName() );
+                LOG.info( "deleteSuffixes tenant={} name={}", getTenant(), suffix.getName() );
                 try
                 {
                     SuffixP sp = new SuffixP();
@@ -2023,7 +2024,7 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deleteSuffixes name [{}] caught SecurityException={}", suffix.getName(), se );
+                    LOG.warn( "deleteSuffixes tenant={} name [{}] caught SecurityException={}", getTenant(), suffix.getName(), se );
                 }
             }
         }
@@ -2046,15 +2047,15 @@ public class FortressAntTask extends Task implements InputHandler
             List<OrgUnitAnt> ous = addorgunit.getOrgUnits();
             for ( OrgUnitAnt ou : ous )
             {
-                LOG.info( "addOrgunits name={} typeName={} description={}",
-                    ou.getName(), ou.getTypeName(), ou.getDescription() );
+                LOG.info( "addOrgunits tenant={} name={} typeName={} description={}",
+                    getTenant(), ou.getName(), ou.getTypeName(), ou.getDescription() );
                 try
                 {
                     dAdminMgr.add( ou );
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addOrgunits name [{}] caught SecurityException={}", ou.getName(), se );
+                    LOG.warn( "addOrgunits tenant={} name [{}] caught SecurityException={}", getTenant(), ou.getName(), se );
                 }
             }
         }
@@ -2077,14 +2078,14 @@ public class FortressAntTask extends Task implements InputHandler
             List<OrgUnitAnt> ous = delorgunit.getOrgUnits();
             for ( OrgUnitAnt ou : ous )
             {
-                LOG.info( "deleteOrgunits name={} typeName={}", ou.getName(), ou.getTypeName() );
+                LOG.info( "deleteOrgunits tenant={} name={} typeName={}", getTenant(), ou.getName(), ou.getTypeName() );
                 try
                 {
                     dAdminMgr.delete( ou );
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deleteOrgunits name [{}] caught SecurityException={}", ou.getName(), se );
+                    LOG.warn( "deleteOrgunits tenant={} name [{}] caught SecurityException={}", getTenant(), ou.getName(), se );
                 }
             }
         }
@@ -2107,8 +2108,8 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> orgs = adduserorgunitinheritance.getRelationships();
             for ( Relationship relationship : orgs )
             {
-                LOG.info( "addUserOrgunitInheritances parent={} child={}",
-                    relationship.getParent(), relationship.getChild() );
+                LOG.info( "addUserOrgunitInheritances tenant={} parent={} child={}",
+                    getTenant(), relationship.getParent(), relationship.getChild() );
                 try
                 {
                     dAdminMgr.addInheritance( new OrgUnit( relationship.getParent(), OrgUnit.Type.USER ),
@@ -2116,8 +2117,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addUserOrgunitInheritances parent [{}] child [{}] caught SecurityException={}",
-                        relationship.getParent(), relationship.getChild(), se );
+                    LOG.warn( "addUserOrgunitInheritances tenant={} parent [{}] child [{}] caught SecurityException={}",
+                        getTenant(), relationship.getParent(), relationship.getChild(), se );
                 }
             }
         }
@@ -2140,8 +2141,8 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> orgs = deluserorgunitinheritance.getRelationships();
             for ( Relationship relationship : orgs )
             {
-                LOG.info( "deleteUserOrgunitInheritances parent={} child={}" +
-                    relationship.getParent(), relationship.getChild() );
+                LOG.info( "deleteUserOrgunitInheritances tenant={} parent={} child={}" +
+                    getTenant(), relationship.getParent(), relationship.getChild() );
                 try
                 {
                     dAdminMgr.deleteInheritance( new OrgUnit( relationship.getParent(), OrgUnit.Type.USER ),
@@ -2149,8 +2150,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deleteUserOrgunitInheritances parent [{}] child [{}] caught SecurityException={}",
-                        relationship.getParent(), relationship.getChild(), se );
+                    LOG.warn( "deleteUserOrgunitInheritances tenant={} parent [{}] child [{}] caught SecurityException={}",
+                        getTenant(), relationship.getParent(), relationship.getChild(), se );
                 }
             }
         }
@@ -2173,8 +2174,8 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> orgs = addpermorgunitinheritance.getRelationships();
             for ( Relationship relationship : orgs )
             {
-                LOG.info( "addPermOrgunitInheritances parent={} child={}",
-                    relationship.getParent(), relationship.getChild() );
+                LOG.info( "addPermOrgunitInheritances tenant={} parent={} child={}",
+                    getTenant(), relationship.getParent(), relationship.getChild() );
                 try
                 {
                     dAdminMgr.addInheritance( new OrgUnit( relationship.getParent(), OrgUnit.Type.PERM ),
@@ -2182,8 +2183,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addPermOrgunitInheritances parent [{}] child [{}] caught SecurityException={}",
-                        relationship.getParent(), relationship.getChild(), se );
+                    LOG.warn( "addPermOrgunitInheritances tenant={} parent [{}] child [{}] caught SecurityException={}",
+                        getTenant(), relationship.getParent(), relationship.getChild(), se );
                 }
             }
         }
@@ -2206,8 +2207,8 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> orgs = delpermorgunitinheritance.getRelationships();
             for ( Relationship relationship : orgs )
             {
-                LOG.info( "deletePermOrgunitInheritances parent={} child={}",
-                    relationship.getParent(), relationship.getChild() );
+                LOG.info( "deletePermOrgunitInheritances tenant={} parent={} child={}",
+                    getTenant(), relationship.getParent(), relationship.getChild() );
                 try
                 {
                     dAdminMgr.deleteInheritance( new OrgUnit( relationship.getParent(), OrgUnit.Type.PERM ),
@@ -2215,8 +2216,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deletePermOrgunitInheritances parent [{}] child [{}] caught SecurityException={}",
-                        relationship.getParent(), relationship.getChild(), se );
+                    LOG.warn( "deletePermOrgunitInheritances tenant={} parent [{}] child [{}] caught SecurityException={}",
+                        getTenant(), relationship.getParent(), relationship.getChild(), se );
                 }
             }
         }
@@ -2239,14 +2240,14 @@ public class FortressAntTask extends Task implements InputHandler
             List<AdminRoleAnt> roles = addrole.getRoles();
             for ( AdminRoleAnt role : roles )
             {
-                LOG.info( "addAdminRoles name={} description={}", role.getName(), role.getDescription() );
+                LOG.info( "addAdminRoles tenant={} name={} description={}", getTenant(), role.getName(), role.getDescription() );
                 try
                 {
                     dAdminMgr.addRole( role );
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addAdminRoles name [{}] caught SecurityException={}", role.getName(), se );
+                    LOG.warn( "addAdminRoles tenant={} name [{}] caught SecurityException={}", getTenant(), role.getName(), se );
                 }
             }
         }
@@ -2269,14 +2270,14 @@ public class FortressAntTask extends Task implements InputHandler
             List<AdminRoleAnt> roles = delrole.getRoles();
             for ( AdminRoleAnt role : roles )
             {
-                LOG.info( "deleteAdminRoles name={}", role.getName() );
+                LOG.info( "deleteAdminRoles tenant={} name={}", getTenant(), role.getName() );
                 try
                 {
                     dAdminMgr.deleteRole( role );
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deleteAdminRoles name [{}] caught SecurityException={}", role.getName(), se );
+                    LOG.warn( "deleteAdminRoles tenant={} name [{}] caught SecurityException={}", getTenant(), role.getName(), se );
                 }
             }
         }
@@ -2299,8 +2300,8 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> roles = addadminroleinheritance.getRelationships();
             for ( Relationship relationship : roles )
             {
-                LOG.info( "addAdminRoleInheritances parent={} child={}",
-                    relationship.getParent(), relationship.getChild() );
+                LOG.info( "addAdminRoleInheritances tenant={} parent={} child={}",
+                    getTenant(), relationship.getParent(), relationship.getChild() );
                 try
                 {
                     dAdminMgr.addInheritance( new AdminRole( relationship.getParent() ),
@@ -2308,8 +2309,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addAdminRoleInheritances parent [{}] child [{}] caught SecurityException={}",
-                        relationship.getParent(), relationship.getChild(), se );
+                    LOG.warn( "addAdminRoleInheritances tenant={} parent [{}] child [{}] caught SecurityException={}",
+                        getTenant(), relationship.getParent(), relationship.getChild(), se );
                 }
             }
         }
@@ -2332,8 +2333,8 @@ public class FortressAntTask extends Task implements InputHandler
             List<Relationship> roles = deladminroleinheritance.getRelationships();
             for ( Relationship relationship : roles )
             {
-                LOG.info( "deleteAdminRoleInheritances parent={} child={}",
-                    relationship.getParent(), relationship.getChild() );
+                LOG.info( "deleteAdminRoleInheritances tenant={} parent={} child={}",
+                    getTenant(), relationship.getParent(), relationship.getChild() );
                 try
                 {
                     dAdminMgr.deleteInheritance( new AdminRole( relationship.getParent() ),
@@ -2341,8 +2342,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "deleteAdminRoleInheritances parent [{}] child [{}] caught SecurityException={}",
-                        relationship.getParent(), relationship.getChild(), se );
+                    LOG.warn( "deleteAdminRoleInheritances tenant={} parent [{}] child [{}] caught SecurityException={}",
+                        getTenant(), relationship.getParent(), relationship.getChild(), se );
                 }
             }
         }
@@ -2365,7 +2366,7 @@ public class FortressAntTask extends Task implements InputHandler
             List<UserAdminRole> userroles = adduserrole.getUserRoles();
             for ( UserAdminRole userRole : userroles )
             {
-                LOG.info( "addUserAdminRoles userid={} role name={}", userRole.getUserId(), userRole.getName() );
+                LOG.info( "addUserAdminRoles tenant={} userid={} role name={}", getTenant(), userRole.getUserId(), userRole.getName() );
                 try
                 {
                     //AdminRole role = new AdminRole(userRole);
@@ -2373,8 +2374,8 @@ public class FortressAntTask extends Task implements InputHandler
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addUserAdminRoles userId [{}] role name [{}] caught SecurityException={}",
-                        userRole.getUserId(), userRole.getName(), se );
+                    LOG.warn( "addUserAdminRoles tenant={} userId [{}] role name [{}] caught SecurityException={}",
+                        getTenant(), userRole.getUserId(), userRole.getName(), se );
                 }
             }
         }
@@ -2397,15 +2398,15 @@ public class FortressAntTask extends Task implements InputHandler
             List<UserAdminRole> userroles = deluserrole.getUserRoles();
             for ( UserAdminRole userRole : userroles )
             {
-                LOG.info( "delUserAdminRoles userid={} role name={}", userRole.getUserId(), userRole.getName() );
+                LOG.info( "delUserAdminRoles tenant={} userid={} role name={}", getTenant(), userRole.getUserId(), userRole.getName() );
                 try
                 {
                     dAdminMgr.deassignUser( userRole );
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "delUserAdminRoles userId [{}] role name [{}] caught SecurityException={}",
-                        userRole.getUserId(), userRole.getName(), se );
+                    LOG.warn( "delUserAdminRoles tenant={} userId [{}] role name [{}] caught SecurityException={}",
+                        getTenant(), userRole.getUserId(), userRole.getName(), se );
                 }
             }
         }
