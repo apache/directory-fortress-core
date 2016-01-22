@@ -47,12 +47,12 @@
  ou=acme123, dc=example, dc=com.
  ```
 
-2. Beneath the acme123 suffix will be that tenant's own copy of data.  For example:
+2. Beneath the acme123 *container* node will be that tenant's copy of data.  For example:
 
  ```
- ou=People, ou=acme, dc=example, dc=com
- ou=Roles, ou=RBAC, ou=acme, dc=example, dc=com
- ou=Permissions, ou=RBAC, ou=acme, dc=example, dc=com
+            ou=People, ou=acme123, dc=example, dc=com
+ ou=Roles,  ou=RBAC, ou=acme123, dc=example, dc=com
+ ou=Perms,  ou=RBAC, ou=acme123, dc=example, dc=com
  etc...
  ```
 
@@ -79,7 +79,7 @@ Then tenant id is passed in factory initialization.  For example:
  </addcontainer>
  ```
 
-2. Or simply use ldif to create a new object, of type organizational unit, beneath the suffix:
+2. Or simply use ldif format to create new tenant objects, and import using preferred ldap client:
  ```
  dn: ou=acme123, dc=example,dc=com
  ou: acme123
@@ -87,7 +87,7 @@ Then tenant id is passed in factory initialization.  For example:
  description: ACME 123 tenant context
  ```
 
-3. Now you may use the load utility to initialize the basic DIT.  For example:
+3. Now you may use the fortress load utility to initialize the DIT for that particular tenant.  For example:
 
  ```
  <addcontainer>
