@@ -316,6 +316,8 @@ public class FortressAntTask extends Task implements InputHandler
     private static final String CLS_NM = FortressAntTask.class.getName();
     protected static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private Context context;
+    // This system property can be used to set the default tenant id:
+    private static final String TENANT = System.getProperty( "tenant" );
 
 
     /**
@@ -329,6 +331,15 @@ public class FortressAntTask extends Task implements InputHandler
     }
 
 
+    /**
+     * This method is used as an alternative way to set tenant id.  By setting this element in xml file:
+     * <addcontext>
+     *     <context name="${tenant}"/>
+     </addcontext>
+     *
+     *
+     * @param context contains the tenant info.
+     */
     public void setContext( Context context )
     {
         System.out.println( CLS_NM + ".setContext name: " + context.getName() );
@@ -352,17 +363,29 @@ public class FortressAntTask extends Task implements InputHandler
      */
     public FortressAntTask()
     {
+        String tenant = "";
         try
         {
+            // This value is set by system property "tenant":
+            if( StringUtils.isEmpty( TENANT ) || TENANT.equals( "${tenant}" ) )
+            {
+                // Use the default context:
+                tenant = GlobalIds.HOME;
+            }
+            else
+            {
+                LOG.info( "FortressAntTask constructor using tenant={}", tenant );
+            }
             cfgMgr = ConfigMgrFactory.createInstance();
-            adminMgr = AdminMgrFactory.createInstance( GlobalIds.HOME );
-            dAdminMgr = DelAdminMgrFactory.createInstance( GlobalIds.HOME );
-            policyMgr = PwPolicyMgrFactory.createInstance( GlobalIds.HOME );
-            groupMgr = GroupMgrFactory.createInstance( GlobalIds.HOME );
+            adminMgr = AdminMgrFactory.createInstance( tenant );
+            dAdminMgr = DelAdminMgrFactory.createInstance( tenant );
+            policyMgr = PwPolicyMgrFactory.createInstance( tenant );
+            groupMgr = GroupMgrFactory.createInstance( tenant );
+
         }
         catch ( SecurityException se )
         {
-            LOG.warn( " FortressAntTask constructor caught SecurityException={}", se );
+            LOG.warn( " FortressAntTask constructor tenant={}, caught SecurityException={}", tenant, se );
         }
     }
 
@@ -1579,8 +1602,8 @@ public class FortressAntTask extends Task implements InputHandler
                         if ( se.getErrorId() == GlobalErrIds.PERM_DUPLICATE )
                         {
                             adminMgr.updatePermObj( permObj );
-                            System.out.println( CLS_NM + ".addPermObjs - update entity objName=" + permObj
-                                .getObjName() );
+                            LOG.info( "addPermObjs update entity objName={} description={} orgUnit={} type={}", permObj.getObjName(), permObj
+                                .getDescription(), permObj.getOu(), permObj.getType() );
                         }
                         else
                         {
@@ -1889,17 +1912,17 @@ public class FortressAntTask extends Task implements InputHandler
                 try
                 {
                     OrganizationalUnitP op = new OrganizationalUnitP();
-
-                    if ( this.context != null )
+                    // Set the tenant id onto the entity.
+                    // Normally this info would be passed in via a manager constructor.  Since these methods aren't implemented by a manager, we must do this here:
+                    if( ! StringUtils.isEmpty( TENANT ) && ! TENANT.equals( "${tenant}" ) )
                     {
-                        ou.setContextId( this.context.getName() );
+                        ou.setContextId( TENANT );
                     }
-
                     op.add( ou );
                 }
                 catch ( SecurityException se )
                 {
-                    LOG.warn( "addContainers name [{}] caught SecurityException={}", ou.getName(), se );
+                    LOG.warn( "addContainers name [{}] caught SecurityException={}", ou.getName(), se.getMessage() );
                 }
             }
         }
@@ -1926,6 +1949,12 @@ public class FortressAntTask extends Task implements InputHandler
                 try
                 {
                     OrganizationalUnitP op = new OrganizationalUnitP();
+                    // Set the tenant id onto the entity.
+                    // Normally this info would be passed in via a manager constructor.  Since these methods aren't implemented by a manager, we must do this here:
+                    if( ! StringUtils.isEmpty( TENANT ) && ! TENANT.equals( "${tenant}" ) )
+                    {
+                        ou.setContextId( TENANT );
+                    }
                     op.delete( ou );
                 }
                 catch ( SecurityException se )

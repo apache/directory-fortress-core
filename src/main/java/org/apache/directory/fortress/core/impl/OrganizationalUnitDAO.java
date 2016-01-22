@@ -92,6 +92,8 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
             nodeDn += SchemaConstants.OU_AT + "=" + oe.getParent() + ",";
         }
 
+        System.out.println("CONTEXTID = " + oe.getContextId());
+
         nodeDn += getRootDn( oe.getContextId() );
 
         try
@@ -108,8 +110,8 @@ final class OrganizationalUnitDAO extends ApacheDsDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "create container node dn [" + nodeDn + "] caught LDAPException="
-                + e.getMessage();
+            String error = "create container node dn [" + nodeDn + "] caught LdapException="
+                + e;
             throw new CreateException( GlobalErrIds.CNTR_CREATE_FAILED, error, e );
         }
         finally

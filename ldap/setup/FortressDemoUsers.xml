@@ -25,9 +25,11 @@
     <target name="all">
         <FortressAdmin>
 
+<!--
             <addcontext>
                 <context name="${tenant}"/>
             </addcontext>
+-->
 
             <addcontainer>
                 <container name="People" description="Fortress People"/>
