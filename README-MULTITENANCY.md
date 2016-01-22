@@ -25,7 +25,8 @@
  * SECTION 2. About the Datastructures.
  * SECTION 3. How the APIs work.
  * SECTION 4. How to Setup a New Tenant.
- * SECTION 5. Unit Testing
+ * SECTION 5. Unit Testing.
+ * SECTION 6.  Other Tools.
 
 -------------------------------------------------------------------------------
 ## SECTION 1.  Fortress Multitenancy Overview
@@ -126,6 +127,23 @@ Pass the tenant id as system property when running the tests:
  ```
 
  Passing tenant system properties scopes all subsequent test operations to that particular tenant.
+
+___________________________________________________________________________________
+## SECTION 6.  Other Tools
+
+Other tools like Fortress console and CLI can be run with a specific tenant's context.
+
+1. Fortress Console:
+
+ ```
+ mvn -Pconsole test -Dtenant=acme123
+ ```
+
+2. Fortress CLI:
+
+ ```
+ mvn -Pcli test -Dtenant=acme123
+ ```
 
 ___________________________________________________________________________________
 #### END OF README-MULTITENANCY
