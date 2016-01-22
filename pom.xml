@@ -477,6 +477,9 @@
           <configuration>
             <argLine>-Xmx1024m</argLine>
             <systemPropertyVariables>
+              <version>${tenant}</version>
+            </systemPropertyVariables>
+            <systemPropertyVariables>
               <version>${project.version}</version>
             </systemPropertyVariables>
             <excludes>
@@ -676,7 +679,7 @@
                     <pathelement location="${commons-codec:commons-codec:jar}" />
                   </classpath>
                   <sysproperty key="version" value="${project.version}" />
-                  <sysproperty key="tenant" value="HOME" />
+                  <sysproperty key="tenant" value="${tenant}" />
                   <arg value="-buildfile" />
                   <arg file="./${load.file}" />
                 </java>
@@ -746,7 +749,7 @@
                         <pathelement location="${commons-codec:commons-codec:jar}" />
                       </classpath>
                       <sysproperty key="version" value="${project.version}" />
-                      <sysproperty key="tenant" value="HOME" />
+                      <sysproperty key="tenant" value="${tenant}" />
                     </java>
                   </target>
                 </configuration>
@@ -807,7 +810,7 @@
                         <pathelement location="${commons-codec:commons-codec:jar}" />
                       </classpath>
                       <sysproperty key="version" value="${project.version}" />
-                      <sysproperty key="tenant" value="HOME" />
+                      <sysproperty key="tenant" value="${tenant}" />
                     </java>
                   </target>
                 </configuration>
