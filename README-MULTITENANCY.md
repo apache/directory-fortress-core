@@ -74,12 +74,12 @@ Then tenant id is passed in factory initialization.  For example:
 
  ```
  <addcontainer>
-    <container name="acme123" description="ACME 123 tenant context"/>
+     <container name="acme123" description="ACME 123 tenant context"/>
  ...
  </addcontainer>
  ```
 
-2. Or simply use ldif format to create new tenant objects, and import using preferred ldap client:
+2. Or, simply use ldif format to create new tenant objects, and import using preferred ldap client:
  ```
  dn: ou=acme123, dc=example,dc=com
  ou: acme123
@@ -87,30 +87,30 @@ Then tenant id is passed in factory initialization.  For example:
  description: ACME 123 tenant context
  ```
 
-3. Now you may use the fortress load utility to initialize the DIT for that particular tenant.  For example:
+3. After the tenant container is added, you may use the fortress load utility to initialize the DIT for that particular tenant.  For example:
 
  ```
  <addcontainer>
-   <container name="People" description="Fortress People"/>
-   <container name="Policies" description="Fortress Policies"/>
-   <container name="RBAC" description="Fortress RBAC Policies"/>
-   <container name="Roles" parent="RBAC" description="Fortress Roles"/>
-   <container name="Permissions" parent="RBAC" description="Fortress Permissions"/>
-   <container name="Constraints" parent="RBAC" description="Fortress Separation of Duty Constraints"/>
-   <container name="ARBAC" description="Fortress Administrative RBAC Policies"/>
-   <container name="OS-U" parent="ARBAC" description="Fortress User Organizational Units"/>
-   <container name="OS-P" parent="ARBAC" description="Fortress Perm Organizational Units"/>
-   <container name="AdminRoles" parent="ARBAC" description="Fortress AdminRoles"/>
-   <container name="AdminPerms" parent="ARBAC" description="Fortress Admin Permissions"/>
+     <container name="People" description="Fortress People"/>
+     <container name="Policies" description="Fortress Policies"/>
+     <container name="RBAC" description="Fortress RBAC Policies"/>
+     <container name="Roles" parent="RBAC" description="Fortress Roles"/>
+     <container name="Permissions" parent="RBAC" description="Fortress Permissions"/>
+     <container name="Constraints" parent="RBAC" description="Fortress Separation of Duty Constraints"/>
+     <container name="ARBAC" description="Fortress Administrative RBAC Policies"/>
+     <container name="OS-U" parent="ARBAC" description="Fortress User Organizational Units"/>
+     <container name="OS-P" parent="ARBAC" description="Fortress Perm Organizational Units"/>
+     <container name="AdminRoles" parent="ARBAC" description="Fortress AdminRoles"/>
+     <container name="AdminPerms" parent="ARBAC" description="Fortress Admin Permissions"/>
  </addcontainer>
  ```
 
-4. And when running the load, pass the tenant id:
+4. And when running the fortress load, pass the tenant id as a -D parameter:
  ```
  mvn install -Dload.file=./ldap/setup/MyLoadFile.xml -Dtenant=acme123
  ```
 
- Passing tenant system properties scopes all subsequent fortress xml load operations to that particular tenant.
+ Passing the tenant system property scopes all subsequent load operations to that particular tenant.
 
 ___________________________________________________________________________________
 ## SECTION 5.  Unit Testing
