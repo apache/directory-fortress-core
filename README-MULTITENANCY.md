@@ -59,7 +59,7 @@
 -------------------------------------------------------------------------------
 ## SECTION 3.  How the APIs work
 
-Then tenant id is passed in factory initialization.  For example:
+The tenant id is passed during object instantiation.  For example:
 
  ```
  AdminMgr adminMgr = AdminMgrFactory.createInstance( "acme123" );
@@ -70,7 +70,7 @@ Then tenant id is passed in factory initialization.  For example:
 -------------------------------------------------------------------------------
 ## SECTION 4.  How to Setup a New Tenant
 
-1. Use the Fortress load utility to set up new tenant contexts.  The 'addcontainer' tag can be used to do this:
+1. Use the Fortress load utility to set up new tenant contexts.  The *addcontainer* tag can be used to do this:
 
  ```
  <addcontainer>
@@ -79,7 +79,7 @@ Then tenant id is passed in factory initialization.  For example:
  </addcontainer>
  ```
 
-2. Or, simply use ldif format to create new tenant objects, and import using preferred ldap client:
+2. Or, simply use ldif format to create the new tenant containers.  Import using preferred LDAP client:
  ```
  dn: ou=acme123, dc=example,dc=com
  ou: acme123
@@ -87,7 +87,7 @@ Then tenant id is passed in factory initialization.  For example:
  description: ACME 123 tenant context
  ```
 
-3. After the tenant container is added, you may use the fortress load utility to initialize the DIT for that particular tenant.  For example:
+3. After the tenant container has been added, you may use the fortress ant load utility to initialize the DIT for that particular tenant.  For example:
 
  ```
  <addcontainer>
@@ -105,7 +105,7 @@ Then tenant id is passed in factory initialization.  For example:
  </addcontainer>
  ```
 
-4. And when running the fortress load, pass the tenant id as a -D parameter:
+4. When running the fortress ant load, pass the tenant id as a -D parameter on the command line:
  ```
  mvn install -Dload.file=./ldap/setup/MyLoadFile.xml -Dtenant=acme123
  ```
