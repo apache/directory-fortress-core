@@ -131,7 +131,7 @@ Pass the tenant id as system property when running the tests:
 ___________________________________________________________________________________
 ## SECTION 6.  Other Tools
 
-Other tools like Fortress console and CLI can be run with a specific tenant's context.
+Other tools like Fortress console and CLI may be run pointing to a tenant's data.
 
 1. Fortress Console:
 
