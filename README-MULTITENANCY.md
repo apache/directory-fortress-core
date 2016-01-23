@@ -46,7 +46,7 @@ More here:
 -------------------------------------------------------------------------------
 ## SECTION 2.  About the Datastructures
 
-1. Each tenant gets its own copy of the DIT.  For example if a tenant's id is acme123, there will be a container underneath the suffix:
+1. Each tenant gets its own copy of the data.  For example if a tenant's id is acme123, there will be a container underneath the suffix:
 
  ```
  ou=acme123, dc=example, dc=com.
