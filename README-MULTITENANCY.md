@@ -97,7 +97,7 @@ The tenant id is passed during object instantiation.
  description: ACME 123 tenant context
  ```
 
-3. After the new container has been added, for the tenant, you may use again the fortress ant load utility to initialize the new tenant Directory Information Tree (DIT).  For example:
+3. After the new container has been added, you may use again the fortress ant load utility to initialize the new tenant Directory Information Tree (DIT).  For example:
 
  ```
  ...
