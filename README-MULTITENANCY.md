@@ -68,7 +68,7 @@ More here:
 -------------------------------------------------------------------------------
 ## SECTION 3.  How the APIs work
 
-The tenant id is passed during object instantiation.  For example:
+The tenant id is passed during object instantiation.
 
  ```
  AdminMgr adminMgr = AdminMgrFactory.createInstance( "acme123" );
@@ -89,7 +89,7 @@ The tenant id is passed during object instantiation.  For example:
  ...
  ```
 
-2. Or, simply use ldif format to create the new tenant containers.  Import using preferred LDAP client:
+2. Or, simply use ldif format to create the new tenant containers.  Import with any LDAP client:
  ```
  dn: ou=acme123, dc=example,dc=com
  ou: acme123
@@ -97,7 +97,7 @@ The tenant id is passed during object instantiation.  For example:
  description: ACME 123 tenant context
  ```
 
-3. After the tenant container has been added, you may use the fortress ant load utility to initialize the DIT for that particular tenant.  For example:
+3. After the new container has been added, for the tenant, you may use again the fortress ant load utility to initialize the new tenant Directory Information Tree (DIT).  For example:
 
  ```
  ...
