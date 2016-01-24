@@ -58,7 +58,7 @@ ________________________________________________________________________________
  * If you see **FORTRESS_HOME**, refer to the package [root folder](.).
  * If you see **OPENLDAP_HOME**, refer to the root of OpenLDAP binary installation folder, e.g. /opt/etc/openldap
  * This package's Apache Maven [pom.xml](./pom.xml) and Apache Ant [build.xml](./build.xml) files are found in root folder.
- * Apache Ant is deprecated (in favor of Maven), but still used for some things.
+ * Apache Ant is deprecated, but still used for some things.
   * The configuration subsystem [README-CONFIG](./README-CONFIG.md) has more details.
  * Questions about this software package should be directed to its mailing list:
    * http://mail-archives.apache.org/mod_mbox/directory-fortress/
