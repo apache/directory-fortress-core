@@ -47,8 +47,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
-This document contains instructions to download, build, and test operations with an LDAP server using the Apache Fortress Core SDK.
-If you don't already have an LDAP server installed, goto **SECTION 1** for options.
+This document contains instructions to download, install, test, and manage an LDAP server using the Apache Fortress Core.
 
 ___________________________________________________________________________________
 ##  Tips for first-time users
