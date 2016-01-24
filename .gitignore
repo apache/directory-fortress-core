@@ -2,7 +2,6 @@ target
 .project
 .classpath
 .settings
-build..properties
 eclipse-classes
 *.log
 *.iml
@@ -22,4 +21,3 @@ maven-eclipse.xml
 config
 b.sh
 b.bat
-
