@@ -115,21 +115,6 @@
        <property name="target.rbac.schema" value="${slapd.schema.dir}/rbac.schema"/>
        <property name="db.cfg" value="${ldap.dir}/DB_CONFIG"/>
 
-       <!-- ########### Sentry manage & config properties ########################### -->
-       <property name="sentry" value="sentry"/>
-       <property name="sentry.dir" value="${basedir}/${sentry}-${version}"/>
-       <property name="sentry.zip" value="${lib.dir}/${sentry}-${version}.jar"/>
-
-       <!-- ########### EnMasse manage & config properties ########################### -->
-       <property name="enmasse" value="enmasse"/>
-       <property name="enmasse.dir" value="${basedir}/${enmasse}-${version}"/>
-       <property name="enmasse.zip" value="${basedir}/lib/${enmasse}-${version}.jar"/>
-
-       <!-- ########### Commander manage & config properties ########################### -->
-       <property name="commander" value="commander"/>
-       <property name="commander.dir" value="${basedir}/${commander}-${version}"/>
-       <property name="commander.zip" value="${basedir}/lib/${commander}-${version}.jar"/>
-
        <!-- ########### Java compile switches ########################### -->
        <property name="javac.optimize" value="false"/>
        <property name="javac.debug" value="true"/>
@@ -247,7 +232,6 @@
            <pathelement location="${images.dir}"/>
            <pathelement location="${accelerator-api.jar}"/>
            <pathelement location="${accelerator-impl.jar}"/>
-<!--           <pathelement location="${apacheds-api-all.jar}"/>-->
            <pathelement location="${mina-core.jar}"/>
            <pathelement location="${opencsv.jar}"/>
            <pathelement location="${apacheJMeter_core.jar}"/>
@@ -901,7 +885,7 @@
 
          <echo message="###############  Modify fortress load scripts per user settings  ###############"/>
          <delete file="${dst.load.bootstrap.script}"/>
-       <copy file="${src.load.bootstrap.script}" tofile="${dst.load.bootstrap.script}"/>
+         <copy file="${src.load.bootstrap.script}" tofile="${dst.load.bootstrap.script}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX_NAME@" value="${suffix.name}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX_DC@" value="${suffix.dc}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX_DC2@" value="${suffix.dc2}"/>
@@ -1409,242 +1393,6 @@
             </zipfileset>
 
         </zip>
-    </target>
-
-    <!-- =================================
-          Install EnMasse Demo
-         ================================= -->
-    <target name="install-enmasse-demo" depends="init"  description="--> install EnMasse Demo">
-       <antcall target="doSentry"></antcall>
-       <antcall target="sentry-ant-start-tomcat"></antcall>
-       <antcall target="install-enmasse"></antcall>
-       <antcall target="enmasse-maven-test"></antcall>
-    </target>
-
-    <target name="doSentry" depends="dir.check" unless="dir.exists">
-       <echo>Install sentry to ${sentry.dir}"</echo>
-        <antcall target="install-sentry"></antcall>
-        <antcall target="sentry-ant-deploy-tomcat"></antcall>
-     </target>
-
-     <target name="dir.check">
-       <condition property="dir.exists">
-         <available file="${sentry.dir}" type="dir"/>
-       </condition>
-     </target>
-
-    <!-- =================================
-          Install Fortress Sentry
-         ================================= -->
-   <target name="install-sentry" depends="init"  description="--> install sentry">
-       <unzip src="${sentry.zip}" dest="${basedir}"/>
-       <!-- copy the build.properties file to sentry -->
-       <copy todir="${sentry.dir}" file="${basedir}/build.properties" overwrite="true" />
-       <!-- Sentry should use LDAPv3 for the demo install -->
-       <replace file="${sentry.dir}/build.properties" token="enable.mgr.impl.rest=true" value="enable.mgr.impl.rest=false"/>
-       <antcall target="sentry-ant-dist"></antcall>
-       <chmod dir="${basedir}" perm="a+x" includes="**/*.sh"/>
-   </target>
-
-    <!-- =================================
-          Call the Sentry Ant target to Install Fortress Sentry
-         ================================= -->
-   <target name="sentry-ant-dist" depends="init" description="--> run Fortress admin script">
-        <echo message="###############  Build Sentry Distribution  ###############"/>
-        <java
-                classname="org.apache.tools.ant.launch.Launcher"
-                fork="true"
-                failonerror="true"
-                dir="${sentry.dir}"
-                timeout="4000000"
-                taskname="startAnt">
-            <classpath>
-                <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
-            </classpath>
-            <arg value="dist"/>
-        </java>
-    </target>
-
-    <!-- =================================
-          Call the Sentry Ant target to deploy Tomcat Realm
-         ================================= -->
-    <target name="sentry-ant-deploy-tomcat" depends="init" description="--> deploy Sentry to Tomcat">
-        <echo message="###############  Deploy Sentry to Tomcat  ###############"/>
-        <java
-                classname="org.apache.tools.ant.launch.Launcher"
-                fork="true"
-                failonerror="true"
-                dir="${sentry.dir}"
-                timeout="4000000"
-                taskname="startAnt">
-            <classpath>
-                <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
-            </classpath>
-            <arg value="deploy-tomcat"/>
-        </java>
-    </target>
-
-    <!-- =================================
-          Call the Sentry Ant target to start Tomcat server
-         ================================= -->
-    <target name="sentry-ant-start-tomcat" depends="init" description="--> start Tomcat server">
-        <echo message="###############  Start Tomcat Server  ###############"/>
-        <property name="tomcat.dir" value="./tomcat"/>
-        <java
-                classname="org.apache.tools.ant.launch.Launcher"
-                fork="true"
-                failonerror="true"
-                dir="${sentry.dir}"
-                timeout="4000000"
-                taskname="startAnt"
-                jvmargs="-Dversion=${version}">
-            <classpath>
-                <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
-            </classpath>
-            <arg value="start-tomcat"/>
-        </java>
-    </target>
-
-    <!-- =================================
-          Call the Sentry Ant target to stop Tomcat server
-         ================================= -->
-    <target name="sentry-ant-stop-tomcat" depends="init" description="--> stop Tomcat server">
-        <echo message="###############  Stop Tomcat Server  ###############"/>
-        <property name="tomcat.dir" value="./tomcat"/>
-        <java
-                classname="org.apache.tools.ant.launch.Launcher"
-                fork="true"
-                failonerror="true"
-                dir="${sentry.dir}"
-                timeout="4000000"
-                taskname="startAnt">
-            <classpath>
-                <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
-            </classpath>
-            <arg value="stop-tomcat"/>
-        </java>
-    </target>
-
-    <!-- =================================
-          Install EnMasse
-         ================================= -->
-    <target name="install-enmasse" depends="init"  description="--> install sentry">
-        <unzip src="${enmasse.zip}" dest="${basedir}"/>
-        <!-- copy the fortress.properties file to enmasse -->
-        <copy todir="${enmasse.dir}/src/main/resources" file="${dst.remote.conf}"/>
-        <!-- For demo Enmasse should use LDAPv3 for backend connections -->
-        <copy todir="${enmasse.dir}/src/main/resources" file="${dst.remote.conf}" overwrite="true" />
-        <replace file="${enmasse.dir}/src/main/resources/fortress.properties" token="enable.mgr.impl.rest=true" value="enable.mgr.impl.rest=false"/>
-        <antcall target="enmasse-maven-install"></antcall>
-        <antcall target="enmasse-maven-deploy"></antcall>
-    </target>
-
-    <!-- =================================
-          Call the EnMasse Maven to install
-         ================================= -->
-    <target name="enmasse-maven-install" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
-        <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-          <arg value="install"/>
-        </artifact:mvn>
-    </target>
-
-    <!-- =================================
-          Call the EnMasse Maven to deploy Web app
-         ================================= -->
-    <target name="enmasse-maven-deploy" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
-        <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-          <arg value="tomcat:deploy"/>
-            <arg value="-DfailIfNoTests=false" />
-        </artifact:mvn>
-    </target>
-
-    <!-- =================================
-          Call the EnMasse Maven to redeploy Web app
-         ================================= -->
-    <target name="enmasse-maven-redeploy" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
-        <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-          <arg value="tomcat:redeploy"/>
-            <arg value="-DfailIfNoTests=false" />
-        </artifact:mvn>
-    </target>
-
-    <!-- =================================
-          Call the EnMasse Maven to test Web app
-         ================================= -->
-    <target name="enmasse-maven-test" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
-        <artifact:mvn pom="${enmasse.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-          <arg value="test"/>
-        </artifact:mvn>
-    </target>
-
-    <!-- =================================
-          Install Commander Demo
-         ================================= -->
-    <target name="install-commander-demo" depends="init"  description="--> install Commander Demo">
-        <antcall target="doSentry"></antcall>
-        <antcall target="sentry-ant-start-tomcat"></antcall>
-        <antcall target="install-commander"></antcall>
-    </target>
-
-    <!-- =================================
-          Install Commander
-         ================================= -->
-    <target name="install-commander" depends="init"  description="--> install commander">
-        <unzip src="${commander.zip}" dest="${basedir}"/>
-        <!-- copy the fortress.properties file to commander -->
-        <copy todir="${commander.dir}/src/main/resources" file="${dst.remote.conf}" overwrite="true" />
-        <concat destfile="${commander.dir}/src/main/resources/fortress.properties" append="true">${line.separator}version=${version}</concat>
-        <replace file="${commander.dir}/pom.xml" token="&lt;ANT_HOME>/home/smckinn/JavaTools/apache-ant-1.8.2&lt;/ANT_HOME>" value="&lt;ANT_HOME>../apache-ant/&lt;/ANT_HOME>"/>
-        <!-- load the sample test policy for commander -->
-        <antcall target="commander-maven-load"></antcall>
-        <antcall target="commander-maven-deploy"></antcall>
-    </target>
-
-    <!-- =================================
-          Call the Commander Maven to install
-         ================================= -->
-    <target name="commander-maven-install" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
-        <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-          <arg value="install"/>
-        </artifact:mvn>
-    </target>
-
-    <!-- =================================
-          Call the Commander Maven to deploy Web app
-         ================================= -->
-    <target name="commander-maven-deploy" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
-        <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-          <arg value="tomcat:deploy"/>
-        </artifact:mvn>
-    </target>
-
-    <!-- =================================
-          Call the Commander Maven to redeploy Web app
-         ================================= -->
-    <target name="commander-maven-redeploy" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
-        <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-          <arg value="tomcat:redeploy"/>
-        </artifact:mvn>
-    </target>
-
-    <!-- =================================
-          Call the Commander Maven to load test policy into LDAP
-         ================================= -->
-    <target name="commander-maven-load" depends="init" description="--> load Commander test policy into LDAP">
-        <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-          <arg value="test"/>
-        </artifact:mvn>
-    </target>
-
-    <!-- =================================
-          Call the Commander Maven to integration test Web app with Selenium Web Driver
-         ================================= -->
-    <target name="commander-maven-test" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
-        <replace file="${commander.dir}/src/test/java/org/openldap/commander/integration/CommanderSeleniumITCase.java" token="http://192.168.1.101:8080" value="http://${http.host}:${http.port}"/>
-        <artifact:mvn pom="${commander.dir}/pom.xml" mavenHome="${M2_HOME}"  fork="true">
-          <arg value="verify"/>
-        <arg value="-DskipTests=false"/>
-        </artifact:mvn>
     </target>
 
     <!-- =================================
