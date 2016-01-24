@@ -71,7 +71,7 @@ Minimum software requirements:
  * git
  * Java SDK 7++
  * Apache Maven3++
- * *Apache Ant7++ (if doing **SECTION 5. Instructions for using Apache Fortress and Symas OpenLDAP server**)*
+ * Apache Ant7++ (if doing SECTION **Instructions for using Apache Fortress and Symas OpenLDAP server**)
 
 ___________________________________________________________________________________
 ## SECTION 2. Download & Install
