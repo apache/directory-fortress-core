@@ -15,5 +15,6 @@ apache-ant-1.9.1
 ldap/setup/refreshLDAPData.xml
 maven-eclipse.xml
 .idea
+*.properties
 config
 
