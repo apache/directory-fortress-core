@@ -75,7 +75,7 @@ public class UserTestData extends TestCase
                 "Admin", /* TITLE_COL */
                 "Permanent", /* EMPLOYEE_TYPE_COL */
                 "FALSE", /* SYSTEM USER */
-                "TestPhoto1.jpeg", /* JPEGPHOTO_COL  */
+                "p1.jpeg", /* JPEGPHOTO_COL  */
         },
     };
     

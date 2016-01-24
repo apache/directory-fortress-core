@@ -63,7 +63,7 @@ More here:
 
 3. Screenshot with Apache Directory Studio.
 
- ![Screeshot of Multitenant Tree](images/Screenshot-acme123-dit.png "ACME123 Tenant Subtree")
+ ![Multitenant Tree](images/screenshot-acme123-dit.png "ACME123 Tenant Subtree")
 
 -------------------------------------------------------------------------------
 ## SECTION 3.  How the APIs work
