@@ -270,6 +270,14 @@ attributetype ( 1.3.6.1.4.1.1.38088.1.30
     SUBSTR caseIgnoreSubstringsMatch
     SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
+# A31: User Role Constraints, type STRING, MULTI VALUE
+attributetype ( 1.3.6.1.4.1.1.38088.1.31
+    NAME 'ftPA'
+    DESC 'Fortress Permission Attribute Constraints'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
 ######################################################################
 ## 2. OpenLDAP Fortress Structural object class definitions
 ######################################################################
@@ -323,6 +331,7 @@ objectclass    ( 1.3.6.1.4.1.38088.2.3
         ftRoles $
         ftUsers $
         ftType
+        ftPA
         )
     )
 
