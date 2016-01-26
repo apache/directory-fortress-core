@@ -20,10 +20,9 @@
 package org.apache.directory.fortress.core.model;
 
 
-import org.apache.commons.lang.StringUtils;
-
 import java.io.Serializable;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -35,6 +34,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+
+import org.apache.commons.lang.StringUtils;
 
 
 /*
@@ -280,7 +281,8 @@ public class Permission extends FortEntity implements Serializable
     private Set<String> roles;
     @XmlElement(nillable = true)
     private Set<String> users;
-
+    @XmlElement(nillable = true)
+    private Set<PermissionAttribute> attributes;
 
     /**
      * This constructor is commonly used to create Permission that is a target for authorization API.
@@ -674,6 +676,32 @@ public class Permission extends FortEntity implements Serializable
         this.props = value;
     }
 
+    /**
+     * Return the collection of optional Attributes that have been loaded into this entity.  This is stored as a multi-occurring
+     * attribute of ftPA entries on the 'ftOperation' object class.
+     *
+     * @return Set containing the roles which maps to 'ftRoles' attribute in 'ftOperation' object class.
+     */
+    public Set<PermissionAttribute> getAttributes()
+    {
+    	if(this.attributes == null){
+    		attributes = new HashSet<PermissionAttribute>();
+    	}
+    	
+        return this.attributes;
+    }
+
+
+    /**
+     * Set the collection of optional Attributes that have been loaded into this entity.  This is stored as a multi-occurring
+     * attribute of ftPAs on the 'ftOperation' object class.
+     *
+     * @param attributes maps to 'ftPA' attribute in 'ftOperation' object class.
+     */
+    public void setAttributes( Set<PermissionAttribute> attributes )
+    {
+        this.attributes = attributes;
+    }
 
     /**
      * Add name/value pair to list of properties associated with Permission.  These values are not constrained by Fortress.

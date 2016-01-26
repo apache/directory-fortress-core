@@ -1655,4 +1655,9 @@ public final class GlobalErrIds
      * The supplied group protocol name failed length check.
      */
     public static final int GROUP_PROTOCOL_INVLD = 10313;
+    
+    /**
+     * The supplied Permission Attribute could not be added to ldap server.
+     */
+    public static final int PERM_ATTR_ADD_FAILED = 10314;
 }

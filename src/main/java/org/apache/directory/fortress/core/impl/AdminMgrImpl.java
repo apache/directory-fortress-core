@@ -34,6 +34,7 @@ import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.SDSet;
@@ -365,6 +366,17 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         return permP.add( perm );
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public PermissionAttribute addPermissionAttribute( PermissionAttribute permAttribute ) throws SecurityException
+    {
+        String methodName = "addPermissionAttribute";
+        assertContext( CLS_NM, methodName, permAttribute, GlobalErrIds.PERM_OPERATION_NULL );
+        setEntitySession( CLS_NM, methodName, permAttribute );
+        return permP.add( permAttribute );
+    }    
 
     /**
      * {@inheritDoc}

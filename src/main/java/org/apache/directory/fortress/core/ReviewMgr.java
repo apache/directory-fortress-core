@@ -20,16 +20,17 @@
 package org.apache.directory.fortress.core;
 
 
+import java.util.List;
+import java.util.Set;
+
 import org.apache.directory.fortress.core.model.OrgUnit;
-import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
-
-import java.util.List;
-import java.util.Set;
 
 
 /**
@@ -439,7 +440,10 @@ public interface ReviewMgr extends Manageable
     List<Permission> rolePermissions( Role role, boolean noInheritance )
         throws SecurityException;
 
-
+    //TODO: add documentation
+    Set<PermissionAttribute> rolePermissionAttributes( Role role, boolean noInhertiance )
+    	throws SecurityException;
+    
     /**
      * This function returns the set of permissions a given user gets through his/her authorized
      * roles. The function is valid if and only if the user is a member of the USERS data set.

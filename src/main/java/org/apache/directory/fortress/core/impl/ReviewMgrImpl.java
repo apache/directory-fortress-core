@@ -32,6 +32,7 @@ import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
@@ -402,6 +403,23 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
         assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
         checkAccess(CLS_NM, methodName);
         return permP.search( role, noInheritance );
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<PermissionAttribute> rolePermissionAttributes( Role role, boolean noInhertiance )
+    	throws SecurityException
+    {
+    	Set<PermissionAttribute> permAttributes = new HashSet<PermissionAttribute>();
+    	
+    	List<Permission> permissions = this.rolePermissions(role, noInhertiance);
+    	for(Permission perm : permissions){
+    		permAttributes.addAll(perm.getAttributes());
+    	}
+    	
+    	return permAttributes;
     }
 
     /**

@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core;
 
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
@@ -510,6 +511,10 @@ public interface AdminMgr extends Manageable
     Permission addPermission( Permission perm )
         throws SecurityException;
 
+    
+    //TODO: fill the documentation in
+    PermissionAttribute addPermissionAttribute( PermissionAttribute permAttribute )
+    	throws SecurityException;
 
     /**
      * This method will update permission operation pre-existing in target directory under 

@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core.impl;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -42,23 +43,24 @@ import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueEx
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchAttributeException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
-import org.apache.directory.fortress.core.model.AdminRole;
-import org.apache.directory.fortress.core.model.OrgUnit;
-import org.apache.directory.fortress.core.model.PermObj;
-import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.PropUtil;
-import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.ObjectFactory;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PermissionAttribute;
+import org.apache.directory.fortress.core.model.PropUtil;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.ldap.client.api.LdapConnection;
 
 
 /**
@@ -182,6 +184,7 @@ final class PermDAO extends ApacheDsDataProvider
     private static final String PERM_NAME = "ftPermName";
     private static final String ROLES = "ftRoles";
     private static final String USERS = "ftUsers";
+    private static final String PERMISSION_ATTRIBUTE = "ftPA";
     private static final String[] PERMISSION_OP_ATRS =
         {
             GlobalIds.FT_IID,
@@ -194,7 +197,8 @@ final class PermDAO extends ApacheDsDataProvider
             TYPE,
             ROLES,
             USERS,
-            GlobalIds.PROPS
+            GlobalIds.PROPS,
+            PERMISSION_ATTRIBUTE
     };
 
     private static final String[] PERMISION_OBJ_ATRS =
@@ -202,8 +206,7 @@ final class PermDAO extends ApacheDsDataProvider
             GlobalIds.FT_IID, GlobalIds.POBJ_NAME, SchemaConstants.DESCRIPTION_AT, SchemaConstants.OU_AT, TYPE,
             GlobalIds.PROPS
     };
-
-
+    
     /**
      * @param entity
      * @return
@@ -445,7 +448,39 @@ final class PermDAO extends ApacheDsDataProvider
         return entity;
     }
 
+    
+    //TODO: add documentation
+    PermissionAttribute createPermissionAttribute( PermissionAttribute entity ) throws CreateException
+    {
+        LdapConnection ld = null;
+        String dn = getDn( new Permission(entity.getObjName(), entity.getOpName()) , entity.getContextId() );
 
+        try
+        {
+            List<Modification> mods = new ArrayList<Modification>();
+            mods.add( new DefaultModification(
+                ModificationOperation.ADD_ATTRIBUTE, PERMISSION_ATTRIBUTE, entity.toFtPAString()) );
+            ld = getAdminConnection();
+            modify( ld, dn, mods, entity );
+            
+            //TODO: make sure not adding same attribute twice...
+        }
+        catch ( LdapException e )
+        {
+            String error = "create perm attribute [" + entity.getObjName() + "] operation ["
+                + entity.getOpName() + "] name [" + entity.getAttributeName() + "] caught LdapException="
+                + e.getMessage();
+            throw new CreateException( GlobalErrIds.PERM_ATTR_ADD_FAILED, error, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+        
+        //TODO: need to do anything to returned entity?
+        return entity;
+    }
+    
     /**
      * @param entity
      * @return
@@ -1024,8 +1059,9 @@ final class PermDAO extends ApacheDsDataProvider
         entity.setUsers( getAttributeSet( le, USERS ) );
         entity.setType( getAttribute( le, TYPE ) );
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
-        entity.addProperties( PropUtil.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
+        entity.addProperties( PropUtil.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );        
         entity.setAdmin( isAdmin );
+        entity.setAttributes( unloadPermissionAttributes(le) );
 
         if ( le != null )
         {
@@ -1058,7 +1094,26 @@ final class PermDAO extends ApacheDsDataProvider
         return entity;
     }
 
+    private Set<PermissionAttribute> unloadPermissionAttributes( Entry entry )
+    {
+        Set<PermissionAttribute> permAttributes = null;
+        List<String> ftPAs = getAttributes( entry, GlobalIds.FT_PERMISSION_ATTRIBUTE );
 
+        if ( ftPAs != null )
+        {
+        	permAttributes = new HashSet<PermissionAttribute>();
+
+            for ( String raw : ftPAs )
+            {
+                PermissionAttribute permAttribute = new ObjectFactory().createPermissionAttribute();
+                permAttribute.load( raw );
+                permAttributes.add( permAttribute );
+            }
+        }
+
+        return permAttributes;
+    }
+    
     /**
      * @param permission
      * @return

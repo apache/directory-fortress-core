@@ -528,4 +528,9 @@ public final class GlobalIds
      */
     public static final String ALL = "all";
     public static final String NULL = "null";
+    
+    /**
+     * The ftPA field contains attributes and associated metadata for permissions.
+     */
+    public static final String FT_PERMISSION_ATTRIBUTE = "ftPA";
 }

@@ -19,25 +19,26 @@
  */
 package org.apache.directory.fortress.core.rest;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.FortRequest;
 import org.apache.directory.fortress.core.model.FortResponse;
-import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.VUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * This class performs administrative review functions on already provisioned Fortress RBAC entities using HTTP access to En Masse REST server.
@@ -759,7 +760,13 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         return retPerms;
     }
 
-
+	@Override
+	public Set<PermissionAttribute> rolePermissionAttributes(Role role,
+			boolean noInhertiance) throws SecurityException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+    
     /**
      * {@inheritDoc}
      */
@@ -1245,4 +1252,5 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         }
         return retSet.getCardinality();
     }
+
 }

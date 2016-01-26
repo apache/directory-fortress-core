@@ -586,4 +586,12 @@ public class ObjectFactory
     {
         return new Warning( id, msg, type, name );
     }
+    
+    /**
+     * Create an instance of {@link org.apache.directory.fortress.core.model.PermissionAttribute}
+     */
+    public PermissionAttribute createPermissionAttribute()
+    {
+        return new PermissionAttribute();
+    }
 }

@@ -33,6 +33,7 @@ import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
@@ -365,6 +366,13 @@ final class PermP
     {
         validate( entity, false );
         return pDao.createOperation( entity );
+    }
+    
+    //TODO: add documentation
+    PermissionAttribute add( PermissionAttribute entity ) throws SecurityException
+    {
+        //TODO: add validation
+        return pDao.createPermissionAttribute( entity );
     }
 
 

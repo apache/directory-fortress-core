@@ -21,19 +21,20 @@ package org.apache.directory.fortress.core.rest;
 
 
 import org.apache.directory.fortress.core.AdminMgr;
-import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.FortRequest;
 import org.apache.directory.fortress.core.model.FortResponse;
 import org.apache.directory.fortress.core.model.PermGrant;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.RoleRelationship;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.util.VUtil;
 
 
@@ -1239,4 +1240,12 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         }
         return retSet;
     }
+
+
+	@Override
+	public PermissionAttribute addPermissionAttribute(
+			PermissionAttribute permAttribute) throws SecurityException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
