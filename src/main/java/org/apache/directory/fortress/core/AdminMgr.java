@@ -451,8 +451,12 @@ public interface AdminMgr extends Manageable
 
     //TODO: add documentation
     RoleConstraint addRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
-   	  throws SecurityException;
+    	throws SecurityException;
 
+    //TODO: remove documentation
+    void removeRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
+    	throws SecurityException;
+    
     /**
      * This command deletes the assignment of the User from the Role entities. The command is
      * valid if and only if the user is a member of the USERS data set, the role is a member of

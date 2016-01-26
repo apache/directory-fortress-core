@@ -1856,6 +1856,37 @@ final class UserDAO extends ApacheDsDataProvider
         }
     }
     
+    void deassign( UserRole uRole, RoleConstraint roleConstraint ) throws UpdateException, FinderException
+    {
+    	LdapConnection ld = null;
+    	String szRoleConstraint = "";
+        String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
+
+        try
+        {
+            List<Modification> mods = new ArrayList<Modification>();
+            szRoleConstraint = roleConstraint.gerRawData(uRole);
+
+            mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, GlobalIds.USER_ROLE_DATA,
+            		szRoleConstraint ) );
+
+            ld = getAdminConnection();
+            modify( ld, userDn, mods, uRole );
+            
+            //TODO: make sure not adding same RC twice
+        }
+        catch ( LdapException e )
+        {
+            String warning = "deassign userId [" + uRole.getUserId() + "] role constraint [" + szRoleConstraint + "] ";
+
+            warning += "caught LDAPException=" + e.getMessage();
+            throw new UpdateException( GlobalErrIds.URLE_ASSIGN_FAILED, warning, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+    }
     
     /**
      * @param uRole

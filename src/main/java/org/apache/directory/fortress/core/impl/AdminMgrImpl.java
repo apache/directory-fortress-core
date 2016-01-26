@@ -341,7 +341,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     	   	throws SecurityException
     {
         //TODO: need new arbac perm and/or add security check
-    	 	String methodName = "assignUser";
+    	String methodName = "assignUser";
         assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
         
         userP.assign( uRole, roleConstraint );
@@ -349,6 +349,20 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         return roleConstraint;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
+        	throws SecurityException
+    {
+        //TODO: need new arbac perm and/or add security check
+    	String methodName = "assignUser";
+        assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
+        
+        userP.deassign( uRole, roleConstraint );    	
+    }
+    
     /**
      * {@inheritDoc}
      */
@@ -367,8 +381,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         // Now "deassign" user dn attribute, this will remove a single, standard attribute value,
         // called "roleOccupant", from the node:
         roleP.deassign( role, dn );
-    }
-
+    }    
 
     /**
      * {@inheritDoc}

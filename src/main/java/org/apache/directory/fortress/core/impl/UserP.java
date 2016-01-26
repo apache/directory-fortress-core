@@ -643,6 +643,14 @@ final class UserP
     	
     	uDao.assign( uRole, roleConstraint );
     }
+    
+    //TODO: add documentation, maybe change method name?
+    void deassign( UserRole uRole, RoleConstraint roleConstraint ) throws SecurityException
+    {
+    	//TODO: validate?
+    	
+    	uDao.deassign( uRole, roleConstraint );
+    }
 
 
     /**
