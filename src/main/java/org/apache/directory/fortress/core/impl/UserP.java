@@ -39,6 +39,7 @@ import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PwPolicy;
 import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
@@ -633,6 +634,14 @@ final class UserP
         validate( uRole );
         // "assign" custom Fortress role data, i.e. temporal constraints, onto the user node:
         return uDao.assign( uRole );
+    }
+    
+    //TODO: add documentation
+    void assign( UserRole uRole, RoleConstraint roleConstraint ) throws SecurityException
+    {
+    	//TODO: validate?
+    	
+    	uDao.assign( uRole, roleConstraint );
     }
 
 

@@ -24,6 +24,7 @@ import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
@@ -448,6 +449,9 @@ public interface AdminMgr extends Manageable
     void assignUser( UserRole uRole )
         throws SecurityException;
 
+    //TODO: add documentation
+    RoleConstraint addRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
+   	  throws SecurityException;
 
     /**
      * This command deletes the assignment of the User from the Role entities. The command is

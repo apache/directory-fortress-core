@@ -37,6 +37,7 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
@@ -332,6 +333,21 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         roleP.assign( role, dn );
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public RoleConstraint addRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
+    	   	throws SecurityException
+    {
+        //TODO: need new arbac perm and/or add security check
+    	 	String methodName = "assignUser";
+        assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
+        
+        userP.assign( uRole, roleConstraint );
+        
+        return roleConstraint;
+    }
 
     /**
      * {@inheritDoc}

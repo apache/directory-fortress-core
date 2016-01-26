@@ -21,8 +21,10 @@ package org.apache.directory.fortress.core.impl;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -49,32 +51,33 @@ import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.BindResponse;
 import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
 import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.fortress.core.CreateException;
+import org.apache.directory.fortress.core.FinderException;
+import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.PasswordException;
+import org.apache.directory.fortress.core.RemoveException;
+import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.UpdateException;
+import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 import org.apache.directory.fortress.core.model.Address;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.ConstraintUtil;
+import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.directory.fortress.core.model.PwMessage;
 import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.model.Warning;
-import org.apache.directory.fortress.core.model.PropUtil;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.directory.fortress.core.CreateException;
-import org.apache.directory.fortress.core.FinderException;
-import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.model.ObjectFactory;
-import org.apache.directory.fortress.core.PasswordException;
-import org.apache.directory.fortress.core.RemoveException;
-import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.UpdateException;
-import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
 
 
 /**
@@ -1821,7 +1824,39 @@ final class UserDAO extends ApacheDsDataProvider
         return userDn;
     }
 
+    void assign( UserRole uRole, RoleConstraint roleConstraint ) throws UpdateException, FinderException
+    {
+    	LdapConnection ld = null;
+    	String szRoleConstraint = "";
+        String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
 
+        try
+        {
+            List<Modification> mods = new ArrayList<Modification>();
+            szRoleConstraint = roleConstraint.gerRawData(uRole);
+
+            mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, GlobalIds.USER_ROLE_DATA,
+            		szRoleConstraint ) );
+
+            ld = getAdminConnection();
+            modify( ld, userDn, mods, uRole );
+            
+            //TODO: make sure not adding same RC twice
+        }
+        catch ( LdapException e )
+        {
+            String warning = "assign userId [" + uRole.getUserId() + "] role constraint [" + szRoleConstraint + "] ";
+
+            warning += "caught LDAPException=" + e.getMessage();
+            throw new UpdateException( GlobalErrIds.URLE_ASSIGN_FAILED, warning, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+    }
+    
+    
     /**
      * @param uRole
      * @return
@@ -2491,24 +2526,34 @@ final class UserDAO extends ApacheDsDataProvider
      */
     private List<UserRole> unloadUserRoles( Entry entry, String userId, String contextId )
     {
-        List<UserRole> uRoles = null;
+    	Map<String, UserRole> uRoles = new HashMap<String, UserRole>();    	
         List<String> roles = getAttributes( entry, GlobalIds.USER_ROLE_DATA );
 
         if ( roles != null )
         {
             long sequence = 0;
-            uRoles = new ArrayList<>();
 
             for ( String raw : roles )
             {
-                UserRole ure = new ObjectFactory().createUserRole();
-                ure.load( raw, contextId, new RoleUtil() );
-                ure.setUserId( userId );
-                ure.setSequenceId( sequence++ );
-                uRoles.add( ure );
+            	//get role name
+            	String roleName = raw.substring(0, raw.indexOf( GlobalIds.DELIMITER ));
+            	
+            	//if already found, add to user role
+            	if(uRoles.containsKey(roleName)){
+            		UserRole ure = uRoles.get(roleName);
+            		ure.load( raw, contextId, new RoleUtil() );
+            	}
+            	//else create new
+            	else{            	
+	                UserRole ure = new ObjectFactory().createUserRole();
+	                ure.load( raw, contextId, new RoleUtil() );
+	                ure.setUserId( userId );
+	                ure.setSequenceId( sequence++ );
+	                uRoles.put(roleName, ure );
+            	}
             }
         }
 
-        return uRoles;
+        return new ArrayList<UserRole>(uRoles.values());
     }
 }

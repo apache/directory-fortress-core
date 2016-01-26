@@ -21,6 +21,7 @@ package org.apache.directory.fortress.core.model;
 
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -73,7 +74,7 @@ import org.apache.directory.fortress.core.GlobalIds;
 @XmlRootElement( name = "fortUserRole" )
 @XmlAccessorType( XmlAccessType.FIELD )
 @XmlType( name = "userRole", propOrder = {"name", "userId", "parents", "beginDate", "beginLockDate", "beginTime",
-    "dayMask", "endDate", "endLockDate", "endTime", "timeout"} )
+    "dayMask", "endDate", "endLockDate", "endTime", "timeout", "roleConstraints"} )
 @XmlSeeAlso( {UserAdminRole.class} )
 public class UserRole extends FortEntity implements Serializable, Constraint
 {
@@ -91,7 +92,8 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     private String dayMask;
     @XmlElement( nillable = true )
     private Set<String> parents;
-
+    @XmlElement( nillable = true )
+    private Set<RoleConstraint> roleConstraints;
 
     /**
      * Default constructor is used by internal Fortress classes.
@@ -153,50 +155,58 @@ public class UserRole extends FortEntity implements Serializable, Constraint
         if ( ( szRawData != null ) && ( szRawData.length() > 0 ) )
         {
             String[] tokens = StringUtils.splitPreserveAllTokens( szRawData, GlobalIds.DELIMITER );
-            for ( int i = 0; i < tokens.length; i++ )
-            {
-                if ( StringUtils.isNotEmpty( tokens[i] ) )
-                {
-                    switch ( i )
-                    {
-                        case 0:
-                            name = tokens[i];
-                            parents = parentUtil.getParentsCB( name.toUpperCase(), contextId );
-                            break;
-
-                        case 1:
-                            timeout = Integer.parseInt( tokens[i] );
-                            break;
-
-                        case 2:
-                            beginTime = tokens[i];
-                            break;
-
-                        case 3:
-                            endTime = tokens[i];
-                            break;
-
-                        case 4:
-                            beginDate = tokens[i];
-                            break;
-
-                        case 5:
-                            endDate = tokens[i];
-                            break;
-
-                        case 6:
-                            beginLockDate = tokens[i];
-                            break;
-
-                        case 7:
-                            endLockDate = tokens[i];
-                            break;
-
-                        case 8:
-                            dayMask = tokens[i];
-                            break;
-                    }
-                }
+            
+            //newer style constaint type
+            if(tokens[1].equals(RoleConstraint.RC_TYPE_NAME)){
+            	RoleConstraint rc = new RoleConstraint(tokens[3], RoleConstraintType.valueOf(tokens[2]));            	            	            	
+            	this.getRoleConstraints().add(rc);
+            }
+            else{
+	            for ( int i = 0; i < tokens.length; i++ )
+	            {
+	                if ( StringUtils.isNotEmpty( tokens[i] ) )
+	                {
+	                    switch ( i )
+	                    {
+	                        case 0:
+	                            name = tokens[i];
+	                            parents = parentUtil.getParentsCB( name.toUpperCase(), contextId );
+	                            break;
+	
+	                        case 1:
+	                            timeout = Integer.parseInt( tokens[i] );
+	                            break;
+	
+	                        case 2:
+	                            beginTime = tokens[i];
+	                            break;
+	
+	                        case 3:
+	                            endTime = tokens[i];
+	                            break;
+	
+	                        case 4:
+	                            beginDate = tokens[i];
+	                            break;
+	
+	                        case 5:
+	                            endDate = tokens[i];
+	                            break;
+	
+	                        case 6:
+	                            beginLockDate = tokens[i];
+	                            break;
+	
+	                        case 7:
+	                            endLockDate = tokens[i];
+	                            break;
+	
+	                        case 8:
+	                            dayMask = tokens[i];
+	                            break;
+	                    }
+	                }
+	            }
             }
         }
     }
@@ -632,4 +642,17 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     {
         return name;
     }
+
+
+	public Set<RoleConstraint> getRoleConstraints() {
+		if(roleConstraints == null){
+			roleConstraints = new HashSet<RoleConstraint>();
+		}
+		return roleConstraints;
+	}
+
+
+	public void setRoleConstraints(Set<RoleConstraint> roleConstraints) {
+		this.roleConstraints = roleConstraints;
+	}
 }
