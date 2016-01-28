@@ -440,7 +440,7 @@ public final class Config
         szValue = System.getProperty( EXT_LDAP_ADMIN_POOL_MAX );
         if( StringUtils.isNotEmpty( szValue ))
         {
-            config.setProperty( GlobalIds.LDAP_ADMIN_POOL_MAX, Integer.valueOf( szValue ) );
+            config.setProperty( GlobalIds.LDAP_ADMIN_POOL_MAX, szValue );
             LOG.info( PREFIX, GlobalIds.LDAP_ADMIN_POOL_MAX, szValue );
         }
 
