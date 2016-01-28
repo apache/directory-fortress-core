@@ -37,8 +37,6 @@ public class PermissionAttribute extends FortEntity implements Serializable {
     private static final String VALID_VALUES_PARAM_NAME = "validValues";
     private static final String DEFAULT_VALUE_PARAM_NAME = "defaultValue";
     
-    private String opName;
-    private String objName;
     private String attributeName;
     private Boolean required;
     private ComparisonOperator operator;
@@ -47,12 +45,6 @@ public class PermissionAttribute extends FortEntity implements Serializable {
     //TODO: should this be an enum?
     private List<String> validValues;
     private String defaultValue;
-    
-    public PermissionAttribute(String objName, String opName )
-    {
-        this.objName = objName;
-        this.opName = opName;
-    }
     
     public PermissionAttribute(){
     	
@@ -114,18 +106,6 @@ public class PermissionAttribute extends FortEntity implements Serializable {
 	public void setDefaultValue(String defaultValue) {
 		this.defaultValue = defaultValue;
 	}
-	public String getOpName() {
-		return opName;
-	}
-	public void setOpName(String opName) {
-		this.opName = opName;
-	}
-	public String getObjName() {
-		return objName;
-	}
-	public void setObjName(String objName) {
-		this.objName = objName;
-	}
 	public String getAttributeName() {
 		return attributeName;
 	}
@@ -172,39 +152,4 @@ public class PermissionAttribute extends FortEntity implements Serializable {
         }
     }
     
-    /**
-     * Matches the objName, opName and attributeName from two Permission entities.
-     *
-     * @param o contains a PermissionAttribute entity.
-     * @return boolean indicating both PermissionAttributes contain matching objName, opName, and attributeName attributes.
-     */
-    @Override
-    public boolean equals(Object o)
-    {
-        if ( this == o )
-        {
-            return true;
-        }
-        if ( o == null || getClass() != o.getClass() )
-        {
-            return false;
-        }
-
-        PermissionAttribute that = ( PermissionAttribute ) o;
-        
-        if ( objName != null ? !objName.equalsIgnoreCase( that.objName ) : that.objName != null )
-        {
-            return false;
-        }
-        if ( opName != null ? !opName.equalsIgnoreCase( that.opName ) : that.opName != null )
-        {
-            return false;
-        }
-        if ( attributeName != null ? !attributeName.equalsIgnoreCase( that.attributeName ) : that.attributeName != null )
-        {
-            return false;
-        }
-
-        return true;
-    }
 }

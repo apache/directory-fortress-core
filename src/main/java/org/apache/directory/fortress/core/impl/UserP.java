@@ -639,7 +639,7 @@ final class UserP
     //TODO: add documentation
     void assign( UserRole uRole, RoleConstraint roleConstraint ) throws SecurityException
     {
-    	//TODO: validate?
+    	//TODO: validate role constraint points to actual ftAttributeSet?
     	
     	uDao.assign( uRole, roleConstraint );
     }

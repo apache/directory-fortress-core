@@ -345,8 +345,8 @@ public final class GlobalIds
     /**
      * Attribute name for storing Fortress permission object names.
      */
-    public static final String POBJ_NAME = "ftObjNm";
-
+    public static final String POBJ_NAME = "ftObjNm";    
+    
     /**
      * Attribute name for storing Fortress permission object id.
      */
@@ -533,4 +533,14 @@ public final class GlobalIds
      * The ftPA field contains attributes and associated metadata for permissions.
      */
     public static final String FT_PERMISSION_ATTRIBUTE = "ftPA";
+    
+    /**
+     * The ftPASet field contains the name of the ftPermissionAttributeSet for a permission
+     */
+    public static final String FT_PERMISSION_ATTRIBUTE_SET = "ftPASet";
+    
+    /**
+     * Attribute name for storing Fortress permission attribute set object names.
+     */
+    public static final String PERMISSION_ATTRIBUTE_SET_NAME = "ftAttributeSet";
 }

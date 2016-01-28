@@ -22,7 +22,7 @@ package org.apache.directory.fortress.core;
 
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.PermissionAttribute;
+import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.SDSet;
@@ -521,9 +521,9 @@ public interface AdminMgr extends Manageable
 
     
     //TODO: fill the documentation in
-    PermissionAttribute addPermissionAttribute( PermissionAttribute permAttribute )
+    PermissionAttributeSet addPermissionAttributeSet( PermissionAttributeSet permAttributeSet )
     	throws SecurityException;
-
+    
     /**
      * This method will update permission operation pre-existing in target directory under 
      * {@code ou=Permissions,ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.

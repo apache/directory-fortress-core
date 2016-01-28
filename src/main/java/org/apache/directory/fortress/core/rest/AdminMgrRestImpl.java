@@ -29,7 +29,7 @@ import org.apache.directory.fortress.core.model.FortResponse;
 import org.apache.directory.fortress.core.model.PermGrant;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.PermissionAttribute;
+import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.RoleRelationship;
@@ -1244,14 +1244,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
 
 
 	@Override
-	public PermissionAttribute addPermissionAttribute(
-			PermissionAttribute permAttribute) throws SecurityException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
 	public RoleConstraint addRoleConstraint(UserRole uRole,
 			RoleConstraint roleConstraint) throws SecurityException {
 		// TODO Auto-generated method stub
@@ -1264,5 +1256,13 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
 			RoleConstraint roleConstraint) throws SecurityException {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	@Override
+	public PermissionAttributeSet addPermissionAttributeSet(
+			PermissionAttributeSet permAttributeSet) throws SecurityException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

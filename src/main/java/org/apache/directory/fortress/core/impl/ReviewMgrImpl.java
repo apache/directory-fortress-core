@@ -416,7 +416,8 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
     	
     	List<Permission> permissions = this.rolePermissions(role, noInhertiance);
     	for(Permission perm : permissions){
-    		permAttributes.addAll(perm.getAttributes());
+    		//TODO: need to get ftPA entries now...
+    		//permAttributes.addAll(perm.getAttributes());
     	}
     	
     	return permAttributes;
