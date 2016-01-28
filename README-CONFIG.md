@@ -93,6 +93,7 @@ This subsystem has been hard wired to pick up properties in the following order:
  1. fortress.properties file - found on the classpath of that name.
  2. Java system properties - to override any of the 13 properties listed above.
  3. LDAP configuration node - found by config coordinates set in the fortress.properties file itself.
+
 __________________________________________________________________________________
 ## SECTION 6.  Configuration Subsystem Usage
 
