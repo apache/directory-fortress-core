@@ -114,8 +114,8 @@ public abstract class ApacheDsDataProvider
     private static final boolean IS_SSL = (
         Config.getProperty( GlobalIds.ENABLE_LDAP_SSL ) != null &&
             Config.getProperty( GlobalIds.ENABLE_LDAP_SSL ).equalsIgnoreCase( "true" ) &&
-            GlobalIds.TRUST_STORE != null &&
-        GlobalIds.TRUST_STORE_PW != null );
+            Config.getProperty( GlobalIds.TRUST_STORE ) != null &&
+        Config.getProperty( GlobalIds.TRUST_STORE_PW ) != null );
 
     private static final boolean IS_SET_TRUST_STORE_PROP = (
         IS_SSL &&
@@ -158,10 +158,10 @@ public abstract class ApacheDsDataProvider
         if ( IS_SET_TRUST_STORE_PROP )
         {
             LOG.info( "Set JSSE truststore properties in Apache LDAP client:" );
-            LOG.info( "javax.net.ssl.trustStore: {}", GlobalIds.TRUST_STORE );
+            LOG.info( "javax.net.ssl.trustStore: {}", Config.getProperty( GlobalIds.TRUST_STORE ) );
             LOG.info( "javax.net.debug: {}" + IS_SSL_DEBUG );
-            System.setProperty( "javax.net.ssl.trustStore", GlobalIds.TRUST_STORE );
-            System.setProperty( "javax.net.ssl.trustStorePassword", GlobalIds.TRUST_STORE_PW );
+            System.setProperty( "javax.net.ssl.trustStore", Config.getProperty( GlobalIds.TRUST_STORE ) );
+            System.setProperty( "javax.net.ssl.trustStorePassword", Config.getProperty( GlobalIds.TRUST_STORE_PW ) );
             System.setProperty( "javax.net.debug", Boolean.valueOf( IS_SSL_DEBUG ).toString() );
         }
 
@@ -173,11 +173,11 @@ public abstract class ApacheDsDataProvider
         config.setUseSsl( IS_SSL );
         //config.setTrustManagers( new NoVerificationTrustManager() );
 
-        if ( IS_SSL && StringUtils.isNotEmpty( GlobalIds.TRUST_STORE )
-            && StringUtils.isNotEmpty( GlobalIds.TRUST_STORE_PW ) )
+        if ( IS_SSL && StringUtils.isNotEmpty( Config.getProperty( GlobalIds.TRUST_STORE ) )
+            && StringUtils.isNotEmpty( Config.getProperty( GlobalIds.TRUST_STORE_PW ) ) )
         {
             // validate certificates but allow self-signed certs if within this truststore:
-            config.setTrustManagers( new LdapClientTrustStoreManager( GlobalIds.TRUST_STORE, GlobalIds.TRUST_STORE_PW
+            config.setTrustManagers( new LdapClientTrustStoreManager( Config.getProperty( GlobalIds.TRUST_STORE ), Config.getProperty( GlobalIds.TRUST_STORE_PW )
                 .toCharArray(), null,
                 true ) );
         }
@@ -248,12 +248,12 @@ public abstract class ApacheDsDataProvider
 
             logConfig.setUseSsl( IS_SSL );
 
-            if ( IS_SSL && StringUtils.isNotEmpty( GlobalIds.TRUST_STORE )
-                && StringUtils.isNotEmpty( GlobalIds.TRUST_STORE_PW ) )
+            if ( IS_SSL && StringUtils.isNotEmpty( Config.getProperty( GlobalIds.TRUST_STORE ) )
+                && StringUtils.isNotEmpty( Config.getProperty( GlobalIds.TRUST_STORE_PW ) ) )
             {
                 // validate certificates but allow self-signed certs if within this truststore:
-                logConfig.setTrustManagers( new LdapClientTrustStoreManager( GlobalIds.TRUST_STORE,
-                    GlobalIds.TRUST_STORE_PW.toCharArray(),
+                logConfig.setTrustManagers( new LdapClientTrustStoreManager( Config.getProperty( GlobalIds.TRUST_STORE ),
+                    Config.getProperty( Config.getProperty( GlobalIds.TRUST_STORE_PW ) ).toCharArray(),
                     null, true ) );
             }
 
