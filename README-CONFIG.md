@@ -89,7 +89,7 @@ The ant config task, **init-fortress-config**, uses the values found within the 
 ___________________________________________________________________________________
 ## SECTION 5.  Precedence of Artifacts found in the Fortress Configuration Subsystem
 
-This subsystem has been hard wired to pick up properties in the following order:
+This subsystem has been hard wired to the following order:
  1. fortress.properties file - found on the classpath of that name.
  2. Java system properties - to override any of the 13 properties listed above.
  3. LDAP configuration node - found by config coordinates set in the fortress.properties file itself.
@@ -98,7 +98,7 @@ ________________________________________________________________________________
 ## SECTION 6.  Configuration Subsystem Usage
 
 The general flow is the fortress.properties provide the coordinates to locate an ldap entry on a remote server.
-The fortress.properties file is picked off the runtime classpath during startup.  Some props may be overridden as Java system properties.
+That file is found on the runtime classpath during startup.  Some of its props may be overridden as Java system properties.
 The combination of Fortress and Java system properties are used to connect to remote ldap server and read its configuration entry where the remainder of Fortress' properties are stored.
 
 The remote server node's dn is constructed from fortress.property values:
@@ -119,16 +119,16 @@ Followed by A:
  mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
  ```
 
-Or B
+Or B:
  ```
  mvn install -Dload.file=./ldap/setup/ConfigNodeUpdate.xml
  ```
 
-The A script refreshes the entire LDAP server DIT, which includes deletes of all entries under the suffix, recreating the DIT node structure, and re-adding of the config node.
-B just updates the configuration node with the new values, preserving all other data.
+A refreshes the entire LDAP server DIT, deletes of all entries under the suffix, recreating the DIT node structure, and re-adding of the config node.
+B just updates the config node with the new values, preserving the other data.
 
 
- ### More notes:
+### More notes:
  * Use caution when running the **refreshLDAPData.xml** script.  It deletes all nodes below the suffix before readding.
  * To change values in a config node, use a general purpose ldapbrowser.  Fortress has config apis for this (ConfigMgr) to perform CRUD on config data.
  * Another option is to use a script like **ConfigNodeUpdate.xml** to perform the CRUD ops.
