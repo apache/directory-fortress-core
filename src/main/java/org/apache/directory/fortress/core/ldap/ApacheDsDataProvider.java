@@ -159,7 +159,7 @@ public abstract class ApacheDsDataProvider
         {
             LOG.info( "Set JSSE truststore properties in Apache LDAP client:" );
             LOG.info( "javax.net.ssl.trustStore: {}", Config.getProperty( GlobalIds.TRUST_STORE ) );
-            LOG.info( "javax.net.debug: {}" + IS_SSL_DEBUG );
+            LOG.info( "javax.net.debug: {}", IS_SSL_DEBUG );
             System.setProperty( "javax.net.ssl.trustStore", Config.getProperty( GlobalIds.TRUST_STORE ) );
             System.setProperty( "javax.net.ssl.trustStorePassword", Config.getProperty( GlobalIds.TRUST_STORE_PW ) );
             System.setProperty( "javax.net.debug", Boolean.valueOf( IS_SSL_DEBUG ).toString() );
@@ -253,7 +253,7 @@ public abstract class ApacheDsDataProvider
             {
                 // validate certificates but allow self-signed certs if within this truststore:
                 logConfig.setTrustManagers( new LdapClientTrustStoreManager( Config.getProperty( GlobalIds.TRUST_STORE ),
-                    Config.getProperty( Config.getProperty( GlobalIds.TRUST_STORE_PW ) ).toCharArray(),
+                    Config.getProperty( GlobalIds.TRUST_STORE_PW ).toCharArray(),
                     null, true ) );
             }
 
