@@ -115,7 +115,7 @@ public final class Config
                     {
                         String key = ( String ) e.nextElement();
                         String val = props.getProperty( key );
-                        config.addProperty( key, val );
+                        config.setProperty( key, val );
                     }
                 }
             }
