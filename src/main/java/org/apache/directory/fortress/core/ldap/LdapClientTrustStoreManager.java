@@ -20,24 +20,22 @@
 package org.apache.directory.fortress.core.ldap;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.Serializable;
+import org.apache.directory.fortress.core.CfgRuntimeException;
+import org.apache.directory.fortress.core.GlobalErrIds;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
+import java.io.*;
+import java.net.URL;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Date;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
-import javax.net.ssl.X509TrustManager;
-
-import org.apache.directory.fortress.core.CfgRuntimeException;
-import org.apache.directory.fortress.core.GlobalErrIds;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 
 /**
@@ -60,6 +58,7 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
     // Config variables
     private final boolean isExamineValidityDates;
     private final char[] trustStorePw;
+    // This is found on the classpath:
     private final String trustStoreFile;
     private final String trustStoreFormat;
 
@@ -79,7 +78,7 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
         {
             // Cannot continue, throw an unchecked exception:
             throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_JSSE_TRUSTSTORE_NULL,
-                "FortressTrustStoreManager constructor : input file name is null" );
+                "LdapClientTrustStoreManager constructor : input file name is null" );
         }
         // contains the fully-qualified file name of a valid JSSE TrustStore on local file system:
         this.trustStoreFile = trustStoreFile;
@@ -163,11 +162,20 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
                 x509Cert.checkValidity( currentDate );
             }
         }
-        // The trustStoreFile should contain the fully-qualified name of a Java TrustStore on local file system.
-        final File trustStoreFile = new File( this.trustStoreFile );
-        if ( !trustStoreFile.exists() )
+        InputStream trustStoreInputStream = getTrustStoreInputStream();
+        if (trustStoreInputStream == null)
         {
-            throw new CertificateException( "FortressTrustStoreManager.getTrustManagers : file not found" );
+            throw new CertificateException("LdapClientTrustStoreManager.getTrustManagers : file not found");
+        }
+        try
+        {
+            trustStoreInputStream.close();
+        }
+        catch (IOException e)
+        {
+            // Eat this ioexception because it shouldn't be a problem, but log just in case:
+            LOG.warn("LdapClientTrustStoreManager.getTrustManagers on input stream close " +
+                    "operation caught IOException={}", e.getMessage());
         }
         return loadTrustManagers( getTrustStore() );
     }
@@ -197,12 +205,12 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
         }
         catch ( NoSuchAlgorithmException e )
         {
-            throw new CertificateException( "FortressTrustStoreManager.loadTrustManagers caught " +
+            throw new CertificateException( "LdapClientTrustStoreManager.loadTrustManagers caught " +
                 "NoSuchAlgorithmException", e );
         }
         catch ( KeyStoreException e )
         {
-            throw new CertificateException( "FortressTrustStoreManager.loadTrustManagers caught KeyStoreException", e );
+            throw new CertificateException( "LdapClientTrustStoreManager.loadTrustManagers caught KeyStoreException", e );
         }
         return x509TrustManagers;
     }
@@ -223,22 +231,22 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
         }
         catch ( KeyStoreException e )
         {
-            throw new CertificateException( "FortressTrustStoreManager.getTrustManagers caught KeyStoreException", e );
+            throw new CertificateException( "LdapClientTrustStoreManager.getTrustManagers caught KeyStoreException", e );
         }
-        FileInputStream trustStoreInputStream = null;
+        InputStream trustStoreInputStream = null;
         try
         {
-            trustStoreInputStream = new FileInputStream( trustStoreFile );
+            trustStoreInputStream = getTrustStoreInputStream();
             trustStore.load( trustStoreInputStream, trustStorePw );
         }
         catch ( NoSuchAlgorithmException e )
         {
-            throw new CertificateException( "FortressTrustStoreManager.getTrustManagers caught " +
+            throw new CertificateException( "LdapClientTrustStoreManager.getTrustManagers caught " +
                 "NoSuchAlgorithmException", e );
         }
         catch ( IOException e )
         {
-            throw new CertificateException( "FortressTrustStoreManager.getTrustManagers caught KeyStoreException", e );
+            throw new CertificateException( "LdapClientTrustStoreManager.getTrustManagers caught KeyStoreException", e );
         }
         finally
         {
@@ -252,11 +260,74 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
                 catch ( IOException e )
                 {
                     // Eat this ioexception because it shouldn't be a problem, but log just in case:
-                    LOG.warn( "FortressTrustStoreManager.getTrustManagers finally block on input stream close " +
+                    LOG.warn( "LdapClientTrustStoreManager.getTrustStore finally block on input stream close " +
                         "operation caught IOException={}", e.getMessage() );
                 }
             }
         }
         return trustStore;
+    }
+
+
+    /**
+     * Read the trust store off the classpath.
+     *
+     * @return handle to inputStream containing the trust store
+     * @throws CertificateException
+     */
+    private InputStream getTrustStoreInputStream() throws CertificateException
+    {
+        InputStream result = null;
+        URL url = this.getClass().getClassLoader().getResource(trustStoreFile);
+        if (url != null)
+        {
+            if (url.getProtocol().equals("file"))
+            {
+                final File file = new File(url.getFile());
+                if (file.exists())
+                {
+                    try
+                    {
+                        result = new FileInputStream(file);
+                    }
+                    catch (FileNotFoundException e)
+                    {
+                        throw new CertificateException("LdapClientTrustStoreManager.getTrustStoreInputStream caught FileNotFoundException=" + e.getMessage());
+                    }
+                }
+                else
+                {
+                    throw new CertificateException("LdapClientTrustStoreManager.getTrustStoreInputStream file does not exist" );
+                }
+            }
+            else
+            {
+                PushbackInputStream trustStoreInputStream;
+                InputStream keyStoreStream = this.getClass().getClassLoader().getResourceAsStream(trustStoreFile); // note, not getSYSTEMResourceAsStream
+                trustStoreInputStream = new PushbackInputStream(keyStoreStream);
+                int b = -1;
+                try
+                {
+                    b = trustStoreInputStream.read();
+                }
+                catch (IOException e)
+                {
+                    throw new CertificateException("LdapClientTrustStoreManager.getTrustStoreInputStream caught IOException 1=" + e.getMessage());
+                }
+                if (b != -1)
+                {
+                    result = trustStoreInputStream;
+                    try
+                    {
+                        trustStoreInputStream.unread(b);
+                    }
+                    catch (IOException e)
+                    {
+                        throw new CertificateException("LdapClientTrustStoreManager.getTrustStoreInputStream caught IOException 2=" + e.getMessage());
+                    }
+                }
+            }
+        }
+        return result;
     }
 }

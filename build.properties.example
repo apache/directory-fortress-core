@@ -56,7 +56,15 @@ ldap.server.type=apacheds
 # These parameters point fortress to LDAP host:
 ldap.host=localhost
 ldap.port=10389
+# These are needed for client SSL connections with LDAP Server:
 #enable.ldap.ssl=true
+#ldap.host=fortressdemo2.com
+#ldap.port=10636
+#enable.ldap.ssl.debug=true
+# The trust store is picked up off the classpath:
+#trust.store=mytruststore
+#trust.store.password=changeit
+#trust.store.set.prop=true
 
 # These are the connection parameters used for LDAP service account:
 root.dn=uid=admin,ou=system
