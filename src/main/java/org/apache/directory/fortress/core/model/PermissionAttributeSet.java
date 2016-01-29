@@ -28,6 +28,10 @@ public class PermissionAttributeSet extends FortEntity {
     private String description;
     private String dn;
 	
+    public PermissionAttributeSet(String name){
+    	this.name = name;
+    }
+    
 	public PermissionAttributeSet(){
 		
 	}

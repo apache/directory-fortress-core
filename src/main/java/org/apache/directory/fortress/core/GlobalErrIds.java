@@ -645,7 +645,27 @@ public final class GlobalErrIds
      * The supplied Permission does not exist in LDAP DIT.
      */
     public static final int PERM_NOT_EXIST = 3029;
-
+    /**
+     * The supplied Permission Attribute Set is required but was passed as null.
+     */
+    public static final int PERM_ATTRIBUTE_SET_NULL = 3030;
+    /**
+     * The supplied Permission Attribute Set could not be removed from ldap server.
+     */
+    public static final int PERM_ATTRIBUTE_SET_DELETE_FAILED = 3031;
+    /**
+     * The supplied Permission Attribute is required but was passed as null.
+     */
+    public static final int PERM_ATTRIBUTE_NULL = 3032;
+    /**
+     * The supplied Permission Attribute could not be removed from ldap server.
+     */
+    public static final int PERM_ATTRIBUTE_DELETE_FAILED = 3033;
+    /**
+     * The supplied Permission Attribute could not be added to ldap server.
+     */
+    public static final int PERM_ATTR_ADD_FAILED = 3034;
+    
     /**
      * 4000's - Password Policy Entity
      */
@@ -1656,8 +1676,4 @@ public final class GlobalErrIds
      */
     public static final int GROUP_PROTOCOL_INVLD = 10313;
     
-    /**
-     * The supplied Permission Attribute could not be added to ldap server.
-     */
-    public static final int PERM_ATTR_ADD_FAILED = 10314;
 }

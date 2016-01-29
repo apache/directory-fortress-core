@@ -34,6 +34,7 @@ import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.Role;
@@ -402,12 +403,48 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     public PermissionAttributeSet addPermissionAttributeSet( PermissionAttributeSet permAttributeSet ) throws SecurityException
     {
         String methodName = "addPermissionAttributeSet";         
-        //TODO: add better global err ids
-        assertContext( CLS_NM, methodName, permAttributeSet, GlobalErrIds.PERM_OPERATION_NULL );
-        //TODO: set entity session...
-        //setEntitySession( CLS_NM, methodName, permAttribute );
+        assertContext( CLS_NM, methodName, permAttributeSet, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL );
+        //TODO: verify with Shawn we don't need to set entity session here...        
         return permP.add( permAttributeSet );
-    }    
+    }          
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void deletePermissionAttributeSet( PermissionAttributeSet permAttributeSet ) throws SecurityException
+    {
+        String methodName = "deletePermissionAttributeSet";         
+        assertContext( CLS_NM, methodName, permAttributeSet, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL );
+        //TODO: verify with Shawn we don't need to set entity session here...        
+        permP.delete( permAttributeSet );
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public PermissionAttribute addPermissionAttributeToSet( PermissionAttribute permAttribute, String attributeSetName )
+    	throws SecurityException
+    {
+    	String methodName = "addPermissionAttributeToSet";         
+        assertContext( CLS_NM, methodName, permAttribute, GlobalErrIds.PERM_ATTRIBUTE_NULL );
+        //TODO: verify with Shawn we don't need to set entity session here...        
+        return permP.add( permAttribute, attributeSetName );    	
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removePermissionAttributeFromSet( PermissionAttribute permAttribute, String attributeSetName )
+    	throws SecurityException
+    {
+    	String methodName = "removePermissionAttributeFromSet";         
+        assertContext( CLS_NM, methodName, permAttribute, GlobalErrIds.PERM_ATTRIBUTE_NULL );
+        //TODO: verify with Shawn we don't need to set entity session here...        
+        permP.delete( permAttribute, attributeSetName );       	
+    }
     
     /**
      * {@inheritDoc}

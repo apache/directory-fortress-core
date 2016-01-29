@@ -459,7 +459,7 @@ final class PermDAO extends ApacheDsDataProvider
     PermissionAttributeSet createPermissionAttributeSet( PermissionAttributeSet entity ) throws CreateException
     {
         LdapConnection ld = null;
-        String dn = getDn( entity , entity.getContextId() );
+        String dn = getPASetDn( entity.getName() , entity.getContextId() );
 
         try
         {
@@ -496,36 +496,46 @@ final class PermDAO extends ApacheDsDataProvider
         {
             closeAdminConnection( ld );
         }
-        
-        
+                
         //add each ftPA
         for(PermissionAttribute pa : entity.getAttributes()){        
-	        try
-	        {
-	            List<Modification> mods = new ArrayList<Modification>();
-	            mods.add( new DefaultModification(
-	                ModificationOperation.ADD_ATTRIBUTE, GlobalIds.FT_PERMISSION_ATTRIBUTE, pa.toFtPAString()) );
-	            ld = getAdminConnection();
-	            modify( ld, dn, mods, entity );
-	            
-	            //TODO: make sure not adding same attribute twice...???
-	        }
-	        catch ( LdapException e )
-	        {
-	            String error = "create perm attribute [" + pa.getAttributeName() + "] caught LdapException="
-	                + e.getMessage();
-	            throw new CreateException( GlobalErrIds.PERM_ATTR_ADD_FAILED, error, e );
-	        }
-	        finally
-	        {
-	            closeAdminConnection( ld );
-	        }
+	        this.createPermissionAttribute(pa, entity.getName());
         }
         
         //TODO: need to do anything to returned entity?
         return entity;
     }
     
+    //TODO: add documentation
+    PermissionAttribute createPermissionAttribute( PermissionAttribute entity, String attributeSetName ) throws CreateException
+    {
+        LdapConnection ld = null;
+        String dn = getPASetDn( attributeSetName, entity.getContextId() );
+    
+    	try
+        {
+            List<Modification> mods = new ArrayList<Modification>();
+            mods.add( new DefaultModification(
+                ModificationOperation.ADD_ATTRIBUTE, GlobalIds.FT_PERMISSION_ATTRIBUTE, entity.toFtPAString()) );
+            ld = getAdminConnection();
+            modify( ld, dn, mods, entity );
+            
+            //TODO: make sure not adding same attribute twice...???
+        }
+        catch ( LdapException e )
+        {
+            String error = "create perm attribute [" + entity.getAttributeName() + "] caught LdapException="
+                + e.getMessage();
+            throw new CreateException( GlobalErrIds.PERM_ATTR_ADD_FAILED, error, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+    	
+    	return entity;    	
+    }
+        
     /**
      * @param entity
      * @return
@@ -630,6 +640,66 @@ final class PermDAO extends ApacheDsDataProvider
         }
     }
 
+    /**     
+     * @param entity
+     * @throws RemoveException
+     */
+    void deleteAttributeSet( PermissionAttributeSet entity ) throws RemoveException
+    {
+        LdapConnection ld = null;
+        String dn = getPASetDn( entity.getName(), entity.getContextId() );
+
+        try
+        {
+            ld = getAdminConnection();
+            deleteRecursive( ld, dn, entity );
+        }
+        catch ( LdapException e )
+        {
+            String error = "deleteAttributeSet name [" + entity.getName() + "]"
+            		+ " caught LdapException=" + e.getMessage();
+            throw new RemoveException( GlobalErrIds.PERM_ATTRIBUTE_SET_DELETE_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "deleteAttributeSet name [" + entity.getName() + "] "
+            		+ " caught LdapException=" + e.getMessage();
+            throw new RemoveException( GlobalErrIds.PERM_ATTRIBUTE_SET_DELETE_FAILED, error, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+    }
+    
+    /**     
+     * @param entity
+     * @throws RemoveException
+     */
+    void deletePermissionAttribute( PermissionAttribute entity, String attributeSetName ) throws RemoveException
+    {
+        LdapConnection ld = null;
+        String dn = getPASetDn( attributeSetName, entity.getContextId() );
+
+        try
+        {
+            List<Modification> mods = new ArrayList<Modification>();
+            mods.add( new DefaultModification(
+                ModificationOperation.REMOVE_ATTRIBUTE, GlobalIds.FT_PERMISSION_ATTRIBUTE, entity.toFtPAString() ) );
+            ld = getAdminConnection();
+            modify( ld, dn, mods, new PermissionAttributeSet(attributeSetName) );
+        }
+        catch ( LdapException e )
+        {
+            String error = "deletePermissionAttribute name [" + entity.getAttributeName() + "] set ["
+            		+ attributeSetName + "] caught LdapException=" + e.getMessage();
+            throw new RemoveException( GlobalErrIds.PERM_ATTRIBUTE_DELETE_FAILED, error, e );
+        }     
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+    }
 
     /**
      * @param pOp
@@ -1762,10 +1832,10 @@ final class PermDAO extends ApacheDsDataProvider
     }
     
 
-    private String getDn( PermissionAttributeSet paSet, String contextId )
+    private String getPASetDn( String name, String contextId )
     {
     	//TODO: what ou to put this?
-        return SchemaConstants.CN_AT + "=" + paSet.getName() + "," + getRootDn( contextId, GlobalIds.SD_ROOT );
+        return SchemaConstants.CN_AT + "=" + name + "," + getRootDn( contextId, GlobalIds.SD_ROOT );
     }
 
 

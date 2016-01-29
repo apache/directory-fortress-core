@@ -33,6 +33,7 @@ import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.Session;
@@ -374,7 +375,20 @@ final class PermP
         //TODO: add validation
         return pDao.createPermissionAttributeSet( entity );
     }
+    
+    //TODO: add documentation
+    PermissionAttribute add( PermissionAttribute entity, String attributeSetName ) throws SecurityException
+    {
+        //TODO: add validation
+        return pDao.createPermissionAttribute( entity, attributeSetName );
+    }
 
+    //TODO: add documentation
+    void delete( PermissionAttribute entity, String attributeSetName ) throws SecurityException
+    {
+        //TODO: add validation
+        pDao.deletePermissionAttribute( entity, attributeSetName );
+    }
 
     /**
      * Update existing Permission Object attributes with the input entity.  Null or empty attributes will be ignored.
@@ -476,7 +490,12 @@ final class PermP
         pDao.deleteOperation( entity );
     }
 
-
+    //TODO: add documentation
+    void delete( PermissionAttributeSet entity ) throws SecurityException
+    {
+        pDao.deleteAttributeSet( entity );
+    }
+    
     /**
      * This command grants a role the permission to perform an operation on an object to a role.
      * The command is implemented by granting permission by setting the access control list of
