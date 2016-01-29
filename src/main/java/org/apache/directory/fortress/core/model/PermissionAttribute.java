@@ -38,7 +38,7 @@ public class PermissionAttribute extends FortEntity implements Serializable {
     private static final String DEFAULT_VALUE_PARAM_NAME = "defaultValue";
     
     private String attributeName;
-    private Boolean required;
+    private Boolean required = false;
     private ComparisonOperator operator;
     //TODO: make this an enum?
     private String dataType;

@@ -1824,6 +1824,12 @@ final class UserDAO extends ApacheDsDataProvider
         return userDn;
     }
 
+    /**
+     * @param uRole
+     * @param roleConstraint
+     * @throws UpdateException
+     * @throws FinderException
+     */
     void assign( UserRole uRole, RoleConstraint roleConstraint ) throws UpdateException, FinderException
     {
     	LdapConnection ld = null;
@@ -1854,6 +1860,12 @@ final class UserDAO extends ApacheDsDataProvider
         }
     }
     
+    /**
+     * @param uRole
+     * @param roleConstraint
+     * @throws UpdateException
+     * @throws FinderException
+     */
     void deassign( UserRole uRole, RoleConstraint roleConstraint ) throws UpdateException, FinderException
     {
     	LdapConnection ld = null;
@@ -1863,7 +1875,7 @@ final class UserDAO extends ApacheDsDataProvider
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
-            szRoleConstraint = roleConstraint.gerRawData(uRole);
+            szRoleConstraint = roleConstraint.getRawData(uRole);
 
             mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, GlobalIds.USER_ROLE_DATA,
             		szRoleConstraint ) );

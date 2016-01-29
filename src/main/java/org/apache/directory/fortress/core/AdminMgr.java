@@ -450,11 +450,40 @@ public interface AdminMgr extends Manageable
     void assignUser( UserRole uRole )
         throws SecurityException;
 
-    //TODO: add documentation
+    /**
+     * This method adds a roleConstraint (ftRC) to the user ldap entry. (ftRC=ROLE_NAME$type$CONSTRAINT_TYPE$CONSTRAINT_PASETNAME$CONSTRAINT_VALUE)
+     * <h4>required parameters</h4>
+     * <ul>
+     *   <li>{@link UserRole#name} - contains the name for already existing Role to be assigned</li>
+     *   <li>{@link UserRole#userId} - contains the userId for existing User</li>
+     *   <li>{@link RoleConstraint#type} - contains the type of role constraint (filter, other)</li>
+     *   <li>{@link RoleConstraint#value} - contains the value of the role constraint which is currently not validated in any way</li>
+     *   <li>{@link RoleConstraint#paSetName} - contains the userId for existing User, contains the name of the permission attribute set this constraint is applicable for</li>
+     * </ul>
+     * 
+     * @param uRole must contain {@link UserRole#userId} and {@link UserRole#name}
+     * @param roleConstraint must contain {@link RoleConstraint#type} and {@link RoleConstraint#value} and {@link RoleConstraint#paSetName}
+     * @return RoleConstraint that was added to user role assignment
+     * @throws SecurityException in the event of validation or system error.
+     */
     RoleConstraint addRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
     	throws SecurityException;
     
-    //TODO: remove documentation
+    /**
+     * Thie method removes a roleConstraint (ftRC) from the user ldap entry.
+     * <h4>required parameters</h4>
+     * <ul>
+     *   <li>{@link UserRole#name} - contains the name for already existing Role to be assigned</li>
+     *   <li>{@link UserRole#userId} - contains the userId for existing User</li>
+     *   <li>{@link RoleConstraint#type} - contains the type of role constraint (filter, other)</li>
+     *   <li>{@link RoleConstraint#value} - contains the value of the role constraint which is currently not validated in any way</li>
+     *   <li>{@link RoleConstraint#paSetName} - contains the userId for existing User, contains the name of the permission attribute set this constraint is applicable for</li>
+     * </ul>
+     * 
+     * @param uRole must contain {@link UserRole#userId} and {@link UserRole#name}
+     * @param roleConstraint must contain {@link RoleConstraint#type} and {@link RoleConstraint#value} and {@link RoleConstraint#paSetName}   
+     * @throws SecurityException in the event of validation or system error.
+     */
     void removeRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
     	throws SecurityException;
     
@@ -521,19 +550,73 @@ public interface AdminMgr extends Manageable
         throws SecurityException;
 
     
-    //TODO: add documentation
+    /**
+     * This method will create a new permission attribute set object with resides under the 
+     * {@code ou=Constraints,ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.
+     * The attribute set may contain 0 to many {@link org.apache.directory.fortress.core.model.PermissionAttribute}
+     * <h4>required parameters</h4>
+     * <ul>
+     *   <li>{@link PermissionAttributeSet#name} - contains the name of the permission attribute set</li>
+     * </ul>
+     * 
+     * @param permAttributeSet must contain {@link PermissionAttributeSet#name}
+     * @return PermissionAttributeSet that was created
+     * @throws SecurityException - thrown in the event of perm attribute set data or system error.
+     */
     PermissionAttributeSet addPermissionAttributeSet( PermissionAttributeSet permAttributeSet )
     	throws SecurityException;
     
-    //TODO: add documentation
+    /**
+     * This method will delete a permission attribute set object.
+     * <h4>required parameters</h4>
+     * <ul>
+     *   <li>{@link PermissionAttributeSet#name} - contains the name of the permission attribute set</li>
+     * </ul>
+     * 
+     * @param permAttributeSet must contain {@link PermissionAttributeSet#name}
+     * @throws SecurityException - thrown in the event of perm attribute set data or system error.
+     */
     void deletePermissionAttributeSet( PermissionAttributeSet permAttributeSet )
         throws SecurityException;
     
-    //TODO: add documentation
+    /**
+     * This method adds a permission attribute (ftPA) to a permission attribute set.
+     * <h3></h3>
+     * <h4>required parameters</h4>
+     * <ul>
+     *   <li>{@link PermissionAttribute#attributeName} - contains the name of existing object being targeted for the permission update</li>
+     *   <li>{@link PermissionAttribute#dataType} - contains the data type of the permission attribute values (string,int,long,float)</li>   
+     *   <li>attributeSetName - contains the name of existing permission attribute set being modified</li>
+     * </ul>  
+     * <h4>optional parameters</h4>
+     * <ul>
+     *   <li>{@link PermissionAttribute#required} - Flag to specify this attribute is required, defaults to false.</li>
+     *   <li>{@link PermissionAttribute#operator} - Can specify an operator this attribute must use.</li>
+     *   <li>{@link PermissionAttribute#validValues} - CSV of valid values. Currently up to interpreting application to understand these.</li>
+     *   <li>{@link PermissionAttribute#defaultValue} - A default value for the attribute value if none is specified.</li>
+     * </ul>
+     *   
+     * @param permAttribute must contain {@link PermissionAttribute#attributeName} and {@link PermissionAttribute#dataType}
+     * @param attributeSetName The name of the permission attribute set this ftPA should be added.
+     * @return PermissionAttribute entity created
+     * @throws SecurityException - thrown in the event of data or system error
+     */
     PermissionAttribute addPermissionAttributeToSet( PermissionAttribute permAttribute, String attributeSetName )
     	throws SecurityException;
     
-    //TODO: add documentation
+    /**
+     * This method removed a permission attribute (ftPA) from an existing permission attribute set.
+     * <h3></h3>
+     * <h4>required parameters</h4>
+     * <ul>
+     *   <li>{@link PermissionAttribute#attributeName} - contains the name of existing object being targeted for the permission update</li>
+     *   <li>attributeSetName - contains the name of existing permission attribute set being modified</li>
+     * </ul>     
+	 *
+     * @param permAttribute must contain {@link PermissionAttribute#attributeName}
+     * @param attributeSetName The name of the permission attribute set this ftPA should be removed from
+     * @throws SecurityException - thrown in the event of data or system error
+     */
     void removePermissionAttributeFromSet( PermissionAttribute permAttribute, String attributeSetName )
     	throws SecurityException;    
     
