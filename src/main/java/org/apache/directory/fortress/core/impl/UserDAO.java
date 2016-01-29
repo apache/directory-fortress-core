@@ -1840,8 +1840,6 @@ final class UserDAO extends ApacheDsDataProvider
 
             ld = getAdminConnection();
             modify( ld, userDn, mods, uRole );
-            
-            //TODO: make sure not adding same RC twice
         }
         catch ( LdapException e )
         {
@@ -1871,9 +1869,7 @@ final class UserDAO extends ApacheDsDataProvider
             		szRoleConstraint ) );
 
             ld = getAdminConnection();
-            modify( ld, userDn, mods, uRole );
-            
-            //TODO: make sure not adding same RC twice
+            modify( ld, userDn, mods, uRole );            
         }
         catch ( LdapException e )
         {

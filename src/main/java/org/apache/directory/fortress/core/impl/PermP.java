@@ -336,7 +336,12 @@ final class PermP
     {
         return pDao.getPerm( permObj );
     }
-
+    
+    //TODO: add documentation
+    PermissionAttributeSet read( PermissionAttributeSet permAttributeSet ) throws SecurityException
+    {
+        return pDao.getPermAttributeSet( permAttributeSet );
+    }
 
     /**
      * Adds a new Permission Object entity to directory.  The Permission Object entity input will be validated to ensure that:

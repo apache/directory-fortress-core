@@ -26,7 +26,7 @@ import java.util.Set;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.PermissionAttribute;
+import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
@@ -441,7 +441,7 @@ public interface ReviewMgr extends Manageable
         throws SecurityException;
 
     //TODO: add documentation
-    Set<PermissionAttribute> rolePermissionAttributes( Role role, boolean noInhertiance )
+    List<PermissionAttributeSet> rolePermissionAttributeSets( Role role, boolean noInhertiance )
     	throws SecurityException;
     
     /**

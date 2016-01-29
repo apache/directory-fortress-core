@@ -665,6 +665,11 @@ public final class GlobalErrIds
      * The supplied Permission Attribute could not be added to ldap server.
      */
     public static final int PERM_ATTR_ADD_FAILED = 3034;
+    /**
+     * The supplied Permission Attribute Set could not be found on ldap server.
+     */
+    public static final int PERM_ATTRIBUTE_SET_NOT_FOUND = 3035;
+    
     
     /**
      * 4000's - Password Policy Entity

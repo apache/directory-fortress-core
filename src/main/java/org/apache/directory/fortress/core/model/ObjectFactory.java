@@ -443,6 +443,13 @@ public class ObjectFactory
         return new PermObj();
     }
 
+    /**
+     * Create an instance of {@link PermissionAttributeSet}
+     */
+    public PermissionAttributeSet createPermAttributeSet()
+    {
+        return new PermissionAttributeSet();
+    }
 
     /**
      * Create an instance of {@link Permission}

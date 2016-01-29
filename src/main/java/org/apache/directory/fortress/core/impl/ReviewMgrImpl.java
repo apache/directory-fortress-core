@@ -21,8 +21,10 @@ package org.apache.directory.fortress.core.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -32,7 +34,7 @@ import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.PermissionAttribute;
+import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
@@ -409,18 +411,23 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
-    public Set<PermissionAttribute> rolePermissionAttributes( Role role, boolean noInhertiance )
+    public List<PermissionAttributeSet> rolePermissionAttributeSets( Role role, boolean noInhertiance )    
     	throws SecurityException
     {
-    	Set<PermissionAttribute> permAttributes = new HashSet<PermissionAttribute>();
+    	Map<String, PermissionAttributeSet> permAttributeSets = new HashMap<String, PermissionAttributeSet>();
     	
+    	//look through all permissions in the role
     	List<Permission> permissions = this.rolePermissions(role, noInhertiance);
     	for(Permission perm : permissions){
-    		//TODO: need to get ftPA entries now...
-    		//permAttributes.addAll(perm.getAttributes());
+    		if(perm.getPaSetName() != null && !perm.getPaSetName().isEmpty()){
+    			if(!permAttributeSets.containsKey(perm.getPaSetName())){
+    				PermissionAttributeSet permAttributeSet = permP.read(new PermissionAttributeSet(perm.getPaSetName()));
+    				permAttributeSets.put(perm.getPaSetName(), permAttributeSet);
+    			}
+    		}    		
     	}
     	
-    	return permAttributes;
+    	return new ArrayList<PermissionAttributeSet>(permAttributeSets.values());
     }
 
     /**

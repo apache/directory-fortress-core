@@ -70,6 +70,10 @@ public class PermissionAttributeSet extends FortEntity {
     {
         this.attributes = attributes;
     }
+    
+    public void setInternalId(String internalId){
+    	this.internalId = internalId;
+    }
 
 	public String getInternalId() {
 		return internalId;
@@ -95,27 +99,5 @@ public class PermissionAttributeSet extends FortEntity {
 	public void setDn(String dn) {
 		this.dn = dn;
 	}
-    
-    /*
-    private Set<PermissionAttribute> unloadPermissionAttributes( Entry entry )
-    {
-        Set<PermissionAttribute> permAttributes = null;
-        List<String> ftPAs = getAttributes( entry, GlobalIds.FT_PERMISSION_ATTRIBUTE );
-
-        if ( ftPAs != null )
-        {
-        	permAttributes = new HashSet<PermissionAttribute>();
-
-            for ( String raw : ftPAs )
-            {
-                PermissionAttribute permAttribute = new ObjectFactory().createPermissionAttribute();
-                permAttribute.load( raw );
-                permAttributes.add( permAttribute );
-            }
-        }
-
-        return permAttributes;
-    }
-    */
 
 }

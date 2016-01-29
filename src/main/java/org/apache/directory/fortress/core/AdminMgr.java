@@ -453,7 +453,7 @@ public interface AdminMgr extends Manageable
     //TODO: add documentation
     RoleConstraint addRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
     	throws SecurityException;
-
+    
     //TODO: remove documentation
     void removeRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
     	throws SecurityException;

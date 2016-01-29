@@ -208,6 +208,11 @@ final class PermDAO extends ApacheDsDataProvider
             GlobalIds.PROPS
     };
     
+    private static final String[] PERMISION_ATTRIBUTE_SET_ATRS =
+        {
+            GlobalIds.FT_IID, GlobalIds.FT_PERMISSION_ATTRIBUTE, SchemaConstants.DESCRIPTION_AT, SchemaConstants.CN_AT
+    };
+    
     /**
      * @param entity
      * @return
@@ -973,6 +978,42 @@ final class PermDAO extends ApacheDsDataProvider
 
         return entity;
     }
+    
+    PermissionAttributeSet getPermAttributeSet( PermissionAttributeSet permAttributeSet )
+    		throws FinderException
+    {
+    	PermissionAttributeSet entity = null;
+    	LdapConnection ld = null;
+    	String dn = getPASetDn(permAttributeSet.getName(), permAttributeSet.getContextId());
+
+    	try
+    	{
+    		ld = getAdminConnection();
+    		Entry findEntry = read( ld, dn, PERMISION_ATTRIBUTE_SET_ATRS );
+    		if ( findEntry == null )
+    		{
+    			String warning = "getPermAttributeSet no entry found dn [" + dn + "]";
+    			throw new FinderException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, warning );
+    		}
+    		entity = unloadPASetLdapEntry( findEntry, 0 );
+    	}
+    	catch ( LdapNoSuchObjectException e )
+    	{
+    		String warning = "getPermAttributeSet COULD NOT FIND ENTRY for dn [" + dn + "]";
+    		throw new FinderException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, warning );
+    	}
+    	catch ( LdapException e )
+    	{
+    		String error = "getPermAttributeSet dn [" + dn + "] caught LdapException=" + e.getMessage();
+    		throw new FinderException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, error, e );
+    	}
+    	finally
+    	{
+    		closeAdminConnection( ld );
+    	}
+
+    	return entity;
+    }
 
 
     /**
@@ -1214,6 +1255,30 @@ final class PermDAO extends ApacheDsDataProvider
         entity.addProperties( PropUtil.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
         entity.setAdmin( isAdmin );
         return entity;
+    }
+    
+    private PermissionAttributeSet unloadPASetLdapEntry( Entry le, long sequence )
+    		throws LdapInvalidAttributeValueException
+    {
+    	PermissionAttributeSet entity = new ObjectFactory().createPermAttributeSet();
+    	entity.setSequenceId( sequence );
+    	entity.setName( getAttribute( le, SchemaConstants.CN_AT ) );
+    	entity.setDn( le.getDn().getName() );
+    	entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
+    	entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
+    	
+    	List<String> ftPAs = getAttributes( le, GlobalIds.FT_PERMISSION_ATTRIBUTE );
+    	
+    	if(ftPAs != null){
+    		for(String ftPARaw : ftPAs){
+    			PermissionAttribute permAttribute = new ObjectFactory().createPermissionAttribute();
+                permAttribute.load( ftPARaw );
+                
+                entity.getAttributes().add(permAttribute);
+    		}
+    	}
+    	
+    	return entity;
     }
     
     /**

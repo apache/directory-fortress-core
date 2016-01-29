@@ -33,7 +33,7 @@ import org.apache.directory.fortress.core.model.FortResponse;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.PermissionAttribute;
+import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
@@ -761,7 +761,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
     }
 
 	@Override
-	public Set<PermissionAttribute> rolePermissionAttributes(Role role,
+	public List<PermissionAttributeSet> rolePermissionAttributeSets(Role role,
 			boolean noInhertiance) throws SecurityException {
 		// TODO Auto-generated method stub
 		return null;
