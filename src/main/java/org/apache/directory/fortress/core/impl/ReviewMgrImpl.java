@@ -116,6 +116,22 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
         checkAccess(CLS_NM, methodName);
         return permP.read(permObj);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public PermissionAttributeSet readPermAttributeSet( PermissionAttributeSet permAttributeSet )
+    		throws SecurityException
+    {
+    	String methodName = "readPermAttributeSet";
+    	assertContext( CLS_NM, methodName, permAttributeSet, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL );
+    	VUtil.assertNotNull( permAttributeSet.getName(), GlobalErrIds.PERM_ATTRIBUTE_SET_NM_NULL, CLS_NM + "." + methodName );
+    	checkAccess(CLS_NM, methodName);
+    	
+    	return permP.read(permAttributeSet);
+    }
+
 
     /**
      * {@inheritDoc}

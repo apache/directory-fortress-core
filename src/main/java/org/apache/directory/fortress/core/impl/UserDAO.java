@@ -1833,7 +1833,7 @@ final class UserDAO extends ApacheDsDataProvider
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
-            szRoleConstraint = roleConstraint.gerRawData(uRole);
+            szRoleConstraint = roleConstraint.getRawData(uRole);
 
             mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, GlobalIds.USER_ROLE_DATA,
             		szRoleConstraint ) );

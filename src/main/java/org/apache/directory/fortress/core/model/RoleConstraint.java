@@ -8,14 +8,16 @@ public class RoleConstraint {
 	
 	private RoleConstraintType constraintType;
 	private String value;
+	private String paSetName;
 	
 	public RoleConstraint(){
 		
 	}
 	
-	public RoleConstraint(String value, RoleConstraintType constraintType){
+	public RoleConstraint(String value, RoleConstraintType constraintType, String paSetName){
 		this.constraintType = constraintType;
 		this.value = value;
+		this.paSetName = paSetName;
 	}	
 	
 	public RoleConstraintType getConstraintType() {
@@ -30,9 +32,17 @@ public class RoleConstraint {
 	public void setValue(String value) {
 		this.value = value;
 	}
+	public String getPaSetName() {
+		return paSetName;
+	}
+
+	public void setPaSetName(String paSetName) {
+		this.paSetName = paSetName;
+	}
 	
-	//BANK_USER$seq$0type$filter$AccountId=12345&WithdrawLimit=500
-	public String gerRawData(UserRole uRole){
+	
+	//BANK_USER$seq$0type$filter$ecomm.merchant.id$AccountId=12345&WithdrawLimit=500
+	public String getRawData(UserRole uRole){
         StringBuilder sb = new StringBuilder();
         
         sb.append(uRole.getName());        
@@ -41,8 +51,11 @@ public class RoleConstraint {
         sb.append( GlobalIds.DELIMITER );
         sb.append(constraintType);
         sb.append( GlobalIds.DELIMITER );
+        sb.append(paSetName);
+        sb.append( GlobalIds.DELIMITER );
         sb.append(value);
         
         return sb.toString();
 	}
+
 }

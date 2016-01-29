@@ -1253,4 +1253,12 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         return retSet.getCardinality();
     }
 
+
+	@Override
+	public PermissionAttributeSet readPermAttributeSet(
+			PermissionAttributeSet permAttributeSet) throws SecurityException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

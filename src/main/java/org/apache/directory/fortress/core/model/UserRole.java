@@ -158,7 +158,7 @@ public class UserRole extends FortEntity implements Serializable, Constraint
             
             //newer style constaint type
             if(tokens[1].equals(RoleConstraint.RC_TYPE_NAME)){
-            	RoleConstraint rc = new RoleConstraint(tokens[3], RoleConstraintType.valueOf(tokens[2]));            	            	            	
+            	RoleConstraint rc = new RoleConstraint(tokens[4], RoleConstraintType.valueOf(tokens[2]), tokens[3]);            	            	            	
             	this.getRoleConstraints().add(rc);
             }
             else{

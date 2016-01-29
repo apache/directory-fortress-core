@@ -110,7 +110,11 @@ public interface ReviewMgr extends Manageable
     PermObj readPermObj( PermObj permObj )
         throws SecurityException;
 
-
+    //TODO: add documentation
+    PermissionAttributeSet readPermAttributeSet( PermissionAttributeSet permAttributeSet )
+            throws SecurityException;
+        
+    
     /**
      * Method returns a list of type Permission that match the perm object search string.
      * <h3></h3>
