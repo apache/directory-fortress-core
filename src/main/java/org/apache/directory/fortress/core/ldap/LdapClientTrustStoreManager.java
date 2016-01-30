@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core.ldap;
 
 import org.apache.directory.fortress.core.CfgRuntimeException;
 import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.util.ResourceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -277,56 +278,10 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
      */
     private InputStream getTrustStoreInputStream() throws CertificateException
     {
-        InputStream result = null;
-        URL url = this.getClass().getClassLoader().getResource(trustStoreFile);
-        if (url != null)
+        InputStream result = ResourceUtil.getInputStream(trustStoreFile);
+        if (null == result)
         {
-            if (url.getProtocol().equals("file"))
-            {
-                final File file = new File(url.getFile());
-                if (file.exists())
-                {
-                    try
-                    {
-                        result = new FileInputStream(file);
-                    }
-                    catch (FileNotFoundException e)
-                    {
-                        throw new CertificateException("LdapClientTrustStoreManager.getTrustStoreInputStream caught FileNotFoundException=" + e.getMessage());
-                    }
-                }
-                else
-                {
-                    throw new CertificateException("LdapClientTrustStoreManager.getTrustStoreInputStream file does not exist" );
-                }
-            }
-            else
-            {
-                PushbackInputStream trustStoreInputStream;
-                InputStream keyStoreStream = this.getClass().getClassLoader().getResourceAsStream(trustStoreFile); // note, not getSYSTEMResourceAsStream
-                trustStoreInputStream = new PushbackInputStream(keyStoreStream);
-                int b = -1;
-                try
-                {
-                    b = trustStoreInputStream.read();
-                }
-                catch (IOException e)
-                {
-                    throw new CertificateException("LdapClientTrustStoreManager.getTrustStoreInputStream caught IOException 1=" + e.getMessage());
-                }
-                if (b != -1)
-                {
-                    result = trustStoreInputStream;
-                    try
-                    {
-                        trustStoreInputStream.unread(b);
-                    }
-                    catch (IOException e)
-                    {
-                        throw new CertificateException("LdapClientTrustStoreManager.getTrustStoreInputStream caught IOException 2=" + e.getMessage());
-                    }
-                }
-            }
+            throw new CertificateException("LdapClientTrustStoreManager.getTrustStoreInputStream file does not exist" );
         }
         return result;
     }
