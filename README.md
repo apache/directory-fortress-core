@@ -724,22 +724,25 @@ ________________________________________________________________________________
 
  This section describes the Apache Fortress jmeter test programs.
 
-1. The .jmx files located in [.src/test/jmeter](.src/test/jmeter) folder are used to control test settings for the following:
-
- A. Fortress CheckAccess:
-  [src/test/jmeter/ftCheckAccess.jmx](src/test/jmeter/ftCheckAccess.jmx)
-
- B. Accelerator CheckAccess:
-  [src/test/jmeter/acCheckAccess.jmx](src/test/jmeter/acCheckAccess.jmx)
-
- C. Accelerator CreateSession:
-  [src/test/jmeter/acCreateSession.jmx](src/test/jmeter/acCreateSession.jmx)
-
-2. Load the security policy and users required by the jmeter test routines:
+1. Load the security policy and users required by the jmeter test routines:
 
  ```
  mvn install -Dload.file=./ldap/setup/LoadTestUsers.xml
  ```
+
+2. The .jmx files located in [.src/test/jmeter](.src/test/jmeter) folder are used to control test settings for the following:
+
+ A. Fortress CheckAccess:
+  [src/test/jmeter/ftCheckAccess.jmx](src/test/jmeter/ftCheckAccess.jmx)
+
+ B. Fortress CreateSession:
+  [src/test/jmeter/ftCreateSession.jmx](src/test/jmeter/ftCreateSession.jmx)
+
+ C. Accelerator CheckAccess:
+  [src/test/jmeter/acCheckAccess.jmx](src/test/jmeter/acCheckAccess.jmx)
+
+ D. Accelerator CreateSession:
+  [src/test/jmeter/acCreateSession.jmx](src/test/jmeter/acCreateSession.jmx)
 
 3. From **FORTRESS_HOME** folder, enter the following command from a system prompt:
 
@@ -748,15 +751,21 @@ ________________________________________________________________________________
   mvn -Ploadtest-ftca jmeter:jmeter
   ```
 
- B. Accelerator CheckAccess:
+ B. Fortress CreateSession:
+  ```
+  mvn -Ploadtest-fortress-createsess
+  ```
+
+ C. Accelerator CheckAccess:
   ```
   mvn -Ploadtest-accel jmeter:jmeter
   ```
 
- C. Accelerator CreateSession:
+ D. Accelerator CreateSession:
   ```
   mvn -Ploadtest-accel-createsess
   ```
+
  The tests will run and produce measurements for throughput and latency.
 
 ___________________________________________________________________________________

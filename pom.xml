@@ -974,5 +974,56 @@
       </build>
     </profile>
 
+    <!--
+    To execute: ./m.sh -Ploadtest-fortress-createsess jmeter:jmeter
+    -->
+    <profile>
+      <id>loadtest-fortress-createsess</id>
+      <build>
+        <plugins>
+
+          <plugin>
+            <groupId>com.lazerycode.jmeter</groupId>
+            <artifactId>jmeter-maven-plugin</artifactId>
+            <version>1.10.0</version>
+            <configuration>
+              <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
+              <suppressJMeterOutput>false</suppressJMeterOutput>
+              <testFilesIncluded>
+                <jMeterTestFile>ftCreateSession.jmx</jMeterTestFile>
+              </testFilesIncluded>
+            </configuration>
+            <executions>
+              <execution>
+                <id>jmeter-tests</id>
+                <goals>
+                  <goal>jmeter</goal>
+                </goals>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${version.log4j}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.fortress</groupId>
+                <artifactId>fortress-core</artifactId>
+                <version>${project.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.fortress</groupId>
+                <artifactId>fortress-core</artifactId>
+                <type>test-jar</type>
+                <version>${project.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+
   </profiles>
 </project>
