@@ -738,11 +738,17 @@ ________________________________________________________________________________
  B. Fortress CreateSession:
   [src/test/jmeter/ftCreateSession.jmx](src/test/jmeter/ftCreateSession.jmx)
 
- C. Accelerator CheckAccess:
+ C. Fortress SessionPermissions:
+  [src/test/jmeter/ftSessionPerms.jmx](src/test/jmeter/ftSessionPerms.jmx)
+
+ D. Accelerator CheckAccess:
   [src/test/jmeter/acCheckAccess.jmx](src/test/jmeter/acCheckAccess.jmx)
 
- D. Accelerator CreateSession:
+ E. Accelerator CreateSession:
   [src/test/jmeter/acCreateSession.jmx](src/test/jmeter/acCreateSession.jmx)
+
+ F. Accelerator SessionPermissions:
+  [src/test/jmeter/acSessionPerms.jmx](src/test/jmeter/acSessionPerms.jmx)
 
 3. From **FORTRESS_HOME** folder, enter the following command from a system prompt:
 
@@ -756,14 +762,24 @@ ________________________________________________________________________________
   mvn -Ploadtest-fortress-createsess
   ```
 
- C. Accelerator CheckAccess:
+ C. Fortress SessionPermissions:
+  ```
+  mvn -Ploadtest-fortress-sessperms jmeter:jmeter
+  ```
+
+ D. Accelerator CheckAccess:
   ```
   mvn -Ploadtest-accel jmeter:jmeter
   ```
 
- D. Accelerator CreateSession:
+ E. Accelerator CreateSession:
   ```
   mvn -Ploadtest-accel-createsess
+  ```
+
+ F. Accelerator SessionPermissions:
+  ```
+  mvn -Ploadtest-accel-sessperms jmeter:jmeter
   ```
 
  The tests will run and produce measurements for throughput and latency.
