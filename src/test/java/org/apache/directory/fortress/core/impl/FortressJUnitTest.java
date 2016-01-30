@@ -20,8 +20,9 @@
 package org.apache.directory.fortress.core.impl;
 
 import junit.framework.Test;
-import junit.framework.TestSuite;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
+
 import org.apache.directory.fortress.core.GlobalIds;
 
 /**
@@ -114,6 +115,7 @@ public class FortressJUnitTest extends TestCase
             suite.addTest( new AdminMgrImplTest( "testRevokePermissionRole" ) );
             suite.addTest( new AdminMgrImplTest( "testDeletePermissionOp" ) );
             suite.addTest( new AdminMgrImplTest( "testDeletePermissionObj" ) );
+            suite.addTest( new AdminMgrImplTest( "testDeletePermissionAttributeSets" ) );
             suite.addTest( new AdminMgrImplTest( "testDeassignUser" ) );
             suite.addTest( new AdminMgrImplTest( "testDeleteUser" ) );
             suite.addTest( new AdminMgrImplTest( "testForceDeleteUser" ) );
@@ -199,6 +201,9 @@ public class FortressJUnitTest extends TestCase
         suite.addTest( new AdminMgrImplTest( "testGrantPermissionRole" ) );
         suite.addTest( new AdminMgrImplTest( "testGrantPermissionUser" ) );
 
+        suite.addTest( new AdminMgrImplTest( "testAddPermissionAttributeSet" ) );
+        suite.addTest( new AdminMgrImplTest( "testAddPermissionAttributeToSet" ) );
+        
         /***********************************************************/
         /* 3. Interrogation                                        */
         /***********************************************************/
@@ -238,7 +243,8 @@ public class FortressJUnitTest extends TestCase
         suite.addTest( new ReviewMgrImplTest( "testUserPermissions" ) );
         suite.addTest( new ReviewMgrImplTest( "testFindSsdSets" ) );
         suite.addTest( new ReviewMgrImplTest( "testFindDsdSets" ) );
-
+        suite.addTest( new ReviewMgrImplTest( "testReadPermissionAttributeSets" ) );
+        
         /***********************************************************/
         /* 4. Security Checks                                      */
         /***********************************************************/

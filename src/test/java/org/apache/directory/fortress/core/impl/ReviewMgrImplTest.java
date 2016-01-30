@@ -29,21 +29,22 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.ReviewMgr;
+import org.apache.directory.fortress.core.ReviewMgrFactory;
+import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PermissionAttribute;
+import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.util.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.ReviewMgr;
-import org.apache.directory.fortress.core.ReviewMgrFactory;
-import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.util.LogUtil;
 
 
 /**
@@ -157,7 +158,41 @@ public class ReviewMgrImplTest extends TestCase
         }
     }
 
+    public void testReadPermissionAttributeSets()
+    {
+    	readPermissionAttributeSet( "RD-PA-SET TPASET1", PermTestData.TPA_SET_1_NAME, PermTestData.loadPermissionAttributes(PermTestData.PA_TPSASET1) );
 
+    	Set<PermissionAttribute> paSetTwoPas = PermTestData.loadPermissionAttributes(PermTestData.PA_TPSASET2);
+    	paSetTwoPas.addAll(PermTestData.loadPermissionAttributes(PermTestData.PA_TPSASET2_ADDITIONAL));
+    	readPermissionAttributeSet( "RD-PA-SET TPASET2", PermTestData.TPA_SET_2_NAME, paSetTwoPas);
+    }
+
+    public static void readPermissionAttributeSet( String msg, String name, Set<PermissionAttribute> permAttributes )
+    {
+        LogUtil.logIt( msg );
+        try
+        {
+            ReviewMgr reviewMgr = getManagedReviewMgr();
+            
+            PermissionAttributeSet entity = reviewMgr.readPermAttributeSet(new PermissionAttributeSet(name));
+            assertNotNull(entity);
+            assertEquals(name, entity.getName());
+            
+            for(PermissionAttribute pa : permAttributes){
+            	assertTrue(entity.getAttributes().contains(pa));
+            }
+            
+            LOG.debug( "readPermissionAttributeSet name [" + name + "] successful" );
+            
+        }
+        catch ( SecurityException ex )
+        {
+            LOG.error( "readPermissionAttributeSet name [" + name + "] caught SecurityException rc="
+                + ex.getErrorId() + ", msg=" + ex.getMessage() + ex );
+            fail( ex.getMessage() );
+        }
+    }
+    
     public void testFindPermissionOps()
     {
         // public List<Permission> findPermissions(Permission permOp)

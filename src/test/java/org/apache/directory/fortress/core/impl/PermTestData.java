@@ -20,10 +20,15 @@
 package org.apache.directory.fortress.core.impl;
 
 
+import java.util.HashSet;
+import java.util.Set;
+
 import junit.framework.TestCase;
 
+import org.apache.directory.fortress.core.model.ComparisonOperator;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -2761,6 +2766,65 @@ public class PermTestData extends TestCase
     private final static int OP_ADMIN_COL = 8;
 
 
+    //Fortress Permission Attribute Set Test Data
+    /**
+     * Test Case TPASET1:
+     */
+    public static final String TPA_SET_1_NAME = "TPASET1";
+    public static final String TPA_SET_2_NAME = "TPASET2";
+    
+    public static final String[][] PA_TPSASET1 =
+    {
+    	{
+    		"TPASET1AttributeName1", /* NAME */
+    		"true", /* REQUIRED */
+    		"string", /* DATA_TYPE */
+    		"EQUALS" /* COMPARISON_OPERATOR */
+    	}
+    };
+
+    public static final String[][] PA_TPSASET2 =
+    {
+    	{
+    		"TPASET2AttributeName1", /* NAME */
+    		"true", /* REQUIRED */
+    		"string", /* DATA_TYPE */
+    		"EQUALS" /* COMPARISON_OPERATOR */
+    	},
+    	{
+    		"TPASET2AttributeName2", /* NAME */
+    		"false", /* REQUIRED */
+    		"int", /* DATA_TYPE */
+    		"EQUALS" /* COMPARISON_OPERATOR */
+    	}
+    };
+    
+    public static final String[][] PA_TPSASET2_ADDITIONAL =
+    {
+    	{
+    		"TPASET2AttributeName3", /* NAME */
+    		"true", /* REQUIRED */
+    		"string", /* DATA_TYPE */
+    		"EQUALS" /* COMPARISON_OPERATOR */
+    	},
+    	{
+    		"TPASET2AttributeName4", /* NAME */
+    		"false", /* REQUIRED */
+    		"int", /* DATA_TYPE */
+    		"EQUALS" /* COMPARISON_OPERATOR */
+    	}
+    };
+    
+    public static PermissionAttribute getPA( String[] pa )
+    {
+        PermissionAttribute permAttr = new PermissionAttribute();
+        permAttr.setAttributeName(pa[0]);
+        permAttr.setRequired(Boolean.parseBoolean(pa[1]));
+        permAttr.setDataType(pa[2]);
+        permAttr.setOperator(ComparisonOperator.valueOf(pa[3]));
+        return permAttr;
+    }
+    
     /**
      * @param op
      * @return
@@ -2898,4 +2962,17 @@ public class PermTestData extends TestCase
     {
         return obj[OP_ADMIN_COL].equalsIgnoreCase( "T" );
     }
+    
+    public static Set<PermissionAttribute> loadPermissionAttributes(String[][] objArray){
+    	Set<PermissionAttribute> permAttrs = new HashSet<PermissionAttribute>();
+    	
+    	for ( String[] obj : objArray )
+        {
+    		PermissionAttribute pa = PermTestData.getPA(obj);
+    		permAttrs.add(pa);
+        }
+    	
+    	return permAttrs;
+    }
+    
 }

@@ -152,4 +152,43 @@ public class PermissionAttribute extends FortEntity implements Serializable {
         }
     }
     
+    /**
+     * Checks that attribute names are equal
+     */
+    @Override
+    public boolean equals( Object thatObj )
+    {
+        if ( this == thatObj )
+        {
+            return true;
+        }
+
+        if ( this.getAttributeName() == null )
+        {
+            return false;
+        }
+
+        if ( !( thatObj instanceof PermissionAttribute ) )
+        {
+            return false;
+        }
+
+        PermissionAttribute thatPermObj = ( PermissionAttribute ) thatObj;
+
+        if ( thatPermObj.getAttributeName() == null )
+        {
+            return false;
+        }
+
+        return thatPermObj.getAttributeName().equalsIgnoreCase( this.getAttributeName() );
+    }
+    
+    @Override
+    public int hashCode()
+    {
+        int result = 31 * ( attributeName != null ? attributeName.hashCode() : 0 );
+        return result;
+    }
+
+    
 }

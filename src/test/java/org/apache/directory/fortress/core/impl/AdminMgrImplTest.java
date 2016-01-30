@@ -27,23 +27,24 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.apache.directory.fortress.core.model.ConstraintUtil;
-import org.apache.directory.fortress.core.model.PermObj;
-import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.model.SDSet;
-import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.UserRole;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.AdminMgrFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.ConstraintUtil;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PermissionAttribute;
+import org.apache.directory.fortress.core.model.PermissionAttributeSet;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.SDSet;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.LogUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -1810,7 +1811,86 @@ public class AdminMgrImplTest extends TestCase
         }
     }
 
+    public void testAddPermissionAttributeSet() throws SecurityException
+    {    	    	
+    	addPermissionAttributeSet( "ADD-PA-SET TPASET1", PermTestData.TPA_SET_1_NAME, PermTestData.loadPermissionAttributes(PermTestData.PA_TPSASET1));
+    	addPermissionAttributeSet( "ADD-PA-SET TPASET2", PermTestData.TPA_SET_2_NAME, PermTestData.loadPermissionAttributes(PermTestData.PA_TPSASET2));
+    }
+    
+    public static void addPermissionAttributeSet( String msg, String name, Set<PermissionAttribute> permAttr )
+    {
+    	LogUtil.logIt(msg);
+    	PermissionAttributeSet paSet = new PermissionAttributeSet(name);  
+    	try
+    	{
+    		paSet.setAttributes(permAttr);
+    		AdminMgr adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );    		
 
+    		adminMgr.addPermissionAttributeSet(paSet);
+    		LOG.debug( "addPermissionAttributeSet name [" + paSet.getName() + "] successful" );
+    	}
+    	catch ( SecurityException ex )
+    	{
+    		LOG.error( "addPermissionAttributeSet name [" + paSet.getName()
+    				+ "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+    		fail( ex.getMessage() );
+    	}
+    }
+    
+    public void testAddPermissionAttributeToSet() throws SecurityException
+    {    	    	
+    	Set<PermissionAttribute> pas = PermTestData.loadPermissionAttributes(PermTestData.PA_TPSASET2_ADDITIONAL);
+    	
+    	for(PermissionAttribute pa : pas){
+    		addPermissionAttributeToSet( "ADD-PA-TO-SET TPASET2", PermTestData.TPA_SET_2_NAME, pa);
+    	}
+    }
+    
+    public static void addPermissionAttributeToSet( String msg, String name, PermissionAttribute permAttr )
+    {
+    	LogUtil.logIt(msg);
+    	PermissionAttributeSet paSet = new PermissionAttributeSet(name);  
+    	try
+    	{
+    		AdminMgr adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );    		
+
+    		adminMgr.addPermissionAttributeToSet(permAttr, name);
+    		LOG.debug( "addPermissionAttributeToSet name [" + paSet.getName() + "] successful" );
+    	}
+    	catch ( SecurityException ex )
+    	{
+    		LOG.error( "addPermissionAttributeToSet name [" + paSet.getName()
+    				+ "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+    		fail( ex.getMessage() );
+    	}
+    }
+    
+    public void testDeletePermissionAttributeSets() throws SecurityException
+    {
+    	delPermAttrSet( "DEL-PA-SET TPASET1" , PermTestData.TPA_SET_1_NAME );
+    	delPermAttrSet( "DEL-PA-SET TPASET2" , PermTestData.TPA_SET_2_NAME );
+    }
+    
+    public static void delPermAttrSet( String msg, String name )
+    {
+    	LogUtil.logIt(msg);
+    	PermissionAttributeSet paSet = new PermissionAttributeSet(name);  
+    	try
+    	{
+    		AdminMgr adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );    		
+
+    		adminMgr.deletePermissionAttributeSet(paSet);
+    		LOG.debug( "delPermAttrSet name [" + paSet.getName() + "] successful" );
+    	}
+    	catch ( SecurityException ex )
+    	{
+    		LOG.error( "delPermAttrSet name [" + paSet.getName()
+    				+ "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+    		fail( ex.getMessage() );
+    	}
+    }
+    
+    
     /**
      *
      * @throws SecurityException
