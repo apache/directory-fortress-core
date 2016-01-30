@@ -217,7 +217,8 @@
                 <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdRoleSetRoles" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdRoleSetCardinality" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdSets" admin="true"/>
-            	<permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findAnyPermissions" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findAnyPermissions" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="readPermAttributeSet" admin="true"/>
 
                 <permop objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="readRole" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="findRoles" admin="true"/>
