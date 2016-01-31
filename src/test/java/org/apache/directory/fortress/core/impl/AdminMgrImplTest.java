@@ -38,6 +38,7 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
@@ -1889,6 +1890,63 @@ public class AdminMgrImplTest extends TestCase
     		fail( ex.getMessage() );
     	}
     }
+    
+    public void testAddPASetToPermission()
+    {
+    	addPASetToPermission( "ADD-PASET-TO-POP TOB_1 TOP_1", PermTestData.TPA_SET_1_NAME, "TOB1_1", PermTestData.OPS_TOP1[0] );   	
+    }
+    
+    public static void addPASetToPermission( String msg, String paSetName, String obj, String[] op )
+    {
+    	LogUtil.logIt(msg);
+    	try
+    	{
+    		AdminMgr adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );    		
+
+    		Permission pop = PermTestData.getOp( obj, op );
+    		pop.setPaSetName(paSetName);
+    		
+    		adminMgr.updatePermission(pop);
+    		LOG.debug( "addPASetToPermission name [" + paSetName + "] successful" );
+    	}
+    	catch ( SecurityException ex )
+    	{
+    		LOG.error( "addPASetToPermission name [" + paSetName
+    				+ "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+    		fail( ex.getMessage() );
+    	}
+    }
+    
+    public void testAddUserRoleConstraint() throws SecurityException
+    {
+    	assignUserRoleConstraint( "ASGN-URC TU1 TR1", UserTestData.USERS_TU1[0], RoleTestData.ROLES_TR1[1], URATestData.getRC(URATestData.URC_T1) );
+    }
+    
+    public static void assignUserRoleConstraint( String msg, String[] usr, String[] rle, RoleConstraint rc )
+    {
+        LogUtil.logIt( msg );
+        try
+        {
+            AdminMgr adminMgr = getManagedAdminMgr();
+            ReviewMgr reviewMgr = ReviewMgrImplTest.getManagedReviewMgr();
+            
+            User user = UserTestData.getUser( usr );
+            Role role = RoleTestData.getRole( rle );
+            
+            adminMgr.addRoleConstraint(new UserRole(user.getUserId(), role.getName()), rc);
+           
+            LOG.debug("assignUserRoleConstraint user [" + user.getUserId() + "] role [" + role.getName() + "] " +
+            				" rcvalue [" + rc.getValue() + "]");
+        }
+        catch ( SecurityException ex )
+        {
+            LOG.error(
+                "assignUserRoleConstraint caught SecurityException rc=" + ex.getErrorId() + ", msg="
+                    + ex.getMessage(), ex );
+            fail( ex.getMessage() );
+        }
+    }
+    
     
     
     /**

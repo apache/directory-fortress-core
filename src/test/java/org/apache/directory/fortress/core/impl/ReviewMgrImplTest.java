@@ -38,6 +38,7 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
@@ -191,6 +192,33 @@ public class ReviewMgrImplTest extends TestCase
                 + ex.getErrorId() + ", msg=" + ex.getMessage() + ex );
             fail( ex.getMessage() );
         }
+    }
+    
+    public void testReadPASetFromPermission()
+    {
+    	readPASetFromPermission( "RD-PASET-FROM-POP TOB_1 TOP_1", PermTestData.TPA_SET_1_NAME, "TOB1_1", PermTestData.OPS_TOP1[0] );   	
+    }
+
+    public static void readPASetFromPermission( String msg, String paSetName, String obj, String[] op )
+    {
+    	LogUtil.logIt(msg);
+    	try
+    	{
+    		ReviewMgr reviewMgr = getManagedReviewMgr();   		
+
+    		Permission pop = PermTestData.getOp( obj, op );
+
+    		Permission entity = reviewMgr.readPermission(pop);
+    		assertEquals(paSetName, entity.getPaSetName());
+    		
+    		LOG.debug( "readPASetFromPermission name [" + paSetName + "] successful" );
+    	}
+    	catch ( SecurityException ex )
+    	{
+    		LOG.error( "readPASetFromPermission name [" + paSetName
+    				+ "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+    		fail( ex.getMessage() );
+    	}
     }
     
     public void testFindPermissionOps()
@@ -1578,7 +1606,56 @@ public class ReviewMgrImplTest extends TestCase
         }
     }
 
+    public void testReadUserRoleConstraint()
+    {
+    	readUserRoleConstraint( "RD-URC TU1 TR1", UserTestData.USERS_TU1[0], RoleTestData.ROLES_TR1[1], URATestData.getRC(URATestData.URC_T1) );
+    }
 
+    public static void readUserRoleConstraint( String msg, String[] usr, String[] rle, RoleConstraint rc )
+    {
+    	LogUtil.logIt(msg);
+    	try
+    	{
+    		ReviewMgr reviewMgr = getManagedReviewMgr();   		
+    		User user = UserTestData.getUser( usr );
+    		Role role = RoleTestData.getRole( rle );
+    		
+    		List<UserRole> urs = reviewMgr.assignedRoles(user);
+    		boolean uraFound = false;
+    		boolean urcFound = false;
+    		
+    		for(UserRole ur : urs){
+    			if(ur.getName().equals(role.getName())){
+    				uraFound = true;
+    				
+    				Set<RoleConstraint> rcs = ur.getRoleConstraints();
+    				for(RoleConstraint r : rcs){
+    					if(r.getPaSetName().equals(rc.getPaSetName())){
+    						urcFound = true;
+    						assertEquals(rc.getConstraintType(), r.getConstraintType());
+    						assertEquals(rc.getValue(), r.getValue());
+    					}
+    				}
+    			}
+    		}
+    		
+    		if(!uraFound){
+    			fail("User Role Assignment Not Found");
+    		}
+    		if(!urcFound){
+    			fail("User Role Constraint Not Found");
+    		}
+    		
+    		LOG.debug( "readUserRoleConstraint value [" + rc.getValue() + "] successful" );
+    	}
+    	catch ( SecurityException ex )
+    	{
+    		LOG.error( "readUserRoleConstraint value [" + rc.getValue()
+    				+ "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+    		fail( ex.getMessage() );
+    	}
+    }
+    
     /**
      *
      * @return

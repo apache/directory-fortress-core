@@ -26,6 +26,8 @@ import java.util.Map;
 import junit.framework.TestCase;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.model.RoleConstraint;
+import org.apache.directory.fortress.core.model.RoleConstraintType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -944,6 +946,13 @@ public class URATestData extends TestCase
 }
     };
 
+    public static final String[] URC_T1 =
+    {
+    	"TPASET1", // CONSTRAINT_PASET_NM
+    	"FILTER", //CONSTAINT_TYPE
+    	"TPASET1AttributeName1=testattributevalue" //CONSTAIN_VALUE
+    };
+    
     /**
     * The Fortress test data for junit uses 2-dimensional arrays.
     */
@@ -1033,5 +1042,14 @@ public class URATestData extends TestCase
             listUras.put( ura, ura );
         }
         return listUras;
+    }
+    
+    public static RoleConstraint getRC( String[] rc )
+    {
+    	RoleConstraint urc = new RoleConstraint();
+    	urc.setPaSetName(rc[0]);
+    	urc.setConstraintType(RoleConstraintType.valueOf(rc[1]));
+    	urc.setValue(rc[2]);
+        return urc;
     }
 }

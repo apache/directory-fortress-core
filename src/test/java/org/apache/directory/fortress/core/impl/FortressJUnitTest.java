@@ -203,6 +203,9 @@ public class FortressJUnitTest extends TestCase
 
         suite.addTest( new AdminMgrImplTest( "testAddPermissionAttributeSet" ) );
         suite.addTest( new AdminMgrImplTest( "testAddPermissionAttributeToSet" ) );
+        suite.addTest( new AdminMgrImplTest( "testAddPASetToPermission" ) );
+        
+        suite.addTest( new AdminMgrImplTest( "testAddUserRoleConstraint" ) );
         
         /***********************************************************/
         /* 3. Interrogation                                        */
@@ -243,8 +246,12 @@ public class FortressJUnitTest extends TestCase
         suite.addTest( new ReviewMgrImplTest( "testUserPermissions" ) );
         suite.addTest( new ReviewMgrImplTest( "testFindSsdSets" ) );
         suite.addTest( new ReviewMgrImplTest( "testFindDsdSets" ) );
+
         suite.addTest( new ReviewMgrImplTest( "testReadPermissionAttributeSets" ) );
+        suite.addTest( new ReviewMgrImplTest( "testReadPASetFromPermission" ) );
         
+        suite.addTest( new ReviewMgrImplTest( "testReadUserRoleConstraint" ) );
+
         /***********************************************************/
         /* 4. Security Checks                                      */
         /***********************************************************/
