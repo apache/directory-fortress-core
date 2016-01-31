@@ -1893,7 +1893,7 @@ public class AdminMgrImplTest extends TestCase
     
     public void testAddPASetToPermission()
     {
-    	addPASetToPermission( "ADD-PASET-TO-POP TOB_1 TOP_1", PermTestData.TPA_SET_1_NAME, "TOB1_1", PermTestData.OPS_TOP1[0] );   	
+    	addPASetToPermission( "ADD-PASET-TO-POP TOB_1 TOP_1", PermTestData.TPA_SET_1_NAME, "TOB1_1", PermTestData.OPS_TOP1_UPD[0] );   	
     }
     
     public static void addPASetToPermission( String msg, String paSetName, String obj, String[] op )
