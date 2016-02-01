@@ -638,8 +638,8 @@ final class UserP
     
     //TODO: add documentation
     void assign( UserRole uRole, RoleConstraint roleConstraint ) throws SecurityException
-    {
-    	//TODO: validate role constraint points to actual ftAttributeSet?
+    {    	
+    	validate( roleConstraint );
     	
     	uDao.assign( uRole, roleConstraint );
     }
@@ -742,6 +742,31 @@ final class UserP
         if ( StringUtils.isEmpty( uRole.getName() ) )
         {
             throw new ValidationException( GlobalErrIds.ROLE_NM_NULL, CLS_NM + ".validate name is NULL" );
+        }
+    }
+    
+    /**
+     * Ensure that the passed in role constraint is valid
+     * 
+     * @param RoleConstaint
+     * @throws ValidationException
+     */
+    private void validate( RoleConstraint rc) throws ValidationException
+    {
+        if( StringUtils.isEmpty( rc.getPaSetName() ))
+        {
+        	throw new ValidationException( GlobalErrIds.PERM_ATTRIBUTE_SET_NM_NULL, CLS_NM + ".validate pa set name is NULL" );
+        }    	
+    	
+        VUtil.permAttrSetName(rc.getPaSetName());
+
+        if ( rc.getConstraintType() == null )
+        {
+            throw new ValidationException( GlobalErrIds.ROLE_CONSTRAINT_TYPE_NULL, CLS_NM + ".validate type is NULL" );
+        }
+        if( StringUtils.isEmpty( rc.getValue() ))
+        {
+        	throw new ValidationException( GlobalErrIds.ROLE_CONSTRAINT_VALUE_NULL, CLS_NM + ".validate value is NULL" );
         }
     }
 

@@ -1056,7 +1056,20 @@ public final class GlobalErrIds
      */
     public static final int DSD_VALIDATION_FAILED = 5097;
 
-
+    /**
+     * Role Constraint Errors
+     */
+    
+    /**
+     * The validation for Role Constraint type failed.
+     */
+    public static final int ROLE_CONSTRAINT_TYPE_NULL = 5100;
+    /**
+     * The validation for Role Constraint value failed.
+     */
+    public static final int ROLE_CONSTRAINT_VALUE_NULL = 5101;
+    
+    
     /**
      * 6000's - LDAP Suffix and Container Entities
      */

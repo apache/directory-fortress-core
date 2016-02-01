@@ -2772,6 +2772,7 @@ public class PermTestData extends TestCase
      */
     public static final String TPA_SET_1_NAME = "TPASET1";
     public static final String TPA_SET_2_NAME = "TPASET2";
+    public static final String TPA_SET_NOT_EXIST_NAME = "NOTEXISTTPASETNAME";
     
     public static final String[][] PA_TPSASET1 =
     {

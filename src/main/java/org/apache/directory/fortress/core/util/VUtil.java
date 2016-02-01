@@ -31,11 +31,17 @@ import java.util.Properties;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.*;
+import org.apache.directory.fortress.core.CfgException;
+import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.ReviewMgr;
+import org.apache.directory.fortress.core.ReviewMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.ConstraintValidator;
 import org.apache.directory.fortress.core.model.ObjectFactory;
+import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.UserRole;
@@ -656,5 +662,25 @@ public final class VUtil implements ConstraintValidator
             validators.add( ( Validator ) ClassUtil.createInstance( className ) );
         }
         return validators;
+    }
+    
+    /**
+     * Checks the Permission Attribute Set exists
+     * 
+     * @param value Name of the Permission Attribute Set
+     * @throws ValidationException
+     */
+    public static void permAttrSetName( String value ) throws ValidationException
+    {    	    	
+    	try{
+    		ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();      		
+    		PermissionAttributeSet paSet = reviewMgr.readPermAttributeSet(new PermissionAttributeSet(value));
+    	}
+        catch(Exception e){
+            String error = "permissionAttributeSet - not found with name [" + value + "]";
+            throw new ValidationException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, error );
+        }
+
+        RegExUtil.safeText( value );
     }
 }

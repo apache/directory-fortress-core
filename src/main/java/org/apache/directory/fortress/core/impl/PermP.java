@@ -687,5 +687,10 @@ final class PermP
                 up.read( user, false );
             }
         }
+        // Validate Perm Attr Set Name
+        if( StringUtils.isNotEmpty( pOp.getPaSetName() ))
+        {
+        	VUtil.permAttrSetName(pOp.getPaSetName());
+        }
     }
 }

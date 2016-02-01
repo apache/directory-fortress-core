@@ -1893,51 +1893,63 @@ public class AdminMgrImplTest extends TestCase
     
     public void testAddPASetToPermission()
     {
-    	addPASetToPermission( "ADD-PASET-TO-POP TOB_1 TOP_1", PermTestData.TPA_SET_1_NAME, "TOB1_1", PermTestData.OPS_TOP1_UPD[0] );   	
+    	addValidPASetToPermission( "ADD-PASET-TO-POP-VALID TOB_1 TOP_1", PermTestData.TPA_SET_1_NAME, "TOB1_1", PermTestData.OPS_TOP1_UPD[0] );   	
+    	addInvalidPASetToPermission( "ADD-PASET-TO-POP-INVALID TOB_1 TOP_1", PermTestData.TPA_SET_NOT_EXIST_NAME, "TOB1_1", PermTestData.OPS_TOP1_UPD[0] );   	
     }
-    
-    public static void addPASetToPermission( String msg, String paSetName, String obj, String[] op )
-    {
-    	LogUtil.logIt(msg);
-    	try
-    	{
-    		AdminMgr adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );    		
 
-    		Permission pop = PermTestData.getOp( obj, op );
-    		pop.setPaSetName(paSetName);
+    public static void addInvalidPASetToPermission( String msg, String paSetName, String obj, String[] op )
+    {
+    	try{
+    		addPASetToPermission(msg, paSetName, obj, op);
     		
-    		adminMgr.updatePermission(pop);
-    		LOG.debug( "addPASetToPermission name [" + paSetName + "] successful" );
+    		String message = "addInvalidPASetToPermission name [" + paSetName + "] was successfull, when should ahve failed.";
+    		LOG.error( message );
+    		fail( message );
     	}
     	catch ( SecurityException ex )
     	{
-    		LOG.error( "addPASetToPermission name [" + paSetName
+    		LOG.info("Caught exception adding invalid tpa set name " + paSetName);
+    	}
+    }
+    
+    public static void addValidPASetToPermission( String msg, String paSetName, String obj, String[] op )
+    {
+    	try{
+    		addPASetToPermission(msg, paSetName, obj, op);
+    	}
+    	catch ( SecurityException ex )
+    	{
+    		LOG.error( "addValidPASetToPermission name [" + paSetName
     				+ "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
     		fail( ex.getMessage() );
     	}
     }
     
-    public void testAddUserRoleConstraint() throws SecurityException
+    public static void addPASetToPermission( String msg, String paSetName, String obj, String[] op ) throws SecurityException
     {
-    	assignUserRoleConstraint( "ASGN-URC TU1 TR1", UserTestData.USERS_TU1[0], RoleTestData.ROLES_TR1[1], URATestData.getRC(URATestData.URC_T1) );
+    	LogUtil.logIt(msg);
+
+    	AdminMgr adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );    		
+
+    	Permission pop = PermTestData.getOp( obj, op );
+    	pop.setPaSetName(paSetName);
+
+    	adminMgr.updatePermission(pop);
+    	LOG.debug( "addPASetToPermission name [" + paSetName + "] successful" );    	
     }
     
-    public static void assignUserRoleConstraint( String msg, String[] usr, String[] rle, RoleConstraint rc )
+    public void testAddUserRoleConstraint() throws SecurityException
     {
-        LogUtil.logIt( msg );
-        try
-        {
-            AdminMgr adminMgr = getManagedAdminMgr();
-            ReviewMgr reviewMgr = ReviewMgrImplTest.getManagedReviewMgr();
-            
-            User user = UserTestData.getUser( usr );
-            Role role = RoleTestData.getRole( rle );
-            
-            adminMgr.addRoleConstraint(new UserRole(user.getUserId(), role.getName()), rc);
-           
-            LOG.debug("assignUserRoleConstraint user [" + user.getUserId() + "] role [" + role.getName() + "] " +
-            				" rcvalue [" + rc.getValue() + "]");
-        }
+    	assignValidUserRoleConstraint( "ASGN-URC-VALID TU1 TR1", UserTestData.USERS_TU1[0], RoleTestData.ROLES_TR1[1], URATestData.getRC(URATestData.URC_T1) );
+    	
+    	assignInvalidUserRoleConstraint( "ASGN-URC-INVALID TU1 TR1", UserTestData.USERS_TU1[0], RoleTestData.ROLES_TR1[1], URATestData.getRC(URATestData.URC_T1_INVALID) );
+    }
+    
+    public static void assignValidUserRoleConstraint( String msg, String[] usr, String[] rle, RoleConstraint rc )
+    {
+    	try{
+    		assignUserRoleConstraint(msg, usr, rle, rc);
+    	}
         catch ( SecurityException ex )
         {
             LOG.error(
@@ -1945,6 +1957,39 @@ public class AdminMgrImplTest extends TestCase
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }
+    
+    }
+    
+    public static void assignInvalidUserRoleConstraint( String msg, String[] usr, String[] rle, RoleConstraint rc )
+    {
+    	try{
+    		assignUserRoleConstraint(msg, usr, rle, rc);
+    		
+    		String message = "assignInvalidUserRoleConstraint name [" + rc.getPaSetName() + "] was successfull, when should ahve failed.";
+    		LOG.error( message );
+    		fail( message );
+    	}
+    	catch ( SecurityException ex )
+    	{
+    		LOG.info("Caught exception adding invalid tpa set name " + rc.getPaSetName());
+    	}
+    
+    }
+    
+    public static void assignUserRoleConstraint( String msg, String[] usr, String[] rle, RoleConstraint rc ) throws SecurityException
+    {
+    	LogUtil.logIt( msg );
+
+    	AdminMgr adminMgr = getManagedAdminMgr();
+    	ReviewMgr reviewMgr = ReviewMgrImplTest.getManagedReviewMgr();
+
+    	User user = UserTestData.getUser( usr );
+    	Role role = RoleTestData.getRole( rle );
+
+    	adminMgr.addRoleConstraint(new UserRole(user.getUserId(), role.getName()), rc);
+
+    	LOG.debug("assignUserRoleConstraint user [" + user.getUserId() + "] role [" + role.getName() + "] " +
+    			" rcvalue [" + rc.getValue() + "]");       
     }
     
     

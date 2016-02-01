@@ -953,6 +953,13 @@ public class URATestData extends TestCase
     	"TPASET1AttributeName1=testattributevalue" //CONSTAIN_VALUE
     };
     
+    public static final String[] URC_T1_INVALID =
+    {
+    	"TPASETNAMENOTEXIST", // CONSTRAINT_PASET_NM
+    	"FILTER", //CONSTAINT_TYPE
+    	"TPASET1AttributeName1=testattributevalue" //CONSTAIN_VALUE
+    };
+    
     /**
     * The Fortress test data for junit uses 2-dimensional arrays.
     */
