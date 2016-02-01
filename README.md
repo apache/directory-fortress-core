@@ -753,7 +753,7 @@ ________________________________________________________________________________
 
 3. Setting the jmeter parameters.
 
- These settings effect the length, duration, and number of threads:
+ These settings affect the length, duration, and the number of threads:
 
  * **LoopController.continue_forever**: boolean value, if *false*, test duration is controlled by numbers of *loops* and *threads*.
  * **LoopController.loops**: integer value, contains the number of iterations each thread performs the test function.
