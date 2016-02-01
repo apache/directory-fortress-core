@@ -754,7 +754,7 @@ ________________________________________________________________________________
 
  A. Fortress CheckAccess:
   ```
-  mvn -Ploadtest-ftca jmeter:jmeter
+  mvn -Ploadtest-fortress jmeter:jmeter
   ```
 
  B. Fortress CreateSession:
