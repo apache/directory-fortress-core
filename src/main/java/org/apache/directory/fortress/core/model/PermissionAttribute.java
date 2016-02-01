@@ -46,8 +46,14 @@ public class PermissionAttribute extends FortEntity implements Serializable {
     private List<String> validValues;
     private String defaultValue;
     
-    public PermissionAttribute(){
+    public PermissionAttribute()
+    {
     	
+    }
+    
+    public PermissionAttribute(String attributeName)
+    {
+    	this.attributeName = attributeName;
     }
     
     public String toFtPAString(){
