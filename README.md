@@ -730,7 +730,7 @@ ________________________________________________________________________________
  mvn install -Dload.file=./ldap/setup/LoadTestUsers.xml
  ```
 
-2. The .jmx files located in [.src/test/jmeter](.src/test/jmeter) folder are used to control test settings for the following:
+2. The .jmx files located in [.src/test/jmeter](.src/test/jmeter) folder correspond to each test type:
 
  A. Fortress CheckAccess:
   [src/test/jmeter/ftCheckAccess.jmx](src/test/jmeter/ftCheckAccess.jmx)
@@ -750,7 +750,35 @@ ________________________________________________________________________________
  F. Accelerator SessionPermissions:
   [src/test/jmeter/acSessionPerms.jmx](src/test/jmeter/acSessionPerms.jmx)
 
-3. From **FORTRESS_HOME** folder, enter the following command from a system prompt:
+
+3. Setting the jmeter parameters.
+
+ These settings effect the length, duration, and number of threads:
+
+ * **LoopController.continue_forever**: boolean value, if *false*, test duration is controlled by numbers of *loops* and *threads*.
+ * **LoopController.loops**: integer value, contains the number of iterations each thread performs the test function.
+ * **ThreadGroup.num_threads**: integer value, contains the number of threads to use in the test.
+ * **ThreadGroup.ramp_time**: integer value, number of seconds for starting threads.  A rule of thumb, set to same as num_threads.
+
+ For example:
+ ```
+ <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Fortress CreateSession" enabled="true">
+     ...
+     <elementProp name="ThreadGroup.main_controller" ...>
+         <boolProp name="LoopController.continue_forever">false</boolProp>
+         <stringProp name="LoopController.loops">1000</stringProp>
+     </elementProp>
+     <stringProp name="ThreadGroup.num_threads">10</stringProp>
+     <stringProp name="ThreadGroup.ramp_time">10</stringProp>
+     ...
+ </ThreadGroup>
+ ```
+
+ This test will start ten threads in ten seconds.  Each thread executes the *createSession* function 1000 times before terminating.
+
+4.  Run the tests.
+
+ From **FORTRESS_HOME** folder, enter the following command from a system prompt:
 
  A. Fortress CheckAccess:
   ```
