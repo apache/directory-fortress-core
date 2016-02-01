@@ -27,6 +27,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.ReviewMgr;
+import org.apache.directory.fortress.core.ReviewMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.model.AdminRole;
@@ -392,7 +394,24 @@ final class PermP
     void delete( PermissionAttribute entity, String attributeSetName ) throws SecurityException
     {
         //TODO: add validation
-        pDao.deletePermissionAttribute( entity, attributeSetName );
+    	
+    	//want to remove by attribute name, not full ftPA value, so find existing and delete that
+    	PermissionAttribute existingPa = null;
+    	
+    	ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+    	PermissionAttributeSet paSet = reviewMgr.readPermAttributeSet(new PermissionAttributeSet(attributeSetName));
+    	for(PermissionAttribute pa : paSet.getAttributes()){
+    		if(pa.getAttributeName().equals(entity.getAttributeName())){
+    			existingPa = pa;
+    			break;
+    		}
+    	}
+    	
+    	if(existingPa == null){
+    		throw new ValidationException(GlobalErrIds.PERM_ATTRIBUTE_NOT_FOUND, "Could not find permission attribute with name [" + entity.getAttributeName() + "] on attribute set [" + attributeSetName + "]");
+    	}
+    	
+        pDao.deletePermissionAttribute( existingPa, attributeSetName );
     }
 
     /**

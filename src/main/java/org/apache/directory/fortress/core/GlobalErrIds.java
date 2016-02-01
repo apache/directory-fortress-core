@@ -673,6 +673,11 @@ public final class GlobalErrIds
      * The supplied Permission Attribute Set name is required but was passed as null.
      */
     public static final int PERM_ATTRIBUTE_SET_NM_NULL = 3036;
+    /**
+     * The supplied Permission Attribute was not found
+     */
+    public static final int PERM_ATTRIBUTE_NOT_FOUND = 3037;
+    
     
     /**
      * 4000's - Password Policy Entity
