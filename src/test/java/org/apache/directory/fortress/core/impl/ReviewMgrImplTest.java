@@ -1628,7 +1628,7 @@ public class ReviewMgrImplTest extends TestCase
     			if(ur.getName().equals(role.getName())){
     				uraFound = true;
     				
-    				Set<RoleConstraint> rcs = ur.getRoleConstraints();
+    				List<RoleConstraint> rcs = ur.getRoleConstraints();
     				for(RoleConstraint r : rcs){
     					if(r.getPaSetName().equals(rc.getPaSetName())){
     						urcFound = true;

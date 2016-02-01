@@ -38,8 +38,7 @@ public class RoleConstraint {
 
 	public void setPaSetName(String paSetName) {
 		this.paSetName = paSetName;
-	}
-	
+	}	
 	
 	//BANK_USER$seq$0type$filter$ecomm.merchant.id$AccountId=12345&WithdrawLimit=500
 	public String getRawData(UserRole uRole){

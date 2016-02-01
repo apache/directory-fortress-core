@@ -21,7 +21,8 @@ package org.apache.directory.fortress.core.model;
 
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -93,7 +94,7 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     @XmlElement( nillable = true )
     private Set<String> parents;
     @XmlElement( nillable = true )
-    private Set<RoleConstraint> roleConstraints;
+    private List<RoleConstraint> roleConstraints;
 
     /**
      * Default constructor is used by internal Fortress classes.
@@ -644,15 +645,15 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     }
 
 
-	public Set<RoleConstraint> getRoleConstraints() {
+	public List<RoleConstraint> getRoleConstraints() {
 		if(roleConstraints == null){
-			roleConstraints = new HashSet<RoleConstraint>();
+			roleConstraints = new ArrayList<RoleConstraint>();
 		}
 		return roleConstraints;
 	}
 
 
-	public void setRoleConstraints(Set<RoleConstraint> roleConstraints) {
+	public void setRoleConstraints(List<RoleConstraint> roleConstraints) {
 		this.roleConstraints = roleConstraints;
 	}
 }
