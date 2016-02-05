@@ -2575,7 +2575,7 @@ final class UserDAO extends ApacheDsDataProvider
             for ( String raw : roles )
             {
             	//get role name
-            	String roleName = raw.substring(0, raw.indexOf( GlobalIds.DELIMITER ));
+            	String roleName = raw.substring(0, raw.indexOf( GlobalIds.DELIMITER )).toUpperCase();
             	
             	//if already found, add to user role
             	if(uRoles.containsKey(roleName)){

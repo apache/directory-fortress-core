@@ -18,8 +18,6 @@ import org.apache.commons.lang.StringUtils;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "permission", propOrder =
     {
-        "opName",
-        "objName",
         "required",
         "operator",
         "dataType",
