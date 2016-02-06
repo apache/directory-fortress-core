@@ -20,7 +20,6 @@
 # README for Apache Fortress Ten Minute Guide
 
  * Version 1.0-RC41
- * last updated: January 6, 2016
 
 -------------------------------------------------------------------------------
 # Document Overview
@@ -84,7 +83,7 @@ Everything else covered in steps that follow.  Tested on Debian & Centos systems
  * file:///[directory-fortress-core]/target/site/apidocs/org/apache/directory/fortress/core/doc-files/ten-minute-guide.html
  * (where [directory-fortress-core] is location of current source package)
 
-6. Follow the steps under 'Navigation Links':
+6. Follow the steps under **Navigation Links**:
   * Setup Apache Directory Server
   * Setup Apache Directory Studio
   * Build Apache Fortress Core
@@ -94,4 +93,4 @@ Everything else covered in steps that follow.  Tested on Debian & Centos systems
   * Build Apache Fortress Rest
 
 ___________________________________________________________________________________
- #### END OF README-TEN-MINUTE-GUIDE
+#### END OF README-TEN-MINUTE-GUIDE

@@ -26,25 +26,26 @@ A standards based Identity and Access Management system for LDAP v3 compliant sy
 
 <hr>
 
-<h2>How do I start using the Fortress?</h2>
-
+<h2>How do I start using Apache Fortress?</h2>
 <p>
-<h3>1. Use the READMEs in the base folder of this package.</h3>
+<h3>1. <a href="../../../README.md">README for Apache Fortress Core</a></h3>
+Contains general instructions to download, install, test, and manage an LDAP server with Fortress Core.
 </p>
 <p>
-<h3>2. <a href="org/apache/directory/fortress/core/doc-files/ten-minute-guide.html">Apache Fortress Ten
+<h3>2. <a href="org/apache/directory/fortress/core/doc-files/ten-minute-guide.html">Apache Directory Fortress Ten
     Minute Guide</a></h3>
-<h4>Build fortress core, realm, web and rest components from source. Covers tomcat and apacheds server installation and
-    configuration.</h4>
-Designed to get going with apache fortress software in a short amount of time on Fedora and Debian machines.
+Build Fortress Core, Realm, Web and Rest components from source and configure with Apache Directory Server.
+</p>
+<p>
+<h3>3. <a href="../../../README-QUICKSTART-SLAPD.md">OpenLDAP & Fortress Quickstart</a></h3>
+Build Fortress Core, Realm, Web and Rest components from source and configure with OpenLDAP Directory Server.
 </p>
 <hr>
 
-<h2>What can Fortress Core SDK do?</h2>
-Contained within this SDK are APIs and utilities to perform authentication, authorization, administration, audit and
-password policies.
-The most important package in this system is <A HREF="org/apache/directory/fortress/core/package-summary.html">org.apache.directory.fortress.core</A>
-which contains all of the public APIs that are called by outside programs.
+<h2>What can I do with Fortress Core APIs?</h2>
+Perform authentication, authorization, administration, audit and password policies.
+The most important package is <A HREF="org/apache/directory/fortress/core/package-summary.html">org.apache.directory.fortress.core</A>
+which contains the public APIs.
 
 <h3>Fortress Manager APIs</h3>
 <ol>
@@ -94,11 +95,7 @@ These APIs throw checked exceptions defined in <a href="org/apache/directory/for
 <h2>What technologies are used?</h2>
 
 <p>
-    Fortress SDK runs on any platform that supports Java technology and LDAP v3 protocols. Functionality that extends
-    beyond
-    LDAP v3 is provided via <a href="http://openldap.org/">OpenLDAP</a> or <a
-        href="http://directory.apache.org/apacheds/">ApacheDS</a> specific features. In other words Fortress was
-    optimized to run on OpenLDAP but works on any directory.
+    This software runs on any platform that supports Java technology and LDAPv3 protocols but is tested with ApacheDS and OpenLDAP.
 </p>
 
 <hr>
@@ -106,28 +103,8 @@ These APIs throw checked exceptions defined in <a href="org/apache/directory/for
 <h2>What are the conditions of use?</h2>
 
 <p>
-    This software development kit is open source, thus free to use and distribute via the <a
-        href="http://www.apache.org/licenses/">Apache License, Version 2.0</a>.
-    It was developed and tested on open systems like <a href="http://www.ubuntu.com/">Ubuntu</a> and <a
-        href="http://www.centos.org/">Centos</a> and was helped along
-    by the following open source products:
-<ol>
-    <li><a href="http://www.openldap.org/project/">The OpenLDAP Project</a></li>
-    <li><a href="http://www.apache.org/">The Apache Software Foundation</a></li>
-    <li><a href="http://www.eigenbase.org/">The Eigenbase Project</a></li>
-    <li><a href="http://ehcache.org/">Ehcache</a></li>
-</ol>
+    This software is released under <a href="http://www.apache.org/licenses/">Apache License, Version 2.0</a>.
 </p>
 
-<hr>
-
-<h2>Where are the coding samples?</h2>
-
-<p>
-    The <A HREF="../samples/overview-summary.html">coding samples</A> are located within the <b>org.apache.directory.fortress.core.samples</b>
-    package. The samples show how Fortress apis work. The
-    ant <b>dist</b> target in build.xml creates the samples package in the /dist folder of this project and is intended
-    to be used for experimentation.
-</p>
 </body>
 </html>
