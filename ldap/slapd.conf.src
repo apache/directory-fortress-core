@@ -53,32 +53,53 @@ moduleload  accesslog.la
 @DDS_MODULE@
 @MONITOR_MODULE@
 
-### ACLs
-@IS_RBAC_ACCELERATOR@access to dn="" by * read
-@IS_RBAC_ACCELERATOR@access to *
-@IS_RBAC_ACCELERATOR@	by self write
-@IS_RBAC_ACCELERATOR@	by users read
-@IS_RBAC_ACCELERATOR@	by anonymous auth
-@IS_RBAC_ACCELERATOR@	by sockurl="^ldapi:///$" write
-
-### This one allows user to modify their own password (needed for pw policies):
-### This also allows user to modify their own ftmod attributes (needed for audit):
-access to attrs=userpassword
-         by self write
-         by * auth
-
-### Must allow access to dn.base to read supported features on this directory:
-access to dn.base="" by * read
-access to dn.base="cn=Subschema" by * read
-access to *
-	by self write
-	by anonymous auth
-
-### Disable null base search of rootDSE
-### This disables auto-discovery capabilities of clients.
-# Changed -> access to dn.base="" by * read <- to the following:
+# ACLS:
 access to dn.base=""
-     by * none
+  by * read
+
+# LDAPv3 Schema
+access to dn.base="cn=subschema"
+  by * read
+
+# Internal OpenLDAP config backend
+access to dn.subtree="cn=config"
+  by * none
+
+# Monitor backend
+@IS_RBAC_ACCELERATOR@access to dn.subtree="cn=monitor"
+@IS_RBAC_ACCELERATOR@  by dn.base="@ROOT_DN@" write
+@IS_RBAC_ACCELERATOR@  by users read
+
+# Generic overall privilege
+access to *
+  by anonymous auth
+  by dn.base="@ROOT_DN@" manage
+  by * break
+
+# Password should be protected, allow user to modify their own audit attributes.
+access to attrs=userPassword,ftModifier,ftModCode,ftModId
+  by self =wx
+  by * none
+
+# Self-readable password policy info
+access to attrs=pwdFailureTime,pwdChangedTime,pwdGraceUseTime,pwdReset,pwdPolicySubentry
+  by self read
+  by * none
+
+# Admin-only password policy info
+access to attrs=pwdAccountLockedTime,pwdHistory
+  by * none
+
+# Users may read their own attributes
+access to attrs=@inetorgperson
+  by users read
+  by * none
+
+access to attrs=@shadowAccount
+  by * none
+
+access to * by users read
+
 password-hash {SSHA}
 
 #######################################################################
