@@ -165,6 +165,6 @@ group.objectclass=@GROUP_OBJECT_CLASS@
 group.protocol=@GROUP_PROTOCOL@
 group.properties=@GROUP_PROPERTIES@
 crypto.prop=@CFG_CRYPTO_PROP@
-enable.audit=true
+disable.audit=@IS_AUDIT@
 clientside.sorting=true
 attr.delimiter=$
