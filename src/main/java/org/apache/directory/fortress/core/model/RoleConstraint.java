@@ -1,9 +1,13 @@
 package org.apache.directory.fortress.core.model;
 
+import java.io.Serializable;
+
 import org.apache.directory.fortress.core.GlobalIds;
 
-public class RoleConstraint {
+public class RoleConstraint implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+	
 	public static final String RC_TYPE_NAME = "type";
 	
 	private RoleConstraintType constraintType;
