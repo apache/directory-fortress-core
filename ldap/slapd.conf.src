@@ -28,7 +28,7 @@ include		@SCHEMA_PATH@/inetorgperson.schema
 include		@SCHEMA_PATH@/nis.schema
 include		@SCHEMA_PATH@/openldap.schema
 include		@SCHEMA_PATH@/fortress.schema
-include		@SCHEMA_PATH@/rbac.schema
+@IS_RBAC_ACCELERATOR@include		@SCHEMA_PATH@/rbac.schema
 
 ### SSL Configuration
 @IS_SSL@TLSCACertificateFile @CA_CERT_FILEW@

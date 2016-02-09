@@ -1691,6 +1691,7 @@ final class UserDAO extends ApacheDsDataProvider
 
         try
         {
+            // Perform this operation as the end user to allow password policy checking:
             ld = getUserConnection();
             bind( ld, userDn, entity.getPassword() );
             mods = new ArrayList<Modification>();
@@ -1698,14 +1699,13 @@ final class UserDAO extends ApacheDsDataProvider
             mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants
                 .USER_PASSWORD_AT, new String( newPassword ) ) );
 
+            // This modify changes the password and checks password policies (if enabled)
             modify( ld, userDn, mods );
 
-            // The 2nd modify is to update audit attributes on the User entry:
-            if ( !GlobalIds.IS_AUDIT_DISABLED && ( entity.getAdminSession() != null ) )
+            // This modify update audit attributes on the User entry (if enabled):
+            if ( GlobalIds.IS_OPENLDAP && ! GlobalIds.IS_AUDIT_DISABLED )
             {
-                // Because the user modified their own password, set their userId here:
-                //(entity.getAdminSession()).setInternalUserId(entity.getUserId());
-                mods = new ArrayList<Modification>();
+                mods = new ArrayList<>();
                 modify( ld, userDn, mods, entity );
             }
         }
