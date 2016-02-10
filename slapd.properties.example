@@ -130,19 +130,19 @@ dflt.checkpoint=checkpoint    64 5
 # Each of the options are used for a particular Symas-OpenLDAP platform.Debian 64-bit Silver:
 
 #Debian 64-bit Silver:
-pla4tform=Debian-Silver-x86-64
+#platform=Debian-Silver-x86-64
 #slapd.install=dpkg -i symas-openldap-silver.64_2.4.43-20151204_amd64.deb
 #slapd.uninstall=dpkg -r symas-openldap-silver
 #install.image.dir=/home/smckinn/archives/debian64
-slapd.module.dir=${openldap.root}/lib64/openldap
-slapd.start=${openldap.root}/lib64/slapd -h ldap://${ldap.host}:${ldap.port} -f ${openldap.root}/etc/openldap/slapd.conf -F ${openldap.root}/etc/openldap
-
-# Redhat 64-bit Silver:
-#platform=Redhat-Silver-x86-64
-#slapd.install=rpm -i symas-openldap-silver.x86_64-2.4.43-20151205.rpm
-#slapd.uninstall=rpm -e symas-openldap-silver
 #slapd.module.dir=${openldap.root}/lib64/openldap
 #slapd.start=${openldap.root}/lib64/slapd -h ldap://${ldap.host}:${ldap.port} -f ${openldap.root}/etc/openldap/slapd.conf -F ${openldap.root}/etc/openldap
+
+# Redhat 64-bit Silver:
+platform=Redhat-Silver-x86-64
+slapd.install=rpm -i symas-openldap-silver.x86_64-2.4.43-1.rpm
+slapd.uninstall=rpm -e symas-openldap-silver
+slapd.module.dir=${openldap.root}/lib64/openldap
+slapd.start=${openldap.root}/lib64/slapd -h ldap://${ldap.host}:${ldap.port} -f ${openldap.root}/etc/openldap/slapd.conf -F ${openldap.root}/etc/openldap
 
 ########################################################################
 # 4. RBAC ACCELERATOR OVERLAY PROPS
