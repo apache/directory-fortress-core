@@ -167,7 +167,7 @@
                 <permobj objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" description="RBAC review policies" ou="default" type="ARBAC" admin="true"/>
                 <permobj objName="org.apache.directory.fortress.core.impl.AuditMgrImpl" description="RBAC audit review" ou="default" type="ARBAC" admin="true"/>
                 <permobj objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" description="LDAP Group admin policies" ou="default" type="ARBAC" admin="true"/>
-            	<permobj objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" description="LDAP Group admin policies" ou="default" type="ARBAC" admin="true"/>
+            	<permobj objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" description="Access Manager Policies" ou="default" type="ARBAC" admin="true"/>
             </addpermobj>
 
             <addpermop>
