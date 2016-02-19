@@ -135,6 +135,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
             getFullMethodName( CLS_NM, methodName ) );
         VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
         VUtil.validateConstraints( session, VUtil.ConstraintType.ROLE, false );
+        setEntitySession(CLS_NM, methodName, session);
         return permP.checkPermission( session, perm );
     }
 

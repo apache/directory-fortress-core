@@ -290,6 +290,7 @@
                 <permop objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="assign" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="deassign" admin="true"/>
             	
+            	<permop objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" opName="checkAccess" admin="true"/>
             	<permop objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" opName="sessionPermissions" admin="true"/>
             	<permop objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" opName="sessionRoles" admin="true"/>
             	<permop objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" opName="authorizedRoles" admin="true"/>
