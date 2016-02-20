@@ -157,6 +157,11 @@
                 <permgrant objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" opName="sessionPermissions" roleNm="fortress-core-super-admin" admin="true"/>
             	<permgrant objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" opName="sessionRoles" roleNm="fortress-core-super-admin" admin="true"/>
             	<permgrant objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" opName="authorizedRoles" roleNm="fortress-core-super-admin" admin="true"/>
+
+            	<permgrant objName="org.apache.directory.fortress.core.impl.DelAccessMgrImpl" opName="sessionAdminRoles" roleNm="fortress-core-super-admin" admin="true"/>
+            	<permgrant objName="org.apache.directory.fortress.core.impl.DelAccessMgrImpl" opName="authorizedAdminRoles" roleNm="fortress-core-super-admin" admin="true"/>
+            	<permgrant objName="org.apache.directory.fortress.core.impl.DelAccessMgrImpl" opName="sessionPermissions" roleNm="fortress-core-super-admin" admin="true"/>
+            
             </addpermgrant>
 
             <addpermobj>
