@@ -19,22 +19,22 @@
  */
 package org.apache.directory.fortress.core.impl;
 
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.DelAccessMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.util.Config;
+import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
-import org.apache.directory.fortress.core.SecurityException;
-
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * This class implements the ARBAC02 DelAccessMgr interface for performing runtime delegated access control operations on 
@@ -209,7 +209,9 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
     public List<UserAdminRole> sessionAdminRoles(Session session)
         throws SecurityException
     {
+    	String methodName = "sessionAdminRoles";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".sessionAdminRoles");
+        setEntitySession(CLS_NM, methodName, session);
         return session.getAdminRoles();
     }
 
@@ -223,6 +225,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
         String methodName = "authorizedAdminRoles";
         assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
         assertContext( CLS_NM, methodName, session.getUser(), GlobalErrIds.USER_NULL );
+        setEntitySession(CLS_NM, methodName, session);
         return AdminRoleUtil.getInheritedRoles( session.getAdminRoles(), this.contextId );
     }
 
@@ -237,6 +240,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
         assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
         VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
         VUtil.validateConstraints( session, VUtil.ConstraintType.ROLE, false );
+        setEntitySession(CLS_NM, methodName, session);
         return permP.search( session, true );
     }
 

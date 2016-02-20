@@ -168,6 +168,7 @@
                 <permobj objName="org.apache.directory.fortress.core.impl.AuditMgrImpl" description="RBAC audit review" ou="default" type="ARBAC" admin="true"/>
                 <permobj objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" description="LDAP Group admin policies" ou="default" type="ARBAC" admin="true"/>
             	<permobj objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" description="Access Manager Policies" ou="default" type="ARBAC" admin="true"/>
+            	<permobj objName="org.apache.directory.fortress.core.impl.DelAccessMgrImpl" description="Delegated Access Manager Policies" ou="default" type="ARBAC" admin="true"/>
             </addpermobj>
 
             <addpermop>
@@ -294,6 +295,10 @@
             	<permop objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" opName="sessionPermissions" admin="true"/>
             	<permop objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" opName="sessionRoles" admin="true"/>
             	<permop objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" opName="authorizedRoles" admin="true"/>
+            	
+            	<permop objName="org.apache.directory.fortress.core.impl.DelAccessMgrImpl" opName="sessionAdminRoles" admin="true"/>
+            	<permop objName="org.apache.directory.fortress.core.impl.DelAccessMgrImpl" opName="authorizedAdminRoles" admin="true"/>
+            	<permop objName="org.apache.directory.fortress.core.impl.DelAccessMgrImpl" opName="sessionPermissions" admin="true"/>
             </addpermop>
 
          </FortressAdmin>
