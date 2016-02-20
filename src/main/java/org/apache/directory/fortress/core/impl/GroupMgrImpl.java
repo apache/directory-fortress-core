@@ -19,6 +19,10 @@
  */
 package org.apache.directory.fortress.core.impl;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GroupMgr;
@@ -27,9 +31,6 @@ import org.apache.directory.fortress.core.ReviewMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.model.User;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -40,7 +41,7 @@ import java.util.List;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class GroupMgrImpl extends Manageable implements GroupMgr
+public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
 {
     private static final String CLS_NM = GroupMgrImpl.class.getName();
     private static final GroupP GROUP_P = new GroupP();

@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.impl;
 
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
@@ -75,7 +76,7 @@ import org.apache.directory.fortress.core.util.VUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class AccessMgrImpl extends Manageable implements AccessMgr
+public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
 {
     private static final String CLS_NM = AccessMgrImpl.class.getName();
     private static final UserP userP = new UserP();

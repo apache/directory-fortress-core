@@ -19,6 +19,12 @@
  */
 package org.apache.directory.fortress.core.impl;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.ReviewMgr;
@@ -31,11 +37,6 @@ import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.VUtil;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * This class performs administrative review functions on already provisioned Fortress RBAC entities
@@ -76,7 +77,7 @@ import java.util.Set;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class ReviewMgrImpl extends Manageable implements ReviewMgr
+public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
 {
     private static final String CLS_NM = ReviewMgrImpl.class.getName();
     private static final UserP userP = new UserP();

@@ -20,10 +20,15 @@
 package org.apache.directory.fortress.core.impl;
 
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.directory.fortress.core.AdminMgr;
+import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.Hier;
@@ -34,14 +39,9 @@ import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.util.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.apache.directory.fortress.core.AdminMgr;
-import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.util.VUtil;
 
 
 /**
@@ -83,7 +83,7 @@ import org.apache.directory.fortress.core.util.VUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public final class AdminMgrImpl extends Manageable implements AdminMgr
+public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializable
 {
     private static final String CLS_NM = AdminMgrImpl.class.getName();
     private static final AdminRoleP adminP = new AdminRoleP();

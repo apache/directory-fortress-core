@@ -19,10 +19,11 @@
  */
 package org.apache.directory.fortress.core.impl;
 
+import java.io.Serializable;
+import java.util.Properties;
+
 import org.apache.directory.fortress.core.ConfigMgr;
 import org.apache.directory.fortress.core.SecurityException;
-
-import java.util.Properties;
 
 
 /**
@@ -38,7 +39,7 @@ import java.util.Properties;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class ConfigMgrImpl implements ConfigMgr
+public class ConfigMgrImpl implements ConfigMgr, Serializable
 {
     private static final ConfigP cfgP = new ConfigP();
 

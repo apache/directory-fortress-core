@@ -19,16 +19,17 @@
  */
 package org.apache.directory.fortress.core.impl;
 
+import java.io.Serializable;
+import java.util.List;
+
+import org.apache.directory.fortress.core.DelReviewMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.DelReviewMgr;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.util.VUtil;
-
-import java.util.List;
 
 /**
  * This class implements the ARBAC02 DelReviewMgr interface for performing policy interrogation of provisioned Fortress 
@@ -50,7 +51,7 @@ import java.util.List;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class DelReviewMgrImpl extends Manageable implements DelReviewMgr
+public class DelReviewMgrImpl extends Manageable implements DelReviewMgr, Serializable
 {
     private static final String CLS_NM = DelReviewMgrImpl.class.getName();
     private static final UserP userP = new UserP();

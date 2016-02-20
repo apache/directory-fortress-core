@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.impl;
 
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.apache.directory.fortress.core.AccelMgr;
@@ -73,7 +74,7 @@ import org.apache.directory.fortress.core.util.VUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class AccelMgrImpl extends Manageable implements AccelMgr
+public class AccelMgrImpl extends Manageable implements AccelMgr, Serializable
 {
     private static final String CLS_NM = AccessMgrImpl.class.getName();
     private static final AcceleratorDAO aDao = new org.apache.directory.fortress.core.impl.AcceleratorDAO();

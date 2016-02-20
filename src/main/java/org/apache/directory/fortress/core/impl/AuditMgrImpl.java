@@ -19,19 +19,20 @@
  */
 package org.apache.directory.fortress.core.impl;
 
+import java.io.Serializable;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.AuditMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.ReviewMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.model.AuthZ;
 import org.apache.directory.fortress.core.model.Bind;
 import org.apache.directory.fortress.core.model.Mod;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAudit;
-
-import java.util.List;
 
 /**
  * This object performs searches across <a href="http://www.openldap.org/">OpenLDAP</a>'s slapd access log.  The access log 
@@ -105,7 +106,7 @@ import java.util.List;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class AuditMgrImpl extends Manageable implements AuditMgr
+public class AuditMgrImpl extends Manageable implements AuditMgr, Serializable
 {
     private static final String CLS_NM = AuditMgrImpl.class.getName();
     private static final AuditP auditP = new AuditP();

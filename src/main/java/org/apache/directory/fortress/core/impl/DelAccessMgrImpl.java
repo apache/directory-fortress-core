@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.impl;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -62,7 +63,7 @@ import org.apache.directory.fortress.core.util.VUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr
+public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Serializable
 {
     private static final String CLS_NM = DelAccessMgrImpl.class.getName();
     private static final UserP userP = new UserP();
