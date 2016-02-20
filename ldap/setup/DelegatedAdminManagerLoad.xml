@@ -154,6 +154,9 @@
                 <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="find" roleNm="fortress-core-super-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="findWithUsers" roleNm="fortress-core-super-admin" admin="true"/>
 
+                <permgrant objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" opName="sessionPermissions" roleNm="fortress-core-super-admin" admin="true"/>
+            	<permgrant objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" opName="sessionRoles" roleNm="fortress-core-super-admin" admin="true"/>
+            	<permgrant objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" opName="authorizedRoles" roleNm="fortress-core-super-admin" admin="true"/>
             </addpermgrant>
 
             <addpermobj>
@@ -164,6 +167,8 @@
                 <permobj objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" description="RBAC review policies" ou="default" type="ARBAC" admin="true"/>
                 <permobj objName="org.apache.directory.fortress.core.impl.AuditMgrImpl" description="RBAC audit review" ou="default" type="ARBAC" admin="true"/>
                 <permobj objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" description="LDAP Group admin policies" ou="default" type="ARBAC" admin="true"/>
+            	<permobj objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" description="Access Manager Policies" ou="default" type="ARBAC" admin="true"/>
+            	<permobj objName="org.apache.directory.fortress.core.impl.DelAccessMgrImpl" description="Delegated Access Manager Policies" ou="default" type="ARBAC" admin="true"/>
             </addpermobj>
 
             <addpermop>
@@ -285,6 +290,15 @@
                 <permop objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="findWithUsers" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="assign" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.GroupMgrImpl" opName="deassign" admin="true"/>
+            	
+            	<permop objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" opName="checkAccess" admin="true"/>
+            	<permop objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" opName="sessionPermissions" admin="true"/>
+            	<permop objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" opName="sessionRoles" admin="true"/>
+            	<permop objName="org.apache.directory.fortress.core.impl.AccessMgrImpl" opName="authorizedRoles" admin="true"/>
+            	
+            	<permop objName="org.apache.directory.fortress.core.impl.DelAccessMgrImpl" opName="sessionAdminRoles" admin="true"/>
+            	<permop objName="org.apache.directory.fortress.core.impl.DelAccessMgrImpl" opName="authorizedAdminRoles" admin="true"/>
+            	<permop objName="org.apache.directory.fortress.core.impl.DelAccessMgrImpl" opName="sessionPermissions" admin="true"/>
             </addpermop>
 
          </FortressAdmin>

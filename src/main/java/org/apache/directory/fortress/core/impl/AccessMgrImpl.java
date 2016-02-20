@@ -128,12 +128,14 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
         String methodName = "checkAccess";
         assertContext( CLS_NM, methodName, perm, GlobalErrIds.PERM_NULL );
         assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
+        
         VUtil.assertNotNullOrEmpty( perm.getOpName(), GlobalErrIds.PERM_OPERATION_NULL,
             getFullMethodName( CLS_NM, methodName ) );
         VUtil.assertNotNullOrEmpty( perm.getObjName(), GlobalErrIds.PERM_OBJECT_NULL,
             getFullMethodName( CLS_NM, methodName ) );
         VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
         VUtil.validateConstraints( session, VUtil.ConstraintType.ROLE, false );
+        setEntitySession(CLS_NM, methodName, session);
         return permP.checkPermission( session, perm );
     }
 
@@ -149,6 +151,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
         assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
         VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
         VUtil.validateConstraints( session, VUtil.ConstraintType.ROLE, false );
+        setEntitySession(CLS_NM, methodName, session);
         return permP.search( session );
     }
 
@@ -164,6 +167,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
         assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
         VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
         VUtil.validateConstraints( session, VUtil.ConstraintType.ROLE, false );
+        setEntitySession(CLS_NM, methodName, session);
         return session.getRoles();
     }
 
@@ -180,6 +184,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr
         VUtil.assertNotNull( session.getUser(), GlobalErrIds.USER_NULL, CLS_NM + ".authorizedRoles" );
         VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
         VUtil.validateConstraints( session, VUtil.ConstraintType.ROLE, false );
+        setEntitySession(CLS_NM, methodName, session);
         return RoleUtil.getInheritedRoles( session.getRoles(), this.contextId );
     }
 
