@@ -32,15 +32,15 @@ import java.util.TreeSet;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.pool.PoolableObjectFactory;
 import org.apache.commons.pool.impl.GenericObjectPool;
+import org.apache.directory.api.ldap.codec.api.LdapApiService;
+import org.apache.directory.api.ldap.codec.api.LdapApiServiceFactory;
+import org.apache.directory.api.ldap.codec.standalone.StandaloneLdapApiService;
 import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicy;
 import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyImpl;
 import org.apache.directory.api.ldap.extras.controls.ppolicy_impl.PasswordPolicyDecorator;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
-import org.apache.directory.api.ldap.codec.api.LdapApiService;
-import org.apache.directory.api.ldap.codec.api.LdapApiServiceFactory;
-import org.apache.directory.api.ldap.codec.standalone.StandaloneLdapApiService;
 import org.apache.directory.api.ldap.model.entry.Attribute;
 import org.apache.directory.api.ldap.model.entry.DefaultAttribute;
 import org.apache.directory.api.ldap.model.entry.DefaultModification;
@@ -66,21 +66,20 @@ import org.apache.directory.api.ldap.model.message.SearchRequestImpl;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.api.ldap.model.message.controls.ProxiedAuthz;
 import org.apache.directory.api.ldap.model.message.controls.ProxiedAuthzImpl;
-
 import org.apache.directory.api.ldap.model.name.Dn;
-import org.apache.directory.fortress.core.model.ConstraintUtil;
-import org.apache.directory.ldap.client.api.LdapConnection;
-import org.apache.directory.ldap.client.api.LdapConnectionConfig;
-import org.apache.directory.ldap.client.api.LdapConnectionPool;
 import org.apache.directory.fortress.core.CfgRuntimeException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.util.Config;
+import org.apache.directory.fortress.core.model.Constraint;
+import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.FortEntity;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.Relationship;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.crypto.EncryptUtil;
-import org.apache.directory.fortress.core.model.Constraint;
+import org.apache.directory.ldap.client.api.LdapConnection;
+import org.apache.directory.ldap.client.api.LdapConnectionConfig;
+import org.apache.directory.ldap.client.api.LdapConnectionPool;
 import org.apache.directory.ldap.client.api.ValidatingPoolableLdapConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -111,6 +110,8 @@ public abstract class ApacheDsDataProvider
     private static final String LDAP_LOG_POOL_MIN = "min.log.conn";
     private static final String LDAP_LOG_POOL_MAX = "max.log.conn";
 
+    private static final String ENABLE_LDAP_STARTTLS = "enable.ldap.starttls";
+    
     private static final boolean IS_SSL = (
         Config.getProperty( GlobalIds.ENABLE_LDAP_SSL ) != null &&
             Config.getProperty( GlobalIds.ENABLE_LDAP_SSL ).equalsIgnoreCase( "true" ) &&
@@ -173,6 +174,10 @@ public abstract class ApacheDsDataProvider
         config.setUseSsl( IS_SSL );
         //config.setTrustManagers( new NoVerificationTrustManager() );
 
+        if(Config.getBoolean(ENABLE_LDAP_STARTTLS)){
+        	config.setUseTls(true);
+        }
+        
         if ( IS_SSL && StringUtils.isNotEmpty( Config.getProperty( GlobalIds.TRUST_STORE ) )
             && StringUtils.isNotEmpty( Config.getProperty( GlobalIds.TRUST_STORE_PW ) ) )
         {
