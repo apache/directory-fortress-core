@@ -174,7 +174,7 @@ public abstract class ApacheDsDataProvider
         config.setUseSsl( IS_SSL );
         //config.setTrustManagers( new NoVerificationTrustManager() );
 
-        if(Config.getBoolean(ENABLE_LDAP_STARTTLS)){
+        if(Config.getBoolean(ENABLE_LDAP_STARTTLS, false)){
         	config.setUseTls(true);
         }
         
