@@ -79,7 +79,6 @@ final class AcceleratorDAO extends ApacheDsDataProvider
      *
      * It uses the {@link RbacCreateSessionRequest} and {@link RbacCreateSessionResponse} accelerator APIs.
      *
-     * todo: this method does not yet, but will soon, return password policy decisions.
      *
      * @param user
      * @return session contains a valid sessionId captured from accelerator createSession method.

@@ -244,7 +244,7 @@ public abstract class ApacheDsDataProvider
         // To enable, set {@code log.admin.user} && {@code log.admin.pw} inside fortress.properties file:
         if ( StringUtils.isNotEmpty( LDAP_LOG_POOL_UID ) && StringUtils.isNotEmpty( LDAP_LOG_POOL_PW ) )
         {
-            // TODO: Initializing the log pool in static block requires static props set within fortress.properties.
+            // Initializing the log pool in static block requires static props set within fortress.properties.
             // To make this dynamic requires moving this code outside of static block AND storing the connection metadata inside fortress config node (in ldap).
             LdapConnectionConfig logConfig = new LdapConnectionConfig();
             logConfig.setLdapHost( host );

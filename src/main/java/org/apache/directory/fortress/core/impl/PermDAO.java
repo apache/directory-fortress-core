@@ -1027,7 +1027,6 @@ final class PermDAO extends ApacheDsDataProvider
         entity.addProperties( PropUtil.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
         entity.setAdmin( isAdmin );
 
-        // TODO: find out the correct way to do this:
         if ( le != null )
         {
             entity.setDn( le.getDn().getNormName() );

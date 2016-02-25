@@ -397,15 +397,7 @@ final class RoleUtil implements ParentUtil
                 {
                     hierLock.readLock().unlock();
                     hierLock.writeLock().lock();
-
-                    // TODO: determine why this (code that was commented out) creates a deadlock:
-                    //graph = ( SimpleDirectedGraph<String, Relationship> ) roleCache.get( key );
-
-                    //if ( graph == null )
-                    //{
                     graph = loadGraph( contextId );
-                    //}
-
                     hierLock.readLock().lock();
                 }
                 finally
