@@ -78,6 +78,7 @@
                 <permgrant objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="assignedUsers" roleNm="fortress-core-super-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="readOU" roleNm="fortress-core-super-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="searchOU" roleNm="fortress-core-super-admin" admin="true"/>
+            	<permgrant objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="rolePermissions" roleNm="fortress-core-super-admin" admin="true"/>
 
                 <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addUser" roleNm="fortress-core-super-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="disableUser" roleNm="fortress-core-super-admin" admin="true"/>
@@ -221,6 +222,7 @@
                 <permop objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="assignedUsers" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="readOU" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="searchOU" admin="true"/>
+            	<permop objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="rolePermissions" admin="true"/>
 
                 <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addUser" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="disableUser" admin="true"/>

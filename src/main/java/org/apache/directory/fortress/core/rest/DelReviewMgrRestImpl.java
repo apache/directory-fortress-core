@@ -19,20 +19,21 @@
  */
 package org.apache.directory.fortress.core.rest;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.directory.fortress.core.DelReviewMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.DelReviewMgr;
+import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.FortRequest;
 import org.apache.directory.fortress.core.model.FortResponse;
-import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.OrgUnit;
-import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.util.VUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class implements the ARBAC02 DelReviewMgr interface for performing policy interrogation of provisioned Fortress ARBAC entities
@@ -245,4 +246,20 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
         }
         return retOrgs;
     }
+
+
+	@Override
+	public List<Permission> rolePermissions(AdminRole role)
+			throws SecurityException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public List<Permission> rolePermissions(AdminRole role,
+			boolean noInheritance) throws SecurityException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

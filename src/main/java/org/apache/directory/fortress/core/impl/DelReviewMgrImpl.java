@@ -27,6 +27,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.util.VUtil;
@@ -57,6 +58,7 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr, Serial
     private static final UserP userP = new UserP();
     private static final OrgUnitP ouP = new OrgUnitP();
     private static final AdminRoleP admRP = new AdminRoleP();
+    private static final PermP permP = new PermP();
 
     /**
      * {@inheritDoc}
@@ -146,5 +148,28 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr, Serial
         orgUnit.setContextId(this.contextId);
         return ouP.search(orgUnit);
     }
+
+    
+    /**
+     * {@inheritDoc}
+     */
+	@Override
+	public List<Permission> rolePermissions(AdminRole role)
+			throws SecurityException {
+		return rolePermissions( role, false );    
+	}
+
+	
+    /**
+     * {@inheritDoc}
+     */
+	@Override
+	public List<Permission> rolePermissions(AdminRole role,
+			boolean noInheritance) throws SecurityException {
+        String methodName = "rolePermissions";
+        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
+        checkAccess(CLS_NM, methodName);
+        return permP.search( role, noInheritance );
+	}
 }
 

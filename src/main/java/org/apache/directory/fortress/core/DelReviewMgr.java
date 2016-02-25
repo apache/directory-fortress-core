@@ -20,12 +20,13 @@
 package org.apache.directory.fortress.core;
 
 
+import java.util.List;
+
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.OrgUnit;
-import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.User;
-
-import java.util.List;
+import org.apache.directory.fortress.core.model.UserAdminRole;
 
 
 /**
@@ -161,5 +162,41 @@ public interface DelReviewMgr extends Manageable
      * @throws SecurityException in the event of data validation or system error.
      */
     List<OrgUnit> search( OrgUnit.Type type, String searchVal )
+        throws SecurityException;
+    
+    /**
+     * This function returns the set of all ARBAC permissions (op, obj), granted to or inherited by a
+     * given ARBAC role. The function is valid if and only if the role is a member of the ROLES data
+     * set.
+     * <h3></h3>
+     * <h4>required parameters</h4>
+     * <ul>
+     *   <li>{@link AdminRole#name} - contains the name to use for the AdminRole targeted for search.</li>
+     * </ul>
+     *
+     * @param role contains role name, {@link AdminRole#name} of AdminRole entity Permission is granted to.
+     * @return List of type Permission that contains all perms granted to a role.
+     * @throws SecurityException In the event system error occurs.
+     */
+    List<Permission> rolePermissions( AdminRole role )
+        throws SecurityException;
+
+
+    /**
+     * This function returns the set of all ARBAC permissions (op, obj), granted to or inherited by a
+     * given ARBAC role. The function is valid if and only if the role is a member of the ROLES data
+     * set.
+     * <h3></h3>
+     * <h4>required parameters</h4>
+     * <ul>
+     *   <li>{@link AdminRole#name} - contains the name to use for the AdminRole targeted for search.</li>
+     * </ul>
+     *
+     * @param role contains role name, {@link AdminRole#name} of AdminRole entity Permission is granted to.
+     * @param noInheritance if true will NOT include inherited roles in the search.
+     * @return List of type Permission that contains all perms granted to a role.
+     * @throws SecurityException In the event system error occurs.
+     */
+    List<Permission> rolePermissions( AdminRole role, boolean noInheritance )
         throws SecurityException;
 }
