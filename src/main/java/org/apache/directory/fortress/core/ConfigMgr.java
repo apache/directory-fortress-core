@@ -83,7 +83,7 @@ public interface ConfigMgr
      * {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
      *
      * @param name attribute is required and maps to 'cn' attribute in 'device' object class.
-     * @param inProps TODO
+     * @param inProps contains the properties to remove.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry not present or other system error.
      */
     void delete( String name, Properties inProps ) throws SecurityException;

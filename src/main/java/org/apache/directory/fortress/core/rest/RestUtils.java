@@ -78,7 +78,6 @@ public class RestUtils
     private static final String HTTP_PROTOCOL = Config.getProperty( "http.protocol", "http" );
     private static final String VERSION = System.getProperty( "version" );
     private static final String SERVICE = "fortress-rest-" + VERSION;
-    // TODO: add SSL capability here:
     private static final String URI = HTTP_PROTOCOL + "://" + HTTP_HOST + ":" + HTTP_PORT + "/" + SERVICE + "/";
     private static final int HTTP_OK = 200;
     private static final int HTTP_401_UNAUTHORIZED = 401;

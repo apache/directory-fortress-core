@@ -53,12 +53,10 @@ public final class ConfigMgrFactory
     public static ConfigMgr createInstance()
         throws SecurityException
     {
-        // TODO: Don't reuse {@link VUtil#isNotNullOrEmpty} here until it is determined why it forces different execution path through GlobalIds.IS_OPENLDAP:
         if (configClassName == null || configClassName.compareTo("") == 0)
         {
             if(IS_REST)
             {
-                // todo: this creates a cycle with rest package:
                 configClassName = ConfigMgrRestImpl.class.getName();
             }
             else
