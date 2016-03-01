@@ -78,6 +78,7 @@
   <!-- The used properties for this project          -->
   <!-- ====================================================== -->
   <properties>
+    <additionalparam>-Xdoclint:none</additionalparam>
     <!-- Jars -->
     <version.accelerator.api>1.0-RC41</version.accelerator.api>
     <version.accelerator.impl>1.0-RC41</version.accelerator.impl>
