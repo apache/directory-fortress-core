@@ -71,6 +71,7 @@
                 <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdRoleSetRoles" roleNm="fortress-core-super-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdRoleSetCardinality" roleNm="fortress-core-super-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdSets" roleNm="fortress-core-super-admin" admin="true"/>
+            	<permgrant objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findAnyPermissions" roleNm="fortress-core-super-admin" admin="true"/>
 
                 <permgrant objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="readRole" roleNm="fortress-core-super-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="findRoles" roleNm="fortress-core-super-admin" admin="true"/>
@@ -215,6 +216,7 @@
                 <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdRoleSetRoles" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdRoleSetCardinality" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="dsdSets" admin="true"/>
+            	<permop objName="org.apache.directory.fortress.core.impl.ReviewMgrImpl" opName="findAnyPermissions" admin="true"/>
 
                 <permop objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="readRole" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.DelReviewMgrImpl" opName="findRoles" admin="true"/>
