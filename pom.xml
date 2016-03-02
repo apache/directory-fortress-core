@@ -59,7 +59,7 @@
   </issueManagement>
 
   <!-- ====================================================== -->
-  <!-- The list of current developers            -->
+  <!-- The list of current developers                         -->
   <!-- ====================================================== -->
   <developers>
     <developer>
@@ -88,7 +88,7 @@
   </developers>
 
   <!-- ====================================================== -->
-  <!-- The used properties for this project          -->
+  <!-- The used properties for this project                   -->
   <!-- ====================================================== -->
   <properties>
     <additionalparam>-Xdoclint:none</additionalparam>
@@ -137,21 +137,21 @@
     <version.xpp3>1.1.4c</version.xpp3>
 
     <!-- ===================================================== -->
-    <!-- This is a hack to allow someone to release       -->
-    <!-- without having to run the tests. In order to      -->
-    <!-- do so, just tpe :                   -->
-    <!-- mvn release:prepare                  -->
-    <!--   -Drelease.arguments="-DskipTests -Prelease"    -->
+    <!-- This is a hack to allow someone to release            -->
+    <!-- without having to run the tests. In order to          -->
+    <!-- do so, just tpe :                                     -->
+    <!-- mvn release:prepare                                   -->
+    <!--   -Drelease.arguments="-DskipTests -Prelease"         -->
     <!-- ===================================================== -->
     <release.arguments />
   </properties>
 
   <!-- ====================================================== -->
-  <!-- The dependencies for all the projects         -->
+  <!-- The dependencies for all the projects                  -->
   <!-- ====================================================== -->
 
   <!-- ====================================================== -->
-  <!-- The dependencies                    -->
+  <!-- The dependencies                                       -->
   <!-- ====================================================== -->
   <dependencies>
     <dependency>
