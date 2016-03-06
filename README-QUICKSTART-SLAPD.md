@@ -18,7 +18,7 @@
 
 # Apache Fortress and OpenLDAP QUICKSTART
 
- Apache Fortress Version 1.0-RC41 System Architecture Diagram
+ Apache Fortress Version 1.0-RC42 System Architecture Diagram
  ![OpenLDAP Accelerator System Architecture](images/fortress-openldap-accel-system-arch.png "OpenLDAP & Apache Fortress System Architecture")
 
 -------------------------------------------------------------------------------
