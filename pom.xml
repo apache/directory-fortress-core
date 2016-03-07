@@ -31,7 +31,7 @@
   <artifactId>fortress-core</artifactId>
   <packaging>jar</packaging>
   <name>Apache Fortress Core</name>
-  <version>1.0-RC42</version>
+  <version>1.0-RC43-SNAPSHOT</version>
   <inceptionYear>2007</inceptionYear>
   <description>
     Apache Fortress is a standards-based Identity and Access Management SDK that implements ANSI RBAC INCITS 359.
