@@ -23,24 +23,23 @@ package org.apache.directory.fortress.core.impl;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.concurrent.locks.ReadWriteLock;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.ParentUtil;
 import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.util.cache.Cache;
+import org.apache.directory.fortress.core.util.cache.CacheMgr;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.util.cache.Cache;
-import org.apache.directory.fortress.core.util.cache.CacheMgr;
 
 
 /**
@@ -382,6 +381,21 @@ final class RoleUtil implements ParentUtil
      */
     private static SimpleDirectedGraph<String, Relationship> getGraph( String contextId )
     {
+        String key = getKey( contextId );
+    	
+        SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) roleCache
+                .get( key );
+    	
+        if(graph == null){
+        	LOG.info("Graph was null, creating...");
+            return loadGraph( contextId );
+        }
+        else{
+            LOG.info("Graph found in cache, retruning...");
+            return graph;
+        }
+    	
+    	/*
         ReadWriteLock hierLock = HierUtil.getLock( contextId, HierUtil.Type.ROLE );
         String key = getKey( contextId );
 
@@ -412,5 +426,6 @@ final class RoleUtil implements ParentUtil
         {
             hierLock.readLock().unlock();
         }
+        */
     }
 }
