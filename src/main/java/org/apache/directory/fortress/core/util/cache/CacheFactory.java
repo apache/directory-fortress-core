@@ -19,9 +19,10 @@
  */
 package org.apache.directory.fortress.core.util.cache;
 
+import net.sf.ehcache.constructs.blocking.BlockingCache;
+
 import org.apache.directory.fortress.core.CfgRuntimeException;
 import org.apache.directory.fortress.core.GlobalErrIds;
-import net.sf.ehcache.constructs.blocking.BlockingCache;
 
 /**
  * Creates an instance of the {@link EhCacheImpl} object with a {@link Cache} facade.
@@ -46,6 +47,8 @@ class CacheFactory
             throw new CfgRuntimeException(GlobalErrIds.FT_CACHE_NOT_CONFIGURED, error);
         }
         BlockingCache blockingCache = new BlockingCache(cache);
+        blockingCache.setTimeoutMillis(60000);
+        
         cacheManager.replaceCacheWithDecoratedCache(cache, blockingCache);
         return new EhCacheImpl(name, blockingCache);
     }

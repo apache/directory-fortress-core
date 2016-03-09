@@ -330,7 +330,7 @@ final class RoleUtil implements ParentUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return handle to simple digraph containing role hierarchies.
      */
-    private static SimpleDirectedGraph<String, Relationship> loadGraph( String contextId )
+    private static synchronized SimpleDirectedGraph<String, Relationship> loadGraph( String contextId )
     {
         Hier inHier = new Hier( Hier.Type.ROLE );
         inHier.setContextId( contextId );
@@ -381,51 +381,19 @@ final class RoleUtil implements ParentUtil
      */
     private static SimpleDirectedGraph<String, Relationship> getGraph( String contextId )
     {
-        String key = getKey( contextId );
-    	
+        String key = getKey( contextId );        
+        LOG.debug("Getting graph for key " + contextId);
+         
         SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) roleCache
-                .get( key );
-    	
+                 .get( key );
+             
         if(graph == null){
-        	LOG.info("Graph was null, creating...");
+            LOG.debug("Graph was null, creating... " + contextId);
             return loadGraph( contextId );
         }
         else{
-            LOG.info("Graph found in cache, retruning...");
+            LOG.debug("Graph found in cache, returning...");
             return graph;
         }
-    	
-    	/*
-        ReadWriteLock hierLock = HierUtil.getLock( contextId, HierUtil.Type.ROLE );
-        String key = getKey( contextId );
-
-        try
-        {
-            hierLock.readLock().lock();
-            SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) roleCache
-                .get( key );
-
-            if ( graph == null )
-            {
-                try
-                {
-                    hierLock.readLock().unlock();
-                    hierLock.writeLock().lock();
-                    graph = loadGraph( contextId );
-                    hierLock.readLock().lock();
-                }
-                finally
-                {
-                    hierLock.writeLock().unlock();
-                }
-            }
-
-            return graph;
-        }
-        finally
-        {
-            hierLock.readLock().unlock();
-        }
-        */
     }
 }

@@ -1610,4 +1610,17 @@ public abstract class ApacheDsDataProvider
 
         return sb.toString();
     }
+    
+    public static void printConnectionDetails(){
+    	if(adminPool != null){
+	    	LOG.info("Admin pool active: " + adminPool.getNumActive());
+			LOG.info("Admin pool idle: " + adminPool.getNumIdle());
+
+			LOG.info("User pool active: " + userPool.getNumActive());
+			LOG.info("User pool idle: " + userPool.getNumIdle());
+			
+			LOG.info("Log pool active: " + logPool.getNumActive());
+			LOG.info("Log pool idle: " + logPool.getNumIdle());
+    	}
+    }
 }

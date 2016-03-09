@@ -22,10 +22,14 @@ package org.apache.directory.fortress.core.util.cache;
 
 import net.sf.ehcache.Element;
 import net.sf.ehcache.constructs.blocking.BlockingCache;
+import net.sf.ehcache.constructs.blocking.LockTimeoutException;
 import net.sf.ehcache.search.Attribute;
 import net.sf.ehcache.search.Query;
+
 import org.apache.directory.fortress.core.CfgRuntimeException;
 import org.apache.directory.fortress.core.GlobalErrIds;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -35,6 +39,9 @@ import org.apache.directory.fortress.core.GlobalErrIds;
  */
 public class EhCacheImpl implements Cache
 {
+    private static final String CLS_NM = EhCacheImpl.class.getName();
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
+	
     private BlockingCache cache;
     private final String name;
 
@@ -83,6 +90,10 @@ public class EhCacheImpl implements Cache
             {
                 return null;
             }
+        }
+        catch (LockTimeoutException lte){
+            LOG.warn("Lock timout exception for key {}", key);
+            return null;
         }
         catch ( net.sf.ehcache.CacheException ce )
         {

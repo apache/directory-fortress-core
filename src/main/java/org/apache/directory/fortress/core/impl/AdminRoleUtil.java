@@ -23,23 +23,22 @@ package org.apache.directory.fortress.core.impl;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.concurrent.locks.ReadWriteLock;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.util.cache.Cache;
+import org.apache.directory.fortress.core.util.cache.CacheMgr;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.util.cache.Cache;
-import org.apache.directory.fortress.core.util.cache.CacheMgr;
 
 
 /**
@@ -245,7 +244,7 @@ final class AdminRoleUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return handle to simple digraph containing adminRole hierarchies.
      */
-    private static SimpleDirectedGraph<String, Relationship> loadGraph( String contextId )
+    private static synchronized SimpleDirectedGraph<String, Relationship> loadGraph( String contextId )
     {
         Hier inHier = new Hier( Hier.Type.ROLE );
         inHier.setContextId( contextId );
@@ -280,35 +279,19 @@ final class AdminRoleUtil
      */
     private static SimpleDirectedGraph<String, Relationship> getGraph( String contextId )
     {
-        ReadWriteLock hierLock = HierUtil.getLock( contextId, HierUtil.Type.ARLE );
-        String key = getKey( contextId );
-
-        try
-        {
-            hierLock.readLock().lock();
-            SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) adminRoleCache
-                .get( key );
-
-            if ( graph == null )
-            {
-                try
-                {
-                    hierLock.readLock().unlock();
-                    hierLock.writeLock().lock();
-                    graph = loadGraph( contextId );
-                    hierLock.readLock().lock();
-                }
-                finally
-                {
-                    hierLock.writeLock().unlock();
-                }
-            }
-
-            return graph;
+        String key = getKey( contextId );        
+        LOG.debug("Getting graph for key " + contextId);
+         
+        SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) adminRoleCache
+                 .get( key );
+             
+        if(graph == null){
+            LOG.debug("Graph was null, creating... " + contextId);
+            return loadGraph( contextId );
         }
-        finally
-        {
-            hierLock.readLock().unlock();
+        else{
+            LOG.debug("Graph found in cache, returning...");
+            return graph;
         }
     }
 
