@@ -123,7 +123,7 @@ The tenant id is passed during object instantiation.
  mvn install -Dload.file=./ldap/setup/MyLoadFile.xml -Dtenant=acme123
  ```
 
- Passing the tenant system property scopes all subsequent load operations to that particular tenant.
+ Passing the tenant system property scopes all subsequent load operations to that particular tenant's container inside the DIT.
 
 ___________________________________________________________________________________
 ## SECTION 5.  Unit Testing
