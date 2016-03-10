@@ -402,7 +402,7 @@ ________________________________________________________________________________
  mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
  ```
 
-  *Do not run this target with **refreshLDAPData.xml** on production systems as it deletes all nodes beneath the suffix before readding.*
+  * Do not run this target with **refreshLDAPData.xml** on production systems as it deletes all nodes beneath the suffix before readding.
 
 More usage notes of fortress build property files:
  * The defaults usually work.

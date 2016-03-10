@@ -41,7 +41,7 @@ From Wikipedia:
  https://en.wikipedia.org/wiki/Multitenancy
 
 More here:
- * https://symas.com/products/symas-enforcement-foundry/multi-tenancy/
+ * http://symas.com/products/enforcement-foundry/multi-tenancy/
 
 -------------------------------------------------------------------------------
 ## SECTION 2.  About the Datastructures
