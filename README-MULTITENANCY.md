@@ -55,10 +55,11 @@ More here:
 2. Beneath the acme123 *container* node will be that tenant's copy of data.  For example:
 
  ```
-            ou=People, ou=acme123, dc=example, dc=com
- ou=Roles,  ou=RBAC, ou=acme123, dc=example, dc=com
- ou=Perms,  ou=RBAC, ou=acme123, dc=example, dc=com
- etc...
+ ou=People,  ou=acme123, dc=example, dc=com
+ ou=Roles,   ou=acme123, dc=example, dc=com
+ ou=Perms,   ou=acme123, dc=example, dc=com
+ ou=Groups,  ou=acme123, dc=example, dc=com
+ ...
  ```
 
 3. Screenshot with Apache Directory Studio.
