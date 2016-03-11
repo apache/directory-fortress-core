@@ -1611,4 +1611,33 @@ public abstract class ApacheDsDataProvider
         return sb.toString();
     }
 
+    /**
+     * Closes all the ldap connection pools.
+     */
+    public static void closeAllConnectionPools(){
+        try{
+            LOG.info("Closing admin pool");
+            adminPool.close();
+        }
+        catch(Exception e){
+            LOG.warn("Error closing admin pool: " + e.getMessage());
+        }
+        
+        try{
+            LOG.info("Closing user pool");
+            userPool.close();
+        }
+        catch(Exception e){
+            LOG.warn("Error closing user pool: " + e.getMessage());
+        }
+        
+        try{
+            LOG.info("Closing log pool");
+            logPool.close();
+        }
+        catch(Exception e){
+            LOG.warn("Error closing log pool: " + e.getMessage());
+        }
+    }
+    
 }
