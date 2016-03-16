@@ -26,16 +26,15 @@ import java.util.Properties;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.ConfigMgr;
-import org.apache.directory.fortress.core.ConfigMgrFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.apache.directory.fortress.core.CfgException;
 import org.apache.directory.fortress.core.CfgRuntimeException;
+import org.apache.directory.fortress.core.ConfigMgr;
+import org.apache.directory.fortress.core.ConfigMgrFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class wraps <a href="http://commons.apache.org/cfg/">Apache Commons Config</a> utility and is used by internal components to retrieve name-value
@@ -68,11 +67,21 @@ public final class Config
     private static final String EXT_CONFIG_REALM = "fortress.config.realm";
     private static final String EXT_CONFIG_ROOT_DN = "fortress.config.root";
     private static final String EXT_SERVER_TYPE = "fortress.ldap.server.type";
-    private static final PropertiesConfiguration config;
+    private static PropertiesConfiguration config;
     private static final String CLS_NM = Config.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
-    static
+    private static Config INSTANCE = null; 
+    
+    public static Config getInstance() {
+        if(INSTANCE == null) {
+            LOG.info("Creating new instance");
+            INSTANCE = new Config();
+        }
+        return INSTANCE;
+    }
+    
+    private void init()
     {
         try
         {
@@ -145,6 +154,7 @@ public final class Config
      */
     private Config()
     {
+        init();
     }
 
     /**
@@ -153,7 +163,7 @@ public final class Config
      * @param name contains the name of the property.
      * @return contains the value associated with the property or null if not not found.
      */
-    public static String getProperty( String name )
+    public String getProperty( String name )
     {
         String value = null;
         if ( config != null )
@@ -176,7 +186,7 @@ public final class Config
      * @param defaultValue specified by client will be returned if property value is not found.
      * @return contains the value for the property as a String.
      */
-    public static String getProperty( String name, String defaultValue )
+    public String getProperty( String name, String defaultValue )
     {
         String value = null;
         if ( config != null )
@@ -202,7 +212,7 @@ public final class Config
      * @param name contains the name of the property.
      * @return contains the value associated with the property or 0 if not not found.
      */
-    public static char getChar( String name )
+    public char getChar( String name )
     {
         char value = 0;
         if ( config != null )
@@ -225,7 +235,7 @@ public final class Config
      * @param defaultValue specified by client will be returned if property value is not found.
      * @return contains the value for the property as a char.
      */
-    public static char getChar( String name, char defaultValue )
+    public char getChar( String name, char defaultValue )
     {
         char value = 0;
         if ( config != null )
@@ -251,7 +261,7 @@ public final class Config
      * @param key name of the property name.
      * @return The int value or 0 if not found.
      */
-    public static int getInt( String key )
+    public int getInt( String key )
     {
         int value = 0;
         if ( config != null )
@@ -274,7 +284,7 @@ public final class Config
      * @param defaultValue to use if property not found.
      * @return The int value or default value if not found.
      */
-    public static int getInt( String key, int defaultValue )
+    public int getInt( String key, int defaultValue )
     {
         int value = 0;
         if ( config != null )
@@ -296,7 +306,7 @@ public final class Config
      * @param key name of the property name.
      * @return The boolean value or false if not found.
      */
-    public static boolean getBoolean( String key )
+    public boolean getBoolean( String key )
     {
         boolean value = false;
         if ( config != null )
@@ -319,7 +329,7 @@ public final class Config
      * @param defaultValue specified by client will be returned if property value is not found.
      * @return The boolean value or false if not found.
      */
-    public static boolean getBoolean( String key, boolean defaultValue )
+    public boolean getBoolean( String key, boolean defaultValue )
     {
         boolean value = defaultValue;
         if ( config != null )
@@ -341,7 +351,7 @@ public final class Config
      * @param name         contains the name of the property.
      * @param value        contains the String value of the property.
      */
-    public static void setProperty( String name, String value )
+    public void setProperty( String name, String value )
     {
         if ( config != null )
         {
@@ -363,7 +373,7 @@ public final class Config
      * @throws org.apache.directory.fortress.core.SecurityException
      *          in the event of system or validation error.
      */
-    private static Properties getRemoteConfig( String realmName ) throws SecurityException
+    private Properties getRemoteConfig( String realmName ) throws SecurityException
     {
         Properties props = null;
         try
@@ -391,7 +401,7 @@ public final class Config
      * This method is called during configuration initialization.  It determines if
      * the ldap connection coordinates have been overridden as system properties.
      */
-    private static void getExternalConfig()
+    private void getExternalConfig()
     {
         String PREFIX = "getExternalConfig override name [{}] value [{}]";
         // Check to see if the ldap host has been overridden by a system property:
