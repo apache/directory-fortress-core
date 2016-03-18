@@ -22,12 +22,10 @@
             xmlns:e="http://ant.apache.org/ivy/extra">
 
 <info organisation="org.apache" module="fortress-core"/>
-
     <dependencies>
         <!-- Fortress core is dependent on these libs: -->
-        <dependency org="commons-lang" name="commons-lang" rev="2.4" conf="default->master"/>
-        <dependency org="commons-configuration" name="commons-configuration" rev="1.10" conf="default->master"/>
         <dependency org="commons-lang" name="commons-lang" rev="2.6" conf="default->master"/>
+        <dependency org="commons-configuration" name="commons-configuration" rev="1.10" conf="default->master"/>
         <dependency org="commons-collections" name="commons-collections" rev="3.2.1" conf="default->master"/>
         <dependency org="commons-logging" name="commons-logging" rev="1.1.1" conf="default->master"/>
         <dependency org="commons-codec" name="commons-codec" rev="1.10" conf="default->master"/>
@@ -39,19 +37,19 @@
         <dependency org="org.jgrapht" name="jgrapht-core" rev="0.9.1" conf="default->master"/>
         <dependency org="com.sun.xml.bind" name="jaxb-xjc" rev="2.2.4-1" conf="default->master"/>
         <dependency org="com.sun.xml.bind" name="jaxb-impl" rev="2.2.4-1" conf="default->master"/>
-        <dependency org="javax.xml.bind" name="jaxb-api" rev="2.2.6" conf="default->master"/>
-        <dependency org="org.apache.httpcomponents" name="httpclient" rev="4.5.1" conf="default->master"/>
-        <dependency org="org.apache.httpcomponents" name="httpcore" rev="4.4.3" conf="default->master"/>
+        <dependency org="javax.xml.bind" name="jaxb-api" rev="2.2.11" conf="default->master"/>
+        <dependency org="org.apache.httpcomponents" name="httpclient" rev="4.5.2" conf="default->master"/>
+        <dependency org="org.apache.httpcomponents" name="httpcore" rev="4.4.4" conf="default->master"/>
         <dependency org="org.codehaus.jackson" name="jackson-jaxrs" rev="1.9.0" conf="default->master"/>
         <dependency org="javax" name="javaee-api" rev="7.0" conf="default->master"/>
-        <dependency org="org.apache.cxf" name="cxf-api" rev="2.7.17" conf="default->master"/>
+        <dependency org="org.apache.cxf" name="cxf-api" rev="2.7.18" conf="default->master"/>
         <dependency org="javax.ws.rs" name="javax.ws.rs-api" rev="2.0.1" conf="default->master"/>
-        <dependency org="net.sf.ehcache" name="ehcache-core" rev="2.6.10" conf="default->master"/>
+        <dependency org="net.sf.ehcache" name="ehcache-core" rev="2.6.11" conf="default->master"/>
         <dependency org="org.slf4j" name="slf4j-api" rev="1.7.12" conf="default->master"/>
         <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.12" conf="default->master"/>
         <dependency org="org.slf4j" name="slf4j-jcl" rev="1.7.12" conf="default->master"/>
-        <dependency org="org.apache.directory.api" name="api-all" rev="1.0.0-M31" conf="default->master"/>
-        <dependency org="org.apache.directory.server" name="apacheds-all" rev="2.0.0-M19" conf="default->master"/>
+        <dependency org="org.apache.directory.api" name="api-all" rev="1.0.0-M33" conf="default->master"/>
+        <dependency org="org.apache.directory.server" name="apacheds-all" rev="2.0.0-M21" conf="default->master"/>
         <dependency org="net.sf.opencsv" name="opencsv" rev="2.3" conf="default->master" />
         <dependency org="org.apache.jmeter" name="ApacheJMeter_core" rev="2.11" conf="default->master" />
         <dependency org="org.apache.jmeter" name="ApacheJMeter_java" rev="2.11" conf="default->master" />

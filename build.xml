@@ -143,11 +143,11 @@
        <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
        <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
        <property name="commons-io.jar" value="${lib.dir}/commons-io-2.4.jar"/>
-       <property name="httpclient.jar" value="${lib.dir}/httpclient-4.5.1.jar"/>
-       <property name="httpcore.jar" value="${lib.dir}/httpcore-4.4.3.jar"/>
-       <property name="cxf-common-utilities.jar" value="${lib.dir}/cxf-api-2.7.17.jar"/>
-       <property name="javax.ws.rs-api.jar" value="${lib.dir}/javax.ws.rs-api-2.0.1.jar"/>
        <property name="commons-codec.jar" value="${lib.dir}/commons-codec-1.10.jar"/>
+       <property name="httpclient.jar" value="${lib.dir}/httpclient-4.5.2.jar"/>
+       <property name="httpcore.jar" value="${lib.dir}/httpcore-4.4.4.jar"/>
+       <property name="cxf-common-utilities.jar" value="${lib.dir}/cxf-api-2.7.18.jar"/>
+       <property name="javax.ws.rs-api.jar" value="${lib.dir}/javax.ws.rs-api-2.0.1.jar"/>
        <property name="jgraph.jar" value="${lib.dir}/jgrapht-core-0.9.1.jar"/>
        <property name="log4j.jar" value="${lib.dir}/log4j-1.2.17.jar"/>
        <property name="junit.jar" value="${lib.dir}/junit-4.12.jar"/>
@@ -164,8 +164,8 @@
        <property name="slf4j-log4j.jar" value="${lib.dir}/slf4j-log4j12-1.7.12.jar"/>
        <property name="apacheJMeter_core.jar" value="${lib.dir}/ApacheJMeter_core-2.11.jar"/>
        <property name="apacheJMeter_java.jar" value="${lib.dir}/ApacheJMeter_java-2.11.jar"/>
-       <property name="apacheds-all.jar" value="${lib.dir}/apacheds-all-2.0.0-M19.jar"/>
-       <property name="apacheds-api-all.jar" value="${lib.dir}/api-all-1.0.0-M31.jar"/>
+       <property name="apacheds-all.jar" value="${lib.dir}/apacheds-all-2.0.0-M21.jar"/>
+       <property name="apacheds-api-all.jar" value="${lib.dir}/api-all-1.0.0-M33.jar"/>
        <property name="mina-core.jar" value="${lib.dir}/mina-core-2.0.7.jar"/>
        <property name="opencsv.jar" value="${lib.dir}/opencsv-2.3.jar"/>
 
