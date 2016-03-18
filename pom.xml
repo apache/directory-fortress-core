@@ -253,7 +253,7 @@
 
     <dependency>
       <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-simple</artifactId>
+      <artifactId>slf4j-log4j12</artifactId>
       <version>${version.slf4j.api}</version>
     </dependency>
 
@@ -469,6 +469,13 @@
       <groupId>antlr</groupId>
       <artifactId>antlr</artifactId>
       <version>${version.antlr}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>${version.log4j}</version>
       <scope>test</scope>
     </dependency>
 
@@ -703,7 +710,6 @@
                     <pathelement location="${commons-pool:commons-pool:jar}" />
                     <pathelement location="${net.sf.ehcache:ehcache-core:jar}" />
                     <pathelement location="${org.slf4j:slf4j-api:jar}" />
-                    <pathelement location="${org.slf4j:slf4j-simple:jar}" />
                     <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
                     <pathelement location="${antlr:antlr:jar}" />
                     <pathelement location="${org.apache.cxf:cxf-api:jar}" />
@@ -773,14 +779,13 @@
                         <pathelement location="${net.sf.ehcache:ehcache-core:jar}" />
                         <pathelement location="${org.slf4j:slf4j-api:jar}" />
                         <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
-                        <pathelement location="${org.slf4j:slf4j-simple:jar}" />
                         <pathelement location="${antlr:antlr:jar}" />
                         <pathelement location="${junit:junit:jar}" />
                         <pathelement location="${org.apache.cxf:cxf-api:jar}" />
                         <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
                         <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
                         <pathelement location="${org.apache.httpcomponents:httpclient:jar}" />
-                          <pathelement location="${org.apache.httpcomponents:httpcore:jar}" />
+                        <pathelement location="${org.apache.httpcomponents:httpcore:jar}" />
                         <pathelement location="${com.sun.xml.bind:jaxb-impl:jar}" />
                         <pathelement location="${commons-codec:commons-codec:jar}" />
                       </classpath>
@@ -836,7 +841,6 @@
                         <pathelement location="${net.sf.ehcache:ehcache-core:jar}" />
                         <pathelement location="${org.slf4j:slf4j-api:jar}" />
                         <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
-                        <pathelement location="${org.slf4j:slf4j-simple:jar}" />
                         <pathelement location="${antlr:antlr:jar}" />
                         <pathelement location="${junit:junit:jar}" />
                         <pathelement location="${org.apache.cxf:cxf-api:jar}" />
