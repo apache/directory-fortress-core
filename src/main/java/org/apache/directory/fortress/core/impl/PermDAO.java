@@ -487,6 +487,12 @@ final class PermDAO extends ApacheDsDataProvider
             // organizational name requires CN attribute:
             entry.add( SchemaConstants.CN_AT, entity.getName() );
                     
+            //default operator between attributes
+            if( StringUtils.isNotEmpty(entity.getDefaultOperator()) )
+            {
+                entry.add( GlobalIds.FT_PA_SET_DEFAULT_OPERATOR, entity.getDefaultOperator() );
+            }
+            
             // now add the new entry to directory:
             ld = getAdminConnection();
             add( ld, entry, entity );

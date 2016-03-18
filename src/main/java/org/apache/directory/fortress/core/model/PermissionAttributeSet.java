@@ -36,7 +36,8 @@ import javax.xml.bind.annotation.XmlType;
         "name",
         "attributes",
         "internalId",
-        "description"
+        "description",
+        "defaultOperator"
 })
 public class PermissionAttributeSet extends FortEntity {
 
@@ -46,6 +47,7 @@ public class PermissionAttributeSet extends FortEntity {
     private String internalId;
     private String description;
     private String dn;
+    private String defaultOperator;
 	
     public PermissionAttributeSet(String name){
     	this.name = name;
@@ -117,6 +119,14 @@ public class PermissionAttributeSet extends FortEntity {
 
 	public void setDn(String dn) {
 		this.dn = dn;
+	}
+
+	public String getDefaultOperator() {
+		return defaultOperator;
+	}
+
+	public void setDefaultOperator(String defaultOperator) {
+		this.defaultOperator = defaultOperator;
 	}
 
 }

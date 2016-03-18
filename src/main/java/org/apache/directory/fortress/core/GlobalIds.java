@@ -543,4 +543,9 @@ public final class GlobalIds
      * Attribute name for storing Fortress permission attribute set object names.
      */
     public static final String PERMISSION_ATTRIBUTE_SET_NAME = "ftAttributeSet";
+    
+    /**
+     * Attribute name for storing default operator of a PA set
+     */
+    public static final String FT_PA_SET_DEFAULT_OPERATOR = "ftPADefaultOperator";
 }
