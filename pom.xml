@@ -594,9 +594,6 @@
               <exclude>**/*.pem</exclude>
               <!-- EXTERNAL_CODE_EXCLUDES -->
               <exclude>**/CmdLineParser.java</exclude>
-              <!-- LICENSE_EXCLUDES -->
-              <exclude>**/lib/LICENSE*</exclude>
-              <exclude>**/LICENSE.cmdLineParser.txt</exclude>
               <!-- Exclude logs -->
               <exclude>**/*.log/**</exclude>
             </excludes>
