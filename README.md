@@ -782,7 +782,7 @@ ________________________________________________________________________________
 
  A. Fortress CheckAccess:
   ```
-  mvn test -Ploadtest-fortress jmeter:jmeter
+  mvn -Ploadtest-fortress jmeter:jmeter
   ```
 
  B. Fortress CreateSession:
