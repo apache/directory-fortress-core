@@ -41,8 +41,6 @@ import static org.junit.Assert.*;
 public class FortressCreateSession extends AbstractJavaSamplerClient
 {
     private AccessMgr accessMgr;
-    private boolean echoRequest = false;
-    private boolean returnResult = false;
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( FortressCreateSession.class );
     private static int count = 0;
     private int key = 0;
@@ -89,21 +87,6 @@ public class FortressCreateSession extends AbstractJavaSamplerClient
     }
 
     /**
-     * @param threadId
-     * @return
-     */
-    synchronized private String getKey( long threadId )
-    {
-        return threadId + "-" + count++;
-    }
-
-
-    private String getThreadId()
-    {
-        return "" + Thread.currentThread().getId();
-    }
-
-    /**
      * Description of the Method
      *
      * @param samplerContext Description of the Parameter
@@ -141,28 +124,13 @@ public class FortressCreateSession extends AbstractJavaSamplerClient
     {
         return ++count;
     }
-
-
-    /**
-     * Description of the Method
-     *
-     * @param samplerContext Description of the Parameter
-     */
-    public void setupTest2( JavaSamplerContext samplerContext )
+    synchronized private String getKey( long threadId )
     {
-        getKey( Thread.currentThread().getId() );
-        String message = "FT SETUP CreateSession TID: " + getThreadId();
-        LOG.info( message );
-        System.out.println( message );
-        try
-        {
-            accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
-        }
-        catch ( SecurityException se )
-        {
-            System.out.println( "ThreadId:" + getThreadId() + "FT SETUP Error: " + se );
-            se.printStackTrace();
-        }
+        return threadId + "-" + count++;
+    }
+    private String getThreadId()
+    {
+        return "" + Thread.currentThread().getId();
     }
 
     /**
