@@ -787,27 +787,27 @@ ________________________________________________________________________________
 
  B. Fortress CreateSession:
   ```
-  mvn test -Ploadtest-fortress-createsess
+  mvn -Ploadtest-fortress-createsess jmeter:jmeter
   ```
 
  C. Fortress SessionPermissions:
   ```
-  mvn test -Ploadtest-fortress-sessperms jmeter:jmeter
+  mvn -Ploadtest-fortress-sessperms jmeter:jmeter
   ```
 
  D. Accelerator CheckAccess:
   ```
-  mvn test -Ploadtest-accel jmeter:jmeter
+  mvn -Ploadtest-accel jmeter:jmeter
   ```
 
  E. Accelerator CreateSession:
   ```
-  mvn test -Ploadtest-accel-createsess
+  mvn -Ploadtest-accel-createsess jmeter:jmeter
   ```
 
  F. Accelerator SessionPermissions:
   ```
-  mvn test -Ploadtest-accel-sessperms jmeter:jmeter
+  mvn -Ploadtest-accel-sessperms jmeter:jmeter
   ```
 
  The tests will run and produce measurements for throughput and latency.
