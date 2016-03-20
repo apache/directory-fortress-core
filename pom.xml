@@ -890,7 +890,7 @@
               <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>
-                <version>${`}</version>
+                <version>${version.log4j}</version>
               </dependency>
               <dependency>
                 <groupId>org.apache.directory.fortress</groupId>
