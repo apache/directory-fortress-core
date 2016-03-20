@@ -747,9 +747,6 @@ ________________________________________________________________________________
  E. Accelerator CreateSession:
   [src/test/jmeter/acCreateSession.jmx](src/test/jmeter/acCreateSession.jmx)
 
- F. Accelerator SessionPermissions:
-  [src/test/jmeter/acSessionPerms.jmx](src/test/jmeter/acSessionPerms.jmx)
-
 
 3. Setting the jmeter parameters.
 
@@ -803,11 +800,6 @@ ________________________________________________________________________________
  E. Accelerator CreateSession:
   ```
   mvn -Ploadtest-accel-createsess jmeter:jmeter
-  ```
-
- F. Accelerator SessionPermissions:
-  ```
-  mvn -Ploadtest-accel-sessperms jmeter:jmeter
   ```
 
  The tests will run and produce measurements for throughput and latency.
