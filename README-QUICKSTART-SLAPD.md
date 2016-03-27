@@ -144,7 +144,7 @@ ________________________________________________________________________________
 ___________________________________________________________________________________
 ## SECTION 3. Apache Fortress Core Integration Test
 
-1. From **FORTRESS_HOME** enter the following commands:
+1. From fortress core base package, enter the following commands:
 
  ```
  mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
@@ -154,7 +154,7 @@ ________________________________________________________________________________
  These will build the Directory Information Tree, load the configuration node and security policy needed for integration testing.
  Never run in production environment as **refreshLDAPData.xml** tears down all nodes under the target suffix.
 
-2. Next, from **FORTRESS_HOME** enter the following command:
+2. Next, enter the following command:
 
  ```
  mvn -Dtest=FortressJUnitTest test
