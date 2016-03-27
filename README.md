@@ -132,7 +132,7 @@ This document describes three options to use Apache Fortress with:
 ___________________________________________________________________________________
 ## SECTION 4. Instructions for using Apache Fortress and ApacheDS LDAP server
 
- * Follow these instructions: [README-TEN-MINUTE-GUIDE](./README-TEN-MINUTE-GUIDE.md)
+ * Follow these instructions: [README-QUICKSTART-APACHEDS](./README-QUICKSTART-APACHEDS.md)
 
 ___________________________________________________________________________________
 ## SECTION 5. Instructions for using Apache Fortress and Symas OpenLDAP server
