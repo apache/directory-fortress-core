@@ -26,9 +26,10 @@
 
  * SECTION 1. Prerequisites
  * SECTION 2. Apache Fortress Core and OpenLDAP Setup
- * SECTION 3. Apache Tomcat Setup
- * SECTION 4. Apache Fortress Rest Setup
- * SECTION 5. Apache Fortress Web Setup
+ * SECTION 3. Apache Fortress Core Integration Test
+ * SECTION 4. Apache Tomcat Setup
+ * SECTION 5. Apache Fortress Rest Setup
+ * SECTION 6. Apache Fortress Web Setup
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
@@ -141,16 +142,96 @@ ________________________________________________________________________________
 
  *Use ant to install Symas OpenLDAP to target machine.*
 
-12. More steps to follow in the [README](README.md) file:
+___________________________________________________________________________________
+## SECTION 3. Apache Fortress Core Integration Test
 
- * SECTION 9.  Instructions to integration test.
+1. From **FORTRESS_HOME** enter the following commands:
+
+ ```
+ mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
+ mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml
+ ```
+
+ These will build the Directory Information Tree, load the configuration node and security policy needed for integration testing.
+ Never run in production environment as **refreshLDAPData.xml** tears down all nodes under the target suffix.
+
+2. Next, from **FORTRESS_HOME** enter the following command:
+
+ ```
+ mvn -Dtest=FortressJUnitTest test
+ ```
+
+ Tests that all of the APIs and security functions work on your LDAP server.
+
+3. Verify the tests worked:
+
+ ```
+ Tests run: 113, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 196 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
+
+ Results :
+
+ Tests run: 113, Failures: 0, Errors: 0, Skipped: 0
+
+ [INFO]
+ [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
+ [INFO] Executing tasks
+
+ fortress-load:
+ [INFO] Executed tasks
+ [INFO] ------------------------------------------------------------------------
+ [INFO] BUILD SUCCESS
+ [INFO] ------------------------------------------------------------------------
+ [INFO] Total time: 03:19 min
+ [INFO] Finished at: 2016-01-07T09:28:18-06:00
+ [INFO] Final Memory: 27M/532M
+ [INFO] ------------------------------------------------------------------------
+ ```
+
+4. Rerun the tests to verify teardown APIs work:
+
+ ```
+ mvn -Dtest=FortressJUnitTest test
+ ```
+
+5. Verify that worked also:
+
+ ```
+ Tests run: 141, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 207.081 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
+
+ Results :
+
+ Tests run: 141, Failures: 0, Errors: 0, Skipped: 0
+
+ [INFO]
+ [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
+ [INFO] Executing tasks
+
+ fortress-load:
+ [INFO] Executed tasks
+ [INFO] ------------------------------------------------------------------------
+ [INFO] BUILD SUCCESS
+ [INFO] ------------------------------------------------------------------------
+ [INFO] Total time: 03:30 min
+ [INFO] Finished at: 2016-01-07T09:33:11-06:00
+ [INFO] Final Memory: 27M/531M
+ [INFO] ------------------------------------------------------------------------
+ ```
+ Notice 141 tests ran this time vs 113 the first time.
+
+ Test Notes:
+  * If tests complete without errors Apache Fortress works with your LDAP server.
+  * These tests load thousands of objects into the target ldap server.
+  * Warning messages are negative tests in action.
+
+6. More stuff you can do in the [README](README.md) file:
+
  * SECTION 11. Instructions to run the Apache Fortress Command Line Interpreter (CLI).
  * SECTION 12. Instructions to run the Apache Fortress Command Console.
  * SECTION 13. Instructions to build and test the Apache Fortress samples.
  * SECTION 14. Instructions to performance test.
 
 ___________________________________________________________________________________
-## SECTION 3. Apache Tomcat Setup
+## SECTION 4. Apache Tomcat Setup
 
 During this section, you will be asked to setup Apache Tomcat 8 and prepare for usage with Apache Fortress
 
@@ -253,7 +334,7 @@ During this section, you will be asked to setup Apache Tomcat 8 and prepare for 
  ```
 
 ___________________________________________________________________________________
-## SECTION 4. Apache Fortress Rest Setup
+## SECTION 5. Apache Fortress Rest Setup
 
 During this section, you will be asked to setup Apache Fortress Rest Application
 
@@ -285,7 +366,7 @@ During this section, you will be asked to setup Apache Fortress Rest Application
  ```
 
 ___________________________________________________________________________________
-## SECTION 5. Apache Fortress Web Setup
+## SECTION 6. Apache Fortress Web Setup
 
 During this section, you will be asked to setup Apache Fortress Web Application
 
