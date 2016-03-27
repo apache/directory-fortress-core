@@ -26,10 +26,9 @@
 
  * SECTION 1. Prerequisites
  * SECTION 2. Apache Fortress Core and OpenLDAP Setup
- * SECTION 3. Apache Fortress Realm Setup
- * SECTION 4. Apache Tomcat Setup
- * SECTION 5. Apache Fortress Rest Setup
- * SECTION 6. Apache Fortress Web Setup
+ * SECTION 3. Apache Tomcat Setup
+ * SECTION 4. Apache Fortress Rest Setup
+ * SECTION 5. Apache Fortress Web Setup
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
@@ -150,25 +149,7 @@ ________________________________________________________________________________
  * SECTION 14. Instructions to performance test.
 
 ___________________________________________________________________________________
-## SECTION 3. Apache Fortress Realm Setup
-
-During this section, you will be asked to setup Apache Fortress Realm.
-
-1. Download and prepare:
-
- ```
- git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-realm.git
- cd directory-fortress-realm
- ```
-
-2. Build:
-
- ```
- mvn clean install
- ```
-
-___________________________________________________________________________________
-## SECTION 4. Apache Tomcat Setup
+## SECTION 3. Apache Tomcat Setup
 
 During this section, you will be asked to setup Apache Tomcat 8 and prepare for usage with Apache Fortress
 
@@ -181,11 +162,11 @@ During this section, you will be asked to setup Apache Tomcat 8 and prepare for 
  ```
  *Change the tomcat version as neeeded - v7 and beyond are ok.*
 
-2. Copy the fortress realm proxy jar into tomcat/lib folder:
+2. Download the fortress realm proxy jar into tomcat/lib folder:
 
- ```
- sudo cp ./directory-fortress-realm/proxy/target/fortress-realm-proxy-1.0-RC41-SNAPSHOT.jar /usr/local/tomcat8/lib
- ```
+  ```
+  sudo wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/1.0-RC42/fortress-realm-proxy-1.0-RC42.jar -P /usr/local/tomcat8/lib
+  ```
 
 3. Prepare tomcat fortress usage:
 
@@ -204,113 +185,140 @@ During this section, you will be asked to setup Apache Tomcat 8 and prepare for 
 
 5. Save and exit tomcat-users.xml file
 
-6. Start tomcat server:
+6. Configure Tomcat as a service (optional)
+
+ a. Edit the config file:
+
+ ```
+ vi /etc/init.d/tomcat
+ ```
+
+ b. Add the following:
+
+ ```
+ #!/bin/bash
+ # description: Tomcat Start Stop Restart
+ # processname: tomcat
+ # chkconfig: 234 20 80
+ CATALINA_HOME=/usr/local/tomcat8
+ case $1 in
+ start)
+ sh $CATALINA_HOME/bin/startup.sh
+ ;;
+ stop)
+ sh $CATALINA_HOME/bin/shutdown.sh
+ ;;
+ restart)
+ sh $CATALINA_HOME/bin/shutdown.sh
+ sh $CATALINA_HOME/bin/startup.sh
+ ;;
+ esac
+ exit 0
+ ```
+
+ c. Add the init script to startup for run level 2, 3 and 4:
+
+ ```
+ cd /etc/init.d
+ chmod 755 tomcat
+ chkconfig --add tomcat
+ chkconfig --level 234 tomcat on
+ ```
+
+7. Start tomcat server:
+
+ a. If running Tomcat as a service:
+
+ ```
+ service tomcat start
+ ```
+
+ b. Else
 
  ```
  sudo /usr/local/tomcat8/bin/startup.sh
  ```
 
-7.  Verify clean logs after startup:
+8.  Verify clean logs after startup:
 
  ```
  tail -f -n10000 /usr/local/tomcat8/logs/catalina.out
  ```
 
-8.  Verify setup by signing onto the Tomcat Manager app with credentials userId: tcmanagergui, password: m@nager123
+9.  Verify setup by signing onto the Tomcat Manager app with credentials userId: tcmanagergui, password: m@nager123
 
  ```
  http://hostname:8080/manager
  ```
 
 ___________________________________________________________________________________
-## SECTION 5. Apache Fortress Rest Setup
+## SECTION 4. Apache Fortress Rest Setup
 
 During this section, you will be asked to setup Apache Fortress Rest Application
 
 1. Download and prepare the package:
 
  ```
- git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git
- cp ./directory-fortress-core/config/fortress.properties ./directory-fortress-enmasse/src/main/resources
- cd directory-fortress-enmasse
+ wget http://www.apache.org/dist/directory/fortress/dist/1.0-RC42/fortress-rest-1.0-RC42-source-release.zip
+ unzip fortress-rest-1.0-RC42-source-release.zip
+ cp ./directory-fortress-core/config/fortress.properties ./fortress-rest-1.0-RC42/src/main/resources
+ cd fortress-rest-1.0-RC42
  ```
 
-2. Build:
+
+2. Build, perform fortress rest test policy load and deploy to Tomcat:
 
  ```
- mvn clean install
+ mvn clean install -Dload.file=./src/main/resources/FortressRestServerPolicy.xml tomcat:deploy
  ```
 
-3. Perform fortress rest test policy load:
-
- ```
- mvn install -Dload.file=./src/main/resources/FortressRestServerPolicy.xml
- ```
-
-4. Deploy:
-
- ```
- mvn tomcat:deploy
- ```
-
-5. Redeploy (if need be):
+3. Redeploy (if need be):
 
  ```
  mvn tomcat:redeploy
  ```
 
-6. Smoke test:
+4. Smoke test:
 
  ```
  mvn test -Dtest=EmTest
  ```
 
 ___________________________________________________________________________________
-## SECTION 6. Apache Fortress Web Setup
+## SECTION 5. Apache Fortress Web Setup
 
 During this section, you will be asked to setup Apache Fortress Web Application
 
 1. Download and prepare the package:
 
  ```
- git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
- cp ./directory-fortress-core/config/fortress.properties ./directory-fortress-commander/src/main/resources
- cd directory-fortress-commander
+ wget http://www.apache.org/dist/directory/fortress/dist/1.0-RC42/fortress-web-1.0-RC42-source-release.zip
+ unzip fortress-web-1.0-RC42-source-release.zip
+ cp ./directory-fortress-core/config/fortress.properties ./fortress-web-1.0-RC42/src/main/resources
+ cd fortress-web-1.0-RC42
  ```
 
-2. Build:
+2. Build, perform fortress web test policy load and deploy to Tomcat:
 
  ```
- mvn clean install
+ mvn clean install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml tomcat:deploy
  ```
 
-3. Perform fortress web test policy load:
-
- ```
- mvn install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml
- ```
-
-4. Deploy:
-
- ```
- mvn tomcat:deploy
- ```
-
-5. Redeploy (if need be):
+3. Redeploy (if need be):
 
  ```
  mvn tomcat:redeploy
  ```
 
-6. Open browser and test (creds: test/password):
+4. Open browser and test (creds: test/password):
 
  ```
  http://hostname:8080/fortress-web
  ```
 
-7. Click on the links, to pull up various views on the data stored in the directory.
+5. Click on the links, to pull up various views on the data stored in the directory.
 
-8. Run the selenium automated test:
+6. Run the selenium automated test:
 
  ```
  mvn test -Dtest=FortressWebSeleniumITCase
