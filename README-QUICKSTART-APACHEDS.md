@@ -16,13 +16,16 @@
    specific language governing permissions and limitations
    under the License.
 
-# Apache Fortress and ApacheDS QUICKSTART
+# ApacheDS & Fortress QUICKSTART
+
+ Apache Fortress 1.0-RC42 and ApacheDS Quickstart System Architecture
+ ![ApacheDS & Fortress System Architecture](images/fortress-apacheds-system-arch.png "ApacheDS & Fortress System Architecture")
 
 -------------------------------------------------------------------------------
 ## Table of Contents
 
  * SECTION 1. Prerequisites
- * SECTION 2. ApacheDS Setup
+ * SECTION 2. ApacheDS Installation
  * SECTION 3. Apache Fortress Core Setup
  * SECTION 4. Apache Fortress Core Integration Test
  * SECTION 5. Apache Tomcat Setup
@@ -38,14 +41,12 @@ Minimum hardware requirements:
 
 Minimum software requirements:
  * Java SDK 7++
- * git
- * Apache Ant 1.7++
  * Apache Maven3++
 
 Everything else covered in steps that follow.  Tested on Debian & Centos systems.
 
 ___________________________________________________________________________________
-## SECTION 2. ApacheDS Setup
+## SECTION 2. ApacheDS Installation
 
 1. Download and install Apache Directory Server
 
@@ -180,11 +181,11 @@ ________________________________________________________________________________
 3. Verify the tests worked:
 
  ```
- Tests run: 113, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 196 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
+ Tests run: 83, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 372.708 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
 
  Results :
 
- Tests run: 113, Failures: 0, Errors: 0, Skipped: 0
+ Tests run: 83, Failures: 0, Errors: 0, Skipped: 0
 
  [INFO]
  [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
@@ -195,10 +196,9 @@ ________________________________________________________________________________
  [INFO] ------------------------------------------------------------------------
  [INFO] BUILD SUCCESS
  [INFO] ------------------------------------------------------------------------
- [INFO] Total time: 03:19 min
- [INFO] Finished at: 2016-01-07T09:28:18-06:00
- [INFO] Final Memory: 27M/532M
- [INFO] ------------------------------------------------------------------------
+ [INFO] Total time: 6:21.897s
+ [INFO] Finished at: Sun Mar 27 14:52:13 UTC 2016
+ [INFO] Final Memory: 31M/356M
  ```
 
 4. Rerun the tests to verify teardown APIs work:
@@ -210,11 +210,11 @@ ________________________________________________________________________________
 5. Verify that worked also:
 
  ```
- Tests run: 141, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 207.081 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
+ Tests run: 109, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 778.501 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
 
  Results :
 
- Tests run: 141, Failures: 0, Errors: 0, Skipped: 0
+ Tests run: 109, Failures: 0, Errors: 0, Skipped: 0
 
  [INFO]
  [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
@@ -225,19 +225,19 @@ ________________________________________________________________________________
  [INFO] ------------------------------------------------------------------------
  [INFO] BUILD SUCCESS
  [INFO] ------------------------------------------------------------------------
- [INFO] Total time: 03:30 min
- [INFO] Finished at: 2016-01-07T09:33:11-06:00
- [INFO] Final Memory: 27M/531M
+ [INFO] Total time: 13:08.304s
+ [INFO] Finished at: Sun Mar 27 15:08:41 UTC 2016
+ [INFO] Final Memory: 27M/357M
  [INFO] ------------------------------------------------------------------------
  ```
- Notice 141 tests ran this time vs 113 the first time.
+ Notice 109 tests ran this time vs 83 the first time.
 
  Test Notes:
-  * If tests complete without errors Apache Fortress works with your LDAP server.
+  * If tests complete without errors Fortress works with your Apache Directory server.
   * These tests load thousands of objects into the target ldap server.
   * Warning messages are negative tests in action.
 
-6. More stuff you can do in the [README](README.md) file:
+6. More stuff to do in the [README](README.md) file:
 
  * SECTION 11. Instructions to run the Apache Fortress Command Line Interpreter (CLI).
  * SECTION 12. Instructions to run the Apache Fortress Command Console.

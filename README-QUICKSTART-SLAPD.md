@@ -16,10 +16,10 @@
    specific language governing permissions and limitations
    under the License.
 
-# Apache Fortress and OpenLDAP QUICKSTART
+# OpenLDAP & Fortress QUICKSTART
 
- Apache Fortress Version 1.0-RC42 System Architecture Diagram
- ![OpenLDAP Accelerator System Architecture](images/fortress-openldap-accel-system-arch.png "OpenLDAP & Apache Fortress System Architecture")
+ Apache Fortress 1.0-RC42 and OpenLDAP Quickstart System Architecture
+ ![OpenLDAP & Fortress System Architecture](images/fortress-openldap-accel-system-arch.png "OpenLDAP & Fortress System Architecture")
 
 -------------------------------------------------------------------------------
 ## Table of Contents
@@ -40,7 +40,6 @@ Minimum hardware requirements:
 
 Minimum software requirements:
  * Java SDK 7++
- * git
  * Apache Ant 1.7++
  * Apache Maven3++
 
@@ -219,7 +218,7 @@ ________________________________________________________________________________
  Notice 141 tests ran this time vs 113 the first time.
 
  Test Notes:
-  * If tests complete without errors Apache Fortress works with your LDAP server.
+  * If tests complete without errors Apache Fortress works with your OpenLDAP server.
   * These tests load thousands of objects into the target ldap server.
   * Warning messages are negative tests in action.
 
