@@ -50,8 +50,9 @@ ________________________________________________________________________________
 1. Download and prepare the package:
 
  ```
- git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
- cd directory-fortress-core
+ wget http://www.apache.org/dist/directory/fortress/dist/1.0-RC42/fortress-core-1.0-RC42-source-release.zip
+ unzip fortress-core-1.0-RC42-source-release.zip
+ cd fortress-core-1.0-RC42
  cp build.properties.example build.properties
  cp slapd.properties.example slapd.properties
  ```
@@ -61,7 +62,7 @@ ________________________________________________________________________________
 2. Download Symas OpenLDAP Silver Binaries:
  https://symas.com/downloads/
 
-3. Place it under this folder: [directory-fortress-core/ldap](./ldap)
+3. Place it under this folder: [fortress-core-[VERSION]/ldap](./ldap)
 
 4. Edit the slapd install properties file:
 
@@ -261,10 +262,9 @@ During this section, you will be asked to setup Apache Fortress Rest Application
  ```
  wget http://www.apache.org/dist/directory/fortress/dist/1.0-RC42/fortress-rest-1.0-RC42-source-release.zip
  unzip fortress-rest-1.0-RC42-source-release.zip
- cp ./directory-fortress-core/config/fortress.properties ./fortress-rest-1.0-RC42/src/main/resources
+ cp ./fortress-core-1.0-RC42/config/fortress.properties ./fortress-rest-1.0-RC42/src/main/resources
  cd fortress-rest-1.0-RC42
  ```
-
 
 2. Build, perform fortress rest test policy load and deploy to Tomcat:
 
@@ -294,7 +294,7 @@ During this section, you will be asked to setup Apache Fortress Web Application
  ```
  wget http://www.apache.org/dist/directory/fortress/dist/1.0-RC42/fortress-web-1.0-RC42-source-release.zip
  unzip fortress-web-1.0-RC42-source-release.zip
- cp ./directory-fortress-core/config/fortress.properties ./fortress-web-1.0-RC42/src/main/resources
+ cp ./fortress-core-1.0-RC42/config/fortress.properties ./fortress-web-1.0-RC42/src/main/resources
  cd fortress-web-1.0-RC42
  ```
 
