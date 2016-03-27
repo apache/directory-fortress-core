@@ -36,9 +36,9 @@
 ___________________________________________________________________________________
 ## Document Overview
 
-This document contains instructions to download, install and test Apache Fortress
-Core, Web and Rest components with an Apache Directory server.  All of the instructions
-to complete these tasks (including ApacheDS installation) are contained within.
+ * This document contains instructions to download, install and test Apache Fortress Core, Web and Rest components with an Apache Directory server.
+ * All of the instructions to complete these tasks (including ApacheDS installation) are contained within.
+ * Uses Fortress version 1.0-RC42
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
