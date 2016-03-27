@@ -24,12 +24,20 @@
 -------------------------------------------------------------------------------
 ## Table of Contents
 
+ * Document Overview
  * SECTION 1. Prerequisites
  * SECTION 2. Apache Fortress Core and OpenLDAP Setup
  * SECTION 3. Apache Fortress Core Integration Test
  * SECTION 4. Apache Tomcat Setup
  * SECTION 5. Apache Fortress Rest Setup
  * SECTION 6. Apache Fortress Web Setup
+
+___________________________________________________________________________________
+## Document Overview
+
+This document contains instructions to download, install and test Apache Fortress
+Core, Web and Rest components with an OpenLDAP server.  All of the instructions
+to complete these tasks (including OpenLDAP installation) are contained within.
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
@@ -144,7 +152,7 @@ ________________________________________________________________________________
 ___________________________________________________________________________________
 ## SECTION 3. Apache Fortress Core Integration Test
 
-1. From fortress core base package, enter the following commands:
+1. From fortress core base folder, enter the following commands:
 
  ```
  mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
@@ -222,7 +230,7 @@ ________________________________________________________________________________
   * These tests load thousands of objects into the target ldap server.
   * Warning messages are negative tests in action.
 
-6. More stuff you can do in the [README](README.md) file:
+6. Optional sections in the [README](README.md) file:
 
  * SECTION 11. Instructions to run the Apache Fortress Command Line Interpreter (CLI).
  * SECTION 12. Instructions to run the Apache Fortress Command Console.
