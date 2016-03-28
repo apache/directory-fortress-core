@@ -23,7 +23,7 @@
       <!-- ########### Project specific properties ########################### -->
       <property name="name" value="fortress"/>
       <property name="version" value="1.0.0-rc1"/>
-      <property name="title" value="Fortress Identity and Access Management Samples LDAP SDK for Java ${version}"/>
+      <property name="title" value="Fortress Access Management Samples LDAP SDK for Java ${version}"/>
       <property name="vendor" value="Joshua Tree Software, LLC"/>
       <property name="package.samples" value="org.apache.directory.fortress.*"/>
       <property name="project.name" value="Fortress Identity Access Management SDK"/>
