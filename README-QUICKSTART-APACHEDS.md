@@ -87,10 +87,10 @@ ________________________________________________________________________________
 4. Add location of java:
 
  ```
- wrapper.java.command=/path/java/bin/java
+ wrapper.java.command=/usr/bin/java
  ```
 
- *Where 'path' equals fully qualified location of target machine's java.*
+ *contains fully qualified location of target machine's java.*
 
 5. Save and exit.
 
