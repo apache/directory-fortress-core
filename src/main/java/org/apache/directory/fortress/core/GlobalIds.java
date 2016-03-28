@@ -38,6 +38,8 @@ import org.apache.directory.fortress.core.util.Config;
  */
 public final class GlobalIds
 {
+    public static final String CONFIG_ROOT_PARAM = "config.root";
+
     /**
      * Private constructor
      *

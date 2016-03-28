@@ -149,7 +149,7 @@ public abstract class ApacheDsDataProvider
     static
     {
         String host = Config.getProperty( GlobalIds.LDAP_HOST, "localhost" );
-        int port = Config.getInt( GlobalIds.LDAP_PORT, 10389 );
+        int port = Config.getInt( GlobalIds.LDAP_PORT, 389 );
         int min = Config.getInt( GlobalIds.LDAP_ADMIN_POOL_MIN, 1 );
         int max = Config.getInt( GlobalIds.LDAP_ADMIN_POOL_MAX, 10 );
         int logmin = Config.getInt( LDAP_LOG_POOL_MIN, 1 );

@@ -84,14 +84,24 @@ The ant config task, **init-fortress-config**, uses the values found within the 
  * fortress.trust.store.password
  * fortress.trust.store.set.prop
  * fortress.config.realm
+ * fortress.config.root
  * fortress.ldap.server.type
+
+ The minimum system.properties to enable fortress apis to work:
+  * fortress.admin.user
+  * fortress.admin.pw=secret
+  * fortress.config.root=ou=Config,dc=example,dc=com
+
+ If the ldap host and port are not localhost:389 set these two:
+ * fortress.host
+ * fortress.port
 
 ___________________________________________________________________________________
 ## SECTION 5.  Precedence of Artifacts found in the Fortress Configuration Subsystem
 
 This subsystem has been hard wired to the following order:
  1. fortress.properties file - found on the classpath of that name.
- 2. Java system properties - to override any of the 13 properties listed above.
+ 2. Java system properties - to override any of the 14 properties listed above.
  3. LDAP configuration node - found by config coordinates set in the fortress.properties file itself.
 
 __________________________________________________________________________________
@@ -126,7 +136,6 @@ Or B:
 
 A refreshes the entire LDAP server DIT, deletes of all entries under the suffix, recreating the DIT node structure, and re-adding of the config node.
 B just updates the config node with the new values, preserving the other data.
-
 
 ### More notes:
  * Use caution when running the **refreshLDAPData.xml** script.  It deletes all nodes below the suffix before readding.

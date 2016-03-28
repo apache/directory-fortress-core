@@ -66,6 +66,7 @@ public final class Config
     private static final String EXT_TRUST_STORE_PW = "fortress.trust.store.password";
     private static final String EXT_SET_TRUST_STORE_PROP = "fortress.trust.store.set.prop";
     private static final String EXT_CONFIG_REALM = "fortress.config.realm";
+    private static final String EXT_CONFIG_ROOT_DN = "fortress.config.root";
     private static final String EXT_SERVER_TYPE = "fortress.ldap.server.type";
     private static final PropertiesConfiguration config;
     private static final String CLS_NM = Config.class.getName();
@@ -77,20 +78,19 @@ public final class Config
         {
             // Load the system config file.
             URL fUrl = Config.class.getClassLoader().getResource( propFile );
-
+            config = new PropertiesConfiguration();
+            config.setDelimiterParsingDisabled( true );
             if ( fUrl == null )
             {
                 String error = "static init: Error, null cfg file: " + propFile;
-                LOG.error( error );
-                throw new java.lang.RuntimeException( error );
+                LOG.warn( error );
             }
-
-            LOG.info( "static init: found from: {} path: {}", propFile, fUrl.getPath() );
-
-            config = new PropertiesConfiguration();
-            config.setDelimiterParsingDisabled( true );
-            config.load( fUrl );
-            LOG.info( "static init: loading from: {}", propFile );
+            else
+            {
+                LOG.info( "static init: found from: {} path: {}", propFile, fUrl.getPath() );
+                config.load( fUrl );
+                LOG.info( "static init: loading from: {}", propFile );
+            }
 
             URL fUserUrl = Config.class.getClassLoader().getResource( userPropFile );
             if ( fUserUrl != null )
@@ -104,7 +104,7 @@ public final class Config
             getExternalConfig();
 
             // Retrieve parameters from the config node stored in target LDAP DIT:
-            String realmName = config.getString( GlobalIds.CONFIG_REALM );
+            String realmName = config.getString( GlobalIds.CONFIG_REALM, "DEFAULT" );
             if ( realmName != null && realmName.length() > 0 )
             {
                 LOG.info( "static init: load config realm [{}]", realmName );
@@ -491,6 +491,14 @@ public final class Config
         {
             config.setProperty( GlobalIds.CONFIG_REALM, szValue );
             LOG.info( PREFIX, GlobalIds.CONFIG_REALM, szValue );
+        }
+
+        // Check to see if the config realm name has been overridden by a system property:
+        szValue = System.getProperty( EXT_CONFIG_ROOT_DN );
+        if( StringUtils.isNotEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.CONFIG_ROOT_PARAM, szValue );
+            LOG.info( PREFIX, GlobalIds.CONFIG_ROOT_PARAM, szValue );
         }
 
         // Check to see if the ldap server type has been overridden by a system property:
