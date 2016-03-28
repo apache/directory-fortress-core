@@ -44,7 +44,8 @@ public final class CacheMgr
 
     static
     {
-        String cacheConfig = Config.getProperty( EHCACHE_CONFIG_FILE );
+        // Use default name of 'ehache.xml':
+        String cacheConfig = Config.getProperty( EHCACHE_CONFIG_FILE, "ehcache.xml" );
         try
         {
             // This static block performs the following:
