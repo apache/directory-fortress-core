@@ -310,6 +310,7 @@
       <groupId>org.apache.directory.jdbm</groupId>
       <artifactId>apacheds-jdbm1</artifactId>
       <version>${version.apache.jdbm1}</version>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
