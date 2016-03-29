@@ -47,6 +47,7 @@ Minimum hardware requirements:
  * 4GB RAM
 
 Minimum software requirements:
+ * Centos or Debian Machine
  * Java SDK 7++
  * Apache Ant 1.7++
  * Apache Maven3++
@@ -67,24 +68,21 @@ ________________________________________________________________________________
 
  *[slapd.properties.example](slapd.properties.example) is where the OpenLDAP server defaults reside. This file, after being renamed to slapd.properties, will override values found in build.properties. Learn more about the configuration subsystem: [README-CONFIG](README-CONFIG.md)*
 
-2. Download Symas OpenLDAP Silver Binaries:
+2. Download Symas OpenLDAP Silver *Full Server and Client Installation*:
  https://symas.com/downloads/
 
-3. Place it under this folder: [fortress-core-[VERSION]/ldap](./ldap)
+ ![Symas OpenLDAP Download Page](images/sol-silver-downloads.png)
+  *SILVER downloads don't require a registration.*
 
-4. Edit the slapd install properties file:
+3. Place either a centos or debian package under the folder named *ldap* : [fortress-core-[VERSION]/ldap](./ldap)
+
+4. Edit the *slapd.properties* file:
 
  ```
  vi slapd.properties
  ```
 
-5. Add sudo pw to run install script (if running slapd with sudo per step 10):
-
- ```
- sudo.pw=mysudopassword
- ```
-
-6. Update with slapd install for package downladed.
+5. Update with slapd.properties *slapd.install* statement with reference to openldap pkg downloaded earlier.
 
  a. For Debian installs:
 
@@ -98,7 +96,7 @@ ________________________________________________________________________________
   slapd.install=rpm -i symas-openldap-silver.version.platform.rpm
   ```
 
-7. Specify whether you want to enable slapo-rbac overlay:
+6. Specify whether you want to enable the slapo-rbac overlay:
 
  a. Yes, I want to enable slapo-rbac:
 
@@ -114,26 +112,27 @@ ________________________________________________________________________________
   rbac.accelerator=false
   ```
 
-8. Save and exit
+7. Save and exit
 
-9. Prepare your terminal for execution of maven and ant commands.
+8. Prepare your terminal for execution of maven and ant commands.
 
  ```
- export JAVA_HOME=[my-jdk]
- export ANT_HOME=[my-ant]
- export M2_HOME=[my-mvn]
+ #!/bin/sh
+ export M2_HOME=...
+ export JAVA_HOME=...
+ export ANT_HOME=...
  export PATH=$PATH:$ANT_HOME/bin:$M2_HOME/bin
  ```
 
-10. Run the maven install:
+9. Run the maven install:
 
  ```
  mvn clean install
  ```
 
- *Use maven to build the software package*
+ *maven is used to build the software package and prepare its config*
 
-11. Install, configure and load openldap with DIT and seed data:
+10. Install, configure and load openldap server:
 
  a. If sudo:
 
@@ -159,8 +158,7 @@ ________________________________________________________________________________
  mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml
  ```
 
- These will build the Directory Information Tree, load the configuration node and security policy needed for integration testing.
- Never run in production environment as **refreshLDAPData.xml** tears down all nodes under the target suffix.
+ *These will build the Directory Information Tree (DIT), create the config and data policies needed for the integration test to follow.*
 
 2. Next, enter the following command:
 
@@ -168,7 +166,7 @@ ________________________________________________________________________________
  mvn -Dtest=FortressJUnitTest test
  ```
 
- Tests that all of the APIs and security functions work on your LDAP server.
+ *Tests the APIs against your LDAP server.*
 
 3. Verify the tests worked:
 

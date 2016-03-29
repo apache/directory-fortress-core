@@ -48,6 +48,7 @@ Minimum hardware requirements:
  * 4GB RAM
 
 Minimum software requirements:
+ * Centos or Debian Machine
  * Java SDK 7++
  * Apache Maven3++
 
@@ -123,8 +124,9 @@ ________________________________________________________________________________
 2. Prepare your terminal for execution of maven commands.
 
  ```
- export JAVA_HOME=[my-jdk]
- export M2_HOME=[my-mvn]
+ export JAVA_HOME=...
+ export M2_HOME=...
+ export PATH=$PATH:$M2_HOME/bin
  ```
 
 3. Build fortress core. This step will generate config artifacts using settings from build.properties.
@@ -175,8 +177,7 @@ ________________________________________________________________________________
  mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml
  ```
 
- These will build the Directory Information Tree, load the configuration node and security policy needed for integration testing.
- Never run in production environment as **refreshLDAPData.xml** tears down all nodes under the target suffix.
+ *These will build the Directory Information Tree (DIT), create the config and data policies needed for the integration test to follow.*
 
 2. Next, enter the following command:
 
@@ -184,7 +185,7 @@ ________________________________________________________________________________
  mvn -Dtest=FortressJUnitTest test
  ```
 
- Tests that all of the APIs and security functions work on your LDAP server.
+ *Tests the APIs against your LDAP server.*
 
 3. Verify the tests worked:
 
