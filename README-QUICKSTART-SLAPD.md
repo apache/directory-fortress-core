@@ -35,7 +35,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * This document contains instructions to download, install and test Apache Fortress Core, Web and Rest components with an OpenLDAP server.
+ * This document contains instructions to install Apache Fortress Core, Web and Rest components with OpenLDAP.
  * All of the instructions to complete these tasks (including OpenLDAP installation) are contained within.
  * Uses Fortress version 1.0-RC42
 
@@ -72,6 +72,7 @@ ________________________________________________________________________________
  https://symas.com/downloads/
 
  ![Symas OpenLDAP Download Page](images/sol-silver-downloads.png)
+
   *SILVER downloads don't require a registration.*
 
 3. Place either a centos or debian package under the folder named *ldap* : [fortress-core-[VERSION]/ldap](./ldap)
@@ -82,7 +83,7 @@ ________________________________________________________________________________
  vi slapd.properties
  ```
 
-5. Update with slapd.properties *slapd.install* statement with reference to openldap pkg downloaded earlier.
+5. Update the *slapd.properties* file *slapd.install* statement with a reference to the openldap install downloaded earlier.
 
  a. For Debian installs:
 
