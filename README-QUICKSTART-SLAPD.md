@@ -35,7 +35,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * This document contains instructions to install Apache Fortress Core, Web and Rest components with OpenLDAP.
+ * This document contains instructions to install Apache Fortress Core, Web and Rest with OpenLDAP.
  * All of the instructions to complete these tasks (including OpenLDAP installation) are contained within.
  * Uses Fortress version 1.0-RC42
 
