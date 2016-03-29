@@ -117,7 +117,7 @@ ________________________________________________________________________________
  cp build.properties.example build.properties
  ```
 
- *[build.properties.example](build.properties.example) is where the ApacheDS server defaults reside. This file, after being renamed to slapd.properties, will override values found in build.properties. Learn more about the configuration subsystem: [README-CONFIG](README-CONFIG.md)*
+ *[build.properties.example](build.properties.example) contains the apacheds default config. Learn more about the config here: [README-CONFIG](README-CONFIG.md)*
 
 2. Prepare your terminal for execution of maven commands.
 

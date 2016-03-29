@@ -64,7 +64,7 @@ ________________________________________________________________________________
  cp slapd.properties.example slapd.properties
  ```
 
- *[slapd.properties.example](slapd.properties.example) contains the slapd default config. Learn more about the config here: [README-CONFIG](README-CONFIG.md)*
+ *[slapd.properties.example](slapd.properties.example) contains the slapd default config. Learn more about how the config works: [README-CONFIG](README-CONFIG.md)*
 
 2. Download Symas OpenLDAP Silver *Full Server and Client Installation*:
  https://symas.com/downloads/
