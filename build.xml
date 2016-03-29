@@ -420,7 +420,6 @@
           ================================= -->
     <target name="build" depends="clean,build-jar,build-jar-test,javadoc,javadoc-samples" description="--> create the core Fortress library">
        <copy todir="${dist.dir}" file="${basedir}/LICENSE"/>
-       <copy todir="${dist.dir}" file="${basedir}/LICENSE.slf4j.txt"/>
        <copy todir="${dist.dir}" file="${basedir}/NOTICE"/>
     </target>
 
@@ -1093,7 +1092,6 @@
         <exec dir="." executable="/bin/sh">
             <arg line="${uninstall.slapd.script}"/>
             <arg value="${slapd.uninstall}"/>
-            <arg value="${sudo.pw}"/>
         </exec>
     </target>
 
@@ -1132,7 +1130,6 @@
         <exec dir="${openldap.install.artifact.dir}" executable="/bin/sh">
             <arg line="${install.slapd.script}"/>
             <arg value="${slapd.install}"/>
-            <arg value="${sudo.pw}"/>
         </exec>
     </target>
 
@@ -1166,7 +1163,6 @@
         <exec dir="." executable="/bin/sh">
             <arg line="${start.slapd.script}"/>
             <arg value="${slapd.start}"/>
-            <arg value="${sudo.pw}"/>
         </exec>
     </target>
 
@@ -1185,7 +1181,6 @@
         <echo message="###############  Stop the slapd process"/>
         <exec dir="." executable="/bin/sh">
           <arg line="${stop.slapd.script}"/>
-          <arg value="${sudo.pw}"/>
         </exec>
     </target>
 
