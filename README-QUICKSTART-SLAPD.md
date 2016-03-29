@@ -133,21 +133,26 @@ ________________________________________________________________________________
 
  *maven is used to build the software package and prepare its config*
 
-10. Install, configure and load openldap server:
-
- a. If sudo:
-
-  ```
-  sudo ant init-slapd
-  ```
-
- b. No sudo, running as priv user:
+10. Install, configure and load the slapd server using ant:
 
   ```
   ant init-slapd
   ```
 
- *Use ant to install Symas OpenLDAP to target machine.*
+11. To start the slapd process:
+
+  ```
+  ant start-slapd
+  ```
+
+12. To stop the slapd process:
+
+  ```
+  ant stop-slapd
+  ```
+
+ * must be run with either sudo or root privs
+ * ant is deprecated, but still needed to run these commands.
 
 ___________________________________________________________________________________
 ## SECTION 3. Apache Fortress Core Integration Test

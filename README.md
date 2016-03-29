@@ -128,7 +128,7 @@ This document describes three options to use Apache Fortress with:
 3. Pre-existing OpenLDAP server
  * **SECTION 6**. Apache Fortress and native OpenLDAP server
 
-*Options 4 & 5 are recommended for first-time users.  Option 6 is for advanced users.*
+*Options 1 & 2 are recommended for first-time users.  Option 3 is for advanced users.*
 ___________________________________________________________________________________
 ## SECTION 4. Instructions for using Apache Fortress and ApacheDS LDAP server
 
