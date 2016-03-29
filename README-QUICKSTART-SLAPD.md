@@ -90,7 +90,7 @@ ________________________________________________________________________________
   slapd.install=dpkg -i symas-openldap-silver.version.platform.deb
   ```
 
- b. For Redhat:
+ b. For Centos:
 
   ```
   slapd.install=rpm -i symas-openldap-silver.version.platform.rpm
