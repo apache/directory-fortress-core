@@ -36,9 +36,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * This document contains instructions to install Apache Fortress Core, Web and Rest with Apache Directory server.
- * All of the instructions to complete these tasks (including ApacheDS installation) are contained within.
- * Uses Fortress version 1.0-RC42
+ * This document contains instructions to install Apache Fortress 1.0-RC42 Core, Web, Rest and ApacheDS.
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites

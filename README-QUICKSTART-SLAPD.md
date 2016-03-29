@@ -35,9 +35,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * This document contains instructions to install Apache Fortress Core, Web and Rest with OpenLDAP.
- * All of the instructions to complete these tasks (including OpenLDAP installation) are contained within.
- * Uses Fortress version 1.0-RC42
+ * This document contains instructions to install Apache Fortress 1.0-RC42 Core, Web, Rest and OpenLDAP.
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
@@ -66,7 +64,7 @@ ________________________________________________________________________________
  cp slapd.properties.example slapd.properties
  ```
 
- *[slapd.properties.example](slapd.properties.example) is where the OpenLDAP server defaults reside. This file, after being renamed to slapd.properties, will override values found in build.properties. Learn more about the configuration subsystem: [README-CONFIG](README-CONFIG.md)*
+ *[slapd.properties.example](slapd.properties.example) contains the slapd default config. Learn more about the config here: [README-CONFIG](README-CONFIG.md)*
 
 2. Download Symas OpenLDAP Silver *Full Server and Client Installation*:
  https://symas.com/downloads/
