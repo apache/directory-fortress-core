@@ -176,10 +176,10 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
      * {@inheritDoc}
      */
     @Override
-    public List<Permission> findPermissions(PermObj permObj)
+    public List<Permission> findPermsByObj(PermObj permObj)
         throws SecurityException
     {
-        VUtil.assertNotNull(permObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".findObjPermissions");
+        VUtil.assertNotNull(permObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".findPermsByObj");
         List<Permission> retPerms;
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);

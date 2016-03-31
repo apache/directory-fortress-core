@@ -131,9 +131,9 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
 	@Override
-	public List<Permission> findPermissions(PermObj permObj)
+	public List<Permission> findPermsByObj(PermObj permObj)
 			throws SecurityException {
-        String methodName = "findPermissions";
+        String methodName = "findPermsByObj";
         assertContext( CLS_NM, methodName, permObj, GlobalErrIds.PERM_OBJECT_NULL );
         VUtil.assertNotNullOrEmpty(permObj.getObjName(), GlobalErrIds.PERM_OBJECT_NM_NULL, CLS_NM + "." + methodName);
         checkAccess(CLS_NM, methodName);
