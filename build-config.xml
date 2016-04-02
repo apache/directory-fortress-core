@@ -16,7 +16,8 @@
    specific language governing permissions and limitations
    under the License.
 -->
-<project name="fortress-core" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+<!--<project name="fortress-core" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:artifact="antlib:org.apache.maven.artifact.ant">-->
+<project name="fortress-core" default="init-fortress-config" basedir="." >
     <!-- =================================
           initialize all Fortress Core package properties
          ================================= -->
@@ -37,8 +38,7 @@
        <!-- ########### Project specific properties ########################### -->
        <property name="project.name" value="Fortress Identity Access Management SDK"/>
        <property name="name" value="fortress"/>
-       <property name="ivy.install.version" value="2.4.0"/>
-       <property name="title" value="Fortress Identity and Access Management SDK for Java ${version}"/>
+       <property name="title" value="Fortress Access Management SDK for Java ${version}"/>
        <property name="title.samples" value="Fortress Identity and Access Management Samples for Java ${version}"/>
        <property name="vendor" value="Joshua Tree Software"/>
        <property name="package" value="org.apache.directory.fortress.*"/>
@@ -115,529 +115,11 @@
        <property name="target.rbac.schema" value="${slapd.schema.dir}/rbac.schema"/>
        <property name="db.cfg" value="${ldap.dir}/DB_CONFIG"/>
 
-       <!-- ########### Java compile switches ########################### -->
-       <property name="javac.optimize" value="false"/>
-       <property name="javac.debug" value="true"/>
-       <property name="javac.deprecation" value="true"/>
-
-       <!-- ########### Javadoc properties ########################### -->
-       <property name="javadoc.dir" value="${dist.dir}/docs/api"/>
-       <property name="javadoc.images.dir" value="${javadoc.dir}/images"/>
-       <property name="javadoc.bottom" value="&lt;small&gt;Copyright &amp;copy; 2003-2015, The Apache Software Foundation. All Rights Reserved. Generated ${TODAY}&lt;/small&gt;"/>
-       <property name="javadoc.overview" value="${src.java.dir}/org/apache/directory/fortress/core/overview.html" />
-       <property name="javadoc.dist.zip" value="${dist.dir}/${name}-${version}-javadoc.jar"/>
-       <property name="javadoc.stylesheet" value="/org/apache/directory/fortress/core/fortress-javadoc.css" />
-       <property name="javadoc.samples.dir" value="${dist.dir}/docs/samples"/>
-       <property name="javadoc.samples.images.dir" value="${javadoc.samples.dir}/images"/>
-       <property name="javadoc.samples.dist.zip" value="${dist.dir}/${name}-${version}-javadocsamples.jar"/>
-       <property name="javadoc.samples.overview" value="${src.test.dir}/org/openldap/fortress/samples/overview.html" />
-
-       <!-- ########### Fortress Package Dependencies ########################### -->
-<!--
-       <property name="accelerator-api.jar" value="${lib.dir}/accelerator-api-${version}.jar"/>
-       <property name="accelerator-impl.jar" value="${lib.dir}/accelerator-impl-${version}.jar"/>-->
-       <property name="accelerator-api.jar" value="${lib.dir}/accelerator-api-1.0-RC40.jar"/>
-       <property name="accelerator-impl.jar" value="${lib.dir}/accelerator-impl-1.0-RC40.jar"/>
-       <property name="commons-config.jar" value="${lib.dir}/commons-configuration-1.10.jar"/>
-       <property name="commons-lang.jar" value="${lib.dir}/commons-lang-2.6.jar"/>
-       <property name="commons-collections.jar" value="${lib.dir}/commons-collections-3.2.1.jar"/>
-       <property name="commons-logging.jar" value="${lib.dir}/commons-logging-1.1.1.jar"/>
-       <property name="commons-io.jar" value="${lib.dir}/commons-io-2.4.jar"/>
-       <property name="commons-codec.jar" value="${lib.dir}/commons-codec-1.10.jar"/>
-       <property name="httpclient.jar" value="${lib.dir}/httpclient-4.5.2.jar"/>
-       <property name="httpcore.jar" value="${lib.dir}/httpcore-4.4.4.jar"/>
-       <property name="cxf-common-utilities.jar" value="${lib.dir}/cxf-api-2.7.18.jar"/>
-       <property name="javax.ws.rs-api.jar" value="${lib.dir}/javax.ws.rs-api-2.0.1.jar"/>
-       <property name="jgraph.jar" value="${lib.dir}/jgrapht-core-0.9.1.jar"/>
-       <property name="log4j.jar" value="${lib.dir}/log4j-1.2.17.jar"/>
-       <property name="junit.jar" value="${lib.dir}/junit-4.12.jar"/>
-       <property name="hamcrest-core.jar" value="${lib.dir}/hamcrest-core-1.3.jar"/>
-       <property name="jasypt.jar" value="${lib.dir}/jasypt-1.9.2.jar"/>
-       <property name="jaxb-api.jar" value="${lib.dir}/jaxb-api-2.2.6.jar"/>
-       <property name="jaxb-impl.jar" value="${lib.dir}/jaxb-impl-2.2.4-1.jar"/>
-       <property name="jaxb-xjc.jar" value="${lib.dir}/jaxb-xjc-2.2.4-1.jar"/>
-       <property name="jackson-jaxrs.jar" value="${lib.dir}/jackson-jaxrs-1.9.0.jar"/>
-       <property name="javaee-api.jar" value="${lib.dir}/javaee-api-7.0.jar"/>
-       <property name="ehcache-core.jar" value="${lib.dir}/ehcache-core-2.6.10.jar"/>
-       <property name="slf4j-api.jar" value="${lib.dir}/slf4j-api-1.7.12.jar"/>
-       <property name="slf4j-jcl.jar" value="${lib.dir}/slf4j-jcl-1.7.12.jar"/>
-       <property name="slf4j-log4j.jar" value="${lib.dir}/slf4j-log4j12-1.7.12.jar"/>
-       <property name="apacheJMeter_core.jar" value="${lib.dir}/ApacheJMeter_core-2.11.jar"/>
-       <property name="apacheJMeter_java.jar" value="${lib.dir}/ApacheJMeter_java-2.11.jar"/>
-       <property name="apacheds-all.jar" value="${lib.dir}/apacheds-all-2.0.0-M21.jar"/>
-       <property name="apacheds-api-all.jar" value="${lib.dir}/api-all-1.0.0-M33.jar"/>
-       <property name="mina-core.jar" value="${lib.dir}/mina-core-2.0.7.jar"/>
-       <property name="opencsv.jar" value="${lib.dir}/opencsv-2.3.jar"/>
-
-       <!-- ########### Define classpaths ########################### -->
-       <path id="build.class.path">
-           <pathelement location="${build.classes.dir}"/>
-           <pathelement location="${jgraph.jar}"/>
-           <pathelement location="${junit.jar}"/>
-           <pathelement location="${commons-config.jar}"/>
-           <pathelement location="${commons-lang.jar}"/>
-           <pathelement location="${commons-io.jar}"/>
-           <pathelement location="${httpclient.jar}"/>
-           <pathelement location="${httpcore.jar}"/>
-           <pathelement location="${jasypt.jar}"/>
-           <pathelement location="${jaxb-api.jar}"/>
-           <pathelement location="${jaxb-impl.jar}"/>
-           <pathelement location="${jaxb-xjc.jar}"/>
-           <pathelement location="${jackson-jaxrs.jar}"/>
-           <pathelement location="${javaee-api.jar}"/>
-           <pathelement location="${cxf-common-utilities.jar}"/>
-           <pathelement location="${ehcache-core.jar}"/>
-           <pathelement location="${mina-core.jar}"/>
-           <pathelement location="${accelerator-api.jar}"/>
-           <pathelement location="${accelerator-impl.jar}"/>
-           <pathelement location="${apacheds-api-all.jar}"/>
-           <pathelement location="${apacheds-all.jar}"/>
-           <pathelement location="${opencsv.jar}"/>
-           <pathelement location="${slf4j-api.jar}"/>
-           <pathelement location="${slf4j-log4j.jar}"/>
-           <pathelement location="${apacheJMeter_core.jar}"/>
-           <pathelement location="${apacheJMeter_java.jar}"/>
-       </path>
-
-       <!-- This is used for the JUnit Tests -->
-       <path id="test.class.path">
-           <path location="${config.dir}"/>
-           <path location="${apacheds-resource.dir}"/>
-           <pathelement location="${build.test-classes.dir}"/>
-           <pathelement location="${dist.jar}"/>
-           <pathelement location="${jgraph.jar}"/>
-           <pathelement location="${junit.jar}"/>
-           <pathelement location="${hamcrest-core.jar}"/>
-           <pathelement location="${log4j.jar}"/>
-           <pathelement location="${commons-config.jar}"/>
-           <pathelement location="${commons-lang.jar}"/>
-           <pathelement location="${commons-logging.jar}"/>
-           <pathelement location="${commons-collections.jar}"/>
-           <pathelement location="${commons-codec.jar}"/>
-           <pathelement location="${commons-io.jar}"/>
-           <pathelement location="${httpclient.jar}"/>
-           <pathelement location="${httpcore.jar}"/>
-           <pathelement location="${jasypt.jar}"/>
-           <pathelement location="${jackson-jaxrs.jar}"/>
-           <pathelement location="${javaee-api.jar}"/>
-           <pathelement location="${cxf-common-utilities.jar}"/>
-           <pathelement location="${javax.ws.rs-api.jar}"/>
-           <pathelement location="${jaxb-api.jar}"/>
-           <pathelement location="${jaxb-impl.jar}"/>
-           <pathelement location="${jaxb-xjc.jar}"/>
-           <pathelement location="${ehcache-core.jar}"/>
-           <pathelement location="${slf4j-api.jar}"/>
-           <pathelement location="${slf4j-jcl.jar}"/>
-           <pathelement location="${ant.home}/lib/ant.jar"/>
-           <pathelement location="${images.dir}"/>
-           <pathelement location="${accelerator-api.jar}"/>
-           <pathelement location="${accelerator-impl.jar}"/>
-           <pathelement location="${mina-core.jar}"/>
-           <pathelement location="${opencsv.jar}"/>
-           <pathelement location="${apacheJMeter_core.jar}"/>
-           <pathelement location="${apacheJMeter_java.jar}"/>
-           <pathelement location="${apacheds-api-all.jar}"/>
-           <pathelement location="${apacheds-all.jar}"/>
-       </path>
-
-       <!-- This is used before the initial loads have stored properties on the ldap server. -->
-       <path id="bootstrap.class.path">
-           <path location="${config.bootstrap.dir}"/>
-           <pathelement location="${build.classes.dir}"/>
-           <pathelement location="${jgraph.jar}"/>
-           <pathelement location="${junit.jar}"/>
-           <pathelement location="${log4j.jar}"/>
-           <pathelement location="${commons-config.jar}"/>
-           <pathelement location="${commons-lang.jar}"/>
-           <pathelement location="${commons-logging.jar}"/>
-           <pathelement location="${commons-collections.jar}"/>
-           <pathelement location="${jasypt.jar}"/>
-           <pathelement location="${ehcache-core.jar}"/>
-       </path>
-
-       <!-- ########### Test properties ########################### -->
-       <property name="test.sample.entry" value="org.apache.directory.fortress.core.samples.AllSamplesJUnitTest"/>
-       <property name="test.regression.entry"  value="org.apache.directory.fortress.core.impl.FortressJUnitTest"/>
-       <property name="test.failonerror" value="false" />
-       <property name="test.showoutput" value="yes" />
-
-       <!-- define Maven coordinates (publishing only) -->
-       <property name="groupId" value="org.apache.directory" />
-       <property name="artifactId" value="fortress" />
-
-       <!-- defined maven snapshots and staging repository id and url (publishing only) -->
-       <property name="maven-snapshots-repository-id" value="sonatype-nexus-snapshots" />
-       <property name="maven-snapshots-repository-url" value="https://oss.sonatype.org/content/repositories/snapshots" />
-       <property name="maven-staging-repository-id" value="sonatype-nexus-staging" />
-       <property name="maven-staging-repository-url" value="https://oss.sonatype.org/service/local/staging/deploy/maven2" />
-
-       <!-- define artifacts' name, which follows the convention of Maven (publishing only) -->
-       <property name="maven-jar" value="${dist.jar}" />
-       <property name="maven-javadoc-jar" value="${javadoc.dist.zip}" />
-       <property name="maven-sources-jar" value="${src.dist.zip}" />
-    </target>
-
-    <!-- =================================
-          target: clean - Will remove old distribution packages from dist folder
-         ================================= -->
-    <target name="clean" depends="init" description="--> removes generated files">
-      <delete dir="${build.dir}" />
-      <delete dir="${dist.dir}" />
-    </target>
-
-    <!-- =================================
-          target: compile the source
-         ================================= -->
-    <target name="compile" depends="init,resolve" description="--> compiles source files">
-        <mkdir dir="${build.classes.dir}"/>
-        <javac srcdir="${src.java.dir}"
-            debug="${javac.debug}"
-            deprecation="${javac.deprecation}"
-            destdir="${build.classes.dir}">
-            <classpath refid="build.class.path"/>
-        </javac>
-    </target>
-
-    <!-- =================================
-          target: compile the test source
-         ================================= -->
-    <target name="compile-test" depends="compile" description="--> compiles test source files">
-        <mkdir dir="${build.test-classes.dir}"/>
-        <javac destdir="${build.test-classes.dir}"
-            srcdir="${src.test.dir}"
-            debug="${javac.debug}"
-            deprecation="${javac.deprecation}"
-            optimize="${javac.optimize}">
-            <classpath refid="build.class.path"/>
-        </javac>
-    </target>
-
-    <!-- =================================
-           target: build-jar - create java archive (jar) files which contain the compiled classes
-          ================================= -->
-    <target name="build-jar" depends="compile" description="--> create the core classes">
-       <mkdir dir="${dist.dir}"/>
-       <jar jarfile="${dist.jar}">
-          <fileset dir="${build.classes.dir}"/>
-          <metainf dir="${basedir}" includes="LICENSE,NOTICE"/>
-          <manifest>
-             <attribute name="Created-By" value="${vendor} - ${project.name} dev team"/>
-             <attribute name="Implementation-Vendor" value="${vendor}"/>
-             <attribute name="Implementation-Version" value="${version}"/>
-             <attribute name="Specification-Title" value="${title}"/>
-             <attribute name="Package" value="${package}"/>
-             <attribute name="Extension-Name" value="${name}"/>
-             <attribute name="Built-By" value="${user.name}"/>
-             <attribute name="Compile-JDK" value="${java.runtime.version}"/>
-             <attribute name="Test-VM" value="${java.vm.version}"/>
-             <attribute name="Built-Date" value="${TODAY}"/>
-          </manifest>
-       </jar>
     </target>
 
     <tstamp>
         <format property="TODAY" pattern="yyyy-MM-dd HH:mm:ss" />
     </tstamp>
-
-     <!-- =================================
-           target: build-jar-test - create jar containing compiled test classes
-          ================================= -->
-     <target name="build-jar-test" depends="compile-test" description="--> create the core test classes">
-        <mkdir dir="${dist.dir}"/>
-        <jar jarfile="${dist.test.jar}">
-           <fileset dir="${build.test-classes.dir}"/>
-           <metainf dir="${basedir}" includes="LICENSE,NOTICE"/>
-           <manifest>
-              <attribute name="Created-By" value="${vendor} - ${project.name} dev team"/>
-              <attribute name="Implementation-Vendor" value="${vendor}"/>
-              <attribute name="Implementation-Version" value="${version}"/>
-              <attribute name="Specification-Title" value="${title}"/>
-              <attribute name="Package" value="${package}"/>
-              <attribute name="Extension-Name" value="${name}"/>
-              <attribute name="Built-By" value="${user.name}"/>
-              <attribute name="Compile-JDK" value="${java.runtime.version}"/>
-              <attribute name="Test-VM" value="${java.vm.version}"/>
-           </manifest>
-        </jar>
-     </target>
-
-    <!-- =================================
-          target: create the javadoc based on source code
-         ================================= -->
-    <target name="javadoc" depends="init" description="--> generates javadocs">
-      <mkdir dir="${javadoc.dir}"/>
-      <javadoc packagenames="${package}"
-               sourcepath="${src.java.dir}"
-               destdir="${javadoc.dir}"
-               windowtitle="${title}"
-               doctitle="${title} "
-               bottom="${javadoc.bottom}"
-               overview="${javadoc.overview}"
-               public="true"
-               version="true"
-               author="true"
-               splitindex="false"
-               nodeprecated="true"
-               nodeprecatedlist="true"
-               notree="true"
-               noindex="false"
-               nohelp="true"
-               nonavbar="false"
-               classpathref="test.class.path"
-               serialwarn="false">
-      </javadoc>
-    </target>
-
-    <!-- =================================
-          target: create the javadoc based on source test code
-         ================================= -->
-    <target name="javadoc-samples" depends="init" description="--> generates samples javadocs">
-       <mkdir dir="${javadoc.samples.dir}"/>
-       <javadoc packagenames="${package.samples}"
-                sourcepath="${src.test.dir}"
-                destdir="${javadoc.samples.dir}"
-                windowtitle="${title.samples}"
-                doctitle="${title.samples} "
-                bottom="${javadoc.bottom}"
-                overview="${javadoc.samples.overview}"
-                public="true"
-                version="true"
-                author="true"
-                splitindex="false"
-                nodeprecated="true"
-                nodeprecatedlist="true"
-                notree="true"
-                noindex="false"
-                nohelp="true"
-                nonavbar="false"
-                classpathref="test.class.path"
-                serialwarn="false">
-       </javadoc>
-    </target>
-
-     <!-- =================================
-           target: build
-          ================================= -->
-    <target name="build" depends="clean,build-jar,build-jar-test,javadoc,javadoc-samples" description="--> create the core Fortress library">
-       <copy todir="${dist.dir}" file="${basedir}/LICENSE"/>
-       <copy todir="${dist.dir}" file="${basedir}/NOTICE"/>
-    </target>
-
-     <!-- =================================
-           target: dist - creates the distribution packages
-          ================================= -->
-    <target name="dist" depends="build" description="--> create source and binary distribution">
-         <zip destfile='${src.dist.zip}'>
-           <zipfileset dir='${src.java.dir}'/>
-
-           <zipfileset dir='${dist.dir}' prefix='META-INF'>
-               <include name="LICENSE"/>
-               <include name="LICENSE.cmdLineParser.txt"/>
-               <include name="LICENSE.slf4j.txt"/>
-               <include name="NOTICE"/>
-           </zipfileset>
-        </zip>
-
-        <zip destfile='${src.test.dist.zip}'>
-          <zipfileset dir='${src.test.dir}'/>
-
-          <zipfileset dir='${dist.dir}' prefix='META-INF'>
-              <include name="LICENSE"/>
-               <include name="LICENSE.cmdLineParser.txt"/>
-               <include name="LICENSE.slf4j.txt"/>
-              <include name="NOTICE"/>
-          </zipfileset>
-        </zip>
-
-        <zip destfile="${javadoc.dist.zip}" basedir="${javadoc.dir}">
-            <zipfileset dir='${dist.dir}' prefix='META-INF'>
-                <include name="LICENSE"/>
-               <include name="LICENSE.cmdLineParser.txt"/>
-               <include name="LICENSE.slf4j.txt"/>
-                <include name="NOTICE"/>
-            </zipfileset>
-        </zip>
-
-        <zip destfile="${samples.dist.zip}" basedir="${src.test.dir}" includes="**/samples/*.java,build.xml">
-            <zipfileset dir='${dist.dir}' prefix='META-INF'>
-                <include name="LICENSE"/>
-                <include name="NOTICE"/>
-            </zipfileset>
-            <zipfileset dir='${javadoc.samples.dir}'/>
-        </zip>
-     </target>
-
-    <!-- =================================
-          target: test-samples - runs junit programming samples tests
-         ================================= -->
-    <target name="test-samples" depends="compile-test,init-fortress-config" description="--> runs (junit) sample unit tests">
-        <echo message="Run the Fortress programming sample JUnit tests..."/>
-        <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}">
-            <sysproperty key="tenant" value="${tenant}"/>
-            <sysproperty key="version" value="${version}"/>
-            <classpath refid="test.class.path"/>
-            <formatter type="plain" usefile="false"/>
-            <test name="${test.sample.entry}"/>
-        </junit>
-    </target>
-
-    <!-- =================================
-          target: test-full - runs junit regression tests
-         ================================= -->
-    <target name="test-full" depends="build-jar,compile-test,init-fortress-config" description="--> run junit FULL regression tests">
-        <echo message="Run the Fortress regression JUnit tests.  Be patient this can take a while to complete."/>
-         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}" maxmemory="1024m">
-            <sysproperty key="isFirstJUnitRun" value="false" />
-            <sysproperty key="version" value="${version}"/>
-            <sysproperty key="tenant" value="${tenant}"/>
-            <classpath refid="test.class.path"/>
-            <formatter type="plain" usefile="false"/>
-            <test name="${test.regression.entry}"/>
-        </junit>
-    </target>
-
-    <!-- =================================
-          target: test-apacheds - runs junit regression tests
-         ================================= -->
-    <target name="test-apacheds" depends="build-jar,compile-test,init-fortress-config" description="--> run ApacheDS junit FULL regression tests">
-        <echo message="Run the Fortress regression JUnit tests.  Be patient this can take a while to complete."/>
-         <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}" maxmemory="1024m">
-            <sysproperty key="version" value="${version}"/>
-            <sysproperty key="tenant" value="${tenant}"/>
-            <classpath refid="test.class.path"/>
-            <formatter type="plain" usefile="false"/>
-            <test name="org.apache.directory.fortress.core.impl.apacheds.FortressJUnitApachedsTest"/>
-        </junit>
-    </target>
-
-    <!-- =================================
-          target: test-accel - runs accelerator junit unit tests
-         ================================= -->
-    <target name="test-accel" depends="build-jar,compile-test,init-fortress-config" description="--> run RBAC accelerator tests">
-        <echo message="Run the RBAC accelerator JUnit tests."/>
-        <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}" maxmemory="1024m">
-            <sysproperty key="tenant" value="${tenant}"/>
-            <classpath refid="test.class.path"/>
-            <formatter type="plain" usefile="false"/>
-            <test name="org.apache.directory.fortress.core.impl.accelerator.TestAccelerator"/>
-        </junit>
-    </target>
-
-    <!-- =================================
-          target: test-accel - runs accelerator junit regression tests
-         ================================= -->
-    <target name="test-accel-full" depends="build-jar,compile-test,init-fortress-config" description="--> run RBAC accelerator tests">
-        <echo message="Run the RBAC accelerator JUnit tests."/>
-        <junit fork="yes" haltonfailure="${test.failonerror}" showoutput="${test.showoutput}" maxmemory="1024m">
-            <sysproperty key="tenant" value="${tenant}"/>
-            <classpath refid="test.class.path"/>
-            <formatter type="plain" usefile="false"/>
-            <test name="org.apache.directory.fortress.core.impl.AccelMgrImplTest"/>
-        </junit>
-    </target>
-
-    <!-- =================================
-          target: console - starts the Fortress Console app
-         ================================= -->
-     <target name="console" depends="build-jar,compile-test,init-fortress-config" description="--> start Fortress Console app">
-         <echo message="Run the Fortress console app"/>
-         <java
-                 classname="org.apache.directory.fortress.core.FortressConsole"
-                 fork="false"
-                 failonerror="true"
-                 timeout="4000000"
-                 >
-             <classpath refid="test.class.path"/>
-             <sysproperty key="version" value="${version}"/>
-             <sysproperty key="tenant" value="${tenant}"/>
-         </java>
-     </target>
-
-    <!-- =================================
-          target: cli - starts the Fortress Command Line Interpreter
-         ================================= -->
-     <target name="cli" depends="build-jar,compile,init-fortress-config" description="--> start Fortress Command Line Interpreter">
-         <echo message="Run the Fortress Command Line Interpreter"/>
-         <java
-                 classname="org.apache.directory.fortress.core.cli.CommandLineInterpreter"
-                 fork="false"
-                 failonerror="true"
-                 timeout="4000000"
-                 >
-             <classpath refid="test.class.path"/>
-             <sysproperty key="version" value="${version}"/>
-             <sysproperty key="tenant" value="${tenant}"/>
-         </java>
-     </target>
-
-    <!-- =================================
-          target: encrypt - allows users to encrypt values which are displayed to the standard output
-         ================================= -->
-     <target name="encrypt" depends="compile" description="--> encrypt -Dparam1=value : encrypts value from clear text to encrypted cypher string that is hex encoded">
-         <echo message="Encrypt a value"/>
-         <java
-                 classname="org.apache.directory.fortress.core.util.crypto.EncryptUtil"
-                 fork="false"
-                 failonerror="true"
-                 timeout="4000000"
-                 >
-             <classpath refid="bootstrap.class.path"/>
-             <arg value="${param1}"/>
-         </java>
-     </target>
-
-    <!-- =================================
-          target: admin - runs the Ant demo load scripts
-         ================================= -->
-     <target name="admin" depends="init-fortress-config" description="--> admin -Dparam1=path/to/FileName.xml : to run fortress admin scripts at specified location">
-         <echo message="###############  Run Fortress Ant script param1: ${param1} tenant: ${tenant} version: ${version}  ###############"/>
-         <java
-                 classname="org.apache.tools.ant.launch.Launcher"
-                 fork="true"
-                 failonerror="true"
-                 dir="${ldap.setup.dir}"
-                 timeout="4000000"
-                 taskname="startAnt">
-             <classpath>
-                 <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
-                 <path refid="bootstrap.class.path"/>
-                 <path refid="test.class.path"/>
-             </classpath>
-             <sysproperty key="version" value="${version}"/>
-             <sysproperty key="tenant" value="${tenant}"/>
-             <arg value="-buildfile"/>
-             <arg file="${param1}"/>
-             <arg value="-Dbasedir=${ldap.setup.dir}"/>
-         </java>
-     </target>
-
-    <!-- =================================
-          target: admin-debug - runs the Ant demo load scripts in debug mode
-         ================================= -->
-     <target name="admin-debug" depends="init-fortress-config" description="--> admin -Dparam1=path/to/FileName.xml : to run fortress admin scripts at specified location">
-         <echo message="###############  Run Fortress Ant script ${param1}  ###############"/>
-         <java
-                 classname="org.apache.tools.ant.launch.Launcher"
-                 fork="true"
-                 failonerror="true"
-                 dir="${ldap.setup.dir}"
-                 timeout="4000000"
-                 taskname="startAnt">
-             <classpath>
-                 <pathelement location="${ant.home}/lib/ant-launcher.jar"/>
-                 <path refid="bootstrap.class.path"/>
-                 <path refid="test.class.path"/>
-             </classpath>
-             <sysproperty key="debug.admin" value="true"/>
-             <sysproperty key="version" value="${version}"/>
-             <sysproperty key="tenant" value="${tenant}"/>
-             <arg value="-buildfile"/>
-             <arg file="${param1}"/>
-             <arg value="-Dbasedir=${ldap.setup.dir}"/>
-             <jvmarg  value="-Xdebug" />
-             <jvmarg  value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005" />
-         </java>
-     </target>
 
     <!-- =================================
           target: init-openldap-config - modifies openldap artifacts for runtime use of fortress-core
@@ -920,41 +402,20 @@
          <echo message="Target init-all-config complete."/>
      </target>
 
-    <!-- =================================
-          target: load-slapd - seeds openldap and base loads for test/use.
-         ================================= -->
-    <target name="load-slapd" depends="build-jar" description="--> task runs ant admin scripts to refresh fortress boostrap data">
-        <echo message="###############  Initialize OpenLDAP  ###############"/>
-
-        <echo message="Load the Fortress bootstrap config and demo users"/>
-        <antcall target="admin">
-            <param name="param1" value="${dst.load.bootstrap.script}"/>
-        </antcall>
-        <antcall target="admin">
-            <param name="param1" value="${load.delegatedadmin.script}"/>
-        </antcall>
-        <antcall target="admin">
-            <param name="param1" value="${load.demo.script}"/>
-        </antcall>
-        <echo message="Target load-slapd complete."/>
+    <target name="foo" depends="init" description="--> does some foo">
+        <echo message="############### Foo Fighters Rule!!!  ###############"/>
+        <echo message="############### Foo Fighters Rule!!!  ###############"/>
+        <echo message="############### Foo Fighters Rule!!!  ###############"/>
+        <echo message="############### Foo Fighters Rule!!!  ###############"/>
+        <echo message="############### Foo Fighters Rule!!!  ###############"/>
     </target>
 
-    <!-- =================================
-          target: use-slapd - configures fortress to work with an existing OpenLDAP system.
-         ================================= -->
-    <target name="use-slapd" depends="build-jar" description="--> task refreshes fortress config and reloads slapd data">
-        <echo message="###############  Use OpenLDAP  ###############"/>
-        <antcall target="init-fortress-config"></antcall>
-        <antcall target="load-slapd"></antcall>
-        <echo message="Target use-slapd complete."/>
-    </target>
 
     <!-- =================================
           target: init-slapd - Performs the following functions:
 
                 1. Initializes the Fortress runtime config
                 2. Installs OpenLDAP directory server to the local machine
-                3. Loads seed data into directory server.
 
           WARNING: Use caution running this target.
 
@@ -966,7 +427,7 @@
 
           Do NOT run this Ant target on a production LDAP instance !!
          ================================= -->
-    <target name="init-slapd" depends="build-jar" description="--> task recreates openldap system and must be run as elevated priv's to teardown/create slapd files and folders">
+    <target name="init-slapd" depends="init" description="--> task recreates openldap system and must be run as elevated priv's to teardown/create slapd files and folders">
         <echo message="###############  Initialize OpenLDAP  ###############"/>
 
         <echo message="###############  Stop slapd process  ###############"/>
@@ -1009,7 +470,6 @@
         <antcall target="copy-access-libs"></antcall>    
         <antcall target="init-slapd-win-script"></antcall>
         <antcall target="start-slapd"></antcall>
-        <antcall target="load-slapd"></antcall>
         <echo message="Target init-slapd complete."/>
     </target>
 
@@ -1242,25 +702,16 @@
      </target>
 
     <!-- =================================
-          target: init-apacheds - initializes the fortress to use ApacheDS LDAP
-         ================================= -->
-    <target name="init-apacheds" depends="build-jar" description="--> task configures fortress to use an existing ApacheDS LDAP server">
-        <echo message="###############  Setup meta config and base load scripts for openldap and fortress  ###############"/>
-        <antcall target="init-fortress-config"></antcall>
-        <antcall target="load-slapd"></antcall>
-        <echo message="Target init-apacheds complete."/>
-    </target>
-
-    <!-- =================================
           target: init-jaxb - initializes properties and taskdefs used for schema generation and compilation.
          ================================= -->
-    <target name="init-jaxb" depends="resolve" description="--> initializes properties and taskdefs used for schema generation and compilation">
+<!--
+    <target name="init-jaxb" depends="resolve" description="&ndash;&gt; initializes properties and taskdefs used for schema generation and compilation">
 
         <property name="generated.dir" value="${basedir}/generated"/>
         <property name="generated.classes.dir" value="${generated.dir}/classes"/>
         <property name="generated.schema.dir" value="${generated.dir}/schema"/>
 
-       <!-- Defines XJC and SchemaGen tasks -->
+       &lt;!&ndash; Defines XJC and SchemaGen tasks &ndash;&gt;
         <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
             <classpath refid="build.class.path"/>
         </taskdef>
@@ -1270,11 +721,13 @@
         </taskdef>
 
     </target>
+-->
 
     <!-- =================================
           target: generate-schema - generates JAXB schmea based on Java classes.
          ================================= -->
-    <target name="generate-schema" depends="init-jaxb,compile" description="--> generates JAXB schema based on Fortress entity classes">
+<!--
+    <target name="generate-schema" depends="init-jaxb,compile" description="&ndash;&gt; generates JAXB schema based on Fortress entity classes">
         <echo message="Generating schemas..."/>
         <mkdir dir="${generated.schema.dir}"/>
         <schemagen srcdir="${src.java.dir}/org/openldap/fortress" destdir="${generated.schema.dir}">
@@ -1308,160 +761,17 @@
             <include name="rbac/UserRole.java"/>
         </schemagen>
     </target>
+-->
 
     <!-- =================================
           target: compile-schema - generates Java classes based on schema.
          ================================= -->
-    <target name="compile-schema" depends="init-jaxb,generate-schema" description="--> generates Java classes based on Fortress schema">
+<!--
+    <target name="compile-schema" depends="init-jaxb,generate-schema" description="&ndash;&gt; generates Java classes based on Fortress schema">
         <echo message="Compiling the schema..."/>
         <mkdir dir="${generated.classes.dir}"/>
         <xjc schema="${generated.schema.dir}/schema1.xsd" destdir="${src.java.dir}" package="org.apache.directory.fortress.model" removeOldOutput="yes"/>
     </target>
-
-    <!-- =================================
-          create Fortress Builder distribution package
-         ================================= -->
-    <target name="builder" depends="dist" description="--> create the Fortress QUICKSTART package">
-        <echo message="###############  Build Fortress Builder distribution package named: ${fortressBuilder.zip} ###############"/>
-        <zip destfile="${fortressBuilder.zip}"
-             update="true">
-            <zipfileset dir="${src.dir}" prefix="src">
-                <include name="*/**"/>
-                <exclude name="*.iml"/>
-            </zipfileset>
-
-            <zipfileset dir="${basedir}">
-                <include name="*.xml"/>
-                <include name="*.properties"/>
-                <include name="*.sh"/>
-                <include name="*.bat"/>
-                <include name="*.html"/>
-                <include name="LICENSE*"/>
-                <include name="NOTICE"/>
-                <exclude name="*.log"/>
-                <exclude name="*.out"/>
-                <exclude name="*.err"/>
-                <exclude name="build.sh"/>
-                <exclude name="codetemplates.xml"/>
-                <exclude name="formatting.xml"/>
-            </zipfileset>
-
-            <zipfileset dir="${images.dir}" prefix="images">
-                <include name="Screenshot*.png"/>
-                <include name="fortresscommunitylogov3.jpg"/>
-            </zipfileset>
-
-            <zipfileset dir="${ldap.dir}" prefix="ldap">
-                <include name="*/**"/>
-                <exclude name="setup/ext/**"/>
-                <exclude name="*.conf"/>
-                <exclude name="*.log"/>
-                <exclude name="*/*.csv"/>
-                <exclude name="*/*.log"/>
-                <exclude name="*/dev-symas-website-policy.xml"/>
-                <exclude name="*/AccountsSecurityPolicy.xml"/>
-                <exclude name="*/demo-fortressproject-users.xml"/>
-                <exclude name="*/refreshLDAPData.xml"/>
-            </zipfileset>
-
-            <zipfileset dir="${config.dir}" prefix="config">
-                <include name="*/**"/>
-                <exclude name="*.log"/>
-                <exclude name="*.properties"/>
-                <exclude name="*/*.properties"/>
-            </zipfileset>
-
-            <zipfileset dir="${install.image.dir}" prefix="symas-openldap">
-                <include name="*/**"/>
-            </zipfileset>
-
-            <zipfileset dir="${ant.home}" prefix="apache-ant">
-                <include name="*/**"/>
-            </zipfileset>
-
-            <zipfileset dir="${maven.image.dir}" prefix="apache-maven">
-                <include name="*/**"/>
-            </zipfileset>
-
-            <zipfileset dir="${tomcat.image.dir}" prefix="apache-tomcat">
-                <include name="*/**"/>
-            </zipfileset>
-
-        </zip>
-    </target>
-
-    <!-- =================================
-          target: download-ivy - pulls down ivy.jar from maven 2 website
-         ================================= -->
-    <target name="download-ivy" depends="init"  description="--> pull the ivy jar dependency" unless="local.mode">
-    <!-- download from web site so that it can be used even without any special installation -->
-    <echo message="downloading ivy to Ant home: ${ant.home}"/>
-      <get src="http://repo1.maven.org/maven2/org/apache/ivy/ivy/${ivy.install.version}/ivy-${ivy.install.version}.jar"
-         dest="${ant.home}/lib" usetimestamp="true"/>
-    </target>
-
-    <!-- =================================
-          target: resolve
-         ================================= -->
-    <target name="resolve" depends="download-ivy" description="--> retreive dependencies with ivy">
-        <ivy:retrieve pattern="${lib.dir}/[artifact]-[revision].[ext]" />
-    </target>
-
-    <!-- =================================
-          target: clean-cache
-         ================================= -->
-  <target name="clean-cache" description="--> clean the ivy cache">
-    <ivy:cleancache />
-    </target>
-
-    <!-- =================================
-          Deploy snapshot to remote Maven repository
-         ================================= -->
-    <target name="deploy" depends="init" description="--> deploy snapshot version to Maven snapshot repository">
-        <artifact:mvn>
-            <arg value="org.apache.maven.plugins:maven-deploy-plugin:2.6:deploy-file" />
-            <arg value="-Durl=${maven-snapshots-repository-url}" />
-            <arg value="-DrepositoryId=${maven-snapshots-repository-id}" />
-            <arg value="-DpomFile=pom.xml" />
-            <arg value="-Dfile=${maven-jar}" />
-        </artifact:mvn>
-    </target>
-
-    <!-- =================================
-          Update project version (both build.xml and pom.xml) from SNAPSHOT to RELEASE
-         ================================= -->
-  <target name="stage" depends="dist" description="--> deploy release version to Maven staging repository">
-    <!-- sign and deploy the main artifact -->
-    <artifact:mvn>
-      <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
-      <arg value="-Durl=${maven-staging-repository-url}" />
-      <arg value="-DrepositoryId=${maven-staging-repository-id}" />
-      <arg value="-DpomFile=pom.xml" />
-      <arg value="-Dfile=${maven-jar}" />
-            <arg value="-Pgpg" />
-    </artifact:mvn>
-
-    <!-- sign and deploy the sources artifact -->
-    <artifact:mvn>
-      <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
-      <arg value="-Durl=${maven-staging-repository-url}" />
-      <arg value="-DrepositoryId=${maven-staging-repository-id}" />
-      <arg value="-DpomFile=pom.xml" />
-      <arg value="-Dfile=${maven-sources-jar}" />
-      <arg value="-Dclassifier=sources" />
-            <arg value="-Pgpg" />
-    </artifact:mvn>
-
-    <!-- sign and deploy the javadoc artifact -->
-    <artifact:mvn>
-      <arg value="org.apache.maven.plugins:maven-gpg-plugin:1.3:sign-and-deploy-file" />
-      <arg value="-Durl=${maven-staging-repository-url}" />
-      <arg value="-DrepositoryId=${maven-staging-repository-id}" />
-      <arg value="-DpomFile=pom.xml" />
-      <arg value="-Dfile=${maven-javadoc-jar}" />
-      <arg value="-Dclassifier=javadoc" />
-            <arg value="-Pgpg" />
-    </artifact:mvn>
-  </target>
+-->
 
 </project>

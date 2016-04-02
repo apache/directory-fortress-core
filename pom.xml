@@ -676,7 +676,7 @@
             </goals>
             <configuration>
               <tasks>
-                <ant antfile="${basedir}/build.xml" target="init-fortress-config" />
+                <ant antfile="${basedir}/build-config.xml" target="init-fortress-config" />
               </tasks>
             </configuration>
           </execution>
@@ -741,6 +741,36 @@
 
   <profiles>
 
+    <!-- This profile calls ant target init-slapd in build-config.xml script. -->
+    <!-- To execute: mvn -Pinit-slapd test -->
+    <profile>
+      <id>init-slapd</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>init-slapd-mvn</id>
+                <phase>compile</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target name="init-slapd-mvn">
+                    <property name="maven.project.url" value="${project.url}"/>
+                    <ant antfile="build-config.xml" target="init-slapd"/>
+                    <echo message="init-slapd complete"/>
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- This profile starts the Fortress Console App -->
     <!-- To execute: mvn -Pconsole test -->
     <profile>
       <id>console</id>
@@ -777,6 +807,7 @@
       </build>
     </profile>
 
+    <!-- This profile starts the Fortress Command Line Interpreter App -->
     <!-- To execute: mvn -Pcli test -->
     <profile>
       <id>cli</id>
@@ -813,6 +844,7 @@
       </build>
     </profile>
 
+    <!-- This profile starts Openldap accelerator checkAccess loadTest -->
     <!-- To execute: ./m.sh -Ploadtest-accel jmeter:jmeter -->
     <profile>
       <id>loadtest-accel</id>
@@ -860,9 +892,8 @@
       </build>
     </profile>
 
-    <!--
-    To execute: ./m.sh -Ploadtest-fortress jmeter:jmeter
-    -->
+    <!-- This profile starts Fortress core checkAccess loadTest -->
+    <!-- To execute: ./m.sh -Ploadtest-fortress jmeter:jmeter -->
     <profile>
       <id>loadtest-fortress</id>
       <build>
@@ -911,9 +942,8 @@
       </build>
     </profile>
 
-    <!--
-    To execute: ./m.sh -Ploadtest-accel-createsess jmeter:jmeter
-    -->
+    <!-- This profile starts Openldap accelerator createSession loadTest -->
+    <!-- To execute: ./m.sh -Ploadtest-accel-createsess jmeter:jmeter -->
     <profile>
       <id>loadtest-accel-createsess</id>
       <build>
@@ -962,9 +992,8 @@
       </build>
     </profile>
 
-    <!--
-    To execute: ./m.sh -Ploadtest-fortress-createsess jmeter:jmeter
-    -->
+    <!-- This profile starts Fortress core checkAccess loadTest -->
+    <!-- To execute: ./m.sh -Ploadtest-fortress-createsess jmeter:jmeter -->
     <profile>
       <id>loadtest-fortress-createsess</id>
       <build>
@@ -1013,9 +1042,8 @@
       </build>
     </profile>
 
-    <!--
-    To execute: ./m.sh -Ploadtest-fortress-sessperms jmeter:jmeter
-    -->
+    <!-- This profile starts Fortress core sessionPermissions loadTest -->
+    <!-- To execute: ./m.sh -Ploadtest-fortress-sessperms jmeter:jmeter -->
     <profile>
       <id>loadtest-fortress-sessperms</id>
       <build>
@@ -1063,6 +1091,7 @@
       </build>
     </profile>
 
+    <!-- This profile starts Fortress accelerator sessionPermissions loadTest but function not implemented yet! -->
     <!-- To execute: ./m.sh -Ploadtest-accel-sessperms jmeter:jmeter -->
     <profile>
       <id>loadtest-accel-sessperms</id>
