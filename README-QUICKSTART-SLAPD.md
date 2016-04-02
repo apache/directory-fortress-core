@@ -47,10 +47,10 @@ Minimum hardware requirements:
 Minimum software requirements:
  * Centos or Debian Machine
  * Java SDK 7++
- * Apache Ant 1.7++
  * Apache Maven3++
+ * Apache Ant 1.7++ *not needed (as separate package) fortress-core 1.0-RC43 and beyond*
 
-Everything else covered in steps that follow.  Tested on Debian & Centos systems.
+ *Everything else covered in steps that follow.*
 ___________________________________________________________________________________
 ## SECTION 2. Apache Fortress Core and OpenLDAP Setup
 
@@ -123,6 +123,8 @@ ________________________________________________________________________________
  export PATH=$PATH:$ANT_HOME/bin:$M2_HOME/bin
  ```
 
+ *Apache Ant not needed for 1.0-RC43++*
+
 9. Run the maven install:
 
  ```
@@ -137,11 +139,15 @@ ________________________________________________________________________________
   ant init-slapd
   ```
 
+ *for 1.0-RC43++ this will be 'mvn test -Pinit-slapd'*
+
 11. To start the slapd process:
 
   ```
   ant start-slapd
   ```
+
+ *for 1.0-RC43++ this will be 'mvn test -Pstart-slapd'*
 
 12. To stop the slapd process:
 
@@ -149,8 +155,10 @@ ________________________________________________________________________________
   ant stop-slapd
   ```
 
+ *for 1.0-RC43++ this will be 'mvn test -Pstop-slapd'*
+
  * must be run with either sudo or root privs
- * ant is deprecated, but still needed to run these commands.
+ * ant is deprecated, and not needed as separate package 1.0-RC43++.
 
 ___________________________________________________________________________________
 ## SECTION 3. Apache Fortress Core Integration Test

@@ -741,35 +741,6 @@
 
   <profiles>
 
-    <!-- This profile calls ant target init-slapd in build-config.xml script. -->
-    <!-- To execute: mvn -Pinit-slapd test -->
-    <profile>
-      <id>init-slapd</id>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-antrun-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>init-slapd-mvn</id>
-                <phase>compile</phase>
-                <goals>
-                  <goal>run</goal>
-                </goals>
-                <configuration>
-                  <target name="init-slapd-mvn">
-                    <property name="maven.project.url" value="${project.url}"/>
-                    <ant antfile="build-config.xml" target="init-slapd"/>
-                    <echo message="init-slapd complete"/>
-                  </target>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
     <!-- This profile starts the Fortress Console App -->
     <!-- To execute: mvn -Pconsole test -->
     <profile>
@@ -1138,6 +1109,95 @@
         </plugins>
       </build>
     </profile>
+
+    <!-- This profile calls ant target init-slapd in build-config.xml script. -->
+    <!-- To execute: mvn -Pinit-slapd test -->
+    <profile>
+      <id>init-slapd</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>init-slapd-mvn</id>
+                <phase>compile</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target name="init-slapd-mvn">
+                    <property name="maven.project.url" value="${project.url}"/>
+                    <ant antfile="build-config.xml" target="init-slapd"/>
+                    <echo message="init-slapd complete"/>
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- This profile calls ant target start-slapd in build-config.xml script. -->
+    <!-- To execute: mvn -Pstart-slapd test -->
+    <profile>
+      <id>start-slapd</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>start-slapd-mvn</id>
+                <phase>compile</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target name="start-slapd-mvn">
+                    <property name="maven.project.url" value="${project.url}"/>
+                    <ant antfile="build-config.xml" target="start-slapd"/>
+                    <echo message="start-slapd complete"/>
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- This profile calls ant target stop-slapd in build-config.xml script. -->
+    <!-- To execute: mvn -Pstop-slapd test -->
+    <profile>
+      <id>stop-slapd</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>stop-slapd-mvn</id>
+                <phase>compile</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target name="stop-slapd-mvn">
+                    <property name="maven.project.url" value="${project.url}"/>
+                    <ant antfile="build-config.xml" target="stop-slapd"/>
+                    <echo message="stop-slapd complete"/>
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+
 
   </profiles>
 </project>
