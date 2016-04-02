@@ -298,13 +298,11 @@ public abstract class ApacheDsDataProvider
         if ( StringUtils.isNotEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) && !contextId
             .equals( GlobalIds.HOME ) )
         {
-            int idx = szDn.indexOf( Config.getProperty( GlobalIds.SUFFIX ) );
-
-            if ( idx != -1 )
+          int idx = szDn.indexOf( Config.getProperty( GlobalIds.SUFFIX ) );
+          if ( idx > 0 )
             {
-                // Found. The DN is ,ou=<contextId>,  
+                // Found. The DN is ,ou=<contextId>,
                 StringBuilder dn = new StringBuilder();
-
                 dn.append( szDn.substring( 0, idx - 1 ) ).append( "," ).append( SchemaConstants.OU_AT ).append( "=" )
                     .append(
                         contextId ).append( "," ).append( szDn.substring( idx ) );
