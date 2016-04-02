@@ -158,6 +158,7 @@ public class CommandLineInterpreter
     {
         CommandLineInterpreter cli = new CommandLineInterpreter();
         cli.runInteractiveMode();
+        System.exit( 0 );
     }
 
 

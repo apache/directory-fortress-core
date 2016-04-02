@@ -740,61 +740,36 @@
   </build>
 
   <profiles>
+
     <!-- To execute: mvn -Pconsole test -->
     <profile>
       <id>console</id>
       <build>
         <plugins>
           <plugin>
-            <artifactId>maven-antrun-plugin</artifactId>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
             <executions>
-
               <execution>
                 <phase>test</phase>
-                <configuration>
-                  <target name="fortress-console" if="true" description="Run the Fortress Console">
-                    <echo message="############### Run Fortress Console ###############" />
-                    <java classname="org.apache.directory.fortress.core.FortressConsole" fork="false" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
-                      <classpath>
-                        <pathelement location="./config" />
-                        <pathelement location="./target/classes/" />
-                        <pathelement location="./target/test-classes/" />
-                        <pathelement location="${org.apache.ant:ant-launcher:jar}" />
-                        <pathelement location="${org.apache.ant:ant:jar}" />
-                        <pathelement location="${org.openldap:accelerator-api:jar}" />
-                        <pathelement location="${org.openldap:accelerator-impl:jar}" />
-                        <pathelement location="${log4j:log4j:jar}" />
-                        <pathelement location="${org.apache.directory.api:api-all:jar}" />
-                        <pathelement location="${org.apache.mina:mina-core:jar}" />
-                        <pathelement location="${org.jgrapht:jgrapht-core:jar}" />
-                        <pathelement location="${org.jasypt:jasypt:jar}" />
-                        <pathelement location="${commons-configuration:commons-configuration:jar}" />
-                        <pathelement location="${commons-lang:commons-lang:jar}" />
-                        <pathelement location="${commons-collections:commons-collections:jar}" />
-                        <pathelement location="${commons-logging:commons-logging:jar}" />
-                        <pathelement location="${commons-io:commons-io:jar}" />
-                        <pathelement location="${commons-pool:commons-pool:jar}" />
-                        <pathelement location="${net.sf.ehcache:ehcache-core:jar}" />
-                        <pathelement location="${org.slf4j:slf4j-api:jar}" />
-                        <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
-                        <pathelement location="${antlr:antlr:jar}" />
-                        <pathelement location="${junit:junit:jar}" />
-                        <pathelement location="${org.apache.cxf:cxf-api:jar}" />
-                        <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
-                        <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
-                        <pathelement location="${org.apache.httpcomponents:httpclient:jar}" />
-                        <pathelement location="${org.apache.httpcomponents:httpcore:jar}" />
-                        <pathelement location="${com.sun.xml.bind:jaxb-impl:jar}" />
-                        <pathelement location="${commons-codec:commons-codec:jar}" />
-                      </classpath>
-                      <sysproperty key="version" value="${project.version}" />
-                      <sysproperty key="tenant" value="${tenant}" />
-                    </java>
-                  </target>
-                </configuration>
                 <goals>
-                  <goal>run</goal>
+                  <goal>java</goal>
                 </goals>
+                <configuration>
+                  <echo message="############### Run Fortress Console ###############" />
+                  <mainClass>org.apache.directory.fortress.core.FortressConsole</mainClass>
+                  <classpathScope>test</classpathScope>
+                  <systemProperties>
+                    <systemProperty>
+                      <key>version</key>
+                      <value>${project.version}</value>
+                    </systemProperty>
+                    <systemProperty>
+                      <key>tenant</key>
+                      <value>${tenant}</value>
+                    </systemProperty>
+                  </systemProperties>
+                </configuration>
               </execution>
             </executions>
           </plugin>
@@ -808,54 +783,29 @@
       <build>
         <plugins>
           <plugin>
-            <artifactId>maven-antrun-plugin</artifactId>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
             <executions>
-
               <execution>
                 <phase>test</phase>
-                <configuration>
-                  <target name="fortress-cli" if="true" description="Run the Fortress Command Line Interface">
-                    <echo message="############### Run Fortress Command Line Interface ###############" />
-                    <java classname="org.apache.directory.fortress.core.cli.CommandLineInterpreter" fork="false" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
-                      <classpath>
-                        <pathelement location="./config" />
-                        <pathelement location="./target/classes/" />
-                        <pathelement location="./target/test-classes/" />
-                        <pathelement location="${org.apache.ant:ant-launcher:jar}" />
-                        <pathelement location="${org.apache.ant:ant:jar}" />
-                        <pathelement location="${org.openldap:accelerator-api:jar}" />
-                        <pathelement location="${org.openldap:accelerator-impl:jar}" />
-                        <pathelement location="${log4j:log4j:jar}" />
-                        <pathelement location="${org.apache.directory.api:api-all:jar}" />
-                        <pathelement location="${org.apache.mina:mina-core:jar}" />
-                        <pathelement location="${org.jgrapht:jgrapht-core:jar}" />
-                        <pathelement location="${org.jasypt:jasypt:jar}" />
-                        <pathelement location="${commons-configuration:commons-configuration:jar}" />
-                        <pathelement location="${commons-lang:commons-lang:jar}" />
-                        <pathelement location="${commons-collections:commons-collections:jar}" />
-                        <pathelement location="${commons-logging:commons-logging:jar}" />
-                        <pathelement location="${commons-io:commons-io:jar}" />
-                        <pathelement location="${commons-pool:commons-pool:jar}" />
-                        <pathelement location="${net.sf.ehcache:ehcache-core:jar}" />
-                        <pathelement location="${org.slf4j:slf4j-api:jar}" />
-                        <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
-                        <pathelement location="${antlr:antlr:jar}" />
-                        <pathelement location="${junit:junit:jar}" />
-                        <pathelement location="${org.apache.cxf:cxf-api:jar}" />
-                        <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
-                        <pathelement location="${org.apache.httpcomponents:httpclient:jar}" />
-                          <pathelement location="${org.apache.httpcomponents:httpcore:jar}" />
-                        <pathelement location="${com.sun.xml.bind:jaxb-impl:jar}" />
-                        <pathelement location="${commons-codec:commons-codec:jar}" />
-                      </classpath>
-                      <sysproperty key="version" value="${project.version}" />
-                      <sysproperty key="tenant" value="${tenant}" />
-                    </java>
-                  </target>
-                </configuration>
                 <goals>
-                  <goal>run</goal>
+                  <goal>java</goal>
                 </goals>
+                <configuration>
+                  <echo message="############### Run Fortress Command Line Interface ###############" />
+                  <mainClass>org.apache.directory.fortress.core.cli.CommandLineInterpreter</mainClass>
+                  <classpathScope>test</classpathScope>
+                  <systemProperties>
+                    <systemProperty>
+                      <key>version</key>
+                      <value>${project.version}</value>
+                    </systemProperty>
+                    <systemProperty>
+                      <key>tenant</key>
+                      <value>${tenant}</value>
+                    </systemProperty>
+                  </systemProperties>
+                </configuration>
               </execution>
             </executions>
           </plugin>
