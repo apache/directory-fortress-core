@@ -707,9 +707,11 @@ final class PermP
             }
         }
         // Validate Perm Attr Set Name
-        if( StringUtils.isNotEmpty( pOp.getPaSetName() ))
+        if( CollectionUtils.isNotEmpty( pOp.getPaSets() ))
         {
-        	VUtil.permAttrSetName(pOp.getPaSetName());
+            for(String paSetName : pOp.getPaSets()){
+                VUtil.permAttrSetName( paSetName );
+            }
         }
     }
 }

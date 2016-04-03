@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core.model;
 
 import java.io.Serializable;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -258,7 +259,7 @@ import org.apache.commons.lang.StringUtils;
         "props",
         "dn",
         "admin",
-        "paSetName"
+        "paSets"
 })
 public class Permission extends FortEntity implements Serializable
 {
@@ -280,8 +281,8 @@ public class Permission extends FortEntity implements Serializable
     @XmlElement(nillable = true)
     private Set<String> roles;
     @XmlElement(nillable = true)
-    private Set<String> users;    
-    private String paSetName;
+    private Set<String> users;
+    private Set<String> paSets;
 
     /**
      * This constructor is commonly used to create Permission that is a target for authorization API.
@@ -830,13 +831,20 @@ public class Permission extends FortEntity implements Serializable
             '}';
     }
 
+    public Set<String> getPaSets() {
+        return paSets;
+    }
 
-	public String getPaSetName() {
-		return paSetName;
-	}
+    public void setPaSets( Set<String> paSets ){
+        this.paSets = paSets;
+    }
+    
+    public void setPaSetName(String paSet) {
+        if ( paSets == null )
+        {
+        	paSets = new HashSet<String>();
+        }
 
-
-	public void setPaSetName(String paSetName) {
-		this.paSetName = paSetName;
-	}
+        this.paSets.add( paSet );
+    }
 }

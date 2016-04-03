@@ -423,16 +423,12 @@ final class PermDAO extends ApacheDsDataProvider
                 entry.add( TYPE, entity.getType() );
             }
             
-            if ( StringUtils.isNotEmpty( entity.getPaSetName() ) )
-            {
-                entry.add( PERMISSION_ATTRIBUTE_SET, entity.getPaSetName() );
-            }
-
             // These are multi-valued attributes, use the util function to load:
             // These items are optional as well.  The utility function will return quietly if no items are loaded into collection:
             loadAttrs( entity.getRoles(), entry, ROLES );
             loadAttrs( entity.getUsers(), entry, USERS );
-
+            loadAttrs( entity.getPaSets(), entry, PERMISSION_ATTRIBUTE_SET );
+            
             // props are optional as well:
             //if the props is null don't try to load these attributes
             if ( PropUtil.isNotEmpty( entity.getProperties() ) )
@@ -583,11 +579,12 @@ final class PermDAO extends ApacheDsDataProvider
                     ModificationOperation.REPLACE_ATTRIBUTE, TYPE, entity.getType() ) );
             }
             
-            if ( StringUtils.isNotEmpty( entity.getPaSetName() ) )
+            if ( CollectionUtils.isNotEmpty( entity.getPaSets() ) )
             {
-
-                mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, PERMISSION_ATTRIBUTE_SET, entity.getPaSetName() ) );
+                for(String paSetName : entity.getPaSets() ){
+                    mods.add( new DefaultModification(
+                        ModificationOperation.REPLACE_ATTRIBUTE, PERMISSION_ATTRIBUTE_SET, paSetName ) );
+                }
             }
 
             // These are multi-valued attributes, use the util function to load:
@@ -1230,7 +1227,7 @@ final class PermDAO extends ApacheDsDataProvider
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         entity.addProperties( PropUtil.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );        
         entity.setAdmin( isAdmin );
-        entity.setPaSetName( getAttribute(le, GlobalIds.FT_PERMISSION_ATTRIBUTE_SET ) );
+        entity.setPaSets( getAttributeSet(le, GlobalIds.FT_PERMISSION_ATTRIBUTE_SET ) );
 
         if ( le != null )
         {
