@@ -58,7 +58,7 @@ import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 
 
 /**
@@ -150,7 +150,7 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
  * 
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-final class PermDAO extends ApacheDsDataProvider
+final class PermDAO extends LdapDataProvider
 {
     /*
       *  *************************************************************************

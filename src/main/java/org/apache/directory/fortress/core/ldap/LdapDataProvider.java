@@ -95,10 +95,10 @@ import org.slf4j.LoggerFactory;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public abstract class ApacheDsDataProvider
+public abstract class LdapDataProvider
 {
     // Logging
-    private static final String CLS_NM = ApacheDsDataProvider.class.getName();
+    private static final String CLS_NM = LdapDataProvider.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     private static final int MAX_DEPTH = 100;

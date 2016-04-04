@@ -41,7 +41,7 @@ import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.AdminMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.ldap.LdapCounters;
 import org.apache.directory.fortress.core.impl.DelegatedMgrImplTest;
 import org.apache.directory.fortress.core.impl.FortressJUnitTest;
@@ -81,7 +81,7 @@ public class AdminManagerTest extends AbstractLdapTestUnit
     @After
     public void displayCounters()
     {
-        LdapCounters counters = ApacheDsDataProvider.getLdapCounters();
+        LdapCounters counters = LdapDataProvider.getLdapCounters();
         System.out.println( "NUMBER OF READS: " + counters.getRead() );
         System.out.println( "NUMBER OF SEARCHES: " + counters.getSearch() );
         System.out.println( "NUMBER OF COMPARES: " + counters.getCompare() );

@@ -50,7 +50,7 @@ import org.openldap.accelerator.api.sessionRoles.RbacSessionRolesResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.ldap.client.api.LdapConnection;
 
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ import java.util.List;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-final class AcceleratorDAO extends ApacheDsDataProvider
+final class AcceleratorDAO extends LdapDataProvider
 {
     private static final Logger LOG = LoggerFactory.getLogger( AcceleratorDAO.class.getName() );
 

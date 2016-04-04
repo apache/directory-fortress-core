@@ -33,7 +33,7 @@ import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.LoggerFactory;
@@ -47,7 +47,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ExampleDAO extends ApacheDsDataProvider
+public class ExampleDAO extends LdapDataProvider
 
 {
     private static final String CLS_NM = ExampleDAO.class.getName();

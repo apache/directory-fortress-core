@@ -43,7 +43,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 
 
 /**
@@ -121,7 +121,7 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-final class AuditDAO extends ApacheDsDataProvider
+final class AuditDAO extends LdapDataProvider
 {
     private static final String CREATETIMESTAMP = "createTimestamp";
     private static final String CREATORSNAME = "creatorsName";

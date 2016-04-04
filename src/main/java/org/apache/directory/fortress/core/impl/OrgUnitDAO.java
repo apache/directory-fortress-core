@@ -52,7 +52,7 @@ import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 
 
 /**
@@ -103,7 +103,7 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @created September 18, 2010
  */
-final class OrgUnitDAO extends ApacheDsDataProvider
+final class OrgUnitDAO extends LdapDataProvider
 {
     private static final String CLS_NM = OrgUnitDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );

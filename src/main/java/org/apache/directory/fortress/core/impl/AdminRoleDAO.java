@@ -43,7 +43,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.Graphable;
@@ -107,7 +107,7 @@ import org.apache.directory.ldap.client.api.LdapConnection;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-final class AdminRoleDAO extends ApacheDsDataProvider
+final class AdminRoleDAO extends LdapDataProvider
 {
     private static final String ROLE_OCCUPANT = "roleOccupant";
     private static final String ROLE_OSP = "ftOSP";

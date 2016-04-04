@@ -35,7 +35,7 @@ import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.FinderException;
@@ -79,7 +79,7 @@ import org.apache.directory.fortress.core.UpdateException;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-final class ConfigDAO extends ApacheDsDataProvider
+final class ConfigDAO extends LdapDataProvider
 
 {
     private static final String CLS_NM = ConfigDAO.class.getName();

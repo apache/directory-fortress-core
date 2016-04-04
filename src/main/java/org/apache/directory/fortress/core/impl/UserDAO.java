@@ -74,7 +74,7 @@ import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 
 
 /**
@@ -146,7 +146,7 @@ import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @created August 30, 2009
  */
-final class UserDAO extends ApacheDsDataProvider
+final class UserDAO extends LdapDataProvider
 {
     private static final String CLS_NM = UserDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );

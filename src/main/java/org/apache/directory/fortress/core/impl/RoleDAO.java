@@ -46,7 +46,7 @@ import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.model.Role;
 
 
@@ -95,7 +95,7 @@ import org.apache.directory.fortress.core.model.Role;
  *
  * @author Kevin McKinney
  */
-final class RoleDAO extends ApacheDsDataProvider
+final class RoleDAO extends LdapDataProvider
 {
     /*
       *  *************************************************************************

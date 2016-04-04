@@ -932,6 +932,8 @@ public class FortressAntTask extends Task implements InputHandler
         addUserRoles();
 
         testResults();
+
+        System.exit( 0 );
     }
 
     /**

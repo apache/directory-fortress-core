@@ -48,7 +48,7 @@ import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.model.Role;
 
 
@@ -114,7 +114,7 @@ import org.apache.directory.fortress.core.model.Role;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-final class SdDAO extends ApacheDsDataProvider
+final class SdDAO extends LdapDataProvider
 {
     private static final String SD_SET_NM = "ftSetName";
     private static final String ROLES = "ftRoles";

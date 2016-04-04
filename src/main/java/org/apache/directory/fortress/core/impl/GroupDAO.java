@@ -41,7 +41,7 @@ import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,7 +60,7 @@ import java.util.List;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-final class GroupDAO extends ApacheDsDataProvider
+final class GroupDAO extends LdapDataProvider
 {
     private static final String CLS_NM = GroupDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );

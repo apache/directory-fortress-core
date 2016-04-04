@@ -46,7 +46,7 @@ import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.model.PwPolicy;
 
 
@@ -95,7 +95,7 @@ import org.apache.directory.fortress.core.model.PwPolicy;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-final class PolicyDAO extends ApacheDsDataProvider
+final class PolicyDAO extends LdapDataProvider
 {
     /*
       *  *************************************************************************
