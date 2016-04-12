@@ -19,7 +19,7 @@
 -------------------------------------------------------------------------------
 # README for Apache Fortress Core
 
- * Version 1.0-RC42
+ * Version 1.0.0
  * Apache Fortress Core System Architecture Diagram
  ![Apache Fortress Core System Architecture](images/fortress-core-system-arch.png "Apache Fortress Core System Architecture")
 
@@ -71,7 +71,6 @@ Minimum software requirements:
  * git
  * Java SDK 7++
  * Apache Maven3++
- * Apache Ant7++ (if doing SECTION **Instructions for using Apache Fortress and Symas OpenLDAP server**)
 
 ___________________________________________________________________________________
 ## SECTION 2. Download & Install
