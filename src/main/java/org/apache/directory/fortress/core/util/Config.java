@@ -52,8 +52,8 @@ import org.apache.directory.fortress.core.SecurityException;
  */
 public final class Config
 {
-    private static final String propFile = "fortress.properties";
-    private static final String userPropFile = "fortress.user.properties";
+    private static final String PROP_FILE = "fortress.properties";
+    private static final String USER_PROP_FILE = "fortress.user.properties";
     private static final String EXT_LDAP_HOST = "fortress.host";
     private static final String EXT_LDAP_PORT = "fortress.port";
     private static final String EXT_LDAP_ADMIN_POOL_UID = "fortress.admin.user";
@@ -77,26 +77,25 @@ public final class Config
         try
         {
             // Load the system config file.
-            URL fUrl = Config.class.getClassLoader().getResource( propFile );
+            URL fUrl = Config.class.getClassLoader().getResource( PROP_FILE );
             config = new PropertiesConfiguration();
             config.setDelimiterParsingDisabled( true );
             if ( fUrl == null )
             {
-                String error = "static init: Error, null cfg file: " + propFile;
+                String error = "static init: Error, null cfg file: " + PROP_FILE;
                 LOG.warn( error );
             }
             else
             {
-                LOG.info( "static init: found from: {} path: {}", propFile, fUrl.getPath() );
+                LOG.info( "static init: found from: {} path: {}", PROP_FILE, fUrl.getPath() );
                 config.load( fUrl );
-                LOG.info( "static init: loading from: {}", propFile );
+                LOG.info( "static init: loading from: {}", PROP_FILE );
             }
 
-            URL fUserUrl = Config.class.getClassLoader().getResource( userPropFile );
+            URL fUserUrl = Config.class.getClassLoader().getResource( USER_PROP_FILE );
             if ( fUserUrl != null )
             {
-                LOG.info( "static init: found user properties from: {} path: {}",
-                    userPropFile, fUserUrl.getPath() );
+                LOG.info( "static init: found user properties from: {} path: {}", USER_PROP_FILE, fUserUrl.getPath() );
                 config.load( fUserUrl );
             }
 
@@ -126,14 +125,14 @@ public final class Config
         }
         catch ( org.apache.commons.configuration.ConfigurationException ex )
         {
-            String error = "static init: Error loading from cfg file: [" + propFile
+            String error = "static init: Error loading from cfg file: [" + PROP_FILE
                 + "] ConfigurationException=" + ex;
             LOG.error( error );
             throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_BOOTSTRAP_FAILED, error, ex );
         }
         catch ( SecurityException se )
         {
-            String error = "static init: Error loading from cfg file: [" + propFile + "] SecurityException="
+            String error = "static init: Error loading from cfg file: [" + PROP_FILE + "] SecurityException="
                 + se;
             LOG.error( error );
             throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_INITIALIZE_FAILED, error, se );
