@@ -660,8 +660,8 @@
           <includes />
           <version>true</version>
           <author>true</author>
-          <doctitle>Fortress Identity and Access Management Javadoc ${project.version}</doctitle>
-          <windowtitle>Apache Fortress Identity and Access Management Javadoc ${project.version}</windowtitle>
+          <doctitle>Fortress Core Javadoc ${project.version}</doctitle>
+          <windowtitle>Apache Fortress Core Javadoc ${project.version}</windowtitle>
         </configuration>
       </plugin>
 
