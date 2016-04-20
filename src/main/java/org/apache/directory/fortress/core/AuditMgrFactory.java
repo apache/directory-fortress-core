@@ -20,11 +20,11 @@
 package org.apache.directory.fortress.core;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.impl.AuditMgrImpl;
-import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.rest.AuditMgrRestImpl;
+import org.apache.directory.fortress.core.util.ClassUtil;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
 
 /**
@@ -37,8 +37,7 @@ import org.apache.directory.fortress.core.util.VUtil;
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public final class AuditMgrFactory
-{
-    private static String auditClassName = Config.getProperty(GlobalIds.AUDIT_IMPLEMENTATION);
+{    
     private static final String CLS_NM = AuditMgrFactory.class.getName();
 
     /**
@@ -64,11 +63,14 @@ public final class AuditMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
+        
+        String auditClassName = Config.getInstance().getProperty(GlobalIds.AUDIT_IMPLEMENTATION);
+        
         AuditMgr auditMgr;
 
         if ( StringUtils.isEmpty( auditClassName ) )
         {
-            if(GlobalIds.IS_REST)
+            if(GlobalIds.getInstance().IS_REST)
             {
                 auditMgr = new AuditMgrRestImpl();
             }

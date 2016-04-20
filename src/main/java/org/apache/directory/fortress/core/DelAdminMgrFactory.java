@@ -20,11 +20,11 @@
 package org.apache.directory.fortress.core;
 
 import org.apache.directory.api.util.Strings;
-import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.impl.DelAdminMgrImpl;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.rest.DelAdminMgrRestImpl;
+import org.apache.directory.fortress.core.util.ClassUtil;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
 
 /**
@@ -38,7 +38,6 @@ import org.apache.directory.fortress.core.util.VUtil;
  */
 public final class DelAdminMgrFactory
 {
-    private static String dAdminClassName = Config.getProperty(GlobalIds.DELEGATED_ADMIN_IMPLEMENTATION);
     private static final String CLS_NM = DelAdminMgrFactory.class.getName();
     private static final String CREATE_INSTANCE_METHOD = CLS_NM + ".createInstance";
 
@@ -65,11 +64,14 @@ public final class DelAdminMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull( contextId, GlobalErrIds.CONTEXT_NULL, CREATE_INSTANCE_METHOD );
+        
+        String dAdminClassName = Config.getInstance().getProperty(GlobalIds.DELEGATED_ADMIN_IMPLEMENTATION);
+        
         DelAdminMgr delAdminMgr;
 
         if ( Strings.isEmpty( dAdminClassName ) )
         {
-            if ( GlobalIds.IS_REST )
+            if ( GlobalIds.getInstance().IS_REST )
             {
                 delAdminMgr = new DelAdminMgrRestImpl();
             }

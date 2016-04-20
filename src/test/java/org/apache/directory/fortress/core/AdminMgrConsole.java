@@ -19,38 +19,38 @@
  */
 package org.apache.directory.fortress.core;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.example.Example;
-import org.apache.directory.fortress.core.example.ExampleAdminMgr;
-import org.apache.directory.fortress.core.example.ExampleAdminMgrFactory;
-import org.apache.directory.fortress.core.impl.MyAnnotation;
-import org.apache.directory.fortress.core.impl.PolicyTestData;
-import org.apache.directory.fortress.core.model.Hier;
-import org.apache.directory.fortress.core.model.PermObj;
-import org.apache.directory.fortress.core.model.Relationship;
-import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.model.SDSet;
-import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.impl.TestUtils;
-import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.model.Constraint;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.jgrapht.UndirectedGraph;
-import org.jgrapht.graph.DefaultEdge;
-import org.jgrapht.graph.SimpleDirectedGraph;
-import org.jgrapht.graph.SimpleGraph;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.example.Example;
+import org.apache.directory.fortress.core.example.ExampleAdminMgr;
+import org.apache.directory.fortress.core.example.ExampleAdminMgrFactory;
+import org.apache.directory.fortress.core.impl.MyAnnotation;
+import org.apache.directory.fortress.core.impl.PolicyTestData;
+import org.apache.directory.fortress.core.impl.TestUtils;
+import org.apache.directory.fortress.core.model.Constraint;
+import org.apache.directory.fortress.core.model.Hier;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Relationship;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.SDSet;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.util.Config;
+import org.jgrapht.UndirectedGraph;
+import org.jgrapht.graph.DefaultEdge;
+import org.jgrapht.graph.SimpleDirectedGraph;
+import org.jgrapht.graph.SimpleGraph;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -584,7 +584,7 @@ class AdminMgrConsole
         ReaderUtil.clearScreen();
         System.out.println("Enter config name");
         String name = ReaderUtil.readLn();
-        String value = Config.getProperty(name);
+        String value = Config.getInstance().getProperty(name);
         //ra.addUser(ue);
         System.out.println("AdminMgrConsole.testConfig name [" + name + "] value [" + value + "]");
         ReaderUtil.readChar();

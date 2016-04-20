@@ -40,22 +40,51 @@ public final class GlobalIds
 {
     public static final String CONFIG_ROOT_PARAM = "config.root";
 
+    private static volatile GlobalIds INSTANCE = null; 
+
+    public static GlobalIds getInstance() {
+        if(INSTANCE == null) {
+            synchronized (GlobalIds.class) {
+                if(INSTANCE == null){
+        	        INSTANCE = new GlobalIds();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+    
     /**
      * Private constructor
      *
      */
     private GlobalIds()
     {
+    	init();
+    	
+    	IS_AUDIT_DISABLED = ( ( Config.getInstance().getProperty( DISABLE_AUDIT ) != null ) && ( Config
+    	        .getInstance().getProperty( DISABLE_AUDIT ).equalsIgnoreCase( "true" ) ) );
+    	
+    	IS_REST = ( ( Config.getInstance().getProperty( ENABLE_REST ) != null ) && ( Config
+    	        .getInstance().getProperty( ENABLE_REST ).equalsIgnoreCase( "true" ) ) );
+    	
+    	IS_REALM = GlobalIds.REALM_TYPE.equalsIgnoreCase( Config
+    	        .getInstance().getProperty( GlobalIds.AUTHENTICATION_TYPE ) );
+    	
+    	IS_OPENLDAP = ( ( Config.getInstance().getProperty( SERVER_TYPE ) != null ) && ( Config
+    	        .getInstance().getProperty( SERVER_TYPE ).equalsIgnoreCase( "openldap" ) ) );
+    	
+    	LDAP_FILTER_SIZE_FOUND = ( Config
+    	        .getInstance().getProperty( LDAP_FILTER_SIZE_PROP ) != null );
+    	
+    	DELIMITER = Config.getInstance().getProperty( "attr.delimiter", "$" );
     }
 
     public static final String HOME = "HOME";
     public static final String TENANT = "tenant";
     private static final String DISABLE_AUDIT = "disable.audit";
-    public static final boolean IS_AUDIT_DISABLED = ( ( Config.getProperty( DISABLE_AUDIT ) != null ) && ( Config
-        .getProperty( DISABLE_AUDIT ).equalsIgnoreCase( "true" ) ) );
+    public boolean IS_AUDIT_DISABLED;
     private static final String ENABLE_REST = "enable.mgr.impl.rest";
-    public static final boolean IS_REST = ( ( Config.getProperty( ENABLE_REST ) != null ) && ( Config
-        .getProperty( ENABLE_REST ).equalsIgnoreCase( "true" ) ) );
+    public boolean IS_REST;
 
     /**
      * The following constants are used within the factory classes:
@@ -147,8 +176,7 @@ public final class GlobalIds
      * the authentication module will not throw SecurityException on password resets.  This is to enable the authentication
      * event to succeed allowing the application to prompt user to change their password.
      */
-    public static final boolean IS_REALM = GlobalIds.REALM_TYPE.equalsIgnoreCase( Config
-        .getProperty( GlobalIds.AUTHENTICATION_TYPE ) );
+    public boolean IS_REALM;
 
     /**
      * Parameter specifies the distinguished name (dn) of the LDAP suffix.  The is the root or top-most node for a Directory Information Tree (DIT).  The typical
@@ -234,8 +262,7 @@ public final class GlobalIds
     */
 
     public static final String SERVER_TYPE = "ldap.server.type";
-    public static final boolean IS_OPENLDAP = ( ( Config.getProperty( SERVER_TYPE ) != null ) && ( Config
-        .getProperty( SERVER_TYPE ).equalsIgnoreCase( "openldap" ) ) );
+    public boolean IS_OPENLDAP;
 
     /*
       *  *************************************************************************
@@ -439,8 +466,7 @@ public final class GlobalIds
     /**
      * Used during ldap filter processing.
      */
-    public static final boolean LDAP_FILTER_SIZE_FOUND = ( Config
-        .getProperty( LDAP_FILTER_SIZE_PROP ) != null );
+    public boolean LDAP_FILTER_SIZE_FOUND;
     public static final String APACHE_LDAP_API = "apache";
     public static final String AUTH_Z_FAILED = "authzfailed";
     public static final String POP_NAME = "ftOpNm";
@@ -473,11 +499,11 @@ public final class GlobalIds
     /**
      * enable the ldap filter size variable to be used later during filter processing.
      */
-    static
+    private void init()
     {
         try
         {
-            String lenProp = Config.getProperty( LDAP_FILTER_SIZE_PROP );
+            String lenProp = Config.getInstance().getProperty( LDAP_FILTER_SIZE_PROP );
             if ( LDAP_FILTER_SIZE_FOUND )
             {
                 ldapFilterSize = Integer.valueOf( lenProp );
@@ -510,7 +536,7 @@ public final class GlobalIds
      * Fortress stores complex attribute types within a single attribute in ldap.  Usually a delimiter of '$' is used for string tokenization.
      * format: {@code part1$part2$part3....}  Stored in fortress.properties as 'attr.delimiter=$'
      */
-    public static final String DELIMITER = Config.getProperty( "attr.delimiter", "$" );
+    public String DELIMITER;
 
     /**
      * Maximum number of records for ldap client to wait on while processing results sets from ldap server.

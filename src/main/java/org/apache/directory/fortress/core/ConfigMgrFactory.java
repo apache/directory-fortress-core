@@ -19,10 +19,10 @@
  */
 package org.apache.directory.fortress.core;
 
-import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.impl.ConfigMgrImpl;
-import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.rest.ConfigMgrRestImpl;
+import org.apache.directory.fortress.core.util.ClassUtil;
+import org.apache.directory.fortress.core.util.Config;
 
 /**
  * Creates an instance of the ConfigMgr object.
@@ -35,10 +35,8 @@ import org.apache.directory.fortress.core.rest.ConfigMgrRestImpl;
  */
 public final class ConfigMgrFactory
 {
-    private static String configClassName = Config.getProperty( GlobalIds.CONFIG_IMPLEMENTATION );
     private final static String ENABLE_REST = "enable.mgr.impl.rest";
-    private static final boolean IS_REST = ((Config.getProperty(ENABLE_REST) != null) && (Config.getProperty(ENABLE_REST).equalsIgnoreCase("true")));
-
+    
     private ConfigMgrFactory()
     {
 
@@ -53,6 +51,9 @@ public final class ConfigMgrFactory
     public static ConfigMgr createInstance()
         throws SecurityException
     {
+    	String configClassName = Config.getInstance().getProperty( GlobalIds.CONFIG_IMPLEMENTATION );
+    	boolean IS_REST = ((Config.getInstance().getProperty(ENABLE_REST) != null) && (Config.getInstance().getProperty(ENABLE_REST).equalsIgnoreCase("true")));
+    	
         if (configClassName == null || configClassName.compareTo("") == 0)
         {
             if(IS_REST)

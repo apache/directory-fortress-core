@@ -19,15 +19,15 @@
  */
 package org.apache.directory.fortress.core.rest;
 
+import java.util.Properties;
+
+import org.apache.directory.fortress.core.ConfigMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.ConfigMgr;
 import org.apache.directory.fortress.core.model.FortRequest;
 import org.apache.directory.fortress.core.model.FortResponse;
 import org.apache.directory.fortress.core.model.Props;
 import org.apache.directory.fortress.core.util.VUtil;
-
-import java.util.Properties;
 
 /**
  * This Manager impl supplies CRUD methods used to manage properties stored within the ldap directory using HTTP access to En Masse REST server.
@@ -60,7 +60,7 @@ public class ConfigMgrRestImpl implements ConfigMgr
         request.setEntity(inProps);
         request.setValue(name);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.CFG_ADD);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.CFG_ADD);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -89,7 +89,7 @@ public class ConfigMgrRestImpl implements ConfigMgr
         request.setEntity(inProps);
         request.setValue(name);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.CFG_UPDATE);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.CFG_UPDATE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -114,7 +114,7 @@ public class ConfigMgrRestImpl implements ConfigMgr
         FortRequest request = new FortRequest();
         request.setValue(name);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.CFG_DELETE);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.CFG_DELETE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -136,7 +136,7 @@ public class ConfigMgrRestImpl implements ConfigMgr
         request.setEntity(inProps);
         request.setValue(name);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.CFG_DELETE);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.CFG_DELETE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -156,7 +156,7 @@ public class ConfigMgrRestImpl implements ConfigMgr
         FortRequest request = new FortRequest();
         request.setValue(name);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.CFG_READ);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.CFG_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
         Props props;
         if (response.getErrorCode() == 0)

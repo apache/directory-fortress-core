@@ -20,11 +20,11 @@
 package org.apache.directory.fortress.core;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.impl.PwPolicyMgrImpl;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.rest.PwPolicyMgrRestImpl;
+import org.apache.directory.fortress.core.util.ClassUtil;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
 
 /**
@@ -36,8 +36,7 @@ import org.apache.directory.fortress.core.util.VUtil;
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public final class PwPolicyMgrFactory
-{
-    private static String policyClassName = Config.getProperty(GlobalIds.PSWD_POLICY_IMPLEMENTATION);
+{    
     private static final String CLS_NM = PwPolicyMgrFactory.class.getName();
 
     /**
@@ -63,11 +62,14 @@ public final class PwPolicyMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
+        
+        String policyClassName = Config.getInstance().getProperty(GlobalIds.PSWD_POLICY_IMPLEMENTATION);
+        
         PwPolicyMgr policyMgr;
 
         if ( StringUtils.isEmpty( policyClassName ) )
         {
-            if(GlobalIds.IS_REST)
+            if(GlobalIds.getInstance().IS_REST)
             {
                 policyMgr = new PwPolicyMgrRestImpl();
             }

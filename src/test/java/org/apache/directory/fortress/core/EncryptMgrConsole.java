@@ -34,7 +34,7 @@ class EncryptMgrConsole
         ReaderUtil.clearScreen();
         System.out.println("Enter text to encrypt:");
         String text = ReaderUtil.readLn();
-        String myEncryptedText = EncryptUtil.encrypt(text);
+        String myEncryptedText = EncryptUtil.getInstance().encrypt(text);
         System.out.println("Encrypted value=" + myEncryptedText);
         ReaderUtil.readChar();
     }
@@ -45,7 +45,7 @@ class EncryptMgrConsole
         ReaderUtil.clearScreen();
         System.out.println("Enter text to decrypt:");
         String text = ReaderUtil.readLn();
-        String plainText = EncryptUtil.decrypt(text);
+        String plainText = EncryptUtil.getInstance().decrypt(text);
         System.out.println("Unencrypted value=" + plainText);
         ReaderUtil.readChar();
     }

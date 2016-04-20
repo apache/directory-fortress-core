@@ -390,7 +390,7 @@ final class UserP
             throw new PasswordException( session.getErrorId(), info );
         }
 
-        VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
+        VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.USER, false );
 
         return session;
     }
@@ -453,7 +453,7 @@ final class UserP
             // Create the impl session without authentication of password.
             session = createSessionTrusted( user );
             // Check user temporal constraints.  This op usually performed during authentication.
-            VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
+            VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.USER, false );
         }
         else
         {
@@ -480,7 +480,7 @@ final class UserP
             }
         }
         // Check role temporal constraints + activate roles:
-        VUtil.validateConstraints( session, VUtil.ConstraintType.ROLE, true );
+        VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.ROLE, true );
         return session;
     }
 

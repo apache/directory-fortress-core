@@ -20,10 +20,10 @@
 package org.apache.directory.fortress.core;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.impl.AccessMgrImpl;
-import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.rest.AccessMgrRestImpl;
+import org.apache.directory.fortress.core.util.ClassUtil;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
 
 /**
@@ -38,7 +38,6 @@ import org.apache.directory.fortress.core.util.VUtil;
  */
 public final class AccessMgrFactory
 {
-    private static String accessClassName = Config.getProperty(GlobalIds.ACCESS_IMPLEMENTATION);
     private static final String CLS_NM = AccessMgrFactory.class.getName();
 
     /**
@@ -64,10 +63,12 @@ public final class AccessMgrFactory
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
 
+        String accessClassName = Config.getInstance().getProperty(GlobalIds.ACCESS_IMPLEMENTATION);
+        
         AccessMgr accessMgr;
         if ( StringUtils.isEmpty( accessClassName ) )
         {
-            if(GlobalIds.IS_REST)
+            if(GlobalIds.getInstance().IS_REST)
             {
                 accessMgr = new AccessMgrRestImpl();
             }

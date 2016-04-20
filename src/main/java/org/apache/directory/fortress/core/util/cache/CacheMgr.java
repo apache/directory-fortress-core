@@ -20,11 +20,12 @@
 package org.apache.directory.fortress.core.util.cache;
 
 import net.sf.ehcache.CacheManager;
+
 import org.apache.directory.fortress.core.CfgException;
 import org.apache.directory.fortress.core.CfgRuntimeException;
 import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.ClassUtil;
+import org.apache.directory.fortress.core.util.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,13 +40,29 @@ public final class CacheMgr
 {
     private static final Logger LOG = LoggerFactory.getLogger( CacheMgr.class.getName() );
     private static final String EHCACHE_CONFIG_FILE = "ehcache.config.file";
-    private final CacheManager mEhCacheImpl;
-    private static CacheMgr mFtCacheImpl;
-
-    static
+    private CacheManager mEhCacheImpl;
+    
+    private static volatile CacheMgr INSTANCE = null; 
+    
+    /**
+     * Create or return the fortress cache manager reference.
+     * @return handle to the cache manager in effect for process.
+     */
+    public static CacheMgr getInstance() {
+        if(INSTANCE == null) {
+            synchronized (CacheMgr.class) {
+                if(INSTANCE == null){
+        	        INSTANCE = new CacheMgr();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+    
+    private void init()
     {
         // Use default name of 'ehache.xml':
-        String cacheConfig = Config.getProperty( EHCACHE_CONFIG_FILE, "ehcache.xml" );
+        String cacheConfig = Config.getInstance().getProperty( EHCACHE_CONFIG_FILE, "ehcache.xml" );
         try
         {
             // This static block performs the following:
@@ -53,7 +70,7 @@ public final class CacheMgr
             // 2. Requires location of ehcache's config file as parameter.
             // 3. The CacheManager reference then gets passed to constructor of self.
             // 4. Store the reference of self as a static member variable of this class.
-            mFtCacheImpl = new CacheMgr( new CacheManager( ClassUtil.resourceAsStream( cacheConfig ) ) );
+            mEhCacheImpl = new CacheManager( ClassUtil.resourceAsStream( cacheConfig ) );
         }
         catch(CfgException ce)
         {
@@ -68,18 +85,9 @@ public final class CacheMgr
      *
      * @param cacheMangerImpl contains a reference to cache implementation manager.
      */
-    private CacheMgr( CacheManager cacheMangerImpl )
+    private CacheMgr()
     {
-        mEhCacheImpl = cacheMangerImpl;
-    }
-
-    /**
-     * Create or return the fortress cache manager reference.
-     * @return handle to the cache manager in effect for process.
-     */
-    public static CacheMgr getInstance()
-    {
-        return mFtCacheImpl;
+    	init();
     }
 
     /**

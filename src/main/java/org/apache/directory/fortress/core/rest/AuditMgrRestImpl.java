@@ -19,20 +19,20 @@
  */
 package org.apache.directory.fortress.core.rest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.directory.fortress.core.AuditMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.AuthZ;
 import org.apache.directory.fortress.core.model.Bind;
 import org.apache.directory.fortress.core.model.FortRequest;
 import org.apache.directory.fortress.core.model.FortResponse;
-import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.Mod;
 import org.apache.directory.fortress.core.model.UserAudit;
 import org.apache.directory.fortress.core.util.VUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class performs searches across <a href="http://www.openldap.org/">OpenLDAP</a>'s slapd access log using HTTP access 
@@ -126,7 +126,7 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.AUDIT_UAUTHZS);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.AUDIT_UAUTHZS);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -162,7 +162,7 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.AUDIT_AUTHZS);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.AUDIT_AUTHZS);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -198,7 +198,7 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.AUDIT_BINDS);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.AUDIT_BINDS);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -234,7 +234,7 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.AUDIT_SESSIONS);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.AUDIT_SESSIONS);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -270,7 +270,7 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.AUDIT_MODS);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.AUDIT_MODS);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -306,7 +306,7 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.AUDIT_INVLD);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.AUDIT_INVLD);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {

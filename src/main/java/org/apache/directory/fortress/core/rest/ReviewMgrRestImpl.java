@@ -19,12 +19,17 @@
  */
 package org.apache.directory.fortress.core.rest;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.FortRequest;
 import org.apache.directory.fortress.core.model.FortResponse;
-import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
@@ -33,11 +38,6 @@ import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.VUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * This class performs administrative review functions on already provisioned Fortress RBAC entities using HTTP access to En Masse REST server.
@@ -96,7 +96,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PERM_READ);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -127,7 +127,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.OBJ_READ);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.OBJ_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -158,7 +158,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PERM_SEARCH);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -189,7 +189,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PERM_OBJ_SEARCH);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_OBJ_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -220,7 +220,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PERM_SEARCH_ANY);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_SEARCH_ANY);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -251,7 +251,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.OBJ_SEARCH);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.OBJ_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -284,7 +284,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.OBJ_SEARCH);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.OBJ_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -315,7 +315,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_READ);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -346,7 +346,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_SEARCH);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -378,7 +378,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_SEARCH);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -409,7 +409,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_READ);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -440,7 +440,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_SEARCH);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -473,7 +473,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_SEARCH);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -505,7 +505,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_SEARCH);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -537,7 +537,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_ASGNED);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_ASGNED);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -573,7 +573,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_ASGNED);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_ASGNED);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -604,7 +604,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_ASGNED);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_ASGNED);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -635,7 +635,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_ASGNED);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_ASGNED);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -666,7 +666,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_AUTHZED);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_AUTHZED);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -701,7 +701,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_AUTHZED);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_AUTHZED);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -746,7 +746,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_PERMS);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_PERMS);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -777,7 +777,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_PERMS);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_PERMS);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -808,7 +808,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PERM_ROLES);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_ROLES);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -839,7 +839,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PERM_ROLES_AUTHZED);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_ROLES_AUTHZED);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -872,7 +872,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PERM_USERS);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_USERS);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -903,7 +903,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PERM_USERS_AUTHZED);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_USERS_AUTHZED);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -936,7 +936,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.SSD_ROLE_SETS);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.SSD_ROLE_SETS);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -971,7 +971,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.SSD_READ);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.SSD_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1001,7 +1001,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
              request.setSession(adminSess);
          }
          String szRequest = RestUtils.marshal(request);
-         String szResponse = RestUtils.post(szRequest, HttpIds.SSD_SETS);
+         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.SSD_SETS);
          FortResponse response = RestUtils.unmarshall(szResponse);
          if (response.getErrorCode() == 0)
          {
@@ -1036,7 +1036,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.SSD_ROLES);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.SSD_ROLES);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1069,7 +1069,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.SSD_CARD);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.SSD_CARD);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1100,7 +1100,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.DSD_ROLE_SETS);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.DSD_ROLE_SETS);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1135,7 +1135,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.DSD_READ);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.DSD_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1165,7 +1165,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
              request.setSession(adminSess);
          }
          String szRequest = RestUtils.marshal(request);
-         String szResponse = RestUtils.post(szRequest, HttpIds.DSD_SETS);
+         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.DSD_SETS);
          FortResponse response = RestUtils.unmarshall(szResponse);
          if (response.getErrorCode() == 0)
          {
@@ -1200,7 +1200,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.DSD_ROLES);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.DSD_ROLES);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -1233,7 +1233,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.DSD_CARD);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.DSD_CARD);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {

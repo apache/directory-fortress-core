@@ -36,28 +36,30 @@ import javax.xml.bind.Unmarshaller;
 
 import org.apache.cxf.common.util.Base64Utility;
 import org.apache.cxf.helpers.IOUtils;
+import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.RestException;
 import org.apache.directory.fortress.core.model.FortRequest;
 import org.apache.directory.fortress.core.model.FortResponse;
+import org.apache.directory.fortress.core.model.ObjectFactory;
+import org.apache.directory.fortress.core.model.Props;
+import org.apache.directory.fortress.core.util.Config;
+import org.apache.directory.fortress.core.util.crypto.EncryptUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.CredentialsProvider;
-import org.apache.http.client.methods.*;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.model.ObjectFactory;
-import org.apache.directory.fortress.core.RestException;
-import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.model.Props;
-import org.apache.directory.fortress.core.util.crypto.EncryptUtil;
 
 
 /**
@@ -69,16 +71,15 @@ public class RestUtils
 {
     private static final String CLS_NM = RestUtils.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private static final String HTTP_UID = Config.getProperty( "http.user" );
+    private String HTTP_UID;
     private static final String HTTP_PW_PARAM = "http.pw";
-    private static final String HTTP_PW = ( ( EncryptUtil.isEnabled() ) ? EncryptUtil.decrypt( Config
-        .getProperty( HTTP_PW_PARAM ) ) : Config.getProperty( HTTP_PW_PARAM ) );
-    private static final String HTTP_HOST = Config.getProperty( "http.host" );
-    private static final String HTTP_PORT = Config.getProperty( "http.port" );
-    private static final String HTTP_PROTOCOL = Config.getProperty( "http.protocol", "http" );
+    private String HTTP_PW;
+    private String HTTP_HOST;
+    private String HTTP_PORT;
+    private String HTTP_PROTOCOL;
     private static final String VERSION = System.getProperty( "version" );
     private static final String SERVICE = "fortress-rest-" + VERSION;
-    private static final String URI = HTTP_PROTOCOL + "://" + HTTP_HOST + ":" + HTTP_PORT + "/" + SERVICE + "/";
+    private String URI = HTTP_PROTOCOL + "://" + HTTP_HOST + ":" + HTTP_PORT + "/" + SERVICE + "/";
     private static final int HTTP_OK = 200;
     private static final int HTTP_401_UNAUTHORIZED = 401;
     private static final int HTTP_403_FORBIDDEN = 403;
@@ -89,15 +90,39 @@ public class RestUtils
      * Used to manage trust store properties.  If enabled, create SSL connection.
      *
      */
-    private static final String TRUST_STORE = Config.getProperty( "trust.store" );
-    private static final String TRUST_STORE_PW = Config.getProperty( "trust.store.password" );
-    private static final String SET_TRUST_STORE_PROP = "trust.store.set.prop";
-    private static final boolean IS_SET_TRUST_STORE_PROP = (
-        Config.getProperty( SET_TRUST_STORE_PROP ) != null &&
-        Config.getProperty( SET_TRUST_STORE_PROP ).equalsIgnoreCase( "true" ) );
+    private String TRUST_STORE;
+    private String TRUST_STORE_PW;
+    private static String SET_TRUST_STORE_PROP = "trust.store.set.prop";
+    private boolean IS_SET_TRUST_STORE_PROP;
 
-    static
+    private static volatile RestUtils INSTANCE = null; 
+
+    public static RestUtils getInstance() {
+        if(INSTANCE == null) {
+            synchronized (RestUtils.class) {
+                if(INSTANCE == null){
+        	        INSTANCE = new RestUtils();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+    
+    private void init()
     {
+        HTTP_UID = Config.getInstance().getProperty( "http.user" );
+        HTTP_PW = ( ( EncryptUtil.isEnabled() ) ? EncryptUtil.getInstance().decrypt( Config
+        		.getInstance().getProperty( HTTP_PW_PARAM ) ) : Config.getInstance().getProperty( HTTP_PW_PARAM ) );
+        HTTP_HOST = Config.getInstance().getProperty( "http.host" );
+        HTTP_PORT = Config.getInstance().getProperty( "http.port" );
+        HTTP_PROTOCOL = Config.getInstance().getProperty( "http.protocol", "http" );
+        TRUST_STORE = Config.getInstance().getProperty( "trust.store" );
+        TRUST_STORE_PW = Config.getInstance().getProperty( "trust.store.password" );
+        IS_SET_TRUST_STORE_PROP = (
+            Config.getInstance().getProperty( SET_TRUST_STORE_PROP ) != null &&
+            Config.getInstance().getProperty( SET_TRUST_STORE_PROP ).equalsIgnoreCase( "true" ) );
+
+        
         if ( IS_SET_TRUST_STORE_PROP )
         {
             LOG.info( "Set JSSE truststore properties:" );
@@ -107,7 +132,10 @@ public class RestUtils
         }
     }
 
-
+    private RestUtils(){
+    	init();
+    }
+    
     /**
      * Marshall the request into an XML String.
      *
@@ -182,7 +210,7 @@ public class RestUtils
      * @return String containing response
      * @throws RestException
      */
-    public static String get( String userId, String password, String id, String id2, String id3, String function )
+    public String get( String userId, String password, String id, String id2, String id3, String function )
         throws RestException
     {
         String url = URI + function + "/" + id;
@@ -212,7 +240,7 @@ public class RestUtils
      * @return String containing response
      * @throws RestException
      */
-    public static String get( String id, String id2, String id3, String function ) throws RestException
+    public String get( String id, String id2, String id3, String function ) throws RestException
     {
         return get( null, null, id, id2, id3, function );
     }
@@ -228,7 +256,7 @@ public class RestUtils
      * @return String containing response
      * @throws RestException
      */
-    public static String post( String userId, String password, String szInput, String function ) throws RestException
+    public String post( String userId, String password, String szInput, String function ) throws RestException
     {
         LOG.debug( "post URI=[{}], function=[{}], request=[{}]", URI, function, szInput );
         String szResponse = null;
@@ -309,12 +337,12 @@ public class RestUtils
      * @return String containing response
      * @throws RestException
      */
-    public static String post( String szInput, String function ) throws RestException
+    public String post( String szInput, String function ) throws RestException
     {
         return post(null,null,szInput, function);
     }
 
-    private static CredentialsProvider getCredentialProvider(String uid, String password) {
+    private CredentialsProvider getCredentialProvider(String uid, String password) {
         BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials( new AuthScope(HTTP_HOST,Integer.valueOf(HTTP_PORT)),
                 new UsernamePasswordCredentials(uid==null?HTTP_UID:uid,password==null?HTTP_PW:password) );

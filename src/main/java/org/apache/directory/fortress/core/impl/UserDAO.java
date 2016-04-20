@@ -49,10 +49,21 @@ import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.BindResponse;
 import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
 import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.fortress.core.CreateException;
+import org.apache.directory.fortress.core.FinderException;
+import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.PasswordException;
+import org.apache.directory.fortress.core.RemoveException;
+import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.UpdateException;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.model.Address;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.ConstraintUtil;
+import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.directory.fortress.core.model.PwMessage;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.Session;
@@ -60,21 +71,10 @@ import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.model.Warning;
-import org.apache.directory.fortress.core.model.PropUtil;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.directory.fortress.core.CreateException;
-import org.apache.directory.fortress.core.FinderException;
-import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.model.ObjectFactory;
-import org.apache.directory.fortress.core.PasswordException;
-import org.apache.directory.fortress.core.RemoveException;
-import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.UpdateException;
-import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 
 
 /**
@@ -163,14 +163,9 @@ final class UserDAO extends LdapDataProvider
 
     // The Fortress User entity attributes are stored within standard LDAP object classes along with custom auxiliary
     // object classes:
-    private static final String USER_OBJ_CLASS[] =
-        { SchemaConstants.TOP_OC, Config.getProperty( USER_OBJECT_CLASS ),
-            USERS_AUX_OBJECT_CLASS_NAME, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds
-            .FT_MODIFIER_AUX_OBJECT_CLASS_NAME, USERS_EXTENSIBLE_OBJECT,
-        //            POSIX_ACCOUNT_OBJECT_CLASS_NAME
-    };
+    private String[] USER_OBJ_CLASS;
 
-    private static final String objectClassImpl = Config.getProperty( USER_OBJECT_CLASS );
+    private String objectClassImpl;
     private static final String SYSTEM_USER = "ftSystem";
 
     /**
@@ -222,14 +217,23 @@ final class UserDAO extends LdapDataProvider
     private static String[] authnAtrs = null;
     private static String[] defaultAtrs = null;
 
-    static
+    private void init()
     {
-        LOG.debug( "GlobalIds.IS_OPENLDAP: " + GlobalIds.IS_OPENLDAP );
-        LOG.debug( "GlobalIds.IS_OPENLDAP ? OPENLDAP_PW_RESET : null: " + ( GlobalIds.IS_OPENLDAP ? OPENLDAP_PW_RESET
+        objectClassImpl = Config.getInstance().getProperty( USER_OBJECT_CLASS );
+    	
+        USER_OBJ_CLASS = new String[]
+            { SchemaConstants.TOP_OC, Config.getInstance().getProperty( USER_OBJECT_CLASS ),
+                USERS_AUX_OBJECT_CLASS_NAME, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds
+                .FT_MODIFIER_AUX_OBJECT_CLASS_NAME, USERS_EXTENSIBLE_OBJECT,
+            //            POSIX_ACCOUNT_OBJECT_CLASS_NAME
+        };
+    	
+        LOG.debug( "GlobalIds.IS_OPENLDAP: " + GlobalIds.getInstance().IS_OPENLDAP );
+        LOG.debug( "GlobalIds.IS_OPENLDAP ? OPENLDAP_PW_RESET : null: " + ( GlobalIds.getInstance().IS_OPENLDAP ? OPENLDAP_PW_RESET
             : null ) );
-        LOG.debug( "GlobalIds.IS_OPENLDAP: " + GlobalIds.IS_OPENLDAP );
+        LOG.debug( "GlobalIds.IS_OPENLDAP: " + GlobalIds.getInstance().IS_OPENLDAP );
 
-        if ( GlobalIds.IS_OPENLDAP )
+        if ( GlobalIds.getInstance().IS_OPENLDAP )
         {
             // This default set of attributes contains all and is used for search operations.
             defaultAtrs = new String[]
@@ -395,6 +399,11 @@ final class UserDAO extends LdapDataProvider
         { GlobalIds.USER_ADMINROLE_DATA };
 
 
+    public UserDAO() {
+        super();
+        init();
+	}
+    
     /**
      * @param entity
      * @return
@@ -488,7 +497,7 @@ final class UserDAO extends LdapDataProvider
                 myEntry.add( SYSTEM_USER, entity.isSystem().toString().toUpperCase() );
             }
 
-            if ( GlobalIds.IS_OPENLDAP && StringUtils.isNotEmpty( entity.getPwPolicy() ) )
+            if ( GlobalIds.getInstance().IS_OPENLDAP && StringUtils.isNotEmpty( entity.getPwPolicy() ) )
             {
                 String pwdPolicyDn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + "," + getRootDn(
                     entity.getContextId(), GlobalIds.PPOLICY_ROOT );
@@ -593,7 +602,7 @@ final class UserDAO extends LdapDataProvider
                     entity.getTitle() ) );
             }
 
-            if ( GlobalIds.IS_OPENLDAP && StringUtils.isNotEmpty( entity.getPwPolicy() ) )
+            if ( GlobalIds.getInstance().IS_OPENLDAP && StringUtils.isNotEmpty( entity.getPwPolicy() ) )
             {
                 String szDn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + "," + getRootDn( entity
                     .getContextId(), GlobalIds.PPOLICY_ROOT );
@@ -1047,7 +1056,7 @@ final class UserDAO extends LdapDataProvider
                             case CHANGE_AFTER_RESET:
                                 // Don't throw exception if authenticating in J2EE Realm - The Web application must
                                 // give user a chance to modify their password.
-                                if ( !GlobalIds.IS_REALM )
+                                if ( !GlobalIds.getInstance().IS_REALM )
                                 {
                                     errMsg = msgHdr + "PASSWORD HAS BEEN RESET BY LDAP_ADMIN_POOL_UID";
                                     rc = GlobalErrIds.USER_PW_RESET;
@@ -1271,7 +1280,7 @@ final class UserDAO extends LdapDataProvider
             filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
             filterbuf.append( ")(" );
 
-            Set<String> roles = RoleUtil.getDescendants( role.getName(), role.getContextId() );
+            Set<String> roles = RoleUtil.getInstance().getDescendants( role.getName(), role.getContextId() );
 
             if ( CollectionUtils.isNotEmpty( roles ) )
             {
@@ -1703,7 +1712,7 @@ final class UserDAO extends LdapDataProvider
             modify( ld, userDn, mods );
 
             // This modify update audit attributes on the User entry (if enabled):
-            if ( GlobalIds.IS_OPENLDAP && ! GlobalIds.IS_AUDIT_DISABLED )
+            if ( GlobalIds.getInstance().IS_OPENLDAP && ! GlobalIds.getInstance().IS_AUDIT_DISABLED )
             {
                 mods = new ArrayList<>();
                 modify( ld, userDn, mods, entity );
@@ -2079,7 +2088,7 @@ final class UserDAO extends LdapDataProvider
 
         entity.addProperties( PropUtil.getProperties( getAttributes( entry, GlobalIds.PROPS ) ) );
 
-        if ( GlobalIds.IS_OPENLDAP )
+        if ( GlobalIds.getInstance().IS_OPENLDAP )
         {
             szBoolean = getAttribute( entry, OPENLDAP_PW_RESET );
             if ( szBoolean != null && szBoolean.equalsIgnoreCase( "true" ) )

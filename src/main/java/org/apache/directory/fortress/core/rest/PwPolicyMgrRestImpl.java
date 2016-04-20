@@ -20,16 +20,16 @@
 package org.apache.directory.fortress.core.rest;
 
 
+import java.util.List;
+
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.PwPolicyMgr;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.FortRequest;
 import org.apache.directory.fortress.core.model.FortResponse;
-import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.PwPolicy;
 import org.apache.directory.fortress.core.util.VUtil;
-
-import java.util.List;
 
 
 /**
@@ -82,7 +82,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
             request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
-        String szResponse = RestUtils.post( szRequest, HttpIds.PSWD_ADD );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PSWD_ADD );
         FortResponse response = RestUtils.unmarshall( szResponse );
         if ( response.getErrorCode() != 0 )
         {
@@ -107,7 +107,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
             request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
-        String szResponse = RestUtils.post( szRequest, HttpIds.PSWD_UPDATE );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PSWD_UPDATE );
         FortResponse response = RestUtils.unmarshall( szResponse );
         if ( response.getErrorCode() != 0 )
         {
@@ -132,7 +132,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
             request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
-        String szResponse = RestUtils.post( szRequest, HttpIds.PSWD_DELETE );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PSWD_DELETE );
         FortResponse response = RestUtils.unmarshall( szResponse );
         if ( response.getErrorCode() != 0 )
         {
@@ -158,7 +158,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
             request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
-        String szResponse = RestUtils.post( szRequest, HttpIds.PSWD_READ );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PSWD_READ );
         FortResponse response = RestUtils.unmarshall( szResponse );
         if ( response.getErrorCode() == 0 )
         {
@@ -189,7 +189,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
             request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
-        String szResponse = RestUtils.post( szRequest, HttpIds.PSWD_SEARCH );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PSWD_SEARCH );
         FortResponse response = RestUtils.unmarshall( szResponse );
         if ( response.getErrorCode() == 0 )
         {
@@ -222,7 +222,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
             request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
-        String szResponse = RestUtils.post( szRequest, HttpIds.PSWD_USER_ADD );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PSWD_USER_ADD );
         FortResponse response = RestUtils.unmarshall( szResponse );
         if ( response.getErrorCode() != 0 )
         {
@@ -247,7 +247,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
             request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
-        String szResponse = RestUtils.post( szRequest, HttpIds.PSWD_USER_DELETE );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PSWD_USER_DELETE );
         FortResponse response = RestUtils.unmarshall( szResponse );
         if ( response.getErrorCode() != 0 )
         {

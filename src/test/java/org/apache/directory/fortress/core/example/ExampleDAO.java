@@ -19,6 +19,10 @@
  */
 package org.apache.directory.fortress.core.example;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
@@ -31,21 +35,17 @@ import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.ldap.LdapDataProvider;
-import org.apache.directory.fortress.core.model.ConstraintUtil;
-import org.apache.directory.ldap.client.api.LdapConnection;
-import org.slf4j.LoggerFactory;
-import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
+import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.util.Config;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import org.apache.directory.ldap.client.api.LdapConnection;
+import org.slf4j.LoggerFactory;
 
 public class ExampleDAO extends LdapDataProvider
 
@@ -66,7 +66,7 @@ public class ExampleDAO extends LdapDataProvider
         throws CreateException
     {
         LdapConnection ld = null;
-        String dn = SchemaConstants.CN_AT + "=" + entity.getName() + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
+        String dn = SchemaConstants.CN_AT + "=" + entity.getName() + "," + Config.getInstance().getProperty(EIds.EXAMPLE_ROOT);
         if (LOG.isDebugEnabled())
         {
             LOG.debug("create dn [" + dn + "]");
@@ -137,7 +137,7 @@ public class ExampleDAO extends LdapDataProvider
         throws UpdateException
     {
         LdapConnection ld = null;
-        String dn = SchemaConstants.CN_AT + "=" + entity.getName() + "," + Config.getProperty( EIds.EXAMPLE_ROOT );
+        String dn = SchemaConstants.CN_AT + "=" + entity.getName() + "," + Config.getInstance().getProperty( EIds.EXAMPLE_ROOT );
         if (LOG.isDebugEnabled())
         {
             LOG.debug("update dn [" + dn + "]");
@@ -185,7 +185,7 @@ public class ExampleDAO extends LdapDataProvider
         throws RemoveException
     {
         LdapConnection ld = null;
-        String dn = SchemaConstants.CN_AT + "=" + name + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
+        String dn = SchemaConstants.CN_AT + "=" + name + "," + Config.getInstance().getProperty(EIds.EXAMPLE_ROOT);
         if (LOG.isDebugEnabled())
         {
             LOG.debug("remove dn [" + dn + "]");
@@ -219,7 +219,7 @@ public class ExampleDAO extends LdapDataProvider
     {
         Example entity = null;
         LdapConnection ld = null;
-        String dn = SchemaConstants.CN_AT + "=" + name + "," + Config.getProperty(EIds.EXAMPLE_ROOT);
+        String dn = SchemaConstants.CN_AT + "=" + name + "," + Config.getInstance().getProperty(EIds.EXAMPLE_ROOT);
         if (LOG.isDebugEnabled())
         {
             LOG.debug("findByKey dn [" + dn + "]");
@@ -267,7 +267,7 @@ public class ExampleDAO extends LdapDataProvider
     {
         List<Example> exampleList = new ArrayList<>();
         LdapConnection ld = null;
-        String exampleRoot = Config.getProperty( EIds.EXAMPLE_ROOT );
+        String exampleRoot = Config.getInstance().getProperty( EIds.EXAMPLE_ROOT );
 
         if (LOG.isDebugEnabled())
         {

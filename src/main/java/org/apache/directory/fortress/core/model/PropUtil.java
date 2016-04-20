@@ -19,11 +19,11 @@
  */
 package org.apache.directory.fortress.core.model;
 
-import org.apache.directory.fortress.core.GlobalIds;
-
 import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
+
+import org.apache.directory.fortress.core.GlobalIds;
 
 /**
  *  Utilities to convert to/from property formats.
@@ -91,7 +91,7 @@ public final class PropUtil
      */
     public static Properties getProperties( String inputString, char separator )
     {
-        return getProperties( inputString, separator, GlobalIds.DELIMITER );
+        return getProperties( inputString, separator, GlobalIds.getInstance().DELIMITER );
     }
 
     /**

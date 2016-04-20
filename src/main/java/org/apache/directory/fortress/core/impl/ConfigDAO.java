@@ -32,17 +32,17 @@ import org.apache.directory.api.ldap.model.exception.LdapEntryAlreadyExistsExcep
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.fortress.core.CreateException;
-import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.model.PropUtil;
-import org.apache.directory.ldap.client.api.LdapConnection;
-import org.apache.directory.fortress.core.ldap.LdapDataProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
+import org.apache.directory.fortress.core.model.PropUtil;
+import org.apache.directory.fortress.core.util.Config;
+import org.apache.directory.ldap.client.api.LdapConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -84,7 +84,7 @@ final class ConfigDAO extends LdapDataProvider
 {
     private static final String CLS_NM = ConfigDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private static final String CONFIG_ROOT_DN = Config.getProperty( GlobalIds.CONFIG_ROOT_PARAM );
+    private String CONFIG_ROOT_DN;
 
     private static final String CONFIG_OBJ_CLASS[] =
         {
@@ -102,6 +102,9 @@ final class ConfigDAO extends LdapDataProvider
      */
     ConfigDAO()
     {
+    	super();
+    	
+    	CONFIG_ROOT_DN = Config.getInstance().getProperty( GlobalIds.CONFIG_ROOT_PARAM );
     }
 
 

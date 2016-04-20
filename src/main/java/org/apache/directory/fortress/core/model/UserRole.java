@@ -152,7 +152,7 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     {
         if ( ( szRawData != null ) && ( szRawData.length() > 0 ) )
         {
-            String[] tokens = StringUtils.splitPreserveAllTokens( szRawData, GlobalIds.DELIMITER );
+            String[] tokens = StringUtils.splitPreserveAllTokens( szRawData, GlobalIds.getInstance().DELIMITER );
             for ( int i = 0; i < tokens.length; i++ )
             {
                 if ( StringUtils.isNotEmpty( tokens[i] ) )
@@ -214,51 +214,51 @@ public class UserRole extends FortEntity implements Serializable, Constraint
         StringBuilder sb = new StringBuilder();
 
         sb.append( name );
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( GlobalIds.getInstance().DELIMITER );
         sb.append( timeout );
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( GlobalIds.getInstance().DELIMITER );
 
         if ( beginTime != null )
         {
             sb.append( beginTime );
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( GlobalIds.getInstance().DELIMITER );
 
         if ( endTime != null )
         {
             sb.append( endTime );
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( GlobalIds.getInstance().DELIMITER );
 
         if ( beginDate != null )
         {
             sb.append( beginDate );
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( GlobalIds.getInstance().DELIMITER );
 
         if ( endDate != null )
         {
             sb.append( endDate );
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( GlobalIds.getInstance().DELIMITER );
 
         if ( beginLockDate != null )
         {
             sb.append( beginLockDate );
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( GlobalIds.getInstance().DELIMITER );
 
         if ( endLockDate != null )
         {
             sb.append( endLockDate );
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( GlobalIds.getInstance().DELIMITER );
 
         if ( dayMask != null )
         {

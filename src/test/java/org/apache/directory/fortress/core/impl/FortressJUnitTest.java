@@ -20,8 +20,9 @@
 package org.apache.directory.fortress.core.impl;
 
 import junit.framework.Test;
-import junit.framework.TestSuite;
 import junit.framework.TestCase;
+import junit.framework.TestSuite;
+
 import org.apache.directory.fortress.core.GlobalIds;
 
 /**
@@ -104,7 +105,7 @@ public class FortressJUnitTest extends TestCase
         if ( !isFirstRun() )
         {
             // PwPolicyMgr PW Policy Teardown:
-            if ( GlobalIds.IS_OPENLDAP )
+            if ( GlobalIds.getInstance().IS_OPENLDAP )
             {
                 suite.addTest( new PswdPolicyMgrImplTest( "testDeletePasswordPolicy" ) );
             }
@@ -125,7 +126,7 @@ public class FortressJUnitTest extends TestCase
             suite.addTest( new AdminMgrImplTest( "testDelRoleDescendant" ) );
             suite.addTest( new AdminMgrImplTest( "testDelRoleAscendant" ) );
             suite.addTest( new AdminMgrImplTest( "testDeleteRole" ) );
-            if ( GlobalIds.IS_OPENLDAP )
+            if ( GlobalIds.getInstance().IS_OPENLDAP )
             {
                 suite.addTest( new PswdPolicyMgrImplTest( "testDelete" ) );
             }
@@ -150,7 +151,7 @@ public class FortressJUnitTest extends TestCase
         /* 2. Build Up                                             */
         /***********************************************************/
         // PW PolicyMgr APIs:
-        if ( GlobalIds.IS_OPENLDAP )
+        if ( GlobalIds.getInstance().IS_OPENLDAP )
         {
             suite.addTest( new PswdPolicyMgrImplTest( "testAdd" ) );
             suite.addTest( new PswdPolicyMgrImplTest( "testUpdate" ) );
@@ -187,7 +188,7 @@ public class FortressJUnitTest extends TestCase
         suite.addTest( new AdminMgrImplTest( "testUpdateRole" ) );
         suite.addTest( new AdminMgrImplTest( "testAddUser" ) );
         suite.addTest( new AdminMgrImplTest( "testUpdateUser" ) );
-        if ( GlobalIds.IS_OPENLDAP )
+        if ( GlobalIds.getInstance().IS_OPENLDAP )
         {
             suite.addTest( new PswdPolicyMgrImplTest( "testUpdatePasswordPolicy" ) );
         }
@@ -209,7 +210,7 @@ public class FortressJUnitTest extends TestCase
         suite.addTest( new DelegatedMgrImplTest( "testSearchAdminRole" ) );
 
         // ReviewMgr RBAC:
-        if ( GlobalIds.IS_OPENLDAP )
+        if ( GlobalIds.getInstance().IS_OPENLDAP )
         {
             suite.addTest( new PswdPolicyMgrImplTest( "testRead" ) );
             suite.addTest( new PswdPolicyMgrImplTest( "testSearch" ) );
@@ -252,7 +253,7 @@ public class FortressJUnitTest extends TestCase
         // AccessMgr RBAC:
         suite.addTest( new AccessMgrImplTest( "testGetUserId" ) );
         suite.addTest( new AccessMgrImplTest( "testGetUser" ) );
-        if ( GlobalIds.IS_OPENLDAP )
+        if ( GlobalIds.getInstance().IS_OPENLDAP )
         {
             // These tests are reliant on OpenLDAP's pwpolicy overlay:
             suite.addTest( new AdminMgrImplTest( "testResetPassword" ) );
@@ -278,7 +279,7 @@ public class FortressJUnitTest extends TestCase
         suite.addTest( new AccessMgrImplTest( "testCreateSessionWithRolesTrusted" ) );
 
         // PwPolicyMgr PW Policy checks:
-        if ( GlobalIds.IS_OPENLDAP )
+        if ( GlobalIds.getInstance().IS_OPENLDAP )
         {
             // These tests are reliant on OpenLDAP's pwpolicy overlay:
             suite.addTest( new PswdPolicyMgrImplTest( "testMinAge" ) );
@@ -300,7 +301,7 @@ public class FortressJUnitTest extends TestCase
         /* 5. Audit Checks                                         */
         /***********************************************************/
         //suite.addTest(new AuditMgrImplTest("testSearchAuthNInvalid"));
-        if ( GlobalIds.IS_OPENLDAP )
+        if ( GlobalIds.getInstance().IS_OPENLDAP )
         {
             // These tests reliant on OpenLDAP's slapo access log overlay:
             suite.addTest( new AuditMgrImplTest( "testSearchBinds" ) );

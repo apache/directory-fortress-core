@@ -21,9 +21,9 @@ package org.apache.directory.fortress.core;
 
 import org.apache.directory.api.util.Strings;
 import org.apache.directory.fortress.core.impl.GroupMgrImpl;
-import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.util.ClassUtil;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
 
 /**
@@ -35,8 +35,7 @@ import org.apache.directory.fortress.core.util.VUtil;
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public final class GroupMgrFactory
-{
-    private static String groupClassName = Config.getProperty( GlobalIds.GROUP_IMPLEMENTATION );
+{    
     private static final String CLS_NM = GroupMgrFactory.class.getName();
     private static final String CREATE_INSTANCE_METHOD = CLS_NM + ".createInstance";
 
@@ -70,6 +69,7 @@ public final class GroupMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull( contextId, GlobalErrIds.CONTEXT_NULL, CREATE_INSTANCE_METHOD );
+        String groupClassName = Config.getInstance().getProperty( GlobalIds.GROUP_IMPLEMENTATION );
         
         if ( Strings.isEmpty( groupClassName ) )
         {

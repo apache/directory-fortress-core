@@ -19,23 +19,23 @@
  */
 package org.apache.directory.fortress.core.rest;
 
-import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.model.FortRequest;
-import org.apache.directory.fortress.core.model.FortResponse;
-import org.apache.directory.fortress.core.model.RolePerm;
-import org.apache.directory.fortress.core.model.UserAdminRole;
-import org.apache.directory.fortress.core.DelAccessMgr;
-import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.util.VUtil;
-import org.apache.directory.fortress.core.SecurityException;
-
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
+import org.apache.directory.fortress.core.DelAccessMgr;
+import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.FortRequest;
+import org.apache.directory.fortress.core.model.FortResponse;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.RolePerm;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.util.VUtil;
 
 /**
  * This class implements the ARBAC02 DelAccessMgr interface for performing runtime delegated access control operations on objects that are provisioned Fortress ARBAC entities
@@ -81,7 +81,7 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         request.setSession(session);
         request.setEntity(uRole);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_ASSIGN);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ADMIN_ASSIGN);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -115,7 +115,7 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         request.setSession(session);
         request.setEntity(uRole);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_DEASSIGN);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ADMIN_DEASSIGN);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -151,7 +151,7 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         request.setSession(session);
         request.setEntity(context);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_GRANT);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ADMIN_GRANT);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -187,7 +187,7 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         request.setSession(session);
         request.setEntity(context);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_REVOKE);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ADMIN_REVOKE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -221,7 +221,7 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         request.setSession(session);
         request.setEntity(perm);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_AUTHZ);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ADMIN_AUTHZ);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -252,7 +252,7 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         request.setSession(session);
         request.setEntity(role);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_ADD);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ADMIN_ADD);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -281,7 +281,7 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         request.setSession(session);
         request.setEntity(role);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_DROP);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ADMIN_DROP);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -308,7 +308,7 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         request.setContextId(this.contextId);
         request.setSession(session);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_ROLES);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ADMIN_ROLES);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -337,7 +337,7 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         request.setContextId(this.contextId);
         request.setSession(session);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_AUTHZ_ROLES);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ADMIN_AUTHZ_ROLES);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -369,7 +369,7 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         request.setContextId(this.contextId);
         request.setSession(session);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ADMIN_PERMS);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ADMIN_PERMS);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {

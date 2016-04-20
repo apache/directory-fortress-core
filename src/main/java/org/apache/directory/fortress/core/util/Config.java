@@ -71,12 +71,15 @@ public final class Config
     private static final String CLS_NM = Config.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
-    private static Config INSTANCE = null; 
+    private static volatile Config INSTANCE = null; 
     
     public static Config getInstance() {
         if(INSTANCE == null) {
-            LOG.info("Creating new instance");
-            INSTANCE = new Config();
+            synchronized (Config.class) {
+                if(INSTANCE == null){
+                    INSTANCE = new Config();
+                }
+            }
         }
         return INSTANCE;
     }

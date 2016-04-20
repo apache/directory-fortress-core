@@ -73,7 +73,7 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ARLE_READ);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -104,7 +104,7 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ARLE_SEARCH);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -135,7 +135,7 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ARLE_ASGNED);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_ASGNED);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -166,7 +166,7 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_ASGNED_ADMIN);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_ASGNED_ADMIN);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -202,7 +202,7 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ORG_READ);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -234,7 +234,7 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ORG_SEARCH);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {

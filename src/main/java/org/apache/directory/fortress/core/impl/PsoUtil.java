@@ -63,19 +63,38 @@ import org.slf4j.LoggerFactory;
  */
 final class PsoUtil
 {
-    private static final Cache psoCache;
-    private static OrgUnitP orgUnitP = new OrgUnitP();
+    private Cache psoCache;
+    private OrgUnitP orgUnitP;
     private static final String CLS_NM = PsoUtil.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
+    private static volatile PsoUtil INSTANCE = null; 
+
+    public static PsoUtil getInstance() {
+        if(INSTANCE == null) {
+            synchronized (PsoUtil.class) {
+                if(INSTANCE == null){
+        	        INSTANCE = new PsoUtil();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+    
+    public PsoUtil(){
+        init();
+    }
+    
     /**
      * Initialize the Perm OU hierarchies.  This will read the {@link org.apache.directory.fortress.core.model.Hier} data set from ldap and load into
      * the JGraphT simple digraph that referenced statically within this class.
      */
-    static
+    private void init()
     {
+        orgUnitP = new OrgUnitP();
+    	
         CacheMgr cacheMgr = CacheMgr.getInstance();
-        psoCache = cacheMgr.getCache( "fortress.pso" );
+        psoCache = cacheMgr.getCache( "fortress.pso" );                
     }
 
 
@@ -86,7 +105,7 @@ final class PsoUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of names of descendants {@link org.apache.directory.fortress.core.model.OrgUnit}s of given parent.
      */
-    static Set<String> getDescendants( String name, String contextId )
+    Set<String> getDescendants( String name, String contextId )
     {
         return HierUtil.getDescendants( name, getGraph( contextId ) );
     }
@@ -99,7 +118,7 @@ final class PsoUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of ou names that are ascendants of given child.
      */
-    static Set<String> getAscendants( String name, String contextId )
+    Set<String> getAscendants( String name, String contextId )
     {
         return HierUtil.getAscendants( name, getGraph( contextId ) );
     }
@@ -112,7 +131,7 @@ final class PsoUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of names of children {@link org.apache.directory.fortress.core.model.OrgUnit}s of given parent.
      */
-    public static Set<String> getChildren( String name, String contextId )
+    public Set<String> getChildren( String name, String contextId )
     {
         return HierUtil.getChildren( name, getGraph( contextId ) );
     }
@@ -125,7 +144,7 @@ final class PsoUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of ou names that are parents of given child.
      */
-    static Set<String> getParents( String name, String contextId )
+    Set<String> getParents( String name, String contextId )
     {
         return HierUtil.getParents( name, getGraph( contextId ) );
     }
@@ -138,7 +157,7 @@ final class PsoUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return int value contains the number of children of a given parent ou.
      */
-    static int numChildren( String name, String contextId )
+    int numChildren( String name, String contextId )
     {
         return HierUtil.numChildren( name, getGraph( contextId ) );
     }
@@ -151,7 +170,7 @@ final class PsoUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return contains Set of all descendants.
      */
-    static Set<String> getInherited( List<OrgUnit> ous, String contextId )
+    Set<String> getInherited( List<OrgUnit> ous, String contextId )
     {
         // create Set with case insensitive comparator:
         Set<String> iOUs = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
@@ -190,7 +209,7 @@ final class PsoUtil
      * @throws org.apache.directory.fortress.core.ValidationException
      *          in the event it fails one of the 3 checks.
      */
-    static void validateRelationship( OrgUnit child, OrgUnit parent, boolean mustExist )
+    void validateRelationship( OrgUnit child, OrgUnit parent, boolean mustExist )
         throws ValidationException
     {
         HierUtil.validateRelationship( getGraph( child.getContextId() ), child.getName(), parent.getName(), mustExist );
@@ -206,7 +225,7 @@ final class PsoUtil
      * @param op   used to pass the ldap op {@link org.apache.directory.fortress.core.model.Hier.Op#ADD}, {@link org.apache.directory.fortress.core.model.Hier.Op#MOD}, {@link org.apache.directory.fortress.core.model.Hier.Op#REM}
      * @throws org.apache.directory.fortress.core.SecurityException in the event of a system error.
      */
-    static void updateHier( String contextId, Relationship relationship, Hier.Op op ) throws SecurityException
+    void updateHier( String contextId, Relationship relationship, Hier.Op op ) throws SecurityException
     {
         HierUtil.updateHier( getGraph( contextId ), relationship, op );
     }
@@ -219,7 +238,7 @@ final class PsoUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return handle to simple digraph containing perm ou hierarchies.
      */
-    private static synchronized SimpleDirectedGraph<String, Relationship> loadGraph( String contextId )
+    private synchronized SimpleDirectedGraph<String, Relationship> loadGraph( String contextId )
     {
         Hier inHier = new Hier( Hier.Type.ROLE );
         inHier.setContextId( contextId );
@@ -252,7 +271,7 @@ final class PsoUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return handle to simple digraph containing perm ou hierarchies.
      */
-    private static SimpleDirectedGraph<String, Relationship> getGraph( String contextId )
+    private SimpleDirectedGraph<String, Relationship> getGraph( String contextId )
     {
         String key = getKey( contextId );        
         LOG.debug("Getting graph for key " + contextId);

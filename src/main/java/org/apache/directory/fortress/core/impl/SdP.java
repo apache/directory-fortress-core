@@ -58,7 +58,7 @@ public final class SdP
     /**
      * Get the DAO created:
      */
-    private static final SdDAO sdDao = new SdDAO();
+    private SdDAO sdDao;
 
 
     /**
@@ -66,6 +66,7 @@ public final class SdP
      */
     SdP()
     {
+    	sdDao = new SdDAO();
     }
 
 

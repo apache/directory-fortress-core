@@ -56,7 +56,7 @@ import org.apache.directory.fortress.core.util.VUtil;
  */
 final class RoleP
 {
-    private static RoleDAO rDao = new RoleDAO();
+    private RoleDAO rDao;
     private static final ConstraintValidator constraintValidator = VUtil.getConstraintValidator();
 
 
@@ -65,6 +65,7 @@ final class RoleP
      */
     RoleP()
     {
+    	rDao = new RoleDAO();
     }
 
 

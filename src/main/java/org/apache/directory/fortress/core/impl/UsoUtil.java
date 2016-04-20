@@ -62,17 +62,33 @@ import org.slf4j.LoggerFactory;
  */
 final class UsoUtil
 {
-    private static final Cache usoCache;
-    private static final OrgUnitP orgUnitP = new OrgUnitP();
+    private Cache usoCache;
+    private OrgUnitP orgUnitP;
     private static final String CLS_NM = UsoUtil.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
+    private static volatile UsoUtil INSTANCE = null; 
+
+    public static UsoUtil getInstance() {
+        if(INSTANCE == null) {
+            synchronized (UsoUtil.class) {
+                if(INSTANCE == null){
+        	        INSTANCE = new UsoUtil();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+    
+    
     /**
      * Initialize the User OU hierarchies.  This will read the {@link org.apache.directory.fortress.core.model.Hier} data set from ldap and load into
      * the JGraphT simple digraph that referenced statically within this class.
      */
-    static
+    private void init()
     {
+        orgUnitP = new OrgUnitP();
+    	
         CacheMgr cacheMgr = CacheMgr.getInstance();
         usoCache = cacheMgr.getCache( "fortress.uso" );
     }
@@ -83,6 +99,7 @@ final class UsoUtil
      */
     private UsoUtil()
     {
+        init();
     }
 
     /**
@@ -91,7 +108,7 @@ final class UsoUtil
      * @param name {@link org.apache.directory.fortress.core.model.OrgUnit#name} on 'ftOrgUnit' object class.
      * @return Set of names of descendants {@link org.apache.directory.fortress.core.model.OrgUnit}s of given parent.
      */
-    static Set<String> getDescendants( String name, String contextId )
+    Set<String> getDescendants( String name, String contextId )
     {
         return HierUtil.getDescendants( name, getGraph( contextId ) );
     }
@@ -103,7 +120,7 @@ final class UsoUtil
      * @param name maps to logical {@link org.apache.directory.fortress.core.model.OrgUnit#name} on 'ftOrgUnit' object class.
      * @return Set of ou names that are ascendants of given child.
      */
-    static Set<String> getAscendants( String name, String contextId )
+    Set<String> getAscendants( String name, String contextId )
     {
         return HierUtil.getAscendants( name, getGraph( contextId ) );
     }
@@ -115,7 +132,7 @@ final class UsoUtil
      * @param name {@link org.apache.directory.fortress.core.model.OrgUnit#name} maps on 'ftOrgUnit' object class.
      * @return Set of names of children {@link org.apache.directory.fortress.core.model.OrgUnit}s of given parent.
      */
-    public static Set<String> getChildren( String name, String contextId )
+    public Set<String> getChildren( String name, String contextId )
     {
         return HierUtil.getChildren( name, getGraph( contextId ) );
     }
@@ -127,7 +144,7 @@ final class UsoUtil
      * @param name maps to logical {@link org.apache.directory.fortress.core.model.OrgUnit#name} on 'ftOrgUnit' object class.
      * @return Set of ou names that are parents of given child.
      */
-    static Set<String> getParents( String name, String contextId )
+    Set<String> getParents( String name, String contextId )
     {
         return HierUtil.getParents( name, getGraph( contextId ) );
     }
@@ -139,7 +156,7 @@ final class UsoUtil
      * @param name maps to logical {@link org.apache.directory.fortress.core.model.OrgUnit#name} on 'ftOrgUnit' object class.
      * @return int value contains the number of children of a given parent ou.
      */
-    static int numChildren( String name, String contextId )
+    int numChildren( String name, String contextId )
     {
         return HierUtil.numChildren( name, getGraph( contextId ) );
     }
@@ -151,7 +168,7 @@ final class UsoUtil
      * @param ous contains list of {@link org.apache.directory.fortress.core.model.OrgUnit}s.
      * @return contains Set of all descendants.
      */
-    static Set<String> getInherited( List<OrgUnit> ous, String contextId )
+    Set<String> getInherited( List<OrgUnit> ous, String contextId )
     {
         // create Set with case insensitive comparator:
         Set<String> iOUs = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
@@ -192,7 +209,7 @@ final class UsoUtil
      * @throws org.apache.directory.fortress.core.ValidationException
      *          in the event it fails one of the 3 checks.
      */
-    static void validateRelationship( OrgUnit child, OrgUnit parent, boolean mustExist )
+    void validateRelationship( OrgUnit child, OrgUnit parent, boolean mustExist )
         throws ValidationException
     {
         HierUtil.validateRelationship( getGraph( child.getContextId() ), child.getName(), parent.getName(), mustExist );
@@ -208,7 +225,7 @@ final class UsoUtil
      * @param op   used to pass the ldap op {@link org.apache.directory.fortress.core.model.Hier.Op#ADD}, {@link org.apache.directory.fortress.core.model.Hier.Op#MOD}, {@link org.apache.directory.fortress.core.model.Hier.Op#REM}
      * @throws org.apache.directory.fortress.core.SecurityException in the event of a system error.
      */
-    static void updateHier( String contextId, Relationship relationship, Hier.Op op ) throws SecurityException
+    void updateHier( String contextId, Relationship relationship, Hier.Op op ) throws SecurityException
     {
         HierUtil.updateHier( getGraph( contextId ), relationship, op );
     }
@@ -221,7 +238,7 @@ final class UsoUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return handle to simple digraph containing user ou hierarchies.
      */
-    private static synchronized SimpleDirectedGraph<String, Relationship> loadGraph( String contextId )
+    private synchronized SimpleDirectedGraph<String, Relationship> loadGraph( String contextId )
     {
         Hier inHier = new Hier( Hier.Type.ROLE );
         inHier.setContextId( contextId );
@@ -254,7 +271,7 @@ final class UsoUtil
      *
      * @return handle to simple digraph containing user ou hierarchies.
      */
-    private static SimpleDirectedGraph<String, Relationship> getGraph( String contextId )
+    private SimpleDirectedGraph<String, Relationship> getGraph( String contextId )
     {
         String key = getKey( contextId );        
         LOG.debug("Getting graph for key " + contextId);
@@ -273,7 +290,7 @@ final class UsoUtil
     }
 
 
-    private static String getKey( String contextId )
+    private String getKey( String contextId )
     {
         String key = HierUtil.Type.USO.toString();
         if ( StringUtils.isNotEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) )

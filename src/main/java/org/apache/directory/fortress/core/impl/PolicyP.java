@@ -26,15 +26,15 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.model.PwPolicy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
+import org.apache.directory.fortress.core.model.PwPolicy;
 import org.apache.directory.fortress.core.util.cache.Cache;
 import org.apache.directory.fortress.core.util.cache.CacheMgr;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -63,7 +63,7 @@ final class PolicyP
     private static final int MAX_AGE = 157680000;
 
     // DAO class for ol pw policy data sets must be initialized before the other statics:
-    private static final PolicyDAO olDao = new PolicyDAO();
+    private PolicyDAO olDao;
     // this field is used to synchronize access to the above static data set:
     private static final ReadWriteLock policySetLock = new ReentrantReadWriteLock();
     // static field holds the list of names for all valid pw policies in effect:
@@ -75,8 +75,10 @@ final class PolicyP
     private static final String POLICIES = "policies";
     private static final String FORTRESS_POLICIES = "fortress.policies";
 
-    static
+    private void init()
     {
+    	olDao = new PolicyDAO();
+    	
         CacheMgr cacheMgr = CacheMgr.getInstance();
         PolicyP.policyCache = cacheMgr.getCache( FORTRESS_POLICIES );
     }
@@ -87,6 +89,7 @@ final class PolicyP
      */
     PolicyP()
     {
+    	init();
     }
 
 
@@ -371,7 +374,7 @@ final class PolicyP
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return Set of unique names.
      */
-    private static Set<String> loadPolicySet( String contextId )
+    private Set<String> loadPolicySet( String contextId )
     {
         Set<String> policySet = null;
 
@@ -396,7 +399,7 @@ final class PolicyP
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @return set containing list of policy names active.
      */
-    private static Set<String> getPolicySet( String contextId )
+    private Set<String> getPolicySet( String contextId )
     {
         try
         {

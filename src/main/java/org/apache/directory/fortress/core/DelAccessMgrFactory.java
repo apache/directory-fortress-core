@@ -20,11 +20,11 @@
 package org.apache.directory.fortress.core;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.impl.DelAccessMgrImpl;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.rest.DelAccessMgrRestImpl;
+import org.apache.directory.fortress.core.util.ClassUtil;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
 
 /**
@@ -36,8 +36,7 @@ import org.apache.directory.fortress.core.util.VUtil;
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public final class DelAccessMgrFactory
-{
-    private static String accessClassName = Config.getProperty(GlobalIds.DELEGATED_ACCESS_IMPLEMENTATION);
+{    
     private static final String CLS_NM = DelAccessMgrFactory.class.getName();
 
     /**
@@ -64,11 +63,14 @@ public final class DelAccessMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
+        
+        String accessClassName = Config.getInstance().getProperty(GlobalIds.DELEGATED_ACCESS_IMPLEMENTATION);
+        
         DelAccessMgr accessMgr;
 
         if ( StringUtils.isEmpty( accessClassName ) )
         {
-            if(GlobalIds.IS_REST)
+            if(GlobalIds.getInstance().IS_REST)
             {
                 accessMgr = new DelAccessMgrRestImpl();
             }
