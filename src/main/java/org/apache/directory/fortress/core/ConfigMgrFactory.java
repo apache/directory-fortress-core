@@ -35,7 +35,7 @@ import org.apache.directory.fortress.core.util.Config;
  */
 public final class ConfigMgrFactory
 {
-    private final static String ENABLE_REST = "enable.mgr.impl.rest";
+    public final static String ENABLE_REST = "enable.mgr.impl.rest";
     
     private ConfigMgrFactory()
     {
@@ -54,6 +54,12 @@ public final class ConfigMgrFactory
     	String configClassName = Config.getInstance().getProperty( GlobalIds.CONFIG_IMPLEMENTATION );
     	boolean IS_REST = ((Config.getInstance().getProperty(ENABLE_REST) != null) && (Config.getInstance().getProperty(ENABLE_REST).equalsIgnoreCase("true")));
     	
+        return ConfigMgrFactory.createInstance(configClassName, IS_REST);
+    }
+    
+    public static ConfigMgr createInstance(String configClassName, boolean IS_REST)
+            throws SecurityException
+    {
         if (configClassName == null || configClassName.compareTo("") == 0)
         {
             if(IS_REST)

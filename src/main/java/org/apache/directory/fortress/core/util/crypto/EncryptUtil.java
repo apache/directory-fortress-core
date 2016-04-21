@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.util.crypto;
 
 import org.apache.directory.fortress.core.util.Config;
+import org.apache.directory.fortress.core.util.LocalConfig;
 import org.jasypt.util.text.BasicTextEncryptor;
 
 /**
@@ -48,7 +49,7 @@ public final class EncryptUtil
     private void init()
     {
         textEncryptor = new BasicTextEncryptor();
-        textEncryptor.setPassword(Config.getInstance().getProperty(CRYPTO_PROP, "adlfarerovcja;39 d"));
+        textEncryptor.setPassword(LocalConfig.getInstance().getProperty(CRYPTO_PROP, "adlfarerovcja;39 d"));
     }
 
     /**
@@ -84,7 +85,7 @@ public final class EncryptUtil
     public static boolean isEnabled()
     {
         boolean result = false;
-        if(Config.getInstance().getProperty(CRYPTO_PROP)!= null && !Config.getInstance().getProperty(CRYPTO_PROP).equals("${crypto.prop}"))
+        if(LocalConfig.getInstance().getProperty(CRYPTO_PROP)!= null && !Config.getInstance().getProperty(CRYPTO_PROP).equals("${crypto.prop}"))
         {
             result = true;
         }

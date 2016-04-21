@@ -39,7 +39,7 @@ import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.model.PropUtil;
-import org.apache.directory.fortress.core.util.Config;
+import org.apache.directory.fortress.core.util.LocalConfig;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -86,12 +86,12 @@ final class ConfigDAO extends LdapDataProvider
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private String CONFIG_ROOT_DN;
 
-    private static final String CONFIG_OBJ_CLASS[] =
+    private final String CONFIG_OBJ_CLASS[] =
         {
             SchemaConstants.DEVICE_OC, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME
     };
 
-    private static final String[] CONFIG_ATRS =
+    private final String[] CONFIG_ATRS =
         {
             SchemaConstants.CN_AT, GlobalIds.PROPS
     };
@@ -104,7 +104,7 @@ final class ConfigDAO extends LdapDataProvider
     {
     	super();
     	
-    	CONFIG_ROOT_DN = Config.getInstance().getProperty( GlobalIds.CONFIG_ROOT_PARAM );
+    	CONFIG_ROOT_DN = LocalConfig.getInstance().getProperty( GlobalIds.CONFIG_ROOT_PARAM );
     }
 
 

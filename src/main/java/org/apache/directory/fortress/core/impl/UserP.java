@@ -69,11 +69,11 @@ final class UserP
 {
     //private static final boolean IS_SESSION_PROPS_ENABLED = Config.getBoolean( "user.session.props.enabled", false );
     private static final String CLS_NM = UserP.class.getName();
-    private static UserDAO uDao = new UserDAO();
+    private static UserDAO uDao;
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private static final PolicyP policyP = new PolicyP();
-    private static final AdminRoleP admRoleP = new AdminRoleP();
-    private static final OrgUnitP orgUnitP = new OrgUnitP();
+    private PolicyP policyP;
+    private AdminRoleP admRoleP;
+    private OrgUnitP orgUnitP;
 
 
     /**
@@ -81,6 +81,10 @@ final class UserP
      */
     UserP()
     {
+    	uDao = new UserDAO();
+        policyP = new PolicyP();
+        admRoleP = new AdminRoleP();
+        orgUnitP = new OrgUnitP();
     }
 
 

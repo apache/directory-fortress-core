@@ -97,7 +97,7 @@ public final class CacheMgr
      * @return reference to cache for specified object.
      */
     public Cache getCache( String cacheName )
-    {
+    {    	
         return CacheFactory.createInstance( cacheName, mEhCacheImpl );
     }
 

@@ -60,8 +60,8 @@ public final class AdminRoleP
 {
     private static final String CLS_NM = AdminRoleP.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private static final AdminRoleDAO rDao = new AdminRoleDAO();
-    private static final OrgUnitP op = new OrgUnitP();
+    private AdminRoleDAO rDao;
+    private OrgUnitP op;
     private static final ConstraintValidator constraintValidator = VUtil.getConstraintValidator();
 
     /**
@@ -69,6 +69,8 @@ public final class AdminRoleP
      */
     AdminRoleP()
     {
+        rDao = new AdminRoleDAO();
+        op = new OrgUnitP();
     }
 
 

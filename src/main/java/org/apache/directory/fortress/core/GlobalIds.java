@@ -59,8 +59,6 @@ public final class GlobalIds
      */
     private GlobalIds()
     {
-    	init();
-    	
     	IS_AUDIT_DISABLED = ( ( Config.getInstance().getProperty( DISABLE_AUDIT ) != null ) && ( Config
     	        .getInstance().getProperty( DISABLE_AUDIT ).equalsIgnoreCase( "true" ) ) );
     	
@@ -71,10 +69,7 @@ public final class GlobalIds
     	        .getInstance().getProperty( GlobalIds.AUTHENTICATION_TYPE ) );
     	
     	IS_OPENLDAP = ( ( Config.getInstance().getProperty( SERVER_TYPE ) != null ) && ( Config
-    	        .getInstance().getProperty( SERVER_TYPE ).equalsIgnoreCase( "openldap" ) ) );
-    	
-    	LDAP_FILTER_SIZE_FOUND = ( Config
-    	        .getInstance().getProperty( LDAP_FILTER_SIZE_PROP ) != null );
+    	        .getInstance().getProperty( SERVER_TYPE ).equalsIgnoreCase( "openldap" ) ) );    	    	
     	
     	DELIMITER = Config.getInstance().getProperty( "attr.delimiter", "$" );
     }
@@ -463,10 +458,6 @@ public final class GlobalIds
      */
     public static final String LDAP_FILTER_SIZE_PROP = "ldap.filter.size";
 
-    /**
-     * Used during ldap filter processing.
-     */
-    public boolean LDAP_FILTER_SIZE_FOUND;
     public static final String APACHE_LDAP_API = "apache";
     public static final String AUTH_Z_FAILED = "authzfailed";
     public static final String POP_NAME = "ftOpNm";
@@ -495,25 +486,6 @@ public final class GlobalIds
      * maximum number of entries allowed for ldap filter replacements.
      */
     private static int ldapFilterSize = 25;
-
-    /**
-     * enable the ldap filter size variable to be used later during filter processing.
-     */
-    private void init()
-    {
-        try
-        {
-            String lenProp = Config.getInstance().getProperty( LDAP_FILTER_SIZE_PROP );
-            if ( LDAP_FILTER_SIZE_FOUND )
-            {
-                ldapFilterSize = Integer.valueOf( lenProp );
-            }
-        }
-        catch ( java.lang.NumberFormatException nfe )
-        {
-            //ignore
-        }
-    }
 
     /**
      * Maximum number of entries allowed for ldap filter replacements.
