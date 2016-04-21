@@ -528,4 +528,9 @@ public final class GlobalIds
      */
     public static final String ALL = "all";
     public static final String NULL = "null";
+    
+    /**
+     * When this property is set to true in fortress.properties, the userPassword field on newly created users will not be created.
+     */
+    public static final String USER_CREATION_PASSWORD_FIELD = "user.creation.field.password.disable";
 }

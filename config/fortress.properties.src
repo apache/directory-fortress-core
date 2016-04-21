@@ -104,3 +104,7 @@ GroupTest=org.apache.directory.fortress.core.group.GroupAntTest
 #delegated.accessmgr.implementation=org.apache.directory.fortress.core.rest.DelAccessMgrOtherImpl
 #auditmgr.implementation=org.apache.directory.fortress.core.rest.AuditMgrOtherImpl
 #configmgr.implementation=org.apache.directory.fortress.core.rest.ConfigMgrOtherImpl
+
+# Default behaviour when creating a user with no password is to set userPassword set to an empty string. 
+#The Fortress API will not allow auth binding if password is empty string or null, but enabling this property will cause the userPassword field to not be created. 
+#user.creation.field.password.disable=false

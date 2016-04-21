@@ -49,10 +49,21 @@ import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.BindResponse;
 import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
 import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.fortress.core.CreateException;
+import org.apache.directory.fortress.core.FinderException;
+import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.PasswordException;
+import org.apache.directory.fortress.core.RemoveException;
+import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.UpdateException;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.model.Address;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.ConstraintUtil;
+import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.directory.fortress.core.model.PwMessage;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.Session;
@@ -60,21 +71,10 @@ import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.model.Warning;
-import org.apache.directory.fortress.core.model.PropUtil;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.directory.fortress.core.CreateException;
-import org.apache.directory.fortress.core.FinderException;
-import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.model.ObjectFactory;
-import org.apache.directory.fortress.core.PasswordException;
-import org.apache.directory.fortress.core.RemoveException;
-import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.UpdateException;
-import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 
 
 /**
@@ -432,10 +432,12 @@ final class UserDAO extends LdapDataProvider
 
             myEntry.add( SchemaConstants.SN_AT, entity.getSn() );
 
-            // guard against npe
-            myEntry.add( SchemaConstants.USER_PASSWORD_AT, ArrayUtils.isNotEmpty( entity.getPassword() ) ? new
-                String( entity.getPassword() ) : new String( new char[]
-                    {} ) );
+            if( !Config.getBoolean( GlobalIds.USER_CREATION_PASSWORD_FIELD, false ) ) {
+	            myEntry.add( SchemaConstants.USER_PASSWORD_AT, ArrayUtils.isNotEmpty( entity.getPassword() ) ? new
+	                String( entity.getPassword() ) : new String( new char[]
+	                    {} ) );
+            }
+            
             myEntry.add( SchemaConstants.DISPLAY_NAME_AT, entity.getCn() );
 
             if ( StringUtils.isNotEmpty( entity.getTitle() ) )
