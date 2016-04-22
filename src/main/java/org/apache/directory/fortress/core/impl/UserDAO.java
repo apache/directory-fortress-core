@@ -432,10 +432,12 @@ final class UserDAO extends LdapDataProvider
 
             myEntry.add( SchemaConstants.SN_AT, entity.getSn() );
 
-            if( ArrayUtils.isNotEmpty( entity.getPassword() )){
+            if( ArrayUtils.isNotEmpty( entity.getPassword() ))
+            {
                 myEntry.add( SchemaConstants.USER_PASSWORD_AT, new String( entity.getPassword() ) );
             }
-            else if( !Config.getBoolean( GlobalIds.USER_CREATION_PASSWORD_FIELD, false ) ) {
+            else if( !Config.getBoolean( GlobalIds.USER_CREATION_PASSWORD_FIELD, false ) )
+            {
 	            myEntry.add( SchemaConstants.USER_PASSWORD_AT, new String( new char[]{} ) );
             }
             
