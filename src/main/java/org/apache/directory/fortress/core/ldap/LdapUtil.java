@@ -1,7 +1,5 @@
 package org.apache.directory.fortress.core.ldap;
 
-import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.util.Config;
 
 
 public class LdapUtil {
@@ -23,64 +21,6 @@ public class LdapUtil {
         }
         return INSTANCE;
     }        
-
-    /**
-    *
-    */
-   private static char[] loadLdapEscapeChars()
-   {
-       if ( !LdapUtil.getInstance().isLdapfilterSizeFound() )
-       {
-           return null;
-       }
-
-       char[] ldapMetaChars = new char[LdapUtil.getInstance().getLdapFilterSize()];
-
-       for ( int i = 1;; i++ )
-       {
-           String prop = GlobalIds.LDAP_FILTER + i;
-           String value = Config.getInstance().getProperty( prop );
-
-           if ( value == null )
-           {
-               break;
-           }
-
-           ldapMetaChars[i - 1] = value.charAt( 0 );
-       }
-
-       return ldapMetaChars;
-   }
-
-
-   /**
-    *
-    */
-   private static String[] loadValidLdapVals()
-   {
-       if ( !LdapUtil.getInstance().isLdapfilterSizeFound() )
-       {
-           return null;
-       }
-
-       String[] ldapReplacements = new String[LdapUtil.getInstance().getLdapFilterSize()];
-
-       for ( int i = 1;; i++ )
-       {
-           String prop = GlobalIds.LDAP_SUB + i;
-           String value = Config.getInstance().getProperty( prop );
-
-           if ( value == null )
-           {
-               break;
-           }
-
-           ldapReplacements[i - 1] = value;
-       }
-
-       return ldapReplacements;
-   }
-
     
 	public boolean isLdapfilterSizeFound() {
 		return ldapfilterSizeFound;

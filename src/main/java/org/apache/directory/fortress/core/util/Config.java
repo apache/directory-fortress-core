@@ -89,9 +89,11 @@ public final class Config
                     }
                 }
                 
-                //init ldap util vals since config is stored ons erver
+                //init ldap util vals since config is stored on server
             	boolean ldapfilterSizeFound = ( getProperty( GlobalIds.LDAP_FILTER_SIZE_PROP ) != null );
             	LdapUtil.getInstance().setLdapfilterSizeFound(ldapfilterSizeFound);
+                LdapUtil.getInstance().setLdapMetaChars( loadLdapEscapeChars() );
+                LdapUtil.getInstance().setLdapReplVals( loadValidLdapVals() );
             	
                 try
                 {
@@ -130,6 +132,46 @@ public final class Config
         init();
     }
 
+   private char[] loadLdapEscapeChars()
+   {
+       char[] ldapMetaChars = new char[LdapUtil.getInstance().getLdapFilterSize()];
+
+       for ( int i = 1;; i++ )
+       {
+           String prop = GlobalIds.LDAP_FILTER + i;
+           String value = getProperty( prop );
+
+           if ( value == null )
+           {
+               break;
+           }
+
+           ldapMetaChars[i - 1] = value.charAt( 0 );
+       }
+
+       return ldapMetaChars;
+   }
+
+   private String[] loadValidLdapVals()
+   {
+       String[] ldapReplacements = new String[LdapUtil.getInstance().getLdapFilterSize()];
+
+       for ( int i = 1;; i++ )
+       {
+           String prop = GlobalIds.LDAP_SUB + i;
+           String value = getProperty( prop );
+
+           if ( value == null )
+           {
+               break;
+           }
+
+           ldapReplacements[i - 1] = value;
+       }
+
+       return ldapReplacements;
+   }
+    
     /**
      * Gets the prop attribute as String value from the apache commons cfg component.
      *

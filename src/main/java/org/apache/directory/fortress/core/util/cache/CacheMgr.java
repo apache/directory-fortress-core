@@ -20,6 +20,8 @@
 package org.apache.directory.fortress.core.util.cache;
 
 import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Ehcache;
+import net.sf.ehcache.constructs.blocking.BlockingCache;
 
 import org.apache.directory.fortress.core.CfgException;
 import org.apache.directory.fortress.core.CfgRuntimeException;
@@ -98,7 +100,13 @@ public final class CacheMgr
      */
     public Cache getCache( String cacheName )
     {    	
-        return CacheFactory.createInstance( cacheName, mEhCacheImpl );
+        Ehcache cache = mEhCacheImpl.getEhcache( cacheName );
+        if(cache != null){
+    	    return new EhCacheImpl( cacheName, new BlockingCache(cache) );
+        }
+        else{
+    	    return CacheFactory.createInstance( cacheName, mEhCacheImpl );
+        }
     }
 
     /**
