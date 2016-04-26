@@ -116,7 +116,7 @@ public final class VUtil implements ConstraintValidator
             LOG.error( "static initialzier caught SecurityException=" + ex.getMessage(), ex );
         }
 
-        Config.getInstance().getProperty( GlobalIds.DSD_VALIDATOR_PROP );
+        DSDVALIDATOR = Config.getInstance().getProperty( GlobalIds.DSD_VALIDATOR_PROP );
         String lengthProp = Config.getInstance().getProperty( VALIDATE_LENGTH );
 
         if ( lengthProp != null )
