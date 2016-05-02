@@ -69,7 +69,7 @@ public final class ReviewMgrFactory
 
         if ( StringUtils.isEmpty( reviewClassName ) )
         {
-            if(GlobalIds.getInstance().IS_REST)
+            if(Config.getInstance().IS_REST)
             {
                 reviewMgr = new ReviewMgrRestImpl();
             }

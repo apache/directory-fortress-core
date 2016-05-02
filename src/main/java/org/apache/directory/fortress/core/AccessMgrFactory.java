@@ -68,7 +68,7 @@ public final class AccessMgrFactory
         AccessMgr accessMgr;
         if ( StringUtils.isEmpty( accessClassName ) )
         {
-            if(GlobalIds.getInstance().IS_REST)
+            if(Config.getInstance().IS_REST)
             {
                 accessMgr = new AccessMgrRestImpl();
             }

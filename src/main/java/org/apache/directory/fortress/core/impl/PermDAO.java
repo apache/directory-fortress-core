@@ -58,6 +58,7 @@ import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.ldap.client.api.LdapConnection;
 
 
@@ -920,7 +921,7 @@ final class PermDAO extends LdapDataProvider
         throws FinderException
     {
         // Audit can be turned off here with fortress config param: 'disable.audit=true'
-        if ( GlobalIds.getInstance().IS_OPENLDAP && ! GlobalIds.getInstance().IS_AUDIT_DISABLED )
+        if ( Config.getInstance().IS_OPENLDAP && ! Config.getInstance().IS_AUDIT_DISABLED )
         {
             try
             {

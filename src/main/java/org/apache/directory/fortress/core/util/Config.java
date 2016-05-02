@@ -54,6 +54,22 @@ public final class Config
     private static final String CLS_NM = Config.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
+    public boolean IS_REST;
+    public boolean IS_AUDIT_DISABLED;
+    public boolean IS_OPENLDAP;
+    /**
+     * This constant is used during authentication to determine if runtime is security realm.  If IS_REALM == true,
+     * the authentication module will not throw SecurityException on password resets.  This is to enable the authentication
+     * event to succeed allowing the application to prompt user to change their password.
+     */
+    public boolean IS_REALM;
+    /**
+     * Fortress stores complex attribute types within a single attribute in ldap.  Usually a delimiter of '$' is used for string tokenization.
+     * format: {@code part1$part2$part3....}  Stored in fortress.properties as 'attr.delimiter=$'
+     */
+    public String DELIMITER;    
+    
+    
     private static volatile Config INSTANCE = null;    
     
     public static Config getInstance() {
@@ -108,6 +124,16 @@ public final class Config
                     //ignore
                 }
 
+            	IS_AUDIT_DISABLED = ( ( getProperty( GlobalIds.DISABLE_AUDIT ) != null ) && ( getProperty( GlobalIds.DISABLE_AUDIT ).equalsIgnoreCase( "true" ) ) );
+            	
+            	IS_REST = ( ( getProperty( GlobalIds.ENABLE_REST ) != null ) && ( getProperty( GlobalIds.ENABLE_REST ).equalsIgnoreCase( "true" ) ) );
+            	
+            	IS_REALM = GlobalIds.REALM_TYPE.equalsIgnoreCase( getProperty( GlobalIds.AUTHENTICATION_TYPE ) );
+            	
+            	IS_OPENLDAP = ( ( getProperty( GlobalIds.SERVER_TYPE ) != null ) && ( getProperty( GlobalIds.SERVER_TYPE ).equalsIgnoreCase( "openldap" ) ) );    	    	
+            	
+            	DELIMITER = getProperty( "attr.delimiter", "$" );
+                
             }
             else
             {

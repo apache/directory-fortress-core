@@ -22,8 +22,8 @@ package org.apache.directory.fortress.core.model;
 import java.util.StringTokenizer;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.ValidationException;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
 
 /**
@@ -134,7 +134,7 @@ public class ConstraintUtil
     {
         if ( StringUtils.isNotEmpty( inputString ) )
         {
-            StringTokenizer tkn = new StringTokenizer( inputString, GlobalIds.getInstance().DELIMITER, true );
+            StringTokenizer tkn = new StringTokenizer( inputString, Config.getInstance().DELIMITER, true );
             if ( tkn.countTokens() > 0 )
             {
                 int count = tkn.countTokens();
@@ -143,11 +143,11 @@ public class ConstraintUtil
                 for ( int i = 0; i < count; i++ )
                 {
                     String szValue = tkn.nextToken();
-                    if ( szValue.equals( GlobalIds.getInstance().DELIMITER ) && !previousTokenWasDelimiter )
+                    if ( szValue.equals( Config.getInstance().DELIMITER ) && !previousTokenWasDelimiter )
                     {
                         previousTokenWasDelimiter = true;
                     }
-                    else if ( szValue.equals( GlobalIds.getInstance().DELIMITER ) )
+                    else if ( szValue.equals( Config.getInstance().DELIMITER ) )
                     {
                         previousTokenWasDelimiter = true;
                         index++;
@@ -206,60 +206,61 @@ public class ConstraintUtil
     public static String setConstraint( Constraint constraint )
     {
         String szConstraint = null;
+        String delimiter = Config.getInstance().DELIMITER;
         if ( constraint != null )
         {
             StringBuilder sb = new StringBuilder();
             sb.append( constraint.getName() );
-            sb.append( GlobalIds.getInstance().DELIMITER );
+            sb.append( delimiter );
 
             if ( constraint.getTimeout() != null )
             {
                 sb.append( constraint.getTimeout() );
             }
 
-            sb.append( GlobalIds.getInstance().DELIMITER );
+            sb.append( delimiter );
 
             if ( constraint.getBeginTime() != null )
             {
                 sb.append( constraint.getBeginTime() );
             }
 
-            sb.append( GlobalIds.getInstance().DELIMITER );
+            sb.append( delimiter );
 
             if ( constraint.getEndTime() != null )
             {
                 sb.append( constraint.getEndTime() );
             }
 
-            sb.append( GlobalIds.getInstance().DELIMITER );
+            sb.append( delimiter );
 
             if ( constraint.getBeginDate() != null )
             {
                 sb.append( constraint.getBeginDate() );
             }
 
-            sb.append( GlobalIds.getInstance().DELIMITER );
+            sb.append( delimiter );
 
             if ( constraint.getEndDate() != null )
             {
                 sb.append( constraint.getEndDate() );
             }
 
-            sb.append( GlobalIds.getInstance().DELIMITER );
+            sb.append( delimiter );
 
             if ( constraint.getBeginLockDate() != null )
             {
                 sb.append( constraint.getBeginLockDate() );
             }
 
-            sb.append( GlobalIds.getInstance().DELIMITER );
+            sb.append( delimiter );
 
             if ( constraint.getEndLockDate() != null )
             {
                 sb.append( constraint.getEndLockDate() );
             }
 
-            sb.append( GlobalIds.getInstance().DELIMITER );
+            sb.append( delimiter );
 
             if ( constraint.getDayMask() != null )
             {

@@ -71,7 +71,7 @@ public final class AdminMgrFactory
 
         if ( StringUtils.isEmpty( adminClassName ) )
         {
-            if(GlobalIds.getInstance().IS_REST)
+            if(Config.getInstance().IS_REST)
             {
                 adminMgr = new AdminMgrRestImpl();
             }

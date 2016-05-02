@@ -70,7 +70,7 @@ public final class DelAccessMgrFactory
 
         if ( StringUtils.isEmpty( accessClassName ) )
         {
-            if(GlobalIds.getInstance().IS_REST)
+            if(Config.getInstance().IS_REST)
             {
                 accessMgr = new DelAccessMgrRestImpl();
             }

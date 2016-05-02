@@ -21,7 +21,6 @@ package org.apache.directory.fortress.core;
 
 
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
-import org.apache.directory.fortress.core.util.Config;
 
 
 /**
@@ -38,48 +37,12 @@ import org.apache.directory.fortress.core.util.Config;
  */
 public final class GlobalIds
 {
-    public static final String CONFIG_ROOT_PARAM = "config.root";
-
-    private static volatile GlobalIds INSTANCE = null; 
-
-    public static GlobalIds getInstance() {
-        if(INSTANCE == null) {
-            synchronized (GlobalIds.class) {
-                if(INSTANCE == null){
-        	        INSTANCE = new GlobalIds();
-                }
-            }
-        }
-        return INSTANCE;
-    }
-    
-    /**
-     * Private constructor
-     *
-     */
-    private GlobalIds()
-    {
-    	IS_AUDIT_DISABLED = ( ( Config.getInstance().getProperty( DISABLE_AUDIT ) != null ) && ( Config
-    	        .getInstance().getProperty( DISABLE_AUDIT ).equalsIgnoreCase( "true" ) ) );
-    	
-    	IS_REST = ( ( Config.getInstance().getProperty( ENABLE_REST ) != null ) && ( Config
-    	        .getInstance().getProperty( ENABLE_REST ).equalsIgnoreCase( "true" ) ) );
-    	
-    	IS_REALM = GlobalIds.REALM_TYPE.equalsIgnoreCase( Config
-    	        .getInstance().getProperty( GlobalIds.AUTHENTICATION_TYPE ) );
-    	
-    	IS_OPENLDAP = ( ( Config.getInstance().getProperty( SERVER_TYPE ) != null ) && ( Config
-    	        .getInstance().getProperty( SERVER_TYPE ).equalsIgnoreCase( "openldap" ) ) );    	    	
-    	
-    	DELIMITER = Config.getInstance().getProperty( "attr.delimiter", "$" );
-    }
+    public static final String CONFIG_ROOT_PARAM = "config.root";    
 
     public static final String HOME = "HOME";
     public static final String TENANT = "tenant";
-    private static final String DISABLE_AUDIT = "disable.audit";
-    public boolean IS_AUDIT_DISABLED;
-    private static final String ENABLE_REST = "enable.mgr.impl.rest";
-    public boolean IS_REST;
+    public static final String DISABLE_AUDIT = "disable.audit";
+    public static final String ENABLE_REST = "enable.mgr.impl.rest";
 
     /**
      * The following constants are used within the factory classes:
@@ -167,13 +130,6 @@ public final class GlobalIds
     public static final String DSD_VALIDATOR_PROP = "temporal.validator.dsd";
 
     /**
-     * This constant is used during authentication to determine if runtime is security realm.  If IS_REALM == true,
-     * the authentication module will not throw SecurityException on password resets.  This is to enable the authentication
-     * event to succeed allowing the application to prompt user to change their password.
-     */
-    public boolean IS_REALM;
-
-    /**
      * Parameter specifies the distinguished name (dn) of the LDAP suffix.  The is the root or top-most node for a Directory Information Tree (DIT).  The typical
      * Fortress suffix format is {@code dc=example,dc=com}.
      */
@@ -257,7 +213,6 @@ public final class GlobalIds
     */
 
     public static final String SERVER_TYPE = "ldap.server.type";
-    public boolean IS_OPENLDAP;
 
     /*
       *  *************************************************************************
@@ -503,12 +458,6 @@ public final class GlobalIds
      * format: {@code name:value},
      */
     public static final char PROP_SEP = ':';
-
-    /**
-     * Fortress stores complex attribute types within a single attribute in ldap.  Usually a delimiter of '$' is used for string tokenization.
-     * format: {@code part1$part2$part3....}  Stored in fortress.properties as 'attr.delimiter=$'
-     */
-    public String DELIMITER;
 
     /**
      * Maximum number of records for ldap client to wait on while processing results sets from ldap server.

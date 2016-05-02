@@ -24,6 +24,7 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 
 import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.util.Config;
 
 /**
  *  Utilities to convert to/from property formats.
@@ -91,7 +92,7 @@ public final class PropUtil
      */
     public static Properties getProperties( String inputString, char separator )
     {
-        return getProperties( inputString, separator, GlobalIds.getInstance().DELIMITER );
+        return getProperties( inputString, separator, Config.getInstance().DELIMITER );
     }
 
     /**
