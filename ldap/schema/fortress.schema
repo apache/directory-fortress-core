@@ -284,7 +284,7 @@ attributetype ( ftAtId:30
 ######################################################################
 
 ## OC1: Fortress Roles Structural Object Class
-objectclass    ( ftObId:1
+objectclass ( ftObId:1
     NAME 'ftRls'
     DESC 'Fortress Role Structural Object Class'
     SUP organizationalrole
@@ -301,7 +301,7 @@ objectclass    ( ftObId:1
     )
 
 ## OC2: Fortress Permission Structural Object Class
-objectclass    ( ftObId:2
+objectclass ( ftObId:2
     NAME 'ftObject'
     DESC 'Fortress Permission Object Class'
     SUP organizationalunit
@@ -316,7 +316,7 @@ objectclass    ( ftObId:2
     )
 
 ## OC3: Fortress Operation Structural Object Class
-objectclass    ( ftObId:3
+objectclass ( ftObId:3
     NAME 'ftOperation'
     DESC 'Fortress Permission Operation Structural Object Class'
     SUP organizationalrole
@@ -336,7 +336,7 @@ objectclass    ( ftObId:3
     )
 
 ## OC4: Fortress Static Separation of Duties Structural Object Class
-objectclass    ( ftObId:4
+objectclass ( ftObId:4
     NAME 'ftSSDSet'
     DESC 'Fortress Role Static Separation of Duty Set Structural Object Class'
     SUP organizationalrole
@@ -353,7 +353,7 @@ objectclass    ( ftObId:4
     )
 
 ## OC5: Fortress Dynamic Separation of Duties Structural Object Class
-objectclass    ( ftObId:5
+objectclass ( ftObId:5
     NAME 'ftDSDSet'
     DESC 'Fortress Role Dynamic Separation of Duty Set Structural Object Class'
     SUP organizationalrole
@@ -370,7 +370,7 @@ objectclass    ( ftObId:5
     )
 
 ## OC6: Fortress Organizational Structural Object Class
-objectclass    ( ftObId:6
+objectclass ( ftObId:6
     NAME 'ftOrgUnit'
     DESC 'Fortress OrgUnit Structural Object Class'
     SUP organizationalunit
@@ -384,7 +384,7 @@ objectclass    ( ftObId:6
     )
 
 ## OC7: Fortress Hierarchies Structural Object Class
-objectclass    ( ftObId:7
+objectclass ( ftObId:7
     NAME 'ftHier'
     DESC 'Fortress Hierarchy Structural Object Class'
     SUP organizationalrole
@@ -399,7 +399,7 @@ objectclass    ( ftObId:7
     )
 
 ## OC8: LDAP Configuration Group Structural Object Class
-objectClass (ftObId:8
+objectClass ( ftObId:8
     NAME 'configGroup'
     DESC 'LDAP Configuration Group'
     SUP groupOfNames
