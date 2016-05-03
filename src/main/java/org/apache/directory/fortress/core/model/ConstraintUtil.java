@@ -134,7 +134,7 @@ public class ConstraintUtil
     {
         if ( StringUtils.isNotEmpty( inputString ) )
         {
-            StringTokenizer tkn = new StringTokenizer( inputString, Config.getInstance().DELIMITER, true );
+            StringTokenizer tkn = new StringTokenizer( inputString, Config.getInstance().getDelimiter(), true );
             if ( tkn.countTokens() > 0 )
             {
                 int count = tkn.countTokens();
@@ -143,11 +143,11 @@ public class ConstraintUtil
                 for ( int i = 0; i < count; i++ )
                 {
                     String szValue = tkn.nextToken();
-                    if ( szValue.equals( Config.getInstance().DELIMITER ) && !previousTokenWasDelimiter )
+                    if ( szValue.equals( Config.getInstance().getDelimiter() ) && !previousTokenWasDelimiter )
                     {
                         previousTokenWasDelimiter = true;
                     }
-                    else if ( szValue.equals( Config.getInstance().DELIMITER ) )
+                    else if ( szValue.equals( Config.getInstance().getDelimiter() ) )
                     {
                         previousTokenWasDelimiter = true;
                         index++;
@@ -206,7 +206,7 @@ public class ConstraintUtil
     public static String setConstraint( Constraint constraint )
     {
         String szConstraint = null;
-        String delimiter = Config.getInstance().DELIMITER;
+        String delimiter = Config.getInstance().getDelimiter();
         if ( constraint != null )
         {
             StringBuilder sb = new StringBuilder();

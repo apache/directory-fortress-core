@@ -68,7 +68,7 @@ public final class DelReviewMgrFactory
 
         if ( StringUtils.isEmpty( dReviewClassName ) )
         {
-            if(Config.getInstance().IS_REST)
+            if(Config.getInstance().isRestEnabled())
             {
                 delReviewMgr = new DelReviewMgrRestImpl();
             }

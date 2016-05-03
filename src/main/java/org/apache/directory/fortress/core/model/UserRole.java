@@ -152,7 +152,7 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     {
         if ( ( szRawData != null ) && ( szRawData.length() > 0 ) )
         {
-            String[] tokens = StringUtils.splitPreserveAllTokens( szRawData, Config.getInstance().DELIMITER );
+            String[] tokens = StringUtils.splitPreserveAllTokens( szRawData, Config.getInstance().getDelimiter() );
             for ( int i = 0; i < tokens.length; i++ )
             {
                 if ( StringUtils.isNotEmpty( tokens[i] ) )
@@ -211,7 +211,7 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     @Override
     public String getRawData()
     {
-    	String delimeter = Config.getInstance().DELIMITER;
+    	String delimeter = Config.getInstance().getDelimiter();
         StringBuilder sb = new StringBuilder();
 
         sb.append( name );

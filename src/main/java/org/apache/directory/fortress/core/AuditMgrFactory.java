@@ -70,7 +70,7 @@ public final class AuditMgrFactory
 
         if ( StringUtils.isEmpty( auditClassName ) )
         {
-            if(Config.getInstance().IS_REST)
+            if(Config.getInstance().isRestEnabled())
             {
                 auditMgr = new AuditMgrRestImpl();
             }

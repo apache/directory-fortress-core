@@ -71,7 +71,7 @@ public final class DelAdminMgrFactory
 
         if ( Strings.isEmpty( dAdminClassName ) )
         {
-            if ( Config.getInstance().IS_REST )
+            if ( Config.getInstance().isRestEnabled() )
             {
                 delAdminMgr = new DelAdminMgrRestImpl();
             }

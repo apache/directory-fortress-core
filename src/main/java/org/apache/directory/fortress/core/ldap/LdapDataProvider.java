@@ -240,7 +240,7 @@ public abstract class LdapDataProvider
     {
         COUNTERS.incrementAdd();
 
-        if ( !Config.getInstance().IS_AUDIT_DISABLED && ( entity != null ) && ( entity.getAdminSession() != null ) )
+        if ( !Config.getInstance().isAuditDisabled() && ( entity != null ) && ( entity.getAdminSession() != null ) )
         {
             if ( StringUtils.isNotEmpty( entity.getAdminSession().getInternalUserId() ) )
             {
@@ -501,7 +501,7 @@ public abstract class LdapDataProvider
      */
     private void audit( List<Modification> mods, FortEntity entity )
     {
-        if ( !Config.getInstance().IS_AUDIT_DISABLED && ( entity != null ) && ( entity.getAdminSession() != null ) )
+        if ( !Config.getInstance().isAuditDisabled() && ( entity != null ) && ( entity.getAdminSession() != null ) )
         {
             if ( StringUtils.isNotEmpty( entity.getAdminSession().getInternalUserId() ) )
             {

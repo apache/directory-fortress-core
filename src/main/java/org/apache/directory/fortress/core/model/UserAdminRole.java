@@ -163,7 +163,7 @@ public class UserAdminRole extends UserRole implements Administrator
     {
         if ( ( szRawData != null ) && ( szRawData.length() > 0 ) )
         {
-            String[] tokens = StringUtils.splitPreserveAllTokens( szRawData, Config.getInstance().DELIMITER );
+            String[] tokens = StringUtils.splitPreserveAllTokens( szRawData, Config.getInstance().getDelimiter() );
             for ( int i = 0; i < tokens.length; i++ )
             {
                 if ( StringUtils.isNotEmpty( tokens[i] ) )
@@ -247,7 +247,7 @@ public class UserAdminRole extends UserRole implements Administrator
     public String getRawData()
     {
         String szRole;
-        String delimeter = Config.getInstance().DELIMITER;
+        String delimeter = Config.getInstance().getDelimiter();
         StringBuilder sb = new StringBuilder();
         sb.append( name );
         sb.append( delimeter );

@@ -68,7 +68,7 @@ public final class AccessMgrFactory
         AccessMgr accessMgr;
         if ( StringUtils.isEmpty( accessClassName ) )
         {
-            if(Config.getInstance().IS_REST)
+            if(Config.getInstance().isRestEnabled())
             {
                 accessMgr = new AccessMgrRestImpl();
             }

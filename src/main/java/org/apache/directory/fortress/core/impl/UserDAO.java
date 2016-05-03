@@ -228,12 +228,14 @@ final class UserDAO extends LdapDataProvider
             //            POSIX_ACCOUNT_OBJECT_CLASS_NAME
         };
     	
-        LOG.debug( "GlobalIds.IS_OPENLDAP: " + Config.getInstance().IS_OPENLDAP );
-        LOG.debug( "GlobalIds.IS_OPENLDAP ? OPENLDAP_PW_RESET : null: " + ( Config.getInstance().IS_OPENLDAP ? OPENLDAP_PW_RESET
+        boolean isOpenldap = Config.getInstance().isOpenldap();
+        
+        LOG.debug( "GlobalIds.IS_OPENLDAP: " + isOpenldap );
+        LOG.debug( "GlobalIds.IS_OPENLDAP ? OPENLDAP_PW_RESET : null: " + ( isOpenldap ? OPENLDAP_PW_RESET
             : null ) );
-        LOG.debug( "GlobalIds.IS_OPENLDAP: " + Config.getInstance().IS_OPENLDAP );
+        LOG.debug( "GlobalIds.IS_OPENLDAP: " + isOpenldap );
 
-        if ( Config.getInstance().IS_OPENLDAP )
+        if ( isOpenldap )
         {
             // This default set of attributes contains all and is used for search operations.
             defaultAtrs = new String[]
@@ -497,7 +499,7 @@ final class UserDAO extends LdapDataProvider
                 myEntry.add( SYSTEM_USER, entity.isSystem().toString().toUpperCase() );
             }
 
-            if ( Config.getInstance().IS_OPENLDAP && StringUtils.isNotEmpty( entity.getPwPolicy() ) )
+            if ( Config.getInstance().isOpenldap() && StringUtils.isNotEmpty( entity.getPwPolicy() ) )
             {
                 String pwdPolicyDn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + "," + getRootDn(
                     entity.getContextId(), GlobalIds.PPOLICY_ROOT );
@@ -602,7 +604,7 @@ final class UserDAO extends LdapDataProvider
                     entity.getTitle() ) );
             }
 
-            if ( Config.getInstance().IS_OPENLDAP && StringUtils.isNotEmpty( entity.getPwPolicy() ) )
+            if ( Config.getInstance().isOpenldap() && StringUtils.isNotEmpty( entity.getPwPolicy() ) )
             {
                 String szDn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + "," + getRootDn( entity
                     .getContextId(), GlobalIds.PPOLICY_ROOT );
@@ -1056,7 +1058,7 @@ final class UserDAO extends LdapDataProvider
                             case CHANGE_AFTER_RESET:
                                 // Don't throw exception if authenticating in J2EE Realm - The Web application must
                                 // give user a chance to modify their password.
-                                if ( !Config.getInstance().IS_REALM )
+                                if ( !Config.getInstance().isRealm() )
                                 {
                                     errMsg = msgHdr + "PASSWORD HAS BEEN RESET BY LDAP_ADMIN_POOL_UID";
                                     rc = GlobalErrIds.USER_PW_RESET;
@@ -1712,7 +1714,7 @@ final class UserDAO extends LdapDataProvider
             modify( ld, userDn, mods );
 
             // This modify update audit attributes on the User entry (if enabled):
-            if ( Config.getInstance().IS_OPENLDAP && ! Config.getInstance().IS_AUDIT_DISABLED )
+            if ( Config.getInstance().isOpenldap() && ! Config.getInstance().isAuditDisabled() )
             {
                 mods = new ArrayList<>();
                 modify( ld, userDn, mods, entity );
@@ -2088,7 +2090,7 @@ final class UserDAO extends LdapDataProvider
 
         entity.addProperties( PropUtil.getProperties( getAttributes( entry, GlobalIds.PROPS ) ) );
 
-        if ( Config.getInstance().IS_OPENLDAP )
+        if ( Config.getInstance().isOpenldap() )
         {
             szBoolean = getAttribute( entry, OPENLDAP_PW_RESET );
             if ( szBoolean != null && szBoolean.equalsIgnoreCase( "true" ) )

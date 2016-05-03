@@ -921,7 +921,7 @@ final class PermDAO extends LdapDataProvider
         throws FinderException
     {
         // Audit can be turned off here with fortress config param: 'disable.audit=true'
-        if ( Config.getInstance().IS_OPENLDAP && ! Config.getInstance().IS_AUDIT_DISABLED )
+        if ( Config.getInstance().isOpenldap() && ! Config.getInstance().isAuditDisabled() )
         {
             try
             {

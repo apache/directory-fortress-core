@@ -69,7 +69,7 @@ public final class PwPolicyMgrFactory
 
         if ( StringUtils.isEmpty( policyClassName ) )
         {
-            if(Config.getInstance().IS_REST)
+            if(Config.getInstance().isRestEnabled())
             {
                 policyMgr = new PwPolicyMgrRestImpl();
             }

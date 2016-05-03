@@ -92,7 +92,7 @@ public final class PropUtil
      */
     public static Properties getProperties( String inputString, char separator )
     {
-        return getProperties( inputString, separator, Config.getInstance().DELIMITER );
+        return getProperties( inputString, separator, Config.getInstance().getDelimiter() );
     }
 
     /**
