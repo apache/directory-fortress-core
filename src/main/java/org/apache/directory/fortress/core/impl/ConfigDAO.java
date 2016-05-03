@@ -39,7 +39,7 @@ import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.model.PropUtil;
-import org.apache.directory.fortress.core.util.LocalConfig;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,7 +104,7 @@ final class ConfigDAO extends LdapDataProvider
     {
     	super();
     	
-    	CONFIG_ROOT_DN = LocalConfig.getInstance().getProperty( GlobalIds.CONFIG_ROOT_PARAM );
+    	CONFIG_ROOT_DN = Config.getInstance().getProperty( GlobalIds.CONFIG_ROOT_PARAM );
     }
 
 

@@ -83,6 +83,13 @@ public final class PwPolicyMgrFactory
             policyMgr = (PwPolicyMgr) ClassUtil.createInstance(policyClassName);
         }
 
+        if(policyMgr instanceof PwPolicyMgrImpl){
+        	Config cfg = Config.getInstance();
+        	if(!cfg.isRemoteConfigLoaded()){
+        		cfg.loadRemoteConfig();
+        	}
+        }
+        
         policyMgr.setContextId(contextId);
         return policyMgr;
     }

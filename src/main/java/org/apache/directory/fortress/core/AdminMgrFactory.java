@@ -85,6 +85,13 @@ public final class AdminMgrFactory
             adminMgr = (AdminMgr) ClassUtil.createInstance(adminClassName);
         }
 
+        if(adminMgr instanceof AdminMgrImpl){
+        	Config cfg = Config.getInstance();
+        	if(!cfg.isRemoteConfigLoaded()){
+        		cfg.loadRemoteConfig();
+        	}
+        }
+        
         adminMgr.setContextId(contextId);
         return adminMgr;
     }

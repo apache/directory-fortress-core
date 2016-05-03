@@ -13,7 +13,7 @@ import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.fortress.core.CfgRuntimeException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.util.LocalConfig;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.crypto.EncryptUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.ldap.client.api.LdapConnectionConfig;
@@ -73,55 +73,55 @@ public class LdapConnectionProvider {
     private void init()
     {    			
     	IS_SSL = (
-    			LocalConfig.getInstance().getProperty( GlobalIds.ENABLE_LDAP_SSL ) != null &&
-    			LocalConfig.getInstance().getProperty( GlobalIds.ENABLE_LDAP_SSL ).equalsIgnoreCase( "true" ) &&
-    			LocalConfig.getInstance().getProperty( GlobalIds.TRUST_STORE ) != null &&
-    			LocalConfig.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ) != null );	
+    			Config.getInstance().getProperty( GlobalIds.ENABLE_LDAP_SSL ) != null &&
+    			Config.getInstance().getProperty( GlobalIds.ENABLE_LDAP_SSL ).equalsIgnoreCase( "true" ) &&
+    			Config.getInstance().getProperty( GlobalIds.TRUST_STORE ) != null &&
+    			Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ) != null );	
     	
         IS_SET_TRUST_STORE_PROP = (
     	        IS_SSL &&
-    	        LocalConfig.getInstance().getProperty( GlobalIds.SET_TRUST_STORE_PROP ) != null &&
-    	        LocalConfig.getInstance().getProperty( GlobalIds.SET_TRUST_STORE_PROP ).equalsIgnoreCase( "true" ) );
+    	        Config.getInstance().getProperty( GlobalIds.SET_TRUST_STORE_PROP ) != null &&
+    	        Config.getInstance().getProperty( GlobalIds.SET_TRUST_STORE_PROP ).equalsIgnoreCase( "true" ) );
     	
-    	IS_SSL_DEBUG = ( ( LocalConfig.getInstance().getProperty( GlobalIds.ENABLE_LDAP_SSL_DEBUG ) != null ) && ( LocalConfig
+    	IS_SSL_DEBUG = ( ( Config.getInstance().getProperty( GlobalIds.ENABLE_LDAP_SSL_DEBUG ) != null ) && ( Config
     			.getInstance().getProperty( GlobalIds.ENABLE_LDAP_SSL_DEBUG ).equalsIgnoreCase( "true" ) ) );	
     	
     	
-        String host = LocalConfig.getInstance().getProperty( GlobalIds.LDAP_HOST, "localhost" );
-        int port = LocalConfig.getInstance().getInt( GlobalIds.LDAP_PORT, 389 );
-        int min = LocalConfig.getInstance().getInt( GlobalIds.LDAP_ADMIN_POOL_MIN, 1 );
-        int max = LocalConfig.getInstance().getInt( GlobalIds.LDAP_ADMIN_POOL_MAX, 10 );
-        int logmin = LocalConfig.getInstance().getInt( LDAP_LOG_POOL_MIN, 1 );
-        int logmax = LocalConfig.getInstance().getInt( LDAP_LOG_POOL_MAX, 10 );
+        String host = Config.getInstance().getProperty( GlobalIds.LDAP_HOST, "localhost" );
+        int port = Config.getInstance().getInt( GlobalIds.LDAP_PORT, 389 );
+        int min = Config.getInstance().getInt( GlobalIds.LDAP_ADMIN_POOL_MIN, 1 );
+        int max = Config.getInstance().getInt( GlobalIds.LDAP_ADMIN_POOL_MAX, 10 );
+        int logmin = Config.getInstance().getInt( LDAP_LOG_POOL_MIN, 1 );
+        int logmax = Config.getInstance().getInt( LDAP_LOG_POOL_MAX, 10 );
         LOG.info( "LDAP POOL:  host=[{}], port=[{}], min=[{}], max=[{}]", host, port, min, max );
 
         if ( IS_SET_TRUST_STORE_PROP )
         {
             LOG.info( "Set JSSE truststore properties in Apache LDAP client:" );
-            LOG.info( "javax.net.ssl.trustStore: {}", LocalConfig.getInstance().getProperty( GlobalIds.TRUST_STORE ) );
+            LOG.info( "javax.net.ssl.trustStore: {}", Config.getInstance().getProperty( GlobalIds.TRUST_STORE ) );
             LOG.info( "javax.net.debug: {}", IS_SSL_DEBUG );
-            System.setProperty( "javax.net.ssl.trustStore", LocalConfig.getInstance().getProperty( GlobalIds.TRUST_STORE ) );
-            System.setProperty( "javax.net.ssl.trustStorePassword", LocalConfig.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ) );
+            System.setProperty( "javax.net.ssl.trustStore", Config.getInstance().getProperty( GlobalIds.TRUST_STORE ) );
+            System.setProperty( "javax.net.ssl.trustStorePassword", Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ) );
             System.setProperty( "javax.net.debug", Boolean.valueOf( IS_SSL_DEBUG ).toString() );
         }
 
         LdapConnectionConfig config = new LdapConnectionConfig();
         config.setLdapHost( host );
         config.setLdapPort( port );
-        config.setName( LocalConfig.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_UID, "" ) );
+        config.setName( Config.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_UID, "" ) );
 
         config.setUseSsl( IS_SSL );
         //config.setTrustManagers( new NoVerificationTrustManager() );
 
-        if(LocalConfig.getInstance().getBoolean(ENABLE_LDAP_STARTTLS, false)){
+        if(Config.getInstance().getBoolean(ENABLE_LDAP_STARTTLS, false)){
         	config.setUseTls(true);
         }
         
-        if ( IS_SSL && StringUtils.isNotEmpty( LocalConfig.getInstance().getProperty( GlobalIds.TRUST_STORE ) )
-            && StringUtils.isNotEmpty( LocalConfig.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ) ) )
+        if ( IS_SSL && StringUtils.isNotEmpty( Config.getInstance().getProperty( GlobalIds.TRUST_STORE ) )
+            && StringUtils.isNotEmpty( Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ) ) )
         {
             // validate certificates but allow self-signed certs if within this truststore:
-            config.setTrustManagers( new LdapClientTrustStoreManager( LocalConfig.getInstance().getProperty( GlobalIds.TRUST_STORE ), LocalConfig.getInstance().getProperty( GlobalIds.TRUST_STORE_PW )
+            config.setTrustManagers( new LdapClientTrustStoreManager( Config.getInstance().getProperty( GlobalIds.TRUST_STORE ), Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW )
                 .toCharArray(), null,
                 true ) );
         }
@@ -129,11 +129,11 @@ public class LdapConnectionProvider {
         String adminPw;
         if ( EncryptUtil.isEnabled() )
         {
-            adminPw = EncryptUtil.getInstance().decrypt( LocalConfig.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_PW ) );
+            adminPw = EncryptUtil.getInstance().decrypt( Config.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_PW ) );
         }
         else
         {
-            adminPw = LocalConfig.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_PW );
+            adminPw = Config.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_PW );
         }
 
         config.setCredentials( adminPw );
@@ -188,28 +188,28 @@ public class LdapConnectionProvider {
             LdapConnectionConfig logConfig = new LdapConnectionConfig();
             logConfig.setLdapHost( host );
             logConfig.setLdapPort( port );
-            logConfig.setName( LocalConfig.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_UID, "" ) );
+            logConfig.setName( Config.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_UID, "" ) );
 
             logConfig.setUseSsl( IS_SSL );
 
-            if ( IS_SSL && StringUtils.isNotEmpty( LocalConfig.getInstance().getProperty( GlobalIds.TRUST_STORE ) )
-                && StringUtils.isNotEmpty( LocalConfig.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ) ) )
+            if ( IS_SSL && StringUtils.isNotEmpty( Config.getInstance().getProperty( GlobalIds.TRUST_STORE ) )
+                && StringUtils.isNotEmpty( Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ) ) )
             {
                 // validate certificates but allow self-signed certs if within this truststore:
-                logConfig.setTrustManagers( new LdapClientTrustStoreManager( LocalConfig.getInstance().getProperty( GlobalIds.TRUST_STORE ),
-                	LocalConfig.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ).toCharArray(),
+                logConfig.setTrustManagers( new LdapClientTrustStoreManager( Config.getInstance().getProperty( GlobalIds.TRUST_STORE ),
+                	Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ).toCharArray(),
                     null, true ) );
             }
 
-            logConfig.setName( LocalConfig.getInstance().getProperty( LDAP_LOG_POOL_UID, "" ) );
+            logConfig.setName( Config.getInstance().getProperty( LDAP_LOG_POOL_UID, "" ) );
             String logPw;
             if ( EncryptUtil.isEnabled() )
             {
-                logPw = EncryptUtil.getInstance().decrypt( LocalConfig.getInstance().getProperty( LDAP_LOG_POOL_PW ) );
+                logPw = EncryptUtil.getInstance().decrypt( Config.getInstance().getProperty( LDAP_LOG_POOL_PW ) );
             }
             else
             {
-                logPw = LocalConfig.getInstance().getProperty( LDAP_LOG_POOL_PW );
+                logPw = Config.getInstance().getProperty( LDAP_LOG_POOL_PW );
             }
             logConfig.setCredentials( logPw );
             poolFactory = new ValidatingPoolableLdapConnectionFactory( logConfig );

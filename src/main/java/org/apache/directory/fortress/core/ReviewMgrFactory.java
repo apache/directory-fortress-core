@@ -83,6 +83,13 @@ public final class ReviewMgrFactory
             reviewMgr = ( ReviewMgr ) ClassUtil.createInstance(reviewClassName);
         }
 
+        if(reviewMgr instanceof ReviewMgrImpl){
+        	Config cfg = Config.getInstance();
+        	if(!cfg.isRemoteConfigLoaded()){
+        		cfg.loadRemoteConfig();
+        	}
+        }
+        
         reviewMgr.setContextId(contextId);
         return reviewMgr;
     }

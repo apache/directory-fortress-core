@@ -83,6 +83,13 @@ public final class AuditMgrFactory
         {
             auditMgr = (AuditMgr) ClassUtil.createInstance(auditClassName);
         }
+        
+        if(auditMgr instanceof AuditMgrImpl){
+        	Config cfg = Config.getInstance();
+        	if(!cfg.isRemoteConfigLoaded()){
+        		cfg.loadRemoteConfig();
+        	}
+        }
 
         auditMgr.setContextId(contextId);
         return auditMgr;

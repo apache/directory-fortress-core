@@ -79,6 +79,13 @@ public final class GroupMgrFactory
         GroupMgr groupMgr = (GroupMgr) ClassUtil.createInstance(groupClassName);
         groupMgr.setContextId(contextId);
         
+        if(groupMgr instanceof GroupMgrImpl){
+        	Config cfg = Config.getInstance();
+        	if(!cfg.isRemoteConfigLoaded()){
+        		cfg.loadRemoteConfig();
+        	}
+        }
+        
         return groupMgr;
     }
 

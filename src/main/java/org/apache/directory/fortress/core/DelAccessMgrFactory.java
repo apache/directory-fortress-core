@@ -83,6 +83,13 @@ public final class DelAccessMgrFactory
         {
             accessMgr = (DelAccessMgr) ClassUtil.createInstance(accessClassName);
         }
+        
+        if(accessMgr instanceof DelAccessMgrImpl){
+        	Config cfg = Config.getInstance();
+        	if(!cfg.isRemoteConfigLoaded()){
+        		cfg.loadRemoteConfig();
+        	}
+        }
 
         accessMgr.setContextId(contextId);
         return accessMgr;

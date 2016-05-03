@@ -85,6 +85,13 @@ public final class DelAdminMgrFactory
             delAdminMgr = (DelAdminMgr) ClassUtil.createInstance( dAdminClassName );
         }
 
+        if(delAdminMgr instanceof DelAdminMgrImpl){
+        	Config cfg = Config.getInstance();
+        	if(!cfg.isRemoteConfigLoaded()){
+        		cfg.loadRemoteConfig();
+        	}
+        }
+        
         delAdminMgr.setContextId(contextId);
         
         return delAdminMgr;
