@@ -140,7 +140,7 @@ group.properties=configParameter
 enable.mgr.impl.rest=false
 #enable.mgr.impl.rest=true
 
-# This user account is added automatically during init-slapd or init-apacheds target via 'FortressDemoUsers.xml' policy file:
+# This user account is added automatically during deployment of fortress-rest via -Dload.file=./src/main/resources/FortressRestServerPolicy.xml:
 http.user=demouser4
 http.pw=password
 http.host=localhost
