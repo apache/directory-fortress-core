@@ -131,6 +131,8 @@ public final class Config
                 config.load( fUserUrl );
             }
 
+            restEnabled = ( ( getProperty( GlobalIds.ENABLE_REST ) != null ) && ( getProperty( GlobalIds.ENABLE_REST ).equalsIgnoreCase( "true" ) ) );
+            
             // Check to see if any of the ldap connection parameters have been overridden:
             getExternalConfig();
         }
@@ -305,8 +307,6 @@ public final class Config
                 }
 
             	auditDisabled = ( ( getProperty( GlobalIds.DISABLE_AUDIT ) != null ) && ( getProperty( GlobalIds.DISABLE_AUDIT ).equalsIgnoreCase( "true" ) ) );
-            	
-            	restEnabled = ( ( getProperty( GlobalIds.ENABLE_REST ) != null ) && ( getProperty( GlobalIds.ENABLE_REST ).equalsIgnoreCase( "true" ) ) );
             	
             	realm = GlobalIds.REALM_TYPE.equalsIgnoreCase( getProperty( GlobalIds.AUTHENTICATION_TYPE ) );
             	
@@ -601,9 +601,9 @@ public final class Config
         try
         {
         	String configClassName = this.getProperty( GlobalIds.CONFIG_IMPLEMENTATION );
-        	boolean IS_REST = ((this.getProperty(ConfigMgrFactory.ENABLE_REST) != null) && (this.getProperty(ConfigMgrFactory.ENABLE_REST).equalsIgnoreCase("true")));        	
+        	//boolean IS_REST = ((this.getProperty(ConfigMgrFactory.ENABLE_REST) != null) && (this.getProperty(ConfigMgrFactory.ENABLE_REST).equalsIgnoreCase("true")));        	
         	
-            ConfigMgr cfgMgr = ConfigMgrFactory.createInstance(configClassName, IS_REST);                       
+            ConfigMgr cfgMgr = ConfigMgrFactory.createInstance(configClassName, false);                       
             props = cfgMgr.read( realmName );
         }
         catch ( CfgException ce )

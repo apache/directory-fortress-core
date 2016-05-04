@@ -77,9 +77,9 @@ public class RestUtils
     private String HTTP_HOST;
     private String HTTP_PORT;
     private String HTTP_PROTOCOL;
-    private static final String VERSION = System.getProperty( "version" );
-    private static final String SERVICE = "fortress-rest-" + VERSION;
-    private String URI = HTTP_PROTOCOL + "://" + HTTP_HOST + ":" + HTTP_PORT + "/" + SERVICE + "/";
+    private String VERSION;
+    private String SERVICE;
+    private String URI;
     private static final int HTTP_OK = 200;
     private static final int HTTP_401_UNAUTHORIZED = 401;
     private static final int HTTP_403_FORBIDDEN = 403;
@@ -121,7 +121,9 @@ public class RestUtils
         IS_SET_TRUST_STORE_PROP = (
             Config.getInstance().getProperty( SET_TRUST_STORE_PROP ) != null &&
             Config.getInstance().getProperty( SET_TRUST_STORE_PROP ).equalsIgnoreCase( "true" ) );
-
+        VERSION = System.getProperty( "version" );
+        SERVICE = "fortress-rest-" + VERSION;
+        URI = HTTP_PROTOCOL + "://" + HTTP_HOST + ":" + HTTP_PORT + "/" + SERVICE + "/";
         
         if ( IS_SET_TRUST_STORE_PROP )
         {
