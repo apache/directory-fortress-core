@@ -20,15 +20,15 @@
 package org.apache.directory.fortress.core.util;
 
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.apache.directory.api.util.Strings;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**
@@ -41,11 +41,26 @@ final class RegExUtil
 {
     private static final String CLS_NM = RegExUtil.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private static final String SAFE_TEXT_PATTERN_STRING = Config.getProperty( GlobalIds.REG_EX_SAFE_TEXT );
+    private String SAFE_TEXT_PATTERN_STRING;
     private static Pattern safeTextPattern;
     
-    static 
+    private static volatile RegExUtil INSTANCE = null; 
+
+    public static RegExUtil getInstance() {
+        if(INSTANCE == null) {
+            synchronized (RegExUtil.class) {
+                if(INSTANCE == null){
+        	        INSTANCE = new RegExUtil();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+    
+    private void init() 
     {
+    	SAFE_TEXT_PATTERN_STRING = Config.getInstance().getProperty( GlobalIds.REG_EX_SAFE_TEXT );
+    	
         if ( ( SAFE_TEXT_PATTERN_STRING != null ) && ( SAFE_TEXT_PATTERN_STRING.length() != 0 ) )
         {
             safeTextPattern = Pattern.compile( SAFE_TEXT_PATTERN_STRING );
@@ -58,6 +73,7 @@ final class RegExUtil
      */
     private RegExUtil()
     {
+    	init();
     }
 
     /**
@@ -66,7 +82,7 @@ final class RegExUtil
      * @param  value Contains the string to check.
      * @exception org.apache.directory.fortress.core.ValidationException  In the event the data validation fails.
      */
-    static void safeText( String value ) throws ValidationException
+    void safeText( String value ) throws ValidationException
     {
         if ( Strings.isEmpty( SAFE_TEXT_PATTERN_STRING ) )
         {

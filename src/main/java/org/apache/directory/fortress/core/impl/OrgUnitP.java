@@ -26,16 +26,16 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.model.Graphable;
-import org.apache.directory.fortress.core.model.OrgUnit;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.Graphable;
+import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.util.VUtil;
 import org.apache.directory.fortress.core.util.cache.Cache;
 import org.apache.directory.fortress.core.util.cache.CacheMgr;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -70,13 +70,15 @@ public final class OrgUnitP
     private static Cache ouCache;
 
     // DAO class for OU data sets must be initializer before the other statics:
-    private static final OrgUnitDAO oDao = new OrgUnitDAO();
+    private OrgUnitDAO oDao;
     private static final String USER_OUS = "user.ous";
     private static final String PERM_OUS = "perm.ous";
     private static final String FORTRESS_OUS = "fortress.ous";
 
-    static
+    public void init()
     {
+        oDao = new OrgUnitDAO();
+    	
         CacheMgr cacheMgr = CacheMgr.getInstance();
         OrgUnitP.ouCache = cacheMgr.getCache( FORTRESS_OUS );
     }
@@ -87,6 +89,7 @@ public final class OrgUnitP
      */
     OrgUnitP()
     {
+    	init();
     }
 
 
@@ -143,7 +146,7 @@ public final class OrgUnitP
      * @param orgUnit The orgUnit
      * @return The set of associated User
      */
-    private static Set<String> loadUserSet( OrgUnit orgUnit )
+    private Set<String> loadUserSet( OrgUnit orgUnit )
     {
         Set<String> ouUserSet = null;
 
@@ -168,7 +171,7 @@ public final class OrgUnitP
      * @param orgUnit The orgUnit
      * @return The set of associated Perms
      */
-    private static Set<String> loadPermSet( OrgUnit orgUnit )
+    private Set<String> loadPermSet( OrgUnit orgUnit )
     {
         Set<String> ouPermSet = null;
 
@@ -193,7 +196,7 @@ public final class OrgUnitP
      * @param orgUnit will be a Perm OU.
      * @return Set containing the OU mapping to a Perm type and tenant.
      */
-    private static Set<String> getPermSet( OrgUnit orgUnit )
+    private Set<String> getPermSet( OrgUnit orgUnit )
     {
         @SuppressWarnings("unchecked")
         Set<String> permSet = ( Set<String> ) ouCache.get( getKey( PERM_OUS, orgUnit.getContextId() ) );
@@ -212,7 +215,7 @@ public final class OrgUnitP
      * @param orgUnit will be a User OU
      * @return Set containing the OU mapping to the user type and tenant.
      */
-    private static Set<String> getUserSet( OrgUnit orgUnit )
+    private Set<String> getUserSet( OrgUnit orgUnit )
     {
         @SuppressWarnings("unchecked")
         Set<String> userSet = ( Set<String> ) ouCache.get( getKey( USER_OUS, orgUnit.getContextId() ) );

@@ -65,11 +65,17 @@ import org.apache.directory.fortress.core.util.VUtil;
  */
 public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Serializable
 {
-    private static final String CLS_NM = DelAccessMgrImpl.class.getName();
-    private static final UserP userP = new UserP();
-    private static final PermP permP = new PermP();
-    private static final String SUPER_ADMIN = Config.getProperty("superadmin.role", "fortress-core-super-admin");
+    private  final String CLS_NM = DelAccessMgrImpl.class.getName();
+    private UserP userP;
+    private PermP permP;
+    private String SUPER_ADMIN;
 
+    public DelAccessMgrImpl() {    	
+        userP = new UserP();
+        permP = new PermP();
+        SUPER_ADMIN = Config.getInstance().getProperty("superadmin.role", "fortress-core-super-admin");
+	}
+    
     /**
      * {@inheritDoc}
      */
@@ -172,7 +178,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
             String info = getFullMethodName(CLS_NM, methodName) + " Admin Role [" + role.getName() + "] User [" + session.getUserId() + "] adminRole not authorized for user.";
             throw new SecurityException(GlobalErrIds.ARLE_ACTIVATE_FAILED, info);
         }
-        SDUtil.validateDSD( session, role );
+        SDUtil.getInstance().validateDSD( session, role );
 
         // now activate the role to the session:
         session.setRole(uRoles.get(indx));
@@ -239,8 +245,8 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
     {
         String methodName = "sessionPermissions";
         assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
-        VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
-        VUtil.validateConstraints( session, VUtil.ConstraintType.ROLE, false );
+        VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.USER, false );
+        VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.ROLE, false );
         setEntitySession(CLS_NM, methodName, session);
         return permP.search( session, true );
     }
@@ -278,7 +284,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
                     {
                         // Add osU children to the set:
                         osUsFinal.add(osU);
-                        Set<String> children = UsoUtil.getDescendants( osU, this.contextId );
+                        Set<String> children = UsoUtil.getInstance().getDescendants( osU, this.contextId );
                         osUsFinal.addAll(children);
                     }
                     // does the admin role have authority over the user object?
@@ -288,7 +294,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
                         Set<String> range;
                         if(uaRole.getBeginRange() != null && uaRole.getEndRange() != null && !uaRole.getBeginRange().equalsIgnoreCase(uaRole.getEndRange()))
                         {
-                            range = RoleUtil.getAscendants( uaRole.getBeginRange(), uaRole.getEndRange(),
+                            range = RoleUtil.getInstance().getAscendants( uaRole.getBeginRange(), uaRole.getEndRange(),
                                 uaRole.isEndInclusive(), this.contextId );
                             if(uaRole.isBeginInclusive())
                             {
@@ -352,7 +358,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
                     {
                         // Add osU children to the set:
                         osPsFinal.add(osP);
-                        Set<String> children = PsoUtil.getDescendants( osP, this.contextId );
+                        Set<String> children = PsoUtil.getInstance().getDescendants( osP, this.contextId );
                         osPsFinal.addAll(children);
                     }
                     // does the admin role have authority over the perm object?
@@ -362,7 +368,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
                         Set<String> range;
                         if(uaRole.getBeginRange() != null && uaRole.getEndRange() != null && !uaRole.getBeginRange().equalsIgnoreCase(uaRole.getEndRange()))
                         {
-                            range = RoleUtil.getAscendants(uaRole.getBeginRange(), uaRole.getEndRange(), uaRole.isEndInclusive(), this.contextId);
+                            range = RoleUtil.getInstance().getAscendants(uaRole.getBeginRange(), uaRole.getEndRange(), uaRole.isEndInclusive(), this.contextId);
                             if(uaRole.isBeginInclusive())
                             {
                                 range.add(uaRole.getBeginRange());

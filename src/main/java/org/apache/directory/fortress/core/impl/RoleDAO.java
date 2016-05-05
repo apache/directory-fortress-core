@@ -36,18 +36,18 @@ import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
-import org.apache.directory.fortress.core.model.ConstraintUtil;
-import org.apache.directory.fortress.core.model.Graphable;
-import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
+import org.apache.directory.fortress.core.model.ConstraintUtil;
+import org.apache.directory.fortress.core.model.Graphable;
+import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.ldap.client.api.LdapConnection;
 
 
 /**
@@ -95,7 +95,7 @@ import org.apache.directory.fortress.core.model.Role;
  *
  * @author Kevin McKinney
  */
-final class RoleDAO extends ApacheDsDataProvider
+final class RoleDAO extends LdapDataProvider
 {
     /*
       *  *************************************************************************
@@ -130,7 +130,10 @@ final class RoleDAO extends ApacheDsDataProvider
             GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };
 
-
+    public RoleDAO() {
+        super();
+	}
+    
     /**
      * @param entity
      * @return
@@ -648,7 +651,7 @@ final class RoleDAO extends ApacheDsDataProvider
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         entity.setOccupants( getAttributes( le, SchemaConstants.ROLE_OCCUPANT_AT ) );
         //entity.setParents(RoleUtil.getParents(entity.getName().toUpperCase(), contextId));
-        entity.setChildren( RoleUtil.getChildren( entity.getName().toUpperCase(), contextId ) );
+        entity.setChildren( RoleUtil.getInstance().getChildren( entity.getName().toUpperCase(), contextId ) );
         entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );
         unloadTemporal( le, entity );
 

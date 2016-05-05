@@ -31,7 +31,7 @@
   <artifactId>fortress-core</artifactId>
   <packaging>jar</packaging>
   <name>Apache Fortress Core</name>
-  <version>1.0-RC43-SNAPSHOT</version>
+  <version>1.0.1-SNAPSHOT</version>
   <inceptionYear>2007</inceptionYear>
   <description>
     Apache Fortress is a standards-based Access Management SDK that implements ANSI RBAC INCITS 359.
@@ -50,7 +50,7 @@
     <developerConnection>
       scm:git:https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
     </developerConnection>
-    <tag>1.0-RC42</tag>
+    <tag>1.0.0</tag>
   </scm>
 
   <issueManagement>
@@ -660,8 +660,8 @@
           <includes />
           <version>true</version>
           <author>true</author>
-          <doctitle>Fortress Identity and Access Management Javadoc ${project.version}</doctitle>
-          <windowtitle>Apache Fortress Identity and Access Management Javadoc ${project.version}</windowtitle>
+          <doctitle>Fortress Core Javadoc ${project.version}</doctitle>
+          <windowtitle>Apache Fortress Core Javadoc ${project.version}</windowtitle>
         </configuration>
       </plugin>
 
@@ -676,7 +676,7 @@
             </goals>
             <configuration>
               <tasks>
-                <ant antfile="${basedir}/build.xml" target="init-fortress-config" />
+                <ant antfile="${basedir}/build-config.xml" target="init-fortress-config" />
               </tasks>
             </configuration>
           </execution>
@@ -740,61 +740,37 @@
   </build>
 
   <profiles>
+
+    <!-- This profile starts the Fortress Console App -->
     <!-- To execute: mvn -Pconsole test -->
     <profile>
       <id>console</id>
       <build>
         <plugins>
           <plugin>
-            <artifactId>maven-antrun-plugin</artifactId>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
             <executions>
-
               <execution>
                 <phase>test</phase>
-                <configuration>
-                  <target name="fortress-console" if="true" description="Run the Fortress Console">
-                    <echo message="############### Run Fortress Console ###############" />
-                    <java classname="org.apache.directory.fortress.core.FortressConsole" fork="false" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
-                      <classpath>
-                        <pathelement location="./config" />
-                        <pathelement location="./target/classes/" />
-                        <pathelement location="./target/test-classes/" />
-                        <pathelement location="${org.apache.ant:ant-launcher:jar}" />
-                        <pathelement location="${org.apache.ant:ant:jar}" />
-                        <pathelement location="${org.openldap:accelerator-api:jar}" />
-                        <pathelement location="${org.openldap:accelerator-impl:jar}" />
-                        <pathelement location="${log4j:log4j:jar}" />
-                        <pathelement location="${org.apache.directory.api:api-all:jar}" />
-                        <pathelement location="${org.apache.mina:mina-core:jar}" />
-                        <pathelement location="${org.jgrapht:jgrapht-core:jar}" />
-                        <pathelement location="${org.jasypt:jasypt:jar}" />
-                        <pathelement location="${commons-configuration:commons-configuration:jar}" />
-                        <pathelement location="${commons-lang:commons-lang:jar}" />
-                        <pathelement location="${commons-collections:commons-collections:jar}" />
-                        <pathelement location="${commons-logging:commons-logging:jar}" />
-                        <pathelement location="${commons-io:commons-io:jar}" />
-                        <pathelement location="${commons-pool:commons-pool:jar}" />
-                        <pathelement location="${net.sf.ehcache:ehcache-core:jar}" />
-                        <pathelement location="${org.slf4j:slf4j-api:jar}" />
-                        <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
-                        <pathelement location="${antlr:antlr:jar}" />
-                        <pathelement location="${junit:junit:jar}" />
-                        <pathelement location="${org.apache.cxf:cxf-api:jar}" />
-                        <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
-                        <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
-                        <pathelement location="${org.apache.httpcomponents:httpclient:jar}" />
-                        <pathelement location="${org.apache.httpcomponents:httpcore:jar}" />
-                        <pathelement location="${com.sun.xml.bind:jaxb-impl:jar}" />
-                        <pathelement location="${commons-codec:commons-codec:jar}" />
-                      </classpath>
-                      <sysproperty key="version" value="${project.version}" />
-                      <sysproperty key="tenant" value="${tenant}" />
-                    </java>
-                  </target>
-                </configuration>
                 <goals>
-                  <goal>run</goal>
+                  <goal>java</goal>
                 </goals>
+                <configuration>
+                  <echo message="############### Run Fortress Console ###############" />
+                  <mainClass>org.apache.directory.fortress.core.FortressConsole</mainClass>
+                  <classpathScope>test</classpathScope>
+                  <systemProperties>
+                    <systemProperty>
+                      <key>version</key>
+                      <value>${project.version}</value>
+                    </systemProperty>
+                    <systemProperty>
+                      <key>tenant</key>
+                      <value>${tenant}</value>
+                    </systemProperty>
+                  </systemProperties>
+                </configuration>
               </execution>
             </executions>
           </plugin>
@@ -802,60 +778,36 @@
       </build>
     </profile>
 
+    <!-- This profile starts the Fortress Command Line Interpreter App -->
     <!-- To execute: mvn -Pcli test -->
     <profile>
       <id>cli</id>
       <build>
         <plugins>
           <plugin>
-            <artifactId>maven-antrun-plugin</artifactId>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
             <executions>
-
               <execution>
                 <phase>test</phase>
-                <configuration>
-                  <target name="fortress-cli" if="true" description="Run the Fortress Command Line Interface">
-                    <echo message="############### Run Fortress Command Line Interface ###############" />
-                    <java classname="org.apache.directory.fortress.core.cli.CommandLineInterpreter" fork="false" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
-                      <classpath>
-                        <pathelement location="./config" />
-                        <pathelement location="./target/classes/" />
-                        <pathelement location="./target/test-classes/" />
-                        <pathelement location="${org.apache.ant:ant-launcher:jar}" />
-                        <pathelement location="${org.apache.ant:ant:jar}" />
-                        <pathelement location="${org.openldap:accelerator-api:jar}" />
-                        <pathelement location="${org.openldap:accelerator-impl:jar}" />
-                        <pathelement location="${log4j:log4j:jar}" />
-                        <pathelement location="${org.apache.directory.api:api-all:jar}" />
-                        <pathelement location="${org.apache.mina:mina-core:jar}" />
-                        <pathelement location="${org.jgrapht:jgrapht-core:jar}" />
-                        <pathelement location="${org.jasypt:jasypt:jar}" />
-                        <pathelement location="${commons-configuration:commons-configuration:jar}" />
-                        <pathelement location="${commons-lang:commons-lang:jar}" />
-                        <pathelement location="${commons-collections:commons-collections:jar}" />
-                        <pathelement location="${commons-logging:commons-logging:jar}" />
-                        <pathelement location="${commons-io:commons-io:jar}" />
-                        <pathelement location="${commons-pool:commons-pool:jar}" />
-                        <pathelement location="${net.sf.ehcache:ehcache-core:jar}" />
-                        <pathelement location="${org.slf4j:slf4j-api:jar}" />
-                        <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
-                        <pathelement location="${antlr:antlr:jar}" />
-                        <pathelement location="${junit:junit:jar}" />
-                        <pathelement location="${org.apache.cxf:cxf-api:jar}" />
-                        <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
-                        <pathelement location="${org.apache.httpcomponents:httpclient:jar}" />
-                          <pathelement location="${org.apache.httpcomponents:httpcore:jar}" />
-                        <pathelement location="${com.sun.xml.bind:jaxb-impl:jar}" />
-                        <pathelement location="${commons-codec:commons-codec:jar}" />
-                      </classpath>
-                      <sysproperty key="version" value="${project.version}" />
-                      <sysproperty key="tenant" value="${tenant}" />
-                    </java>
-                  </target>
-                </configuration>
                 <goals>
-                  <goal>run</goal>
+                  <goal>java</goal>
                 </goals>
+                <configuration>
+                  <echo message="############### Run Fortress Command Line Interface ###############" />
+                  <mainClass>org.apache.directory.fortress.core.cli.CommandLineInterpreter</mainClass>
+                  <classpathScope>test</classpathScope>
+                  <systemProperties>
+                    <systemProperty>
+                      <key>version</key>
+                      <value>${project.version}</value>
+                    </systemProperty>
+                    <systemProperty>
+                      <key>tenant</key>
+                      <value>${tenant}</value>
+                    </systemProperty>
+                  </systemProperties>
+                </configuration>
               </execution>
             </executions>
           </plugin>
@@ -863,6 +815,7 @@
       </build>
     </profile>
 
+    <!-- This profile starts Openldap accelerator checkAccess loadTest -->
     <!-- To execute: ./m.sh -Ploadtest-accel jmeter:jmeter -->
     <profile>
       <id>loadtest-accel</id>
@@ -910,9 +863,8 @@
       </build>
     </profile>
 
-    <!--
-    To execute: ./m.sh -Ploadtest-fortress jmeter:jmeter
-    -->
+    <!-- This profile starts Fortress core checkAccess loadTest -->
+    <!-- To execute: ./m.sh -Ploadtest-fortress jmeter:jmeter -->
     <profile>
       <id>loadtest-fortress</id>
       <build>
@@ -961,9 +913,8 @@
       </build>
     </profile>
 
-    <!--
-    To execute: ./m.sh -Ploadtest-accel-createsess jmeter:jmeter
-    -->
+    <!-- This profile starts Openldap accelerator createSession loadTest -->
+    <!-- To execute: ./m.sh -Ploadtest-accel-createsess jmeter:jmeter -->
     <profile>
       <id>loadtest-accel-createsess</id>
       <build>
@@ -1012,9 +963,8 @@
       </build>
     </profile>
 
-    <!--
-    To execute: ./m.sh -Ploadtest-fortress-createsess jmeter:jmeter
-    -->
+    <!-- This profile starts Fortress core checkAccess loadTest -->
+    <!-- To execute: ./m.sh -Ploadtest-fortress-createsess jmeter:jmeter -->
     <profile>
       <id>loadtest-fortress-createsess</id>
       <build>
@@ -1063,9 +1013,8 @@
       </build>
     </profile>
 
-    <!--
-    To execute: ./m.sh -Ploadtest-fortress-sessperms jmeter:jmeter
-    -->
+    <!-- This profile starts Fortress core sessionPermissions loadTest -->
+    <!-- To execute: ./m.sh -Ploadtest-fortress-sessperms jmeter:jmeter -->
     <profile>
       <id>loadtest-fortress-sessperms</id>
       <build>
@@ -1113,6 +1062,7 @@
       </build>
     </profile>
 
+    <!-- This profile starts Fortress accelerator sessionPermissions loadTest but function not implemented yet! -->
     <!-- To execute: ./m.sh -Ploadtest-accel-sessperms jmeter:jmeter -->
     <profile>
       <id>loadtest-accel-sessperms</id>
@@ -1159,6 +1109,95 @@
         </plugins>
       </build>
     </profile>
+
+    <!-- This profile calls ant target init-slapd in build-config.xml script. -->
+    <!-- To execute: mvn -Pinit-slapd test -->
+    <profile>
+      <id>init-slapd</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>init-slapd-mvn</id>
+                <phase>compile</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target name="init-slapd-mvn">
+                    <property name="maven.project.url" value="${project.url}" />
+                    <ant antfile="build-config.xml" target="init-slapd" />
+                    <echo message="init-slapd complete" />
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- This profile calls ant target start-slapd in build-config.xml script. -->
+    <!-- To execute: mvn -Pstart-slapd test -->
+    <profile>
+      <id>start-slapd</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>start-slapd-mvn</id>
+                <phase>compile</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target name="start-slapd-mvn">
+                    <property name="maven.project.url" value="${project.url}" />
+                    <ant antfile="build-config.xml" target="start-slapd" />
+                    <echo message="start-slapd complete" />
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- This profile calls ant target stop-slapd in build-config.xml script. -->
+    <!-- To execute: mvn -Pstop-slapd test -->
+    <profile>
+      <id>stop-slapd</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>stop-slapd-mvn</id>
+                <phase>compile</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <target name="stop-slapd-mvn">
+                    <property name="maven.project.url" value="${project.url}" />
+                    <ant antfile="build-config.xml" target="stop-slapd" />
+                    <echo message="stop-slapd complete" />
+                  </target>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+
 
   </profiles>
 </project>

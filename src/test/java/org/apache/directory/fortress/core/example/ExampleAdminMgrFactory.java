@@ -20,8 +20,8 @@
 package org.apache.directory.fortress.core.example;
 
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.ClassUtil;
+import org.apache.directory.fortress.core.util.Config;
 
 /**
  * Factory class used to instantiate the ExampleAdminMgrImpl.
@@ -31,7 +31,7 @@ import org.apache.directory.fortress.core.util.ClassUtil;
  */
 public class ExampleAdminMgrFactory
 {
-    private static String exampleAdminClassName = Config.getProperty( EIds.EXAMPLE_ADMIN_IMPLEMENTATION );
+    private static String exampleAdminClassName = Config.getInstance().getProperty( EIds.EXAMPLE_ADMIN_IMPLEMENTATION );
 
 
     public static ExampleAdminMgr createInstance()

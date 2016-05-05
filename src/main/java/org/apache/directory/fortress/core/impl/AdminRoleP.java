@@ -25,20 +25,19 @@ import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.model.AdminRole;
-import org.apache.directory.fortress.core.model.ConstraintValidator;
-import org.apache.directory.fortress.core.model.Graphable;
-import org.apache.directory.fortress.core.model.OrgUnit;
-import org.apache.directory.fortress.core.model.UserAdminRole;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.ConstraintValidator;
+import org.apache.directory.fortress.core.model.Graphable;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.util.VUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -61,8 +60,8 @@ public final class AdminRoleP
 {
     private static final String CLS_NM = AdminRoleP.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private static final AdminRoleDAO rDao = new AdminRoleDAO();
-    private static final OrgUnitP op = new OrgUnitP();
+    private AdminRoleDAO rDao;
+    private OrgUnitP op;
     private static final ConstraintValidator constraintValidator = VUtil.getConstraintValidator();
 
     /**
@@ -70,6 +69,8 @@ public final class AdminRoleP
      */
     AdminRoleP()
     {
+        rDao = new AdminRoleDAO();
+        op = new OrgUnitP();
     }
 
 
@@ -326,7 +327,7 @@ public final class AdminRoleP
                 LOG.warn( error );
                 throw new SecurityException( GlobalErrIds.ARLE_INVLD_RANGE_INCLUSIVE, error );
             }
-            else if ( !RoleUtil.isParent( entity.getBeginRange(), entity.getEndRange(), entity.getContextId() )
+            else if ( !RoleUtil.getInstance().isParent( entity.getBeginRange(), entity.getEndRange(), entity.getContextId() )
                 && !entity.getBeginRange().equalsIgnoreCase( entity.getEndRange() ) )
             {
                 String error = "validate invalid range detected for role name [" + entity.getName()

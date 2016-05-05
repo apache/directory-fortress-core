@@ -134,13 +134,13 @@ group.properties=configParameter
 # 4. BEGIN HTTP CLIENT CONFIGURATION SECTION (Ignore if using LDAPv3):
 ########################################################################
 
-# The following optional HTTP parameters are needed when Fortress client communicates though EnMasse HTTP proxy (rather than LDAP) server:
+# The following optional HTTP parameters are needed when Fortress core client-side communicates though fortress-rest HTTP proxy (rather than LDAP) server:
 # Setting the enable.mgr.impl.rest to 'true' sets Fortress instance to use HTTP services rather than LDAPv3 protocol. Default value is 'false':
 # Using REST/HTTP allows Fortress communications to pass through firewalls and other non-LDAP network intermediaries.
 enable.mgr.impl.rest=false
 #enable.mgr.impl.rest=true
 
-# This user account is added automatically during init-slapd or init-apacheds target via 'FortressDemoUsers.xml' policy file:
+# This user account is added automatically during deployment of fortress-rest via -Dload.file=./src/main/resources/FortressRestServerPolicy.xml:
 http.user=demouser4
 http.pw=password
 http.host=localhost

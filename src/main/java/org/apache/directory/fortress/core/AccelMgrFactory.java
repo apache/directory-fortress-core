@@ -20,9 +20,9 @@
 package org.apache.directory.fortress.core;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.impl.AccelMgrImpl;
 import org.apache.directory.fortress.core.util.ClassUtil;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
 
 /**
@@ -35,7 +35,6 @@ import org.apache.directory.fortress.core.util.VUtil;
  */
 public final class AccelMgrFactory
 {
-    private static String accelClassName = Config.getProperty(GlobalIds.ACCEL_IMPLEMENTATION);
     private static final String CLS_NM = AccelMgrFactory.class.getName();
 
     /**
@@ -60,6 +59,8 @@ public final class AccelMgrFactory
     public static AccelMgr createInstance(String contextId)
         throws SecurityException
     {
+    	String accelClassName = Config.getInstance().getProperty(GlobalIds.ACCEL_IMPLEMENTATION);
+    	
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
         AccelMgr accelMgr;
         if ( StringUtils.isEmpty( accelClassName ) )
@@ -69,6 +70,13 @@ public final class AccelMgrFactory
         else
         {
             accelMgr = (AccelMgr) ClassUtil.createInstance(accelClassName);
+        }
+        
+        if(accelMgr instanceof AccelMgrImpl){
+        	Config cfg = Config.getInstance();
+        	if(!cfg.isRemoteConfigLoaded()){
+        		cfg.loadRemoteConfig();
+        	}
         }
 
         accelMgr.setContextId(contextId);

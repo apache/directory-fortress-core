@@ -38,7 +38,7 @@ Fortress uses the following source property files to bootstrap configuration:
  * [slapd.properties](./slapd.properties.example)
  * [build.properties](./build.properties.example)
 2. Apache Ant script:
- * [build.xml](./build.xml)
+ * [build-config.xml](./build-config.xml)
 
 Which are used to produce new artifacts used by Fortress runtime:
 
@@ -143,7 +143,7 @@ B just updates the config node with the new values, preserving the other data.
  * Another option is to use a script like **ConfigNodeUpdate.xml** to perform the CRUD ops.
  * You can also *simply* place the properties inside the fortress.properties file (only).  The idea is to minimize the number of locations
  where the same data must be stored.  Imagine a network with hundreds, even thousands of fortress agents running.  We don't need to replicate the same data everywhere which is where remote config nodes help.
- * For more info on which parameters are used where, look at the **init-fortress-config** target located inside the [build.xml](build.xml) file.
+ * For more info on which parameters are used where, look at the **init-fortress-config** target located inside the [build-config.xml](build-config.xml) file.
 
  ___________________________________________________________________________________
   #### END OF README-CONFIG

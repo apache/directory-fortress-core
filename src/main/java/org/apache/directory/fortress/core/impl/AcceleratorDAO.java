@@ -20,15 +20,21 @@
 package org.apache.directory.fortress.core.impl;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
 import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.ldap.client.api.LdapConnection;
 import org.openldap.accelerator.api.addRole.RbacAddRoleRequest;
 import org.openldap.accelerator.api.addRole.RbacAddRoleRequestImpl;
 import org.openldap.accelerator.api.addRole.RbacAddRoleResponse;
@@ -49,12 +55,6 @@ import org.openldap.accelerator.api.sessionRoles.RbacSessionRolesRequestImpl;
 import org.openldap.accelerator.api.sessionRoles.RbacSessionRolesResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
-import org.apache.directory.ldap.client.api.LdapConnection;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -66,11 +66,14 @@ import java.util.List;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-final class AcceleratorDAO extends ApacheDsDataProvider
+final class AcceleratorDAO extends LdapDataProvider
 {
     private static final Logger LOG = LoggerFactory.getLogger( AcceleratorDAO.class.getName() );
 
-
+    public AcceleratorDAO(){
+    	super();
+    }
+    
     /**
      * Authenticate user and return sessionId inside {@link org.apache.directory.fortress.core.model.Session#sessionId}.
      * This function follows the pattern from: {@link org.apache.directory.fortress.core.AccessMgr#createSession(org.apache.directory.fortress.core.model.User, boolean)}

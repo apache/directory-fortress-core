@@ -48,18 +48,29 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
+<<<<<<< HEAD
 import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+=======
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
+>>>>>>> master
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
+<<<<<<< HEAD
 import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.apache.directory.fortress.core.model.PermissionAttributeSet;
+=======
+>>>>>>> master
 import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
+<<<<<<< HEAD
+=======
+import org.apache.directory.fortress.core.util.Config;
+>>>>>>> master
 import org.apache.directory.ldap.client.api.LdapConnection;
 
 
@@ -152,7 +163,7 @@ import org.apache.directory.ldap.client.api.LdapConnection;
  * 
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-final class PermDAO extends ApacheDsDataProvider
+final class PermDAO extends LdapDataProvider
 {
     /*
       *  *************************************************************************
@@ -212,6 +223,10 @@ final class PermDAO extends ApacheDsDataProvider
         {
             GlobalIds.FT_IID, GlobalIds.FT_PERMISSION_ATTRIBUTE, SchemaConstants.DESCRIPTION_AT, SchemaConstants.CN_AT
     };
+
+    public PermDAO(){
+        super();
+    }
     
     /**
      * @param entity
@@ -1118,7 +1133,7 @@ final class PermDAO extends ApacheDsDataProvider
         throws FinderException
     {
         // Audit can be turned off here with fortress config param: 'disable.audit=true'
-        if ( GlobalIds.IS_OPENLDAP && ! GlobalIds.IS_AUDIT_DISABLED )
+        if ( Config.getInstance().isOpenldap() && ! Config.getInstance().isAuditDisabled() )
         {
             try
             {
@@ -1186,7 +1201,7 @@ final class PermDAO extends ApacheDsDataProvider
             else
             {
                 // RBAC Permission check include's User's inherited roles:
-                Set<String> activatedRoles = RoleUtil.getInheritedRoles( session.getRoles(), permission.getContextId() );
+                Set<String> activatedRoles = RoleUtil.getInstance().getInheritedRoles( session.getRoles(), permission.getContextId() );
 
                 for ( String role : roles )
                 {
@@ -1610,7 +1625,7 @@ final class PermDAO extends ApacheDsDataProvider
                 }
                 else
                 {
-                    roles = RoleUtil.getAscendants( role.getName(), role.getContextId() );
+                    roles = RoleUtil.getInstance().getAscendants( role.getName(), role.getContextId() );
                 }
             }
             if ( CollectionUtils.isNotEmpty( roles ) )
@@ -1686,7 +1701,7 @@ final class PermDAO extends ApacheDsDataProvider
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( PERM_OP_OBJECT_CLASS_NAME );
             filterbuf.append( ")(|" );
-            Set<String> roles = RoleUtil.getInheritedRoles( user.getRoles(), user.getContextId() );
+            Set<String> roles = RoleUtil.getInstance().getInheritedRoles( user.getRoles(), user.getContextId() );
 
             if ( CollectionUtils.isNotEmpty( roles ) )
             {
@@ -1819,7 +1834,7 @@ final class PermDAO extends ApacheDsDataProvider
             }
             else
             {
-                roles = RoleUtil.getInheritedRoles( session.getRoles(), session.getContextId() );
+                roles = RoleUtil.getInstance().getInheritedRoles( session.getRoles(), session.getContextId() );
             }
             if ( CollectionUtils.isNotEmpty( roles ) )
             {

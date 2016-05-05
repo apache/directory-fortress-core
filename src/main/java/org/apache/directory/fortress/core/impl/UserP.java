@@ -70,11 +70,11 @@ final class UserP
 {
     //private static final boolean IS_SESSION_PROPS_ENABLED = Config.getBoolean( "user.session.props.enabled", false );
     private static final String CLS_NM = UserP.class.getName();
-    private static UserDAO uDao = new UserDAO();
+    private static UserDAO uDao;
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private static final PolicyP policyP = new PolicyP();
-    private static final AdminRoleP admRoleP = new AdminRoleP();
-    private static final OrgUnitP orgUnitP = new OrgUnitP();
+    private PolicyP policyP;
+    private AdminRoleP admRoleP;
+    private OrgUnitP orgUnitP;
 
 
     /**
@@ -82,6 +82,10 @@ final class UserP
      */
     UserP()
     {
+    	uDao = new UserDAO();
+        policyP = new PolicyP();
+        admRoleP = new AdminRoleP();
+        orgUnitP = new OrgUnitP();
     }
 
 
@@ -391,7 +395,7 @@ final class UserP
             throw new PasswordException( session.getErrorId(), info );
         }
 
-        VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
+        VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.USER, false );
 
         return session;
     }
@@ -454,7 +458,7 @@ final class UserP
             // Create the impl session without authentication of password.
             session = createSessionTrusted( user );
             // Check user temporal constraints.  This op usually performed during authentication.
-            VUtil.validateConstraints( session, VUtil.ConstraintType.USER, false );
+            VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.USER, false );
         }
         else
         {
@@ -481,7 +485,7 @@ final class UserP
             }
         }
         // Check role temporal constraints + activate roles:
-        VUtil.validateConstraints( session, VUtil.ConstraintType.ROLE, true );
+        VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.ROLE, true );
         return session;
     }
 

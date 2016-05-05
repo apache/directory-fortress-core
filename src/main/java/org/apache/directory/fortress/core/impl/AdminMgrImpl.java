@@ -257,7 +257,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         String methodName = "deleteRole";
         assertContext( CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL );
         setEntitySession( CLS_NM, methodName, role );
-        int numChildren = RoleUtil.numChildren( role.getName(), role.getContextId() );
+        int numChildren = RoleUtil.getInstance().numChildren( role.getName(), role.getContextId() );
         if ( numChildren > 0 )
         {
             String error =  methodName + " role [" + role.getName() + "] must remove [" + numChildren +
@@ -278,12 +278,12 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         }
         permP.remove( role );
         // remove all parent relationships from the role graph:
-        Set<String> parents = RoleUtil.getParents( role.getName(), this.contextId );
+        Set<String> parents = RoleUtil.getInstance().getParents( role.getName(), this.contextId );
         if ( parents != null )
         {
             for ( String parent : parents )
             {
-                RoleUtil.updateHier( this.contextId, new Relationship( role.getName().toUpperCase(),
+                RoleUtil.getInstance().updateHier( this.contextId, new Relationship( role.getName().toUpperCase(),
                     parent.toUpperCase() ), Hier.Op.REM );
             }
         }
@@ -318,7 +318,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         user.setContextId( contextId );
         setEntitySession( CLS_NM, methodName, uRole );
         AdminUtil.canAssign( uRole.getAdminSession(), user, role, contextId );
-        SDUtil.validateSSD( user, role );
+        SDUtil.getInstance().validateSSD( user, role );
 
         // Get the default constraints from role:
         role.setContextId( this.contextId );
@@ -600,10 +600,10 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         Role role = new Role( parentRole.getName() );
         role.setContextId( this.contextId );
         roleP.read( role );
-        RoleUtil.validateRelationship( childRole, parentRole, false );
+        RoleUtil.getInstance().validateRelationship( childRole, parentRole, false );
         childRole.setParent( parentRole.getName() );
         roleP.add( childRole );
-        RoleUtil.updateHier( this.contextId, new Relationship( childRole.getName().toUpperCase(),
+        RoleUtil.getInstance().updateHier( this.contextId, new Relationship( childRole.getName().toUpperCase(),
             parentRole.getName().toUpperCase() ), Hier.Op.ADD );
     }
 
@@ -623,7 +623,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         role.setContextId( this.contextId );
         role = roleP.read( role );
         role.setContextId( this.contextId );
-        RoleUtil.validateRelationship( childRole, parentRole, false );
+        RoleUtil.getInstance().validateRelationship( childRole, parentRole, false );
         roleP.add( parentRole );
         // Use cRole2 to update ONLY the parents attribute on the child role and nothing else:
         Role cRole2 = new Role( childRole.getName() );
@@ -632,7 +632,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         cRole2.setContextId( this.contextId );
         setAdminData( CLS_NM, methodName, cRole2 );
         roleP.update( cRole2 );
-        RoleUtil.updateHier( this.contextId, new Relationship( childRole.getName().toUpperCase(),
+        RoleUtil.getInstance().updateHier( this.contextId, new Relationship( childRole.getName().toUpperCase(),
             parentRole.getName().toUpperCase() ), Hier.Op.ADD );
     }
 
@@ -655,8 +655,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         Role cRole = new Role( childRole.getName() );
         cRole.setContextId( this.contextId );
         cRole = roleP.read( cRole );
-        RoleUtil.validateRelationship( childRole, parentRole, false );
-        RoleUtil.updateHier( this.contextId, new Relationship( childRole.getName().toUpperCase(),
+        RoleUtil.getInstance().validateRelationship( childRole, parentRole, false );
+        RoleUtil.getInstance().updateHier( this.contextId, new Relationship( childRole.getName().toUpperCase(),
             parentRole.getName().toUpperCase() ), Hier.Op.ADD );
         // Use cRole2 to update ONLY the parents attribute on the child role and nothing else:
         Role cRole2 = new Role( childRole.getName() );
@@ -678,8 +678,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         assertContext( CLS_NM, methodName, parentRole, GlobalErrIds.PARENT_ROLE_NULL );
         setEntitySession( CLS_NM, methodName, parentRole );
         assertContext( CLS_NM, methodName, childRole, GlobalErrIds.CHILD_ROLE_NULL );
-        RoleUtil.validateRelationship( childRole, parentRole, true );
-        RoleUtil.updateHier( this.contextId, new Relationship( childRole.getName().toUpperCase(),
+        RoleUtil.getInstance().validateRelationship( childRole, parentRole, true );
+        RoleUtil.getInstance().updateHier( this.contextId, new Relationship( childRole.getName().toUpperCase(),
             parentRole.getName().toUpperCase() ), Hier.Op.REM );
         // need to remove the parent from the child role:
         Role cRole = new Role( childRole.getName() );
@@ -815,7 +815,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         {
             for ( String roleName : ssdSet.getMembers() )
             {
-                SDUtil.clearSsdCacheEntry( roleName, contextId );
+                SDUtil.getInstance().clearSsdCacheEntry( roleName, contextId );
             }
         }
     }
@@ -829,7 +829,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      */
     private void clearSSDCache( Role role )
     {
-        SDUtil.clearSsdCacheEntry( role.getName(), contextId );
+        SDUtil.getInstance().clearSsdCacheEntry( role.getName(), contextId );
     }
 
 
@@ -972,6 +972,6 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      */
     private void clearDSDCache( SDSet dsdSet )
     {
-        SDUtil.clearDsdCacheEntry( dsdSet.getName(), contextId );
+        SDUtil.getInstance().clearDsdCacheEntry( dsdSet.getName(), contextId );
     }
 }

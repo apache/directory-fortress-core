@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.util.Config;
 
 
 /**
@@ -155,7 +155,7 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     {
         if ( ( szRawData != null ) && ( szRawData.length() > 0 ) )
         {
-            String[] tokens = StringUtils.splitPreserveAllTokens( szRawData, GlobalIds.DELIMITER );
+            String[] tokens = StringUtils.splitPreserveAllTokens( szRawData, Config.getInstance().getDelimiter() );
             
             //newer style constaint type
             if(tokens[1].equals(RoleConstraint.RC_TYPE_NAME)){
@@ -222,54 +222,55 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     @Override
     public String getRawData()
     {
+    	String delimeter = Config.getInstance().getDelimiter();
         StringBuilder sb = new StringBuilder();
 
         sb.append( name );
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
         sb.append( timeout );
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
 
         if ( beginTime != null )
         {
             sb.append( beginTime );
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
 
         if ( endTime != null )
         {
             sb.append( endTime );
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
 
         if ( beginDate != null )
         {
             sb.append( beginDate );
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
 
         if ( endDate != null )
         {
             sb.append( endDate );
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
 
         if ( beginLockDate != null )
         {
             sb.append( beginLockDate );
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
 
         if ( endLockDate != null )
         {
             sb.append( endLockDate );
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
 
         if ( dayMask != null )
         {

@@ -19,33 +19,33 @@
  */
 package org.apache.directory.fortress.core.impl;
 
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.directory.api.ldap.model.constants.SchemaConstants;
-import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.ReviewMgrFactory;
-import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.ReviewMgr;
-import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.model.SDSet;
-import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.util.cache.Cache;
-import org.apache.directory.fortress.core.util.cache.CacheMgr;
-import org.apache.directory.fortress.core.util.cache.DsdCacheEntry;
-import org.apache.directory.fortress.core.model.Constraint;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import net.sf.ehcache.search.Attribute;
 import net.sf.ehcache.search.Query;
 import net.sf.ehcache.search.Result;
 import net.sf.ehcache.search.Results;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.directory.api.ldap.model.constants.SchemaConstants;
+import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.ReviewMgr;
+import org.apache.directory.fortress.core.ReviewMgrFactory;
+import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.Constraint;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.SDSet;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.util.Config;
+import org.apache.directory.fortress.core.util.cache.Cache;
+import org.apache.directory.fortress.core.util.cache.CacheMgr;
+import org.apache.directory.fortress.core.util.cache.DsdCacheEntry;
 
 /**
  * This utilty provides functionality necessary for SSD and DSD processing and cannot be called by components outside fortress.
@@ -58,18 +58,33 @@ import java.util.Set;
  */
 final class SDUtil
 {
-    private static final Cache m_dsdCache;
+    private Cache m_dsdCache;
     private static final String FORTRESS_DSDS = "fortress.dsd";
-    private static final Cache m_ssdCache;
+    private Cache m_ssdCache;
     private static final String FORTRESS_SSDS = "fortress.ssd";
-    private static final SdP sp = new SdP();
+    private SdP sp;
     private static final String IS_DSD_CACHE_DISABLED_PARM = "enable.dsd.cache";
     private static final String DSD_NAME = "name";
     private static final String EMPTY_ELEMENT = "empty";
     private static final String CONTEXT_ID = "contextId";
 
-    static
+    private static volatile SDUtil INSTANCE = null; 
+
+    public static SDUtil getInstance() {
+        if(INSTANCE == null) {
+            synchronized (SDUtil.class) {
+                if(INSTANCE == null){
+        	        INSTANCE = new SDUtil();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+    
+    private void init()
     {
+        sp = new SdP();
+    	
         // Get a reference to the CacheManager Singleton object:
         CacheMgr cacheMgr = CacheMgr.getInstance();
         // This cache contains a wrapper entry for DSD and is searchable by both DSD and Role name:
@@ -82,8 +97,9 @@ final class SDUtil
      * Private constructor
      *
      */
-    private SDUtil()
+    private SDUtil()    
     {
+        init();
     }
 
     /**
@@ -94,7 +110,7 @@ final class SDUtil
      * @throws org.apache.directory.fortress.core.SecurityException
      *
      */
-    static void validateSSD(UserRole uRole)
+    void validateSSD(UserRole uRole)
         throws SecurityException
     {
         validateSSD(new User(uRole.getUserId()), new Role(uRole.getName()));
@@ -109,7 +125,7 @@ final class SDUtil
      * @throws org.apache.directory.fortress.core.SecurityException
      *
      */
-    static void validateSSD(User user, Role role)
+    void validateSSD(User user, Role role)
         throws SecurityException
     {
         int matchCount;
@@ -156,7 +172,7 @@ final class SDUtil
      * @throws org.apache.directory.fortress.core.SecurityException
      *
      */
-    static void validateDSD(Session session, Constraint role)
+    void validateDSD(Session session, Constraint role)
         throws SecurityException
     {
         // get all activated roles from user's session:
@@ -198,7 +214,7 @@ final class SDUtil
                 else // Check the parents of activated role for DSD match:
                 {
                     // Now pull the activated role's list of parents.
-                    Set<String> parentSet = RoleUtil.getAscendants(actRole.getName(), session.getContextId());
+                    Set<String> parentSet = RoleUtil.getInstance().getAscendants(actRole.getName(), session.getContextId());
 
                     // Iterate over the list of parent roles:
                     for (String parentRole : parentSet)
@@ -228,7 +244,7 @@ final class SDUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.     *
      * @throws SecurityException in the event of system or rule violation.
      */
-    static void clearDsdCacheEntry(String name, String contextId)
+    void clearDsdCacheEntry(String name, String contextId)
     {
         Attribute<String> context = m_dsdCache.getSearchAttribute(CONTEXT_ID);
         Attribute<String> dsdName = m_dsdCache.getSearchAttribute(DSD_NAME);
@@ -251,7 +267,7 @@ final class SDUtil
      * @return un-ordered set of matching DSD's.
      * @throws SecurityException in the event of system or rule violation.
      */
-    private static Set<SDSet> getDsdCache(String name, String contextId)
+    private Set<SDSet> getDsdCache(String name, String contextId)
         throws SecurityException
     {
         contextId = getContextId(contextId);
@@ -294,7 +310,7 @@ final class SDUtil
      * @return un-ordered set of matching DSD's.
      * @throws SecurityException in the event of system or rule violation.
      */
-    static Set<SDSet> getDsdCache(Set<String> authorizedRoleSet, String contextId)
+    Set<SDSet> getDsdCache(Set<String> authorizedRoleSet, String contextId)
         throws SecurityException
     {
         contextId = getContextId(contextId);
@@ -305,7 +321,7 @@ final class SDUtil
             return dsdRetSets;
         }
         // Was the DSD Cache switched off?
-        boolean isCacheDisabled = Config.getBoolean(IS_DSD_CACHE_DISABLED_PARM, false);
+        boolean isCacheDisabled = Config.getInstance().getBoolean(IS_DSD_CACHE_DISABLED_PARM, false);
         // If so, get DSD's from LDAP:
         if (isCacheDisabled)
         {
@@ -357,7 +373,7 @@ final class SDUtil
      * @return List of DSD's who have matching Role members.
      * @throws SecurityException in the event of system or rule violation.
      */
-    private static Set<SDSet> putDsdCache(Set<String> authorizedRoleSet, String contextId)
+    private Set<SDSet> putDsdCache(Set<String> authorizedRoleSet, String contextId)
         throws SecurityException
     {
         contextId = getContextId(contextId);
@@ -415,7 +431,7 @@ final class SDUtil
      * @return Set of DSD's who have matching Role member.
      * @throws SecurityException in the event of system or rule violation.
      */
-    private static Set<SDSet> putDsdCache(String roleName, String contextId)
+    private Set<SDSet> putDsdCache(String roleName, String contextId)
         throws SecurityException
     {
         contextId = getContextId(contextId);
@@ -465,7 +481,7 @@ final class SDUtil
      * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
      * @throws SecurityException in the event of system or rule violation.
      */
-    static void clearSsdCacheEntry(String name, String contextId)
+    void clearSsdCacheEntry(String name, String contextId)
     {
         contextId = getContextId(contextId);
         m_ssdCache.clear(getKey(name, contextId));
@@ -479,7 +495,7 @@ final class SDUtil
      * @return List of SSD's who have matching Role member.
      * @throws SecurityException in the event of system or rule violation.
      */
-    private static List<SDSet> putSsdCache(String name, String contextId)
+    private List<SDSet> putSsdCache(String name, String contextId)
         throws SecurityException
     {
         Role role = new Role(name);
@@ -497,7 +513,7 @@ final class SDUtil
      * @return List of SSD's who have matching Role member.
      * @throws SecurityException in the event of system or rule violation.
      */
-    private static List<SDSet> getSsdCache(String name, String contextId)
+    private List<SDSet> getSsdCache(String name, String contextId)
         throws SecurityException
     {
         List<SDSet> ssdSets = (List<SDSet>) m_ssdCache.get(getKey(name, contextId));

@@ -50,7 +50,7 @@ import org.apache.directory.fortress.core.model.UserAudit;
  */
 public final class AuditP
 {
-    private static final AuditDAO aDao = new AuditDAO();
+    private AuditDAO aDao;
 
 
     /**
@@ -58,6 +58,7 @@ public final class AuditP
      */
     AuditP()
     {
+        aDao = new AuditDAO();
     }
 
 

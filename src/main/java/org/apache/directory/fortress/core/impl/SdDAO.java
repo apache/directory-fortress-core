@@ -39,17 +39,17 @@ import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
-import org.apache.directory.fortress.core.model.SDSet;
-import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
+import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.SDSet;
+import org.apache.directory.ldap.client.api.LdapConnection;
 
 
 /**
@@ -114,7 +114,7 @@ import org.apache.directory.fortress.core.model.Role;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-final class SdDAO extends ApacheDsDataProvider
+final class SdDAO extends LdapDataProvider
 {
     private static final String SD_SET_NM = "ftSetName";
     private static final String ROLES = "ftRoles";
@@ -137,6 +137,9 @@ final class SdDAO extends ApacheDsDataProvider
             GlobalIds.FT_IID, SD_SET_NM, SchemaConstants.DESCRIPTION_AT, ROLES, SD_SET_CARDINALITY
     };
 
+    public SdDAO() {
+        super();
+	}
 
     /**
      * @param entity
@@ -448,7 +451,7 @@ final class SdDAO extends ApacheDsDataProvider
             filterbuf.append( ")(" );
 
             // Include any parents target role may have:
-            Set<String> roles = RoleUtil.getAscendants( role.getName(), role.getContextId() );
+            Set<String> roles = RoleUtil.getInstance().getAscendants( role.getName(), role.getContextId() );
 
             if ( CollectionUtils.isNotEmpty( roles ) )
             {

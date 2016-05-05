@@ -18,7 +18,7 @@
 
 # ApacheDS & Fortress QUICKSTART
 
- Apache Fortress 1.0-RC42 and ApacheDS Quickstart System Architecture
+ Apache Fortress 1.0.0 and ApacheDS Quickstart System Architecture
  ![ApacheDS & Fortress System Architecture](images/fortress-apacheds-system-arch.png "ApacheDS & Fortress System Architecture")
 
 -------------------------------------------------------------------------------
@@ -36,7 +36,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * This document contains instructions to install Apache Fortress 1.0-RC42 Core, Web, Rest and ApacheDS.
+ * This document contains instructions to install Apache Fortress 1.0.0 Core, Web, Rest and ApacheDS.
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
@@ -108,18 +108,30 @@ ________________________________________________________________________________
 ___________________________________________________________________________________
 ## SECTION 3. Apache Fortress Core Setup
 
-1. Download and prepare the package:
+1. Download the package:
+
+ a. from git:
+ ```
+ git clone --branch 1.0.0 https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+ cd directory-fortress-core
+ ```
+
+ b. or download package:
+ ```
+ wget http://www.apache.org/dist/directory/fortress/dist/1.0.0/fortress-core-1.0.0-source-release.zip
+ unzip fortress-core-1.0.0-source-release.zip
+ cd fortress-core-1.0.0
+ ```
+
+2. Prepare the package:
 
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/1.0-RC42/fortress-core-1.0-RC42-source-release.zip
- unzip fortress-core-1.0-RC42-source-release.zip
- cd fortress-core-1.0-RC42
  cp build.properties.example build.properties
  ```
 
  *[build.properties.example](build.properties.example) contains the apacheds default config. Learn more about the config here: [README-CONFIG](README-CONFIG.md)*
 
-2. Prepare your terminal for execution of maven commands.
+3. Prepare your terminal for execution of maven commands.
 
  ```
  export JAVA_HOME=...
@@ -127,13 +139,13 @@ ________________________________________________________________________________
  export PATH=$PATH:$M2_HOME/bin
  ```
 
-3. Build fortress core. This step will generate config artifacts using settings from build.properties.
+4. Build fortress core. This step will generate config artifacts using settings from build.properties.
 
  ```
  mvn install
  ```
 
-4. Import Fortress ldap schema into ApacheDS server.
+5. Import Fortress ldap schema into ApacheDS server.
 
  *There are many ways to import an ldif file into an LDAP server like ApacheDS.  For example an LDAP browser like Apache Directory Studio can be used.  This guide shows how to use the OpenLDAP client.*
 
@@ -157,7 +169,7 @@ ________________________________________________________________________________
   sudo apt-get install ldap-utils
   ```
 
-5. Load the Apache Fortress schema into ApacheDS server.
+6. Load the Apache Fortress schema into ApacheDS server.
 
  Load the [fortress schema](ldap/schema/apacheds-fortress.ldif) to ApacheDS instance using ldapmodify command.
 
@@ -268,7 +280,7 @@ During this section, you will be asked to setup Apache Tomcat 8 and prepare for 
 2. Download the fortress realm proxy jar into tomcat/lib folder:
 
   ```
-  sudo wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/1.0-RC42/fortress-realm-proxy-1.0-RC42.jar -P /usr/local/tomcat8/lib
+  sudo wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/1.0.0/fortress-realm-proxy-1.0.0.jar -P /usr/local/tomcat8/lib
   ```
 
 3. Prepare tomcat fortress usage:
@@ -359,28 +371,42 @@ ________________________________________________________________________________
 
 During this section, you will be asked to setup Apache Fortress Rest Application
 
-1. Download and prepare the package:
+1. Download the package:
+
+ a. from git:
+ ```
+ git clone --branch 1.0.0 https://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git
+ cd directory-fortress-enmasse
+ ```
+
+ b. or download package:
+ ```
+ wget http://www.apache.org/dist/directory/fortress/dist/1.0.0/fortress-rest-1.0.0-source-release.zip
+ unzip fortress-rest-1.0.0-source-release.zip
+ cd fortress-rest-1.0.0
+ ```
+
+2. Prepare:
 
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/1.0-RC42/fortress-rest-1.0-RC42-source-release.zip
- unzip fortress-rest-1.0-RC42-source-release.zip
- cp ./fortress-core-1.0-RC42/config/fortress.properties ./fortress-rest-1.0-RC42/src/main/resources
- cd fortress-rest-1.0-RC42
+ cp ../[FORTRESS-CORE-HOME]/config/fortress.properties src/main/resources
  ```
 
-2. Build, perform fortress rest test policy load and deploy to Tomcat:
+ *where FORTRESS-CORE-HOME is package location on your machine*
+
+3. Build, perform fortress rest test policy load and deploy to Tomcat:
 
  ```
  mvn clean install -Dload.file=./src/main/resources/FortressRestServerPolicy.xml tomcat:deploy
  ```
 
-3. Redeploy (if need be):
+4. Redeploy (if need be):
 
  ```
  mvn tomcat:redeploy
  ```
 
-4. Smoke test:
+5. Smoke test:
 
  ```
  mvn test -Dtest=EmTest
@@ -391,36 +417,50 @@ ________________________________________________________________________________
 
 During this section, you will be asked to setup Apache Fortress Web Application
 
-1. Download and prepare the package:
+1. Download the package:
+
+ a. from git:
+ ```
+ git clone --branch 1.0.0 https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
+ cd directory-fortress-commander
+ ```
+
+ b. or download package:
+ ```
+ wget http://www.apache.org/dist/directory/fortress/dist/1.0.0/fortress-web-1.0.0-source-release.zip
+ unzip fortress-web-1.0.0-source-release.zip
+ cd fortress-web-1.0.0
+ ```
+
+2. Prepare:
 
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/1.0-RC42/fortress-web-1.0-RC42-source-release.zip
- unzip fortress-web-1.0-RC42-source-release.zip
- cp ./fortress-core-1.0-RC42/config/fortress.properties ./fortress-web-1.0-RC42/src/main/resources
- cd fortress-web-1.0-RC42
+ cp ../[FORTRESS-CORE-HOME]/config/fortress.properties src/main/resources
  ```
 
-2. Build, perform fortress web test policy load and deploy to Tomcat:
+ *where FORTRESS-CORE-HOME is package location on your machine*
+
+3. Build, perform fortress web test policy load and deploy to Tomcat:
 
  ```
  mvn clean install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml tomcat:deploy
  ```
 
-3. Redeploy (if need be):
+4. Redeploy (if need be):
 
  ```
  mvn tomcat:redeploy
  ```
 
-4. Open browser and test (creds: test/password):
+5. Open browser and test (creds: test/password):
 
  ```
  http://hostname:8080/fortress-web
  ```
 
-5. Click on the links, to pull up various views on the data stored in the directory.
+6. Click on the links, to pull up various views on the data stored in the directory.
 
-6. Run the selenium automated test:
+7. Run the selenium automated test:
 
  ```
  mvn test -Dtest=FortressWebSeleniumITCase

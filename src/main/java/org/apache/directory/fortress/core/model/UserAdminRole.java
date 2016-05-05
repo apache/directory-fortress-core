@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.util.Config;
 
 
 /**
@@ -162,7 +163,7 @@ public class UserAdminRole extends UserRole implements Administrator
     {
         if ( ( szRawData != null ) && ( szRawData.length() > 0 ) )
         {
-            String[] tokens = StringUtils.splitPreserveAllTokens( szRawData, GlobalIds.DELIMITER );
+            String[] tokens = StringUtils.splitPreserveAllTokens( szRawData, Config.getInstance().getDelimiter() );
             for ( int i = 0; i < tokens.length; i++ )
             {
                 if ( StringUtils.isNotEmpty( tokens[i] ) )
@@ -246,39 +247,40 @@ public class UserAdminRole extends UserRole implements Administrator
     public String getRawData()
     {
         String szRole;
+        String delimeter = Config.getInstance().getDelimiter();
         StringBuilder sb = new StringBuilder();
         sb.append( name );
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
         sb.append( this.getTimeout() );
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
 
         if ( this.getBeginTime() != null )
         {
             sb.append( this.getBeginTime() );
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
 
         if ( this.getEndTime() != null )
         {
             sb.append( this.getEndTime() );
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
 
         if ( this.getBeginDate() != null )
         {
             sb.append( this.getBeginDate() );
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
 
         if ( this.getEndDate() != null )
         {
             sb.append( this.getEndDate() );
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
 
         if ( this.getBeginLockDate() != null )
         {
@@ -286,14 +288,14 @@ public class UserAdminRole extends UserRole implements Administrator
 
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
 
         if ( this.getEndLockDate() != null )
         {
             sb.append( this.getEndLockDate() );
         }
 
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
 
         if ( this.getDayMask() != null )
         {
@@ -304,7 +306,7 @@ public class UserAdminRole extends UserRole implements Administrator
         {
             for ( String org : this.getOsUSet() )
             {
-                sb.append( GlobalIds.DELIMITER );
+                sb.append( delimeter );
                 sb.append( U );
                 sb.append( GlobalIds.PROP_SEP );
                 sb.append( org );
@@ -315,7 +317,7 @@ public class UserAdminRole extends UserRole implements Administrator
         {
             for ( String org : this.getOsPSet() )
             {
-                sb.append( GlobalIds.DELIMITER );
+                sb.append( delimeter );
                 sb.append( P );
                 sb.append( GlobalIds.PROP_SEP );
                 sb.append( org );
@@ -323,7 +325,7 @@ public class UserAdminRole extends UserRole implements Administrator
         }
         if ( StringUtils.isNotEmpty( this.getRoleRangeRaw() ) )
         {
-            sb.append( GlobalIds.DELIMITER );
+            sb.append( delimeter );
             sb.append( R );
             sb.append( GlobalIds.PROP_SEP );
             sb.append( this.getRoleRangeRaw() );

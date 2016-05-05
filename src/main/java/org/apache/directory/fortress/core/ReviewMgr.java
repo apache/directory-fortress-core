@@ -152,7 +152,7 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException
      *          thrown in the event of system error.
      */
-    List<Permission> findPermissions( PermObj permObj ) 
+    List<Permission> findPermsByObj( PermObj permObj )
     	throws SecurityException;
     
     /**

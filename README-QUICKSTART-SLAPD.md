@@ -18,7 +18,7 @@
 
 # OpenLDAP & Fortress QUICKSTART
 
- Apache Fortress 1.0-RC42 and OpenLDAP Quickstart System Architecture
+ Apache Fortress 1.0.0 and OpenLDAP Quickstart System Architecture
  ![OpenLDAP & Fortress System Architecture](images/fortress-openldap-accel-system-arch.png "OpenLDAP & Fortress System Architecture")
 
 -------------------------------------------------------------------------------
@@ -35,7 +35,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * This document contains instructions to install Apache Fortress 1.0-RC42 Core, Web, Rest and OpenLDAP.
+ * This document contains instructions to install Apache Fortress 1.0.0 Core, Web, Rest and OpenLDAP.
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
@@ -47,41 +47,52 @@ Minimum hardware requirements:
 Minimum software requirements:
  * Centos or Debian Machine
  * Java SDK 7++
- * Apache Ant 1.7++
  * Apache Maven3++
 
-Everything else covered in steps that follow.  Tested on Debian & Centos systems.
+ *Everything else covered in steps that follow.*
 ___________________________________________________________________________________
 ## SECTION 2. Apache Fortress Core and OpenLDAP Setup
 
-1. Download and prepare the package:
+1. Download the package:
+
+ a. from git:
+ ```
+ git clone --branch 1.0.0 https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+ cd directory-fortress-core
+ ```
+
+ b. or download package:
+ ```
+ wget http://www.apache.org/dist/directory/fortress/dist/1.0.0/fortress-core-1.0.0-source-release.zip
+ unzip fortress-core-1.0.0-source-release.zip
+ cd fortress-core-1.0.0
+ ```
+
+2. Prepare the package:
 
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/1.0-RC42/fortress-core-1.0-RC42-source-release.zip
- unzip fortress-core-1.0-RC42-source-release.zip
- cd fortress-core-1.0-RC42
  cp build.properties.example build.properties
  cp slapd.properties.example slapd.properties
  ```
 
  *[slapd.properties.example](slapd.properties.example) contains the slapd default config. Learn more about how the config works: [README-CONFIG](README-CONFIG.md)*
 
-2. Download Symas OpenLDAP Silver *Full Server and Client Installation*:
+3. Download Symas OpenLDAP Silver *Full Server and Client Installation*:
  https://symas.com/downloads/
 
  ![Symas OpenLDAP Download Page](images/sol-silver-downloads.png)
 
   *SILVER downloads don't require a registration.*
 
-3. Place either a centos or debian package under the folder named *ldap* : [fortress-core-[VERSION]/ldap](./ldap)
+4. Place either a centos or debian package under the folder named *ldap* : [fortress-core-[VERSION]/ldap](./ldap)
 
-4. Edit the *slapd.properties* file:
+5. Edit the *slapd.properties* file:
 
  ```
  vi slapd.properties
  ```
 
-5. Update the *slapd.properties* file *slapd.install* statement with a reference to the openldap install downloaded earlier.
+6. Update the *slapd.properties* file *slapd.install* statement with a reference to the openldap install downloaded earlier.
 
  a. For Debian installs:
 
@@ -95,7 +106,7 @@ ________________________________________________________________________________
   slapd.install=rpm -i symas-openldap-silver.version.platform.rpm
   ```
 
-6. Specify whether you want to enable the slapo-rbac overlay:
+7. Specify whether you want to enable the slapo-rbac overlay:
 
  a. Yes, I want to enable slapo-rbac:
 
@@ -111,46 +122,42 @@ ________________________________________________________________________________
   rbac.accelerator=false
   ```
 
-7. Save and exit
+8. Save and exit
 
-8. Prepare your terminal for execution of maven and ant commands.
+9. Prepare your terminal for execution of maven commands.
 
  ```
  #!/bin/sh
  export M2_HOME=...
  export JAVA_HOME=...
- export ANT_HOME=...
- export PATH=$PATH:$ANT_HOME/bin:$M2_HOME/bin
+ export PATH=$PATH:$M2_HOME/bin
  ```
 
-9. Run the maven install:
+10. Run the maven install:
 
  ```
  mvn clean install
  ```
 
- *maven is used to build the software package and prepare its config*
-
-10. Install, configure and load the slapd server using ant:
+11. Install, configure and load the slapd server:
 
   ```
-  ant init-slapd
+  mvn test -Pinit-slapd
   ```
 
-11. To start the slapd process:
+12. To start the slapd process:
 
   ```
-  ant start-slapd
+  mvn test -Pstart-slapd
   ```
 
-12. To stop the slapd process:
+13. To stop the slapd process:
 
   ```
-  ant stop-slapd
+  mvn test -Pstop-slapd
   ```
 
  * must be run with either sudo or root privs
- * ant is deprecated, but still needed to run these commands.
 
 ___________________________________________________________________________________
 ## SECTION 3. Apache Fortress Core Integration Test
@@ -256,7 +263,7 @@ During this section, you will be asked to setup Apache Tomcat 8 and prepare for 
 2. Download the fortress realm proxy jar into tomcat/lib folder:
 
   ```
-  sudo wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/1.0-RC42/fortress-realm-proxy-1.0-RC42.jar -P /usr/local/tomcat8/lib
+  sudo wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/1.0.0/fortress-realm-proxy-1.0.0.jar -P /usr/local/tomcat8/lib
   ```
 
 3. Prepare tomcat fortress usage:
@@ -347,28 +354,42 @@ ________________________________________________________________________________
 
 During this section, you will be asked to setup Apache Fortress Rest Application
 
-1. Download and prepare the package:
+1. Download the package:
+
+ a. from git:
+ ```
+ git clone --branch 1.0.0 https://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git
+ cd directory-fortress-enmasse
+ ```
+
+ b. or download package:
+ ```
+ wget http://www.apache.org/dist/directory/fortress/dist/1.0.0/fortress-rest-1.0.0-source-release.zip
+ unzip fortress-rest-1.0.0-source-release.zip
+ cd fortress-rest-1.0.0
+ ```
+
+2. Prepare:
 
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/1.0-RC42/fortress-rest-1.0-RC42-source-release.zip
- unzip fortress-rest-1.0-RC42-source-release.zip
- cp ./fortress-core-1.0-RC42/config/fortress.properties ./fortress-rest-1.0-RC42/src/main/resources
- cd fortress-rest-1.0-RC42
+ cp ../[FORTRESS-CORE-HOME]/config/fortress.properties src/main/resources
  ```
 
-2. Build, perform fortress rest test policy load and deploy to Tomcat:
+ *where FORTRESS-CORE-HOME is package location on your machine*
+
+3. Build, perform fortress rest test policy load and deploy to Tomcat:
 
  ```
  mvn clean install -Dload.file=./src/main/resources/FortressRestServerPolicy.xml tomcat:deploy
  ```
 
-3. Redeploy (if need be):
+4. Redeploy (if need be):
 
  ```
  mvn tomcat:redeploy
  ```
 
-4. Smoke test:
+5. Smoke test:
 
  ```
  mvn test -Dtest=EmTest
@@ -379,36 +400,50 @@ ________________________________________________________________________________
 
 During this section, you will be asked to setup Apache Fortress Web Application
 
-1. Download and prepare the package:
+1. Download the package:
+
+ a. from git:
+ ```
+ git clone --branch 1.0.0 https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
+ cd directory-fortress-commander
+ ```
+
+ b. or download package:
+ ```
+ wget http://www.apache.org/dist/directory/fortress/dist/1.0.0/fortress-web-1.0.0-source-release.zip
+ unzip fortress-web-1.0.0-source-release.zip
+ cd fortress-web-1.0.0
+ ```
+
+2. Prepare:
 
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/1.0-RC42/fortress-web-1.0-RC42-source-release.zip
- unzip fortress-web-1.0-RC42-source-release.zip
- cp ./fortress-core-1.0-RC42/config/fortress.properties ./fortress-web-1.0-RC42/src/main/resources
- cd fortress-web-1.0-RC42
+ cp ../[FORTRESS-CORE-HOME]/config/fortress.properties src/main/resources
  ```
 
-2. Build, perform fortress web test policy load and deploy to Tomcat:
+ *where FORTRESS-CORE-HOME is package location on your machine*
+
+3. Build, perform fortress web test policy load and deploy to Tomcat:
 
  ```
  mvn clean install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml tomcat:deploy
  ```
 
-3. Redeploy (if need be):
+4. Redeploy (if need be):
 
  ```
  mvn tomcat:redeploy
  ```
 
-4. Open browser and test (creds: test/password):
+5. Open browser and test (creds: test/password):
 
  ```
  http://hostname:8080/fortress-web
  ```
 
-5. Click on the links, to pull up various views on the data stored in the directory.
+6. Click on the links, to pull up various views on the data stored in the directory.
 
-6. Run the selenium automated test:
+7. Run the selenium automated test:
 
  ```
  mvn test -Dtest=FortressWebSeleniumITCase

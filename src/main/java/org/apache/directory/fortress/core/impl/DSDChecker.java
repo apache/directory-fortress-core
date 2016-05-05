@@ -24,18 +24,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.model.Constraint;
+import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.model.Warning;
 import org.apache.directory.fortress.core.util.VUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.model.ObjectFactory;
-import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.util.time.Time;
 import org.apache.directory.fortress.core.util.time.Validator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -89,13 +89,13 @@ public class DSDChecker
             return rc;
         }
         // get the list of authorized roles for this user:
-        Set<String> authorizedRoleSet = RoleUtil.getInheritedRoles( activeRoleList, session.getUser().getContextId() );
+        Set<String> authorizedRoleSet = RoleUtil.getInstance().getInheritedRoles( activeRoleList, session.getUser().getContextId() );
         // only need to check DSD constraints if more than one role is being activated:
         if ( authorizedRoleSet != null && authorizedRoleSet.size() > 1 )
         {
             // get all DSD sets that contain the candidate activated and authorized roles,
             //If DSD cache is disabled, this will search the directory using authorizedRoleSet
-            Set<SDSet> dsdSets = SDUtil.getDsdCache( authorizedRoleSet, session.getUser().getContextId() );
+            Set<SDSet> dsdSets = SDUtil.getInstance().getDsdCache( authorizedRoleSet, session.getUser().getContextId() );
             if ( dsdSets != null && dsdSets.size() > 0 )
             {
                 for ( SDSet dsd : dsdSets )
@@ -127,7 +127,7 @@ public class DSDChecker
                         }
                         else
                         {
-                            Set<String> parentSet = RoleUtil.getAscendants( activatedRole.getName(), session.getUser()
+                            Set<String> parentSet = RoleUtil.getInstance().getAscendants( activatedRole.getName(), session.getUser()
                                 .getContextId() );
                             // now check for every role inherited from this activated role:
                             for ( String parentRole : parentSet )

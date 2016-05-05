@@ -41,8 +41,12 @@ import org.apache.directory.fortress.core.SecurityException;
  */
 public class ConfigMgrImpl implements ConfigMgr, Serializable
 {
-    private static final ConfigP cfgP = new ConfigP();
+    private ConfigP cfgP;
 
+    public ConfigMgrImpl() {
+    	cfgP = new ConfigP();
+    }
+    
     /**
      * {@inheritDoc}
      */

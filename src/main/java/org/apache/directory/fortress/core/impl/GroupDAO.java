@@ -21,6 +21,9 @@
 package org.apache.directory.fortress.core.impl;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
@@ -34,24 +37,21 @@ import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
-import org.apache.directory.fortress.core.model.Group;
-import org.apache.directory.fortress.core.model.PropUtil;
-import org.apache.directory.ldap.client.api.LdapConnection;
-import org.apache.directory.fortress.core.FinderException;
-import org.apache.directory.fortress.core.model.ObjectFactory;
-import org.apache.directory.fortress.core.UpdateException;
-import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
-import org.apache.directory.fortress.core.model.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.CreateException;
+import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.apache.directory.fortress.core.UpdateException;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
+import org.apache.directory.fortress.core.model.Group;
+import org.apache.directory.fortress.core.model.ObjectFactory;
+import org.apache.directory.fortress.core.model.PropUtil;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.util.Config;
+import org.apache.directory.ldap.client.api.LdapConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -60,32 +60,38 @@ import java.util.List;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-final class GroupDAO extends ApacheDsDataProvider
+final class GroupDAO extends LdapDataProvider
 {
     private static final String CLS_NM = GroupDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final String GROUP_OBJECT_CLASS = "group.objectclass";
-    private static final String GROUP_OBJECT_CLASS_IMPL = Config.getProperty( GROUP_OBJECT_CLASS );
+    private String GROUP_OBJECT_CLASS_IMPL;
     private static final String GROUP_PROTOCOL_ATTR = "group.protocol";
-    private static final String GROUP_PROTOCOL_ATTR_IMPL = Config.getProperty( GROUP_PROTOCOL_ATTR );
+    private String GROUP_PROTOCOL_ATTR_IMPL;
     private static final String GROUP_PROPERTY_ATTR = "group.properties";
-    private static final String GROUP_PROPERTY_ATTR_IMPL = Config.getProperty( GROUP_PROPERTY_ATTR );
-    private static final String GROUP_OBJ_CLASS[] =
-        { SchemaConstants.TOP_OC, GROUP_OBJECT_CLASS_IMPL };
-    private static final String[] GROUP_ATRS =
-        {
-            SchemaConstants.CN_AT,
-            SchemaConstants.DESCRIPTION_AT,
-            GROUP_PROTOCOL_ATTR_IMPL,
-            GROUP_PROPERTY_ATTR_IMPL,
-            SchemaConstants.MEMBER_AT };
-
+    private String GROUP_PROPERTY_ATTR_IMPL;
+    private String[] GROUP_OBJ_CLASS;
+    private String[] GROUP_ATRS;
 
     /**
      * Package private default constructor.
      */
     GroupDAO()
     {
+        super();
+        GROUP_OBJECT_CLASS_IMPL = Config.getInstance().getProperty( GROUP_OBJECT_CLASS );
+        GROUP_PROTOCOL_ATTR_IMPL = Config.getInstance().getProperty( GROUP_PROTOCOL_ATTR );
+        GROUP_PROPERTY_ATTR_IMPL = Config.getInstance().getProperty( GROUP_PROPERTY_ATTR );
+        
+        GROUP_OBJ_CLASS = new String[]{SchemaConstants.TOP_OC, GROUP_OBJECT_CLASS_IMPL };
+        
+        GROUP_ATRS = new String[]
+            {
+                SchemaConstants.CN_AT,
+                SchemaConstants.DESCRIPTION_AT,
+                GROUP_PROTOCOL_ATTR_IMPL,
+                GROUP_PROPERTY_ATTR_IMPL,
+                SchemaConstants.MEMBER_AT };
     }
 
 

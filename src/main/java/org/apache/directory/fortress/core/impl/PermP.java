@@ -66,8 +66,8 @@ final class PermP
     /**
      * Description of the Field
      */
-    private static final PermDAO pDao = new PermDAO();
-    private final OrgUnitP orgUnitP = new OrgUnitP();
+    private PermDAO pDao;
+    private OrgUnitP orgUnitP;
 
 
     /**
@@ -75,6 +75,8 @@ final class PermP
      */
     PermP()
     {
+        pDao = new PermDAO();
+        orgUnitP = new OrgUnitP();
     }
 
 

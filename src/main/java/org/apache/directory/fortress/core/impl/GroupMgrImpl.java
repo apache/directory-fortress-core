@@ -44,8 +44,12 @@ import org.apache.directory.fortress.core.model.User;
 public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
 {
     private static final String CLS_NM = GroupMgrImpl.class.getName();
-    private static final GroupP GROUP_P = new GroupP();
+    private GroupP GROUP_P;
 
+    public GroupMgrImpl() {
+    	GROUP_P = new GroupP();
+	}
+    
     /**
      * {@inheritDoc}
      */

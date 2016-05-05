@@ -37,5 +37,6 @@ public class FortressConsole
     {
         ProcessMenuCommand rc = new ProcessMenuCommand();
         rc.processRbacControl();
+        System.exit( 0 );
     }
 }

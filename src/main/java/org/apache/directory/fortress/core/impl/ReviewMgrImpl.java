@@ -83,11 +83,18 @@ import org.apache.directory.fortress.core.util.VUtil;
 public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
 {
     private static final String CLS_NM = ReviewMgrImpl.class.getName();
-    private static final UserP userP = new UserP();
-    private static final RoleP roleP = new RoleP();
-    private static final PermP permP = new PermP();
-    private static final SdP ssdP = new SdP();
+    private UserP userP = new UserP();
+    private RoleP roleP = new RoleP();
+    private PermP permP = new PermP();
+    private SdP ssdP = new SdP();
 
+    public ReviewMgrImpl() {
+        userP = new UserP();
+        roleP = new RoleP();
+        permP = new PermP();
+        ssdP = new SdP();
+	}
+    
     /**
      * {@inheritDoc}
      */
@@ -150,9 +157,9 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
 	@Override
-	public List<Permission> findPermissions(PermObj permObj)
+	public List<Permission> findPermsByObj(PermObj permObj)
 			throws SecurityException {
-        String methodName = "findPermissions";
+        String methodName = "findPermsByObj";
         assertContext( CLS_NM, methodName, permObj, GlobalErrIds.PERM_OBJECT_NULL );
         VUtil.assertNotNullOrEmpty(permObj.getObjName(), GlobalErrIds.PERM_OBJECT_NM_NULL, CLS_NM + "." + methodName);
         checkAccess(CLS_NM, methodName);
@@ -395,7 +402,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
         Set<String> iRoles = null;
         if (CollectionUtils.isNotEmpty( roles ))
         {
-            iRoles = RoleUtil.getInheritedRoles( roles, this.contextId );
+            iRoles = RoleUtil.getInstance().getInheritedRoles( roles, this.contextId );
         }
         return iRoles;
     }
@@ -573,7 +580,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
         if (assignedRoles != null)
         {
             // Get the descendant roles of all assigned roles from jgrapht hierarchical roles data set:
-            authorizedRoles = RoleUtil.getDescendantRoles(assignedRoles, this.contextId);
+            authorizedRoles = RoleUtil.getInstance().getDescendantRoles(assignedRoles, this.contextId);
         }
         return authorizedRoles;
     }

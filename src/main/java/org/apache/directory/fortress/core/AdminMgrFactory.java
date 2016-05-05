@@ -20,11 +20,11 @@
 package org.apache.directory.fortress.core;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.impl.AdminMgrImpl;
-import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.rest.AdminMgrRestImpl;
+import org.apache.directory.fortress.core.util.ClassUtil;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
 
 /**
@@ -39,7 +39,6 @@ import org.apache.directory.fortress.core.util.VUtil;
  */
 public final class AdminMgrFactory
 {
-    private static String adminClassName = Config.getProperty(GlobalIds.ADMIN_IMPLEMENTATION);
     private static final String CLS_NM = AdminMgrFactory.class.getName();
 
     /**
@@ -65,11 +64,14 @@ public final class AdminMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
+        
+        String adminClassName = Config.getInstance().getProperty(GlobalIds.ADMIN_IMPLEMENTATION);
+        
         AdminMgr adminMgr;
 
         if ( StringUtils.isEmpty( adminClassName ) )
         {
-            if(GlobalIds.IS_REST)
+            if(Config.getInstance().isRestEnabled())
             {
                 adminMgr = new AdminMgrRestImpl();
             }
@@ -83,6 +85,13 @@ public final class AdminMgrFactory
             adminMgr = (AdminMgr) ClassUtil.createInstance(adminClassName);
         }
 
+        if(adminMgr instanceof AdminMgrImpl){
+        	Config cfg = Config.getInstance();
+        	if(!cfg.isRemoteConfigLoaded()){
+        		cfg.loadRemoteConfig();
+        	}
+        }
+        
         adminMgr.setContextId(contextId);
         return adminMgr;
     }

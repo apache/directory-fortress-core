@@ -26,14 +26,14 @@ import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.entry.DefaultEntry;
 import org.apache.directory.api.ldap.model.entry.Entry;
 import org.apache.directory.api.ldap.model.exception.LdapException;
-import org.apache.directory.fortress.core.model.Suffix;
-import org.apache.directory.ldap.client.api.LdapConnection;
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.RemoveException;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
+import org.apache.directory.fortress.core.model.Suffix;
+import org.apache.directory.ldap.client.api.LdapConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -65,7 +65,7 @@ import org.apache.directory.fortress.core.RemoveException;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-final class SuffixDAO extends ApacheDsDataProvider
+final class SuffixDAO extends LdapDataProvider
 {
     private static final String CLS_NM = SuffixDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
@@ -80,6 +80,7 @@ final class SuffixDAO extends ApacheDsDataProvider
      */
     SuffixDAO()
     {
+        super();
     }
 
 
