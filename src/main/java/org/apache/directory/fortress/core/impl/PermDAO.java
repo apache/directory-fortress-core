@@ -42,23 +42,24 @@ import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueEx
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchAttributeException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
-import org.apache.directory.fortress.core.model.AdminRole;
-import org.apache.directory.fortress.core.model.OrgUnit;
-import org.apache.directory.fortress.core.model.PermObj;
-import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.PropUtil;
-import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.LdapDataProvider;
+import org.apache.directory.fortress.core.model.AdminRole;
+import org.apache.directory.fortress.core.model.ObjectFactory;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PropUtil;
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.util.Config;
+import org.apache.directory.ldap.client.api.LdapConnection;
 
 
 /**
@@ -203,7 +204,10 @@ final class PermDAO extends LdapDataProvider
             GlobalIds.PROPS
     };
 
-
+    public PermDAO(){
+        super();
+    }
+    
     /**
      * @param entity
      * @return
@@ -917,7 +921,7 @@ final class PermDAO extends LdapDataProvider
         throws FinderException
     {
         // Audit can be turned off here with fortress config param: 'disable.audit=true'
-        if ( GlobalIds.IS_OPENLDAP && ! GlobalIds.IS_AUDIT_DISABLED )
+        if ( Config.getInstance().isOpenldap() && ! Config.getInstance().isAuditDisabled() )
         {
             try
             {
@@ -985,7 +989,7 @@ final class PermDAO extends LdapDataProvider
             else
             {
                 // RBAC Permission check include's User's inherited roles:
-                Set<String> activatedRoles = RoleUtil.getInheritedRoles( session.getRoles(), permission.getContextId() );
+                Set<String> activatedRoles = RoleUtil.getInstance().getInheritedRoles( session.getRoles(), permission.getContextId() );
 
                 for ( String role : roles )
                 {
@@ -1385,7 +1389,7 @@ final class PermDAO extends LdapDataProvider
                 }
                 else
                 {
-                    roles = RoleUtil.getAscendants( role.getName(), role.getContextId() );
+                    roles = RoleUtil.getInstance().getAscendants( role.getName(), role.getContextId() );
                 }
             }
             if ( CollectionUtils.isNotEmpty( roles ) )
@@ -1461,7 +1465,7 @@ final class PermDAO extends LdapDataProvider
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( PERM_OP_OBJECT_CLASS_NAME );
             filterbuf.append( ")(|" );
-            Set<String> roles = RoleUtil.getInheritedRoles( user.getRoles(), user.getContextId() );
+            Set<String> roles = RoleUtil.getInstance().getInheritedRoles( user.getRoles(), user.getContextId() );
 
             if ( CollectionUtils.isNotEmpty( roles ) )
             {
@@ -1594,7 +1598,7 @@ final class PermDAO extends LdapDataProvider
             }
             else
             {
-                roles = RoleUtil.getInheritedRoles( session.getRoles(), session.getContextId() );
+                roles = RoleUtil.getInstance().getInheritedRoles( session.getRoles(), session.getContextId() );
             }
             if ( CollectionUtils.isNotEmpty( roles ) )
             {

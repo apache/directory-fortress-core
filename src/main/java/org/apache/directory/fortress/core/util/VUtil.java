@@ -31,8 +31,11 @@ import java.util.Properties;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.*;
+import org.apache.directory.fortress.core.CfgException;
+import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.ConstraintValidator;
 import org.apache.directory.fortress.core.model.ObjectFactory;
@@ -72,7 +75,7 @@ public final class VUtil implements ConstraintValidator
     private static int maximumFieldLen = 130;
     private static final String VALIDATE_LENGTH = "field.length";
     private static List<Validator> validators;
-    private static final String DSDVALIDATOR = Config.getProperty( GlobalIds.DSD_VALIDATOR_PROP );
+    private String DSDVALIDATOR;
 
     private static final int MAXIMUM_FIELD_LEN = maximumFieldLen;
     private static final int maxFieldLength = MAXIMUM_FIELD_LEN;
@@ -86,10 +89,23 @@ public final class VUtil implements ConstraintValidator
     private static final SimpleDateFormat TIME_FORMATER = new SimpleDateFormat( TIME_FORMAT );
     private static final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat( DATE_FORMAT );
 
+    private static volatile VUtil INSTANCE = null; 
+
+    public static VUtil getInstance() {
+        if(INSTANCE == null) {
+            synchronized (VUtil.class) {
+                if(INSTANCE == null){
+        	        INSTANCE = new VUtil();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+    
     /**
      * static initializer retrieves Validators names from config and constructs for later processing.
      */
-    static
+    private void init()
     {
         try
         {
@@ -100,7 +116,8 @@ public final class VUtil implements ConstraintValidator
             LOG.error( "static initialzier caught SecurityException=" + ex.getMessage(), ex );
         }
 
-        String lengthProp = Config.getProperty( VALIDATE_LENGTH );
+        DSDVALIDATOR = Config.getInstance().getProperty( GlobalIds.DSD_VALIDATOR_PROP );
+        String lengthProp = Config.getInstance().getProperty( VALIDATE_LENGTH );
 
         if ( lengthProp != null )
         {
@@ -115,6 +132,7 @@ public final class VUtil implements ConstraintValidator
      */
     private VUtil()
     {
+    	init();
     }
 
     /**
@@ -184,7 +202,7 @@ public final class VUtil implements ConstraintValidator
             throw new ValidationException( GlobalErrIds.CONST_DESC_LEN_INVLD, error );
         }
 
-        RegExUtil.safeText( value );
+        RegExUtil.getInstance().safeText( value );
     }
 
 
@@ -211,7 +229,7 @@ public final class VUtil implements ConstraintValidator
             throw new ValidationException( GlobalErrIds.CONST_INVLD_FIELD_LEN, error );
         }
 
-        RegExUtil.safeText( value );
+        RegExUtil.getInstance().safeText( value );
     }
 
 
@@ -539,7 +557,7 @@ public final class VUtil implements ConstraintValidator
      * @param checkDsd will check DSD constraints if true
      * @throws org.apache.directory.fortress.core.SecurityException in the event validation fails for User or system error occurs.
      */
-    public static void validateConstraints( Session session, ConstraintType type, boolean checkDsd )
+    public void validateConstraints( Session session, ConstraintType type, boolean checkDsd )
         throws SecurityException
     {
         String location = "validateConstraints";
@@ -640,14 +658,14 @@ public final class VUtil implements ConstraintValidator
      * @return list of type {@link Validator} containing all active validation routines for entity constraint processing.
      * @throws org.apache.directory.fortress.core.CfgException in the event validator cannot be instantiated.
      */
-    private static List<Validator> getValidators()
+    private List<Validator> getValidators()
         throws CfgException
     {
         List<Validator> validators = new ArrayList<>();
         for ( int i = 0;; i++ )
         {
             String prop = GlobalIds.VALIDATOR_PROPS + i;
-            String className = Config.getProperty( prop );
+            String className = Config.getInstance().getProperty( prop );
             if ( className == null )
             {
                 break;

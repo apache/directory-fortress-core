@@ -20,18 +20,18 @@
 package org.apache.directory.fortress.core.impl;
 
 
+import java.util.List;
+
 import org.apache.directory.api.util.Strings;
-import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.model.Group;
-import org.apache.directory.fortress.core.model.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.ValidationException;
+import org.apache.directory.fortress.core.model.Group;
+import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.util.VUtil;
-
-import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -44,9 +44,12 @@ final class GroupP
 {
     private static final String CLS_NM = GroupP.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private static GroupDAO gDao = new GroupDAO();
+    private GroupDAO gDao;
 
-
+    public GroupP(){
+    	gDao = new GroupDAO();
+    }
+    
     /**
      * Add a group node to the Directory Information Tree (DIT).
      *

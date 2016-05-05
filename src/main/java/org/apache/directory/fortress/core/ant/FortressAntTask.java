@@ -28,50 +28,48 @@ import java.util.StringTokenizer;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.model.PropUtil;
-import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Task;
-import org.apache.tools.ant.input.InputHandler;
-import org.apache.tools.ant.input.InputRequest;
-import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.model.Group;
-import org.apache.directory.fortress.core.GroupMgr;
-import org.apache.directory.fortress.core.GroupMgrFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.AdminMgrFactory;
 import org.apache.directory.fortress.core.CfgException;
+import org.apache.directory.fortress.core.ConfigMgr;
+import org.apache.directory.fortress.core.ConfigMgrFactory;
 import org.apache.directory.fortress.core.DelAdminMgr;
 import org.apache.directory.fortress.core.DelAdminMgrFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.GroupMgr;
+import org.apache.directory.fortress.core.GroupMgrFactory;
 import org.apache.directory.fortress.core.PwPolicyMgr;
 import org.apache.directory.fortress.core.PwPolicyMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.ConfigMgr;
-import org.apache.directory.fortress.core.ConfigMgrFactory;
-import org.apache.directory.fortress.core.model.OrganizationalUnit;
 import org.apache.directory.fortress.core.impl.OrganizationalUnitP;
-import org.apache.directory.fortress.core.model.Suffix;
 import org.apache.directory.fortress.core.impl.SuffixP;
-
 import org.apache.directory.fortress.core.model.AdminRole;
-import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.model.Context;
+import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.OrganizationalUnit;
 import org.apache.directory.fortress.core.model.PermGrant;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.directory.fortress.core.model.PwPolicy;
 import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.SDSet;
+import org.apache.directory.fortress.core.model.Suffix;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.util.ClassUtil;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.Testable;
+import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Task;
+import org.apache.tools.ant.input.InputHandler;
+import org.apache.tools.ant.input.InputRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -948,7 +946,7 @@ public class FortressAntTask extends Task implements InputHandler
             LOG.info( "DEBUG MODE" );
             try
             {
-                String testClassName = Config.getProperty( getTaskName() );
+                String testClassName = Config.getInstance().getProperty( getTaskName() );
                 if ( StringUtils.isEmpty( testClassName ) )
                 {
                     testClassName = "org.apache.directory.fortress.core.impl.FortressAntLoadTest";

@@ -20,12 +20,13 @@
 package org.apache.directory.fortress.core.rest;
 
 import org.apache.directory.fortress.core.DelAdminMgr;
+import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.AdminRoleRelationship;
 import org.apache.directory.fortress.core.model.FortRequest;
 import org.apache.directory.fortress.core.model.FortResponse;
-import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.OrgUnitRelationship;
 import org.apache.directory.fortress.core.model.PermGrant;
@@ -33,7 +34,6 @@ import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
-import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.util.VUtil;
 
 
@@ -74,7 +74,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ARLE_ADD);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_ADD);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -104,7 +104,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ARLE_DELETE);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_DELETE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -130,7 +130,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ARLE_UPDATE);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_UPDATE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -160,7 +160,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ARLE_ASGN);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_ASGN);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -185,7 +185,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ARLE_DEASGN);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_DEASGN);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -211,7 +211,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ORG_ADD);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_ADD);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -242,7 +242,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ORG_UPDATE);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_UPDATE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -273,7 +273,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ORG_DELETE);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_DELETE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -309,7 +309,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ORG_DESC);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_DESC);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -339,7 +339,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ORG_ASC);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_ASC);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -370,7 +370,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ORG_ADDINHERIT);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_ADDINHERIT);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -401,7 +401,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ORG_DELINHERIT);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_DELINHERIT);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -431,7 +431,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ARLE_DESC);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_DESC);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -461,7 +461,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ARLE_ASC);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_ASC);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -491,7 +491,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ARLE_ADDINHERIT);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_ADDINHERIT);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -521,7 +521,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ARLE_DELINHERIT);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_DELINHERIT);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -548,7 +548,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PERM_ADD);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_ADD);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -580,7 +580,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PERM_UPDATE);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_UPDATE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -611,7 +611,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.PERM_DELETE);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_DELETE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -638,7 +638,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.OBJ_ADD);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.OBJ_ADD);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -670,7 +670,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.OBJ_UPDATE);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.OBJ_UPDATE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -701,7 +701,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.OBJ_DELETE);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.OBJ_DELETE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -733,7 +733,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_GRANT);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_GRANT);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -765,7 +765,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.ROLE_REVOKE);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_REVOKE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -797,7 +797,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_GRANT);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_GRANT);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {
@@ -829,7 +829,7 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
             request.setSession(adminSess);
         }
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.post(szRequest, HttpIds.USER_REVOKE);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_REVOKE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() != 0)
         {

@@ -20,11 +20,11 @@
 package org.apache.directory.fortress.core;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.impl.DelReviewMgrImpl;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.rest.DelReviewMgrRestImpl;
+import org.apache.directory.fortress.core.util.ClassUtil;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
 
 /**
@@ -37,7 +37,6 @@ import org.apache.directory.fortress.core.util.VUtil;
  */
 public final class DelReviewMgrFactory
 {
-    private static String dReviewClassName = Config.getProperty(GlobalIds.DELEGATED_REVIEW_IMPLEMENTATION);
     private static final String CLS_NM = DelReviewMgrFactory.class.getName();
 
     /**
@@ -63,11 +62,13 @@ public final class DelReviewMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
+        String dReviewClassName = Config.getInstance().getProperty(GlobalIds.DELEGATED_REVIEW_IMPLEMENTATION);
+        
         DelReviewMgr delReviewMgr;
 
         if ( StringUtils.isEmpty( dReviewClassName ) )
         {
-            if(GlobalIds.IS_REST)
+            if(Config.getInstance().isRestEnabled())
             {
                 delReviewMgr = new DelReviewMgrRestImpl();
             }
@@ -79,6 +80,13 @@ public final class DelReviewMgrFactory
         else
         {
             delReviewMgr = (DelReviewMgr) ClassUtil.createInstance(dReviewClassName);
+        }
+        
+        if(delReviewMgr instanceof DelReviewMgrImpl){
+        	Config cfg = Config.getInstance();
+        	if(!cfg.isRemoteConfigLoaded()){
+        		cfg.loadRemoteConfig();
+        	}
         }
 
         delReviewMgr.setContextId(contextId);

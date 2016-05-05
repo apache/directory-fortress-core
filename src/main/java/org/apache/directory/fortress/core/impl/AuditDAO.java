@@ -31,19 +31,19 @@ import org.apache.directory.api.ldap.model.entry.Entry;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
-import org.apache.directory.fortress.core.model.AuthZ;
-import org.apache.directory.fortress.core.model.Bind;
-import org.apache.directory.fortress.core.model.Mod;
-import org.apache.directory.fortress.core.model.UserAudit;
-import org.apache.directory.fortress.core.util.AuditUtil;
-import org.apache.directory.fortress.core.util.time.TUtil;
-import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.model.ObjectFactory;
-import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.ldap.LdapDataProvider;
+import org.apache.directory.fortress.core.model.AuthZ;
+import org.apache.directory.fortress.core.model.Bind;
+import org.apache.directory.fortress.core.model.Mod;
+import org.apache.directory.fortress.core.model.ObjectFactory;
+import org.apache.directory.fortress.core.model.UserAudit;
+import org.apache.directory.fortress.core.util.AuditUtil;
+import org.apache.directory.fortress.core.util.Config;
+import org.apache.directory.fortress.core.util.time.TUtil;
+import org.apache.directory.ldap.client.api.LdapConnection;
 
 
 /**
@@ -181,6 +181,9 @@ final class AuditDAO extends LdapDataProvider
             OBJECTCLASS, REQUAUTHZID, REQDN, REQEND, REQRESULT, REQSESSION, REQSTART, REQTYPE, REQMOD
     };
 
+    public AuditDAO(){
+        super();
+    }
 
     /**
      * This method returns failed authentications where the userid is not present in the directory.  This
@@ -225,8 +228,8 @@ final class AuditDAO extends LdapDataProvider
     {
         List<AuthZ> auditList = new ArrayList<>();
         LdapConnection ld = null;
-        String auditRoot = Config.getProperty( AUDIT_ROOT );
-        String userRoot = Config.getProperty( GlobalIds.USER_ROOT );
+        String auditRoot = Config.getInstance().getProperty( AUDIT_ROOT );
+        String userRoot = Config.getInstance().getProperty( GlobalIds.USER_ROOT );
 
         try
         {
@@ -246,13 +249,13 @@ final class AuditDAO extends LdapDataProvider
             {
                 userId = audit.getUserId();
                 filter += REQDN + "=" + SchemaConstants.UID_AT + "=" + userId + "," + userRoot + ")(" +
-                    REQUAUTHZID + "=" + "cn=Manager," + Config.getProperty( GlobalIds.SUFFIX ) + ")";
+                    REQUAUTHZID + "=" + "cn=Manager," + Config.getInstance().getProperty( GlobalIds.SUFFIX ) + ")";
             }
             else
             {
                 // pull back all failed authN attempts for all users:
                 filter += REQATTR + "=" + SchemaConstants.UID_AT + ")(" +
-                    REQUAUTHZID + "=" + "cn=Manager," + Config.getProperty( GlobalIds.SUFFIX ) + ")";
+                    REQUAUTHZID + "=" + "cn=Manager," + Config.getInstance().getProperty( GlobalIds.SUFFIX ) + ")";
             }
 
             if ( audit.isFailedOnly() )
@@ -314,7 +317,7 @@ final class AuditDAO extends LdapDataProvider
     {
         List<AuthZ> auditList = new ArrayList<>();
         LdapConnection ld = null;
-        String auditRoot = Config.getProperty( AUDIT_ROOT );
+        String auditRoot = Config.getInstance().getProperty( AUDIT_ROOT );
         String permRoot = getRootDn( audit.isAdmin(), audit.getContextId() );
         String userRoot = getRootDn( audit.getContextId(), GlobalIds.USER_ROOT );
 
@@ -396,7 +399,7 @@ final class AuditDAO extends LdapDataProvider
     {
         List<AuthZ> auditList = new ArrayList<>();
         LdapConnection ld = null;
-        String auditRoot = Config.getProperty( AUDIT_ROOT );
+        String auditRoot = Config.getInstance().getProperty( AUDIT_ROOT );
         String userRoot = getRootDn( audit.getContextId(), GlobalIds.USER_ROOT );
 
         try
@@ -411,7 +414,7 @@ final class AuditDAO extends LdapDataProvider
             {
                 // have to limit the query to only authorization entries.
                 // TODO: determine why the cn=Manager user is showing up in this search:
-                filter += REQUAUTHZID + "=*)(!(" + REQUAUTHZID + "=cn=Manager," + Config.getProperty( GlobalIds.SUFFIX )
+                filter += REQUAUTHZID + "=*)(!(" + REQUAUTHZID + "=cn=Manager," + Config.getInstance().getProperty( GlobalIds.SUFFIX )
                     + "))";
 
                 // TODO: fix this so filter by only the Fortress AuthZ entries and not the others:
@@ -469,7 +472,7 @@ final class AuditDAO extends LdapDataProvider
     {
         List<Bind> auditList = new ArrayList<>();
         LdapConnection ld = null;
-        String auditRoot = Config.getProperty( AUDIT_ROOT );
+        String auditRoot = Config.getInstance().getProperty( AUDIT_ROOT );
         String userRoot = getRootDn( audit.getContextId(), GlobalIds.USER_ROOT );
 
         try
@@ -552,7 +555,7 @@ final class AuditDAO extends LdapDataProvider
     {
         List<Mod> modList = new ArrayList<>();
         LdapConnection ld = null;
-        String auditRoot = Config.getProperty( AUDIT_ROOT );
+        String auditRoot = Config.getInstance().getProperty( AUDIT_ROOT );
 
         String userRoot = getRootDn( audit.getContextId(), GlobalIds.USER_ROOT );
 
@@ -607,7 +610,7 @@ final class AuditDAO extends LdapDataProvider
     {
         List<Mod> modList = new ArrayList<>();
         LdapConnection ld = null;
-        String auditRoot = Config.getProperty( AUDIT_ROOT );
+        String auditRoot = Config.getInstance().getProperty( AUDIT_ROOT );
 
         try
         {

@@ -40,19 +40,19 @@ import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.api.ldap.model.name.Dn;
 import org.apache.directory.api.util.Strings;
-import org.apache.directory.fortress.core.model.Graphable;
-import org.apache.directory.fortress.core.model.OrgUnit;
-import org.apache.directory.ldap.client.api.LdapConnection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.LdapDataProvider;
+import org.apache.directory.fortress.core.model.Graphable;
+import org.apache.directory.fortress.core.model.ObjectFactory;
+import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.ldap.client.api.LdapConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
@@ -123,7 +123,10 @@ final class OrgUnitDAO extends LdapDataProvider
             SchemaConstants.OU_AT
     };
 
-
+    public OrgUnitDAO(){
+    	super();
+    }
+    
     /**
      * @param entity
      * @return
@@ -706,13 +709,13 @@ final class OrgUnitDAO extends LdapDataProvider
         {
             entity.setType( OrgUnit.Type.PERM );
             //entity.setParents(PsoUtil.getParents(entity.getName().toUpperCase(), contextId));
-            entity.setChildren( PsoUtil.getChildren( entity.getName().toUpperCase(), contextId ) );
+            entity.setChildren( PsoUtil.getInstance().getChildren( entity.getName().toUpperCase(), contextId ) );
         }
         else if ( dn.contains( getRootDn( contextId, GlobalIds.OSU_ROOT ) ) )
         {
             entity.setType( OrgUnit.Type.USER );
             //entity.setParents(UsoUtil.getParents(entity.getName().toUpperCase(), contextId));
-            entity.setChildren( UsoUtil.getChildren( entity.getName().toUpperCase(), contextId ) );
+            entity.setChildren( UsoUtil.getInstance().getChildren( entity.getName().toUpperCase(), contextId ) );
         }
 
         entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );

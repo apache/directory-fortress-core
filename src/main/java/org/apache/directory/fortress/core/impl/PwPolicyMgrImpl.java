@@ -19,14 +19,14 @@
  */
 package org.apache.directory.fortress.core.impl;
 
+import java.util.List;
+
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.PwPolicyMgr;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.PwPolicy;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.util.VUtil;
-
-import java.util.List;
 
 /**
  * This class is used to perform administrative and review functions on the PWPOLICIES and USERS data sets.
@@ -66,9 +66,14 @@ import java.util.List;
 public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
 {
     private static final String CLS_NM = PwPolicyMgrImpl.class.getName();
-    private static final PolicyP policyP = new PolicyP();
-    private static final UserP userP = new UserP();
+    private PolicyP policyP;
+    private UserP userP;
 
+    public PwPolicyMgrImpl() {
+    	policyP = new PolicyP();
+    	userP = new UserP();
+	}
+    
     /**
      * {@inheritDoc}
      */

@@ -77,7 +77,7 @@ import org.apache.directory.fortress.core.util.VUtil;
 public class AccelMgrImpl extends Manageable implements AccelMgr, Serializable
 {
     private static final String CLS_NM = AccessMgrImpl.class.getName();
-    private static final AcceleratorDAO aDao = new org.apache.directory.fortress.core.impl.AcceleratorDAO();
+    private AcceleratorDAO aDao;
 
 
     /**
@@ -85,6 +85,7 @@ public class AccelMgrImpl extends Manageable implements AccelMgr, Serializable
      */
     public AccelMgrImpl()
     {
+    	aDao = new org.apache.directory.fortress.core.impl.AcceleratorDAO();
     }
 
 

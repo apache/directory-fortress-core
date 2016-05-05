@@ -63,11 +63,18 @@ import org.apache.directory.fortress.core.util.VUtil;
 public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Serializable
 {
     private static final String CLS_NM = DelAdminMgrImpl.class.getName();
-    private static final OrgUnitP ouP = new OrgUnitP();
-    private static final AdminRoleP admRP = new AdminRoleP();
-    private static final PermP permP = new PermP();
-    private static final UserP userP = new UserP();
+    private OrgUnitP ouP;
+    private AdminRoleP admRP;
+    private PermP permP;
+    private UserP userP;
 
+    public DelAdminMgrImpl() {
+        ouP = new OrgUnitP();
+        admRP = new AdminRoleP();
+        permP = new PermP();
+        userP = new UserP();
+	}
+    
     /**
      * {@inheritDoc}
      */
@@ -252,11 +259,11 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
         int numChildren;
         if (entity.getType() == OrgUnit.Type.USER)
         {
-            numChildren = UsoUtil.numChildren( entity.getName(), entity.getContextId() );
+            numChildren = UsoUtil.getInstance().numChildren( entity.getName(), entity.getContextId() );
         }
         else
         {
-            numChildren = PsoUtil.numChildren( entity.getName(), entity.getContextId() );
+            numChildren = PsoUtil.getInstance().numChildren( entity.getName(), entity.getContextId() );
         }
         if (numChildren > 0)
         {
@@ -288,11 +295,11 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
         Set<String> parents;
         if (entity.getType() == OrgUnit.Type.USER)
         {
-            parents = UsoUtil.getParents(entity.getName(), this.contextId);
+            parents = UsoUtil.getInstance().getParents(entity.getName(), this.contextId);
         }
         else
         {
-            parents = PsoUtil.getParents(entity.getName(), this.contextId);
+            parents = PsoUtil.getInstance().getParents(entity.getName(), this.contextId);
         }
         if(parents != null)
         {
@@ -300,11 +307,11 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
             {
                 if (entity.getType() == OrgUnit.Type.USER)
                 {
-                    UsoUtil.updateHier(this.contextId, new Relationship(entity.getName().toUpperCase(), parent.toUpperCase()), Hier.Op.REM);
+                    UsoUtil.getInstance().updateHier(this.contextId, new Relationship(entity.getName().toUpperCase(), parent.toUpperCase()), Hier.Op.REM);
                 }
                 else
                 {
-                    PsoUtil.updateHier(this.contextId, new Relationship(entity.getName().toUpperCase(), parent.toUpperCase()), Hier.Op.REM);
+                    PsoUtil.getInstance().updateHier(this.contextId, new Relationship(entity.getName().toUpperCase(), parent.toUpperCase()), Hier.Op.REM);
                 }
             }
         }
@@ -330,21 +337,21 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
         ouP.read(parent);
         if (parent.getType() == OrgUnit.Type.USER)
         {
-            UsoUtil.validateRelationship(child, parent, false);
+            UsoUtil.getInstance().validateRelationship(child, parent, false);
         }
         else
         {
-            PsoUtil.validateRelationship(child, parent, false);
+            PsoUtil.getInstance().validateRelationship(child, parent, false);
         }
         child.setParent(parent.getName());
         ouP.add(child);
         if (parent.getType() == OrgUnit.Type.USER)
         {
-            UsoUtil.updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
+            UsoUtil.getInstance().updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
         }
         else
         {
-            PsoUtil.updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
+            PsoUtil.getInstance().updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
         }
     }
 
@@ -365,11 +372,11 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
         OrgUnit newChild = ouP.read(child);
         if (parent.getType() == OrgUnit.Type.USER)
         {
-            UsoUtil.validateRelationship(child, parent, false);
+            UsoUtil.getInstance().validateRelationship(child, parent, false);
         }
         else
         {
-            PsoUtil.validateRelationship(child, parent, false);
+            PsoUtil.getInstance().validateRelationship(child, parent, false);
         }
         ouP.add(parent);
         newChild.setParent(parent.getName());
@@ -377,11 +384,11 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
         ouP.update(newChild);
         if (parent.getType() == OrgUnit.Type.USER)
         {
-            UsoUtil.updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
+            UsoUtil.getInstance().updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
         }
         else
         {
-            PsoUtil.updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
+            PsoUtil.getInstance().updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
         }
     }
 
@@ -399,11 +406,11 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
         setEntitySession(CLS_NM, methodName, parent);
         if (parent.getType() == OrgUnit.Type.USER)
         {
-            UsoUtil.validateRelationship(child, parent, false);
+            UsoUtil.getInstance().validateRelationship(child, parent, false);
         }
         else
         {
-            PsoUtil.validateRelationship(child, parent, false);
+            PsoUtil.getInstance().validateRelationship(child, parent, false);
         }
         // validate that both orgs are present:
         ouP.read(parent);
@@ -416,11 +423,11 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
         // we're still good, now set the hierarchical relationship:
         if (parent.getType() == OrgUnit.Type.USER)
         {
-            UsoUtil.updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
+            UsoUtil.getInstance().updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
         }
         else
         {
-            PsoUtil.updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
+            PsoUtil.getInstance().updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.ADD);
         }
     }
 
@@ -438,19 +445,19 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
         setEntitySession(CLS_NM, methodName, parent);
         if (parent.getType() == OrgUnit.Type.USER)
         {
-            UsoUtil.validateRelationship(child, parent, true);
+            UsoUtil.getInstance().validateRelationship(child, parent, true);
         }
         else
         {
-            PsoUtil.validateRelationship(child, parent, true);
+            PsoUtil.getInstance().validateRelationship(child, parent, true);
         }
         if (parent.getType() == OrgUnit.Type.USER)
         {
-            UsoUtil.updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.REM);
+            UsoUtil.getInstance().updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.REM);
         }
         else
         {
-            PsoUtil.updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.REM);
+            PsoUtil.getInstance().updateHier(this.contextId, new Relationship(child.getName().toUpperCase(), parent.getName().toUpperCase()), Hier.Op.REM);
         }
         OrgUnit cOrg = ouP.read(child);
         cOrg.setContextId(this.contextId);

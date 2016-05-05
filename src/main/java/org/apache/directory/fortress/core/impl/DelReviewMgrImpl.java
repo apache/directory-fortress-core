@@ -55,11 +55,18 @@ import org.apache.directory.fortress.core.util.VUtil;
 public class DelReviewMgrImpl extends Manageable implements DelReviewMgr, Serializable
 {
     private static final String CLS_NM = DelReviewMgrImpl.class.getName();
-    private static final UserP userP = new UserP();
-    private static final OrgUnitP ouP = new OrgUnitP();
-    private static final AdminRoleP admRP = new AdminRoleP();
-    private static final PermP permP = new PermP();
+    private UserP userP;
+    private OrgUnitP ouP;
+    private AdminRoleP admRP;
+    private PermP permP;
 
+    public DelReviewMgrImpl() {
+        userP = new UserP();
+        ouP = new OrgUnitP();
+        admRP = new AdminRoleP();
+        permP = new PermP();
+	}
+    
     /**
      * {@inheritDoc}
      */

@@ -38,16 +38,16 @@ import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
-import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.LdapDataProvider;
+import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.PwPolicy;
+import org.apache.directory.ldap.client.api.LdapConnection;
 
 
 /**
@@ -143,6 +143,9 @@ final class PolicyDAO extends LdapDataProvider
             SchemaConstants.CN_AT
     };
 
+    public PolicyDAO(){
+        super();
+    }
 
     /**
      * @param entity

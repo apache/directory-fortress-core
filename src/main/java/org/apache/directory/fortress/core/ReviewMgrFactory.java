@@ -20,11 +20,11 @@
 package org.apache.directory.fortress.core;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.impl.ReviewMgrImpl;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.rest.ReviewMgrRestImpl;
+import org.apache.directory.fortress.core.util.ClassUtil;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
 
 /**
@@ -37,7 +37,6 @@ import org.apache.directory.fortress.core.util.VUtil;
  */
 public final class ReviewMgrFactory
 {
-    private static String reviewClassName = Config.getProperty(GlobalIds.REVIEW_IMPLEMENTATION);
     private static final String CLS_NM = ReviewMgrFactory.class.getName();
 
     /**
@@ -63,11 +62,14 @@ public final class ReviewMgrFactory
         throws SecurityException
     {
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
+        
+        String reviewClassName = Config.getInstance().getProperty(GlobalIds.REVIEW_IMPLEMENTATION);
+        
         ReviewMgr reviewMgr;
 
         if ( StringUtils.isEmpty( reviewClassName ) )
         {
-            if(GlobalIds.IS_REST)
+            if(Config.getInstance().isRestEnabled())
             {
                 reviewMgr = new ReviewMgrRestImpl();
             }
@@ -81,6 +83,13 @@ public final class ReviewMgrFactory
             reviewMgr = ( ReviewMgr ) ClassUtil.createInstance(reviewClassName);
         }
 
+        if(reviewMgr instanceof ReviewMgrImpl){
+        	Config cfg = Config.getInstance();
+        	if(!cfg.isRemoteConfigLoaded()){
+        		cfg.loadRemoteConfig();
+        	}
+        }
+        
         reviewMgr.setContextId(contextId);
         return reviewMgr;
     }

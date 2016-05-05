@@ -29,12 +29,26 @@ import org.jasypt.util.text.BasicTextEncryptor;
  */
 public final class EncryptUtil
 {
-    private static final BasicTextEncryptor textEncryptor;
+    private BasicTextEncryptor textEncryptor;
     private static final String CRYPTO_PROP = "crypto.prop";
-    static
+    
+    private static volatile EncryptUtil INSTANCE = null; 
+    
+    public static EncryptUtil getInstance() {
+        if(INSTANCE == null) {
+            synchronized (EncryptUtil.class) {
+                if(INSTANCE == null){
+        	        INSTANCE = new EncryptUtil();
+                }
+            }
+        }
+        return INSTANCE;
+    }
+    
+    private void init()
     {
         textEncryptor = new BasicTextEncryptor();
-        textEncryptor.setPassword(Config.getProperty(CRYPTO_PROP, "adlfarerovcja;39 d"));
+        textEncryptor.setPassword(Config.getInstance().getProperty(CRYPTO_PROP, "adlfarerovcja;39 d"));
     }
 
     /**
@@ -43,6 +57,7 @@ public final class EncryptUtil
      */
     private EncryptUtil()
     {
+        init();
     }
 
     /**
@@ -54,7 +69,7 @@ public final class EncryptUtil
     {
         if(args[0] != null && args[0].length() > 0)
         {
-            String encryptedValue = textEncryptor.encrypt(args[0]);
+            String encryptedValue = EncryptUtil.getInstance().encrypt(args[0]);
             System.out.println("Encrypted value=" + encryptedValue);
         }
     }
@@ -69,7 +84,7 @@ public final class EncryptUtil
     public static boolean isEnabled()
     {
         boolean result = false;
-        if(Config.getProperty(CRYPTO_PROP)!= null && !Config.getProperty(CRYPTO_PROP).equals("${crypto.prop}"))
+        if(Config.getInstance().getProperty(CRYPTO_PROP)!= null && !Config.getInstance().getProperty(CRYPTO_PROP).equals("${crypto.prop}"))
         {
             result = true;
         }
@@ -83,7 +98,7 @@ public final class EncryptUtil
      * @param clearText contains the text to be encrypted.
      * @return String containing encrypted text.
      */
-    public static String encrypt(String clearText)
+    public String encrypt(String clearText)
     {
         return textEncryptor.encrypt(clearText);
     }
@@ -94,7 +109,7 @@ public final class EncryptUtil
      * @param encryptedText contains the text to be decrypted.
      * @return String containing decrypted text.
      */
-    public static String decrypt(String encryptedText)
+    public String decrypt(String encryptedText)
     {
         return textEncryptor.decrypt(encryptedText);
     }
