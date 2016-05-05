@@ -48,29 +48,19 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
-<<<<<<< HEAD
-import org.apache.directory.fortress.core.ldap.ApacheDsDataProvider;
-=======
 import org.apache.directory.fortress.core.ldap.LdapDataProvider;
->>>>>>> master
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
-<<<<<<< HEAD
 import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.apache.directory.fortress.core.model.PermissionAttributeSet;
-=======
->>>>>>> master
 import org.apache.directory.fortress.core.model.PropUtil;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
-<<<<<<< HEAD
-=======
 import org.apache.directory.fortress.core.util.Config;
->>>>>>> master
 import org.apache.directory.ldap.client.api.LdapConnection;
 
 

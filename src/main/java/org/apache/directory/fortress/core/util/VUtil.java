@@ -696,6 +696,6 @@ public final class VUtil implements ConstraintValidator
             throw new ValidationException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, error );
         }
 
-        RegExUtil.safeText( value );
+        RegExUtil.getInstance().safeText( value );
     }
 }

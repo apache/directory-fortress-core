@@ -21,7 +21,7 @@ package org.apache.directory.fortress.core.model;
 
 import java.io.Serializable;
 
-import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.util.Config;
 
 public class RoleConstraint implements Serializable {
 
@@ -65,16 +65,17 @@ public class RoleConstraint implements Serializable {
 	
 	//BANK_USER$seq$0type$filter$ecomm.merchant.id$AccountId=12345&WithdrawLimit=500
 	public String getRawData(UserRole uRole){
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();        
+        String delimeter = Config.getInstance().getDelimiter();
         
         sb.append(uRole.getName());        
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
         sb.append(RC_TYPE_NAME);
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
         sb.append(constraintType);
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
         sb.append(paSetName);
-        sb.append( GlobalIds.DELIMITER );
+        sb.append( delimeter );
         sb.append(value);
         
         return sb.toString();

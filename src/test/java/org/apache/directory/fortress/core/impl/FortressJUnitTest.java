@@ -23,11 +23,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-<<<<<<< HEAD
-import org.apache.directory.fortress.core.GlobalIds;
-=======
 import org.apache.directory.fortress.core.util.Config;
->>>>>>> master
 
 /**
  * This JUnit test class drives all of the Fortress Administration APIs contained within {@link AdminMgrImplTest},

@@ -2591,7 +2591,7 @@ final class UserDAO extends LdapDataProvider
             for ( String raw : roles )
             {
             	//get role name
-            	String roleName = raw.substring(0, raw.indexOf( GlobalIds.DELIMITER )).toUpperCase();
+            	String roleName = raw.substring(0, raw.indexOf( Config.getInstance().getDelimiter() )).toUpperCase();
             	
             	//if already found, add to user role
             	if(uRoles.containsKey(roleName)){

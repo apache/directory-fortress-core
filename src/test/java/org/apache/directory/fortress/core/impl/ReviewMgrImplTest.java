@@ -209,7 +209,7 @@ public class ReviewMgrImplTest extends TestCase
     		Permission pop = PermTestData.getOp( obj, op );
 
     		Permission entity = reviewMgr.readPermission(pop);
-    		assertEquals(paSetName, entity.getPaSetName());
+    		assertTrue(paSetName, entity.getPaSets().contains(paSetName));
     		
     		LOG.debug( "readPASetFromPermission name [" + paSetName + "] successful" );
     	}
