@@ -158,7 +158,6 @@ final class PermDAO extends LdapDataProvider
       *  **  OpenAccessMgr PERMISSION STATICS
       *  ************************************************************************
       */
-    private static final String TYPE = "ftType";
     private static final String PERM_OBJ_OBJECT_CLASS_NAME = "ftObject";
     private static final String PERM_OP_OBJECT_CLASS_NAME = "ftOperation";
 
@@ -192,7 +191,7 @@ final class PermDAO extends LdapDataProvider
             SchemaConstants.DESCRIPTION_AT,
             SchemaConstants.OU_AT,
             GlobalIds.POBJ_ID,
-            TYPE,
+            GlobalIds.TYPE,
             ROLES,
             USERS,
             GlobalIds.PROPS
@@ -200,7 +199,7 @@ final class PermDAO extends LdapDataProvider
 
     private static final String[] PERMISION_OBJ_ATRS =
         {
-            GlobalIds.FT_IID, GlobalIds.POBJ_NAME, SchemaConstants.DESCRIPTION_AT, SchemaConstants.OU_AT, TYPE,
+            GlobalIds.FT_IID, GlobalIds.POBJ_NAME, SchemaConstants.DESCRIPTION_AT, SchemaConstants.OU_AT, GlobalIds.TYPE,
             GlobalIds.PROPS
     };
 
@@ -243,7 +242,7 @@ final class PermDAO extends LdapDataProvider
             // type is optional:
             if ( StringUtils.isNotEmpty( entity.getType() ) )
             {
-                entry.add( TYPE, entity.getType() );
+                entry.add( GlobalIds.TYPE, entity.getType() );
             }
 
             // props are optional as well:
@@ -304,7 +303,7 @@ final class PermDAO extends LdapDataProvider
             if ( StringUtils.isNotEmpty( entity.getType() ) )
             {
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, TYPE, entity.getType() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.TYPE, entity.getType() ) );
             }
 
             if ( PropUtil.isNotEmpty( entity.getProperties() ) )
@@ -415,7 +414,7 @@ final class PermDAO extends LdapDataProvider
             // type is optional:
             if ( StringUtils.isNotEmpty( entity.getType() ) )
             {
-                entry.add( TYPE, entity.getType() );
+                entry.add( GlobalIds.TYPE, entity.getType() );
             }
 
             // These are multi-valued attributes, use the util function to load:
@@ -483,7 +482,7 @@ final class PermDAO extends LdapDataProvider
             {
 
                 mods.add( new DefaultModification(
-                    ModificationOperation.REPLACE_ATTRIBUTE, TYPE, entity.getType() ) );
+                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.TYPE, entity.getType() ) );
             }
 
             // These are multi-valued attributes, use the util function to load:
@@ -1026,7 +1025,7 @@ final class PermDAO extends LdapDataProvider
         entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setRoles( getAttributeSet( le, ROLES ) );
         entity.setUsers( getAttributeSet( le, USERS ) );
-        entity.setType( getAttribute( le, TYPE ) );
+        entity.setType( getAttribute( le, GlobalIds.TYPE ) );
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         entity.addProperties( PropUtil.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
         entity.setAdmin( isAdmin );
@@ -1055,7 +1054,7 @@ final class PermDAO extends LdapDataProvider
         entity.setOu( getAttribute( le, SchemaConstants.OU_AT ) );
         entity.setDn( le.getDn().getName() );
         entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
-        entity.setType( getAttribute( le, TYPE ) );
+        entity.setType( getAttribute( le, GlobalIds.TYPE ) );
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         entity.addProperties( PropUtil.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
         entity.setAdmin( isAdmin );

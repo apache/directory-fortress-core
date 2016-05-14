@@ -403,7 +403,10 @@ objectClass ( ftObId:8
     NAME 'configGroup'
     DESC 'LDAP Configuration Group'
     SUP groupOfNames
-    MUST configProtocol
+    MUST (
+         configProtocol $
+         ftType
+         )
     MAY configParameter
     )
 

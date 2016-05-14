@@ -30,6 +30,7 @@ import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.ReviewMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.Group;
+import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.User;
 
 
@@ -167,9 +168,19 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
         ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
-        User user = reviewMgr.readUser( new User( member ) );
-        
-        return GROUP_P.assign( group, user.getDn() );
+        String dn;
+        if( group.getType() == Group.Type.ROLE )
+        {
+            Role role = reviewMgr.readRole( new Role( member ) );
+            dn = role.getDn();
+        }
+        else
+        {
+            User user = reviewMgr.readUser( new User( member ) );
+            dn = user.getDn();
+        }
+
+        return GROUP_P.assign( group, dn );
     }
 
     /**
@@ -182,9 +193,19 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
         ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
-        User user = reviewMgr.readUser( new User( member ) );
-        
-        return GROUP_P.deassign( group, user.getDn() );
+        String dn;
+        if( group.getType() == Group.Type.ROLE )
+        {
+            Role role = reviewMgr.readRole( new Role( member ) );
+            dn = role.getDn();
+        }
+        else
+        {
+            User user = reviewMgr.readUser( new User( member ) );
+            dn = user.getDn();
+        }
+
+        return GROUP_P.deassign( group, dn );
     }
 
     private void loadUserDns( Group group ) throws SecurityException
