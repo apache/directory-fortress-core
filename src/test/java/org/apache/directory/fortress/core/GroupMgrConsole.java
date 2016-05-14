@@ -70,12 +70,24 @@ class GroupMgrConsole
             System.out.println("Enter description:");
             String desc = ReaderUtil.readLn();
             Group group = new Group( name, desc );
+
+            System.out.println("Is this a group of Users - Y or N");
+            String choice = ReaderUtil.readLn();
+            if (choice == null || choice.equalsIgnoreCase("Y"))
+            {
+                group.setType( Group.Type.USER );
+            }
+            else
+            {
+                group.setType( Group.Type.ROLE );
+            }
+
             System.out.println("Enter protocol:");
             String protocol = ReaderUtil.readLn();
             group.setProtocol( protocol );
-            System.out.println("Enter userId:");
-            String userId = ReaderUtil.readLn();
-            group.setMember( userId );
+            System.out.println("Enter member name:");
+            String mname = ReaderUtil.readLn();
+            group.setMember( mname );
             groupMgr.add( group );
             System.out.println("Group successfully added");
             System.out.println("ENTER to continue");
@@ -95,11 +107,14 @@ class GroupMgrConsole
         try
         {
             ReaderUtil.clearScreen();
+
             System.out.println("Enter group name:");
             String name = ReaderUtil.readLn();
+            Group group = new Group( name );
+
             System.out.println("Enter description:");
-            String desc = ReaderUtil.readLn();
-            Group group = new Group( name, desc );
+            group.setDescription( ReaderUtil.readLn() );
+
             System.out.println("Enter protocol:");
             String protocol = ReaderUtil.readLn();
             group.setProtocol( protocol );

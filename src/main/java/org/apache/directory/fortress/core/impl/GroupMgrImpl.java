@@ -63,7 +63,14 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
         
         if(!group.isMemberDn())
         {
-            loadUserDns( group );
+            if( group.getType() == Group.Type.ROLE )
+            {
+                loadRoleDns( group );
+            }
+            else
+            {
+                loadUserDns( group );
+            }
         }
 
         return GROUP_P.add( group );
@@ -152,7 +159,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
     {
         String methodName = "findWithUsers";
         assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
-        checkAccess(CLS_NM, methodName);
+        checkAccess( CLS_NM, methodName );
         loadUserDn( user );
         
         return GROUP_P.search( user );
@@ -222,6 +229,23 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
             }
             
             group.setMembers( userDns );
+        }
+    }
+
+    private void loadRoleDns( Group group ) throws SecurityException
+    {
+        if( CollectionUtils.isNotEmpty( group.getMembers() ))
+        {
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+            List<String> roleDns = new ArrayList<String>();
+
+            for( String member : group.getMembers() )
+            {
+                Role role = reviewMgr.readRole( new Role( member ) );
+                roleDns.add( role.getDn() );
+            }
+
+            group.setMembers( roleDns );
         }
     }
 
