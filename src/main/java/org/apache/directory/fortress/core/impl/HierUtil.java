@@ -100,18 +100,6 @@ final class HierUtil
     }
 
     /**
-     *
-     * @param contextId
-     * @param type
-     * @return
-     */
-    private static String getSynchKey( String contextId, Type type )
-    {
-        return type.toString() + ":" + contextId;
-    }
-
-
-    /**
      * This api is used to determine parentage for Hierarchical processing.
      * It evaluates three relationship expressions:
      * <ol>
