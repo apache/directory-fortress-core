@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.impl;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -523,6 +524,23 @@ final class OrgUnitDAO extends LdapDataProvider
         {
             String error = "getOrgs type [" + orgUnit.getType() + "] root [" + orgUnitRoot
                 + "] caught CursorException=" + e;
+            int errCode;
+
+            if ( orgUnit.getType() == OrgUnit.Type.PERM )
+            {
+                errCode = GlobalErrIds.ORG_GET_FAILED_PERM;
+            }
+            else
+            {
+                errCode = GlobalErrIds.ORG_GET_FAILED_USER;
+            }
+
+            throw new FinderException( errCode, error, e );
+        }
+        catch ( IOException e )
+        {
+            String error = "getOrgs type [" + orgUnit.getType() + "] root [" + orgUnitRoot
+                + "] caught IOException=" + e;
             int errCode;
 
             if ( orgUnit.getType() == OrgUnit.Type.PERM )

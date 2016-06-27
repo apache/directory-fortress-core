@@ -100,7 +100,7 @@
     <version.antlr>2.7.7</version.antlr>
     <version.apache.jdbm1>2.0.0-M3</version.apache.jdbm1>
     <version.apacheds>2.0.0-M21</version.apacheds>
-    <version.api.all>1.0.0-M33</version.api.all>
+    <version.api.all>1.0.0-RC1</version.api.all>
     <version.commons.beanutils>1.7.0</version.commons.beanutils>
     <version.commons.beanutils-core>1.8.0</version.commons.beanutils-core>
     <version.commons.codec>1.10</version.commons.codec>
