@@ -34,8 +34,8 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import org.apache.cxf.common.util.Base64Utility;
-import org.apache.cxf.helpers.IOUtils;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.IOUtils;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.RestException;
 import org.apache.directory.fortress.core.model.FortRequest;
@@ -374,8 +374,13 @@ public class RestUtils
      */
     private static String base64Encode( String value )
     {
-        return Base64Utility.encode( value.getBytes() );
+        return new String ( Base64.encodeBase64( value.getBytes() ) );
     }
+
+/*    private static String base64Encode( String value )
+    {
+        return Base64Utility.encode( value.getBytes() );
+    }*/
 
 
     /**

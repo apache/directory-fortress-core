@@ -111,7 +111,6 @@
     <version.commons.lang>2.6</version.commons.lang>
     <version.commons.logging>1.1.1</version.commons.logging>
     <version.commons.pool>1.6</version.commons.pool>
-    <version.cxf.common.utilities>2.7.18</version.cxf.common.utilities>
     <version.dom4j>1.6.1</version.dom4j>
     <version.ehcache.core>2.6.11</version.ehcache.core>
     <version.hamcrest.core>1.3</version.hamcrest.core>
@@ -206,12 +205,6 @@
       <groupId>commons-pool</groupId>
       <artifactId>commons-pool</artifactId>
       <version>${version.commons.pool}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.cxf</groupId>
-      <artifactId>cxf-api</artifactId>
-      <version>${version.cxf.common.utilities}</version>
     </dependency>
 
     <dependency>
@@ -463,7 +456,7 @@
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
       <version>${version.commons.codec}</version>
-      <scope>test</scope>
+      <!--<scope>test</scope>-->
     </dependency>
 
     <dependency>
@@ -710,7 +703,6 @@
                     <pathelement location="${org.slf4j:slf4j-api:jar}" />
                     <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
                     <pathelement location="${antlr:antlr:jar}" />
-                    <pathelement location="${org.apache.cxf:cxf-api:jar}" />
                     <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
                     <pathelement location="${org.apache.httpcomponents:httpclient:jar}" />
                     <pathelement location="${org.apache.httpcomponents:httpcore:jar}" />
