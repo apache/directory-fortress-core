@@ -53,10 +53,10 @@ This document contains instructions to install Tomcat 7 and configure for use wi
         As root, issue the following commands:
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-wget http://apache.claz.org/tomcat/tomcat-7/v7.0.64/bin/apache-tomcat-7.0.64.tar.gz
-tar xzf apache-tomcat-7.0.64.tar.gz
-mv apache-tomcat-7.0.64 /usr/local/tomcat7
-/usr/local/tomcat7/bin/startup.sh
+wget http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.30/bin/apache-tomcat-8.0.30.tar.gz
+tar xzf apache-tomcat-8.0.30.tar.gz
+mv apache-tomcat-8.0.30 /usr/local/tomcat8
+/usr/local/tomcat8/bin/startup.sh
             </p>
         </pre>
 
@@ -82,7 +82,7 @@ cp [directory-fortress-realm]/proxy/target/fortress-realm-proxy-[VERSION]-proxy.
         </pre>
         Where [directory-fortress-realm] is location of Fortress Realm source package and
         [VERSION] matches [directory-fortress-realm] package pom.xml file. At the time of this writing the current
-        version was 1.0-RC40.
+        version was 1.0.1.
     </li>
 
     <br/>
@@ -91,7 +91,7 @@ cp [directory-fortress-realm]/proxy/target/fortress-realm-proxy-[VERSION]-proxy.
         Edit tomcat-users.xml:
         <pre>
           <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-vi /usr/local/tomcat7/conf/tomcat-users.xml
+vi /usr/local/tomcat8/conf/tomcat-users.xml
           </p>
         </pre>
     </li>
@@ -123,8 +123,8 @@ vi /usr/local/tomcat7/conf/tomcat-users.xml
         Restart Tomcat:
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-/usr/local/tomcat7/bin/shutdown.sh
-/usr/local/tomcat7/bin/startup.sh
+/usr/local/tomcat8/bin/shutdown.sh
+/usr/local/tomcat8/bin/startup.sh
             </p>
         </pre>
 
@@ -134,7 +134,7 @@ vi /usr/local/tomcat7/conf/tomcat-users.xml
         Verify clean logs after startup:
         <pre>
             <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
-tail -f -n10000 /usr/local/tomcat7/logs/catalina.out
+tail -f -n10000 /usr/local/tomcat8/logs/catalina.out
             </p>
         </pre>
 

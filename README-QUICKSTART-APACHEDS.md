@@ -18,7 +18,7 @@
 
 # ApacheDS & Fortress QUICKSTART
 
- Apache Fortress 1.0.0 and ApacheDS Quickstart System Architecture
+ Apache Fortress 1.0.1 and ApacheDS Quickstart System Architecture
  ![ApacheDS & Fortress System Architecture](images/fortress-apacheds-system-arch.png "ApacheDS & Fortress System Architecture")
 
 -------------------------------------------------------------------------------
@@ -36,7 +36,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * This document contains instructions to install Apache Fortress 1.0.0 Core, Web, Rest and ApacheDS.
+ * This document contains instructions to install Apache Fortress 1.0.1 Core, Web, Rest and ApacheDS.
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
@@ -112,15 +112,15 @@ ________________________________________________________________________________
 
  a. from git:
  ```
- git clone --branch 1.0.0 https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+ git clone --branch 1.0.1 https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
  cd directory-fortress-core
  ```
 
  b. or download package:
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/1.0.0/fortress-core-1.0.0-source-release.zip
- unzip fortress-core-1.0.0-source-release.zip
- cd fortress-core-1.0.0
+ wget http://www.apache.org/dist/directory/fortress/dist/1.0.1/fortress-core-1.0.1-source-release.zip
+ unzip fortress-core-1.0.1-source-release.zip
+ cd fortress-core-1.0.1
  ```
 
 2. Prepare the package:
@@ -271,7 +271,7 @@ During this section, you will be asked to setup Apache Tomcat 8 and prepare for 
 1. Download and prepare the package:
 
  ```
- wget http://www.eu.apache.org/dist/tomcat/tomcat-8/v8.0.30/bin/apache-tomcat-8.0.30.tar.gz
+ wget http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.30/bin/apache-tomcat-8.0.30.tar.gz
  tar -xvf apache-tomcat-8.0.30.tar.gz
  sudo mv apache-tomcat-8.0.30 /usr/local/tomcat8
  ```
@@ -280,7 +280,7 @@ During this section, you will be asked to setup Apache Tomcat 8 and prepare for 
 2. Download the fortress realm proxy jar into tomcat/lib folder:
 
   ```
-  sudo wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/1.0.0/fortress-realm-proxy-1.0.0.jar -P /usr/local/tomcat8/lib
+  sudo wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/1.0.1/fortress-realm-proxy-1.0.1.jar -P /usr/local/tomcat8/lib
   ```
 
 3. Prepare tomcat fortress usage:
@@ -375,15 +375,15 @@ During this section, you will be asked to setup Apache Fortress Rest Application
 
  a. from git:
  ```
- git clone --branch 1.0.0 https://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git
+ git clone --branch 1.0.1 https://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git
  cd directory-fortress-enmasse
  ```
 
  b. or download package:
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/1.0.0/fortress-rest-1.0.0-source-release.zip
- unzip fortress-rest-1.0.0-source-release.zip
- cd fortress-rest-1.0.0
+ wget http://www.apache.org/dist/directory/fortress/dist/1.0.1/fortress-rest-1.0.1-source-release.zip
+ unzip fortress-rest-1.0.1-source-release.zip
+ cd fortress-rest-1.0.1
  ```
 
 2. Prepare:
@@ -421,15 +421,15 @@ During this section, you will be asked to setup Apache Fortress Web Application
 
  a. from git:
  ```
- git clone --branch 1.0.0 https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
+ git clone --branch 1.0.1 https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
  cd directory-fortress-commander
  ```
 
  b. or download package:
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/1.0.0/fortress-web-1.0.0-source-release.zip
- unzip fortress-web-1.0.0-source-release.zip
- cd fortress-web-1.0.0
+ wget http://www.apache.org/dist/directory/fortress/dist/1.0.1/fortress-web-1.0.1-source-release.zip
+ unzip fortress-web-1.0.1-source-release.zip
+ cd fortress-web-1.0.1
  ```
 
 2. Prepare:
