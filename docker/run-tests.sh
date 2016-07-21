@@ -18,6 +18,12 @@
 #   under the License.
 #
 
+# stop execution if any command fails (i.e. exits with status code > 0)
+set -e
+
+# trace commands
+set -x
+
 # startup docker container
 CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
 CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
@@ -41,6 +47,9 @@ mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
 mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml
 
 # run tests
+mvn test -Dtest=FortressJUnitTest
+
+# rerun tests to verify teardown APIs work
 mvn test -Dtest=FortressJUnitTest
 
 # stop and delete docker container
