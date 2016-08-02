@@ -73,10 +73,6 @@ final class HierUtil
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final String VERTEX = "Vertex";
 
-    /** A lock used internally to protect the access to the locks map */
-    private static final ReadWriteLock getLockLock = new ReentrantReadWriteLock();
-
-
     /**
      * The 'Type' attribute corresponds to what type of hierarchy is being referred to.
      */
