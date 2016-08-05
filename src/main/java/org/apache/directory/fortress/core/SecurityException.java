@@ -39,7 +39,7 @@ package org.apache.directory.fortress.core;
  *   <li>{@link ValidationException} in the event entity validation fails.</li>
  * </ul>
  * <p>
- * For certain APIs, i.e., {@link AccessMgr#createSession(org.apache.directory.fortress.core.model.User, boolean)}, or 
+ * For certain APIs, e.g., {@link AccessMgr#createSession(org.apache.directory.fortress.core.model.User, boolean)}, or
  * {@link AccessMgr#authenticate(String, char[])}, the caller may need to differentiate by one of the above subclasses, e.g. 
  * {@link PasswordException}, to facilitate password expiring condition or allow user to retry authentication after entering 
  * it incorrectly. If specific exception processing is not the aim, or if differentiating conditions by {@link #errorId} is 
