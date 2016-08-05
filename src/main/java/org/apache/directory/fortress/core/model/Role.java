@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlType;
  * All entities ({@link User}, {@link Role}, {@link org.apache.directory.fortress.core.model.Permission},
  * {@link org.apache.directory.fortress.core.model.PwPolicy} {@link SDSet} etc...) are used to carry data between three 
  * Fortress layers.starting with the (1) Manager layer down thru middle (2) Process layer and it's processing rules into
- * (3) DAO layer where persistence with the OpenLDAP server occurs.
+ * (3) DAO layer where persistence with the LDAP server occurs.
  * <h3></h3>
  * <h4>Fortress Processing Layers</h4>
  * <ol>

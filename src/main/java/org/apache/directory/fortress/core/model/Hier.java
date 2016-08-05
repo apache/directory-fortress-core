@@ -30,7 +30,7 @@ import org.apache.directory.api.util.Strings;
 /**
  * All entities (User, Role, Permission, Policy, SDSet, etc...) are used to carry data between Fortress's
  * layers starting with the (1) Manager layer down thru middle (2) Process layer and it's processing rules into
- * (3) DAO layer where persistence with the OpenLDAP server occurs.  The clients must instantiate an Fortress entity before use
+ * (3) DAO layer where persistence with the LDAP server occurs.  The clients must instantiate an Fortress entity before use
  * and must provide enough information to uniquely identity target record for reads.
  * <p>
  * <h4>Hierarchical Relationship Schema</h4>
