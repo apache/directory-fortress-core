@@ -54,7 +54,6 @@ package org.apache.directory.fortress.core;
  * </h3>
  * <ul>
  *   <li> <code>{@link GlobalErrIds#CONTEXT_NULL} = 101;</code></li>
- *   <li> {@code CONTEXT_SERIALIZATION_FAILED} = 102;</li>
  *   <li> <code>{@link GlobalErrIds#FT_MGR_CLASS_NOT_FOUND} = 103;</code></li>
  *   <li> <code>{@link GlobalErrIds#FT_MGR_INST_EXCEPTION} = 104;</code></li>
  *   <li> <code>{@link GlobalErrIds#FT_MGR_ILLEGAL_ACCESS} = 105;</code></li>
