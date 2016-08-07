@@ -405,7 +405,7 @@ package org.apache.directory.fortress.core;
  *   <li> <code>{@link GlobalErrIds#CONST_NULL_TEXT} = 10015;</code></li>
  * </ul>
  * <h3>
- *   10100's - REST calls through remote En Masse Interface Error Ids
+ *   10100's - REST calls through remote Fortress Rest Interface Error Ids
  * </h3>
  * <ul>
  *   <li> <code>{@link GlobalErrIds#REST_WEB_ERR} = 10101;</code></li>

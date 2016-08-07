@@ -1333,7 +1333,7 @@ public class User extends FortEntity implements Constraint, Serializable
 
 
     /**
-     * Gets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
+     * Gets the value of the Props property.  This method is used by Fortress Core and Rest and should not be called by external programs.
      *
      * @return possible object is {@link Props }
      *
@@ -1345,7 +1345,7 @@ public class User extends FortEntity implements Constraint, Serializable
 
 
     /**
-     * Sets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
+     * Sets the value of the Props property.  This method is used by Fortress Core and Rest and should not be called by external programs.
      *
      * @param value allowed object is {@link Props }
      *

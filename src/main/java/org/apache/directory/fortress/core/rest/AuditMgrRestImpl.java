@@ -36,7 +36,7 @@ import org.apache.directory.fortress.core.util.VUtil;
 
 /**
  * This class performs searches across <a href="http://www.openldap.org/">OpenLDAP</a>'s slapd access log using HTTP access 
- * to En Masse REST server. The access log events are
+ * to Fortress Rest server. The access log events are
  * persisted in <a href="http://www.oracle.com/technetwork/database/berkeleydb/overview/index.html">BDB</a>.
  * Audit entries stored on behalf of Fortress operations correspond to runtime authentication 
  * {@link org.apache.directory.fortress.core.model.Bind}, authorization 

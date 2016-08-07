@@ -408,7 +408,7 @@ public class Group extends FortEntity implements Serializable
 
 
     /**
-     * Gets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
+     * Gets the value of the Props property.  This method is used by Fortress Core and Rest and should not be called by external programs.
      *
      * @return {@link Props }
      *
@@ -420,7 +420,7 @@ public class Group extends FortEntity implements Serializable
 
 
     /**
-     * Sets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
+     * Sets the value of the Props property.  This method is used by Fortress Core and Rest and should not be called by external programs.
      *
      * @param props
      *     allowed object is

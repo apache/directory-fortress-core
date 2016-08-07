@@ -30,7 +30,7 @@ import java.util.List;
 
 
 /**
- * This class is used as a container for {@code java.util.Properties} for passing to En Masse server.
+ * This class is used as a container for {@code java.util.Properties} for passing to Fortress Rest server.
  * <p>
  * This class is thread safe.
  *

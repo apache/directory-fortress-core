@@ -84,7 +84,7 @@ disable.dsd.cache=false
 
 # This will override default LDAP manager implementations for the RESTful ones:
 enable.mgr.impl.rest=@ENABLE_REST@
-# Optional parameters needed when Fortress client is connecting with the En Masse (rather than LDAP) server:
+# Optional parameters needed when Fortress client is connecting with the Fortress Rest (rather than LDAP) server:
 http.user=@REST_HTTP_USER@
 http.pw=@REST_HTTP_PW@
 http.host=@REST_HTTP_HOST@

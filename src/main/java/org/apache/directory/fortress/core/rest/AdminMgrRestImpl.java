@@ -38,7 +38,7 @@ import org.apache.directory.fortress.core.util.VUtil;
 
 
 /**
- * This class performs administrative functions to provision Fortress RBAC entities using HTTP access to En Masse REST server.  These APIs
+ * This class performs administrative functions to provision Fortress RBAC entities using HTTP access to Fortress Rest server.  These APIs
  * map directly to similar named APIs specified by ANSI and NIST RBAC models.
  * Many of the java doc function descriptions found below were taken directly from ANSI INCITS 359-2004.
  * The RBAC Functional specification describes administrative operations for the creation

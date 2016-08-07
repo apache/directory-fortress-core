@@ -22,7 +22,7 @@ package org.apache.directory.fortress.core.model;
 import javax.xml.bind.annotation.*;
 
 /**
- * This class is used to pass request data to En Masse server.
+ * This class is used to pass request data to Fortress Rest server.
  * <p>
  * This class is not thread safe.
  *
