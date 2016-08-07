@@ -20,7 +20,7 @@
 package org.apache.directory.fortress.core.rest;
 
 /**
- * Contains global HttpIds that map to the Fortress REST server EnMasse.
+ * Contains global HttpIds that map to the Fortress REST server.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
