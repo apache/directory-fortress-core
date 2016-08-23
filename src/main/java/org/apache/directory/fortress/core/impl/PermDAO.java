@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core.impl;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -163,7 +164,8 @@ final class PermDAO extends LdapDataProvider
     private static final String TYPE = "ftType";
     private static final String PERM_OBJ_OBJECT_CLASS_NAME = "ftObject";
     private static final String PERM_OP_OBJECT_CLASS_NAME = "ftOperation";
-    private static final String PERMISSION_ATTRIBUTE_OBJECT_CLASS_NAME = "ftAttributeSet";
+    private static final String PERMISSION_ATTRIBUTE_SET_OBJECT_CLASS_NAME = "ftAttributeSet";
+    private static final String PERMISSION_ATTRIBUTE_OBJECT_CLASS_NAME = "ftAttribute";
     
     private static final String PERM_OBJ_OBJ_CLASS[] =
         {
@@ -210,8 +212,22 @@ final class PermDAO extends LdapDataProvider
     };
     
     private static final String[] PERMISION_ATTRIBUTE_SET_ATRS =
-        {
-            GlobalIds.FT_IID, GlobalIds.FT_PERMISSION_ATTRIBUTE, SchemaConstants.DESCRIPTION_AT, SchemaConstants.CN_AT
+    {
+        GlobalIds.FT_IID, SchemaConstants.DESCRIPTION_AT, SchemaConstants.CN_AT, GlobalIds.FT_PERMISSION_ATTRIBUTE_SET_TYPE
+    };
+    
+    private static final String[] PERMISION_ATTRIBUTE_ATRS =
+    {
+        GlobalIds.FT_IID, 
+        GlobalIds.FT_PERMISSION_ATTRIBUTE, 
+        SchemaConstants.DESCRIPTION_AT, 
+        SchemaConstants.CN_AT, 
+        GlobalIds.FT_PERMISSION_ATTRIBUTE_SET,
+        GlobalIds.FT_PERMISSION_ATTRIBUTE_DATA_TYPE,
+        GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_OPERATOR,
+        GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_STRATEGY,
+        GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_VALUE,
+        GlobalIds.FT_PERMISSION_ATTRIBUTE_VALID_VALUES
     };
 
     public PermDAO(){
@@ -459,20 +475,21 @@ final class PermDAO extends LdapDataProvider
 
         return entity;
     }
-
     
     //TODO: add documentation
     PermissionAttributeSet createPermissionAttributeSet( PermissionAttributeSet entity ) throws CreateException
     {
         LdapConnection ld = null;
-        String dn = getPASetDn( entity.getName() , entity.getContextId() );
+        String dn = getDn( entity , entity.getContextId() );
 
         try
         {
             Entry entry = new DefaultEntry( dn );
 
-            entry.add( SchemaConstants.OBJECT_CLASS_AT, PERMISSION_ATTRIBUTE_OBJECT_CLASS_NAME );
+            entry.add( SchemaConstants.OBJECT_CLASS_AT, PERMISSION_ATTRIBUTE_SET_OBJECT_CLASS_NAME );
 
+            entry.add( GlobalIds.FT_PERMISSION_ATTRIBUTE_SET, entity.getName() );
+            
             // this will generate a new random, unique id on this entity:
             entity.setInternalId();
 
@@ -485,14 +502,13 @@ final class PermDAO extends LdapDataProvider
                 entry.add( SchemaConstants.DESCRIPTION_AT, entity.getDescription() );
             }
 
-            // organizational name requires CN attribute:
-            entry.add( SchemaConstants.CN_AT, entity.getName() );
-                    
-            //default operator between attributes
-            if( StringUtils.isNotEmpty(entity.getDefaultOperator()) )
+            if ( StringUtils.isNotEmpty( entity.getType() ) )
             {
-                entry.add( GlobalIds.FT_PA_SET_DEFAULT_OPERATOR, entity.getDefaultOperator() );
+                entry.add( GlobalIds.FT_PERMISSION_ATTRIBUTE_SET_TYPE, entity.getType() );
             }
+            
+            // organizational name requires CN attribute:
+            entry.add( SchemaConstants.CN_AT, entity.getName() );                    
             
             // now add the new entry to directory:
             ld = getAdminConnection();
@@ -522,22 +538,66 @@ final class PermDAO extends LdapDataProvider
     PermissionAttribute createPermissionAttribute( PermissionAttribute entity, String attributeSetName ) throws CreateException
     {
         LdapConnection ld = null;
-        String dn = getPASetDn( attributeSetName, entity.getContextId() );
+        String dn = getDn( entity, attributeSetName, entity.getContextId() );
     
-    	try
+        try
         {
-            List<Modification> mods = new ArrayList<Modification>();
-            mods.add( new DefaultModification(
-                ModificationOperation.ADD_ATTRIBUTE, GlobalIds.FT_PERMISSION_ATTRIBUTE, entity.toFtPAString()) );
-            ld = getAdminConnection();
-            modify( ld, dn, mods, entity );
+            Entry entry = new DefaultEntry( dn );
+
+            entry.add( SchemaConstants.OBJECT_CLASS_AT, PERMISSION_ATTRIBUTE_OBJECT_CLASS_NAME );
+
+            // this will generate a new random, unique id on this entity:
+            entity.setInternalId();            
             
-            //TODO: make sure not adding same attribute twice...???
+            // create the internal id:
+            entry.add( GlobalIds.FT_IID, entity.getInternalId() );
+            
+            entry.add( GlobalIds.FT_PERMISSION_ATTRIBUTE, entity.getAttributeName() );
+            entry.add( GlobalIds.FT_PERMISSION_ATTRIBUTE_SET, attributeSetName );
+            
+            // description is optional
+            if ( StringUtils.isNotEmpty( entity.getDescription() ) )
+            {
+                entry.add( SchemaConstants.DESCRIPTION_AT, entity.getDescription() );
+            }
+
+            if ( StringUtils.isNotEmpty( entity.getDataType() ) )
+            {
+                entry.add( GlobalIds.FT_PERMISSION_ATTRIBUTE_DATA_TYPE, entity.getDataType() );
+            }
+
+            if ( StringUtils.isNotEmpty( entity.getDefaultOperator() ) )
+            {
+                entry.add( GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_OPERATOR, entity.getDefaultOperator() );
+            }
+            
+            if ( StringUtils.isNotEmpty( entity.getDefaultStrategy() ) )
+            {
+                entry.add( GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_STRATEGY, entity.getDefaultStrategy() );
+            }
+            
+            if ( StringUtils.isNotEmpty( entity.getDefaultValue() ) )
+            {
+                entry.add( GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_VALUE, entity.getDefaultValue() );
+            }
+            
+            //add one to many valid values
+            for(String validValue : entity.getValidValues()){
+            	entry.add( GlobalIds.FT_PERMISSION_ATTRIBUTE_VALID_VALUES, validValue );
+            }
+            
+            // organizational name requires CN attribute:
+            entry.add( SchemaConstants.CN_AT, entity.getAttributeName() );    
+            
+            
+            // now add the new entry to directory:
+            ld = getAdminConnection();
+            add( ld, entry, entity );
+            entity.setDn( dn );
         }
         catch ( LdapException e )
         {
-            String error = "create perm attribute [" + entity.getAttributeName() + "] caught LdapException="
-                + e.getMessage();
+            String error = "createPermissionAttribute name [" + entity.getAttributeName() + "] caught LdapException=" + e.getMessage();
             throw new CreateException( GlobalErrIds.PERM_ATTR_ADD_FAILED, error, e );
         }
         finally
@@ -660,7 +720,7 @@ final class PermDAO extends LdapDataProvider
     void deleteAttributeSet( PermissionAttributeSet entity ) throws RemoveException
     {
         LdapConnection ld = null;
-        String dn = getPASetDn( entity.getName(), entity.getContextId() );
+        String dn = getDn( entity, entity.getContextId() );
 
         try
         {
@@ -692,19 +752,16 @@ final class PermDAO extends LdapDataProvider
     void deletePermissionAttribute( PermissionAttribute entity, String attributeSetName ) throws RemoveException
     {
         LdapConnection ld = null;
-        String dn = getPASetDn( attributeSetName, entity.getContextId() );
+        String dn = getDn( entity, attributeSetName, entity.getContextId() );
 
         try
         {
-            List<Modification> mods = new ArrayList<Modification>();
-            mods.add( new DefaultModification(
-                ModificationOperation.REMOVE_ATTRIBUTE, GlobalIds.FT_PERMISSION_ATTRIBUTE, entity.toFtPAString() ) );
             ld = getAdminConnection();
-            modify( ld, dn, mods, new PermissionAttributeSet(attributeSetName) );
+            delete(ld,  dn);
         }
         catch ( LdapException e )
         {
-            String error = "deletePermissionAttribute name [" + entity.getAttributeName() + "] set ["
+            String error = "deletePermission name [" + entity.getAttributeName() + "] set ["
             		+ attributeSetName + "] caught LdapException=" + e.getMessage();
             throw new RemoveException( GlobalErrIds.PERM_ATTRIBUTE_DELETE_FAILED, error, e );
         }     
@@ -992,7 +1049,7 @@ final class PermDAO extends LdapDataProvider
     {
     	PermissionAttributeSet entity = null;
     	LdapConnection ld = null;
-    	String dn = getPASetDn(permAttributeSet.getName(), permAttributeSet.getContextId());
+    	String dn = getDn(permAttributeSet, permAttributeSet.getContextId());
 
     	try
     	{
@@ -1004,6 +1061,9 @@ final class PermDAO extends LdapDataProvider
     			throw new FinderException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, warning );
     		}
     		entity = unloadPASetLdapEntry( findEntry, 0 );
+    		
+    		//find permission attributes for this set
+    		entity.setAttributes(this.findPermissionAttributes(entity));
     	}
     	catch ( LdapNoSuchObjectException e )
     	{
@@ -1023,6 +1083,50 @@ final class PermDAO extends LdapDataProvider
     	return entity;
     }
 
+    Set<PermissionAttribute> findPermissionAttributes( PermissionAttributeSet paSet )
+    		throws FinderException
+    {
+    	Set<PermissionAttribute> paList = new HashSet<PermissionAttribute>();
+    	LdapConnection ld = null;
+    	String permRoot = getRootDn( paSet.getContextId() );
+
+    	try
+    	{
+    		String paSetVal = encodeSafeText( paSet.getName(), GlobalIds.PERM_LEN );
+    		StringBuilder filterbuf = new StringBuilder();
+    		filterbuf.append( GlobalIds.FILTER_PREFIX );
+    		filterbuf.append( PERMISSION_ATTRIBUTE_OBJECT_CLASS_NAME );
+    		filterbuf.append( ")(" );
+    		filterbuf.append( GlobalIds.FT_PERMISSION_ATTRIBUTE );
+    		filterbuf.append( "=" );
+    		filterbuf.append( paSetVal );
+    		filterbuf.append(  "))" );
+    		ld = getAdminConnection();
+    		SearchCursor searchResults = search( ld, permRoot,
+    				SearchScope.SUBTREE, filterbuf.toString(), PERMISION_ATTRIBUTE_ATRS, false, GlobalIds.BATCH_SIZE );
+    		long sequence = 0;
+
+    		while ( searchResults.next() )
+    		{
+    			paList.add( unloadPALdapEntry( searchResults.getEntry(), sequence++ ) );
+    		}
+    	}
+    	catch ( LdapException e )
+    	{
+    		String error = "findPermissionAttributes caught LdapException=" + e.getMessage();
+    		throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
+    	}
+    	catch ( CursorException e )
+    	{
+    		String error = "findPermissionAttributes caught CursorException=" + e.getMessage();
+    		throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
+    	}
+    	finally
+    	{
+    		closeAdminConnection( ld );
+    	}
+    	return paList;
+    }
 
     /**
      * This method performs fortress authorization using data passed in (session) and stored on ldap server (permission).  It has been recently changed to use ldap compare operations in order to trigger slapd access log updates in directory.
@@ -1274,15 +1378,30 @@ final class PermDAO extends LdapDataProvider
     	entity.setDn( le.getDn().getName() );
     	entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
     	entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
+    	entity.setType( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_SET_TYPE ) );    	    	
     	
-    	List<String> ftPAs = getAttributes( le, GlobalIds.FT_PERMISSION_ATTRIBUTE );
+    	return entity;
+    }
+    
+    private PermissionAttribute unloadPALdapEntry( Entry le, long sequence )
+    		throws LdapInvalidAttributeValueException
+    {
+    	PermissionAttribute entity = new ObjectFactory().createPermissionAttribute();
+    	entity.setSequenceId( sequence );
+    	entity.setAttributeName( getAttribute( le, SchemaConstants.CN_AT ) );
+    	entity.setDn( le.getDn().getName() );
+    	entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
+    	entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
+    	entity.setDataType( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_DATA_TYPE ) );
+    	entity.setDefaultOperator( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_OPERATOR ) );
+    	entity.setDefaultStrategy( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_STRATEGY ) );
+    	entity.setDefaultValue( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_VALUE ) );
     	
-    	if(ftPAs != null){
-    		for(String ftPARaw : ftPAs){
-    			PermissionAttribute permAttribute = new ObjectFactory().createPermissionAttribute();
-                permAttribute.load( ftPARaw );
-                
-                entity.getAttributes().add(permAttribute);
+    	List<String> validValues = getAttributes( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_VALID_VALUES );
+    	
+    	if(validValues != null){
+    		for(String value : validValues){
+    			entity.getValidValues().add(value);
     		}
     	}
     	
@@ -1905,12 +2024,17 @@ final class PermDAO extends LdapDataProvider
     }
     
 
-    private String getPASetDn( String name, String contextId )
+    private String getDn( PermissionAttributeSet paSet, String contextId )
     {
-    	//TODO: what ou to put this?
-        return SchemaConstants.CN_AT + "=" + name + "," + getRootDn( contextId, GlobalIds.SD_ROOT );
+        return GlobalIds.PERMISSION_ATTRIBUTE_SET_NAME + "=" + paSet.getName() + "," + getRootDn( contextId, GlobalIds.SD_ROOT );
     }
 
+    
+    private String getDn( PermissionAttribute pa, String paSetName, String contextId )
+    {
+        return GlobalIds.PERMISSION_ATTRIBUTE_SET_NAME + "=" + paSetName + "," + GlobalIds.PERMISSION_ATTRIBUTE_NAME  + "=" + pa.getAttributeName() + "," + getRootDn( contextId, GlobalIds.SD_ROOT );
+    }
+    
 
     private String getRootDn( boolean isAdmin, String contextId )
     {

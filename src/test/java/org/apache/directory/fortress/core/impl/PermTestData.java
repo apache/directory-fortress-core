@@ -23,14 +23,14 @@ package org.apache.directory.fortress.core.impl;
 import java.util.HashSet;
 import java.util.Set;
 
-import junit.framework.TestCase;
-
 import org.apache.directory.fortress.core.model.ComparisonOperator;
 import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import junit.framework.TestCase;
 
 
 /**
@@ -2820,9 +2820,8 @@ public class PermTestData extends TestCase
     {
         PermissionAttribute permAttr = new PermissionAttribute();
         permAttr.setAttributeName(pa[0]);
-        permAttr.setRequired(Boolean.parseBoolean(pa[1]));
         permAttr.setDataType(pa[2]);
-        permAttr.setOperator(ComparisonOperator.valueOf(pa[3]));
+        permAttr.setDefaultOperator(ComparisonOperator.valueOf(pa[3]).name());
         return permAttr;
     }
     

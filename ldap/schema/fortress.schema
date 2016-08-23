@@ -280,7 +280,7 @@ attributetype ( ftAtId:30
     SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 # A31: User Role Constraints, type STRING, MULTI VALUE
-attributetype ( 1.3.6.1.4.1.1.38088.1.31
+attributetype ( ftAtId:31
     NAME 'ftPA'
     DESC 'Fortress Permission Attribute Constraints'
     EQUALITY caseIgnoreMatch
@@ -288,17 +288,57 @@ attributetype ( 1.3.6.1.4.1.1.38088.1.31
     SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 # A32: User Role Constraints, type STRING, MULTI VALUE
-attributetype ( 1.3.6.1.4.1.1.38088.1.32
+attributetype ( ftAtId:32
     NAME 'ftPASet'
     DESC 'Fortress Permission Attribute Set'
     EQUALITY caseIgnoreMatch
     SUBSTR caseIgnoreSubstringsMatch
     SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
-# A33: User Role Constraints, type STRING, MULTI VALUE
-attributetype ( 1.3.6.1.4.1.1.38088.1.33
+# A33: User Role Constraints, type STRING, SINGLE VALUE
+attributetype ( ftAtId:33
     NAME 'ftPADefaultOperator'
     DESC 'Fortress Permission Attribute Set Default Operator'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE VALUE )
+    
+# A34: User Role Constraints, type STRING, MULTI VALUE
+attributetype ( ftAtId:34
+    NAME 'ftPASetType'
+    DESC 'Fortress Permission Attribute Set Type'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+    
+# A35: Permission Attribute Data Type, type STRING, SINGLE VALUE
+attributetype ( ftAtId:35
+    NAME 'ftPADataType'
+    DESC 'Fortress Permission Attribute Data Type'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE VALUE )
+    
+# A36: Permission Attribute Default Value, type STRING, SINGLE VALUE
+attributetype ( ftAtId:36
+    NAME 'ftPADefaultValue'
+    DESC 'Fortress Permission Attribute Set Default Value'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE VALUE ) 
+    
+# A37: Permission Attribute Default Strategy, type STRING, SINGLE VALUE
+attributetype ( ftAtId:37
+    NAME 'ftPADefaultStrategy'
+    DESC 'Fortress Permission Attribute Default Strategy'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE VALUE ) 
+    
+# A38: Permission Attribute Valid Values, type STRING, MULTI VALUE
+attributetype ( ftAtId:38
+    NAME 'ftPAValidVals'
+    DESC 'Fortress Permission Attribute Valid Values'
     EQUALITY caseIgnoreMatch
     SUBSTR caseIgnoreSubstringsMatch
     SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
@@ -432,19 +472,43 @@ objectClass ( ftObId:8
     MAY configParameter
     )
 
-## OC3: Fortress Permission Attribute Set Structural Object Class
-objectclass    ( 1.3.6.1.4.1.38088.2.9
+## OC9: Fortress Permission Attribute Set Structural Object Class
+objectclass    ( ftObId:9
     NAME 'ftAttributeSet'
     DESC 'Fortress Attribute Set Structural Object Class'
-    SUP organizationalrole
+    SUP organizationalunit
     STRUCTURAL
     MUST (
         ftId $
+        ftPASet $
         cn
         )
     MAY (
         ftPA $
-        ftPADefaultOperator
+        ftPASetType $
+        description
+        )
+    )
+    
+## OC10: Fortress Permission Attribute Structural Object Class
+objectclass    ( ftObId:10
+    NAME 'ftAttribute'
+    DESC 'Fortress Attribute Structural Object Class'
+    SUP organizationalrole
+    STRUCTURAL
+    MUST (
+        ftId $
+        ftPASet $
+        ftPA $
+        cn
+        )
+    MAY (        
+        ftPADataType $
+        ftPADefaultValue $
+        ftPADefaultStrategy $
+        ftPADefaultOperator $
+        ftPAValidVals $
+        description
         )
     )
 

@@ -490,14 +490,45 @@ public final class GlobalIds
      * Attribute name for storing Fortress permission attribute set object names.
      */
     public static final String PERMISSION_ATTRIBUTE_SET_NAME = "ftAttributeSet";
-    
-    /**
-     * Attribute name for storing default operator of a PA set
-     */
-    public static final String FT_PA_SET_DEFAULT_OPERATOR = "ftPADefaultOperator";
 
     /**
      * When this property is set to true in fortress.properties, the userPassword field on newly created users will not be created.
      */
     public static final String USER_CREATION_PASSWORD_FIELD = "user.creation.field.password.disable";
+    
+    /**
+     * The ftPASetType field contains the user defined type of a pa set
+     */
+    public static final String FT_PERMISSION_ATTRIBUTE_SET_TYPE = "ftPASetType";
+    
+    /**
+     * Attribute name for storing Fortress permission attribute set object names.
+     */
+    public static final String PERMISSION_ATTRIBUTE_NAME = "ftAttribute";
+    
+    /**
+     * Attribute name for storing Fortress permission attribute data type name.
+     */
+    public static final String FT_PERMISSION_ATTRIBUTE_DATA_TYPE = "ftPADataType";
+    
+    /**
+     * Attribute name for storing Fortress permission attribute default value name.
+     */
+    public static final String FT_PERMISSION_ATTRIBUTE_DEFAULT_VALUE = "ftPADefaultValue";
+    
+    /**
+     * Attribute name for storing Fortress permission attribute default strategy name.
+     */
+    public static final String FT_PERMISSION_ATTRIBUTE_DEFAULT_STRATEGY = "ftPADefaultStrategy";
+    
+    /**
+     * Attribute name for storing Fortress permission attribute set default operator name.
+     */
+    public static final String FT_PERMISSION_ATTRIBUTE_DEFAULT_OPERATOR = "ftPADefaultOperator";
+    
+    /**
+     * Attribute name for storing Fortress permission attribute valid vals name.
+     */
+    public static final String FT_PERMISSION_ATTRIBUTE_VALID_VALUES = "ftPAValidVals";
+    		
 }

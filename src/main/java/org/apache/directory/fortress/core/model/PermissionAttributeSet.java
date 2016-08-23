@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -27,6 +28,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlRootElement(name = "ftPermissionAttributeSet")
@@ -37,18 +39,23 @@ import javax.xml.bind.annotation.XmlType;
         "attributes",
         "internalId",
         "description",
-        "defaultOperator"
+        "type"
 })
-public class PermissionAttributeSet extends FortEntity {
+public class PermissionAttributeSet extends FortEntity implements Serializable {
 
+    /** Default serialVersionUID */
+    private static final long serialVersionUID = 1L;
+	
 	private String name;
 	@XmlElement(nillable = true)
 	private Set<PermissionAttribute> attributes;
     private String internalId;
     private String description;
+    private String type;
+    @XmlTransient
     private String dn;
-    private String defaultOperator;
-	
+
+    	
     public PermissionAttributeSet(String name){
     	this.name = name;
     }
@@ -113,20 +120,20 @@ public class PermissionAttributeSet extends FortEntity {
 		this.description = description;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	public String getDn() {
 		return dn;
 	}
 
 	public void setDn(String dn) {
 		this.dn = dn;
-	}
-
-	public String getDefaultOperator() {
-		return defaultOperator;
-	}
-
-	public void setDefaultOperator(String defaultOperator) {
-		this.defaultOperator = defaultOperator;
 	}
 
 }
