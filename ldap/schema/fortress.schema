@@ -301,15 +301,15 @@ attributetype ( ftAtId:33
     DESC 'Fortress Permission Attribute Set Default Operator'
     EQUALITY caseIgnoreMatch
     SUBSTR caseIgnoreSubstringsMatch
-    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE VALUE )
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
     
-# A34: User Role Constraints, type STRING, MULTI VALUE
+# A34: User Role Constraints, type STRING, SINGLE VALUE
 attributetype ( ftAtId:34
     NAME 'ftPASetType'
     DESC 'Fortress Permission Attribute Set Type'
     EQUALITY caseIgnoreMatch
     SUBSTR caseIgnoreSubstringsMatch
-    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
     
 # A35: Permission Attribute Data Type, type STRING, SINGLE VALUE
 attributetype ( ftAtId:35
@@ -317,7 +317,7 @@ attributetype ( ftAtId:35
     DESC 'Fortress Permission Attribute Data Type'
     EQUALITY caseIgnoreMatch
     SUBSTR caseIgnoreSubstringsMatch
-    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE VALUE )
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
     
 # A36: Permission Attribute Default Value, type STRING, SINGLE VALUE
 attributetype ( ftAtId:36
@@ -325,7 +325,7 @@ attributetype ( ftAtId:36
     DESC 'Fortress Permission Attribute Set Default Value'
     EQUALITY caseIgnoreMatch
     SUBSTR caseIgnoreSubstringsMatch
-    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE VALUE ) 
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE ) 
     
 # A37: Permission Attribute Default Strategy, type STRING, SINGLE VALUE
 attributetype ( ftAtId:37
@@ -333,7 +333,7 @@ attributetype ( ftAtId:37
     DESC 'Fortress Permission Attribute Default Strategy'
     EQUALITY caseIgnoreMatch
     SUBSTR caseIgnoreSubstringsMatch
-    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE VALUE ) 
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE ) 
     
 # A38: Permission Attribute Valid Values, type STRING, MULTI VALUE
 attributetype ( ftAtId:38
