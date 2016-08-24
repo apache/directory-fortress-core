@@ -27,8 +27,6 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.ReviewMgr;
-import org.apache.directory.fortress.core.ReviewMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.model.AdminRole;
@@ -378,42 +376,44 @@ final class PermP
         return pDao.createOperation( entity );
     }
     
-    //TODO: add documentation
+    /**
+     * Adds a new Permission Attribute Set entity to the directory. 
+     * 
+     * @param entity Permission Attribute Set entity contains data targeted for insertion
+     * @return Permission Attribute Set entity copy of input + additional attributes that were added
+     * @throws SecurityException in the event of data validation or DAO system error.
+     */
     PermissionAttributeSet add( PermissionAttributeSet entity ) throws SecurityException
     {
-        //TODO: add validation
+        validate( entity );
         return pDao.createPermissionAttributeSet( entity );
     }
     
-    //TODO: add documentation
-    PermissionAttribute add( PermissionAttribute entity, String attributeSetName ) throws SecurityException
+    /**
+     * Adds a new Permission Attribute entity to an existing Permission Attribute Set
+     * 
+     * @param entity Permissino Attribute entity contains data targeted for insertion
+     * @param paSetName The name of the Permission Attribute Set this entity is being added to
+     * @return Permission Attribute entity copy of input + additional attributes that were added
+     * @throws SecurityException in the event of data validation or DAO system error. 
+     */
+    PermissionAttribute add( PermissionAttribute entity, String paSetName ) throws SecurityException
     {
-        //TODO: add validation
-        return pDao.createPermissionAttribute( entity, attributeSetName );
+        validate( entity );
+        return pDao.createPermissionAttribute( entity, paSetName );
     }
 
-    //TODO: add documentation
-    void delete( PermissionAttribute entity, String attributeSetName ) throws SecurityException
+    /**
+     * Deletes a Permission Attribute entity from an existing Permission Attribute Set
+     * 
+     * @param entity
+     * @param attributeSetName
+     * @throws SecurityException
+     */     
+    void delete( PermissionAttribute entity, String paSetName ) throws SecurityException
     {
-        //TODO: add validation
-    	
-    	//want to remove by attribute name, not full ftPA value, so find existing and delete that
-    	PermissionAttribute existingPa = null;
-    	
-    	ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
-    	PermissionAttributeSet paSet = reviewMgr.readPermAttributeSet(new PermissionAttributeSet(attributeSetName));
-    	for(PermissionAttribute pa : paSet.getAttributes()){
-    		if(pa.getAttributeName().equals(entity.getAttributeName())){
-    			existingPa = pa;
-    			break;
-    		}
-    	}
-    	
-    	if(existingPa == null){
-    		throw new ValidationException(GlobalErrIds.PERM_ATTRIBUTE_NOT_FOUND, "Could not find permission attribute with name [" + entity.getAttributeName() + "] on attribute set [" + attributeSetName + "]");
-    	}
-    	
-        pDao.deletePermissionAttribute( existingPa, attributeSetName );
+        validate( entity );            	
+        pDao.deletePermissionAttribute( entity, paSetName );
     }
 
     /**
@@ -715,5 +715,39 @@ final class PermP
                 VUtil.permAttrSetName( paSetName );
             }
         }
+    }
+    
+    private void validate( PermissionAttributeSet paSet )
+            throws SecurityException
+    {
+        if( StringUtils.isNotEmpty(paSet.getType()) ){
+            VUtil.description( paSet.getType() );
+        }
+        if( StringUtils.isNotEmpty(paSet.getDescription()) ){
+            VUtil.description( paSet.getDescription() );
+        }
+    }
+    
+    private void validate( PermissionAttribute pa )
+            throws SecurityException
+    {
+        if( StringUtils.isNotEmpty(pa.getAttributeName()) ){
+            VUtil.description( pa.getAttributeName() );
+        }
+        if( StringUtils.isNotEmpty(pa.getDataType()) ){
+            VUtil.description( pa.getDataType() );
+        }
+        if( StringUtils.isNotEmpty(pa.getDefaultOperator()) ){
+            VUtil.description( pa.getDefaultOperator() );
+        }
+        if( StringUtils.isNotEmpty(pa.getDefaultStrategy()) ){
+            VUtil.description( pa.getDefaultStrategy() );
+        }
+        if( StringUtils.isNotEmpty(pa.getDefaultValue()) ){
+            VUtil.description( pa.getDefaultValue() );
+        }
+        if( StringUtils.isNotEmpty(pa.getDescription()) ){
+            VUtil.description( pa.getDescription() );
+        }        
     }
 }

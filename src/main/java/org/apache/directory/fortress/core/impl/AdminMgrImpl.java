@@ -404,7 +404,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     {
         String methodName = "addPermissionAttributeSet";         
         assertContext( CLS_NM, methodName, permAttributeSet, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL );
-        //TODO: verify with Shawn we don't need to set entity session here...        
+        //TODO: setup ARBAC permissions
+        //setEntitySession( CLS_NM, methodName, permAttributeSet );    
         return permP.add( permAttributeSet );
     }          
     

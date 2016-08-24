@@ -23,10 +23,6 @@ package org.apache.directory.fortress.core.impl;
 import java.util.List;
 import java.util.Set;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.AdminMgrFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -46,6 +42,10 @@ import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 
 /**
@@ -1822,6 +1822,8 @@ public class AdminMgrImplTest extends TestCase
     {
     	LogUtil.logIt(msg);
     	PermissionAttributeSet paSet = new PermissionAttributeSet(name);  
+    	paSet.setType(PermTestData.TPA_SET_TYPE);
+    	
     	try
     	{
     		paSet.setAttributes(permAttr);
