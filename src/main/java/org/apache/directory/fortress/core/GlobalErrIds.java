@@ -677,7 +677,10 @@ public final class GlobalErrIds
      * The supplied Permission Attribute was not found
      */
     public static final int PERM_ATTRIBUTE_NOT_FOUND = 3037;
-    
+    /**
+     * The supplied Permission Attribute update failed
+     */
+    public static final int PERM_ATTRIBUTE_UPDATE_FAILED = 3038;
     
     /**
      * 4000's - Password Policy Entity

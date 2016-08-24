@@ -476,7 +476,12 @@ final class PermDAO extends LdapDataProvider
         return entity;
     }
     
-    //TODO: add documentation
+    /**
+     * 
+     * @param entity
+     * @return
+     * @throws CreateException
+     */
     PermissionAttributeSet createPermissionAttributeSet( PermissionAttributeSet entity ) throws CreateException
     {
         LdapConnection ld = null;
@@ -529,12 +534,17 @@ final class PermDAO extends LdapDataProvider
         for(PermissionAttribute pa : entity.getAttributes()){        
 	        this.createPermissionAttribute(pa, entity.getName());
         }
-        
-        //TODO: need to do anything to returned entity?
+
         return entity;
     }
     
-    //TODO: add documentation
+    /**
+     * 
+     * @param entity
+     * @param attributeSetName
+     * @return
+     * @throws CreateException
+     */
     PermissionAttribute createPermissionAttribute( PermissionAttribute entity, String attributeSetName ) throws CreateException
     {
         LdapConnection ld = null;
@@ -607,7 +617,80 @@ final class PermDAO extends LdapDataProvider
     	
     	return entity;    	
     }
-        
+       
+    PermissionAttribute updatePermissionAttribute( PermissionAttribute entity, String paSetName, boolean replaceValidValues ) throws UpdateException
+    {
+        LdapConnection ld = null;
+        String dn = getDn( entity, paSetName, entity.getContextId() );
+
+        try
+        {
+            List<Modification> mods = new ArrayList<Modification>();
+
+            if ( StringUtils.isNotEmpty( entity.getDataType() ) )
+            {
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.FT_PERMISSION_ATTRIBUTE_DATA_TYPE, entity.getDataType() ) );
+            }
+
+            if ( StringUtils.isNotEmpty( entity.getDescription() ) )
+            {
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.DESCRIPTION_AT, entity.getDescription() ) );
+            }
+
+            if ( StringUtils.isNotEmpty( entity.getDefaultOperator() ) )
+            {
+
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_OPERATOR, entity.getDefaultOperator() ) );
+            }
+            
+            if ( StringUtils.isNotEmpty( entity.getDefaultStrategy() ) )
+            {
+
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_STRATEGY, entity.getDefaultStrategy() ) );
+            }
+            
+            if ( StringUtils.isNotEmpty( entity.getDefaultValue() ) )
+            {
+
+                mods.add( new DefaultModification(
+                    ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_VALUE, entity.getDefaultValue() ) );
+            }
+            
+            //if replace, then remove first
+            if(replaceValidValues){
+            	mods.add( new DefaultModification(
+                    ModificationOperation.REMOVE_ATTRIBUTE, GlobalIds.FT_PERMISSION_ATTRIBUTE_VALID_VALUES ) );
+            }
+                        
+            for(String validValue : entity.getValidValues()){
+                mods.add( new DefaultModification(
+                    ModificationOperation.ADD_ATTRIBUTE, GlobalIds.FT_PERMISSION_ATTRIBUTE_VALID_VALUES, validValue ) );		
+            }
+            	           
+            if ( mods.size() > 0 )
+            {
+                ld = getAdminConnection();
+                modify( ld, dn, mods, entity );
+                entity.setDn( dn );
+            }
+        }
+        catch ( LdapException e )
+        {
+            String error = "updatePermissionAttribute name [" + entity.getAttributeName() + "] caught LdapException=" + e.getMessage();
+            throw new UpdateException( GlobalErrIds.PERM_ATTRIBUTE_UPDATE_FAILED, error, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+
+        return entity;
+    }
+    
     /**
      * @param entity
      * @return

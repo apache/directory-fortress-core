@@ -450,6 +450,19 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     /**
      * {@inheritDoc}
      */
+    @Override    
+    public void updatePermissionAttributeInSet(PermissionAttribute permAttribute, String attributeSetName, boolean replaceValidValues) 
+        throws SecurityException 
+    {
+    	String methodName = "updatePermissionAttributeInSet"; 
+    	assertContext( CLS_NM, methodName, permAttribute, GlobalErrIds.PERM_ATTRIBUTE_NULL );
+        //TODO: verify with Shawn we don't need to set entity session here...        
+        permP.update( permAttribute, attributeSetName, replaceValidValues );       	
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Permission updatePermission( Permission perm ) throws SecurityException
     {

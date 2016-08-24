@@ -417,6 +417,20 @@ final class PermP
     }
 
     /**
+     * Updates a Permission Attribute entity 
+     * 
+     * @param entity
+     * @param paSetName
+     * @param replaceValidValues
+     * @throws SecurityException
+     */
+    void update( PermissionAttribute entity, String paSetName, boolean replaceValidValues ) throws SecurityException
+    {
+        validate( entity );
+        pDao.updatePermissionAttribute( entity, paSetName, replaceValidValues );
+    }	
+    	
+    /**
      * Update existing Permission Object attributes with the input entity.  Null or empty attributes will be ignored.
      * The Permission Object entity input will be validated to ensure that:
      * object name is present, orgUnitId is valid, reasonability checks on all of the other populated values.

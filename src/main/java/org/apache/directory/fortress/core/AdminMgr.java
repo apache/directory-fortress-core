@@ -614,11 +614,21 @@ public interface AdminMgr extends Manageable
      * </ul>     
 	 *
      * @param permAttribute must contain {@link PermissionAttribute#attributeName}
-     * @param attributeSetName The name of the permission attribute set this ftPA should be removed from
+     * @param attributeSetName The name of the permission attribute set this pa should be removed from
      * @throws SecurityException - thrown in the event of data or system error
      */
     void removePermissionAttributeFromSet( PermissionAttribute permAttribute, String attributeSetName )
-    	throws SecurityException;    
+    	throws SecurityException;
+    
+    /**
+     * 
+     * @param permAttribute must contain {@link PermissionAttribute#attributeName}
+     * @param attributeSetName The name of the permission attribute set this pa should be removed from
+     * @param replaceValidValues Set to true to replace all of the valid values and set to false to add to the existing valid values
+     * @throws SecurityException - thrown in the event of data or system error
+     */
+    void updatePermissionAttributeInSet( PermissionAttribute permAttribute, String attributeSetName, boolean replaceValidValues )
+        throws SecurityException;        
     
     /**
      * This method will update permission operation pre-existing in target directory under 

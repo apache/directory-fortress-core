@@ -1292,4 +1292,11 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void updatePermissionAttributeInSet(PermissionAttribute permAttribute, String attributeSetName,
+			boolean replaceValidValues) throws SecurityException {
+		// TODO Auto-generated method stub
+		
+	}
 }
