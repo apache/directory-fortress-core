@@ -473,7 +473,7 @@ objectClass ( ftObId:8
     )
 
 ## OC9: Fortress Permission Attribute Set Structural Object Class
-objectclass    ( ftObId:9
+objectclass ( ftObId:9
     NAME 'ftAttributeSet'
     DESC 'Fortress Attribute Set Structural Object Class'
     SUP organizationalunit
@@ -491,7 +491,7 @@ objectclass    ( ftObId:9
     )
     
 ## OC10: Fortress Permission Attribute Structural Object Class
-objectclass    ( ftObId:10
+objectclass ( ftObId:10
     NAME 'ftAttribute'
     DESC 'Fortress Attribute Structural Object Class'
     SUP organizationalrole

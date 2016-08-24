@@ -1097,7 +1097,7 @@ final class PermDAO extends LdapDataProvider
     		filterbuf.append( GlobalIds.FILTER_PREFIX );
     		filterbuf.append( PERMISSION_ATTRIBUTE_OBJECT_CLASS_NAME );
     		filterbuf.append( ")(" );
-    		filterbuf.append( GlobalIds.FT_PERMISSION_ATTRIBUTE );
+    		filterbuf.append( GlobalIds.FT_PERMISSION_ATTRIBUTE_SET );
     		filterbuf.append( "=" );
     		filterbuf.append( paSetVal );
     		filterbuf.append(  "))" );
@@ -2026,13 +2026,13 @@ final class PermDAO extends LdapDataProvider
 
     private String getDn( PermissionAttributeSet paSet, String contextId )
     {
-        return GlobalIds.PERMISSION_ATTRIBUTE_SET_NAME + "=" + paSet.getName() + "," + getRootDn( contextId, GlobalIds.SD_ROOT );
+        return SchemaConstants.OU_AT + "=" + paSet.getName() + "," + getRootDn( contextId, GlobalIds.SD_ROOT );
     }
 
     
     private String getDn( PermissionAttribute pa, String paSetName, String contextId )
     {
-        return GlobalIds.PERMISSION_ATTRIBUTE_SET_NAME + "=" + paSetName + "," + GlobalIds.PERMISSION_ATTRIBUTE_NAME  + "=" + pa.getAttributeName() + "," + getRootDn( contextId, GlobalIds.SD_ROOT );
+        return GlobalIds.FT_PERMISSION_ATTRIBUTE  + "=" + pa.getAttributeName() + "," + SchemaConstants.OU_AT + "=" + paSetName + "," + getRootDn( contextId, GlobalIds.SD_ROOT );
     }
     
 
