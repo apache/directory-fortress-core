@@ -2781,7 +2781,8 @@ public class PermTestData extends TestCase
     		"TPASET1AttributeName1", /* NAME */
     		"true", /* REQUIRED */
     		"string", /* DATA_TYPE */
-    		"EQUALS" /* COMPARISON_OPERATOR */
+    		"EQUALS", /* COMPARISON_OPERATOR */
+    		"literal:value" /* VALID_VALUE */
     	}
     };
 
@@ -2791,13 +2792,15 @@ public class PermTestData extends TestCase
     		"TPASET2AttributeName1", /* NAME */
     		"true", /* REQUIRED */
     		"string", /* DATA_TYPE */
-    		"EQUALS" /* COMPARISON_OPERATOR */
+    		"EQUALS", /* COMPARISON_OPERATOR */
+    		"literal:value" /* VALID_VALUE */
     	},
     	{
     		"TPASET2AttributeName2", /* NAME */
     		"false", /* REQUIRED */
     		"int", /* DATA_TYPE */
-    		"EQUALS" /* COMPARISON_OPERATOR */
+    		"EQUALS", /* COMPARISON_OPERATOR */
+    		"literal:value" /* VALID_VALUE */
     	}
     };
     
@@ -2807,13 +2810,15 @@ public class PermTestData extends TestCase
     		"TPASET2AttributeName3", /* NAME */
     		"true", /* REQUIRED */
     		"string", /* DATA_TYPE */
-    		"EQUALS" /* COMPARISON_OPERATOR */
+    		"EQUALS", /* COMPARISON_OPERATOR */
+    		"literal:value" /* VALID_VALUE */
     	},
     	{
     		"TPASET2AttributeName4", /* NAME */
     		"false", /* REQUIRED */
     		"int", /* DATA_TYPE */
-    		"EQUALS" /* COMPARISON_OPERATOR */
+    		"EQUALS", /* COMPARISON_OPERATOR */
+    		"literal:value" /* VALID_VALUE */
     	}
     };
     
@@ -2823,6 +2828,7 @@ public class PermTestData extends TestCase
         permAttr.setAttributeName(pa[0]);
         permAttr.setDataType(pa[2]);
         permAttr.setDefaultOperator(ComparisonOperator.valueOf(pa[3]).name());
+        permAttr.getValidValues().add(pa[4]);
         return permAttr;
     }
     
