@@ -285,7 +285,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
             }
         }
         roleP.delete( role );
-    }
+        // TODO: what about groups? Should we remove roles from group members?
+   }
 
 
     /**

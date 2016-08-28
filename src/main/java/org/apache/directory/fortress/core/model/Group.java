@@ -56,6 +56,11 @@ public class Group extends FortEntity implements Serializable
     private Type type;
 
     /**
+     *  Auxiliary field used to store roles in UserRole format. Used only internally by DAO/Managers.
+     */
+    private List<UserRole> roles = new ArrayList<>();
+
+    /**
      * enum for User or Role data sets.  Both nodes may be stored in the same LDAP container.
      */
     @XmlType(name = "type")
@@ -452,6 +457,22 @@ public class Group extends FortEntity implements Serializable
     public void setMemberDn( boolean memberDn )
     {
         this.memberDn = memberDn;
+    }
+
+    /**
+     * List of roles for given groups if they were populated. Empty list otherwise.
+     * @return
+     */
+    public List<UserRole> getRoles() {
+        return roles;
+    }
+
+    /**
+     * Setter for auxiliary 'roles' field.
+     * @param roles list of roles to be set
+     */
+    public void setRoles(List<UserRole> roles) {
+        this.roles = roles;
     }
 
 

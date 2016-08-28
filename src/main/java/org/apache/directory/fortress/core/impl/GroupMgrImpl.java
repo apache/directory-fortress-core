@@ -32,6 +32,7 @@ import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
 
 
 /**
@@ -71,6 +72,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
             {
                 loadUserDns( group );
             }
+            group.setMemberDn(true);
         }
 
         return GROUP_P.add( group );
@@ -169,6 +171,33 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    public List<Group> roleGroups( Role role ) throws SecurityException
+    {
+        String methodName = "roleGroups";
+        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
+        checkAccess( CLS_NM, methodName );
+        loadRoleDn( role );
+
+        return GROUP_P.roleGroups( role );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<UserRole> groupRoles( Group group ) throws SecurityException
+    {
+        String methodName = "groupRoles";
+        assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
+        checkAccess( CLS_NM, methodName );
+
+        return GROUP_P.groupRoles( group );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Group assign( Group group, String member ) throws SecurityException
     {
         String methodName = "assign";
@@ -254,5 +283,12 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
         ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
         User outUser = reviewMgr.readUser( inUser );
         inUser.setDn( outUser.getDn() );
+    }
+
+    private void loadRoleDn( Role inRole ) throws SecurityException
+    {
+        ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+        Role outRole = reviewMgr.readRole( inRole );
+        inRole.setDn( outRole.getDn() );
     }
 }

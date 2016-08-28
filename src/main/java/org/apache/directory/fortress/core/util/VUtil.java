@@ -584,7 +584,7 @@ public final class VUtil implements ConstraintValidator
         {
             Time currTime = TUtil.getCurrentTime();
             // first check the constraint on the user:
-            if ( type == ConstraintType.USER )
+            if ( type == ConstraintType.USER && !session.isGroupSession() )
             {
                 rc = val.validate( session, session.getUser(), currTime, type );
                 if ( rc > 0 )
@@ -645,7 +645,11 @@ public final class VUtil implements ConstraintValidator
             && CollectionUtils.isNotEmpty( session.getRoles() ) )
         {
             Validator dsdVal = ( Validator ) ClassUtil.createInstance( DSDVALIDATOR );
-            dsdVal.validate( session, session.getUser(), null, null );
+            // Do not validate for Groups
+            if ( !session.isGroupSession() )
+            {
+                dsdVal.validate( session, session.getUser(), null, null );
+            }
         }
         // reset the user's last access timestamp:
         session.setLastAccess();

@@ -163,7 +163,9 @@ import java.util.UUID;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "session", propOrder = {
     "user",
+    "group",
     "isAuthenticated",
+    "isGroupSession",
     "sessionId",
     "lastAccess",
     "timeout",
@@ -178,6 +180,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
 {
     private static final long serialVersionUID = 1L;
     private User user;
+    private Group group;
     private String sessionId;
     private long lastAccess;
     private int timeout;
@@ -186,6 +189,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
     private int graceLogins;
     private int expirationSeconds;
     private boolean isAuthenticated;
+    private boolean isGroupSession;
     private String message;
     @XmlElement(nillable = true)
     private List<Warning> warnings;
@@ -198,6 +202,16 @@ public class Session  extends FortEntity implements PwMessage, Serializable
     public boolean isAuthenticated()
     {
         return isAuthenticated;
+    }
+
+    /**
+     * A 'true' value here indicates this Session was created for Group entity
+     *
+     * @return boolean indicating if this Session is created for Group
+     */
+    public boolean isGroupSession()
+    {
+        return isGroupSession;
     }
     
 
@@ -217,6 +231,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
     public void copy( Session inSession )
     {
         this.user = inSession.getUser();
+        this.group = inSession.getGroup();
         // don't copy session id:
         //this.sessionId = inSession.getSessionId();
         this.lastAccess = inSession.getLastAccess();
@@ -226,6 +241,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
         this.graceLogins = inSession.getGraceLogins();
         this.expirationSeconds = inSession.expirationSeconds;
         this.isAuthenticated = inSession.isAuthenticated();
+        this.isGroupSession = inSession.isGroupSession();
         this.message = inSession.getMsg();
         this.warnings = inSession.getWarnings();
     }
@@ -239,6 +255,8 @@ public class Session  extends FortEntity implements PwMessage, Serializable
         init();
         // this class will not check for null on user object.
         user = new User();
+        // by default, the Session is created for user
+        isGroupSession = false;
     }
     
 
@@ -251,6 +269,19 @@ public class Session  extends FortEntity implements PwMessage, Serializable
     {
         init();
         this.user = user;
+        isGroupSession = false;
+    }
+
+    /**
+     * Construct a new Session instance with given Group entity.
+     *
+     * @param group contains the Group attributes that are associated with the Session.
+     */
+    public Session( Group group )
+    {
+        init();
+        this.group = group;
+        isGroupSession = true;
     }
     
 
@@ -263,8 +294,21 @@ public class Session  extends FortEntity implements PwMessage, Serializable
     {
         this.sessionId = sessionId;
         this.user = user;
+        isGroupSession = false;
     }
-    
+
+    /**
+     * Construct a new Session instance with given Group entity.
+     *
+     * @param group contains the Group attributes that are associated with the Session.
+     */
+    public Session( Group group, String sessionId )
+    {
+        this.sessionId = sessionId;
+        this.group = group;
+        isGroupSession = true;
+    }
+
 
     /**
      * Return the unique id that is associated with User.  This attribute is generated automatically
@@ -331,7 +375,12 @@ public class Session  extends FortEntity implements PwMessage, Serializable
     {
         return this.user;
     }
-    
+
+    /**
+     * Return the Group entity that is associated with this entity.
+     */
+    public Group getGroup()    { return this.group; }
+
 
     /**
      * Return the userId that is associated with this Session object.
@@ -341,6 +390,16 @@ public class Session  extends FortEntity implements PwMessage, Serializable
     public String getUserId()
     {
         return this.user.getUserId();
+    }
+
+    /**
+     * Return the group name that is associated with this Session object.
+     *
+     * @return group name maps to the 'name' attribute on the 'ftGroup' object class.
+     */
+    public String getGroupName()
+    {
+        return this.group.getName();
     }
     
 
@@ -354,10 +413,10 @@ public class Session  extends FortEntity implements PwMessage, Serializable
     {
         return this.user.getInternalId();
     }
-    
+
 
     /**
-     * Return the list of User's RBAC Roles that have been activated into User's session.  This list will not include
+     * Return the list of User's RBAC Roles that have been activated into User's or Group's session.  This list will not include
      * ascendant RBAC roles which may be retrieved using {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#authorizedRoles(Session)}.
      *
      * @return List containing User's RBAC roles.  This list may be empty if User not assigned RBAC.
@@ -366,7 +425,11 @@ public class Session  extends FortEntity implements PwMessage, Serializable
     {
         List<UserRole> roles = null;
 
-        if ( user != null )
+        if ( isGroupSession && group != null )
+        {
+            roles = group.getRoles();
+        }
+        if ( !isGroupSession && user != null )
         {
             roles = user.getRoles();
         }
@@ -385,7 +448,12 @@ public class Session  extends FortEntity implements PwMessage, Serializable
     {
         List<UserAdminRole> roles = null;
 
-        if ( user != null )
+//        TODO: Do we need admin roles for Group?
+//        if ( isGroupSession && group != null )
+//        {
+//            roles = group.getAdminRoles();
+//        }
+        if ( !isGroupSession && user != null )
         {
             roles = user.getAdminRoles();
         }
@@ -548,6 +616,15 @@ public class Session  extends FortEntity implements PwMessage, Serializable
     {
         this.user = user;
     }
+
+    /**
+     * Set a Group entity into the Session.
+     * @param group Contains group name, roles members and other security attributes used for access control.
+     */
+    public void setGroup( Group group )
+    {
+        this.group = group;
+    }
     
 
     /**
@@ -573,7 +650,13 @@ public class Session  extends FortEntity implements PwMessage, Serializable
     {
         isAuthenticated = authenticated;
     }
-    
+
+
+    /**
+     * Set the value to 'true' indicating that Session is created for Group entity
+     * @param isGroupSession indicates if Session is for Group
+     */
+    public void setGroupSession(boolean isGroupSession) { isGroupSession = isGroupSession; }
 
     /**
      * Set the userId that is associated with User.  UserId is required attribute and must be set on add, update, delete, createSession, authenticate, etc..
@@ -585,15 +668,32 @@ public class Session  extends FortEntity implements PwMessage, Serializable
         user.setUserId( userId );
     }
 
+    /**
+     * Set the groupName that is associated with Group.  GroupName is required attribute and must be set on add, update, delete, createSession, authenticate, etc..
+     *
+     * @param groupName maps to 'name' attribute in 'ftGroup' object class.
+     */
+    public void setGroupName ( String groupName )
+    {
+        group.setName( groupName );
+    }
+
 
     /**
      * Add a list of RBAC Roles to this entity that have been activated into Session or are under consideration for activation.
      *
-     * @param roles List of type UserRole that contains at minimum UserId and Role name.
+     * @param roles List of type UserRole that contains at minimum UserId or GroupName and Role name.
      */
     public void setRoles( List<UserRole> roles )
     {
-        user.setRoles( roles );
+        if ( isGroupSession )
+        {
+            group.setRoles( roles );
+        }
+        else
+        {
+            user.setRoles( roles );
+        }
     }
     
 
@@ -604,7 +704,15 @@ public class Session  extends FortEntity implements PwMessage, Serializable
      */
     public void setRole( UserRole role )
     {
-        user.setRole( role );
+        if ( isGroupSession )
+        {
+//            group.setRole( role );
+            group.getRoles().add( role );
+        }
+        else
+        {
+            user.setRole( role );
+        }
     }
     
 
@@ -747,7 +855,14 @@ public class Session  extends FortEntity implements PwMessage, Serializable
         sb.append( "Session object: \n" );
 
         sb.append( "    sessionId :" ).append( sessionId ).append( '\n' );
-        sb.append( "    user :" ).append( user ).append( '\n' );
+        if ( isGroupSession )
+        {
+            sb.append( "    group :" ).append( group ).append( '\n' );
+        }
+        else
+        {
+            sb.append( "    user :" ).append( user ).append( '\n' );
+        }
         sb.append( "    isAuthenticated :" ).append( isAuthenticated ).append( '\n' );
         sb.append( "    lastAccess :" ).append( lastAccess ).append( '\n' );
         sb.append( "    timeout :" ).append( timeout ).append( '\n' );

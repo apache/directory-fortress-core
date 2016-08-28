@@ -885,18 +885,23 @@ final class PermDAO extends LdapDataProvider
             // There is a switch in fortress config to disable audit ops like this one.
             // But if used the compare method will use OpenLDAP's Proxy Authorization Control to assert identity of end user onto connection.
             // LDAP Operation #2: Compare.
-            addAuthZAudit( ld, dn, session.getUser().getDn(), attributeValue );
+            if ( !session.isGroupSession() )
+            {
+                addAuthZAudit( ld, dn, session.getUser().getDn(), attributeValue );
+            }
         }
-        catch ( LdapException e )
-        {
-            if ( !( e instanceof LdapNoSuchObjectException ) )
+        catch ( LdapException e ) {
+            if (!(e instanceof LdapNoSuchObjectException))
             {
                 String error = "checkPermission caught LdapException=" + e.getMessage();
-                throw new FinderException( GlobalErrIds.PERM_READ_OP_FAILED, error, e );
+                throw new FinderException(GlobalErrIds.PERM_READ_OP_FAILED, error, e);
             }
 
             // There is a switch in fortress config to disable the audit ops.
-            addAuthZAudit( ld, dn, session.getUser().getDn(), "AuthZ Invalid" );
+            if (!session.isGroupSession())
+            {
+                addAuthZAudit(ld, dn, session.getUser().getDn(), "AuthZ Invalid");
+            }
         }
         finally
         {
@@ -1585,11 +1590,14 @@ final class PermDAO extends LdapDataProvider
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( PERM_OP_OBJECT_CLASS_NAME );
             filterbuf.append( ")(|" );
-            filterbuf.append( "(" );
-            filterbuf.append( USERS );
-            filterbuf.append( "=" );
-            filterbuf.append( session.getUserId() );
-            filterbuf.append( ")" );
+            if (!session.isGroupSession())
+            {
+                filterbuf.append("(");
+                filterbuf.append(USERS);
+                filterbuf.append("=");
+                filterbuf.append(session.getUserId());
+                filterbuf.append(")");
+            }
             Set<String> roles;
             if ( isAdmin )
             {

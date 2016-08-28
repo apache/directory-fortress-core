@@ -21,7 +21,9 @@ package org.apache.directory.fortress.core;
 
 
 import org.apache.directory.fortress.core.model.Group;
+import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserRole;
 
 import java.util.List;
 
@@ -120,6 +122,24 @@ public interface GroupMgr extends Manageable
      * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
      */
     List<Group> find( User user ) throws SecurityException;
+
+    /**
+     * Search for groups by role name.  Member (maps to role name) is required.
+     *
+     * @param role contains userId that maps to Group member attribute.
+     * @return {@link Group} containing entity just added.
+     * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
+     */
+    List<Group> roleGroups( Role role ) throws SecurityException;
+
+    /**
+     * Read an existing group node's roles.  The name is required.
+     *
+     * @param group contains {@link Group} with name field set with an existing group name.
+     * @return list of {@link UserRole} for given group. Will return empty list if Group has no roles assigned.
+     * @throws org.apache.directory.fortress.core.SecurityException in the event system error.
+     */
+    List<UserRole> groupRoles( Group group ) throws SecurityException;
 
 
     /**
