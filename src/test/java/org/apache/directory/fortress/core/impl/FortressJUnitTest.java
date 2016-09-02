@@ -19,11 +19,11 @@
  */
 package org.apache.directory.fortress.core.impl;
 
+import org.apache.directory.fortress.core.util.Config;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
-import org.apache.directory.fortress.core.util.Config;
 
 /**
  * This JUnit test class drives all of the Fortress Administration APIs contained within {@link AdminMgrImplTest},
@@ -251,7 +251,8 @@ public class FortressJUnitTest extends TestCase
         suite.addTest( new ReviewMgrImplTest( "testReadPASetFromPermission" ) );
         
         suite.addTest( new ReviewMgrImplTest( "testReadUserRoleConstraint" ) );
-
+        suite.addTest( new ReviewMgrImplTest( "testFindRoleConstraints" ) );
+        
         /***********************************************************/
         /* 4. Security Checks                                      */
         /***********************************************************/

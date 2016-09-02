@@ -2611,4 +2611,5 @@ final class UserDAO extends LdapDataProvider
 
         return new ArrayList<UserRole>(uRoles.values());
     }
+    
 }

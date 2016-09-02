@@ -28,6 +28,8 @@ import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.RoleConstraint;
+import org.apache.directory.fortress.core.model.RoleConstraintType;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
@@ -721,5 +723,22 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException in the event of data or system error.
      */
     int dsdRoleSetCardinality( SDSet dsd )
+        throws SecurityException;
+
+    /**
+     * Find all of the role constraints for the given user and permission attribute set.
+     * <h3></h3>
+     * <h4>required parameters</h4>
+     * <ul>
+     *   <li>{@link User#userId} - contains the name of existing user being targeted</li>
+     *   <li>{@link PermissionAttributeSet#name} - contains the name of permission attribute set</li>
+     * </ul>
+     * 
+     * @param user The user to filter role constraints
+     * @param paSet The permission attribute set to filter role constraints
+     * @return List of the Role Constraints for the given user and pa set.   
+     * @throws SecurityException in the event of data or system error.
+     */
+    List<RoleConstraint>  findRoleConstraints(User user, Permission permission, RoleConstraintType rcType)
         throws SecurityException;
 }

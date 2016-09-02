@@ -40,6 +40,7 @@ import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PwPolicy;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.RoleConstraint;
+import org.apache.directory.fortress.core.model.RoleConstraintType;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
@@ -929,5 +930,25 @@ final class UserP
         // copy the user and perm pools:
         trgR.setOsPSet( srcR.getOsPSet() );
         trgR.setOsUSet( srcR.getOsUSet() );
+    }
+    
+    List<RoleConstraint> findRoleConstraints( Set<String> roles, User user, RoleConstraintType rcType, Set<String> paSets ) throws SecurityException    
+    {
+    	List<RoleConstraint> matchingConstraints = new ArrayList<RoleConstraint>();
+    	
+        //TODO: can we do this in a query?
+        List<UserRole> userRoles = uDao.getUser(user, true).getRoles();
+        for(UserRole ur : userRoles){
+        	//only get constraints for passed in roles
+        	if(roles.contains(ur.getName())){
+        		for(RoleConstraint rc : ur.getRoleConstraints()){
+        			if(rc.getConstraintType().equals(rcType) && paSets.contains(rc.getPaSetName())){
+        				matchingConstraints.add(rc);
+        			}
+        		}
+        	}
+        }
+        
+        return matchingConstraints;
     }
 }

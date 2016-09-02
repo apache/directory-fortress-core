@@ -35,6 +35,8 @@ import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.RoleConstraint;
+import org.apache.directory.fortress.core.model.RoleConstraintType;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
@@ -1260,5 +1262,14 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	@Override
+	public List<RoleConstraint> findRoleConstraints(User user, Permission permission, RoleConstraintType rcType)
+			throws SecurityException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

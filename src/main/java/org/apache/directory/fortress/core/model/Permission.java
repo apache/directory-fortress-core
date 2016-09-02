@@ -832,6 +832,10 @@ public class Permission extends FortEntity implements Serializable
     }
 
     public Set<String> getPaSets() {
+        if ( paSets == null )
+        {
+        	paSets = new HashSet<String>();
+        }
         return paSets;
     }
 

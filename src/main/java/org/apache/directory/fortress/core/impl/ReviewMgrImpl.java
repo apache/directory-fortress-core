@@ -36,6 +36,8 @@ import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.RoleConstraint;
+import org.apache.directory.fortress.core.model.RoleConstraintType;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
@@ -722,4 +724,37 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
         SDSet se = ssdP.read(dsd);
         return se.getCardinality();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<RoleConstraint> findRoleConstraints(User user, Permission permission, RoleConstraintType rcType) throws SecurityException {
+        String methodName = "findRoleConstraints";
+        checkAccess(CLS_NM, methodName);        
+    	//find roles this permission is authorized for
+        Permission pe = permP.read(permission);
+        Set<String> authorizedRoles = authorizeRoles(pe.getRoles());
+        
+        //find role constraints for the user and the permission's pa set
+    	return userP.findRoleConstraints(authorizedRoles, user, rcType, pe.getPaSets());                
+    }
+    
+    
+    /**
+     * {@inheritDoc}
+     */
+    /*
+    @Override
+    public List<UserRole> assignedRoles(User user)
+        throws SecurityException
+    {
+        String methodName = "assignedRoles";
+        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
+        checkAccess(CLS_NM, methodName);
+        User ue = userP.read(user, true);
+        return ue.getRoles();
+    } 
+    */
+
 }

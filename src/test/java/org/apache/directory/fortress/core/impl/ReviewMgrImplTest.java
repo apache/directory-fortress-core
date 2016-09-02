@@ -35,6 +35,7 @@ import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.RoleConstraint;
+import org.apache.directory.fortress.core.model.RoleConstraintType;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
@@ -1652,6 +1653,32 @@ public class ReviewMgrImplTest extends TestCase
     	catch ( SecurityException ex )
     	{
     		LOG.error( "readUserRoleConstraint value [" + rc.getValue()
+    				+ "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+    		fail( ex.getMessage() );
+    	}
+    }
+    
+    public void testFindRoleConstraints()
+    {
+    	findRoleConstraints( "SRCH-RCS TU1 TR1", UserTestData.USERS_TU1[0][0], PermTestData.getOp("TOB1_1", PermTestData.OPS_TOP1_UPD[0]), URATestData.getRC(URATestData.URC_T1).getConstraintType() );
+    }
+    
+    public static void findRoleConstraints( String msg, String usr, Permission permission, RoleConstraintType rcType )
+    {
+    	LogUtil.logIt(msg);
+    	try
+    	{
+    		ReviewMgr reviewMgr = getManagedReviewMgr();   		
+
+    		List<RoleConstraint> rcs = reviewMgr.findRoleConstraints(new User(usr), permission, rcType);
+    		assertTrue(rcs.size() > 0);
+    		assertTrue(rcs.get(0).getConstraintType().equals(rcType));
+   
+    		LOG.debug( "findRoleConstraints permission [" + permission.getObjName() + "." + permission.getOpName() + "] successful" );
+    	}
+    	catch ( SecurityException ex )
+    	{
+    		LOG.error( "findRoleConstraints permission [" + permission.getObjName() + "." + permission.getOpName()
     				+ "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
     		fail( ex.getMessage() );
     	}
