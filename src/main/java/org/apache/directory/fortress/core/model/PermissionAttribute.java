@@ -29,6 +29,14 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+/**
+ * A Permission Attribute is defines an attribute about a permission used for 
+ * attribute type permission filtering. Fortress merely stores this data, does
+ * not enforce the attribute filtering. It is up to the client to do the attribute
+ * checks.
+ *
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
+ */
 @XmlRootElement(name = "ftPA")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "permission", propOrder =
@@ -44,7 +52,7 @@ public class PermissionAttribute extends FortEntity implements Serializable {
 
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
-    
+
     private String attributeName;
     private String defaultOperator;
     private String dataType;    
@@ -54,17 +62,17 @@ public class PermissionAttribute extends FortEntity implements Serializable {
     private String dn;
     private String internalId;
     private String description;
-    
+
     public PermissionAttribute()
     {
-    	
+
     }
-    
+
     public PermissionAttribute(String attributeName)
     {
-    	this.attributeName = attributeName;
+        this.attributeName = attributeName;
     }       
-	
+
     /**
      * Checks that attribute names are equal
      */
@@ -95,7 +103,7 @@ public class PermissionAttribute extends FortEntity implements Serializable {
 
         return thatPermObj.getAttributeName().equalsIgnoreCase( this.getAttributeName() );
     }
-    
+
     @Override
     public int hashCode()
     {
@@ -103,84 +111,84 @@ public class PermissionAttribute extends FortEntity implements Serializable {
         return result;
     }
 
-	public String getDefaultOperator() {
-		return defaultOperator;
-	}
+    public String getDefaultOperator() {
+        return defaultOperator;
+    }
 
-	public void setDefaultOperator(String defaultOperator) {
-		this.defaultOperator = defaultOperator;
-	}
+    public void setDefaultOperator(String defaultOperator) {
+        this.defaultOperator = defaultOperator;
+    }
 
-	public String getDataType() {
-		return dataType;
-	}
+    public String getDataType() {
+        return dataType;
+    }
 
-	public void setDataType(String dataType) {
-		this.dataType = dataType;
-	}
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
 
-	public String getDefaultValue() {
-		return defaultValue;
-	}
+    public String getDefaultValue() {
+        return defaultValue;
+    }
 
-	public void setDefaultValue(String defaultValue) {
-		this.defaultValue = defaultValue;
-	}
+    public void setDefaultValue(String defaultValue) {
+        this.defaultValue = defaultValue;
+    }
 
-	public String getDefaultStrategy() {
-		return defaultStrategy;
-	}
+    public String getDefaultStrategy() {
+        return defaultStrategy;
+    }
 
-	public void setDefaultStrategy(String defaultStrategy) {
-		this.defaultStrategy = defaultStrategy;
-	}
+    public void setDefaultStrategy(String defaultStrategy) {
+        this.defaultStrategy = defaultStrategy;
+    }
 
-	public List<String> getValidValues() {
-		if(validValues == null){
-			validValues = new ArrayList<String>();
-		}
-		return validValues;
-	}
+    public List<String> getValidValues() {
+        if(validValues == null){
+            validValues = new ArrayList<String>();
+        }
+        return validValues;
+    }
 
-	public void setValidValues(List<String> validValues) {
-		this.validValues = validValues;
-	}
+    public void setValidValues(List<String> validValues) {
+        this.validValues = validValues;
+    }
 
-	public String getAttributeName() {
-		return attributeName;
-	}
+    public String getAttributeName() {
+        return attributeName;
+    }
 
-	public void setAttributeName(String attributeName) {
-		this.attributeName = attributeName;
-	}
+    public void setAttributeName(String attributeName) {
+        this.attributeName = attributeName;
+    }
 
-	public String getDn() {
-		return dn;
-	}
+    public String getDn() {
+        return dn;
+    }
 
-	public void setDn(String dn) {
-		this.dn = dn;
-	}
+    public void setDn(String dn) {
+        this.dn = dn;
+    }
 
-	public String getInternalId() {
-		return internalId;
-	}
+    public String getInternalId() {
+        return internalId;
+    }
 
-	public void setInternalId() {
+    public void setInternalId() {
         UUID uuid = UUID.randomUUID();
         this.internalId = uuid.toString();
-	}
-	
-	public void setInternalId(String internalId) {        
+    }
+
+    public void setInternalId(String internalId) {        
         this.internalId = internalId;
-	}
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 }

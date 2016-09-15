@@ -23,51 +23,55 @@ import java.io.Serializable;
 
 import org.apache.directory.fortress.core.util.Config;
 
+/**
+ * The role constraint object holds non date time constraints on user to role relationships.
+ *
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
+ */
 public class RoleConstraint implements Serializable {
 
     private static final long serialVersionUID = 1L;
-	
-	public static final String RC_TYPE_NAME = "type";
-	
-	private RoleConstraintType constraintType;
-	private String value;
-	private String paSetName;
-	
-	public RoleConstraint(){
-		
-	}
-	
-	public RoleConstraint(String value, RoleConstraintType constraintType, String paSetName){
-		this.constraintType = constraintType;
-		this.value = value;
-		this.paSetName = paSetName;
-	}	
-	
-	public RoleConstraintType getConstraintType() {
-		return constraintType;
-	}
-	public void setConstraintType(RoleConstraintType constraintType) {
-		this.constraintType = constraintType;
-	}
-	public String getValue() {
-		return value;
-	}
-	public void setValue(String value) {
-		this.value = value;
-	}
-	public String getPaSetName() {
-		return paSetName;
-	}
 
-	public void setPaSetName(String paSetName) {
-		this.paSetName = paSetName;
-	}	
-	
-	//BANK_USER$seq$0type$filter$ecomm.merchant.id$AccountId=12345&WithdrawLimit=500
-	public String getRawData(UserRole uRole){
+    public static final String RC_TYPE_NAME = "type";
+
+    private RoleConstraintType constraintType;
+    private String value;
+    private String paSetName;
+
+    public RoleConstraint(){
+
+    }
+
+    public RoleConstraint(String value, RoleConstraintType constraintType, String paSetName){
+        this.constraintType = constraintType;
+        this.value = value;
+        this.paSetName = paSetName;
+    }	
+
+    public RoleConstraintType getConstraintType() {
+        return constraintType;
+    }
+    public void setConstraintType(RoleConstraintType constraintType) {
+        this.constraintType = constraintType;
+    }
+    public String getValue() {
+        return value;
+    }
+    public void setValue(String value) {
+        this.value = value;
+    }
+    public String getPaSetName() {
+        return paSetName;
+    }
+
+    public void setPaSetName(String paSetName) {
+        this.paSetName = paSetName;
+    }	
+
+    public String getRawData(UserRole uRole){
         StringBuilder sb = new StringBuilder();        
         String delimeter = Config.getInstance().getDelimiter();
-        
+
         sb.append(uRole.getName());        
         sb.append( delimeter );
         sb.append(RC_TYPE_NAME);
@@ -77,8 +81,8 @@ public class RoleConstraint implements Serializable {
         sb.append(paSetName);
         sb.append( delimeter );
         sb.append(value);
-        
+
         return sb.toString();
-	}
+    }
 
 }

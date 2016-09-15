@@ -31,47 +31,54 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
+/**
+ * This a grouping of {@link org.apache.directory.fortress.core.model.PermissionAttribute}. 
+ * A {@link org.apache.directory.fortress.core.model.Permission} can link to 0 to many Permission
+ * Attribute Sets. 
+ *
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
+ */
 @XmlRootElement(name = "ftPermissionAttributeSet")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "permission", propOrder =
-    {
-        "name",
-        "attributes",
-        "internalId",
-        "description",
-        "type"
+{
+    "name",
+    "attributes",
+    "internalId",
+    "description",
+    "type"
 })
 public class PermissionAttributeSet extends FortEntity implements Serializable {
 
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
-	
-	private String name;
-	@XmlElement(nillable = true)
-	private Set<PermissionAttribute> attributes;
+
+    private String name;
+    @XmlElement(nillable = true)
+    private Set<PermissionAttribute> attributes;
     private String internalId;
     private String description;
     private String type;
     @XmlTransient
     private String dn;
 
-    	
-    public PermissionAttributeSet(String name){
-    	this.name = name;
-    }
-    
-	public PermissionAttributeSet(){
-		
-	}
-	
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}	
-	
+    public PermissionAttributeSet(String name){
+        this.name = name;
+    }
+
+    public PermissionAttributeSet(){
+
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }	
+
     /**
      * Return the collection of optional Attributes that have been loaded into this entity.  This is stored as a multi-occurring
      * attribute of ftPA entries on the 'ftAttributeSet' object class.
@@ -80,10 +87,10 @@ public class PermissionAttributeSet extends FortEntity implements Serializable {
      */
     public Set<PermissionAttribute> getAttributes()
     {
-    	if(this.attributes == null){
-    		attributes = new HashSet<PermissionAttribute>();
-    	}
-    	
+        if(this.attributes == null){
+            attributes = new HashSet<PermissionAttribute>();
+        }
+
         return this.attributes;
     }
 
@@ -98,42 +105,42 @@ public class PermissionAttributeSet extends FortEntity implements Serializable {
     {
         this.attributes = attributes;
     }
-    
+
     public void setInternalId(String internalId){
-    	this.internalId = internalId;
+        this.internalId = internalId;
     }
 
-	public String getInternalId() {
-		return internalId;
-	}
+    public String getInternalId() {
+        return internalId;
+    }
 
-	public void setInternalId() {
+    public void setInternalId() {
         UUID uuid = UUID.randomUUID();
         this.internalId = uuid.toString();
-	}
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getType() {
-		return type;
-	}
+    public String getType() {
+        return type;
+    }
 
-	public void setType(String type) {
-		this.type = type;
-	}
+    public void setType(String type) {
+        this.type = type;
+    }
 
-	public String getDn() {
-		return dn;
-	}
+    public String getDn() {
+        return dn;
+    }
 
-	public void setDn(String dn) {
-		this.dn = dn;
-	}
+    public void setDn(String dn) {
+        this.dn = dn;
+    }
 
 }

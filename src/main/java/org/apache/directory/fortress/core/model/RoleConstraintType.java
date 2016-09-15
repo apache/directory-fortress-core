@@ -19,7 +19,12 @@
  */
 package org.apache.directory.fortress.core.model;
 
+/**
+ * The type of role constraint.
+ *
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
+ */
 public enum RoleConstraintType {
-	FILTER,
-	OTHER
+    FILTER,
+    OTHER
 }
