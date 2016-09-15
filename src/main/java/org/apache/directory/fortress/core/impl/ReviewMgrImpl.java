@@ -430,13 +430,13 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      */
     @Override
     public List<PermissionAttributeSet> rolePermissionAttributeSets( Role role, boolean noInhertiance )    
-    	throws SecurityException
+        throws SecurityException
     {
-    	Map<String, PermissionAttributeSet> permAttributeSets = new HashMap<String, PermissionAttributeSet>();
-    	
-    	//look through all permissions in the role
-    	List<Permission> permissions = this.rolePermissions(role, noInhertiance);
-    	for(Permission perm : permissions){
+        Map<String, PermissionAttributeSet> permAttributeSets = new HashMap<String, PermissionAttributeSet>();
+
+        //look through all permissions in the role
+        List<Permission> permissions = this.rolePermissions(role, noInhertiance);
+        for(Permission perm : permissions){
             if( CollectionUtils.isNotEmpty(perm.getPaSets() )){
                 for(String paSetName : perm.getPaSets()){	
                     if(!permAttributeSets.containsKey(paSetName)){
@@ -446,7 +446,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
                 }
             }
         }
-    	
+
         return new ArrayList<PermissionAttributeSet>(permAttributeSets.values());
     }
 
@@ -725,29 +725,12 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
     public List<RoleConstraint> findRoleConstraints(User user, Permission permission, RoleConstraintType rcType) throws SecurityException {
         String methodName = "findRoleConstraints";
         checkAccess(CLS_NM, methodName);        
-    	//find roles this permission is authorized for
+        //find roles this permission is authorized for
         Permission pe = permP.read(permission);
         Set<String> authorizedRoles = authorizeRoles(pe.getRoles());
-        
+
         //find role constraints for the user and the permission's pa set
-    	return userP.findRoleConstraints(authorizedRoles, user, rcType, pe.getPaSets());                
+        return userP.findRoleConstraints(authorizedRoles, user, rcType, pe.getPaSets());                
     }
-    
-    
-    /**
-     * {@inheritDoc}
-     */
-    /*
-    @Override
-    public List<UserRole> assignedRoles(User user)
-        throws SecurityException
-    {
-        String methodName = "assignedRoles";
-        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
-        checkAccess(CLS_NM, methodName);
-        User ue = userP.read(user, true);
-        return ue.getRoles();
-    } 
-    */
 
 }

@@ -1127,87 +1127,87 @@ final class PermDAO extends LdapDataProvider
     }
     
     PermissionAttributeSet getPermAttributeSet( PermissionAttributeSet permAttributeSet )
-    		throws FinderException
+        throws FinderException
     {
-    	PermissionAttributeSet entity = null;
-    	LdapConnection ld = null;
-    	String dn = getDn(permAttributeSet, permAttributeSet.getContextId());
+        PermissionAttributeSet entity = null;
+        LdapConnection ld = null;
+        String dn = getDn(permAttributeSet, permAttributeSet.getContextId());
 
-    	try
-    	{
-    		ld = getAdminConnection();
-    		Entry findEntry = read( ld, dn, PERMISION_ATTRIBUTE_SET_ATRS );
-    		if ( findEntry == null )
-    		{
-    			String warning = "getPermAttributeSet no entry found dn [" + dn + "]";
-    			throw new FinderException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, warning );
-    		}
-    		entity = unloadPASetLdapEntry( findEntry, 0 );
-    		
-    		//find permission attributes for this set
-    		entity.setAttributes(this.findPermissionAttributes(entity));
-    	}
-    	catch ( LdapNoSuchObjectException e )
-    	{
-    		String warning = "getPermAttributeSet COULD NOT FIND ENTRY for dn [" + dn + "]";
-    		throw new FinderException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, warning );
-    	}
-    	catch ( LdapException e )
-    	{
-    		String error = "getPermAttributeSet dn [" + dn + "] caught LdapException=" + e.getMessage();
-    		throw new FinderException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, error, e );
-    	}
-    	finally
-    	{
-    		closeAdminConnection( ld );
-    	}
+        try
+        {
+            ld = getAdminConnection();
+            Entry findEntry = read( ld, dn, PERMISION_ATTRIBUTE_SET_ATRS );
+            if ( findEntry == null )
+            {
+                String warning = "getPermAttributeSet no entry found dn [" + dn + "]";
+                throw new FinderException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, warning );
+            }
+            entity = unloadPASetLdapEntry( findEntry, 0 );
 
-    	return entity;
+            //find permission attributes for this set
+            entity.setAttributes(this.findPermissionAttributes(entity));
+        }
+        catch ( LdapNoSuchObjectException e )
+        {
+            String warning = "getPermAttributeSet COULD NOT FIND ENTRY for dn [" + dn + "]";
+            throw new FinderException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, warning );
+        }
+        catch ( LdapException e )
+        {
+            String error = "getPermAttributeSet dn [" + dn + "] caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, error, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+
+        return entity;
     }
 
     Set<PermissionAttribute> findPermissionAttributes( PermissionAttributeSet paSet )
-    		throws FinderException
+        throws FinderException
     {
-    	Set<PermissionAttribute> paList = new HashSet<PermissionAttribute>();
-    	LdapConnection ld = null;
-    	String permRoot = getRootDn( paSet.getContextId() );
+        Set<PermissionAttribute> paList = new HashSet<PermissionAttribute>();
+        LdapConnection ld = null;
+        String permRoot = getRootDn( paSet.getContextId() );
 
-    	try
-    	{
-    		String paSetVal = encodeSafeText( paSet.getName(), GlobalIds.PERM_LEN );
-    		StringBuilder filterbuf = new StringBuilder();
-    		filterbuf.append( GlobalIds.FILTER_PREFIX );
-    		filterbuf.append( PERMISSION_ATTRIBUTE_OBJECT_CLASS_NAME );
-    		filterbuf.append( ")(" );
-    		filterbuf.append( GlobalIds.FT_PERMISSION_ATTRIBUTE_SET );
-    		filterbuf.append( "=" );
-    		filterbuf.append( paSetVal );
-    		filterbuf.append(  "))" );
-    		ld = getAdminConnection();
-    		SearchCursor searchResults = search( ld, permRoot,
-    				SearchScope.SUBTREE, filterbuf.toString(), PERMISION_ATTRIBUTE_ATRS, false, GlobalIds.BATCH_SIZE );
-    		long sequence = 0;
+        try
+        {
+            String paSetVal = encodeSafeText( paSet.getName(), GlobalIds.PERM_LEN );
+            StringBuilder filterbuf = new StringBuilder();
+            filterbuf.append( GlobalIds.FILTER_PREFIX );
+            filterbuf.append( PERMISSION_ATTRIBUTE_OBJECT_CLASS_NAME );
+            filterbuf.append( ")(" );
+            filterbuf.append( GlobalIds.FT_PERMISSION_ATTRIBUTE_SET );
+            filterbuf.append( "=" );
+            filterbuf.append( paSetVal );
+            filterbuf.append(  "))" );
+            ld = getAdminConnection();
+            SearchCursor searchResults = search( ld, permRoot,
+                SearchScope.SUBTREE, filterbuf.toString(), PERMISION_ATTRIBUTE_ATRS, false, GlobalIds.BATCH_SIZE );
+            long sequence = 0;
 
-    		while ( searchResults.next() )
-    		{
-    			paList.add( unloadPALdapEntry( searchResults.getEntry(), sequence++ ) );
-    		}
-    	}
-    	catch ( LdapException e )
-    	{
-    		String error = "findPermissionAttributes caught LdapException=" + e.getMessage();
-    		throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
-    	}
-    	catch ( CursorException e )
-    	{
-    		String error = "findPermissionAttributes caught CursorException=" + e.getMessage();
-    		throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
-    	}
-    	finally
-    	{
-    		closeAdminConnection( ld );
-    	}
-    	return paList;
+            while ( searchResults.next() )
+            {
+                paList.add( unloadPALdapEntry( searchResults.getEntry(), sequence++ ) );
+            }
+        }
+        catch ( LdapException e )
+        {
+            String error = "findPermissionAttributes caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "findPermissionAttributes caught CursorException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+        return paList;
     }
 
     /**
@@ -1452,42 +1452,42 @@ final class PermDAO extends LdapDataProvider
     }
     
     private PermissionAttributeSet unloadPASetLdapEntry( Entry le, long sequence )
-    		throws LdapInvalidAttributeValueException
+        throws LdapInvalidAttributeValueException
     {
-    	PermissionAttributeSet entity = new ObjectFactory().createPermAttributeSet();
-    	entity.setSequenceId( sequence );
-    	entity.setName( getAttribute( le, SchemaConstants.CN_AT ) );
-    	entity.setDn( le.getDn().getName() );
-    	entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
-    	entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
-    	entity.setType( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_SET_TYPE ) );    	    	
-    	
-    	return entity;
+        PermissionAttributeSet entity = new ObjectFactory().createPermAttributeSet();
+        entity.setSequenceId( sequence );
+        entity.setName( getAttribute( le, SchemaConstants.CN_AT ) );
+        entity.setDn( le.getDn().getName() );
+        entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
+        entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
+        entity.setType( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_SET_TYPE ) );    	    	
+
+        return entity;
     }
-    
+
     private PermissionAttribute unloadPALdapEntry( Entry le, long sequence )
-    		throws LdapInvalidAttributeValueException
+        throws LdapInvalidAttributeValueException
     {
-    	PermissionAttribute entity = new ObjectFactory().createPermissionAttribute();
-    	entity.setSequenceId( sequence );
-    	entity.setAttributeName( getAttribute( le, SchemaConstants.CN_AT ) );
-    	entity.setDn( le.getDn().getName() );
-    	entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
-    	entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
-    	entity.setDataType( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_DATA_TYPE ) );
-    	entity.setDefaultOperator( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_OPERATOR ) );
-    	entity.setDefaultStrategy( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_STRATEGY ) );
-    	entity.setDefaultValue( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_VALUE ) );
-    	
-    	List<String> validValues = getAttributes( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_VALID_VALUES );
-    	
-    	if(validValues != null){
-    		for(String value : validValues){
-    			entity.getValidValues().add(value);
-    		}
-    	}
-    	
-    	return entity;
+        PermissionAttribute entity = new ObjectFactory().createPermissionAttribute();
+        entity.setSequenceId( sequence );
+        entity.setAttributeName( getAttribute( le, SchemaConstants.CN_AT ) );
+        entity.setDn( le.getDn().getName() );
+        entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
+        entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
+        entity.setDataType( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_DATA_TYPE ) );
+        entity.setDefaultOperator( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_OPERATOR ) );
+        entity.setDefaultStrategy( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_STRATEGY ) );
+        entity.setDefaultValue( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_VALUE ) );
+
+        List<String> validValues = getAttributes( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_VALID_VALUES );
+
+        if(validValues != null){
+            for(String value : validValues){
+                entity.getValidValues().add(value);
+            }
+        }
+
+        return entity;
     }
     
     /**
