@@ -25,7 +25,7 @@
  * SECTION 2. Fortress Ant Property Files.
  * SECTION 3. Fortress Configuration Artifacts.
  * SECTION 4. Fortress Configuration Overrides.
- * SECTION 5. Precedence of Artifacts found in the Fortress Configuration Subsystem.
+ * SECTION 5. Order Artifacts found in the Fortress Configuration Subsystem.
  * SECTION 6. Configuration Subsystem Usage.
 
 -------------------------------------------------------------------------------
@@ -97,13 +97,14 @@ The ant config task, **init-fortress-config**, uses the values found within the 
  * fortress.port
 
 ___________________________________________________________________________________
-## SECTION 5.  Precedence of Artifacts found in the Fortress Configuration Subsystem
+## SECTION 5.  Order Artifacts found in the Fortress Configuration Subsystem
 
 This subsystem has been hard wired to the following order:
  1. fortress.properties file - found on the classpath of that name.
  2. Java system properties - to override any of the 14 properties listed above.
  3. LDAP configuration node - found by config coordinates set in the fortress.properties file itself.
 
+Properties found in LDAP config node will override Java system properties which will override fortress.properties.
 __________________________________________________________________________________
 ## SECTION 6.  Configuration Subsystem Usage
 

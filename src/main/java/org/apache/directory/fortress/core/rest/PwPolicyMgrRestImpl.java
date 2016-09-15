@@ -33,7 +33,7 @@ import org.apache.directory.fortress.core.util.VUtil;
 
 
 /**
- * This class is used to perform administrative and review functions on the PWPOLICIES and USERS data sets using HTTP access to En Masse REST server.
+ * This class is used to perform administrative and review functions on the PWPOLICIES and USERS data sets using HTTP access to Fortress Rest server.
  * <p>
  * <h4>Password Policies</h4>
  * <a href="http://www.openldap.org/">OpenLDAP</a> supports the IETF draft <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10/">Password Policies for LDAP directories</a></li>.  Policies may be applied at the user, group or global level.

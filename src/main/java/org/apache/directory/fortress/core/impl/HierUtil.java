@@ -73,10 +73,6 @@ final class HierUtil
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final String VERTEX = "Vertex";
 
-    /** A lock used internally to protect the access to the locks map */
-    private static final ReadWriteLock getLockLock = new ReentrantReadWriteLock();
-
-
     /**
      * The 'Type' attribute corresponds to what type of hierarchy is being referred to.
      */
@@ -98,68 +94,6 @@ final class HierUtil
     private HierUtil()
     {
     }
-
-    /**
-     *
-     * @param contextId
-     * @param type
-     * @return
-     */
-    static ReadWriteLock getLock( String contextId, Type type )
-    {
-        String syncKey = getSynchKey( contextId, type );
-     
-        try
-        {
-            getLockLock.readLock().lock();
-            ReadWriteLock synchObj = synchMap.get( syncKey );
-            
-            if ( synchObj == null )
-            {
-                // Not found, we will create a new one and store it into the map
-                try
-                {
-                    getLockLock.readLock().unlock();
-                    getLockLock.writeLock().lock();
-
-                    // Retry immediately to get the lock from the map, it might have been updated by
-                    // another thread while this thread was blocked on the write lock 
-                    synchObj = synchMap.get( syncKey );
-                    
-                    if ( synchObj == null )
-                    {
-                        synchObj = new ReentrantReadWriteLock();
-                        synchMap.put( syncKey, synchObj );
-                    }
-
-                    getLockLock.readLock().lock();
-                }
-                finally
-                {
-                    getLockLock.writeLock().unlock();
-                }
-            }
-            
-            return synchObj;
-        }
-        finally
-        {
-            getLockLock.readLock().unlock();
-        }
-    }
-
-
-    /**
-     *
-     * @param contextId
-     * @param type
-     * @return
-     */
-    private static String getSynchKey( String contextId, Type type )
-    {
-        return type.toString() + ":" + contextId;
-    }
-
 
     /**
      * This api is used to determine parentage for Hierarchical processing.
@@ -208,26 +142,6 @@ final class HierUtil
             String error = "validateRelationship child [" + child + "] is parent of [" + parent + "]";
             throw new ValidationException( GlobalErrIds.HIER_REL_CYCLIC, error );
         }
-    }
-
-
-    /**
-     * This method Convert from logical, {@code org.jgrapht.graph.SimpleDirectedGraph} to ldap entity, {@link org.apache.directory.fortress.core.model.Hier}.
-     * The conversion iterates over all edges in the graph and loads the corresponding {@link Relationship} data
-     * into the ldap entity.  The ldap entity stores this data physically in the {@code ftRels} attribute of {@code ftHier} object class.
-     *
-     * @param graph contains a reference to simple digraph {@code org.jgrapht.graph.SimpleDirectedGraph}.
-     * @return reference to hierarchical ldap entity {@link org.apache.directory.fortress.core.model.Hier}.
-     */
-    static Hier toHier( SimpleDirectedGraph<String, Relationship> graph )
-    {
-        Hier he = new Hier();
-        Set<Relationship> eSet = graph.edgeSet();
-        for ( Relationship edge : eSet )
-        {
-            he.setRelationship( edge );
-        }
-        return he;
     }
 
 

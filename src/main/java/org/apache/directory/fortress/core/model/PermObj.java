@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlType;
  * All entities ({@link User}, {@link Role}, {@link org.apache.directory.fortress.core.model.Permission},
  * {@link PwPolicy} {@link SDSet} etc...) are used to carry data between three Fortress
  * layers.starting with the (1) Manager layer down thru middle (2) Process layer and it's processing rules into
- * (3) DAO layer where persistence with the OpenLDAP server occurs.
+ * (3) DAO layer where persistence with the LDAP server occurs.
  * <h4>Fortress Processing Layers</h4>
  * <ol>
  * <li>Manager layer:  {@link org.apache.directory.fortress.core.impl.AdminMgrImpl}, {@link org.apache.directory.fortress.core.impl.AccessMgrImpl}, {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl},...</li>
@@ -298,7 +298,7 @@ public class PermObj extends FortEntity implements Serializable
 
 
     /**
-      * Gets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
+      * Gets the value of the Props property.  This method is used by Fortress Core and Rest and should not be called by external programs.
       *
       * @return
       *     possible object is
@@ -312,7 +312,7 @@ public class PermObj extends FortEntity implements Serializable
 
 
     /**
-     * Sets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
+     * Sets the value of the Props property.  This method is used by Fortress Core and Rest and should not be called by external programs.
      *
      * @param value
      *     allowed object is

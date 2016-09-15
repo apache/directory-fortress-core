@@ -111,7 +111,11 @@ final class GroupDAO extends LdapDataProvider
             Entry myEntry = new DefaultEntry( nodeDn );
             myEntry.add( SchemaConstants.OBJECT_CLASS_AT, GROUP_OBJ_CLASS );
             myEntry.add( SchemaConstants.CN_AT, group.getName() );
+            // protocol is required:
             myEntry.add( GROUP_PROTOCOL_ATTR_IMPL, group.getProtocol() );
+            // type is required:
+            myEntry.add( GlobalIds.TYPE, group.getType().toString() );
+
             loadAttrs( group.getMembers(), myEntry, SchemaConstants.MEMBER_AT );
             loadProperties( group.getProperties(), myEntry, GROUP_PROPERTY_ATTR_IMPL, '=' );
 

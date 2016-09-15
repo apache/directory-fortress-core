@@ -76,7 +76,7 @@ import org.apache.directory.fortress.core.util.VUtil;
  * facilitate authorization dual control and two man policy restrictions during runtime security checks.
  * <p>
  * <img src="../doc-files/RbacDSD.png" alt="">
- * <hr>
+ * <hr>`
  * <p>
  * This class is NOT thread safe if parent instance variables ({@link #contextId} or {@link #adminSess}) are set.
  *
@@ -90,13 +90,6 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
     private PermP permP = new PermP();
     private SdP ssdP = new SdP();
 
-    public ReviewMgrImpl() {
-        userP = new UserP();
-        roleP = new RoleP();
-        permP = new PermP();
-        ssdP = new SdP();
-	}
-    
     /**
      * {@inheritDoc}
      */

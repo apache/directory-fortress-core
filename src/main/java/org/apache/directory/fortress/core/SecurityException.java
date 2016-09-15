@@ -39,7 +39,7 @@ package org.apache.directory.fortress.core;
  *   <li>{@link ValidationException} in the event entity validation fails.</li>
  * </ul>
  * <p>
- * For certain APIs, i.e., {@link AccessMgr#createSession(org.apache.directory.fortress.core.model.User, boolean)}, or 
+ * For certain APIs like {@link AccessMgr#createSession(org.apache.directory.fortress.core.model.User, boolean)}, or
  * {@link AccessMgr#authenticate(String, char[])}, the caller may need to differentiate by one of the above subclasses, e.g. 
  * {@link PasswordException}, to facilitate password expiring condition or allow user to retry authentication after entering 
  * it incorrectly. If specific exception processing is not the aim, or if differentiating conditions by {@link #errorId} is 
@@ -54,7 +54,6 @@ package org.apache.directory.fortress.core;
  * </h3>
  * <ul>
  *   <li> <code>{@link GlobalErrIds#CONTEXT_NULL} = 101;</code></li>
- *   <li> {@code CONTEXT_SERIALIZATION_FAILED} = 102;</li>
  *   <li> <code>{@link GlobalErrIds#FT_MGR_CLASS_NOT_FOUND} = 103;</code></li>
  *   <li> <code>{@link GlobalErrIds#FT_MGR_INST_EXCEPTION} = 104;</code></li>
  *   <li> <code>{@link GlobalErrIds#FT_MGR_ILLEGAL_ACCESS} = 105;</code></li>
@@ -406,7 +405,7 @@ package org.apache.directory.fortress.core;
  *   <li> <code>{@link GlobalErrIds#CONST_NULL_TEXT} = 10015;</code></li>
  * </ul>
  * <h3>
- *   10100's - REST calls through remote En Masse Interface Error Ids
+ *   10100's - REST calls through remote Fortress Rest Interface Error Ids
  * </h3>
  * <ul>
  *   <li> <code>{@link GlobalErrIds#REST_WEB_ERR} = 10101;</code></li>

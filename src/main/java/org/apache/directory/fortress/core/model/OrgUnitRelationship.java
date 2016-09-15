@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * This entity is used by en masse to communicate parent and child {@link OrgUnit} information to the server.
+ * This entity is used by Fortress Rest to communicate parent and child {@link OrgUnit} information to the server.
  * 
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

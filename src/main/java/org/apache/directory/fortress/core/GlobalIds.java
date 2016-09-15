@@ -334,6 +334,11 @@ public final class GlobalIds
      */
     public static final String PARENT_NODES = "ftParents";
 
+    /**
+     * Attribute name for storing type on either permission or groups.
+     */
+    public static final String TYPE = "ftType";
+
     /*
     *  *************************************************************************
     *  **  RBAC Entity maximum length constants

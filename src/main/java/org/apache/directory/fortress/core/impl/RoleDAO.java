@@ -654,7 +654,7 @@ final class RoleDAO extends LdapDataProvider
         entity.setChildren( RoleUtil.getInstance().getChildren( entity.getName().toUpperCase(), contextId ) );
         entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );
         unloadTemporal( le, entity );
-
+        entity.setDn( le.getDn().getName() );
         return entity;
     }
 

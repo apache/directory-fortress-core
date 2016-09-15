@@ -30,7 +30,7 @@ import org.apache.directory.fortress.core.model.Props;
 import org.apache.directory.fortress.core.util.VUtil;
 
 /**
- * This Manager impl supplies CRUD methods used to manage properties stored within the ldap directory using HTTP access to En Masse REST server.
+ * This Manager impl supplies CRUD methods used to manage properties stored within the ldap directory using HTTP access to Fortress Rest server.
  * The Fortress config nodes are used to remotely share Fortress client specific properties between processes.
  * Fortress places no limits on the number of unique configurations that can be present at one time in the directory.
  * The Fortress client will specify the preferred cfg node by name via a property named, {@link org.apache.directory.fortress.core.GlobalIds#CONFIG_REALM}.

@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlType;
  * This entity is used by {@link org.apache.directory.fortress.core.ant.FortressAntTask} to add {@link Permission} grants to
  * RBAC {@link Role}, or ARBAC {@link AdminRole}.
  * Can also be used to grant Permissions directly to {@link User}s.
- * This entity is used for Ant and En Masse processing only.
+ * This entity is used for Ant and Fortress Rest processing only.
 
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

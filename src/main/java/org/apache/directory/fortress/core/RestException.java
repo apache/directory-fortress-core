@@ -21,7 +21,7 @@ package org.apache.directory.fortress.core;
 
 
 /**
- * This exception extends {@link SecurityException} and is thrown when Fortress cannot call En Masse to perform a particular 
+ * This exception extends {@link SecurityException} and is thrown when Fortress cannot call Fortress Rest to perform a particular
  * operation via RESTful interface.
  * See the {@link GlobalErrIds} javadoc for list of error ids.
  *

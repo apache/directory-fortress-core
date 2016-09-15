@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * This entity is used by en masse to communicate {@link org.apache.directory.fortress.core.model.Role}, {@link Permission} and {@link org.apache.directory.fortress.core.model.Session} information to the server for access control decisions.
+ * This entity is used by Fortress Rest to communicate {@link org.apache.directory.fortress.core.model.Role}, {@link Permission} and {@link org.apache.directory.fortress.core.model.Session} information to the server for access control decisions.
  * 
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

@@ -764,7 +764,6 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         setEntitySession( CLS_NM, methodName, ssdSet );
         SDSet entity = sdP.read( ssdSet );
         entity.setContextId( this.contextId );
-        entity.setContextId( this.contextId );
         entity.addMember( role.getName() );
         setAdminData( CLS_NM, methodName, entity );
         SDSet ssdOut = sdP.update( entity );
@@ -910,7 +909,6 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         entity.setContextId( this.contextId );
         entity.addMember( role.getName() );
         setAdminData( CLS_NM, methodName, entity );
-        entity.setContextId( contextId );
         SDSet dsdOut = sdP.update( entity );
         // remove any references to the old DSD from cache:
         clearDSDCache( dsdSet );

@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
@@ -41,6 +42,7 @@ import java.util.StringTokenizer;
         "protocol",
         "members",
         "props",
+        "type"
 })
 public class Group extends FortEntity implements Serializable
 {
@@ -51,15 +53,62 @@ public class Group extends FortEntity implements Serializable
     private List<String> members;
     private Props props = new Props();
     private boolean memberDn;
+    private Type type;
+
+    /**
+     * enum for User or Role data sets.  Both nodes may be stored in the same LDAP container.
+     */
+    @XmlType(name = "type")
+    @XmlEnum
+    public enum Type
+    {
+        /**
+         * Entry contains a set of Users.
+         */
+        USER,
+
+        /**
+         * Entry contains a set of Roles.
+         */
+        ROLE
+    }
+
+    /**
+     * Get the required type of Group - 'USER' Or 'ROLE'.
+     *
+     * @return type that determines what node maps to.
+     */
+    public Type getType()
+    {
+        return type;
+    }
+
+    /**
+     * Set the required type of Group - 'USER' Or 'ROLE'.
+     *
+     * @param type determines what set the node contains.
+     */
+    public void setType( Type type )
+    {
+        this.type = type;
+    }
 
 
     /**
-     * Default constructor used by {@link org.apache.directory.fortress.core.ant.FortressAntTask}
+     * Default constructor used by {@link org.apache.directory.fortress.core.ant.FortressAntTask} defaults to type USER.
      */
     public Group()
     {
+        type = Type.USER;
     }
 
+    /**
+     * Constructor for base type.
+     */
+    public Group( Type type )
+    {
+        this.type = type;
+    }
 
     /**
      * Generate instance of group to be loaded as ldap object.
@@ -69,8 +118,19 @@ public class Group extends FortEntity implements Serializable
     public Group( String name )
     {
         this.name = name;
+        type = Type.USER;
     }
 
+    /**
+     * Generate instance of group to be loaded as ldap object with node type.
+     *
+     * @param name        maps to 'cn' attribute in group object class.
+     */
+    public Group( String name, Type type )
+    {
+        this.name = name;
+        this.type = type;
+    }
 
     /**
      * Generate instance of group to be loaded as ldap object.
@@ -82,6 +142,21 @@ public class Group extends FortEntity implements Serializable
     {
         this.name = name;
         this.description = description;
+        type = Type.USER;
+    }
+
+
+    /**
+     * Generate instance of group to be loaded as ldap object with node type.
+     *
+     * @param name        maps to 'cn' attribute in group object class.
+     * @param description maps to 'description' attribute in group object class.
+     */
+    public Group( String name, String description, Type type )
+    {
+        this.name = name;
+        this.description = description;
+        this.type = type;
     }
 
 
@@ -333,7 +408,7 @@ public class Group extends FortEntity implements Serializable
 
 
     /**
-     * Gets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
+     * Gets the value of the Props property.  This method is used by Fortress Core and Rest and should not be called by external programs.
      *
      * @return {@link Props }
      *
@@ -345,7 +420,7 @@ public class Group extends FortEntity implements Serializable
 
 
     /**
-     * Sets the value of the Props property.  This method is used by Fortress and En Masse and should not be called by external programs.
+     * Sets the value of the Props property.  This method is used by Fortress Core and Rest and should not be called by external programs.
      *
      * @param props
      *     allowed object is

@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * This class is used to return response data from En Masse server.
+ * This class is used to return response data from Fortress Rest server.
  * <p>
  * This class is not thread safe.
  *
