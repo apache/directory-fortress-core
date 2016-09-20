@@ -127,7 +127,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         // remove the user dn occupant attribute from assigned ldap role entities.
         roleP.removeOccupant( userDn, this.contextId );
         // remove the user dn occupant attribute from assigned ldap adminRole entities.
-        adminP.removeOccupant( userDn, user.getContextId() );
+        adminP.removeOccupant( userDn, this.contextId );
     }
 
 
@@ -147,7 +147,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         // remove the user dn occupant attribute from assigned ldap role entities.
         roleP.removeOccupant( userDn, this.contextId );
         // remove the user dn occupant attribute from assigned ldap adminRole entities.
-        adminP.removeOccupant( userDn, user.getContextId() );
+        adminP.removeOccupant( userDn, this.contextId );
     }
 
 
