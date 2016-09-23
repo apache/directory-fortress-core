@@ -31,17 +31,9 @@ import net.sf.ehcache.search.Results;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
-import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.ReviewMgr;
-import org.apache.directory.fortress.core.ReviewMgrFactory;
+import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.model.Constraint;
-import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.model.SDSet;
-import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.model.*;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.cache.Cache;
 import org.apache.directory.fortress.core.util.cache.CacheMgr;
@@ -128,34 +120,62 @@ final class SDUtil
     void validateSSD(User user, Role role)
         throws SecurityException
     {
-        int matchCount;
         // get all authorized roles for user
-        ReviewMgr rMgr = ReviewMgrFactory.createInstance(user.getContextId());
-        Set<String> rls = rMgr.authorizedRoles(user);
+        String contextId = user.getContextId();
+        ReviewMgr rMgr = ReviewMgrFactory.createInstance( contextId );
+        Set<String> rls = rMgr.authorizedRoles( user );
+
+        checkSSD( role, rls, contextId);
+    }
+
+    /**
+     * This method is called by GroupMgr.assign and is used to validate Static Separation of Duty
+     * constraints when assigning a role to group.
+     *
+     * @param group
+     * @param role
+     * @throws org.apache.directory.fortress.core.SecurityException
+     *
+     */
+    void validateSSD( Group group, Role role ) throws SecurityException
+    {
+        // get all authorized roles for this group
+        String contextId = group.getContextId();
+        GroupMgr groupMgr = GroupMgrFactory.createInstance(contextId);
+        List<UserRole> roles = groupMgr.groupRoles( group );
+        Set<String> rls = RoleUtil.getInstance().getInheritedRoles( roles, contextId);
+        // check SSD constraints
+        checkSSD( role, rls, contextId);
+    }
+
+    private void checkSSD( Role role, Set<String> authorizedRls, String contextId ) throws SecurityException
+    {
+        int matchCount;
         // Need to proceed?
-        if (!CollectionUtils.isNotEmpty( rls ))
+        if (CollectionUtils.isEmpty( authorizedRls ))
         {
             return;
         }
 
         // get all SSD sets that contain the new role
-        List<SDSet> ssdSets = getSsdCache(role.getName(), user.getContextId());
-        for (SDSet ssd : ssdSets)
+        List<SDSet> ssdSets = getSsdCache( role.getName(), contextId );
+        for ( SDSet ssd : ssdSets )
         {
             matchCount = 0;
             Set<String> map = ssd.getMembers();
-            // iterate over every authorized role for user:
-            for (String authRole : rls)
+            // iterate over every authorized role for user/group:
+            for ( String authRole : authorizedRls )
             {
                 // is there a match found between authorized role and SSD set's members?
-                if (map.contains(authRole))
+                if ( map.contains( authRole ) )
                 {
                     matchCount++;
                     // does the match count exceed the cardinality allowed for this particular SSD set?
-                    if (matchCount >= ssd.getCardinality() - 1)
+                    if ( matchCount >= ssd.getCardinality() - 1 )
                     {
-                        String error = "validateSSD new role [" + role.getName() + "] validates SSD Set Name:" + ssd.getName() + " Cardinality:" + ssd.getCardinality();
-                        throw new SecurityException(GlobalErrIds.SSD_VALIDATION_FAILED, error);
+                        String error = "validateSSD new role [" + role.getName() + "] validates SSD Set Name:"
+                                + ssd.getName() + " Cardinality:" + ssd.getCardinality();
+                        throw new SecurityException( GlobalErrIds.SSD_VALIDATION_FAILED, error );
                     }
                 }
             }
@@ -177,7 +197,7 @@ final class SDUtil
     {
         // get all activated roles from user's session:
         List<UserRole> rls = session.getRoles();
-        if (!CollectionUtils.isNotEmpty( rls ))
+        if (CollectionUtils.isEmpty( rls ))
         {
             // An empty list of roles was passed in the session variable.
             // No need to continue.

@@ -88,14 +88,22 @@ public class DSDChecker
         {
             return rc;
         }
-        // get the list of authorized roles for this user:
-        Set<String> authorizedRoleSet = RoleUtil.getInstance().getInheritedRoles( activeRoleList, session.getUser().getContextId() );
+
+        // Depending on if session is group or user session, fill objects
+        String contextId = session.isGroupSession()
+                ? session.getGroup().getContextId()
+                : session.getUser().getContextId();
+        String entityId = session.isGroupSession() ? session.getGroupName() : session.getUserId();
+        String entityType = session.isGroupSession() ? "groupName" : "userId";
+
+        // get the list of authorized roles for this user/group:
+        Set<String> authorizedRoleSet = RoleUtil.getInstance().getInheritedRoles( activeRoleList, contextId);
         // only need to check DSD constraints if more than one role is being activated:
         if ( authorizedRoleSet != null && authorizedRoleSet.size() > 1 )
         {
             // get all DSD sets that contain the candidate activated and authorized roles,
             //If DSD cache is disabled, this will search the directory using authorizedRoleSet
-            Set<SDSet> dsdSets = SDUtil.getInstance().getDsdCache( authorizedRoleSet, session.getUser().getContextId() );
+            Set<SDSet> dsdSets = SDUtil.getInstance().getDsdCache( authorizedRoleSet, contextId);
             if ( dsdSets != null && dsdSets.size() > 0 )
             {
                 for ( SDSet dsd : dsdSets )
@@ -115,7 +123,7 @@ public class DSDChecker
                             if ( matchCount >= dsd.getCardinality() )
                             {
                                 activatedRoles.remove();
-                                String warning = "validate userId [" + session.getUserId()
+                                String warning = "validate " + entityType + " [" + entityId
                                     + "] failed activation of assignedRole [" + activatedRole.getName()
                                     + "] validates DSD Set Name:" + dsd.getName() + " Cardinality:"
                                     + dsd.getCardinality();
@@ -127,8 +135,7 @@ public class DSDChecker
                         }
                         else
                         {
-                            Set<String> parentSet = RoleUtil.getInstance().getAscendants( activatedRole.getName(), session.getUser()
-                                .getContextId() );
+                            Set<String> parentSet = RoleUtil.getInstance().getAscendants( activatedRole.getName(), contextId);
                             // now check for every role inherited from this activated role:
                             for ( String parentRole : parentSet )
                             {
@@ -137,7 +144,7 @@ public class DSDChecker
                                     matchCount++;
                                     if ( matchCount >= dsd.getCardinality() )
                                     {
-                                        String warning = "validate userId [" + session.getUserId()
+                                        String warning = "validate " + entityType + " [" + entityId
                                             + "] assignedRole [" + activatedRole.getName() + "] parentRole ["
                                             + parentRole + "] validates DSD Set Name:" + dsd.getName()
                                             + " Cardinality:" + dsd.getCardinality();

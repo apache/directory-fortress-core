@@ -656,7 +656,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
      * Set the value to 'true' indicating that Session is created for Group entity
      * @param isGroupSession indicates if Session is for Group
      */
-    public void setGroupSession(boolean isGroupSession) { isGroupSession = isGroupSession; }
+    public void setGroupSession(boolean isGroupSession) { this.isGroupSession = isGroupSession; }
 
     /**
      * Set the userId that is associated with User.  UserId is required attribute and must be set on add, update, delete, createSession, authenticate, etc..
@@ -706,7 +706,6 @@ public class Session  extends FortEntity implements PwMessage, Serializable
     {
         if ( isGroupSession )
         {
-//            group.setRole( role );
             group.getRoles().add( role );
         }
         else

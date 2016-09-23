@@ -137,7 +137,10 @@ final class GroupP
      */
     Group assign( Group entity, String userDn ) throws SecurityException
     {
-        return gDao.assign( entity, userDn );
+        Group group = read( entity );
+        group.setContextId( entity.getContextId() );
+
+        return gDao.assign( group, userDn );
     }
 
 
@@ -151,7 +154,10 @@ final class GroupP
      */
     Group deassign( Group entity, String userDn ) throws SecurityException
     {
-        return gDao.deassign( entity, userDn );
+        Group group = read( entity );
+        group.setContextId( entity.getContextId() );
+
+        return gDao.deassign( group, userDn );
     }
 
 
@@ -241,28 +247,36 @@ final class GroupP
         {
             // Process selective activation of user's RBAC roles into session:
             List<String> availableRoles = session.getGroup().getMembers();
-            availableRoles.retainAll(group.getMembers());
-
-            // Fill aux field 'roles' with Role entities
-            fillRoles(session.getGroup());
+            availableRoles.retainAll( group.getMembers() );
         }
+        // Fill aux field 'roles' with Role entities
+        fillRoles( session.getGroup() );
+
         // Check role temporal constraints + activate roles:
         VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.ROLE, true );
         return session;
     }
 
 
-    // TODO: docs
     private Session createSessionTrusted( Group inGroup) throws SecurityException
     {
         Group group = read( inGroup );
         group.setContextId( inGroup.getContextId() );
+
+        if ( group.getType() != Group.Type.ROLE )
+        {
+            String info = "createSession failed for Group ["
+                    + group.getName() + "], group must be of type ROLE.";
+
+            throw new ValidationException( GlobalErrIds.GROUP_TYPE_INVLD, info );
+        }
 
         Session session = new Session(group);
         // Set this flag to false because group was not authenticated.
         session.setAuthenticated( false );
         return session;
     }
+
 
     /**
      * Populates the auxiliary field 'roles' in given group object with
@@ -279,14 +293,14 @@ final class GroupP
             for ( String roleDn : members )
             {
                 String roleRdn = roleDn;
-                if (group.isMemberDn())
+                if ( group.isMemberDn() )
                 {
-                    String[] parts = roleDn.split(",");
+                    String[] parts = roleDn.split( "," );
                     if (parts.length > 0)
                     {
                         roleRdn = parts[ 0 ];
                     }
-                    roleRdn = roleRdn.replaceFirst("cn=", ""); // remove 'cn='
+                    roleRdn = roleRdn.replaceFirst( "cn=", "" ); // remove 'cn='
                 }
                 Role inRole = new Role( roleRdn );
                 inRole.setContextId( group.getContextId() );

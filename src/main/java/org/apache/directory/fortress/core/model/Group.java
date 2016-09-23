@@ -20,11 +20,7 @@
 package org.apache.directory.fortress.core.model;
 
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -42,7 +38,8 @@ import java.util.StringTokenizer;
         "protocol",
         "members",
         "props",
-        "type"
+        "type",
+        "roles"
 })
 public class Group extends FortEntity implements Serializable
 {
@@ -52,18 +49,20 @@ public class Group extends FortEntity implements Serializable
     private String protocol;
     private List<String> members;
     private Props props = new Props();
+    @XmlTransient
     private boolean memberDn;
     private Type type;
 
     /**
-     *  Auxiliary field used to store roles in UserRole format. Used only internally by DAO/Managers.
+     *  Auxiliary field used to store roles in UserRole format.
      */
+    @XmlElement( nillable = true )
     private List<UserRole> roles = new ArrayList<>();
 
     /**
      * enum for User or Role data sets.  Both nodes may be stored in the same LDAP container.
      */
-    @XmlType(name = "type")
+    @XmlType(name = "groupType")
     @XmlEnum
     public enum Type
     {

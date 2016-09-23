@@ -964,7 +964,8 @@ final class PermDAO extends LdapDataProvider
         boolean result = false;
         Set<String> userIds = permission.getUsers();
 
-        if ( CollectionUtils.isNotEmpty( userIds ) && userIds.contains( session.getUserId() ) )
+        if ( !session.isGroupSession() && CollectionUtils.isNotEmpty( userIds )
+                && userIds.contains( session.getUserId() ) )
         {
             // user is assigned directly to this permission, no need to look further.
             return true;

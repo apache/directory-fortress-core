@@ -1655,4 +1655,11 @@ public final class GlobalErrIds
      * The supplied group protocol name failed length check.
      */
     public static final int GROUP_PROTOCOL_INVLD = 10313;
+
+    /**
+     * The supplied group type is invalid for operation
+     */
+    public static final int GROUP_TYPE_INVLD = 10314;
+
+
 }

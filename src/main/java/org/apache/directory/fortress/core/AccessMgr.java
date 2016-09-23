@@ -181,9 +181,9 @@ public interface AccessMgr extends Manageable
         throws SecurityException;
 
     /**
-     * Perform user authentication {@link Group} and role activations {@link Group#members}.<br>
+     * Perform group {@link Group} role activations {@link Group#members}.<br>
      * Group sessions are always trusted. <br>
-     * This method must be called once per user prior to calling other methods within this class.
+     * This method must be called once per group prior to calling other methods within this class.
      * The successful result is {@link org.apache.directory.fortress.core.model.Session} that contains target group's RBAC
      * {@link Group#members}
      * <h4> This API will...</h4>
@@ -248,7 +248,7 @@ public interface AccessMgr extends Manageable
      * @throws SecurityException
      *          in the event of data validation failure, security policy violation or DAO error.
      */
-    Session createGroupSession(Group group)
+    Session createSession(Group group)
             throws SecurityException;
 
 

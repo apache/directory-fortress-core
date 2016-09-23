@@ -209,6 +209,8 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
         {
             Role role = reviewMgr.readRole( new Role( member ) );
             dn = role.getDn();
+            // Validate SSD constraints
+            SDUtil.getInstance().validateSSD( group, role );
         }
         else
         {

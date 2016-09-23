@@ -155,4 +155,13 @@ public class HttpIds
     public static final String CFG_UPDATE = "cfgUpdate";
     public static final String CFG_DELETE = "cfgDelete";
     public static final String CFG_READ = "cfgRead";
+    public static final String RBAC_CREATE_GROUP_SESSION = "rbacCreateGroup";
+    public static final String GROUP_ADD = "groupAdd";
+    public static final String GROUP_READ = "groupRead";
+    public static final String GROUP_UPDATE = "groupUpdate";
+    public static final String GROUP_DELETE = "groupDelete";
+    public static final String GROUP_ROLE_ASGNED = "roleGroupAsigned";
+    public static final String GROUP_ASGNED = "groupAsigned";
+    public static final String GROUP_ROLE_ASGN = "groupRoleAsgn";
+    public static final String GROUP_ROLE_DEASGN = "groupRoleDeasgn";
 }

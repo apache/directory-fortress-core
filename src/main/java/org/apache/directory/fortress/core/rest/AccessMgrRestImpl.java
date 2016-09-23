@@ -137,8 +137,25 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
     }
 
     @Override
-    public Session createGroupSession(Group group, boolean isTrusted) throws SecurityException {
-        return null;
+    public Session createSession( Group group ) throws SecurityException
+    {
+        VUtil.assertNotNull( group, GlobalErrIds.GROUP_NULL, CLS_NM + ".createSession" );
+        Session retSession;
+        FortRequest request = new FortRequest();
+        request.setContextId( this.contextId );
+        request.setEntity( group );
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.RBAC_CREATE_GROUP_SESSION );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if (response.getErrorCode() == 0)
+        {
+            retSession = response.getSession();
+        }
+        else
+        {
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
+        }
+        return retSession;
     }
 
     /**

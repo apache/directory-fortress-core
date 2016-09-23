@@ -120,10 +120,10 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
      * {@inheritDoc}
      */
     @Override
-    public Session createGroupSession(Group group)
+    public Session createSession( Group group )
             throws SecurityException
     {
-        String methodName = "createGroupSession";
+        String methodName = "createSession";
         assertContext( CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL );
 
         return groupP.createSession( group );

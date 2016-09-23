@@ -29,16 +29,7 @@ import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.model.AdminRole;
-import org.apache.directory.fortress.core.model.ConstraintUtil;
-import org.apache.directory.fortress.core.model.Hier;
-import org.apache.directory.fortress.core.model.PermObj;
-import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.Relationship;
-import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.model.SDSet;
-import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.model.*;
 import org.apache.directory.fortress.core.util.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,6 +82,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     private static final RoleP roleP = new RoleP();
     private static final SdP sdP = new SdP();
     private static final UserP userP = new UserP();
+    private static final GroupP groupP = new GroupP();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
 
@@ -262,6 +254,14 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
             LOG.error( error );
             throw new SecurityException( GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null );
         }
+        Role outRole = roleP.read( role );
+        outRole.setContextId( role.getContextId() );
+        // deassign all groups assigned to this role first (because of schema's configGroup class constraints)
+        List<Group> groups = groupP.roleGroups( outRole );
+        for ( Group group : groups )
+        {
+            groupP.deassign( group, outRole.getDn() );
+        }
         // search for all users assigned this role and deassign:
         List<User> users = userP.getAssignedUsers( role );
         if ( users != null )
@@ -285,7 +285,6 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
             }
         }
         roleP.delete( role );
-        // TODO: what about groups? Should we remove roles from group members?
    }
 
 
