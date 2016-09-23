@@ -249,7 +249,9 @@ public final class AdminRoleP
             list = rDao.findAssignedRoles( userDn, contextId );
             for ( String roleNm : list )
             {
-                deassign( new AdminRole( roleNm ), userDn );
+                AdminRole role = new AdminRole( roleNm );
+                role.setContextId( contextId );
+                deassign( role, userDn );
             }
         }
         catch ( FinderException fe )

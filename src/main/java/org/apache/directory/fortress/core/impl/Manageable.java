@@ -32,9 +32,9 @@ import org.apache.directory.fortress.core.util.VUtil;
  * allows authorization
  * to be performed on behalf of the user who is contained within the Session object itself.
  * The ARBAC permissions will be checked each time outside client makes calls into Fortress API.
- * This interface also allows Fortress clients to operate in a multi-tenant fashion using {@link #setContextId(String)}.
+ * This allows Fortress clients to operate in a multi-tenant context: {@link #setContextId(String)}.
  * <p>
- * Implementers of this abstract class will NOT be thread safe because of instance variables that may be set.
+ * Implementers of this abstract class will NOT be thread safe iff the instance variables are set.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -68,7 +68,6 @@ public abstract class Manageable implements org.apache.directory.fortress.core.M
         this.contextId = contextId;
     }
 
-    
     /**
      * Set A/RBAC session on entity and perform authorization on behalf of the caller if the {@link #adminSess} is set.
      *
@@ -88,8 +87,7 @@ public abstract class Manageable implements org.apache.directory.fortress.core.M
             AdminUtil.setEntitySession( this.adminSess, perm, entity, this.contextId );
         }
     }
-    
-    
+
     /**
      * Every Fortress Manager API (e.g. addUser, updateUser, addRole, ...) will perform authorization on behalf of the 
      * caller IFF the {@link AuditMgrImpl#adminSess} has been set before invocation.
@@ -141,7 +139,6 @@ public abstract class Manageable implements org.apache.directory.fortress.core.M
         entity.setContextId(this.contextId);
     }
 
-    
     /**
      * Method will throw exception if entity reference is null, otherwise will set the contextId of the tenant onto the 
      * supplied entity reference.
@@ -157,7 +154,6 @@ public abstract class Manageable implements org.apache.directory.fortress.core.M
         entity.setContextId( contextId );
     }
 
-    
     /**
      * Method will throw exception if entity reference is null, otherwise will set the contextId of the tenant onto the 
      * supplied entity reference.

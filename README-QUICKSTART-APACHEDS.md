@@ -460,13 +460,22 @@ During this section, you will be asked to setup Apache Fortress Web Application
 
 6. Click on the links, to pull up various views on the data stored in the directory.
 
-7. Run the selenium automated test:
+7. Run the Selenium Web driver integration tests with Firefox (default):
 
  ```
  mvn test -Dtest=FortressWebSeleniumITCase
  ```
 
- *Requires Firefox on target machine.*
+8. Run the tests using Chrome:
+
+ ```
+ mvn test -Dtest=FortressWebSeleniumITCase -Dweb.driver=chrome
+ ```
+
+ Note: The Selenium tests require that:
+ * Either Firefox or Chrome installed to target machine.
+ * **FORTRESS_CORE_HOME**/*FortressJUnitTest* successfully run.  This will load some test data to grind on.
+ * [FortressWebDemoUsers](./src/main/resources/FortressWebDemoUsers.xml) policy loaded into target LDAP server.
 
  ___________________________________________________________________________________
   #### END OF README-QUICKSTART-APACHEDS
