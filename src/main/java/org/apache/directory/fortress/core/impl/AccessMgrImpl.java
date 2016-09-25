@@ -28,10 +28,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.AccessMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.model.*;
 import org.apache.directory.fortress.core.util.VUtil;
 
 
@@ -80,6 +77,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
 {
     private static final String CLS_NM = AccessMgrImpl.class.getName();
     private static final UserP userP = new UserP();
+    private static final GroupP groupP = new GroupP();
     private static final PermP permP = new PermP();
 
     /**
@@ -116,6 +114,19 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
         assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
 
         return userP.createSession( user, isTrusted );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Session createSession( Group group )
+            throws SecurityException
+    {
+        String methodName = "createSession";
+        assertContext( CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL );
+
+        return groupP.createSession( group );
     }
 
 
@@ -182,7 +193,14 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
     {
         String methodName = "authorizedRoles";
         assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
-        VUtil.getInstance().assertNotNull( session.getUser(), GlobalErrIds.USER_NULL, CLS_NM + ".authorizedRoles" );
+        if (session.isGroupSession())
+        {
+            VUtil.getInstance().assertNotNull(session.getGroup(), GlobalErrIds.GROUP_NULL, CLS_NM + ".authorizedRoles");
+        }
+        else
+        {
+            VUtil.getInstance().assertNotNull(session.getUser(), GlobalErrIds.USER_NULL, CLS_NM + ".authorizedRoles");
+        }
         VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.USER, false );
         VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.ROLE, false );
         setEntitySession(CLS_NM, methodName, session);
@@ -200,27 +218,47 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
         String methodName = "addActiveRole";
         assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
         assertContext( CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL );
-        role.setUserId( session.getUserId() );
+
+        String entityId;
+        if (session.isGroupSession())
+        {
+            entityId = session.getGroupName();
+        }
+        else
+        {
+            entityId = session.getUserId();
+        }
+        role.setUserId(entityId);
         List<UserRole> uRoles;
         List<UserRole> sRoles = session.getRoles();
         // If session already has same role activated:
         if ( sRoles != null && sRoles.contains( role ) )
         {
-            String info = getFullMethodName( CLS_NM, methodName ) + " User [" + session.getUserId() + "] Role ["
-                + role.getName() + "] role already activated.";
+            String info = getFullMethodName(CLS_NM, methodName) + " Entity [" + entityId + "] Role ["
+                        + role.getName() + "] role already activated.";
             throw new SecurityException( GlobalErrIds.URLE_ALREADY_ACTIVE, info );
         }
 
-        User inUser = new User( session.getUserId() );
-        inUser.setContextId( this.contextId );
-        User ue = userP.read( inUser, true );
-        uRoles = ue.getRoles();
+        if (session.isGroupSession())
+        {
+            Group inGroup = new Group(session.getGroupName());
+            inGroup.setContextId(this.contextId);
+            Group ge = groupP.read(inGroup);
+            uRoles = ge.getRoles();
+        }
+        else
+        {
+            User inUser = new User(session.getUserId());
+            inUser.setContextId(this.contextId);
+            User ue = userP.read(inUser, true);
+            uRoles = ue.getRoles();
+        }
         int indx;
         // Is the role activation target valid for this user?
         if ( !CollectionUtils.isNotEmpty( uRoles ) || ( ( indx = uRoles.indexOf( role ) ) == -1 ) )
         {
-            String info = getFullMethodName( CLS_NM, methodName ) + " Role [" + role.getName() + "] User ["
-                + session.getUserId() + "] role not authorized for user.";
+            String info = getFullMethodName(CLS_NM, methodName) + " Role [" + role.getName() + "] Entity ["
+                        + entityId + "] role not authorized for entity.";
             throw new SecurityException( GlobalErrIds.URLE_ACTIVATE_FAILED, info );
         }
 
@@ -245,7 +283,17 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
         String methodName = "dropActiveRole";
         assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
         assertContext( CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL );
-        role.setUserId( session.getUserId() );
+
+        String entityId;
+        if (session.isGroupSession())
+        {
+            entityId = session.getGroupName();
+        }
+        else
+        {
+            entityId = session.getUserId();
+        }
+        role.setUserId(entityId);
         List<UserRole> roles = session.getRoles();
         VUtil.getInstance()
             .assertNotNull( roles, GlobalErrIds.URLE_DEACTIVE_FAILED, CLS_NM + getFullMethodName( CLS_NM, methodName ) );
@@ -256,7 +304,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
         }
         else
         {
-            String info = getFullMethodName( CLS_NM, methodName ) + " Role [" + role.getName() + "] User ["
+            String info = getFullMethodName( CLS_NM, methodName ) + " Role [" + role.getName() + "] Entity ["
                 + session.getUserId() + "], not previously activated";
             throw new SecurityException( GlobalErrIds.URLE_NOT_ACTIVE, info );
         }

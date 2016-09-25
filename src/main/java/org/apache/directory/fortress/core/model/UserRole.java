@@ -72,8 +72,8 @@ import org.apache.directory.fortress.core.util.Config;
  */
 @XmlRootElement( name = "fortUserRole" )
 @XmlAccessorType( XmlAccessType.FIELD )
-@XmlType( name = "userRole", propOrder = {"name", "userId", "parents", "beginDate", "beginLockDate", "beginTime",
-    "dayMask", "endDate", "endLockDate", "endTime", "timeout"} )
+@XmlType( name = "userRole", propOrder = {"name", "userId", "isGroupRole", "parents", "beginDate", "beginLockDate",
+        "beginTime", "dayMask", "endDate", "endLockDate", "endTime", "timeout"} )
 @XmlSeeAlso( {UserAdminRole.class} )
 public class UserRole extends FortEntity implements Serializable, Constraint
 {
@@ -81,6 +81,7 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     
     protected String userId;
     protected String name;
+    protected boolean isGroupRole;
     private Integer timeout;
     private String beginTime;
     private String endTime;
@@ -111,9 +112,21 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     {
         this.userId = userId;
         name = role;
-
+        isGroupRole = false;
     }
 
+    /**
+     * Construct a UserRole entity given the required attributes 'userId' and 'role' name.
+     *
+     * @param userId maps to the 'uid' attribute on the 'inetOrgPerson' object class.
+     * @param name role name, maps to the 'ftRA' attribute on the 'ftUserAttrs' object class.
+     * @param isGroupRole defines if value contained in userId is group name rather than user's uid
+     */
+    public UserRole(String userId, String name, boolean isGroupRole) {
+        this.userId = userId;
+        this.name = name;
+        this.isGroupRole = isGroupRole;
+    }
 
     /**
      * Construct an RBAC Role with required attribute 'userId' and optional temporal constraint.
@@ -124,6 +137,7 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     public UserRole( String userId, Constraint con )
     {
         this.userId = userId;
+        isGroupRole = false;
         ConstraintUtil.copy( con, this );
     }
 
@@ -573,6 +587,21 @@ public class UserRole extends FortEntity implements Serializable, Constraint
         this.parents = parents;
     }
 
+    /**
+     * Returns 'true' if value in userId refers to group name
+     * @return if userId contains group name
+     */
+    public boolean isGroupRole() {
+        return isGroupRole;
+    }
+
+    /**
+     * Set to 'true' if userId contains group name
+     * @param groupRole specifies if value in userId contains group name
+     */
+    public void setGroupRole(boolean groupRole) {
+        isGroupRole = groupRole;
+    }
 
     /**
      * Matches the userId and role name from two UserRole entities.

@@ -44,10 +44,7 @@ import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.LdapDataProvider;
-import org.apache.directory.fortress.core.model.Group;
-import org.apache.directory.fortress.core.model.ObjectFactory;
-import org.apache.directory.fortress.core.model.PropUtil;
-import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.*;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
@@ -89,6 +86,7 @@ final class GroupDAO extends LdapDataProvider
             {
                 SchemaConstants.CN_AT,
                 SchemaConstants.DESCRIPTION_AT,
+                GlobalIds.TYPE,
                 GROUP_PROTOCOL_ATTR_IMPL,
                 GROUP_PROPERTY_ATTR_IMPL,
                 SchemaConstants.MEMBER_AT };
@@ -484,6 +482,54 @@ final class GroupDAO extends LdapDataProvider
 
 
     /**
+     * @param role
+     * @return
+     * @throws org.apache.directory.fortress.core.FinderException
+     *
+     */
+    List<Group> roleGroups( Role role ) throws FinderException
+    {
+        List<Group> groupList = new ArrayList<>();
+        LdapConnection ld = null;
+        SearchCursor searchResults;
+        String groupRoot = getRootDn( role.getContextId(), GlobalIds.GROUP_ROOT );
+        String filter = null;
+
+        try
+        {
+            encodeSafeText( role.getName(), GlobalIds.ROLE_LEN );
+            filter = GlobalIds.FILTER_PREFIX + GROUP_OBJECT_CLASS_IMPL + ")(" + SchemaConstants.MEMBER_AT + "="
+                    + role.getDn() + "))";
+            ld = getAdminConnection();
+            searchResults = search( ld, groupRoot, SearchScope.ONELEVEL, filter, GROUP_ATRS, false,
+                    GlobalIds.BATCH_SIZE );
+            long sequence = 0;
+
+            while ( searchResults.next() )
+            {
+                groupList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
+            }
+        }
+        catch ( CursorException e )
+        {
+            String error = "find filter [" + filter + "] caught CursorException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.GROUP_SEARCH_FAILED, error, e );
+        }
+        catch ( LdapException e )
+        {
+            String error = "find filter [" + filter + "] caught LDAPException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.GROUP_SEARCH_FAILED, error, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+
+        return groupList;
+    }
+
+
+    /**
      * @param le
      * @param sequence
      * @return
@@ -495,6 +541,11 @@ final class GroupDAO extends LdapDataProvider
         Group entity = new ObjectFactory().createGroup();
         entity.setName( getAttribute( le, SchemaConstants.CN_AT ) );
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
+        String typeAsString = getAttribute( le, GlobalIds.TYPE );
+        if ( StringUtils.isNotEmpty(typeAsString) )
+        {
+            entity.setType( Group.Type.valueOf( typeAsString.toUpperCase() ) );
+        }
         entity.setProtocol( getAttribute( le, GROUP_PROTOCOL_ATTR_IMPL ) );
         entity.setMembers( getAttributes( le, SchemaConstants.MEMBER_AT ) );
         entity.setMemberDn( true );

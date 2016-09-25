@@ -23,10 +23,7 @@ package org.apache.directory.fortress.core;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.model.*;
 
 
 /**
@@ -182,6 +179,78 @@ public interface AccessMgr extends Manageable
      */
     Session createSession( User user, boolean isTrusted )
         throws SecurityException;
+
+    /**
+     * Perform group {@link Group} role activations {@link Group#members}.<br>
+     * Group sessions are always trusted. <br>
+     * This method must be called once per group prior to calling other methods within this class.
+     * The successful result is {@link org.apache.directory.fortress.core.model.Session} that contains target group's RBAC
+     * {@link Group#members}
+     * <h4> This API will...</h4>
+     * <ul>
+     *   <li>
+     *     fail for any non-existing group
+     *   </li>
+     *   <li>
+     *     evaluate temporal {@link org.apache.directory.fortress.core.model.Constraint}(s) on member {@link UserRole} entities.
+     *   <li>process selective role activations into Group RBAC Session {@link Group#roles}.</li>
+     *   <li>
+     *     check Dynamic Separation of Duties {@link org.apache.directory.fortress.core.impl.DSDChecker#validate(
+     *          org.apache.directory.fortress.core.model.Session,
+     *          org.apache.directory.fortress.core.model.Constraint,
+     *          org.apache.directory.fortress.core.util.time.Time,
+     *          org.apache.directory.fortress.core.util.VUtil.ConstraintType)} on
+     *          {@link org.apache.directory.fortress.core.model.User#roles}.
+     *   </li>
+     *   <li>
+     *     return a {@link org.apache.directory.fortress.core.model.Session} containing
+     *     {@link org.apache.directory.fortress.core.model.Session#getGroup()},
+     *     {@link org.apache.directory.fortress.core.model.Session#getRoles()}
+     *   </li>
+     *   <li>throw a checked exception that will be {@link SecurityException} or its derivation.</li>
+     *   <li>throw a {@link SecurityException} for system failures.</li>
+     *   <li>throw a {@link ValidationException} for data validation errors.</li>
+     *   <li>throw a {@link FinderException} if Group name not found.</li>
+     * </ul>
+     * <h4>
+     * The function is valid if and only if:
+     * </h4>
+     * <ul>
+     *   <li> the group is a member of the GROUPS data set</li>
+     *   <li> the (optional) active role set is a subset of the roles authorized for that group.</li>
+     * </ul>
+     * <h4>
+     * The following attributes may be set when calling this method
+     * </h4>
+     * <ul>
+     *   <li>{@link Group#name} - required</li>
+     *   <li>
+     *     {@link org.apache.directory.fortress.core.model.Group#members} contains a list of RBAC role names authorized for group
+     *     and targeted for activation within this session.  Default is all authorized RBAC roles will be activated into this
+     *     Session.
+     *   </li>
+     * </ul>
+     * <h4>
+     * Notes:
+     * </h4>
+     * <ul>
+     * <li> roles that violate Dynamic Separation of Duty Relationships will not be activated into session.
+     * </ul>
+     *
+     * @param group Contains {@link Group#name}, {@link org.apache.directory.fortress.core.model.Group#members}
+     * (optional), optional {@link Group#type}, optional
+     * @return Session object will contain authentication result code
+     * {@link org.apache.directory.fortress.core.model.Session#errorId},
+     * RBAC role activations {@link org.apache.directory.fortress.core.model.Session#getRoles()},
+     * OpenLDAP pw policy codes {@link org.apache.directory.fortress.core.model.Session#warnings},
+     * {@link org.apache.directory.fortress.core.model.Session#expirationSeconds},
+     * {@link org.apache.directory.fortress.core.model.Session#graceLogins} and more.
+     * @throws SecurityException
+     *          in the event of data validation failure, security policy violation or DAO error.
+     */
+    Session createSession(Group group)
+            throws SecurityException;
+
 
 
     /**

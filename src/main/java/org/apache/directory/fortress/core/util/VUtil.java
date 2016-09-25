@@ -36,13 +36,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.model.Constraint;
-import org.apache.directory.fortress.core.model.ConstraintValidator;
-import org.apache.directory.fortress.core.model.ObjectFactory;
-import org.apache.directory.fortress.core.model.PropUtil;
-import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.model.Warning;
+import org.apache.directory.fortress.core.model.*;
 import org.apache.directory.fortress.core.util.time.TUtil;
 import org.apache.directory.fortress.core.util.time.Time;
 import org.apache.directory.fortress.core.util.time.Validator;
@@ -561,22 +555,25 @@ public final class VUtil implements ConstraintValidator
         throws SecurityException
     {
         String location = "validateConstraints";
+        String entityId = session.isGroupSession() ? session.getGroupName() : session.getUserId();
+        String entityType = session.isGroupSession() ? "groupName" : "userId";
         int rc;
+
         if ( validators == null )
         {
             if ( LOG.isDebugEnabled() )
             {
-                LOG.debug( "{} userId [{}]  no constraints enabled", location, session.getUserId() );
+                    LOG.debug("{} " + entityType + " [{}] has no constraints enabled", location, entityId);
             }
             return;
         }
         // no need to continue if the role list is empty and we're trying to check role constraints:
-        else if ( type == ConstraintType.ROLE && !CollectionUtils.isNotEmpty( session.getRoles() )
-            && !CollectionUtils.isNotEmpty( session.getAdminRoles() ) )
+        else if ( type == ConstraintType.ROLE && CollectionUtils.isEmpty( session.getRoles() )
+            && CollectionUtils.isEmpty( session.getAdminRoles() ) )
         {
             if ( LOG.isDebugEnabled() )
             {
-                LOG.debug( "{} userId [{}]  has no roles assigned", location, session.getUserId() );
+                LOG.debug("{} " + entityType + " [{}]  has no roles assigned", location, entityId);
             }
             return;
         }
@@ -584,12 +581,12 @@ public final class VUtil implements ConstraintValidator
         {
             Time currTime = TUtil.getCurrentTime();
             // first check the constraint on the user:
-            if ( type == ConstraintType.USER )
+            if ( type == ConstraintType.USER && !session.isGroupSession() )
             {
                 rc = val.validate( session, session.getUser(), currTime, type );
                 if ( rc > 0 )
                 {
-                    String info = location + " user [" + session.getUserId() + "] was deactivated reason code [" + rc
+                    String info = location + " user [" + entityId + "] was deactivated reason code [" + rc
                         + "]";
                     throw new ValidationException( rc, info );
                 }
@@ -600,42 +597,42 @@ public final class VUtil implements ConstraintValidator
                 if ( CollectionUtils.isNotEmpty( session.getRoles() ) )
                 {
                     // now check the constraint on every role activation candidate contained within session object:
-                    ListIterator<UserRole> roleItems = session.getRoles().listIterator();
-
-                    while ( roleItems.hasNext() )
+                    List<UserRole> rolesToRemove = new ArrayList<>();
+                    for ( UserRole role : session.getRoles() )
                     {
-                        Constraint constraint = roleItems.next();
-                        rc = val.validate( session, constraint, currTime, type );
-
+                        rc = val.validate( session, role, currTime, type );
                         if ( rc > 0 )
                         {
-                            String msg = location + " role [" + constraint.getName() + "] for user ["
-                                + session.getUserId() + "] was deactivated reason code [" + rc + "]";
+                            rolesToRemove.add( role );
+                            String msg = location + " role [" + role.getName() + "] for " + entityType
+                                    + "[" + entityId + "]" + " was deactivated reason code [" + rc + "]";
                             LOG.info( msg );
-                            roleItems.remove();
                             session.setWarning( new ObjectFactory().createWarning( rc, msg, Warning.Type.ROLE,
-                                constraint.getName() ) );
+                                    role.getName() ) );
                         }
                     }
+                    // remove all roles not passing validation
+                    session.getRoles().removeAll( rolesToRemove );
                 }
                 if ( CollectionUtils.isNotEmpty( session.getAdminRoles() ) )
                 {
                     // now check the constraint on every arbac role activation candidate contained within session object:
-                    ListIterator roleItems = session.getAdminRoles().listIterator();
-                    while ( roleItems.hasNext() )
+                    List<UserRole> rolesToRemove = new ArrayList<>();
+                    for ( UserRole role : session.getAdminRoles() )
                     {
-                        Constraint constraint = ( Constraint ) roleItems.next();
-                        rc = val.validate( session, constraint, currTime, ConstraintType.ROLE );
+                        rc = val.validate( session, role, currTime, type );
                         if ( rc > 0 )
                         {
-                            String msg = location + " admin role [" + constraint.getName() + "] for user ["
-                                + session.getUserId() + "] was deactivated reason code [" + rc + "]";
+                            rolesToRemove.add( role );
+                            String msg = location + " admin role [" + role.getName() + "] for " + entityType
+                                    + "[" + entityId + "]" + " was deactivated reason code [" + rc + "]";
                             LOG.info( msg );
-                            roleItems.remove();
                             session.setWarning( new ObjectFactory().createWarning( rc, msg, Warning.Type.ROLE,
-                                constraint.getName() ) );
+                                    role.getName() ) );
                         }
                     }
+                    // remove all roles not passing validation
+                    session.getAdminRoles().removeAll( rolesToRemove );
                 }
             }
         }
@@ -645,7 +642,15 @@ public final class VUtil implements ConstraintValidator
             && CollectionUtils.isNotEmpty( session.getRoles() ) )
         {
             Validator dsdVal = ( Validator ) ClassUtil.createInstance( DSDVALIDATOR );
-            dsdVal.validate( session, session.getUser(), null, null );
+            if ( session.isGroupSession() )
+            {
+                // pass session's group wrapped into constraint interface
+                dsdVal.validate( session, new ConstraintedGroup( session.getGroup() ), null, null );
+            }
+            else
+            {
+                dsdVal.validate( session, session.getUser(), null, null );
+            }
         }
         // reset the user's last access timestamp:
         session.setLastAccess();
@@ -674,5 +679,121 @@ public final class VUtil implements ConstraintValidator
             validators.add( ( Validator ) ClassUtil.createInstance( className ) );
         }
         return validators;
+    }
+
+    /**
+     * A class to wrap the group into constrainted interface to pass to DSD validator.
+     * Group itself doesn't have temporal contraints.
+     */
+    private class ConstraintedGroup implements Constraint {
+        private Group group;
+
+        public ConstraintedGroup(Group group) {
+            this.group = group;
+        }
+
+        public Group getGroup() {
+            return group;
+        }
+
+        @Override
+        public boolean isTemporalSet() {
+            return false;
+        }
+
+        @Override
+        public void setTimeout(Integer timeout) {
+
+        }
+
+        @Override
+        public void setBeginTime(String beginTime) {
+
+        }
+
+        @Override
+        public void setEndTime(String endTime) {
+
+        }
+
+        @Override
+        public void setBeginDate(String beginDate) {
+
+        }
+
+        @Override
+        public void setEndDate(String endDate) {
+
+        }
+
+        @Override
+        public void setDayMask(String dayMask) {
+
+        }
+
+        @Override
+        public void setBeginLockDate(String beginLockDate) {
+
+        }
+
+        @Override
+        public void setEndLockDate(String endLockDate) {
+
+        }
+
+        @Override
+        public void setName(String name) {
+
+        }
+
+        @Override
+        public String getRawData() {
+            return null;
+        }
+
+        @Override
+        public Integer getTimeout() {
+            return null;
+        }
+
+        @Override
+        public String getBeginTime() {
+            return null;
+        }
+
+        @Override
+        public String getEndTime() {
+            return null;
+        }
+
+        @Override
+        public String getBeginDate() {
+            return null;
+        }
+
+        @Override
+        public String getEndDate() {
+            return null;
+        }
+
+        @Override
+        public String getBeginLockDate() {
+            return null;
+        }
+
+        @Override
+        public String getEndLockDate() {
+            return null;
+        }
+
+        @Override
+        public String getDayMask() {
+            return null;
+        }
+
+        @Override
+        public String getName() {
+            return group.getName();
+        }
     }
 }
