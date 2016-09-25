@@ -18,7 +18,7 @@
 
 # ApacheDS & Fortress QUICKSTART
 
- Apache Fortress 1.0.1 and ApacheDS Quickstart System Architecture
+ Apache Fortress1.0.2-SNAPSHOT and ApacheDS Quickstart System Architecture
  ![ApacheDS & Fortress System Architecture](images/fortress-apacheds-system-arch.png "ApacheDS & Fortress System Architecture")
 
 -------------------------------------------------------------------------------
