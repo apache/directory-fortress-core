@@ -275,6 +275,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         List<Group> groups = groupP.roleGroups( outRole );
         for ( Group group : groups )
         {
+            group.setContextId( this.contextId );
             groupP.deassign( group, outRole.getDn() );
         }
         // search for all users assigned this role and deassign:
