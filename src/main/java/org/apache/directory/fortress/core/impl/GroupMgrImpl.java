@@ -203,18 +203,22 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
         String methodName = "assign";
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
-        ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+        ReviewMgr reviewMgr = ReviewMgrFactory.createInstance( this.contextId );
         String dn;
         if( group.getType() == Group.Type.ROLE )
         {
-            Role role = reviewMgr.readRole( new Role( member ) );
+            Role inRole = new Role( member );
+            inRole.setContextId( group.getContextId() );
+            Role role = reviewMgr.readRole( inRole );
             dn = role.getDn();
             // Validate SSD constraints
             SDUtil.getInstance().validateSSD( group, role );
         }
         else
         {
-            User user = reviewMgr.readUser( new User( member ) );
+            User inUser = new User( member );
+            inUser.setContextId( group.getContextId() );
+            User user = reviewMgr.readUser( inUser );
             dn = user.getDn();
         }
 
@@ -230,7 +234,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
         String methodName = "deassign";
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
-        ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+        ReviewMgr reviewMgr = ReviewMgrFactory.createInstance( this.contextId );
         String dn;
         if( group.getType() == Group.Type.ROLE )
         {
@@ -250,7 +254,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
     {
         if( CollectionUtils.isNotEmpty( group.getMembers() ))
         {
-            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance( this.contextId );
             List<String> userDns = new ArrayList<String>();
             
             for( String member : group.getMembers() )
@@ -267,7 +271,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
     {
         if( CollectionUtils.isNotEmpty( group.getMembers() ))
         {
-            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+            ReviewMgr reviewMgr = ReviewMgrFactory.createInstance( this.contextId );
             List<String> roleDns = new ArrayList<String>();
 
             for( String member : group.getMembers() )
@@ -282,14 +286,14 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
 
     private void loadUserDn( User inUser ) throws SecurityException
     {
-        ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+        ReviewMgr reviewMgr = ReviewMgrFactory.createInstance( this.contextId );
         User outUser = reviewMgr.readUser( inUser );
         inUser.setDn( outUser.getDn() );
     }
 
     private void loadRoleDn( Role inRole ) throws SecurityException
     {
-        ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();
+        ReviewMgr reviewMgr = ReviewMgrFactory.createInstance( this.contextId );
         Role outRole = reviewMgr.readRole( inRole );
         inRole.setDn( outRole.getDn() );
     }
