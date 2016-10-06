@@ -23,7 +23,8 @@ dn: cn=fortress, ou=schema
 objectclass: metaSchema
 objectclass: top
 cn: fortress
-m-dependencies: schema
+m-dependencies: system
+m-dependencies: core
 
 dn: ou=attributetypes, cn=fortress, ou=schema
 objectclass: organizationalUnit
