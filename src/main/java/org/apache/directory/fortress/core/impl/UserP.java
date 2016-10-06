@@ -27,6 +27,7 @@ import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.PasswordException;
@@ -37,6 +38,7 @@ import org.apache.directory.fortress.core.model.Administrator;
 import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.PwPolicy;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.RoleConstraint;
@@ -645,7 +647,7 @@ final class UserP
     //TODO: add documentation
     void assign( UserRole uRole, RoleConstraint roleConstraint ) throws SecurityException
     {    	
-    	validate( roleConstraint );
+    	validate( roleConstraint, uRole.getContextId() );
     	
     	uDao.assign( uRole, roleConstraint );
     }
@@ -754,17 +756,30 @@ final class UserP
     /**
      * Ensure that the passed in role constraint is valid
      * 
-     * @param RoleConstaint
+     * @param rc RoleConstaint
+     * @param contextId
      * @throws ValidationException
      */
-    private void validate( RoleConstraint rc) throws ValidationException
+    private void validate( RoleConstraint rc, String contextId ) throws ValidationException
     {
         if( StringUtils.isEmpty( rc.getPaSetName() ))
         {
         	throw new ValidationException( GlobalErrIds.PERM_ATTRIBUTE_SET_NM_NULL, CLS_NM + ".validate pa set name is NULL" );
-        }    	
-    	
-        VUtil.permAttrSetName(rc.getPaSetName());
+        }
+        try
+        {
+            PermissionAttributeSet paSet = new PermissionAttributeSet( rc.getPaSetName() );
+            paSet.setContextId( contextId );
+            PermP permP = new PermP();
+            paSet = permP.read( paSet );
+            VUtil.safeText( rc.getPaSetName(), GlobalIds.DESC_LEN );
+        }
+        catch( SecurityException e )
+        {
+            String error = "validate - paSetName not found with name [" + rc.getPaSetName() + "] caught SecurityException=" + e;
+            throw new ValidationException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, error );
+        }
+
 
         if ( rc.getConstraintType() == null )
         {

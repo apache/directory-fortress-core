@@ -530,7 +530,9 @@ final class PermDAO extends LdapDataProvider
         }
                 
         //add each ftPA
-        for(PermissionAttribute pa : entity.getAttributes()){        
+        for(PermissionAttribute pa : entity.getAttributes())
+        {
+            pa.setContextId( entity.getContextId() );
 	        this.createPermissionAttribute(pa, entity.getName());
         }
 

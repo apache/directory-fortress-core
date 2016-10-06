@@ -27,6 +27,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.model.AdminRole;
@@ -725,8 +726,20 @@ final class PermP
         // Validate Perm Attr Set Name
         if( CollectionUtils.isNotEmpty( pOp.getPaSets() ))
         {
-            for(String paSetName : pOp.getPaSets()){
-                VUtil.permAttrSetName( paSetName );
+            for(String paSetName : pOp.getPaSets())
+            {
+                try
+                {
+                    PermissionAttributeSet paSet = new PermissionAttributeSet( paSetName );
+                    paSet.setContextId( pOp.getContextId() );
+                    paSet = read(paSet);
+                    VUtil.safeText( paSetName, GlobalIds.DESC_LEN );
+                }
+                catch( SecurityException e )
+                {
+                    String error = "validate - paSetName not found with name [" + paSetName + "] caught SecurityException=" + e;
+                    throw new ValidationException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, error );
+                }
             }
         }
     }
