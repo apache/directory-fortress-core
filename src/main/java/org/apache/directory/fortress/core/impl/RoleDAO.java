@@ -23,6 +23,7 @@ package org.apache.directory.fortress.core.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
@@ -45,6 +46,7 @@ import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.Graphable;
+import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.ldap.client.api.LdapConnection;
@@ -458,6 +460,72 @@ final class RoleDAO extends LdapDataProvider
         catch ( CursorException e )
         {
             String error = "findRoles filter [" + filter + "] caught CursorException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+
+        return roleList;
+    }
+
+
+    /**
+     * Pull back all roles that are assigned to a particular group.
+     * @param group
+     * @return
+     * @throws org.apache.directory.fortress.core.FinderException
+     *
+     */
+    List<Role> groupRoles ( Group group ) throws FinderException
+    {
+        List<Role> roleList = new ArrayList<>();
+        LdapConnection ld = null;
+        String roleRoot = getRootDn( group.getContextId(), GlobalIds.ROLE_ROOT );
+        StringBuilder filterbuf = null;
+
+        try
+        {
+            // loop for each group member....
+            // add role name to search filter
+            //
+            List<String> members = group.getMembers();
+            if ( CollectionUtils.isNotEmpty( members ) )
+            {
+                filterbuf = new StringBuilder();
+                filterbuf.append( GlobalIds.FILTER_PREFIX );
+                filterbuf.append( GlobalIds.ROLE_OBJECT_CLASS_NM );
+                filterbuf.append( ")(" );
+                filterbuf.append( "|" );
+                for ( String memberdn : members )
+                {
+                    filterbuf.append( "(" );
+                    filterbuf.append( SchemaConstants.ENTRY_DN_AT );
+                    filterbuf.append( "=" );
+                    filterbuf.append( memberdn );
+                    filterbuf.append( ")" );
+                }
+                filterbuf.append( "))" );
+            }
+            ld = getAdminConnection();
+            SearchCursor searchResults = search( ld, roleRoot,
+                SearchScope.ONELEVEL, filterbuf.toString(), ROLE_ATRS, false, GlobalIds.BATCH_SIZE );
+            long sequence = 0;
+
+            while ( searchResults.next() )
+            {
+                roleList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, group.getContextId() ) );
+            }
+        }
+        catch ( LdapException e )
+        {
+            String error = "groupRoles filter [" + filterbuf.toString() + "] caught LdapException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
+        }
+        catch ( CursorException e )
+        {
+            String error = "groupRoles filter [" + filterbuf.toString() + "] caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.ROLE_SEARCH_FAILED, error, e );
         }
         finally

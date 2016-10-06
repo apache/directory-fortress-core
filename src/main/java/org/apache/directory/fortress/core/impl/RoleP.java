@@ -31,6 +31,7 @@ import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.model.ConstraintValidator;
 import org.apache.directory.fortress.core.model.Graphable;
+import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.VUtil;
@@ -108,6 +109,26 @@ final class RoleP
     List<String> search( Role role, int limit ) throws SecurityException
     {
         return rDao.findRoles( role, limit );
+    }
+
+
+    /**
+     * Given a particular group, containing a set of members, return all Roles with a matching member.
+     *
+     * @param group contains a list of member names pertaining to roles.
+     * @return List of type Role containing fully populated matching RBAC Role entities.  If no records found this will be empty.
+     * @throws SecurityException in the event not the right type of Group or DAO search error.
+     */
+    List<Role> search( Group group ) throws SecurityException
+    {
+        if ( group.getType() != Group.Type.ROLE )
+        {
+            String info = "search failed for Group ["
+                + group.getName() + "], group must be of type ROLE.";
+
+            throw new ValidationException( GlobalErrIds.GROUP_TYPE_INVLD, info );
+        }
+        return rDao.groupRoles( group );
     }
 
 

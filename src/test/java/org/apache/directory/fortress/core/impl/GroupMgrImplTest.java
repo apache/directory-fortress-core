@@ -1,6 +1,6 @@
 package org.apache.directory.fortress.core.impl;
 
-import junit.framework.TestCase;
+import junit.framework.*;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.Group;
@@ -9,6 +9,7 @@ import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.LogUtil;
 import org.junit.*;
+import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +30,23 @@ public class GroupMgrImplTest extends TestCase {
     public GroupMgrImplTest( String name )
     {
         super( name );
+    }
+
+    public static junit.framework.Test suite()
+    {
+        TestSuite suite = new TestSuite();
+        // GroupMgr
+        suite.addTest( new GroupMgrImplTest( "testDeassignGroupRoleMember" ) );
+        suite.addTest( new GroupMgrImplTest( "testDeassignGroupUserMember" ) );
+        suite.addTest( new GroupMgrImplTest( "testDeleteGroup" ) );
+
+        // GroupMgr APIs
+        suite.addTest( new GroupMgrImplTest( "testAddGroup" ) );
+        suite.addTest( new GroupMgrImplTest( "testAssignGroupUserMember" ) );
+        suite.addTest( new GroupMgrImplTest( "testAssignGroupRoleMember" ) );
+        suite.addTest( new GroupMgrImplTest( "testGroupRoles" ) );
+        suite.addTest( new GroupMgrImplTest( "testRoleGroups" ) );
+        return suite;
     }
 
     public void testAddGroup()

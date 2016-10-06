@@ -226,7 +226,6 @@ final class GroupP
     {
         Group outGroup = read(group);
         fillRoles( outGroup );
-
         return outGroup.getRoles();
     }
 
@@ -288,6 +287,24 @@ final class GroupP
         if ( Group.Type.ROLE.equals( group.getType() ) )
         {
             RoleP rp = new RoleP();
+            List<UserRole> uRoles = new ArrayList<>();
+            List<Role> roles = rp.search( group );
+            for ( Role inRole : roles )
+            {
+                UserRole ure = new UserRole( group.getName(), inRole.getName(), true );
+                ConstraintUtil.validateOrCopy( inRole, ure );
+                uRoles.add( ure );
+            }
+            group.setRoles( uRoles );
+        }
+    }
+
+
+/*
+    private void fillRoles( Group group ) throws SecurityException {
+        if ( Group.Type.ROLE.equals( group.getType() ) )
+        {
+            RoleP rp = new RoleP();
             List<UserRole> roles = new ArrayList<>();
             List<String> members = group.getMembers();
             for ( String roleDn : members )
@@ -315,6 +332,7 @@ final class GroupP
     }
 
 
+*/
     /**
      * Method will perform simple validations to ensure the integrity of the {@link Group} entity targeted for insertion
      * or deletion in directory.
