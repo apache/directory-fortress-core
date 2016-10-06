@@ -722,8 +722,11 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
-    public List<RoleConstraint> findRoleConstraints(User user, Permission permission, RoleConstraintType rcType) throws SecurityException {
+    public List<RoleConstraint> findRoleConstraints(User user, Permission permission, RoleConstraintType rcType) throws SecurityException
+    {
         String methodName = "findRoleConstraints";
+        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
+        assertContext(CLS_NM, methodName, permission, GlobalErrIds.PERM_NULL);
         checkAccess(CLS_NM, methodName);        
         //find roles this permission is authorized for
         Permission pe = permP.read(permission);
