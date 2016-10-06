@@ -28,12 +28,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.impl.AccessMgrImpl;
 import org.apache.directory.fortress.core.impl.Manageable;
-import org.apache.directory.fortress.core.model.FortRequest;
-import org.apache.directory.fortress.core.model.FortResponse;
-import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.model.*;
 import org.apache.directory.fortress.core.util.VUtil;
 
 /**
@@ -137,6 +132,28 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
         else
         {
             throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retSession;
+    }
+
+    @Override
+    public Session createSession( Group group ) throws SecurityException
+    {
+        VUtil.assertNotNull( group, GlobalErrIds.GROUP_NULL, CLS_NM + ".createSession" );
+        Session retSession;
+        FortRequest request = new FortRequest();
+        request.setContextId( this.contextId );
+        request.setEntity( group );
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.RBAC_CREATE_GROUP_SESSION );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if (response.getErrorCode() == 0)
+        {
+            retSession = response.getSession();
+        }
+        else
+        {
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
         return retSession;
     }

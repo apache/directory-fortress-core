@@ -110,6 +110,11 @@ public class FortressJUnitTest extends TestCase
                 suite.addTest( new PswdPolicyMgrImplTest( "testDeletePasswordPolicy" ) );
             }
 
+            // GroupMgr
+            suite.addTest( new GroupMgrImplTest( "testDeassignGroupRoleMember" ) );
+            suite.addTest( new GroupMgrImplTest( "testDeassignGroupUserMember" ) );
+            suite.addTest( new GroupMgrImplTest( "testDeleteGroup" ) );
+
             // AdminMgrImplTest RBAC Teardown APIs:
             suite.addTest( new AdminMgrImplTest( "testRevokePermissionUser" ) );
             suite.addTest( new AdminMgrImplTest( "testRevokePermissionRole" ) );
@@ -207,6 +212,13 @@ public class FortressJUnitTest extends TestCase
         
         suite.addTest( new AdminMgrImplTest( "testAddUserRoleConstraint" ) );
         
+        // GroupMgr APIs
+        suite.addTest( new GroupMgrImplTest( "testAddGroup" ) );
+        suite.addTest( new GroupMgrImplTest( "testAssignGroupUserMember" ) );
+        suite.addTest( new GroupMgrImplTest( "testAssignGroupRoleMember" ) );
+        suite.addTest( new GroupMgrImplTest( "testGroupRoles" ) );
+        suite.addTest( new GroupMgrImplTest( "testRoleGroups" ) );
+
         /***********************************************************/
         /* 3. Interrogation                                        */
         /***********************************************************/

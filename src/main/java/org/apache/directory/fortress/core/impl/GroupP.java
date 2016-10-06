@@ -20,15 +20,16 @@
 package org.apache.directory.fortress.core.impl;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.api.util.Strings;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
-import org.apache.directory.fortress.core.model.Group;
-import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.*;
 import org.apache.directory.fortress.core.util.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,7 +62,9 @@ final class GroupP
     {
         validate( group );
 
-        return gDao.create( group );
+        Group outGroup = gDao.create(group);
+        fillRoles(outGroup);
+        return outGroup;
     }
 
 
@@ -134,7 +137,10 @@ final class GroupP
      */
     Group assign( Group entity, String userDn ) throws SecurityException
     {
-        return gDao.assign( entity, userDn );
+        Group group = read( entity );
+        group.setContextId( entity.getContextId() );
+
+        return gDao.assign( group, userDn );
     }
 
 
@@ -148,7 +154,10 @@ final class GroupP
      */
     Group deassign( Group entity, String userDn ) throws SecurityException
     {
-        return gDao.deassign( entity, userDn );
+        Group group = read( entity );
+        group.setContextId( entity.getContextId() );
+
+        return gDao.deassign( group, userDn );
     }
 
 
@@ -162,7 +171,9 @@ final class GroupP
      */
     Group read( Group group ) throws SecurityException
     {
-        return gDao.get( group );
+        Group outGroup = gDao.get(group);
+        fillRoles(outGroup);
+        return outGroup;
     }
 
 
@@ -189,6 +200,118 @@ final class GroupP
     List<Group> search( User user ) throws SecurityException
     {
         return gDao.find( user );
+    }
+
+    /**
+     * Takes a search string that contains full or partial Role name in directory.
+     *
+     * @param role contains full dn name of role
+     * @return List of type Group containing fully populated matching entities.  If no records found this will be empty.
+     * @throws SecurityException in the event of DAO search error.
+     */
+    List<Group> roleGroups( Role role ) throws SecurityException
+    {
+        return gDao.roleGroups( role );
+    }
+
+    /**
+     * Return a list of group Roles for a given Group name.  If matching record not found a
+     * SecurityException will be thrown.
+     *
+     * @param group contains full group name for entry in directory.
+     * @return Group entity containing all attributes associated.
+     * @throws SecurityException in the event not found or DAO search error.
+     */
+    List<UserRole> groupRoles( Group group ) throws SecurityException
+    {
+        Group outGroup = read(group);
+        fillRoles( outGroup );
+
+        return outGroup.getRoles();
+    }
+
+
+    /**
+     * Creates a Session using given Group and its members, if Group type is ROLE
+     * @param group a group to create Session for
+     * @return Session object
+     * @throws SecurityException
+     */
+    Session createSession( Group group ) throws SecurityException
+    {
+        // Create the impl session without authentication of password.
+        Session session = createSessionTrusted( group );
+
+        // Did the caller pass in a set of roles for selective activation?
+        if ( CollectionUtils.isNotEmpty( group.getMembers() ) )
+        {
+            // Process selective activation of user's RBAC roles into session:
+            List<String> availableRoles = session.getGroup().getMembers();
+            availableRoles.retainAll( group.getMembers() );
+        }
+        // Fill aux field 'roles' with Role entities
+        fillRoles( session.getGroup() );
+
+        // Check role temporal constraints + activate roles:
+        VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.ROLE, true );
+        return session;
+    }
+
+
+    private Session createSessionTrusted( Group inGroup) throws SecurityException
+    {
+        Group group = read( inGroup );
+        group.setContextId( inGroup.getContextId() );
+
+        if ( group.getType() != Group.Type.ROLE )
+        {
+            String info = "createSession failed for Group ["
+                    + group.getName() + "], group must be of type ROLE.";
+
+            throw new ValidationException( GlobalErrIds.GROUP_TYPE_INVLD, info );
+        }
+
+        Session session = new Session(group);
+        // Set this flag to false because group was not authenticated.
+        session.setAuthenticated( false );
+        return session;
+    }
+
+
+    /**
+     * Populates the auxiliary field 'roles' in given group object with
+     * {@link UserRole} data
+     * @param group a group object to populate
+     * @throws SecurityException thrown in the event the attribute is null.
+     */
+    private void fillRoles( Group group ) throws SecurityException {
+        if ( Group.Type.ROLE.equals( group.getType() ) )
+        {
+            RoleP rp = new RoleP();
+            List<UserRole> roles = new ArrayList<>();
+            List<String> members = group.getMembers();
+            for ( String roleDn : members )
+            {
+                String roleRdn = roleDn;
+                if ( group.isMemberDn() )
+                {
+                    String[] parts = roleDn.split( "," );
+                    if (parts.length > 0)
+                    {
+                        roleRdn = parts[ 0 ];
+                    }
+                    roleRdn = roleRdn.replaceFirst( "cn=", "" ); // remove 'cn='
+                }
+                Role inRole = new Role( roleRdn );
+                inRole.setContextId( group.getContextId() );
+                Role role = rp.read( inRole );
+
+                UserRole ure = new UserRole( group.getName(), roleRdn, true );
+                ConstraintUtil.validateOrCopy( role, ure );
+                roles.add( ure );
+            }
+            group.setRoles( roles );
+        }
     }
 
 

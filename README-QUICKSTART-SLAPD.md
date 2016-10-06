@@ -18,7 +18,7 @@
 
 # OpenLDAP & Fortress QUICKSTART
 
- Apache Fortress 1.0.1 and OpenLDAP Quickstart System Architecture
+ Apache Fortress 1.0.2-SNAPSHOT and OpenLDAP Quickstart System Architecture
  ![OpenLDAP & Fortress System Architecture](images/fortress-openldap-accel-system-arch.png "OpenLDAP & Fortress System Architecture")
 
 -------------------------------------------------------------------------------
