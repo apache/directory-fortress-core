@@ -182,11 +182,11 @@ ________________________________________________________________________________
 3. Verify the tests worked:
 
  ```
- Tests run: 113, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 196 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
+ Tests run: 126, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 196 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
 
  Results :
 
- Tests run: 113, Failures: 0, Errors: 0, Skipped: 0
+ Tests run: 126, Failures: 0, Errors: 0, Skipped: 0
 
  [INFO]
  [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
@@ -212,11 +212,11 @@ ________________________________________________________________________________
 5. Verify that worked also:
 
  ```
- Tests run: 141, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 207.081 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
+ Tests run: 158, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 207.081 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
 
  Results :
 
- Tests run: 141, Failures: 0, Errors: 0, Skipped: 0
+ Tests run: 158, Failures: 0, Errors: 0, Skipped: 0
 
  [INFO]
  [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
