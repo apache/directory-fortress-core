@@ -23,18 +23,45 @@ import java.io.Serializable;
 
 import org.apache.directory.fortress.core.util.Config;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * The role constraint object holds non date time constraints on user to role relationships.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
+@XmlRootElement(name = "fortSet")
+@XmlAccessorType( XmlAccessType.FIELD)
+@XmlType(name = "roleconstraint", propOrder =
+    {
+        "paSetName",
+        "value",
+        "type"
+    })
 public class RoleConstraint implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     public static final String RC_TYPE_NAME = "type";
 
-    private RoleConstraintType constraintType;
+    /**
+     * The type of role constraint.
+     *
+     * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
+     */
+    @XmlType(name = "rctype")
+    @XmlEnum
+    public enum RCType
+    {
+        FILTER,
+        OTHER
+    }
+
+    private RCType type;
     private String value;
     private String paSetName;
 
@@ -42,17 +69,17 @@ public class RoleConstraint implements Serializable {
 
     }
 
-    public RoleConstraint(String value, RoleConstraintType constraintType, String paSetName){
-        this.constraintType = constraintType;
+    public RoleConstraint(String value, RCType type, String paSetName){
+        this.type = type;
         this.value = value;
         this.paSetName = paSetName;
     }	
 
-    public RoleConstraintType getConstraintType() {
-        return constraintType;
+    public RCType getType() {
+        return type;
     }
-    public void setConstraintType(RoleConstraintType constraintType) {
-        this.constraintType = constraintType;
+    public void setType(RCType type) {
+        this.type = type;
     }
     public String getValue() {
         return value;
@@ -76,7 +103,7 @@ public class RoleConstraint implements Serializable {
         sb.append( delimeter );
         sb.append(RC_TYPE_NAME);
         sb.append( delimeter );
-        sb.append(constraintType);
+        sb.append( type );
         sb.append( delimeter );
         sb.append(paSetName);
         sb.append( delimeter );

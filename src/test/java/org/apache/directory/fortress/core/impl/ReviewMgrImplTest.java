@@ -35,7 +35,6 @@ import org.apache.directory.fortress.core.model.PermissionAttribute;
 import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.RoleConstraint;
-import org.apache.directory.fortress.core.model.RoleConstraintType;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
@@ -1634,7 +1633,7 @@ public class ReviewMgrImplTest extends TestCase
     				for(RoleConstraint r : rcs){
     					if(r.getPaSetName().equals(rc.getPaSetName())){
     						urcFound = true;
-    						assertEquals(rc.getConstraintType(), r.getConstraintType());
+    						assertEquals(rc.getType(), r.getType());
     						assertEquals(rc.getValue(), r.getValue());
     					}
     				}
@@ -1660,10 +1659,10 @@ public class ReviewMgrImplTest extends TestCase
     
     public void testFindRoleConstraints()
     {
-    	findRoleConstraints( "SRCH-RCS TU1 TR1", UserTestData.USERS_TU1[0][0], PermTestData.getOp("TOB1_1", PermTestData.OPS_TOP1_UPD[0]), URATestData.getRC(URATestData.URC_T1).getConstraintType() );
+    	findRoleConstraints( "SRCH-RCS TU1 TR1", UserTestData.USERS_TU1[0][0], PermTestData.getOp("TOB1_1", PermTestData.OPS_TOP1_UPD[0]), URATestData.getRC(URATestData.URC_T1).getType() );
     }
     
-    public static void findRoleConstraints( String msg, String usr, Permission permission, RoleConstraintType rcType )
+    public static void findRoleConstraints( String msg, String usr, Permission permission, RoleConstraint.RCType rcType )
     {
     	LogUtil.logIt(msg);
     	try
@@ -1672,7 +1671,7 @@ public class ReviewMgrImplTest extends TestCase
 
     		List<RoleConstraint> rcs = reviewMgr.findRoleConstraints(new User(usr), permission, rcType);
     		assertTrue(rcs.size() > 0);
-    		assertTrue(rcs.get(0).getConstraintType().equals(rcType));
+    		assertTrue(rcs.get(0).getType().equals(rcType));
    
     		LOG.debug( "findRoleConstraints permission [" + permission.getObjName() + "." + permission.getOpName() + "] successful" );
     	}

@@ -27,7 +27,6 @@ import junit.framework.TestCase;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.RoleConstraint;
-import org.apache.directory.fortress.core.model.RoleConstraintType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -1055,7 +1054,7 @@ public class URATestData extends TestCase
     {
     	RoleConstraint urc = new RoleConstraint();
     	urc.setPaSetName(rc[0]);
-    	urc.setConstraintType(RoleConstraintType.valueOf(rc[1]));
+    	urc.setType( RoleConstraint.RCType.valueOf( rc[1] ) );
     	urc.setValue(rc[2]);
         return urc;
     }

@@ -24,7 +24,8 @@ package org.apache.directory.fortress.core.model;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public enum RoleConstraintType {
+public enum RoleConstraintTypeX
+{
     FILTER,
     OTHER
 }
