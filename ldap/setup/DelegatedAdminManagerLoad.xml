@@ -122,7 +122,12 @@
                 <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addDsdRoleMember" roleNm="fortress-core-super-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteDsdRoleMember" roleNm="fortress-core-super-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteDsdSet" roleNm="fortress-core-super-admin" admin="true"/>
-                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="setDsdSetCardinality" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="setDsdSetCardinality" roleNm="fortress-core-super-admin" admin="true"/>            	
+            	<permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addPermissionAttributeSet" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deletePermissionAttributeSet" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addPermissionAttributeToSet" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="removePermissionAttributeFromSet" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="updatePermissionAttributeInSet" roleNm="fortress-core-super-admin" admin="true"/>
 
                 <permgrant objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" opName="add" roleNm="fortress-core-super-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" opName="update" roleNm="fortress-core-super-admin" admin="true"/>
@@ -270,7 +275,12 @@
                 <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addDsdRoleMember" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteDsdRoleMember" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deleteDsdSet" admin="true"/>
-                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="setDsdSetCardinality" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="setDsdSetCardinality" admin="true"/>            	
+            	<permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addPermissionAttributeSet" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deletePermissionAttributeSet" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addPermissionAttributeToSet" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="removePermissionAttributeFromSet" admin="true"/>
+            	<permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="updatePermissionAttributeInSet" admin="true"/>
 
                 <permop objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" opName="add" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.PwPolicyMgrImpl" opName="update" admin="true"/>
