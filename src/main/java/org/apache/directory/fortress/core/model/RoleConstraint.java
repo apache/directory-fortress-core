@@ -34,15 +34,16 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-@XmlRootElement(name = "fortSet")
-@XmlAccessorType( XmlAccessType.FIELD)
-@XmlType(name = "roleconstraint", propOrder =
-    {
-        "paSetName",
-        "value",
-        "type"
-    })
-public class RoleConstraint  extends FortEntity implements Serializable {
+@XmlRootElement( name = "fortRoleConstraint" )
+@XmlAccessorType( XmlAccessType.FIELD )
+@XmlType( name = "roleconstraint", propOrder = {
+    "paSetName",
+    "value",
+    "type"
+} )
+
+public class RoleConstraint extends FortEntity implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
@@ -53,7 +54,7 @@ public class RoleConstraint  extends FortEntity implements Serializable {
      *
      * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
      */
-    @XmlType(name = "rctype")
+    @XmlType( name = "rctype" )
     @XmlEnum
     public enum RCType
     {
@@ -65,49 +66,62 @@ public class RoleConstraint  extends FortEntity implements Serializable {
     private String value;
     private String paSetName;
 
-    public RoleConstraint(){
+    public RoleConstraint()
+    {
 
     }
 
-    public RoleConstraint(String value, RCType type, String paSetName){
+    public RoleConstraint(String value, RCType type, String paSetName)
+    {
         this.type = type;
         this.value = value;
         this.paSetName = paSetName;
-    }	
+    }
 
-    public RCType getType() {
+    public RCType getType()
+    {
         return type;
     }
-    public void setType(RCType type) {
+
+    public void setType(RCType type)
+    {
         this.type = type;
     }
-    public String getValue() {
+
+    public String getValue()
+    {
         return value;
     }
-    public void setValue(String value) {
+
+    public void setValue(String value)
+    {
         this.value = value;
     }
-    public String getPaSetName() {
+
+    public String getPaSetName()
+    {
         return paSetName;
     }
 
-    public void setPaSetName(String paSetName) {
+    public void setPaSetName(String paSetName)
+    {
         this.paSetName = paSetName;
-    }	
+    }
 
-    public String getRawData(UserRole uRole){
-        StringBuilder sb = new StringBuilder();        
+    public String getRawData(UserRole uRole)
+    {
+        StringBuilder sb = new StringBuilder();
         String delimeter = Config.getInstance().getDelimiter();
 
-        sb.append(uRole.getName());        
+        sb.append( uRole.getName() );
         sb.append( delimeter );
-        sb.append(RC_TYPE_NAME);
+        sb.append( RC_TYPE_NAME );
         sb.append( delimeter );
         sb.append( type );
         sb.append( delimeter );
-        sb.append(paSetName);
+        sb.append( paSetName );
         sb.append( delimeter );
-        sb.append(value);
+        sb.append( value );
 
         return sb.toString();
     }

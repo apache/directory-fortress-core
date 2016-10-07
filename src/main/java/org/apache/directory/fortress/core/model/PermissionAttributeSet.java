@@ -32,29 +32,32 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- * This a grouping of {@link org.apache.directory.fortress.core.model.PermissionAttribute}. 
+ * This a grouping of {@link org.apache.directory.fortress.core.model.PermissionAttribute}.
  * A {@link org.apache.directory.fortress.core.model.Permission} can link to 0 to many Permission
- * Attribute Sets. 
+ * Attribute Sets.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-@XmlRootElement(name = "ftPermissionAttributeSet")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "permission", propOrder =
-{
+@XmlRootElement( name = "fortPermissionAttributeSet" )
+@XmlAccessorType( XmlAccessType.FIELD )
+@XmlType( name = "permissionAttributeSet", propOrder = {
     "name",
     "attributes",
     "internalId",
     "description",
     "type"
-})
-public class PermissionAttributeSet extends FortEntity implements Serializable {
+} )
 
-    /** Default serialVersionUID */
+public class PermissionAttributeSet extends FortEntity implements Serializable
+{
+
+    /**
+     * Default serialVersionUID
+     */
     private static final long serialVersionUID = 1L;
 
     private String name;
-    @XmlElement(nillable = true)
+    @XmlElement( nillable = true )
     private Set<PermissionAttribute> attributes;
     private String internalId;
     private String description;
@@ -63,31 +66,37 @@ public class PermissionAttributeSet extends FortEntity implements Serializable {
     private String dn;
 
 
-    public PermissionAttributeSet(String name){
+    public PermissionAttributeSet(String name)
+    {
         this.name = name;
     }
 
-    public PermissionAttributeSet(){
+    public PermissionAttributeSet()
+    {
 
     }
 
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
-    }	
+    }
 
     /**
-     * Return the collection of optional Attributes that have been loaded into this entity.  This is stored as a multi-occurring
+     * Return the collection of optional Attributes that have been loaded into this entity.  This is stored as a
+     * multi-occurring
      * attribute of ftPA entries on the 'ftAttributeSet' object class.
      *
      * @return Set containing the roles which maps to 'ftRoles' attribute in 'ftOperation' object class.
      */
     public Set<PermissionAttribute> getAttributes()
     {
-        if(this.attributes == null){
+        if ( this.attributes == null )
+        {
             attributes = new HashSet<PermissionAttribute>();
         }
 
@@ -96,50 +105,60 @@ public class PermissionAttributeSet extends FortEntity implements Serializable {
 
 
     /**
-     * Set the collection of optional Attributes that have been loaded into this entity.  This is stored as a multi-occurring
+     * Set the collection of optional Attributes that have been loaded into this entity.  This is stored as a
+     * multi-occurring
      * attribute of ftPAs on the 'ftOperation' object class.
      *
      * @param attributes maps to 'ftPA' attribute in 'ftOperation' object class.
      */
-    public void setAttributes( Set<PermissionAttribute> attributes )
+    public void setAttributes(Set<PermissionAttribute> attributes)
     {
         this.attributes = attributes;
     }
 
-    public void setInternalId(String internalId){
+    public void setInternalId(String internalId)
+    {
         this.internalId = internalId;
     }
 
-    public String getInternalId() {
+    public String getInternalId()
+    {
         return internalId;
     }
 
-    public void setInternalId() {
+    public void setInternalId()
+    {
         UUID uuid = UUID.randomUUID();
         this.internalId = uuid.toString();
     }
 
-    public String getDescription() {
+    public String getDescription()
+    {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description)
+    {
         this.description = description;
     }
 
-    public String getType() {
+    public String getType()
+    {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(String type)
+    {
         this.type = type;
     }
 
-    public String getDn() {
+    public String getDn()
+    {
         return dn;
     }
 
-    public void setDn(String dn) {
+    public void setDn(String dn)
+    {
         this.dn = dn;
     }
 
