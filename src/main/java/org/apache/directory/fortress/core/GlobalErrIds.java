@@ -1710,6 +1710,10 @@ public final class GlobalErrIds
      */
     public static final int GROUP_TYPE_INVLD = 10314;
 
+    /**
+     * The Group member is required and cannot be null
+     */
+    public static final int GROUP_MEMBER_NULL = 10315;
 
     /**
      * 10400's - ROLE CONSTRAINT Error Ids

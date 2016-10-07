@@ -171,6 +171,6 @@ public class HttpIds
     public static final String GROUP_DELETE = "groupDelete";
     public static final String GROUP_ROLE_ASGNED = "roleGroupAsigned";
     public static final String GROUP_ASGNED = "groupAsigned";
-    public static final String GROUP_ROLE_ASGN = "groupRoleAsgn";
-    public static final String GROUP_ROLE_DEASGN = "groupRoleDeasgn";
+    public static final String GROUP_ASGN = "groupAsgn";
+    public static final String GROUP_DEASGN = "groupDeasgn";
 }

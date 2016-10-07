@@ -19,9 +19,11 @@
  */
 package org.apache.directory.fortress.core;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.util.Strings;
 import org.apache.directory.fortress.core.impl.GroupMgrImpl;
 import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.rest.GroupMgrRestImpl;
 import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
@@ -68,27 +70,38 @@ public final class GroupMgrFactory
     public static GroupMgr createInstance(String contextId)
         throws SecurityException
     {
-        VUtil.assertNotNull( contextId, GlobalErrIds.CONTEXT_NULL, CREATE_INSTANCE_METHOD );
-        String groupClassName = Config.getInstance().getProperty( GlobalIds.GROUP_IMPLEMENTATION );
-        
-        if ( Strings.isEmpty( groupClassName ) )
+        VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
+
+        String groupClassName = Config.getInstance().getProperty(GlobalIds.GROUP_IMPLEMENTATION);
+
+        GroupMgr groupMgr = null;
+
+        if ( StringUtils.isEmpty( groupClassName ) )
         {
-            groupClassName = GroupMgrImpl.class.getName();
+            if(Config.getInstance().isRestEnabled())
+            {
+                groupMgr = new GroupMgrRestImpl();
+            }
+            else
+            {
+                groupMgr = new GroupMgrImpl();
+            }
+        }
+        else
+        {
+            groupMgr = (GroupMgr) ClassUtil.createInstance( groupClassName );
         }
 
-        GroupMgr groupMgr = (GroupMgr) ClassUtil.createInstance(groupClassName);
-        groupMgr.setContextId(contextId);
-        
         if(groupMgr instanceof GroupMgrImpl){
-        	Config cfg = Config.getInstance();
-        	if(!cfg.isRemoteConfigLoaded()){
-        		cfg.loadRemoteConfig();
-        	}
+            Config cfg = Config.getInstance();
+            if(!cfg.isRemoteConfigLoaded()){
+                cfg.loadRemoteConfig();
+            }
         }
-        
+
+        groupMgr.setContextId(contextId);
         return groupMgr;
     }
-
 
     /**
      * Create and return a reference to {@link GroupMgr} object using HOME context.
