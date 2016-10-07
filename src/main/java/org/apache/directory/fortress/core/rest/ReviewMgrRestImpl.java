@@ -36,7 +36,6 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.RoleConstraint;
-import org.apache.directory.fortress.core.model.RoleConstraintType;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
@@ -1256,20 +1255,70 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
-	public PermissionAttributeSet readPermAttributeSet(
-			PermissionAttributeSet permAttributeSet) throws SecurityException {
-		// TODO Auto-generated method stub
-		return null;
+	public PermissionAttributeSet readPermAttributeSet(	PermissionAttributeSet permAttributeSet )
+        throws SecurityException
+    {
+        {
+            VUtil.assertNotNull(permAttributeSet, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL, CLS_NM + ".readPermAttributeSet");
+            PermissionAttributeSet retPermSet;
+            FortRequest request = new FortRequest();
+            request.setContextId(this.contextId);
+            request.setEntity(permAttributeSet);
+            if (this.adminSess != null)
+            {
+                request.setSession(adminSess);
+            }
+            String szRequest = RestUtils.marshal(request);
+            String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_READ_PERM_ATTRIBUTE_SET);
+            FortResponse response = RestUtils.unmarshall(szResponse);
+            if (response.getErrorCode() == 0)
+            {
+                retPermSet = (PermissionAttributeSet)response.getEntity();
+            }
+            else
+            {
+                throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+            }
+            return retPermSet;
+        }
 	}
 
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
-	public List<RoleConstraint> findRoleConstraints(User user, Permission permission, RoleConstraintType rcType)
-			throws SecurityException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<RoleConstraint> findRoleConstraints( User user, Permission permission, RoleConstraint.RCType rcType )
+			throws SecurityException
+    {
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".findRoleConstraints");
+        VUtil.assertNotNull(user, GlobalErrIds.PERM_NULL, CLS_NM + ".findRoleConstraints");
+
+        List<RoleConstraint> retConstraints;
+        FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
+        request.setEntity( user );
+        request.setEntity2( permission);
+        request.setValue( rcType.toString() );
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_FIND_CONSTRAINTS);
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retConstraints = response.getEntities();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retConstraints;
 	}
-
-
 }

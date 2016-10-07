@@ -37,7 +37,6 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.RoleConstraint;
-import org.apache.directory.fortress.core.model.RoleConstraintType;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
@@ -722,8 +721,11 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
-    public List<RoleConstraint> findRoleConstraints(User user, Permission permission, RoleConstraintType rcType) throws SecurityException {
+    public List<RoleConstraint> findRoleConstraints(User user, Permission permission, RoleConstraint.RCType rcType) throws SecurityException
+    {
         String methodName = "findRoleConstraints";
+        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
+        assertContext(CLS_NM, methodName, permission, GlobalErrIds.PERM_NULL);
         checkAccess(CLS_NM, methodName);        
         //find roles this permission is authorized for
         Permission pe = permP.read(permission);

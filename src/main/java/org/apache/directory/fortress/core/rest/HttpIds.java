@@ -69,6 +69,9 @@ public class HttpIds
     public static final String ROLE_DELINHERIT = "roleDelinherit";
     public static final String ROLE_ASGNED = "roleAsigned";
     public static final String ROLE_AUTHZED = "roleAuthzed";
+    public static final String ROLE_ADD_CONSTRAINT = "addRoleConstraint";
+    public static final String ROLE_DELETE_CONSTRAINT = "removeRoleConstraint";
+    public static final String ROLE_FIND_CONSTRAINTS = "findRoleConstraints";
     public static final String OBJ_READ = "objRead";
     public static final String OBJ_UPDATE = "objUpdate";
     public static final String OBJ_ADD = "objAdd";
@@ -85,6 +88,12 @@ public class HttpIds
     public static final String PERM_USERS = "permUsers";
     public static final String PERM_ROLES_AUTHZED = "permRolesAuthzed";
     public static final String PERM_USERS_AUTHZED = "permUsersAuthzed";
+    public static final String PERM_ADD_ATTRIBUTE_SET = "addPermissionAttributeSet";
+    public static final String PERM_DELETE_ATTRIBUTE_SET = "deletePermissionAttributeSet";
+    public static final String PERM_ADD_PERM_ATTRIBUTE_TO_SET = "addPermissionAttributeToSet";
+    public static final String PERM_DELETE_PERM_ATTRIBUTE_TO_SET = "removePermissionAttributeFromSet";
+    public static final String PERM_UPDATE_PERM_ATTRIBUTE_IN_SET = "updatePermissionAttributeInSet";
+    public static final String PERM_READ_PERM_ATTRIBUTE_SET = "readPermAttributeSet";
     public static final String ORG_READ = "orgRead";
     public static final String ORG_UPDATE = "orgUpdate";
     public static final String ORG_ADD = "orgAdd";

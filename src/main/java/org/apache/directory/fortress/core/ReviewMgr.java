@@ -29,7 +29,6 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.RoleConstraint;
-import org.apache.directory.fortress.core.model.RoleConstraintType;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
@@ -735,10 +734,10 @@ public interface ReviewMgr extends Manageable
      * </ul>
      * 
      * @param user The user to filter role constraints
-     * @param paSet The permission attribute set to filter role constraints
+     * @param permission Contains the permission attribute set to filter role constraints
      * @return List of the Role Constraints for the given user and pa set.   
      * @throws SecurityException in the event of data or system error.
      */
-    List<RoleConstraint>  findRoleConstraints(User user, Permission permission, RoleConstraintType rcType)
+    List<RoleConstraint>  findRoleConstraints(User user, Permission permission, RoleConstraint.RCType rcType)
         throws SecurityException;
 }

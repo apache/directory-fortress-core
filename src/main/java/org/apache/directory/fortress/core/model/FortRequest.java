@@ -33,21 +33,27 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "fortRequest", propOrder =
 {
     "entity",
+    "entity2",
     "value",
     "limit",
     "contextId",
-    "session"
+    "session",
+    "isReplace"
 })
 public class FortRequest
 {
     @XmlElement(nillable = true)
     private FortEntity entity;
     @XmlElement(nillable = true)
+    private FortEntity entity2;
+    @XmlElement(nillable = true)
     private Session session;
     private String value;
     @XmlElement(nillable = true)
     private Integer limit;
     private String contextId;
+
+    private Boolean isReplace;
 
     public FortEntity getEntity()
     {
@@ -57,6 +63,16 @@ public class FortRequest
     public void setEntity(FortEntity entity)
     {
         this.entity = entity;
+    }
+
+    public FortEntity getEntity2()
+    {
+        return entity2;
+    }
+
+    public void setEntity2(FortEntity entity2)
+    {
+        this.entity2 = entity2;
     }
 
     public String getValue()
@@ -97,6 +113,16 @@ public class FortRequest
     public void setContextId(String contextId)
     {
         this.contextId = contextId;
+    }
+
+    public Boolean getIsReplace()
+    {
+        return isReplace;
+    }
+
+    public void setIsReplace(Boolean isReplace)
+    {
+        this.isReplace = isReplace;
     }
 }
 

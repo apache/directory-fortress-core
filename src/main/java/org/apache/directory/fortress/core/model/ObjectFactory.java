@@ -67,6 +67,9 @@ public class ObjectFactory
     private static final QName FORTPROPS_QNAME = new QName( "", "fortProps" );
     private static final QName FORTWARNING_QNAME = new QName( "", "fortWarning" );
     private static final QName FORTGROUP_QNAME = new QName( "", "fortGroup" );
+    private static final QName FORTPERMATTR_QNAME = new QName( "", "fortPermissionAttribute" );
+    private static final QName FORTPERMATTRSET_QNAME = new QName( "", "fortPermissionAttributeSet" );
+    private static final QName FORTROLECONSTRAINT_QNAME = new QName( "", "fortRoleConstraint" );
 
 
     /**
@@ -338,12 +341,44 @@ public class ObjectFactory
         return new JAXBElement<>( FORTGROUP_QNAME, Group.class, null, value );
     }
 
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.PermissionAttribute }{@code >}}
+     */
+    @XmlElementDecl(namespace = "", name = "fortPermissionAttribute")
+    public JAXBElement<PermissionAttribute> createFortPermissionAttribute( PermissionAttribute value )
+    {
+        return new JAXBElement<>( FORTPERMATTR_QNAME, PermissionAttribute.class, null, value );
+    }
+
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.PermissionAttributeSet }{@code >}}
+     */
+    @XmlElementDecl(namespace = "", name = "fortPermissionAttributeSet")
+    public JAXBElement<PermissionAttributeSet> createFortPermissionAttributeSet( PermissionAttributeSet value )
+    {
+        return new JAXBElement<>( FORTPERMATTRSET_QNAME, PermissionAttributeSet.class, null, value );
+    }
+
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link org.apache.directory.fortress.core.model.PermissionAttributeSet }{@code >}}
+     */
+    @XmlElementDecl(namespace = "", name = "fortRoleConstraint")
+    public JAXBElement<RoleConstraint> createFortRoleConstraint( RoleConstraint value )
+    {
+        return new JAXBElement<>( FORTROLECONSTRAINT_QNAME, RoleConstraint.class, null, value );
+    }
+
+
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: org.apache.directory.fortress.model2
      */
     public ObjectFactory()
     {
     }
+
 
     /**
      * Create an instance of {@link User}
@@ -443,6 +478,7 @@ public class ObjectFactory
         return new PermObj();
     }
 
+
     /**
      * Create an instance of {@link PermissionAttributeSet}
      */
@@ -450,6 +486,7 @@ public class ObjectFactory
     {
         return new PermissionAttributeSet();
     }
+
 
     /**
      * Create an instance of {@link Permission}
@@ -600,5 +637,23 @@ public class ObjectFactory
     public PermissionAttribute createPermissionAttribute()
     {
         return new PermissionAttribute();
+    }
+
+
+    /**
+     * Create an instance of {@link PermissionAttributeSet}
+     */
+    public PermissionAttributeSet createPermissionAttributeSet()
+    {
+        return new PermissionAttributeSet();
+    }
+
+
+    /**
+     * Create an instance of {@link RoleConstraint}
+     */
+    public RoleConstraint createRoleConstraint()
+    {
+        return new RoleConstraint();
     }
 }

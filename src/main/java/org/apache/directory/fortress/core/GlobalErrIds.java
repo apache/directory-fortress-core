@@ -1710,4 +1710,15 @@ public final class GlobalErrIds
      */
     public static final int GROUP_TYPE_INVLD = 10314;
 
+
+    /**
+     * 10400's - ROLE CONSTRAINT Error Ids
+     */
+
+    /**
+     * The RoleConstraint entity was not supplied but is required.
+     */
+    public static final int RCON_NULL = 10401;
+
+
 }

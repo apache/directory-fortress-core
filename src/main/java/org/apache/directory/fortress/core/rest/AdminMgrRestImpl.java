@@ -1244,59 +1244,207 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
-	public RoleConstraint addRoleConstraint(UserRole uRole,
-			RoleConstraint roleConstraint) throws SecurityException {
-		// TODO Auto-generated method stub
-		return null;
+	public RoleConstraint addRoleConstraint(UserRole uRole, RoleConstraint roleConstraint)
+        throws SecurityException
+    {
+        VUtil.assertNotNull( uRole, GlobalErrIds.URLE_NULL, CLS_NM + ".addRoleConstraint" );
+        VUtil.assertNotNull( roleConstraint, GlobalErrIds.RCON_NULL, CLS_NM + ".addRoleConstraint" );
+        RoleConstraint retCnst;
+        FortRequest request = new FortRequest();
+        request.setContextId( this.contextId );
+        request.setEntity( uRole );
+        request.setEntity2( roleConstraint );
+        if ( this.adminSess != null )
+        {
+            request.setSession( adminSess );
+        }
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_ADD_CONSTRAINT );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
+        {
+            retCnst = ( RoleConstraint ) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
+        }
+        return retCnst;
 	}
 
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
-	public void removeRoleConstraint(UserRole uRole,
-			RoleConstraint roleConstraint) throws SecurityException {
-		// TODO Auto-generated method stub
-		
+	public void removeRoleConstraint( UserRole uRole, RoleConstraint roleConstraint ) throws SecurityException
+    {
+        VUtil.assertNotNull( uRole, GlobalErrIds.URLE_NULL, CLS_NM + ".removeRoleConstraint" );
+        VUtil.assertNotNull( roleConstraint, GlobalErrIds.RCON_NULL, CLS_NM + ".removeRoleConstraint" );
+        FortRequest request = new FortRequest();
+        request.setContextId( this.contextId );
+        request.setEntity( uRole );
+        request.setEntity2( roleConstraint );
+        if ( this.adminSess != null )
+        {
+            request.setSession( adminSess );
+        }
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_DELETE_CONSTRAINT );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
+        {
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
+        }
 	}
 
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
-	public PermissionAttributeSet addPermissionAttributeSet(
-			PermissionAttributeSet permAttributeSet) throws SecurityException {
-		// TODO Auto-generated method stub
-		return null;
+	public PermissionAttributeSet addPermissionAttributeSet( PermissionAttributeSet permAttributeSet )
+        throws SecurityException
+    {
+        VUtil.assertNotNull( permAttributeSet, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL, CLS_NM + ".addPermissionAttributeSet" );
+        PermissionAttributeSet retSet;
+        FortRequest request = new FortRequest();
+        request.setContextId( this.contextId );
+        request.setEntity( permAttributeSet );
+        if ( this.adminSess != null )
+        {
+            request.setSession( adminSess );
+        }
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PERM_ADD_ATTRIBUTE_SET );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
+        {
+            retSet = ( PermissionAttributeSet ) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
+        }
+        return retSet;
 	}
 
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
 	public void deletePermissionAttributeSet(
-			PermissionAttributeSet permAttributeSet) throws SecurityException {
-		// TODO Auto-generated method stub
-		
+			PermissionAttributeSet permAttributeSet) throws SecurityException
+    {
+        VUtil.assertNotNull( permAttributeSet, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL, CLS_NM + ".deletePermissionAttributeSet" );
+        FortRequest request = new FortRequest();
+        request.setContextId( this.contextId );
+        request.setEntity( permAttributeSet );
+        if ( this.adminSess != null )
+        {
+            request.setSession( adminSess );
+        }
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PERM_DELETE_ATTRIBUTE_SET );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
+        {
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
+        }
 	}
 
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
-	public PermissionAttribute addPermissionAttributeToSet(
-			PermissionAttribute permAttribute, String attributeSetName)
-			throws SecurityException {
-		// TODO Auto-generated method stub
-		return null;
+	public PermissionAttribute addPermissionAttributeToSet( PermissionAttribute permAttribute, String attributeSetName )
+			throws SecurityException
+    {
+        VUtil.assertNotNull( permAttribute, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL, CLS_NM + ".addPermissionAttributeToSet" );
+        VUtil.assertNotNull( attributeSetName, GlobalErrIds.PERM_ATTRIBUTE_SET_NM_NULL, CLS_NM + ".addPermissionAttributeToSet" );
+        PermissionAttribute retAttr;
+        FortRequest request = new FortRequest();
+        request.setContextId( this.contextId );
+        request.setEntity( permAttribute );
+        request.setValue( attributeSetName );
+        if ( this.adminSess != null )
+        {
+            request.setSession( adminSess );
+        }
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PERM_ADD_PERM_ATTRIBUTE_TO_SET );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
+        {
+            retAttr = ( PermissionAttribute ) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
+        }
+        return retAttr;
 	}
 
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
-	public void removePermissionAttributeFromSet(
-			PermissionAttribute permAttribute, String attributeSetName)
-			throws SecurityException {
-		// TODO Auto-generated method stub
-		
+	public void removePermissionAttributeFromSet( PermissionAttribute permAttribute, String attributeSetName )
+			throws SecurityException
+    {
+        VUtil.assertNotNull( permAttribute, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL, CLS_NM + ".removePermissionAttributeFromSet" );
+        VUtil.assertNotNull( attributeSetName, GlobalErrIds.PERM_ATTRIBUTE_SET_NM_NULL, CLS_NM + ".removePermissionAttributeFromSet" );
+        PermissionAttribute retAttr;
+        FortRequest request = new FortRequest();
+        request.setContextId( this.contextId );
+        request.setEntity( permAttribute );
+        request.setValue( attributeSetName );
+        if ( this.adminSess != null )
+        {
+            request.setSession( adminSess );
+        }
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PERM_DELETE_PERM_ATTRIBUTE_TO_SET );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
+        {
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
+        }
 	}
 
+
+    /**
+     * {@inheritDoc}
+     */
 	@Override
-	public void updatePermissionAttributeInSet(PermissionAttribute permAttribute, String attributeSetName,
-			boolean replaceValidValues) throws SecurityException {
-		// TODO Auto-generated method stub
-		
+	public void updatePermissionAttributeInSet(PermissionAttribute permAttribute, String attributeSetName, boolean replaceValidValues)
+        throws SecurityException
+    {
+        VUtil.assertNotNull( permAttribute, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL, CLS_NM + ".updatePermissionAttributeInSet" );
+        VUtil.assertNotNull( attributeSetName, GlobalErrIds.PERM_ATTRIBUTE_SET_NM_NULL, CLS_NM + ".updatePermissionAttributeInSet" );
+        PermissionAttribute retAttr;
+        FortRequest request = new FortRequest();
+        request.setContextId( this.contextId );
+        request.setEntity( permAttribute );
+        request.setValue( attributeSetName );
+        request.setIsReplace( replaceValidValues );
+        if ( this.adminSess != null )
+        {
+            request.setSession( adminSess );
+        }
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PERM_UPDATE_PERM_ATTRIBUTE_IN_SET );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
+        {
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
+        }
 	}
 }

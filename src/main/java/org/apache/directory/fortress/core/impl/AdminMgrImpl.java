@@ -357,6 +357,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     	String methodName = "assignUser";
         assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
         AdminUtil.canAssign( uRole.getAdminSession(), new User( uRole.getUserId() ), new Role( uRole.getName() ), contextId );
+
+        // todo assert roleconstraint here
         
         userP.assign( uRole, roleConstraint );        
         return roleConstraint;
@@ -373,6 +375,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
         AdminUtil.canDeassign( uRole.getAdminSession(), new User( uRole.getUserId() ), new Role( uRole.getName() ), contextId );
         
+        // todo assert roleconstraint here
+
         userP.deassign( uRole, roleConstraint );    	
     }
     

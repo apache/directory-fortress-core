@@ -693,26 +693,6 @@ public final class VUtil implements ConstraintValidator
     }
     
     /**
-     * Checks the Permission Attribute Set exists
-     * 
-     * @param value Name of the Permission Attribute Set
-     * @throws ValidationException
-     */
-    public static void permAttrSetName( String value ) throws ValidationException
-    {    	    	
-    	try{
-    		ReviewMgr reviewMgr = ReviewMgrFactory.createInstance();      		
-    		PermissionAttributeSet paSet = reviewMgr.readPermAttributeSet(new PermissionAttributeSet(value));
-    	}
-        catch(Exception e){
-            String error = "permissionAttributeSet - not found with name [" + value + "]";
-            throw new ValidationException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, error );
-        }
-
-        RegExUtil.getInstance().safeText( value );
-    }
-
-    /**
      * A class to wrap the group into constrainted interface to pass to DSD validator.
      * Group itself doesn't have temporal contraints.
      */

@@ -172,6 +172,7 @@ final class GroupP
     Group read( Group group ) throws SecurityException
     {
         Group outGroup = gDao.get(group);
+        outGroup.setContextId( group.getContextId() );
         fillRoles(outGroup);
         return outGroup;
     }
