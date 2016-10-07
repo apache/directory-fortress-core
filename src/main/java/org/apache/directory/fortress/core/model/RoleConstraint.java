@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlRootElement( name = "fortRoleConstraint" )
 @XmlAccessorType( XmlAccessType.FIELD )
-@XmlType( name = "roleconstraint", propOrder = {
+@XmlType( name = "roleConstraint", propOrder = {
     "paSetName",
     "value",
     "type"
