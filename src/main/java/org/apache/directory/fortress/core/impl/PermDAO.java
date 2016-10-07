@@ -1462,14 +1462,13 @@ final class PermDAO extends LdapDataProvider
     private PermissionAttributeSet unloadPASetLdapEntry( Entry le, long sequence )
         throws LdapInvalidAttributeValueException
     {
-        PermissionAttributeSet entity = new ObjectFactory().createPermAttributeSet();
+        PermissionAttributeSet entity = new ObjectFactory().createPermissionAttributeSet();
         entity.setSequenceId( sequence );
         entity.setName( getAttribute( le, SchemaConstants.CN_AT ) );
         entity.setDn( le.getDn().getName() );
         entity.setInternalId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
-        entity.setType( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_SET_TYPE ) );    	    	
-
+        entity.setType( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_SET_TYPE ) );
         return entity;
     }
 
@@ -1486,15 +1485,14 @@ final class PermDAO extends LdapDataProvider
         entity.setDefaultOperator( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_OPERATOR ) );
         entity.setDefaultStrategy( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_STRATEGY ) );
         entity.setDefaultValue( getAttribute( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_DEFAULT_VALUE ) );
-
         List<String> validValues = getAttributes( le, GlobalIds.FT_PERMISSION_ATTRIBUTE_VALID_VALUES );
-
-        if(validValues != null){
-            for(String value : validValues){
+        if(validValues != null)
+        {
+            for(String value : validValues)
+            {
                 entity.getValidValues().add(value);
             }
         }
-
         return entity;
     }
     

@@ -52,7 +52,7 @@ public class FortRequest
     @XmlElement(nillable = true)
     private Integer limit;
     private String contextId;
-
+    @XmlElement(nillable = true)
     private Boolean isReplace;
 
     public FortEntity getEntity()

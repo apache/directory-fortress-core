@@ -86,7 +86,10 @@ import javax.xml.bind.annotation.XmlType;
         AuthZ.class,
         Bind.class,
         Mod.class,
-        Props.class
+        Props.class,
+        PermissionAttribute.class,
+        PermissionAttributeSet.class,
+        RoleConstraint.class
 })
 public abstract class FortEntity
 {

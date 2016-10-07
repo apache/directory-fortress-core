@@ -47,7 +47,9 @@ import javax.xml.bind.annotation.XmlType;
     "dataType",
     "defaultValue",
     "defaultStrategy",
-    "validValues"
+    "validValues",
+    "internalId",
+    "description"
 } )
 
 public class PermissionAttribute extends FortEntity implements Serializable
@@ -66,7 +68,6 @@ public class PermissionAttribute extends FortEntity implements Serializable
     @XmlElement( nillable = true )
     private List<String> validValues;
     @XmlTransient
-
     private String dn;
     private String internalId;
     private String description;
