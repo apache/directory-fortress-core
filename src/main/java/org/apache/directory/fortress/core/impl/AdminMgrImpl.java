@@ -357,6 +357,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         //TODO: need new arbac perm and/or add security check
     	String methodName = "assignUser";
         assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
+        // todo assert roleconstraint here
         
         userP.assign( uRole, roleConstraint );
         
@@ -373,7 +374,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         //TODO: need new arbac perm and/or add security check
     	String methodName = "assignUser";
         assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
-        
+        // todo assert roleconstraint here
+
         userP.deassign( uRole, roleConstraint );    	
     }
     

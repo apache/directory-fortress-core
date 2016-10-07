@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.XmlType;
         "value",
         "type"
     })
-public class RoleConstraint implements Serializable {
+public class RoleConstraint  extends FortEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
