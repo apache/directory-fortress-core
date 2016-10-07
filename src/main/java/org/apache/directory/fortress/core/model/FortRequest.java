@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.*;
 @XmlType(name = "fortRequest", propOrder =
 {
     "entity",
+    "entity2",
     "value",
     "limit",
     "contextId",
