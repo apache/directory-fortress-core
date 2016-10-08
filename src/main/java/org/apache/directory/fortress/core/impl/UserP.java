@@ -766,19 +766,14 @@ final class UserP
         }
         try
         {
-            PermissionAttributeSet paSet = new PermissionAttributeSet( rc.getPaSetName() );
-            paSet.setContextId( contextId );
             PermP permP = new PermP();
-            paSet = permP.read( paSet );
-            VUtil.safeText( rc.getPaSetName(), GlobalIds.DESC_LEN );
+            permP.validatePaSet( rc.getPaSetName(), contextId );
         }
         catch( SecurityException e )
         {
             String error = "validate - paSetName not found with name [" + rc.getPaSetName() + "] caught SecurityException=" + e;
             throw new ValidationException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, error );
         }
-
-
         if ( rc.getType() == null )
         {
             throw new ValidationException( GlobalErrIds.ROLE_CONSTRAINT_TYPE_NULL, CLS_NM + ".validate type is NULL" );
