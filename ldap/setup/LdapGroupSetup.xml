@@ -42,11 +42,11 @@
             </deluser>
 
             <addgroup>
-                <group name="test-group-1" protocol="ssh" properties="hostname=host1, port=22, username=tgadmin1, password=secret" members="groupuser1,groupuser2,groupuser3,groupuser4,groupuser5" description="Ldap Test Group 1 Configuration" />
-                <group name="test-group-2" protocol="ssh" properties="hostname=host2, port=22, username=tgadmin2, password=secret" members="groupuser1,groupuser2,groupuser3,groupuser4" description="Ldap Test Group 2 Configuration" />
-                <group name="test-group-3" protocol="ssh" properties="hostname=host3, port=22, username=tgadmin3, password=secret" members="groupuser1,groupuser2,groupuser3" description="Ldap Test Group 3 Configuration" />
-                <group name="test-group-4" protocol="ssh" properties="hostname=host4, port=22, username=tgadmin4, password=secret" members="groupuser1,groupuser2" description="Ldap Test Group 4 Configuration" />
-                <group name="test-group-5" protocol="ssh" properties="hostname=host5, port=22, username=tgadmin5, password=secret" members="groupuser1" description="Ldap Test Group 5 Configuration" />
+                <group name="test-group-1" protocol="ssh" propertieswithcsv="hostname=host1, port=22, username=tgadmin1, password=secret" memberswithcsv="groupuser1,groupuser2,groupuser3,groupuser4,groupuser5" description="Ldap Test Group 1 Configuration" />
+                <group name="test-group-2" protocol="ssh" propertieswithcsv="hostname=host2, port=22, username=tgadmin2, password=secret" memberswithcsv="groupuser1,groupuser2,groupuser3,groupuser4" description="Ldap Test Group 2 Configuration" />
+                <group name="test-group-3" protocol="ssh" propertieswithcsv="hostname=host3, port=22, username=tgadmin3, password=secret" memberswithcsv="groupuser1,groupuser2,groupuser3" description="Ldap Test Group 3 Configuration" />
+                <group name="test-group-4" protocol="ssh" propertieswithcsv="hostname=host4, port=22, username=tgadmin4, password=secret" memberswithcsv="groupuser1,groupuser2" description="Ldap Test Group 4 Configuration" />
+                <group name="test-group-5" protocol="ssh" propertieswithcsv="hostname=host5, port=22, username=tgadmin5, password=secret" memberswithcsv="groupuser1" description="Ldap Test Group 5 Configuration" />
             </addgroup>
 
             <delgroup>
