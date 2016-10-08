@@ -619,12 +619,27 @@ public interface AdminMgr extends Manageable
      */
     void removePermissionAttributeFromSet( PermissionAttribute permAttribute, String attributeSetName )
     	throws SecurityException;
-    
+
     /**
-     * 
-     * @param permAttribute must contain {@link PermissionAttribute#attributeName}
-     * @param attributeSetName The name of the permission attribute set this pa should be removed from
-     * @param replaceValidValues Set to true to replace all of the valid values and set to false to add to the existing valid values
+     * This method updates a permission attribute (ftPA) on a permission attribute set.
+     * <h3></h3>
+     * <h4>required parameters</h4>
+     * <ul>
+     *   <li>{@link PermissionAttribute#attributeName} - contains the name of existing object being targeted for the permission update</li>
+     *   <li>{@link PermissionAttribute#dataType} - contains the data type of the permission attribute values (string,int,long,float)</li>
+     *   <li>attributeSetName - contains the name of existing permission attribute set being modified</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     *   <li>{@link PermissionAttribute#required} - Flag to specify this attribute is required, defaults to false.</li>
+     *   <li>{@link PermissionAttribute#operator} - Can specify an operator this attribute must use.</li>
+     *   <li>{@link PermissionAttribute#validValues} - CSV of valid values. Currently up to interpreting application to understand these.</li>
+     *   <li>{@link PermissionAttribute#defaultValue} - A default value for the attribute value if none is specified.</li>
+     * </ul>
+     *
+     * @param permAttribute must contain {@link PermissionAttribute#attributeName} and {@link PermissionAttribute#dataType}
+     * @param attributeSetName The name of the permission attribute set this ftPA should be updated.
+     * @return PermissionAttribute entity created
      * @throws SecurityException - thrown in the event of data or system error
      */
     void updatePermissionAttributeInSet( PermissionAttribute permAttribute, String attributeSetName, boolean replaceValidValues )
