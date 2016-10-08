@@ -263,7 +263,7 @@ public class Group extends FortEntity implements Serializable
      *
      * @param members String contains one or more userids in comma delimited format.
      */
-    public void setMembers( String members )
+    public void setMembersWithCsv( String members )
     {
         if ( members != null )
         {
@@ -362,7 +362,7 @@ public class Group extends FortEntity implements Serializable
      *
      * @param properties contains name=value pairs that are comma delmited.
      */
-    public void setProperties( String properties )
+    public void setPropertiesWithCsv( String properties )
     {
         setProperties( PropUtil.getProperties( properties, '=', "," ) );
     }
