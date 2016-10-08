@@ -38,6 +38,58 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
+/**
+ * All entities (User, Role, Permission, Policy, SDSet, etc...) are used to carry data between Fortress's
+ * layers starting with the (1) Manager layer down thru middle (2) Process layer and it's processing rules into
+ * (3) DAO layer where persistence with the LDAP server occurs.  The clients must instantiate an Fortress entity before use
+ * and must provide enough information to uniquely identity target record for reads.
+ * <p>
+ * The PermissionAttributeSet entity is a grouping of {@link org.apache.directory.fortress.core.model.PermissionAttribute}.
+ * A {@link org.apache.directory.fortress.core.model.Permission} can link to 0 to many Permission
+ * Attribute Sets.
+ * <p>
+ * <h4>PermissionAttribute Schema</h4>
+ * <p>
+ * The PermissionAttributeSet entity is a composite of 2 different LDAP Schema object classes:
+ * <p>
+ * 1. organizationalUnit Structural Object Class is used to store basic attributes like ou and description.
+ * <pre>
+ * ------------------------------------------
+ * objectclass ( 2.5.6.5 NAME 'organizationalUnit'
+ *  DESC 'RFC2256: an organizational unit'
+ *  SUP top STRUCTURAL
+ *  MUST ou
+ *  MAY (
+ *      userPassword $ searchGuide $ seeAlso $ businessCategory $
+ *      x121Address $ registeredAddress $ destinationIndicator $
+ *      preferredDeliveryMethod $ telexNumber $ teletexTerminalIdentifier $
+ *      telephoneNumber $ internationaliSDNNumber $
+ *      facsimileTelephoneNumber $ street $ postOfficeBox $ postalCode $
+ *      postalAddress $ physicalDeliveryOfficeName $ st $ l $ description
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
+ * <p>
+ * 2. The ftAttributeSet STRUCTURAL Object Class
+ * <pre>
+ * ------------------------------------------
+ * objectclass ( ftObId:9
+ * NAME 'ftAttributeSet'
+ * DESC 'Fortress Permission Attribute Set Structural Object Class'
+ * SUP organizationalunit STRUCTURAL
+ * MUST (
+ *      ftId $ ftPASet $ cn
+ *  )
+ * MAY (
+ *      ftPA $ ftPASetType $ description
+ *  )
+ * )
+ * ------------------------------------------
+ * </pre>
+ *
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
+ */
 @XmlRootElement( name = "fortPermissionAttributeSet" )
 @XmlAccessorType( XmlAccessType.FIELD )
 @XmlType( name = "permissionAttributeSet", propOrder = {
