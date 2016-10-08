@@ -142,7 +142,7 @@ final class UserP
      * Return a list of Users that are authorized the given Role.
      *
      * @param roles contains the set of role names targeted for search.
-     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
+     * @param contextId maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
      * @return Set of type String containing the userId's for matching User entities. If no records found this will be empty.
      * @throws SecurityException in the event of DAO search error.
      */

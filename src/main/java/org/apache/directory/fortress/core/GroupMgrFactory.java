@@ -63,7 +63,7 @@ public final class GroupMgrFactory
     /**
      * Create and return a reference to {@link GroupMgr} object.
      *
-     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
+     * @param contextId maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
      * @return instance of {@link GroupMgr}.
      * @throws org.apache.directory.fortress.core.SecurityException in the event of failure during instantiation.
      */
@@ -119,7 +119,7 @@ public final class GroupMgrFactory
     /**
      * Create and return a reference to {@link GroupMgr} object.
      *
-     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
+     * @param contextId maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
      * @param adminSess contains a valid Fortress A/RBAC Session object.
      * @return instance of {@link org.apache.directory.fortress.core.AdminMgr}.
      * @throws SecurityException in the event of failure during instantiation.

@@ -120,7 +120,7 @@ public final class AdminRoleP
     /**
      * Return all AdminRoles that have a parent assignment.  This used for hierarchical processing.
      *
-     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
+     * @param contextId maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
      * @return List of type AdminRole containing {@link AdminRole#name} and {@link AdminRole#parents} populated.
      * @throws SecurityException in the event of DAO search error.
      */
@@ -214,7 +214,7 @@ public final class AdminRoleP
      *
      * @param uRoles contains a collection of UserAdminRole being targeted for assignment.
      * @param userDn contains the userId targeted for attribute addition.
-     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
+     * @param contextId maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
      * @throws SecurityException in the event of DAO search error.
      */
     void addOccupant( List<UserAdminRole> uRoles, String userDn, String contextId )
@@ -237,7 +237,7 @@ public final class AdminRoleP
      * when the User is being deleted.
      *
      * @param userDn contains the userId targeted for attribute removal.
-     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
+     * @param contextId maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
      * @throws SecurityException in the event of DAO search error.
      */
     void removeOccupant( String userDn, String contextId )

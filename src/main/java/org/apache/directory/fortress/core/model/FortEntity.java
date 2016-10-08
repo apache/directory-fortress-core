@@ -196,7 +196,7 @@ public abstract class FortEntity
     /**
      * Return the contextId for this record.  The contextId is used for multi-tenancy to isolate data sets within a particular sub-tree within DIT
      *
-     * @return value maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
+     * @return value maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
      */
     public String getContextId()
     {
@@ -208,7 +208,7 @@ public abstract class FortEntity
      * Set the contextId associated with this record.  The contextId is used for multi-tenancy to isolate data sets within a particular sub-tree within DIT.
      * Package private to prevent outside classes from setting.
      *
-     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
+     * @param contextId maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
      */
     public void setContextId( String contextId )
     {

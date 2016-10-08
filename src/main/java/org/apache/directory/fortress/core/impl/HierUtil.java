@@ -600,7 +600,7 @@ final class HierUtil
      * <li>Permission Organizational Unit relations are stored in {@code cn=Hierarchies,ou=OS-P,ou=ARBAC} node and cached as {@link org.apache.directory.fortress.core.impl.PsoUtil}</li>
      * </ol>
      *
-     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
+     * @param contextId maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
      * @return reference the the Hier result set retrieved from ldap.
      */
     static Hier loadHier( String contextId, List<Graphable> descendants )

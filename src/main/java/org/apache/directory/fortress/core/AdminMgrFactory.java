@@ -56,7 +56,7 @@ public final class AdminMgrFactory
     /**
      * Create and return a reference to {@link AdminMgr} object.
      *
-     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
+     * @param contextId maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
      * @return instance of {@link AdminMgr}.
      * @throws SecurityException in the event of failure during instantiation.
      */
@@ -112,7 +112,7 @@ public final class AdminMgrFactory
     /**
      * Create and return a reference to {@link AdminMgr} object.
      *
-     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
+     * @param contextId maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
      * @param adminSess contains a valid Fortress A/RBAC Session object.
      * @return instance of {@link AdminMgr}.
      * @throws SecurityException in the event of failure during instantiation.

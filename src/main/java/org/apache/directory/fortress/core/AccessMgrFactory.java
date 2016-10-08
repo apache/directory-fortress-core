@@ -55,7 +55,7 @@ public final class AccessMgrFactory
     /**
      * Create and return a reference to {@link AccessMgr} object.
      *
-     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
+     * @param contextId maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
      * @return instance of {@link AccessMgr}.
      * @throws SecurityException in the event of failure during instantiation.
      */

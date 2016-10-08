@@ -61,7 +61,7 @@ public abstract class Manageable implements org.apache.directory.fortress.core.M
      * The contextId is used for multi-tenancy to isolate data sets within a particular sub-tree within DIT.
      * Setting contextId into this object will render this class' implementer thread unsafe.
      *
-     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
+     * @param contextId maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
      */
     public final void setContextId(String contextId)
     {

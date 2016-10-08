@@ -371,7 +371,7 @@ final class PolicyP
     /**
      * Load the cache with read only list of valid openldap policy names.
      *
-     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
+     * @param contextId maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
      * @return Set of unique names.
      */
     private Set<String> loadPolicySet( String contextId )
@@ -396,7 +396,7 @@ final class PolicyP
 
     /**
      *
-     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
+     * @param contextId maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
      * @return set containing list of policy names active.
      */
     private Set<String> getPolicySet( String contextId )
@@ -423,7 +423,7 @@ final class PolicyP
 
     /**
      *
-     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
+     * @param contextId maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
      * @return key for tenant's cache entry.
      */
     private static String getKey( String contextId )
