@@ -37,10 +37,8 @@ import javax.xml.bind.annotation.XmlType;
  * (3) DAO layer where persistence with the LDAP server occurs.  The clients must instantiate an Fortress entity before use
  * and must provide enough information to uniquely identity target record for reads.
  * <p>
- * A Permission Attribute is defines an attribute about a permission used for
- * attribute type permission filtering. Fortress merely stores this data, does
- * not enforce the attribute filtering. It is up to the client to do the attribute
- * checks.
+ * A Permission Attribute is used for attribute type permission filtering. Fortress merely stores this data, does
+ * not enforce the attribute filtering. It is up to the client to do the attribute checks.
  * <p>
  * <h4>PermissionAttribute Schema</h4>
  * <p>
