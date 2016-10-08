@@ -57,7 +57,7 @@ final class AdminUtil
      * @param session This object must be instantiated by calling {@link org.apache.directory.fortress.core.AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
      * @param user    Instantiated User entity requires only valid userId attribute set.
      * @param role    Instantiated Role entity requires only valid role name attribute set.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @throws org.apache.directory.fortress.core.SecurityException In the event of data validation error (i.e. invalid userId or role name) or system error.
      */
     static void canAssign(Session session, User user, Role role, String contextId) throws SecurityException
@@ -82,7 +82,7 @@ final class AdminUtil
      * @param session This object must be instantiated by calling {@link org.apache.directory.fortress.core.AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.     * @param user    Instantiated User entity requires only valid userId attribute set.
      * @param user    Instantiated User entity requires userId attribute set.
      * @param role    Instantiated Role entity requires only valid role name attribute set.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @throws org.apache.directory.fortress.core.SecurityException In the event of data validation error (i.e. invalid userId or role name) or system error.
      */
     static void canDeassign(Session session, User user, Role role, String contextId) throws SecurityException
@@ -108,7 +108,7 @@ final class AdminUtil
      * @param session This object must be instantiated by calling {@link org.apache.directory.fortress.core.AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.     * @param perm    Instantiated Permission entity requires valid object name and operation name attributes set.
      * @param role    Instantiated Role entity requires only valid role name attribute set.
      * @param perm    Instantiated Permission entity requires {@link Permission#objName} and {@link Permission#opName}.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return boolean value true indicates access allowed.
      * @throws SecurityException In the event of data validation error (i.e. invalid perm or role name) or system error.
      */
@@ -135,7 +135,7 @@ final class AdminUtil
      * @param session This object must be instantiated by calling {@link org.apache.directory.fortress.core.AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.     * @param perm    Instantiated Permission entity requires valid object name and operation name attributes set.
      * @param role    Instantiated Role entity requires only valid role name attribute set.
      * @param perm    Instantiated Permission entity requires {@link Permission#objName} and {@link Permission#opName}.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @throws org.apache.directory.fortress.core.SecurityException In the event of data validation error (i.e. invalid perm or role name) or system error.
      */
     static void canRevoke(Session session, Role role, Permission perm, String contextId) throws SecurityException
@@ -164,7 +164,7 @@ final class AdminUtil
      * @param session object contains the {@link org.apache.directory.fortress.core.model.User}'s RBAC, {@link org.apache.directory.fortress.core.model.UserRole}, and Administrative Roles {@link org.apache.directory.fortress.core.model.UserAdminRole}.
      * @param perm    contains the permission object name, {@link Permission#objName}, and operation name, {@link Permission#opName}
      * @param entity  used to pass contextual information through Fortress layers for administrative security checks and audit.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @throws org.apache.directory.fortress.core.SecurityException in the event of system error.
      */
     static void setEntitySession(Session session, Permission perm, FortEntity entity, String contextId) throws SecurityException
@@ -190,7 +190,7 @@ final class AdminUtil
      * @param session This object must be instantiated by calling {@link org.apache.directory.fortress.core.AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
      * @param perm    object contains obj attribute which is a String and contains the name of the object user is trying to access;
      *                perm object contains operation attribute which is also a String and contains the operation name for the object.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @throws SecurityException in the event of data validation failure, security policy violation or DAO error.
      */
     static void checkAccess(Session session, Permission perm, String contextId) throws SecurityException

@@ -113,7 +113,7 @@ final class RoleUtil implements ParentUtil
      *
      * @param child  maps to logical {@link org.apache.directory.fortress.core.model.Role#name} on 'ftRls' object class.
      * @param parent maps to logical {@link org.apache.directory.fortress.core.model.Role#name} on 'ftRels' object class.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return boolean result, 'true' indicates parent/child relationship exists.
      */
     boolean isParent( String child, String parent, String contextId )
@@ -132,7 +132,7 @@ final class RoleUtil implements ParentUtil
      * Recursively traverse the {@link org.apache.directory.fortress.core.model.Role} graph and return all of the descendants of a given node {@link org.apache.directory.fortress.core.model.Role#name}.
      *
      * @param roleName {@link org.apache.directory.fortress.core.model.Role#name} on 'ftRls' object class.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return Set of Role names are descendants {@link org.apache.directory.fortress.core.model.Role}s of given parent.
      */
     Set<String> getDescendants( String roleName, String contextId )
@@ -145,7 +145,7 @@ final class RoleUtil implements ParentUtil
      * Traverse the {@link org.apache.directory.fortress.core.model.Role} graph and return all children (direct descendants) of a given parent node {@link org.apache.directory.fortress.core.model.Role#name}.
      *
      * @param roleName {@link org.apache.directory.fortress.core.model.Role#name} on 'ftRls' object class.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return Set of Role names are children {@link org.apache.directory.fortress.core.model.Role}s of given parent.
      */
     Set<String> getChildren( String roleName, String contextId )
@@ -158,7 +158,7 @@ final class RoleUtil implements ParentUtil
      * Recursively traverse the hierarchical role graph and return all of the ascendants of a given role.
      *
      * @param roleName maps to logical {@link org.apache.directory.fortress.core.model.Role#name} on 'ftRls' object class.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return Set of Role names that are ascendants of given child.
      */
     Set<String> getAscendants( String roleName, String contextId )
@@ -171,7 +171,7 @@ final class RoleUtil implements ParentUtil
      * Traverse the hierarchical role graph and return all of the parents (direct ascendants) of a given role.
      *
      * @param roleName maps to logical {@link org.apache.directory.fortress.core.model.Role#name} on 'ftRls' object class.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return Set of Role names that are parents of given child.
      */
     Set<String> getParents( String roleName, String contextId )
@@ -184,7 +184,7 @@ final class RoleUtil implements ParentUtil
      * Traverse the hierarchical role graph and return all of the parents (direct ascendants) of a given role.
      *
      * @param roleName maps to logical {@link org.apache.directory.fortress.core.model.Role#name} on 'ftRls' object class.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return Set of Role names that are parents of given child.
      */
     public Set<String> getParentsCB( String roleName, String contextId )
@@ -197,7 +197,7 @@ final class RoleUtil implements ParentUtil
      * Determine the number of children (direct descendants) a given parent role has.
      *
      * @param roleName maps to logical {@link org.apache.directory.fortress.core.model.Role#name} on 'ftRls' object class.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return int value contains the number of children of a given parent nRole.
      */
     int numChildren( String roleName, String contextId )
@@ -211,7 +211,7 @@ final class RoleUtil implements ParentUtil
      * for computing authorized {@link org.apache.directory.fortress.core.model.UserRole#name}s.
      *
      * @param uRoles contains list of Roles activated within a {@link org.apache.directory.fortress.core.model.User}'s {@link org.apache.directory.fortress.core.model.Session}.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return contains Set of all authorized RBAC Roles for a given User.
      */
     Set<String> getInheritedRoles( List<UserRole> uRoles, String contextId )
@@ -238,7 +238,7 @@ final class RoleUtil implements ParentUtil
     /**
      *
      * @param roles
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return set of ascendant roles associated with this entry.
      */
     Set<String> getAscendantRoles( List<String> roles, String contextId )
@@ -264,7 +264,7 @@ final class RoleUtil implements ParentUtil
     /**
      *
      * @param roles
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return set of descendant roles associated with this entry.
      */
     Set<String> getDescendantRoles( Set<String> roles, String contextId )
@@ -293,7 +293,7 @@ final class RoleUtil implements ParentUtil
      * @param childName   maps to vertex to determine parentage.
      * @param parentName  points to top most ascendant where traversal must stop.
      * @param isInclusive if set to true will include the parentName in the result set.  False will not return specified parentName.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return Set of names that are parents of given child.
      */
     Set<String> getAscendants( String childName, String parentName, boolean isInclusive, String contextId )
@@ -331,7 +331,7 @@ final class RoleUtil implements ParentUtil
      * This api allows synchronized access to allow updates to hierarchical relationships.
      * Method will update the hierarchical data set and reload the JGraphT simple digraph with latest.
      *
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @param relationship contains parent-child relationship targeted for addition.
      * @param op   used to pass the ldap op {@link org.apache.directory.fortress.core.model.Hier.Op#ADD}, {@link org.apache.directory.fortress.core.model.Hier.Op#MOD}, {@link org.apache.directory.fortress.core.model.Hier.Op#REM}
      * @throws org.apache.directory.fortress.core.SecurityException in the event of a system error.
@@ -346,7 +346,7 @@ final class RoleUtil implements ParentUtil
      * Read this ldap record,{@code cn=Hierarchies, ou=OS-P} into this entity, {@link Hier}, before loading into this collection class,{@code org.jgrapht.graph.SimpleDirectedGraph}
      * using 3rd party lib, <a href="http://www.jgrapht.org/">JGraphT</a>.
      *
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return handle to simple digraph containing role hierarchies.
      */
     private synchronized SimpleDirectedGraph<String, Relationship> loadGraph( String contextId )
@@ -377,7 +377,7 @@ final class RoleUtil implements ParentUtil
 
     /**
      *
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return key to this tenant's cache entry.
      */
     private String getKey( String contextId )
@@ -395,7 +395,7 @@ final class RoleUtil implements ParentUtil
 
     /**
      *
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return handle to simple digraph containing role hierarchies.
      */
     private SimpleDirectedGraph<String, Relationship> getGraph( String contextId )

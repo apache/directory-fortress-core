@@ -220,7 +220,7 @@ final class UsoUtil
      * This api allows synchronized access to allow updates to hierarchical relationships.
      * Method will update the hierarchical data set and reload the JGraphT simple digraph with latest.
      *
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @param relationship contains parent-child relationship targeted for addition.
      * @param op   used to pass the ldap op {@link org.apache.directory.fortress.core.model.Hier.Op#ADD}, {@link org.apache.directory.fortress.core.model.Hier.Op#MOD}, {@link org.apache.directory.fortress.core.model.Hier.Op#REM}
      * @throws org.apache.directory.fortress.core.SecurityException in the event of a system error.
@@ -235,7 +235,7 @@ final class UsoUtil
      * Read this ldap record,{@code cn=Hierarchies, ou=OS-P} into this entity, {@link Hier}, before loading into this collection class,{@code org.jgrapht.graph.SimpleDirectedGraph}
      * using 3rd party lib, <a href="http://www.jgrapht.org/">JGraphT</a>.
      *
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return handle to simple digraph containing user ou hierarchies.
      */
     private synchronized SimpleDirectedGraph<String, Relationship> loadGraph( String contextId )

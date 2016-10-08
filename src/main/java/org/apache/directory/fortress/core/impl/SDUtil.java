@@ -261,7 +261,7 @@ final class SDUtil
      * Given DSD entry name, clear its corresponding object values from the cache.
      *
      * @param name contains the name of object to be cleared.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.     *
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.     *
      * @throws SecurityException in the event of system or rule violation.
      */
     void clearDsdCacheEntry(String name, String contextId)
@@ -283,7 +283,7 @@ final class SDUtil
      * Given a role name, return the set of DSD's that have a matching member.
      *
      * @param name contains name of authorized Role used to search the cache.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return un-ordered set of matching DSD's.
      * @throws SecurityException in the event of system or rule violation.
      */
@@ -326,7 +326,7 @@ final class SDUtil
      * Given a Set of authorized Roles, return the set of DSD's that have matching members.
      *
      * @param authorizedRoleSet contains an un-order Set of authorized Roles.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return un-ordered set of matching DSD's.
      * @throws SecurityException in the event of system or rule violation.
      */
@@ -389,7 +389,7 @@ final class SDUtil
      * add dummy entry to cache to prevent repeated searches.
      *
      * @param authorizedRoleSet contains set of Roles used to search directory for matching DSD's.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return List of DSD's who have matching Role members.
      * @throws SecurityException in the event of system or rule violation.
      */
@@ -447,7 +447,7 @@ final class SDUtil
      * add dummy entry to cache to prevent repeated searches.
      *
      * @param roleName of Role is used to search directory for matching DSD's.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return Set of DSD's who have matching Role member.
      * @throws SecurityException in the event of system or rule violation.
      */
@@ -498,7 +498,7 @@ final class SDUtil
      * Given entry name, clear its corresponding object value from the cache.
      *
      * @param name contains the name of object to be cleared.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @throws SecurityException in the event of system or rule violation.
      */
     void clearSsdCacheEntry(String name, String contextId)
@@ -511,7 +511,7 @@ final class SDUtil
      * Get the matching SSD's from directory and add to the cache (if found).
      *
      * @param name of Role is used to search directory for matching SSD's.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return List of SSD's who have matching Role member.
      * @throws SecurityException in the event of system or rule violation.
      */
@@ -529,7 +529,7 @@ final class SDUtil
      * Look in cache for matching List of SSD's.
      *
      * @param name of Role is used to search directory for matching SSD's.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return List of SSD's who have matching Role member.
      * @throws SecurityException in the event of system or rule violation.
      */

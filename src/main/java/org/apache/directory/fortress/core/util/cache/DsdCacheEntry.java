@@ -134,7 +134,7 @@ public class DsdCacheEntry
     /**
      * Set the contextId for this record.  The contextId is used for multi-tenancy to isolate data sets within a particular sub-tree within DIT
      *
-     * @return value maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @return value maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      */
     public String getContextId()
     {
@@ -144,7 +144,7 @@ public class DsdCacheEntry
     /**
      * Return the contextId associated with this record.  The contextId is used for multi-tenancy to isolate data sets within a particular sub-tree within DIT
      *
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      */
     void setContextId(String contextId)
     {

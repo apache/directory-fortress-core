@@ -444,7 +444,7 @@ public final class OrgUnitP
      * Build a key that is composed of the OU type ({@link #USER_OUS} or {@link #PERM_OUS}) and the contextId which is the id of tenant.
      *
      * @param type either {@link #USER_OUS} or {@link #PERM_OUS}.
-     * @param contextId maps to sub-tree in DIT, for example ou=contextId, dc=jts, dc = com.
+     * @param contextId maps to sub-tree in DIT, e.g., ou=contextId, dc=example, dc=com.
      * @return key mapping to this tenant's cache entry.
      */
     private static String getKey( String type, String contextId )
