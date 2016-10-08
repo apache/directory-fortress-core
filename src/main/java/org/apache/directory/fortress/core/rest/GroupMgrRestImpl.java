@@ -32,10 +32,17 @@ import org.apache.directory.fortress.core.util.VUtil;
 
 import java.util.List;
 
+/**
+ * This Manager impl supplies CRUD methods used to manage groups using REST.
+ * LDAP group nodes are used for utility and security functions within various systems and apps.
+ * <p>
+ * This class is thread safe.
+ *
+ * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
+ */
 public class GroupMgrRestImpl  extends Manageable implements GroupMgr
 {
     private static final String CLS_NM = GroupMgrRestImpl.class.getName();
-
 
     /**
      * {@inheritDoc}
