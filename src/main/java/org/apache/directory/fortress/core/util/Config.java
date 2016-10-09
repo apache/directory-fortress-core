@@ -51,7 +51,8 @@ import org.slf4j.LoggerFactory;
  */
 public final class Config
 {
-    private static PropertiesConfiguration config = new PropertiesConfiguration();
+    private static PropertiesConfiguration config;
+    //private static PropertiesConfiguration config = new PropertiesConfiguration();
     private static final String CLS_NM = Config.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
@@ -71,9 +72,9 @@ public final class Config
     private static final String EXT_CONFIG_REALM = "fortress.config.realm";
     private static final String EXT_CONFIG_ROOT_DN = "fortress.config.root";
     private static final String EXT_SERVER_TYPE = "fortress.ldap.server.type";
-    
+
     private boolean remoteConfigLoaded = false;
-    
+
     private boolean restEnabled;
     private boolean auditDisabled;
     private boolean openldap;
@@ -87,11 +88,11 @@ public final class Config
      * Fortress stores complex attribute types within a single attribute in ldap.  Usually a delimiter of '$' is used for string tokenization.
      * format: {@code part1$part2$part3....}  Stored in fortress.properties as 'attr.delimiter=$'
      */
-    private String delimiter;    
-    
-    
+    private String delimiter;
+
+
     private static volatile Config sINSTANCE = null;
-    
+
     public static Config getInstance()
     {
         if(sINSTANCE == null)
@@ -106,14 +107,14 @@ public final class Config
         }
         return sINSTANCE;
     }
-    
+
     private void loadLocalConfig()
     {
         try
         {
             // Load the system config file.
             URL fUrl = Config.class.getClassLoader().getResource( PROP_FILE );
-            //config = new PropertiesConfiguration();
+            config = new PropertiesConfiguration();
             config.setDelimiterParsingDisabled( true );
             if ( fUrl == null )
             {
@@ -135,7 +136,7 @@ public final class Config
             }
 
             restEnabled = ( ( getProperty( GlobalIds.ENABLE_REST ) != null ) && ( getProperty( GlobalIds.ENABLE_REST ).equalsIgnoreCase( "true" ) ) );
-            
+
             // Check to see if any of the ldap connection parameters have been overridden:
             getExternalConfig();
         }
@@ -147,7 +148,7 @@ public final class Config
             throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_BOOTSTRAP_FAILED, error, ex );
         }
     }
-    
+
     /**
      * This method is called during configuration initialization.  It determines if
      * the ldap connection coordinates have been overridden as system properties.
@@ -269,7 +270,7 @@ public final class Config
             LOG.info( PREFIX, GlobalIds.SERVER_TYPE, szValue );
         }
     }
-    
+
     public void loadRemoteConfig()
     {
         try
@@ -289,13 +290,13 @@ public final class Config
                         config.setProperty( key, val );
                     }
                 }
-                
+
                 //init ldap util vals since config is stored on server
-            	boolean ldapfilterSizeFound = ( getProperty( GlobalIds.LDAP_FILTER_SIZE_PROP ) != null );
-            	LdapUtil.getInstance().setLdapfilterSizeFound(ldapfilterSizeFound);
+                boolean ldapfilterSizeFound = ( getProperty( GlobalIds.LDAP_FILTER_SIZE_PROP ) != null );
+                LdapUtil.getInstance().setLdapfilterSizeFound(ldapfilterSizeFound);
                 LdapUtil.getInstance().setLdapMetaChars( loadLdapEscapeChars() );
                 LdapUtil.getInstance().setLdapReplVals( loadValidLdapVals() );
-            	
+
                 try
                 {
                     String lenProp = getProperty( GlobalIds.LDAP_FILTER_SIZE_PROP );
@@ -309,14 +310,14 @@ public final class Config
                     //ignore
                 }
 
-            	auditDisabled = ( ( getProperty( GlobalIds.DISABLE_AUDIT ) != null ) && ( getProperty( GlobalIds.DISABLE_AUDIT ).equalsIgnoreCase( "true" ) ) );
-            	
-            	realm = GlobalIds.REALM_TYPE.equalsIgnoreCase( getProperty( GlobalIds.AUTHENTICATION_TYPE ) );
-            	
-            	openldap = ( ( getProperty( GlobalIds.SERVER_TYPE ) != null ) && ( getProperty( GlobalIds.SERVER_TYPE ).equalsIgnoreCase( "openldap" ) ) );    	    	
-            	
-            	delimiter = getProperty( "attr.delimiter", "$" );
-                
+                auditDisabled = ( ( getProperty( GlobalIds.DISABLE_AUDIT ) != null ) && ( getProperty( GlobalIds.DISABLE_AUDIT ).equalsIgnoreCase( "true" ) ) );
+
+                realm = GlobalIds.REALM_TYPE.equalsIgnoreCase( getProperty( GlobalIds.AUTHENTICATION_TYPE ) );
+
+                openldap = ( ( getProperty( GlobalIds.SERVER_TYPE ) != null ) && ( getProperty( GlobalIds.SERVER_TYPE ).equalsIgnoreCase( "openldap" ) ) );
+
+                delimiter = getProperty( "attr.delimiter", "$" );
+
                 remoteConfigLoaded = true;
             }
             else
@@ -342,46 +343,46 @@ public final class Config
         loadLocalConfig();
     }
 
-   private char[] loadLdapEscapeChars()
-   {
-       char[] ldapMetaChars = new char[LdapUtil.getInstance().getLdapFilterSize()];
+    private char[] loadLdapEscapeChars()
+    {
+        char[] ldapMetaChars = new char[LdapUtil.getInstance().getLdapFilterSize()];
 
-       for ( int i = 1;; i++ )
-       {
-           String prop = GlobalIds.LDAP_FILTER + i;
-           String value = getProperty( prop );
+        for ( int i = 1;; i++ )
+        {
+            String prop = GlobalIds.LDAP_FILTER + i;
+            String value = getProperty( prop );
 
-           if ( value == null )
-           {
-               break;
-           }
+            if ( value == null )
+            {
+                break;
+            }
 
-           ldapMetaChars[i - 1] = value.charAt( 0 );
-       }
+            ldapMetaChars[i - 1] = value.charAt( 0 );
+        }
 
-       return ldapMetaChars;
-   }
+        return ldapMetaChars;
+    }
 
-   private String[] loadValidLdapVals()
-   {
-       String[] ldapReplacements = new String[LdapUtil.getInstance().getLdapFilterSize()];
+    private String[] loadValidLdapVals()
+    {
+        String[] ldapReplacements = new String[LdapUtil.getInstance().getLdapFilterSize()];
 
-       for ( int i = 1;; i++ )
-       {
-           String prop = GlobalIds.LDAP_SUB + i;
-           String value = getProperty( prop );
+        for ( int i = 1;; i++ )
+        {
+            String prop = GlobalIds.LDAP_SUB + i;
+            String value = getProperty( prop );
 
-           if ( value == null )
-           {
-               break;
-           }
+            if ( value == null )
+            {
+                break;
+            }
 
-           ldapReplacements[i - 1] = value;
-       }
+            ldapReplacements[i - 1] = value;
+        }
 
-       return ldapReplacements;
-   }
-    
+        return ldapReplacements;
+    }
+
     /**
      * Gets the prop attribute as String value from the apache commons cfg component.
      *
@@ -603,10 +604,10 @@ public final class Config
         Properties props = null;
         try
         {
-        	String configClassName = this.getProperty( GlobalIds.CONFIG_IMPLEMENTATION );
-        	//boolean IS_REST = ((this.getProperty(ConfigMgrFactory.ENABLE_REST) != null) && (this.getProperty(ConfigMgrFactory.ENABLE_REST).equalsIgnoreCase("true")));        	
-        	
-            ConfigMgr cfgMgr = ConfigMgrFactory.createInstance(configClassName, false);                       
+            String configClassName = this.getProperty( GlobalIds.CONFIG_IMPLEMENTATION );
+            //boolean IS_REST = ((this.getProperty(ConfigMgrFactory.ENABLE_REST) != null) && (this.getProperty(ConfigMgrFactory.ENABLE_REST).equalsIgnoreCase("true")));
+
+            ConfigMgr cfgMgr = ConfigMgrFactory.createInstance(configClassName, false);
             props = cfgMgr.read( realmName );
         }
         catch ( CfgException ce )
@@ -624,27 +625,27 @@ public final class Config
         return props;
     }
 
-	public boolean isRemoteConfigLoaded() {
-		return remoteConfigLoaded;
-	}
+    public boolean isRemoteConfigLoaded() {
+        return remoteConfigLoaded;
+    }
 
-	public boolean isRestEnabled() {
-		return restEnabled;
-	}
+    public boolean isRestEnabled() {
+        return restEnabled;
+    }
 
-	public boolean isAuditDisabled() {
-		return auditDisabled;
-	}
+    public boolean isAuditDisabled() {
+        return auditDisabled;
+    }
 
-	public boolean isOpenldap() {
-		return openldap;
-	}
+    public boolean isOpenldap() {
+        return openldap;
+    }
 
-	public boolean isRealm() {
-		return realm;
-	}
+    public boolean isRealm() {
+        return realm;
+    }
 
-	public String getDelimiter() {
-		return delimiter;
-	}
+    public String getDelimiter() {
+        return delimiter;
+    }
 }

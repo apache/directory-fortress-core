@@ -222,22 +222,18 @@ final class UserDAO extends LdapDataProvider
 
     private void init()
     {
-        objectClassImpl = Config.getInstance().getProperty( USER_OBJECT_CLASS );
-    	
         USER_OBJ_CLASS = new String[]
-            { SchemaConstants.TOP_OC, Config.getInstance().getProperty( USER_OBJECT_CLASS ),
-                USERS_AUX_OBJECT_CLASS_NAME, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds
-                .FT_MODIFIER_AUX_OBJECT_CLASS_NAME, USERS_EXTENSIBLE_OBJECT,
-            //            POSIX_ACCOUNT_OBJECT_CLASS_NAME
+        {
+                SchemaConstants.TOP_OC,
+                Config.getInstance().getProperty( USER_OBJECT_CLASS ),
+                USERS_AUX_OBJECT_CLASS_NAME,
+                GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
+                GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME,
+                USERS_EXTENSIBLE_OBJECT
+                //            POSIX_ACCOUNT_OBJECT_CLASS_NAME
         };
     	
         boolean isOpenldap = Config.getInstance().isOpenldap();
-        
-        LOG.debug( "GlobalIds.IS_OPENLDAP: " + isOpenldap );
-        LOG.debug( "GlobalIds.IS_OPENLDAP ? OPENLDAP_PW_RESET : null: " + ( isOpenldap ? OPENLDAP_PW_RESET
-            : null ) );
-        LOG.debug( "GlobalIds.IS_OPENLDAP: " + isOpenldap );
-
         if ( isOpenldap )
         {
             // This default set of attributes contains all and is used for search operations.
