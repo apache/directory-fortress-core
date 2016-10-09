@@ -68,17 +68,20 @@ final class PsoUtil
     private static final String CLS_NM = PsoUtil.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
-    private static volatile PsoUtil INSTANCE = null; 
+    private static volatile PsoUtil sINSTANCE = null;
 
-    public static PsoUtil getInstance() {
-        if(INSTANCE == null) {
-            synchronized (PsoUtil.class) {
-                if(INSTANCE == null){
-        	        INSTANCE = new PsoUtil();
+    public static PsoUtil getInstance()
+    {
+        if(sINSTANCE == null)
+        {
+            synchronized (PsoUtil.class)
+            {
+                if(sINSTANCE == null){
+        	        sINSTANCE = new PsoUtil();
                 }
             }
         }
-        return INSTANCE;
+        return sINSTANCE;
     }
     
     public PsoUtil(){

@@ -44,21 +44,24 @@ public final class CacheMgr
     private static final String EHCACHE_CONFIG_FILE = "ehcache.config.file";
     private CacheManager mEhCacheImpl;
     
-    private static volatile CacheMgr INSTANCE = null; 
+    private static volatile CacheMgr sINSTANCE = null;
     
     /**
      * Create or return the fortress cache manager reference.
      * @return handle to the cache manager in effect for process.
      */
-    public static CacheMgr getInstance() {
-        if(INSTANCE == null) {
-            synchronized (CacheMgr.class) {
-                if(INSTANCE == null){
-        	        INSTANCE = new CacheMgr();
+    public static CacheMgr getInstance()
+    {
+        if( sINSTANCE == null)
+        {
+            synchronized (CacheMgr.class)
+            {
+                if( sINSTANCE == null){
+        	        sINSTANCE = new CacheMgr();
                 }
             }
         }
-        return INSTANCE;
+        return sINSTANCE;
     }
     
     private void init()
@@ -85,7 +88,6 @@ public final class CacheMgr
     /**
      * Private constructor.
      *
-     * @param cacheMangerImpl contains a reference to cache implementation manager.
      */
     private CacheMgr()
     {
@@ -101,10 +103,12 @@ public final class CacheMgr
     public Cache getCache( String cacheName )
     {    	
         Ehcache cache = mEhCacheImpl.getEhcache( cacheName );
-        if(cache != null){
+        if(cache != null)
+        {
     	    return new EhCacheImpl( cacheName, new BlockingCache(cache) );
         }
-        else{
+        else
+        {
     	    return CacheFactory.createInstance( cacheName, mEhCacheImpl );
         }
     }

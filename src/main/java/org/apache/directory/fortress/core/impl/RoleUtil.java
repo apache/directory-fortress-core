@@ -69,17 +69,21 @@ final class RoleUtil implements ParentUtil
     private static final String CLS_NM = RoleUtil.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
-    private static volatile RoleUtil INSTANCE = null; 
+    private static volatile RoleUtil sINSTANCE = null;
 
-    public static RoleUtil getInstance() {
-        if(INSTANCE == null) {
-            synchronized (RoleUtil.class) {
-                if(INSTANCE == null){
-        	        INSTANCE = new RoleUtil();
+    public static RoleUtil getInstance()
+    {
+        if(sINSTANCE == null)
+        {
+            synchronized (RoleUtil.class)
+            {
+                if(sINSTANCE == null)
+                {
+        	        sINSTANCE = new RoleUtil();
                 }
             }
         }
-        return INSTANCE;
+        return sINSTANCE;
     }
     
     public RoleUtil(){

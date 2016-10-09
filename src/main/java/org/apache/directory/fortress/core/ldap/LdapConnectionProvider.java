@@ -87,7 +87,7 @@ public class LdapConnectionProvider
      */
     private static LdapConnectionPool userPool;
 
-    private static volatile LdapConnectionProvider INSTANCE = null;
+    private static volatile LdapConnectionProvider sINSTANCE = null;
 
     /**
      * Synchronized getter guards access to reference to self which is a singleton and only be created the first time invoked.
@@ -96,17 +96,17 @@ public class LdapConnectionProvider
      */
     public static LdapConnectionProvider getInstance()
     {
-        if ( INSTANCE == null )
+        if ( sINSTANCE == null )
         {
             synchronized ( LdapConnectionProvider.class )
             {
-                if ( INSTANCE == null )
+                if ( sINSTANCE == null )
                 {
-                    INSTANCE = new LdapConnectionProvider();
+                    sINSTANCE = new LdapConnectionProvider();
                 }
             }
         }
-        return INSTANCE;
+        return sINSTANCE;
     }
 
     /**

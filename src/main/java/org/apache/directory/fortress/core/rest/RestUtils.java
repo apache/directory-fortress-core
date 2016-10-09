@@ -95,17 +95,21 @@ public class RestUtils
     private static String SET_TRUST_STORE_PROP = "trust.store.set.prop";
     private boolean IS_SET_TRUST_STORE_PROP;
 
-    private static volatile RestUtils INSTANCE = null; 
+    private static volatile RestUtils sINSTANCE = null;
 
-    public static RestUtils getInstance() {
-        if(INSTANCE == null) {
-            synchronized (RestUtils.class) {
-                if(INSTANCE == null){
-        	        INSTANCE = new RestUtils();
+    public static RestUtils getInstance()
+    {
+        if(sINSTANCE == null)
+        {
+            synchronized (RestUtils.class)
+            {
+                if(sINSTANCE == null)
+                {
+        	        sINSTANCE = new RestUtils();
                 }
             }
         }
-        return INSTANCE;
+        return sINSTANCE;
     }
     
     private void init()

@@ -60,17 +60,21 @@ final class SDUtil
     private static final String EMPTY_ELEMENT = "empty";
     private static final String CONTEXT_ID = "contextId";
 
-    private static volatile SDUtil INSTANCE = null; 
+    private static volatile SDUtil sINSTANCE = null;
 
-    public static SDUtil getInstance() {
-        if(INSTANCE == null) {
-            synchronized (SDUtil.class) {
-                if(INSTANCE == null){
-        	        INSTANCE = new SDUtil();
+    public static SDUtil getInstance()
+    {
+        if(sINSTANCE == null)
+        {
+            synchronized (SDUtil.class)
+            {
+                if(sINSTANCE == null)
+                {
+        	        sINSTANCE = new SDUtil();
                 }
             }
         }
-        return INSTANCE;
+        return sINSTANCE;
     }
     
     private void init()

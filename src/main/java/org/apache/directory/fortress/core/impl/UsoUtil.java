@@ -67,17 +67,21 @@ final class UsoUtil
     private static final String CLS_NM = UsoUtil.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
-    private static volatile UsoUtil INSTANCE = null; 
+    private static volatile UsoUtil sINSTANCE = null;
 
-    public static UsoUtil getInstance() {
-        if(INSTANCE == null) {
-            synchronized (UsoUtil.class) {
-                if(INSTANCE == null){
-        	        INSTANCE = new UsoUtil();
+    public static UsoUtil getInstance()
+    {
+        if(sINSTANCE == null)
+        {
+            synchronized (UsoUtil.class)
+            {
+                if(sINSTANCE == null)
+                {
+        	        sINSTANCE = new UsoUtil();
                 }
             }
         }
-        return INSTANCE;
+        return sINSTANCE;
     }
     
     

@@ -85,20 +85,24 @@ public final class VUtil implements ConstraintValidator
     private static final String DATE_FORMAT = "yyyyMMdd";
     private static final char SUNDAY = '1';
     private static final char SATURDAY = '7';
-    private static final SimpleDateFormat TIME_FORMATER = new SimpleDateFormat( TIME_FORMAT );
-    private static final SimpleDateFormat DATE_FORMATER = new SimpleDateFormat( DATE_FORMAT );
+    private static final SimpleDateFormat TIME_FORMATER = getLenientFormat( TIME_FORMAT );
+    private static final SimpleDateFormat DATE_FORMATER = getLenientFormat( DATE_FORMAT );
 
-    private static volatile VUtil INSTANCE = null; 
+    private static volatile VUtil sINSTANCE = null;
 
-    public static VUtil getInstance() {
-        if(INSTANCE == null) {
-            synchronized (VUtil.class) {
-                if(INSTANCE == null){
-        	        INSTANCE = new VUtil();
+    public static VUtil getInstance()
+    {
+        if(sINSTANCE == null)
+        {
+            synchronized (VUtil.class)
+            {
+                if(sINSTANCE == null)
+                {
+        	        sINSTANCE = new VUtil();
                 }
             }
         }
-        return INSTANCE;
+        return sINSTANCE;
     }
     
     /**
@@ -122,8 +126,6 @@ public final class VUtil implements ConstraintValidator
         {
             maximumFieldLen = Integer.parseInt( lengthProp );
         }
-        TIME_FORMATER.setLenient( false );
-        DATE_FORMATER.setLenient( false );
     }
 
     /**
@@ -801,5 +803,17 @@ public final class VUtil implements ConstraintValidator
             return group.getName();
         }
     }
-    
+
+    /**
+     * Return a simple date formatter that is lenient.
+     *
+     * @param format
+     * @return
+     */
+    private static SimpleDateFormat getLenientFormat(String format)
+    {
+        SimpleDateFormat tformatter = new SimpleDateFormat( format );
+        tformatter.setLenient( false );
+        return tformatter;
+    }
 }

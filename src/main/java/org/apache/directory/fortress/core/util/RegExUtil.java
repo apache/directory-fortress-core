@@ -44,17 +44,20 @@ final class RegExUtil
     private String SAFE_TEXT_PATTERN_STRING;
     private static Pattern safeTextPattern;
     
-    private static volatile RegExUtil INSTANCE = null; 
+    private static volatile RegExUtil sINSTANCE = null;
 
-    public static RegExUtil getInstance() {
-        if(INSTANCE == null) {
-            synchronized (RegExUtil.class) {
-                if(INSTANCE == null){
-        	        INSTANCE = new RegExUtil();
+    public static RegExUtil getInstance()
+    {
+        if(sINSTANCE == null)
+        {
+            synchronized (RegExUtil.class)
+            {
+                if(sINSTANCE == null){
+        	        sINSTANCE = new RegExUtil();
                 }
             }
         }
-        return INSTANCE;
+        return sINSTANCE;
     }
     
     private void init() 

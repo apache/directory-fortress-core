@@ -31,17 +31,21 @@ public final class EncryptUtil
     private BasicTextEncryptor textEncryptor;
     private static final String CRYPTO_PROP = "crypto.prop";
     
-    private static volatile EncryptUtil INSTANCE = null; 
+    private static volatile EncryptUtil sINSTANCE = null;
     
-    public static EncryptUtil getInstance() {
-        if(INSTANCE == null) {
-            synchronized (EncryptUtil.class) {
-                if(INSTANCE == null){
-        	        INSTANCE = new EncryptUtil();
+    public static EncryptUtil getInstance()
+    {
+        if(sINSTANCE == null)
+        {
+            synchronized (EncryptUtil.class)
+            {
+                if(sINSTANCE == null)
+                {
+        	        sINSTANCE = new EncryptUtil();
                 }
             }
         }
-        return INSTANCE;
+        return sINSTANCE;
     }
     
     private void init()

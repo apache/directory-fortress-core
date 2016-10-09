@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class Config
 {
-    private static PropertiesConfiguration config;
+    private static PropertiesConfiguration config = new PropertiesConfiguration();
     private static final String CLS_NM = Config.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
@@ -90,17 +90,21 @@ public final class Config
     private String delimiter;    
     
     
-    private static volatile Config INSTANCE = null;    
+    private static volatile Config sINSTANCE = null;
     
-    public static Config getInstance() {
-        if(INSTANCE == null) {
-            synchronized (Config.class) {
-                if(INSTANCE == null){
-                    INSTANCE = new Config();
+    public static Config getInstance()
+    {
+        if(sINSTANCE == null)
+        {
+            synchronized (Config.class)
+            {
+                if(sINSTANCE == null)
+                {
+                    sINSTANCE = new Config();
                 }
             }
         }
-        return INSTANCE;
+        return sINSTANCE;
     }
     
     private void loadLocalConfig()
@@ -109,7 +113,7 @@ public final class Config
         {
             // Load the system config file.
             URL fUrl = Config.class.getClassLoader().getResource( PROP_FILE );
-            config = new PropertiesConfiguration();
+            //config = new PropertiesConfiguration();
             config.setDelimiterParsingDisabled( true );
             if ( fUrl == null )
             {
