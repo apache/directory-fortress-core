@@ -72,7 +72,9 @@ final class UserP
     //private static final boolean IS_SESSION_PROPS_ENABLED = Config.getBoolean( "user.session.props.enabled", false );
     private static final String CLS_NM = UserP.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private UserDAO uDao;
+
+    // TODO: Fixme - This variable must remain static for now or the config bootstrap doesn't work right:
+    private static UserDAO uDao;
     private PolicyP policyP;
     private AdminRoleP admRoleP;
     private OrgUnitP orgUnitP;
