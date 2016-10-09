@@ -34,10 +34,9 @@ import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.Administrator;
-import org.apache.directory.fortress.core.model.ConstraintUtil;
+import org.apache.directory.fortress.core.util.ConstraintUtil;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.OrgUnit;
-import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.PwPolicy;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.RoleConstraint;
@@ -72,8 +71,8 @@ final class UserP
 {
     //private static final boolean IS_SESSION_PROPS_ENABLED = Config.getBoolean( "user.session.props.enabled", false );
     private static final String CLS_NM = UserP.class.getName();
-    private static UserDAO uDao;
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
+    private UserDAO uDao;
     private PolicyP policyP;
     private AdminRoleP admRoleP;
     private OrgUnitP orgUnitP;

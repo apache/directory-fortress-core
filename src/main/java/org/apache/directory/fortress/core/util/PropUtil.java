@@ -17,14 +17,13 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.model;
+package org.apache.directory.fortress.core.util;
 
 import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
 
 import org.apache.directory.fortress.core.GlobalIds;
-import org.apache.directory.fortress.core.util.Config;
 
 /**
  *  Utilities to convert to/from property formats.

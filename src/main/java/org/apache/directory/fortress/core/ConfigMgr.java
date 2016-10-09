@@ -20,7 +20,6 @@
 package org.apache.directory.fortress.core;
 
 
-import org.apache.directory.fortress.core.SecurityException;
 
 import java.util.Properties;
 

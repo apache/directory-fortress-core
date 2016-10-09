@@ -26,7 +26,7 @@ import org.apache.directory.fortress.core.model.Group;
 import java.util.Enumeration;
 import java.util.List;
 
-import org.apache.directory.fortress.core.model.PropUtil;
+import org.apache.directory.fortress.core.util.PropUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -31,7 +31,7 @@ import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 
 import org.apache.directory.fortress.core.model.AdminRole;
-import org.apache.directory.fortress.core.model.ConstraintUtil;
+import org.apache.directory.fortress.core.util.ConstraintUtil;
 import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.PermObj;

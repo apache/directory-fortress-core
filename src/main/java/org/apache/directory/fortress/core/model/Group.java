@@ -20,6 +20,8 @@
 package org.apache.directory.fortress.core.model;
 
 
+import org.apache.directory.fortress.core.util.PropUtil;
+
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 import java.util.ArrayList;

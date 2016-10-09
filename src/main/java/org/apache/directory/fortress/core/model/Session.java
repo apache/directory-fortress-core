@@ -236,7 +236,6 @@ public class Session  extends FortEntity implements PwMessage, Serializable
         //this.sessionId = inSession.getSessionId();
         this.lastAccess = inSession.getLastAccess();
         this.timeout = inSession.getTimeout();
-/*        this.warningId = inSession.getWarningId();*/
         this.errorId = inSession.getErrorId();
         this.graceLogins = inSession.getGraceLogins();
         this.expirationSeconds = inSession.expirationSeconds;
