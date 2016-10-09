@@ -24,6 +24,7 @@ import java.util.StringTokenizer;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.util.Config;
+import org.apache.directory.fortress.core.util.ConstraintValidator;
 import org.apache.directory.fortress.core.util.VUtil;
 
 /**

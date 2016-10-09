@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.model;
+package org.apache.directory.fortress.core.util;
 
 import org.apache.directory.fortress.core.ValidationException;
 

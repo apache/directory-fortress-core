@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.core.example;
 
-import org.apache.directory.fortress.core.model.ConstraintValidator;
+import org.apache.directory.fortress.core.util.ConstraintValidator;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;

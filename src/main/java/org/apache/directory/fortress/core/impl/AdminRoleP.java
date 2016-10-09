@@ -31,7 +31,7 @@ import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.AdminRole;
-import org.apache.directory.fortress.core.model.ConstraintValidator;
+import org.apache.directory.fortress.core.util.ConstraintValidator;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.UserAdminRole;
