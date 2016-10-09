@@ -507,15 +507,21 @@ final class RoleDAO extends LdapDataProvider
                     filterbuf.append( ")" );
                 }
                 filterbuf.append( "))" );
-            }
-            ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, roleRoot,
-                SearchScope.ONELEVEL, filterbuf.toString(), ROLE_ATRS, false, GlobalIds.BATCH_SIZE );
-            long sequence = 0;
 
-            while ( searchResults.next() )
+                ld = getAdminConnection();
+                SearchCursor searchResults = search( ld, roleRoot,
+                    SearchScope.ONELEVEL, filterbuf.toString(), ROLE_ATRS, false, GlobalIds.BATCH_SIZE );
+                long sequence = 0;
+
+                while ( searchResults.next() )
+                {
+                    roleList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, group.getContextId() ) );
+                }
+            }
+            else
             {
-                roleList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, group.getContextId() ) );
+                String error = "groupRoles passed empty member list";
+                throw new FinderException( GlobalErrIds.GROUP_MEMBER_NULL, error );
             }
         }
         catch ( LdapException e )
