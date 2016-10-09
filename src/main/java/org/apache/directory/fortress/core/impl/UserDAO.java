@@ -164,11 +164,9 @@ final class UserDAO extends LdapDataProvider
     private static final String USERS_EXTENSIBLE_OBJECT = "extensibleObject";
     //private static final String POSIX_ACCOUNT_OBJECT_CLASS_NAME = "posixAccount";
 
-    // The Fortress User entity attributes are stored within standard LDAP object classes along with custom auxiliary
-    // object classes:
-    private String[] USER_OBJ_CLASS;
+    //private String[] USER_OBJ_CLASS;
 
-    private String objectClassImpl;
+    //private String objectClassImpl;
     private static final String SYSTEM_USER = "ftSystem";
 
     /**
@@ -222,17 +220,6 @@ final class UserDAO extends LdapDataProvider
 
     private void init()
     {
-        USER_OBJ_CLASS = new String[]
-        {
-                SchemaConstants.TOP_OC,
-                Config.getInstance().getProperty( USER_OBJECT_CLASS ),
-                USERS_AUX_OBJECT_CLASS_NAME,
-                GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
-                GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME,
-                USERS_EXTENSIBLE_OBJECT
-                //            POSIX_ACCOUNT_OBJECT_CLASS_NAME
-        };
-    	
         boolean isOpenldap = Config.getInstance().isOpenldap();
         if ( isOpenldap )
         {
@@ -342,7 +329,6 @@ final class UserDAO extends LdapDataProvider
                     GlobalIds.CONSTRAINT,
                     GlobalIds.PROPS };
         }
-
     }
 
     // This default set of attributes contains all and is used for search operations.
@@ -404,7 +390,7 @@ final class UserDAO extends LdapDataProvider
         super();
         init();
 	}
-    
+
     /**
      * @param entity
      * @return
@@ -422,7 +408,8 @@ final class UserDAO extends LdapDataProvider
 
             Entry myEntry = new DefaultEntry( dn );
 
-            myEntry.add( SchemaConstants.OBJECT_CLASS_AT, USER_OBJ_CLASS );
+            myEntry.add( SchemaConstants.OBJECT_CLASS_AT, getUserObjectClass() );
+            //myEntry.add( SchemaConstants.OBJECT_CLASS_AT, USER_OBJ_CLASS );
             myEntry.add( GlobalIds.FT_IID, entity.getInternalId() );
             myEntry.add( SchemaConstants.UID_AT, entity.getUserId() );
 
@@ -1157,7 +1144,7 @@ final class UserDAO extends LdapDataProvider
                 // place a wild card after the input userId:
                 String searchVal = encodeSafeText( user.getUserId(), GlobalIds.USERID_LEN );
                 filterbuf.append( GlobalIds.FILTER_PREFIX );
-                filterbuf.append( objectClassImpl );
+                filterbuf.append( Config.getInstance().getProperty( USER_OBJECT_CLASS ) );
                 filterbuf.append( ")(" );
                 filterbuf.append( SchemaConstants.UID_AT );
                 filterbuf.append( "=" );
@@ -1170,7 +1157,7 @@ final class UserDAO extends LdapDataProvider
                 String searchVal = encodeSafeText( user.getInternalId(), GlobalIds.USERID_LEN );
                 // this is not a wildcard search. Must be exact match.
                 filterbuf.append( GlobalIds.FILTER_PREFIX );
-                filterbuf.append( objectClassImpl );
+                filterbuf.append( Config.getInstance().getProperty( USER_OBJECT_CLASS ) );
                 filterbuf.append( ")(" );
                 filterbuf.append( GlobalIds.FT_IID );
                 filterbuf.append( "=" );
@@ -1181,7 +1168,7 @@ final class UserDAO extends LdapDataProvider
             {
                 // Beware - returns ALL users!!:"
                 filterbuf.append( "(objectclass=" );
-                filterbuf.append( objectClassImpl );
+                filterbuf.append( Config.getInstance().getProperty( USER_OBJECT_CLASS ) );
                 filterbuf.append( ")" );
             }
 
@@ -1231,7 +1218,7 @@ final class UserDAO extends LdapDataProvider
             String searchVal = encodeSafeText( user.getUserId(), GlobalIds.USERID_LEN );
             StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
-            filterbuf.append( objectClassImpl );
+            filterbuf.append( Config.getInstance().getProperty( USER_OBJECT_CLASS ) );
             filterbuf.append( ")(" );
             filterbuf.append( SchemaConstants.UID_AT );
             filterbuf.append( "=" );
@@ -1591,7 +1578,7 @@ final class UserDAO extends LdapDataProvider
             searchVal = encodeSafeText( searchVal, GlobalIds.USERID_LEN );
             StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
-            filterbuf.append( objectClassImpl );
+            filterbuf.append( Config.getInstance().getProperty( USER_OBJECT_CLASS ) );
             filterbuf.append( ")(" );
             filterbuf.append( SchemaConstants.UID_AT );
             filterbuf.append( "=" );
@@ -1643,7 +1630,7 @@ final class UserDAO extends LdapDataProvider
             String szOu = encodeSafeText( ou.getName(), GlobalIds.OU_LEN );
             StringBuilder filterbuf = new StringBuilder();
             filterbuf.append( GlobalIds.FILTER_PREFIX );
-            filterbuf.append( objectClassImpl );
+            filterbuf.append( Config.getInstance().getProperty( USER_OBJECT_CLASS ) );
             filterbuf.append( ")(" );
             filterbuf.append( SchemaConstants.OU_AT );
             filterbuf.append( "=" );
@@ -2607,5 +2594,26 @@ final class UserDAO extends LdapDataProvider
 
         return new ArrayList<UserRole>(uRoles.values());
     }
-    
+
+
+    /**
+     * The Fortress User entity attributes are stored within standard LDAP object classes along with custom auxiliary
+     * object classes.
+     *
+     * @return String[] containing list of valid object classes.
+     */
+    private String[] getUserObjectClass()
+    {
+        String userObjectClass[] = new String[]
+            {
+                SchemaConstants.TOP_OC,
+                Config.getInstance().getProperty( USER_OBJECT_CLASS ),
+                USERS_AUX_OBJECT_CLASS_NAME,
+                GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
+                GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME,
+                USERS_EXTENSIBLE_OBJECT
+            };
+        return userObjectClass;
+    }
+
 }

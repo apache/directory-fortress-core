@@ -51,11 +51,9 @@ import org.slf4j.LoggerFactory;
  */
 public final class Config
 {
-    private static PropertiesConfiguration config;
-    //private static PropertiesConfiguration config = new PropertiesConfiguration();
+    private static PropertiesConfiguration config = new PropertiesConfiguration();
     private static final String CLS_NM = Config.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-
     private static final String PROP_FILE = "fortress.properties";
     private static final String USER_PROP_FILE = "fortress.user.properties";
     private static final String EXT_LDAP_HOST = "fortress.host";
@@ -74,7 +72,6 @@ public final class Config
     private static final String EXT_SERVER_TYPE = "fortress.ldap.server.type";
 
     private boolean remoteConfigLoaded = false;
-
     private boolean restEnabled;
     private boolean auditDisabled;
     private boolean openldap;
@@ -89,7 +86,6 @@ public final class Config
      * format: {@code part1$part2$part3....}  Stored in fortress.properties as 'attr.delimiter=$'
      */
     private String delimiter;
-
 
     private static volatile Config sINSTANCE = null;
 
@@ -114,7 +110,6 @@ public final class Config
         {
             // Load the system config file.
             URL fUrl = Config.class.getClassLoader().getResource( PROP_FILE );
-            config = new PropertiesConfiguration();
             config.setDelimiterParsingDisabled( true );
             if ( fUrl == null )
             {
