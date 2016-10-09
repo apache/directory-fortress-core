@@ -62,7 +62,7 @@ import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.model.Address;
 import org.apache.directory.fortress.core.model.AdminRole;
-import org.apache.directory.fortress.core.util.ConstraintUtil;
+import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.util.PropUtil;

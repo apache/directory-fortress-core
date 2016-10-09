@@ -20,8 +20,6 @@
 package org.apache.directory.fortress.core.model;
 
 
-import org.apache.directory.fortress.core.util.ConstraintUtil;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
