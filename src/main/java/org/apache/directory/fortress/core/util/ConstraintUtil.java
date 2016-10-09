@@ -25,8 +25,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.ConstraintValidator;
-import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.util.VUtil;
 
 /**
  *  Utilities to copy constraints attributes between entities.

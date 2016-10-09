@@ -26,7 +26,6 @@ import java.util.TreeSet;
 import org.apache.directory.fortress.core.AccessMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
-import org.apache.directory.fortress.core.impl.AccessMgrImpl;
 import org.apache.directory.fortress.core.impl.Manageable;
 import org.apache.directory.fortress.core.model.*;
 import org.apache.directory.fortress.core.util.VUtil;
@@ -73,7 +72,7 @@ import org.apache.directory.fortress.core.util.VUtil;
  */
 public class AccessMgrRestImpl extends Manageable implements AccessMgr
 {
-    private static final String CLS_NM = AccessMgrImpl.class.getName();
+    private static final String CLS_NM = AccessMgrRestImpl.class.getName();
 
     /**
      * {@inheritDoc}
