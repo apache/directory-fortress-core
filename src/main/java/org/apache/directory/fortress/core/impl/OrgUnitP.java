@@ -75,7 +75,7 @@ public final class OrgUnitP
     private static final String PERM_OUS = "perm.ous";
     private static final String FORTRESS_OUS = "fortress.ous";
 
-    public void init()
+    private void init()
     {
         oDao = new OrgUnitDAO();
     	
