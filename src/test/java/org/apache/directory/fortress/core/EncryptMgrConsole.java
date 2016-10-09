@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
-import org.apache.directory.fortress.core.util.crypto.EncryptUtil;
+import org.apache.directory.fortress.core.util.EncryptUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

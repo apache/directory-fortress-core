@@ -17,7 +17,7 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.ldap;
+package org.apache.directory.fortress.core.util;
 
 
 

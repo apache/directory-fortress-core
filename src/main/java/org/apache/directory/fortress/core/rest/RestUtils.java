@@ -43,7 +43,7 @@ import org.apache.directory.fortress.core.model.FortResponse;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.Props;
 import org.apache.directory.fortress.core.util.Config;
-import org.apache.directory.fortress.core.util.crypto.EncryptUtil;
+import org.apache.directory.fortress.core.util.EncryptUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;

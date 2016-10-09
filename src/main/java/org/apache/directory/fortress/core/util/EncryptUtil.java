@@ -17,9 +17,8 @@
  *   under the License.
  *
  */
-package org.apache.directory.fortress.core.util.crypto;
+package org.apache.directory.fortress.core.util;
 
-import org.apache.directory.fortress.core.util.Config;
 import org.jasypt.util.text.BasicTextEncryptor;
 
 /**
