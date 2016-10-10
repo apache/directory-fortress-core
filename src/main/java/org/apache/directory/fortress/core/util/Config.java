@@ -71,9 +71,22 @@ public final class Config
     private static final String EXT_CONFIG_ROOT_DN = "fortress.config.root";
     private static final String EXT_SERVER_TYPE = "fortress.ldap.server.type";
 
-    private boolean remoteConfigLoaded = false;
+    // static reference contains this.
     private static volatile Config sINSTANCE = null;
 
+    // used internally to determine if the remote config has been loaded.
+    private boolean remoteConfigLoaded = false;
+
+    /**
+     * Return a static reference to this instance.  If the instance has not been instantiated, call the boostrap:
+     * <ul>
+     *     <li>Load from fortress.properties</li>
+     *     <li>Load some overrides from System properties</li>
+     *     <li>Load from ou=Config ldap node</li>
+     * </ul>
+     *
+     * @return this
+     */
     public static Config getInstance()
     {
         if(sINSTANCE == null)
@@ -94,7 +107,7 @@ public final class Config
     }
 
     /**
-     * Private constructor
+     * Private constructor called during bootstrap sequence of this class.
      *
      */
     private Config()
@@ -105,6 +118,309 @@ public final class Config
         getExternalConfig();
     }
 
+    /**
+     * Gets the prop attribute as String value from the apache commons cfg component.
+     *
+     * @param name contains the name of the property.
+     * @return contains the value associated with the property or null if not not found.
+     */
+    public String getProperty( String name )
+    {
+        String value = null;
+        if ( config != null )
+        {
+            value = ( String ) config.getProperty( name );
+            LOG.debug( "getProperty name [{}] value [{}]", name, value );
+        }
+        else
+        {
+            LOG.error( "getProperty invalid config, can't read prop [{}]", name );
+        }
+        return value;
+    }
+
+    /**
+     * Get the property value from the apache commons config but specify a default value if not found.
+     *
+     * @param name         contains the name of the property.
+     * @param defaultValue specified by client will be returned if property value is not found.
+     * @return contains the value for the property as a String.
+     */
+    public String getProperty( String name, String defaultValue )
+    {
+        String value = null;
+        if ( config != null )
+        {
+            value = ( String ) config.getProperty( name );
+        }
+        else
+        {
+            String warn = "getProperty invalid config, can't read prop [" + name + "]";
+            LOG.warn( warn );
+        }
+        if ( value == null || value.length() == 0 )
+        {
+            value = defaultValue;
+        }
+        return value;
+    }
+
+    /**
+     * Gets the prop attribute as char value from the apache commons cfg component.
+     *
+     * @param name contains the name of the property.
+     * @return contains the value associated with the property or 0 if not not found.
+     */
+    public char getChar( String name )
+    {
+        char value = 0;
+        if ( config != null )
+        {
+            value = ( char ) config.getProperty( name );
+            LOG.debug( "getChar name [{}] value [{}]", name, value );
+        }
+        else
+        {
+            LOG.error( "getChar invalid config, can't read prop [{}]", name );
+        }
+        return value;
+    }
+
+    /**
+     * Get the property value from the apache commons config but specify a default value if not found.
+     *
+     * @param name         contains the name of the property.
+     * @param defaultValue specified by client will be returned if property value is not found.
+     * @return contains the value for the property as a char.
+     */
+    public char getChar( String name, char defaultValue )
+    {
+        char value = 0;
+        if ( config != null )
+        {
+            value = ( char ) config.getProperty( name );
+        }
+        else
+        {
+            String warn = "getChar invalid config, can't read prop [" + name + "]";
+            LOG.warn( warn );
+        }
+        if ( value == 0 )
+        {
+            value = defaultValue;
+        }
+        return value;
+    }
+
+    /**
+     * Gets the int attribute of the Config class, or 0 if not found.
+     *
+     * @param key name of the property name.
+     * @return The int value or 0 if not found.
+     */
+    public int getInt( String key )
+    {
+        int value = 0;
+        if ( config != null )
+        {
+            value = config.getInt( key );
+        }
+        else
+        {
+            String warn = "getInt invalid config, can't read prop [" + key + "]";
+            LOG.warn( warn );
+        }
+        return value;
+    }
+
+    /**
+     * Gets the int attribute of the Config class or default value if not found.
+     *
+     * @param key          name of the property name.
+     * @param defaultValue to use if property not found.
+     * @return The int value or default value if not found.
+     */
+    public int getInt( String key, int defaultValue )
+    {
+        int value = 0;
+        if ( config != null )
+        {
+            value = config.getInt( key, defaultValue );
+        }
+        else
+        {
+            String warn = "getInt invalid config, can't read prop [" + key + "]";
+            LOG.warn( warn );
+        }
+        return value;
+    }
+
+    /**
+     * Gets the boolean attribute associated with the name or false if not found.
+     *
+     * @param key name of the property name.
+     * @return The boolean value or false if not found.
+     */
+    public boolean getBoolean( String key )
+    {
+        boolean value = false;
+        if ( config != null )
+        {
+            value = config.getBoolean( key );
+        }
+        else
+        {
+            String warn = "getBoolean - invalid config, can't read prop [" + key + "]";
+            LOG.warn( warn );
+        }
+        return value;
+    }
+
+    /**
+     * Gets the boolean attribute associated with the name or false if not found.
+     *
+     * @param key          name of the property name.
+     * @param defaultValue specified by client will be returned if property value is not found.
+     * @return The boolean value or false if not found.
+     */
+    public boolean getBoolean( String key, boolean defaultValue )
+    {
+        boolean value = defaultValue;
+        if ( config != null )
+        {
+            value = config.getBoolean( key, defaultValue );
+        }
+        else
+        {
+            String warn = "getBoolean - invalid config, can't read prop [" + key + "]";
+            LOG.warn( warn );
+        }
+        return value;
+    }
+
+    /**
+     * Set the property String value to the apache commons config.
+     *
+     * @param name         contains the name of the property.
+     * @param value        contains the String value of the property.
+     */
+    public void setProperty( String name, String value )
+    {
+        if ( config != null )
+        {
+            config.setProperty( name, value );
+        }
+        else
+        {
+            String warn = "setProperty invalid config, can't set prop name [" + name + "], value [" + value + "]";
+            LOG.warn( warn );
+        }
+    }
+
+    /**
+     * Fetch the remote cfg params from ldap with given name.
+     *
+     * @param realmName required attribute contains the name of config node name on ldap.
+     * @return {@link Properties} containing collection of name/value pairs found in directory.
+     * @throws org.apache.directory.fortress.core.SecurityException
+     *          in the event of system or validation error.
+     */
+    private Properties getRemoteConfig( String realmName ) throws SecurityException
+    {
+        Properties props = null;
+        try
+        {
+            String configClassName = this.getProperty( GlobalIds.CONFIG_IMPLEMENTATION );
+            ConfigMgr cfgMgr = ConfigMgrFactory.createInstance(configClassName, false);
+            props = cfgMgr.read( realmName );
+        }
+        catch ( CfgException ce )
+        {
+            if ( ce.getErrorId() == GlobalErrIds.FT_CONFIG_NOT_FOUND )
+            {
+                String warning = "getRemoteConfig could not find cfg entry";
+                LOG.warn( warning );
+            }
+            else
+            {
+                throw ce;
+            }
+        }
+        return props;
+    }
+
+    public boolean isRestEnabled()
+    {
+        return ( ( getProperty( GlobalIds.ENABLE_REST ) != null ) && ( getProperty( GlobalIds.ENABLE_REST ).equalsIgnoreCase( "true" ) ) );
+    }
+    /**
+     * Fortress stores complex attribute types within a single attribute in ldap.  Usually a delimiter of '$' is used for string tokenization.
+     * format: {@code part1$part2$part3....}  Stored in fortress.properties as 'attr.delimiter=$'
+     */
+    public String getDelimiter()
+    {
+        return getProperty( "attr.delimiter", "$" );
+    }
+    public boolean isAuditDisabled()
+    {
+        return ( ( getProperty( GlobalIds.DISABLE_AUDIT ) != null ) && ( getProperty( GlobalIds.DISABLE_AUDIT ).equalsIgnoreCase( "true" ) ) );
+    }
+    public boolean isOpenldap()
+    {
+        return ( ( getProperty( GlobalIds.SERVER_TYPE ) != null ) && ( getProperty( GlobalIds.SERVER_TYPE ).equalsIgnoreCase( "openldap" ) ) );
+    }
+    public boolean isRealm()
+    {
+        return GlobalIds.REALM_TYPE.equalsIgnoreCase( getProperty( GlobalIds.AUTHENTICATION_TYPE ) );
+    }
+    private boolean isRemoteConfigLoaded()
+    {
+        return remoteConfigLoaded;
+    }
+
+    private char[] loadLdapEscapeChars()
+    {
+        char[] ldapMetaChars = new char[LdapUtil.getInstance().getLdapFilterSize()];
+
+        for ( int i = 1;; i++ )
+        {
+            String prop = GlobalIds.LDAP_FILTER + i;
+            String value = getProperty( prop );
+
+            if ( value == null )
+            {
+                break;
+            }
+
+            ldapMetaChars[i - 1] = value.charAt( 0 );
+        }
+
+        return ldapMetaChars;
+    }
+
+    private String[] loadValidLdapVals()
+    {
+        String[] ldapReplacements = new String[LdapUtil.getInstance().getLdapFilterSize()];
+
+        for ( int i = 1;; i++ )
+        {
+            String prop = GlobalIds.LDAP_SUB + i;
+            String value = getProperty( prop );
+
+            if ( value == null )
+            {
+                break;
+            }
+
+            ldapReplacements[i - 1] = value;
+        }
+
+        return ldapReplacements;
+    }
+
+    /**
+     * Load the config parameters from fortress.properties file.
+     */
     private void loadLocalConfig()
     {
         try
@@ -130,7 +446,7 @@ public final class Config
                 LOG.info( "static init: found user properties from: {} path: {}", USER_PROP_FILE, fUserUrl.getPath() );
                 config.load( fUserUrl );
             }
-       }
+        }
         catch ( org.apache.commons.configuration.ConfigurationException ex )
         {
             String error = "static init: Error loading from cfg file: [" + PROP_FILE
@@ -141,8 +457,7 @@ public final class Config
     }
 
     /**
-     * This method is called during configuration initialization.  It determines if
-     * the ldap connection coordinates have been overridden as system properties.
+     * Load these config parameters from the system.properties.
      */
     private void getExternalConfig()
     {
@@ -262,6 +577,9 @@ public final class Config
         }
     }
 
+    /**
+     * Load the properties contained within ou=Config node in LDAP.
+     */
     private void loadRemoteConfig()
     {
         try
@@ -314,316 +632,5 @@ public final class Config
             LOG.error( error );
             throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_INITIALIZE_FAILED, error, se );
         }
-    }
-
-    private char[] loadLdapEscapeChars()
-    {
-        char[] ldapMetaChars = new char[LdapUtil.getInstance().getLdapFilterSize()];
-
-        for ( int i = 1;; i++ )
-        {
-            String prop = GlobalIds.LDAP_FILTER + i;
-            String value = getProperty( prop );
-
-            if ( value == null )
-            {
-                break;
-            }
-
-            ldapMetaChars[i - 1] = value.charAt( 0 );
-        }
-
-        return ldapMetaChars;
-    }
-
-    private String[] loadValidLdapVals()
-    {
-        String[] ldapReplacements = new String[LdapUtil.getInstance().getLdapFilterSize()];
-
-        for ( int i = 1;; i++ )
-        {
-            String prop = GlobalIds.LDAP_SUB + i;
-            String value = getProperty( prop );
-
-            if ( value == null )
-            {
-                break;
-            }
-
-            ldapReplacements[i - 1] = value;
-        }
-
-        return ldapReplacements;
-    }
-
-    /**
-     * Gets the prop attribute as String value from the apache commons cfg component.
-     *
-     * @param name contains the name of the property.
-     * @return contains the value associated with the property or null if not not found.
-     */
-    public String getProperty( String name )
-    {
-        String value = null;
-        if ( config != null )
-        {
-            value = ( String ) config.getProperty( name );
-            LOG.debug( "getProperty name [{}] value [{}]", name, value );
-        }
-        else
-        {
-            LOG.error( "getProperty invalid config, can't read prop [{}]", name );
-        }
-        return value;
-    }
-
-
-    /**
-     * Get the property value from the apache commons config but specify a default value if not found.
-     *
-     * @param name         contains the name of the property.
-     * @param defaultValue specified by client will be returned if property value is not found.
-     * @return contains the value for the property as a String.
-     */
-    public String getProperty( String name, String defaultValue )
-    {
-        String value = null;
-        if ( config != null )
-        {
-            value = ( String ) config.getProperty( name );
-        }
-        else
-        {
-            String warn = "getProperty invalid config, can't read prop [" + name + "]";
-            LOG.warn( warn );
-        }
-        if ( value == null || value.length() == 0 )
-        {
-            value = defaultValue;
-        }
-        return value;
-    }
-
-
-    /**
-     * Gets the prop attribute as char value from the apache commons cfg component.
-     *
-     * @param name contains the name of the property.
-     * @return contains the value associated with the property or 0 if not not found.
-     */
-    public char getChar( String name )
-    {
-        char value = 0;
-        if ( config != null )
-        {
-            value = ( char ) config.getProperty( name );
-            LOG.debug( "getChar name [{}] value [{}]", name, value );
-        }
-        else
-        {
-            LOG.error( "getChar invalid config, can't read prop [{}]", name );
-        }
-        return value;
-    }
-
-
-    /**
-     * Get the property value from the apache commons config but specify a default value if not found.
-     *
-     * @param name         contains the name of the property.
-     * @param defaultValue specified by client will be returned if property value is not found.
-     * @return contains the value for the property as a char.
-     */
-    public char getChar( String name, char defaultValue )
-    {
-        char value = 0;
-        if ( config != null )
-        {
-            value = ( char ) config.getProperty( name );
-        }
-        else
-        {
-            String warn = "getChar invalid config, can't read prop [" + name + "]";
-            LOG.warn( warn );
-        }
-        if ( value == 0 )
-        {
-            value = defaultValue;
-        }
-        return value;
-    }
-
-
-    /**
-     * Gets the int attribute of the Config class, or 0 if not found.
-     *
-     * @param key name of the property name.
-     * @return The int value or 0 if not found.
-     */
-    public int getInt( String key )
-    {
-        int value = 0;
-        if ( config != null )
-        {
-            value = config.getInt( key );
-        }
-        else
-        {
-            String warn = "getInt invalid config, can't read prop [" + key + "]";
-            LOG.warn( warn );
-        }
-        return value;
-    }
-
-
-    /**
-     * Gets the int attribute of the Config class or default value if not found.
-     *
-     * @param key          name of the property name.
-     * @param defaultValue to use if property not found.
-     * @return The int value or default value if not found.
-     */
-    public int getInt( String key, int defaultValue )
-    {
-        int value = 0;
-        if ( config != null )
-        {
-            value = config.getInt( key, defaultValue );
-        }
-        else
-        {
-            String warn = "getInt invalid config, can't read prop [" + key + "]";
-            LOG.warn( warn );
-        }
-        return value;
-    }
-
-
-    /**
-     * Gets the boolean attribute associated with the name or false if not found.
-     *
-     * @param key name of the property name.
-     * @return The boolean value or false if not found.
-     */
-    public boolean getBoolean( String key )
-    {
-        boolean value = false;
-        if ( config != null )
-        {
-            value = config.getBoolean( key );
-        }
-        else
-        {
-            String warn = "getBoolean - invalid config, can't read prop [" + key + "]";
-            LOG.warn( warn );
-        }
-        return value;
-    }
-
-
-    /**
-     * Gets the boolean attribute associated with the name or false if not found.
-     *
-     * @param key          name of the property name.
-     * @param defaultValue specified by client will be returned if property value is not found.
-     * @return The boolean value or false if not found.
-     */
-    public boolean getBoolean( String key, boolean defaultValue )
-    {
-        boolean value = defaultValue;
-        if ( config != null )
-        {
-            value = config.getBoolean( key, defaultValue );
-        }
-        else
-        {
-            String warn = "getBoolean - invalid config, can't read prop [" + key + "]";
-            LOG.warn( warn );
-        }
-        return value;
-    }
-
-
-    /**
-     * Set the property String value to the apache commons config.
-     *
-     * @param name         contains the name of the property.
-     * @param value        contains the String value of the property.
-     */
-    public void setProperty( String name, String value )
-    {
-        if ( config != null )
-        {
-            config.setProperty( name, value );
-        }
-        else
-        {
-            String warn = "setProperty invalid config, can't set prop name [" + name + "], value [" + value + "]";
-            LOG.warn( warn );
-        }
-    }
-
-
-    /**
-     * Fetch the remote cfg params from ldap with given name.
-     *
-     * @param realmName required attribute contains the name of config node name on ldap.
-     * @return {@link Properties} containing collection of name/value pairs found in directory.
-     * @throws org.apache.directory.fortress.core.SecurityException
-     *          in the event of system or validation error.
-     */
-    private Properties getRemoteConfig( String realmName ) throws SecurityException
-    {
-        Properties props = null;
-        try
-        {
-            String configClassName = this.getProperty( GlobalIds.CONFIG_IMPLEMENTATION );
-            //boolean IS_REST = ((this.getProperty(ConfigMgrFactory.ENABLE_REST) != null) && (this.getProperty(ConfigMgrFactory.ENABLE_REST).equalsIgnoreCase("true")));
-
-            ConfigMgr cfgMgr = ConfigMgrFactory.createInstance(configClassName, false);
-            props = cfgMgr.read( realmName );
-        }
-        catch ( CfgException ce )
-        {
-            if ( ce.getErrorId() == GlobalErrIds.FT_CONFIG_NOT_FOUND )
-            {
-                String warning = "getRemoteConfig could not find cfg entry";
-                LOG.warn( warning );
-            }
-            else
-            {
-                throw ce;
-            }
-        }
-        return props;
-    }
-
-    public boolean isRestEnabled()
-    {
-        return ( ( getProperty( GlobalIds.ENABLE_REST ) != null ) && ( getProperty( GlobalIds.ENABLE_REST ).equalsIgnoreCase( "true" ) ) );
-    }
-    /**
-     * Fortress stores complex attribute types within a single attribute in ldap.  Usually a delimiter of '$' is used for string tokenization.
-     * format: {@code part1$part2$part3....}  Stored in fortress.properties as 'attr.delimiter=$'
-     */
-    public String getDelimiter()
-    {
-        return getProperty( "attr.delimiter", "$" );
-    }
-    public boolean isAuditDisabled()
-    {
-        return ( ( getProperty( GlobalIds.DISABLE_AUDIT ) != null ) && ( getProperty( GlobalIds.DISABLE_AUDIT ).equalsIgnoreCase( "true" ) ) );
-    }
-    public boolean isOpenldap()
-    {
-        return ( ( getProperty( GlobalIds.SERVER_TYPE ) != null ) && ( getProperty( GlobalIds.SERVER_TYPE ).equalsIgnoreCase( "openldap" ) ) );
-    }
-    public boolean isRealm()
-    {
-        return GlobalIds.REALM_TYPE.equalsIgnoreCase( getProperty( GlobalIds.AUTHENTICATION_TYPE ) );
-    }
-    private boolean isRemoteConfigLoaded()
-    {
-        return remoteConfigLoaded;
     }
 }
