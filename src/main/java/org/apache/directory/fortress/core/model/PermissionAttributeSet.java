@@ -26,7 +26,6 @@ import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
@@ -109,7 +108,6 @@ public class PermissionAttributeSet extends FortEntity implements Serializable
     private static final long serialVersionUID = 1L;
 
     private String name;
-    @XmlElement( nillable = true )
     private Set<PermissionAttribute> attributes;
     private String internalId;
     private String description;

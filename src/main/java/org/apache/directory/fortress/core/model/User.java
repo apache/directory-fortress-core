@@ -29,7 +29,6 @@ import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
@@ -273,14 +272,10 @@ public class User extends FortEntity implements Constraint, Serializable
     private static final long serialVersionUID = 1L;
 
     private String userId;
-    @XmlElement(nillable = true)
     private char[] password;
-    @XmlElement(nillable = true)
     private char[] newPassword;
     private String internalId;
-    @XmlElement(nillable = true)
     private List<UserRole> roles;
-    @XmlElement(nillable = true)
     private List<UserAdminRole> adminRoles;
     private String pwPolicy;
     private String cn;
@@ -303,15 +298,10 @@ public class User extends FortEntity implements Constraint, Serializable
     private boolean reset;
     private boolean locked;
     private Boolean system;
-    @XmlElement(nillable = true)
     private Props props = new Props();
-    @XmlElement(nillable = true)
     private Address address;
-    @XmlElement(nillable = true)
     private List<String> phones;
-    @XmlElement(nillable = true)
     private List<String> mobiles;
-    @XmlElement(nillable = true)
     private List<String> emails;
     @XmlTransient
     private byte[] jpegPhoto;

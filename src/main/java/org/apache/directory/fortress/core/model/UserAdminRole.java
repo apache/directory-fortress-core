@@ -25,7 +25,6 @@ import java.util.TreeSet;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -67,18 +66,6 @@ import org.apache.directory.fortress.core.util.Config;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-/*
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "userAdminRole", propOrder = {
-    "beginInclusive",
-    "beginRange",
-    "endInclusive",
-    "endRange",
-    "osP",
-    "osU",
-    "roleRangeRaw"
-})
-*/
 @XmlRootElement(name = "fortUserAdminRole")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "userAdminRole", propOrder =
@@ -95,15 +82,12 @@ public class UserAdminRole extends UserRole implements Administrator
 {
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
-    @XmlElement(nillable = true)
     private Set<String> osPs;
-    @XmlElement(nillable = true)
     private Set<String> osUs;
     private String beginRange;
     private String endRange;
     private boolean beginInclusive;
     private boolean endInclusive;
-    @XmlElement(nillable = true)
     private Set<String> parents;
 
     // Used for formatting raw data:

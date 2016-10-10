@@ -27,7 +27,6 @@ import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -182,11 +181,10 @@ public class OrgUnit extends FortEntity implements Graphable, Serializable
     private String description;
 
     /** The names of orgUnits that are parents (direct ascendants) of this orgUnit */
-    @XmlElement(nillable = true)
+    //@XmlElement(nillable = true)
     private Set<String> parents;
 
     /** The set of child orgUnit names (direct descendants) of this orgUnit */
-    @XmlElement(nillable = true)
     private Set<String> children;
 
 

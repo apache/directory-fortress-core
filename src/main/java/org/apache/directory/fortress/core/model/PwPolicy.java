@@ -24,7 +24,6 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -158,9 +157,7 @@ public class PwPolicy extends FortEntity implements Serializable
      * modifications to the password.  If this attribute is not present, 0
      * seconds is assumed.
      */
-    @XmlElement(nillable = true)
     private Integer minAge;
-    //private String minAge;
 
     /**
      * 5.2.3  pwdMaxAge
@@ -172,7 +169,6 @@ public class PwPolicy extends FortEntity implements Serializable
      * does not expire.  If not 0, the value must be greater than or equal
      * to the value of the pwdMinAge.
      */
-    @XmlElement(nillable = true)
     private Long maxAge;
 
     /**
@@ -185,7 +181,6 @@ public class PwPolicy extends FortEntity implements Serializable
      * passwords are not stored in the pwdHistory attribute and thus may be
      * reused.
      */
-    @XmlElement(nillable = true)
     private Short inHistory;
 
     /**
@@ -200,7 +195,6 @@ public class PwPolicy extends FortEntity implements Serializable
      * server will check the quality, and if the server is unable to verify
      * it, it will return an error refusing the password.
      */
-    @XmlElement(nillable = true)
     private Short checkQuality;
 
     /**
@@ -214,7 +208,6 @@ public class PwPolicy extends FortEntity implements Serializable
      * value of the pwdCheckQuality attribute, either accept the password
      * without checking it ('0' or '1') or refuse it ('2').
      */
-    @XmlElement(nillable = true)
     private Short minLength;
 
     /**
@@ -228,7 +221,6 @@ public class PwPolicy extends FortEntity implements Serializable
      * will be returned.  If not 0, the value must be smaller than the value
      * of the pwdMaxAge attribute.
      */
-    @XmlElement(nillable = true)
     private Long expireWarning;
 
     /**
@@ -238,7 +230,6 @@ public class PwPolicy extends FortEntity implements Serializable
      * be used to authenticate.  If this attribute is not present or if the
      * value is 0, authentication will fail.
      */
-    @XmlElement(nillable = true)
     private Short graceLoginLimit;
 
     /**
@@ -253,7 +244,6 @@ public class PwPolicy extends FortEntity implements Serializable
      * password may be used to authenticate when the number of failed bind
      * attempts has been reached.
      */
-    @XmlElement(nillable = true)
     private Boolean lockout;
 
     /**
@@ -265,7 +255,6 @@ public class PwPolicy extends FortEntity implements Serializable
      * cannot be used to authenticate until reset by a password
      * administrator.
      */
-    @XmlElement(nillable = true)
     private Integer lockoutDuration;
 
     /**
@@ -276,7 +265,6 @@ public class PwPolicy extends FortEntity implements Serializable
      * If this attribute is not present, or if the value is 0, this policy
      * is not checked, and the value of pwdLockout will be ignored.
      */
-    @XmlElement(nillable = true)
     private Short maxFailure;
 
     /**
@@ -289,7 +277,6 @@ public class PwPolicy extends FortEntity implements Serializable
      * If this attribute is not present, or if its value is 0, the failure
      * counter is only reset by a successful authentication.
      */
-    @XmlElement(nillable = true)
     private Short failureCountInterval;
 
     /**
@@ -304,7 +291,6 @@ public class PwPolicy extends FortEntity implements Serializable
      * due to any actions specified by this document, it is typically set by
      * a password administrator after resetting a user's password.
      */
-    @XmlElement(nillable = true)
     private Boolean mustChange;
 
     /**
@@ -316,7 +302,6 @@ public class PwPolicy extends FortEntity implements Serializable
      * assumed.  This attribute is intended to be used in the absence of an
      * access control mechanism.
      */
-    @XmlElement(nillable = true)
     private Boolean allowUserChange;
 
     /**
@@ -326,7 +311,6 @@ public class PwPolicy extends FortEntity implements Serializable
      * sent along with the new password when being changed.  If this
      * attribute is not present, a "FALSE" value is assumed.
      */
-    @XmlElement(nillable = true)
     private Boolean safeModify;
 
     /**

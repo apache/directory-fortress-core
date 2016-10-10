@@ -22,7 +22,6 @@ package org.apache.directory.fortress.core.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -74,9 +73,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
     private String opName;
     private String userId;
     private String internalUserId;
-    @XmlElement(nillable = true)
     private Date beginDate;
-    @XmlElement(nillable = true)
     private Date endDate;
     private String dn;
     private boolean admin = false;

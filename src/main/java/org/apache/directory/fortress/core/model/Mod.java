@@ -22,7 +22,6 @@ package org.apache.directory.fortress.core.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import java.io.Serializable;
@@ -84,7 +83,6 @@ public class Mod extends FortEntity implements Serializable
     private String reqStart;
     private String reqEnd;
     private String reqType;
-    @XmlElement(nillable = true)
     private List<String> reqMod;
     private long sequenceId;
 

@@ -46,18 +46,12 @@ import java.util.Set;
 public class FortResponse
 {
     private int errorCode;
-    @XmlElement(nillable = true)
     private Boolean isAuthorized;
     private String errorMessage;
-    @XmlElement(nillable = true)
     private FortEntity entity;
-    @XmlElement(nillable = true)
     private List<FortEntity> entities;
-    @XmlElement(nillable = true)
     private List<String> values;
-    @XmlElement(nillable = true)
     private Set<String> valueSet;
-    @XmlElement(nillable = true)
     private Session session;
 
     public FortEntity getEntity()

@@ -42,17 +42,12 @@ import javax.xml.bind.annotation.*;
 })
 public class FortRequest
 {
-    @XmlElement(nillable = true)
     private FortEntity entity;
-    @XmlElement(nillable = true)
     private FortEntity entity2;
-    @XmlElement(nillable = true)
     private Session session;
     private String value;
-    @XmlElement(nillable = true)
     private Integer limit;
     private String contextId;
-    @XmlElement(nillable = true)
     private Boolean isReplace;
 
     public FortEntity getEntity()

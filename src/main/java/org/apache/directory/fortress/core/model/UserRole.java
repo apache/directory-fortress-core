@@ -27,7 +27,6 @@ import java.util.Set;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlType;
@@ -74,8 +73,23 @@ import org.apache.directory.fortress.core.util.Config;
  */
 @XmlRootElement( name = "fortUserRole" )
 @XmlAccessorType( XmlAccessType.FIELD )
-@XmlType( name = "userRole", propOrder = {"name", "userId", "isGroupRole", "parents", "beginDate", "beginLockDate",
-        "beginTime", "dayMask", "endDate", "endLockDate", "endTime", "timeout", "roleConstraints"} )
+@XmlType(
+    name = "userRole",
+    propOrder = {
+        "name",
+        "userId",
+        "isGroupRole",
+        "parents",
+        "beginDate",
+        "beginLockDate",
+        "beginTime",
+        "dayMask",
+        "endDate",
+        "endLockDate",
+        "endTime",
+        "timeout",
+        "roleConstraints"}
+)
 @XmlSeeAlso( {UserAdminRole.class} )
 public class UserRole extends FortEntity implements Serializable, Constraint
 {
@@ -92,9 +106,7 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     private String beginLockDate;
     private String endLockDate;
     private String dayMask;
-    @XmlElement( nillable = true )
     private Set<String> parents;
-    @XmlElement( nillable = true )
     private List<RoleConstraint> roleConstraints;
 
     /**

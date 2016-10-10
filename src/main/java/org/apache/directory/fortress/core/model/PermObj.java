@@ -28,7 +28,6 @@ import java.util.UUID;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
@@ -145,9 +144,7 @@ public class PermObj extends FortEntity implements Serializable
     private String internalId;
     private String objName;
     private String description;
-    @XmlElement(nillable = true)
     private Props props = new Props();
-    //private Properties props;
     private String ou;
     private String type;
     @XmlTransient

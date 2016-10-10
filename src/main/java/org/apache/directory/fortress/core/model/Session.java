@@ -21,7 +21,6 @@ package org.apache.directory.fortress.core.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -174,7 +173,6 @@ import java.util.UUID;
     "graceLogins",
     "message",
     "warnings"
-/*    "warningId"*/
 })
 public class Session  extends FortEntity implements PwMessage, Serializable
 {
@@ -184,14 +182,12 @@ public class Session  extends FortEntity implements PwMessage, Serializable
     private String sessionId;
     private long lastAccess;
     private int timeout;
-/*    private int warningId;*/
     private int errorId;
     private int graceLogins;
     private int expirationSeconds;
     private boolean isAuthenticated;
     private boolean isGroupSession;
     private String message;
-    @XmlElement(nillable = true)
     private List<Warning> warnings;
 
     /**

@@ -22,7 +22,6 @@ package org.apache.directory.fortress.core.model;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -145,7 +144,6 @@ public class SDSet extends FortEntity implements Serializable, Comparable<SDSet>
     private String name;
     private String description;
     private Integer cardinality;
-    @XmlElement(nillable = true)
     private Set<String> members;
     private SDType type;
 
