@@ -71,7 +71,7 @@ final class RoleUtil implements ParentUtil
 
     private static volatile RoleUtil sINSTANCE = null;
 
-    public static RoleUtil getInstance()
+    static RoleUtil getInstance()
     {
         if(sINSTANCE == null)
         {
@@ -86,7 +86,7 @@ final class RoleUtil implements ParentUtil
         return sINSTANCE;
     }
     
-    public RoleUtil(){
+    RoleUtil(){
         init();
     }
     

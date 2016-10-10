@@ -69,7 +69,7 @@ final class UsoUtil
 
     private static volatile UsoUtil sINSTANCE = null;
 
-    public static UsoUtil getInstance()
+    static UsoUtil getInstance()
     {
         if(sINSTANCE == null)
         {

@@ -70,7 +70,7 @@ final class PsoUtil
 
     private static volatile PsoUtil sINSTANCE = null;
 
-    public static PsoUtil getInstance()
+    static PsoUtil getInstance()
     {
         if(sINSTANCE == null)
         {

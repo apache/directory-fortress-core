@@ -62,7 +62,7 @@ final class SDUtil
 
     private static volatile SDUtil sINSTANCE = null;
 
-    public static SDUtil getInstance()
+    static SDUtil getInstance()
     {
         if(sINSTANCE == null)
         {
