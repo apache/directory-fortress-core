@@ -55,9 +55,9 @@ import org.slf4j.LoggerFactory;
 public final class VUtil implements ConstraintValidator
 {
     /**
-     * enum specifies what type of constraint is being targeted - User or Rold.
+     * enum specifies what type of constraint is being targeted - User or Role.
      */
-    public static enum ConstraintType
+    public enum ConstraintType
     {
         /**
          * Specifies {@link org.apache.directory.fortress.core.model.User}
@@ -73,9 +73,6 @@ public final class VUtil implements ConstraintValidator
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static int maximumFieldLen = 130;
     private static final String VALIDATE_LENGTH = "field.length";
-    private static List<Validator> validators;
-    private String DSDVALIDATOR;
-
     private static final int MAXIMUM_FIELD_LEN = maximumFieldLen;
     private static final int maxFieldLength = MAXIMUM_FIELD_LEN;
     private static final int TIME_LEN = 4;
@@ -87,8 +84,10 @@ public final class VUtil implements ConstraintValidator
     private static final char SATURDAY = '7';
     private static final SimpleDateFormat TIME_FORMATER = getLenientFormat( TIME_FORMAT );
     private static final SimpleDateFormat DATE_FORMATER = getLenientFormat( DATE_FORMAT );
-
     private static volatile VUtil sINSTANCE = null;
+
+    private List<Validator> validators;
+    private String DSDVALIDATOR;
 
     public static VUtil getInstance()
     {
