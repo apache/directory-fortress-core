@@ -63,6 +63,7 @@ public class HttpIds
     public static final String ROLE_GRANT = "roleGrant";
     public static final String ROLE_REVOKE = "roleRevoke";
     public static final String ROLE_PERMS = "rolePerms";
+    public static final String ROLE_PERM_ATTR_SETS = "rolePermAttrSets";
     public static final String ROLE_DESC = "roleDescendant";
     public static final String ROLE_ASC = "roleAscendent";
     public static final String ROLE_ADDINHERIT = "roleAddinherit";

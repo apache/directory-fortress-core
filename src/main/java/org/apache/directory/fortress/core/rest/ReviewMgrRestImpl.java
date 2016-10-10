@@ -761,11 +761,35 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         return retPerms;
     }
 
+    /**
+     * {@inheritDoc}
+     */
 	@Override
-	public List<PermissionAttributeSet> rolePermissionAttributeSets(Role role,
-			boolean noInhertiance) throws SecurityException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<PermissionAttributeSet> rolePermissionAttributeSets(Role role, boolean noInhertiance)
+        throws SecurityException
+    {
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".rolePermissionAttributeSets");
+        List<PermissionAttributeSet> retAttrSets;
+        FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
+        request.setEntity(role);
+        request.setIsFlag( noInhertiance );
+        if (this.adminSess != null)
+        {
+            request.setSession(adminSess);
+        }
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_PERM_ATTR_SETS);
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            retAttrSets = response.getEntities();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retAttrSets;
 	}
     
     /**

@@ -432,21 +432,25 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
         throws SecurityException
     {
         Map<String, PermissionAttributeSet> permAttributeSets = new HashMap<String, PermissionAttributeSet>();
-
         //look through all permissions in the role
-        List<Permission> permissions = this.rolePermissions(role, noInhertiance);
-        for(Permission perm : permissions){
-            if( CollectionUtils.isNotEmpty(perm.getPaSets() )){
-                for(String paSetName : perm.getPaSets()){	
-                    if(!permAttributeSets.containsKey(paSetName)){
-                        PermissionAttributeSet permAttributeSet = permP.read(new PermissionAttributeSet(paSetName));
-                        permAttributeSets.put(paSetName, permAttributeSet);
+        List<Permission> permissions = this.rolePermissions( role, noInhertiance );
+        for(Permission perm : permissions)
+        {
+            if( CollectionUtils.isNotEmpty(perm.getPaSets() ))
+            {
+                for(String paSetName : perm.getPaSets())
+                {
+                    if(!permAttributeSets.containsKey( paSetName ))
+                    {
+                        PermissionAttributeSet paSet = new PermissionAttributeSet( paSetName );
+                        paSet.setContextId( this.contextId );
+                        PermissionAttributeSet permAttributeSet = permP.read( paSet );
+                        permAttributeSets.put( paSetName, permAttributeSet );
                     }
                 }
             }
         }
-
-        return new ArrayList<PermissionAttributeSet>(permAttributeSets.values());
+        return new ArrayList<>(permAttributeSets.values());
     }
 
     /**
