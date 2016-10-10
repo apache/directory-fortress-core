@@ -46,12 +46,8 @@ import org.apache.directory.fortress.core.model.UserRole;
 public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
 {
     private static final String CLS_NM = GroupMgrImpl.class.getName();
-    private GroupP GROUP_P;
+    private GroupP groupP = new GroupP();
 
-    public GroupMgrImpl() {
-    	GROUP_P = new GroupP();
-	}
-    
     /**
      * {@inheritDoc}
      */
@@ -75,7 +71,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
             group.setMemberDn(true);
         }
 
-        return GROUP_P.add( group );
+        return groupP.add( group );
     }
 
     /**
@@ -88,7 +84,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
         
-        return GROUP_P.update( group );
+        return groupP.update( group );
     }
 
     /**
@@ -101,7 +97,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
         
-        return GROUP_P.delete( group );
+        return groupP.delete( group );
     }
 
     /**
@@ -113,7 +109,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
         
-        return GROUP_P.add( group, key, value );
+        return groupP.add( group, key, value );
     }
 
     /**
@@ -125,7 +121,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
         
-        return GROUP_P.delete( group, key, value );
+        return groupP.delete( group, key, value );
     }
 
     /**
@@ -138,7 +134,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
         
-        return GROUP_P.read( group );
+        return groupP.read( group );
     }
 
     /**
@@ -151,7 +147,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess(CLS_NM, methodName);
         
-        return GROUP_P.search( group );
+        return groupP.search( group );
     }
 
     /**
@@ -164,7 +160,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
         checkAccess( CLS_NM, methodName );
         loadUserDn( user );
         
-        return GROUP_P.search( user );
+        return groupP.search( user );
     }
 
     /**
@@ -178,7 +174,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
         checkAccess( CLS_NM, methodName );
         loadRoleDn( role );
 
-        return GROUP_P.roleGroups( role );
+        return groupP.roleGroups( role );
     }
 
     /**
@@ -191,7 +187,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
         assertContext(CLS_NM, methodName, group, GlobalErrIds.GROUP_NULL);
         checkAccess( CLS_NM, methodName );
 
-        return GROUP_P.groupRoles( group );
+        return groupP.groupRoles( group );
     }
 
     /**
@@ -222,7 +218,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
             dn = user.getDn();
         }
 
-        return GROUP_P.assign( group, dn );
+        return groupP.assign( group, dn );
     }
 
     /**
@@ -247,7 +243,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
             dn = user.getDn();
         }
 
-        return GROUP_P.deassign( group, dn );
+        return groupP.deassign( group, dn );
     }
 
     private void loadUserDns( Group group ) throws SecurityException
