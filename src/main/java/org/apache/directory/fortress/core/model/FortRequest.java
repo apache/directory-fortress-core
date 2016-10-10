@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.*;
     "limit",
     "contextId",
     "session",
-    "isReplace"
+    "isFlag"
 })
 public class FortRequest
 {
@@ -48,8 +48,7 @@ public class FortRequest
     private String value;
     private Integer limit;
     private String contextId;
-    private Boolean isReplace;
-
+    private Boolean isFlag;
     public FortEntity getEntity()
     {
         return entity;
@@ -110,14 +109,14 @@ public class FortRequest
         this.contextId = contextId;
     }
 
-    public Boolean getIsReplace()
+    public Boolean getIsFlag()
     {
-        return isReplace;
+        return isFlag;
     }
 
-    public void setIsReplace(Boolean isReplace)
+    public void setIsFlag(Boolean isFlag)
     {
-        this.isReplace = isReplace;
+        this.isFlag = isFlag;
     }
 }
 

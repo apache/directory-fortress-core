@@ -1401,7 +1401,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( permAttribute, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL, CLS_NM + ".removePermissionAttributeFromSet" );
         VUtil.assertNotNull( attributeSetName, GlobalErrIds.PERM_ATTRIBUTE_SET_NM_NULL, CLS_NM + ".removePermissionAttributeFromSet" );
-        PermissionAttribute retAttr;
         FortRequest request = new FortRequest();
         request.setContextId( this.contextId );
         request.setEntity( permAttribute );
@@ -1434,7 +1433,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         request.setContextId( this.contextId );
         request.setEntity( permAttribute );
         request.setValue( attributeSetName );
-        request.setIsReplace( replaceValidValues );
+        request.setIsFlag( replaceValidValues );
         if ( this.adminSess != null )
         {
             request.setSession( adminSess );
