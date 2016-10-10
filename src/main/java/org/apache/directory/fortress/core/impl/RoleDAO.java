@@ -479,7 +479,7 @@ final class RoleDAO extends LdapDataProvider
         List<Role> roleList = new ArrayList<>();
         LdapConnection ld = null;
         String roleRoot = getRootDn( group.getContextId(), GlobalIds.ROLE_ROOT );
-        StringBuilder filterbuf = null;
+        StringBuilder filterbuf = new StringBuilder();
 
         try
         {
@@ -489,7 +489,6 @@ final class RoleDAO extends LdapDataProvider
             List<String> members = group.getMembers();
             if ( CollectionUtils.isNotEmpty( members ) )
             {
-                filterbuf = new StringBuilder();
                 filterbuf.append( GlobalIds.FILTER_PREFIX );
                 filterbuf.append( GlobalIds.ROLE_OBJECT_CLASS_NM );
                 filterbuf.append( ")(" );
