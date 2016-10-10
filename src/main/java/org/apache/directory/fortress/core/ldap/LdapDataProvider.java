@@ -89,17 +89,10 @@ public abstract class LdapDataProvider
 {
     // Logging
     private static final String CLS_NM = LdapDataProvider.class.getName();
-    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-
     private static final int MAX_DEPTH = 100;
     private static final LdapCounters COUNTERS = new LdapCounters();
-
     private static final PasswordPolicy PP_REQ_CTRL = new PasswordPolicyImpl();
     
-    public LdapDataProvider(){
-
-    }
-
     /**
      * Given a contextId and a fortress param name return the LDAP dn.
      *

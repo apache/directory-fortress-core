@@ -202,7 +202,6 @@ final class UserDAO extends LdapDataProvider
      */
     UserDAO()
     {
-        super();
         initAttrArrays();
 	}
 

@@ -143,10 +143,6 @@ final class PolicyDAO extends LdapDataProvider
             SchemaConstants.CN_AT
     };
 
-    PolicyDAO(){
-        super();
-    }
-
     /**
      * @param entity
      * @return

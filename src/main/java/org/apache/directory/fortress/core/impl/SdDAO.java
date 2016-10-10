@@ -137,10 +137,6 @@ final class SdDAO extends LdapDataProvider
             GlobalIds.FT_IID, SD_SET_NM, SchemaConstants.DESCRIPTION_AT, ROLES, SD_SET_CARDINALITY
     };
 
-    SdDAO() {
-        super();
-	}
-
     /**
      * @param entity
      * @return

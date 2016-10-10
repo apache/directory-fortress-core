@@ -74,16 +74,6 @@ final class SuffixDAO extends LdapDataProvider
             SchemaConstants.DC_OBJECT_OC, SchemaConstants.ORGANIZATION_OC
     };
 
-
-    /**
-     * Package private default constructor.
-     */
-    SuffixDAO()
-    {
-        super();
-    }
-
-
     /**
      * @param se
      * @throws org.apache.directory.fortress.core.CreateException

@@ -132,10 +132,6 @@ final class RoleDAO extends LdapDataProvider
             GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };
 
-    RoleDAO() {
-        super();
-	}
-    
     /**
      * @param entity
      * @return
