@@ -132,7 +132,7 @@ final class RoleDAO extends LdapDataProvider
             GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };
 
-    public RoleDAO() {
+    RoleDAO() {
         super();
 	}
     

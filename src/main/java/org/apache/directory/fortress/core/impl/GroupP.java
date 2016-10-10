@@ -48,7 +48,8 @@ final class GroupP
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private GroupDAO gDao;
 
-    public GroupP(){
+    GroupP()
+    {
     	gDao = new GroupDAO();
     }
     

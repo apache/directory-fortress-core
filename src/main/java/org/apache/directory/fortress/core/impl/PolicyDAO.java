@@ -143,7 +143,7 @@ final class PolicyDAO extends LdapDataProvider
             SchemaConstants.CN_AT
     };
 
-    public PolicyDAO(){
+    PolicyDAO(){
         super();
     }
 

@@ -124,7 +124,7 @@ final class OrgUnitDAO extends LdapDataProvider
             SchemaConstants.OU_AT
     };
 
-    public OrgUnitDAO(){
+    OrgUnitDAO(){
     	super();
     }
     

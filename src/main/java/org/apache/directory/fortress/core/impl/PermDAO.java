@@ -229,7 +229,7 @@ final class PermDAO extends LdapDataProvider
         GlobalIds.FT_PERMISSION_ATTRIBUTE_VALID_VALUES
     };
 
-    public PermDAO(){
+    PermDAO(){
         super();
     }
     
