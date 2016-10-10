@@ -742,7 +742,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(role);
-        request.setValue( String.valueOf( noInheritance ) );
+        request.setIsFlag( noInheritance );
         if (this.adminSess != null)
         {
             request.setSession(adminSess);
