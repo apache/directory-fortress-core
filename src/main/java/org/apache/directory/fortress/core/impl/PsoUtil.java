@@ -84,7 +84,7 @@ final class PsoUtil
         return sINSTANCE;
     }
     
-    public PsoUtil(){
+    private PsoUtil(){
         init();
     }
     

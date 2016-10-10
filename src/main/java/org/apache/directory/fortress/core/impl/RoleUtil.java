@@ -86,7 +86,7 @@ final class RoleUtil implements ParentUtil
         return sINSTANCE;
     }
     
-    RoleUtil(){
+    private RoleUtil(){
         init();
     }
     

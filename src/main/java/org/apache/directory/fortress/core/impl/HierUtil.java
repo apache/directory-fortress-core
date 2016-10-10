@@ -75,7 +75,7 @@ final class HierUtil
     /**
      * The 'Type' attribute corresponds to what type of hierarchy is being referred to.
      */
-    static enum Type
+    enum Type
     {
         ROLE,
         ARLE,

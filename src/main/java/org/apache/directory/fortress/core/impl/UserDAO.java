@@ -2318,7 +2318,7 @@ final class UserDAO extends LdapDataProvider
             for ( String raw : roles )
             {
                 UserAdminRole ure = new ObjectFactory().createUserAdminRole();
-                ure.load( raw, contextId, new RoleUtil() );
+                ure.load( raw, contextId, RoleUtil.getInstance() );
                 ure.setSequenceId( sequence++ );
                 ure.setUserId( userId );
                 uRoles.add( ure );
@@ -2367,12 +2367,12 @@ final class UserDAO extends LdapDataProvider
             	//if already found, add to user role
             	if(uRoles.containsKey(roleName)){
             		UserRole ure = uRoles.get(roleName);
-            		ure.load( raw, contextId, new RoleUtil() );
+            		ure.load( raw, contextId, RoleUtil.getInstance() );
             	}
             	//else create new
             	else{            	
 	                UserRole ure = new ObjectFactory().createUserRole();
-	                ure.load( raw, contextId, new RoleUtil() );
+	                ure.load( raw, contextId, RoleUtil.getInstance() );
 	                ure.setUserId( userId );
 	                ure.setSequenceId( sequence++ );
 	                uRoles.put(roleName, ure );
