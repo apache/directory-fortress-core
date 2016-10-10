@@ -38,7 +38,6 @@ import org.apache.directory.fortress.core.util.VUtil;
 public final class GroupMgrFactory
 {    
     private static final String CLS_NM = GroupMgrFactory.class.getName();
-    private static final String CREATE_INSTANCE_METHOD = CLS_NM + ".createInstance";
 
     /**
      * Prevent instantiation.
@@ -89,13 +88,6 @@ public final class GroupMgrFactory
         else
         {
             groupMgr = (GroupMgr) ClassUtil.createInstance( groupClassName );
-        }
-
-        if(groupMgr instanceof GroupMgrImpl){
-            Config cfg = Config.getInstance();
-            if(!cfg.isRemoteConfigLoaded()){
-                cfg.loadRemoteConfig();
-            }
         }
 
         groupMgr.setContextId(contextId);

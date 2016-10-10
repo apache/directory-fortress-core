@@ -71,13 +71,6 @@ public final class AccelMgrFactory
         {
             accelMgr = (AccelMgr) ClassUtil.createInstance(accelClassName);
         }
-        
-        if(accelMgr instanceof AccelMgrImpl){
-        	Config cfg = Config.getInstance();
-        	if(!cfg.isRemoteConfigLoaded()){
-        		cfg.loadRemoteConfig();
-        	}
-        }
 
         accelMgr.setContextId(contextId);
         return accelMgr;

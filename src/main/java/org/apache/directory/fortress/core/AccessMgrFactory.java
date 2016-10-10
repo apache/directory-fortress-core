@@ -81,13 +81,6 @@ public final class AccessMgrFactory
         {
             accessMgr = (AccessMgr) ClassUtil.createInstance(accessClassName);
         }
-        
-        if(accessMgr instanceof AccessMgrImpl){
-        	Config cfg = Config.getInstance();
-        	if(!cfg.isRemoteConfigLoaded()){
-        		cfg.loadRemoteConfig();
-        	}
-        }
 
         accessMgr.setContextId(contextId);
         return accessMgr;

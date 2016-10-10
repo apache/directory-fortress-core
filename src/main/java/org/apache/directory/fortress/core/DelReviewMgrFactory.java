@@ -81,13 +81,6 @@ public final class DelReviewMgrFactory
         {
             delReviewMgr = (DelReviewMgr) ClassUtil.createInstance(dReviewClassName);
         }
-        
-        if(delReviewMgr instanceof DelReviewMgrImpl){
-        	Config cfg = Config.getInstance();
-        	if(!cfg.isRemoteConfigLoaded()){
-        		cfg.loadRemoteConfig();
-        	}
-        }
 
         delReviewMgr.setContextId(contextId);
         return delReviewMgr;

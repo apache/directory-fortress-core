@@ -72,21 +72,6 @@ public final class Config
     private static final String EXT_SERVER_TYPE = "fortress.ldap.server.type";
 
     private boolean remoteConfigLoaded = false;
-    private boolean restEnabled;
-    private boolean auditDisabled;
-    private boolean openldap;
-    /**
-     * This constant is used during authentication to determine if runtime is security realm.  If IS_REALM == true,
-     * the authentication module will not throw SecurityException on password resets.  This is to enable the authentication
-     * event to succeed allowing the application to prompt user to change their password.
-     */
-    private boolean realm;
-    /**
-     * Fortress stores complex attribute types within a single attribute in ldap.  Usually a delimiter of '$' is used for string tokenization.
-     * format: {@code part1$part2$part3....}  Stored in fortress.properties as 'attr.delimiter=$'
-     */
-    private String delimiter;
-
     private static volatile Config sINSTANCE = null;
 
     public static Config getInstance()
@@ -98,10 +83,26 @@ public final class Config
                 if(sINSTANCE == null)
                 {
                     sINSTANCE = new Config();
+                    if( !sINSTANCE.isRemoteConfigLoaded() )
+                    {
+                        sINSTANCE.loadRemoteConfig();
+                    }
                 }
             }
         }
         return sINSTANCE;
+    }
+
+    /**
+     * Private constructor
+     *
+     */
+    private Config()
+    {
+        // Load from properties file:
+        loadLocalConfig();
+        // load the system property overrides:
+        getExternalConfig();
     }
 
     private void loadLocalConfig()
@@ -129,12 +130,7 @@ public final class Config
                 LOG.info( "static init: found user properties from: {} path: {}", USER_PROP_FILE, fUserUrl.getPath() );
                 config.load( fUserUrl );
             }
-
-            restEnabled = ( ( getProperty( GlobalIds.ENABLE_REST ) != null ) && ( getProperty( GlobalIds.ENABLE_REST ).equalsIgnoreCase( "true" ) ) );
-
-            // Check to see if any of the ldap connection parameters have been overridden:
-            getExternalConfig();
-        }
+       }
         catch ( org.apache.commons.configuration.ConfigurationException ex )
         {
             String error = "static init: Error loading from cfg file: [" + PROP_FILE
@@ -266,7 +262,7 @@ public final class Config
         }
     }
 
-    public void loadRemoteConfig()
+    private void loadRemoteConfig()
     {
         try
         {
@@ -291,7 +287,6 @@ public final class Config
                 LdapUtil.getInstance().setLdapfilterSizeFound(ldapfilterSizeFound);
                 LdapUtil.getInstance().setLdapMetaChars( loadLdapEscapeChars() );
                 LdapUtil.getInstance().setLdapReplVals( loadValidLdapVals() );
-
                 try
                 {
                     String lenProp = getProperty( GlobalIds.LDAP_FILTER_SIZE_PROP );
@@ -302,17 +297,9 @@ public final class Config
                 }
                 catch ( java.lang.NumberFormatException nfe )
                 {
-                    //ignore
+                    String error = "loadRemoteConfig caught NumberFormatException=" + nfe;
+                    LOG.warn( error );
                 }
-
-                auditDisabled = ( ( getProperty( GlobalIds.DISABLE_AUDIT ) != null ) && ( getProperty( GlobalIds.DISABLE_AUDIT ).equalsIgnoreCase( "true" ) ) );
-
-                realm = GlobalIds.REALM_TYPE.equalsIgnoreCase( getProperty( GlobalIds.AUTHENTICATION_TYPE ) );
-
-                openldap = ( ( getProperty( GlobalIds.SERVER_TYPE ) != null ) && ( getProperty( GlobalIds.SERVER_TYPE ).equalsIgnoreCase( "openldap" ) ) );
-
-                delimiter = getProperty( "attr.delimiter", "$" );
-
                 remoteConfigLoaded = true;
             }
             else
@@ -327,15 +314,6 @@ public final class Config
             LOG.error( error );
             throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_INITIALIZE_FAILED, error, se );
         }
-    }
-
-    /**
-     * Private constructor
-     *
-     */
-    private Config()
-    {
-        loadLocalConfig();
     }
 
     private char[] loadLdapEscapeChars()
@@ -620,27 +598,32 @@ public final class Config
         return props;
     }
 
-    public boolean isRemoteConfigLoaded() {
+    public boolean isRestEnabled()
+    {
+        return ( ( getProperty( GlobalIds.ENABLE_REST ) != null ) && ( getProperty( GlobalIds.ENABLE_REST ).equalsIgnoreCase( "true" ) ) );
+    }
+    /**
+     * Fortress stores complex attribute types within a single attribute in ldap.  Usually a delimiter of '$' is used for string tokenization.
+     * format: {@code part1$part2$part3....}  Stored in fortress.properties as 'attr.delimiter=$'
+     */
+    public String getDelimiter()
+    {
+        return getProperty( "attr.delimiter", "$" );
+    }
+    public boolean isAuditDisabled()
+    {
+        return ( ( getProperty( GlobalIds.DISABLE_AUDIT ) != null ) && ( getProperty( GlobalIds.DISABLE_AUDIT ).equalsIgnoreCase( "true" ) ) );
+    }
+    public boolean isOpenldap()
+    {
+        return ( ( getProperty( GlobalIds.SERVER_TYPE ) != null ) && ( getProperty( GlobalIds.SERVER_TYPE ).equalsIgnoreCase( "openldap" ) ) );
+    }
+    public boolean isRealm()
+    {
+        return GlobalIds.REALM_TYPE.equalsIgnoreCase( getProperty( GlobalIds.AUTHENTICATION_TYPE ) );
+    }
+    private boolean isRemoteConfigLoaded()
+    {
         return remoteConfigLoaded;
-    }
-
-    public boolean isRestEnabled() {
-        return restEnabled;
-    }
-
-    public boolean isAuditDisabled() {
-        return auditDisabled;
-    }
-
-    public boolean isOpenldap() {
-        return openldap;
-    }
-
-    public boolean isRealm() {
-        return realm;
-    }
-
-    public String getDelimiter() {
-        return delimiter;
     }
 }
