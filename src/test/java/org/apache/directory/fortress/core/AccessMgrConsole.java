@@ -19,7 +19,6 @@
  */
 package org.apache.directory.fortress.core;
 
-import org.apache.directory.fortress.core.impl.OrgUnitP;
 import org.apache.directory.fortress.core.impl.TestUtils;
 import org.apache.directory.fortress.core.model.*;
 

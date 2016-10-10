@@ -53,7 +53,7 @@ import org.apache.directory.fortress.core.util.VUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public final class SdP
+final class SdP
 {
     /**
      * Get the DAO created:

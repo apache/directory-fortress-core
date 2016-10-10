@@ -58,7 +58,7 @@ import org.slf4j.LoggerFactory;
 
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public final class OrgUnitP
+final class OrgUnitP
 {
     // init the logger:
     private static final String CLS_NM = OrgUnitP.class.getName();

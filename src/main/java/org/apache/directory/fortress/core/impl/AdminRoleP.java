@@ -56,7 +56,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public final class AdminRoleP
+final class AdminRoleP
 {
     private static final String CLS_NM = AdminRoleP.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
