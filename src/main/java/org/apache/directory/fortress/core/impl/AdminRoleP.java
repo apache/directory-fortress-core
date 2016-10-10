@@ -60,19 +60,9 @@ public final class AdminRoleP
 {
     private static final String CLS_NM = AdminRoleP.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private AdminRoleDAO rDao;
-    private OrgUnitP op;
+    private AdminRoleDAO rDao = new AdminRoleDAO();
+    private OrgUnitP op = new OrgUnitP();
     private static final ConstraintValidator constraintValidator = VUtil.getConstraintValidator();
-
-    /**
-     * Package private constructor.
-     */
-    AdminRoleP()
-    {
-        rDao = new AdminRoleDAO();
-        op = new OrgUnitP();
-    }
-
 
     /**
      * Return a fully populated Admin Role entity for a given Admin Role name.  If matching record not found a

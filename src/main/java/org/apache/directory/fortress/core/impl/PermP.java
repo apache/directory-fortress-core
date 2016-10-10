@@ -65,18 +65,8 @@ final class PermP
     /**
      * Description of the Field
      */
-    private PermDAO pDao;
-    private OrgUnitP orgUnitP;
-
-
-    /**
-     * Package private constructor
-     */
-    PermP()
-    {
-        pDao = new PermDAO();
-        orgUnitP = new OrgUnitP();
-    }
+    private PermDAO pDao = new PermDAO();
+    private OrgUnitP orgUnitP = new OrgUnitP();
 
 
     /**

@@ -50,16 +50,7 @@ import org.apache.directory.fortress.core.model.UserAudit;
  */
 public final class AuditP
 {
-    private AuditDAO aDao;
-
-
-    /**
-     * Package private constructor
-     */
-    AuditP()
-    {
-        aDao = new AuditDAO();
-    }
+    private AuditDAO aDao = new AuditDAO();
 
 
     /**

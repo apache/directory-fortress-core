@@ -58,16 +58,7 @@ public final class SdP
     /**
      * Get the DAO created:
      */
-    private SdDAO sdDao;
-
-
-    /**
-     * Package private constructor.
-     */
-    SdP()
-    {
-    	sdDao = new SdDAO();
-    }
+    private SdDAO sdDao = new SdDAO();
 
 
     /**

@@ -46,13 +46,8 @@ final class GroupP
 {
     private static final String CLS_NM = GroupP.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private GroupDAO gDao;
+    private GroupDAO gDao = new GroupDAO();
 
-    GroupP()
-    {
-    	gDao = new GroupDAO();
-    }
-    
     /**
      * Add a group node to the Directory Information Tree (DIT).
      *

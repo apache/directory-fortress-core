@@ -71,22 +71,10 @@ final class UserP
 {
     private static final String CLS_NM = UserP.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private UserDAO uDao;
-    private PolicyP policyP;
-    private AdminRoleP admRoleP;
-    private OrgUnitP orgUnitP;
-
-    /**
-     * Package private constructor.
-     */
-    UserP()
-    {
-    	uDao = new UserDAO();
-        policyP = new PolicyP();
-        admRoleP = new AdminRoleP();
-        orgUnitP = new OrgUnitP();
-    }
-
+    private UserDAO uDao = new UserDAO();
+    private PolicyP policyP = new PolicyP();
+    private AdminRoleP admRoleP = new AdminRoleP();
+    private OrgUnitP orgUnitP = new OrgUnitP();
 
     /**
      * Takes a User entity that contains full or partial userId OR a full internal userId for search.

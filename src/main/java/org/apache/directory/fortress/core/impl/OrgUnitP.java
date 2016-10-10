@@ -70,15 +70,13 @@ public final class OrgUnitP
     private static Cache ouCache;
 
     // DAO class for OU data sets must be initializer before the other statics:
-    private OrgUnitDAO oDao;
+    private OrgUnitDAO oDao = new OrgUnitDAO();
     private static final String USER_OUS = "user.ous";
     private static final String PERM_OUS = "perm.ous";
     private static final String FORTRESS_OUS = "fortress.ous";
 
     private void init()
     {
-        oDao = new OrgUnitDAO();
-    	
         CacheMgr cacheMgr = CacheMgr.getInstance();
         OrgUnitP.ouCache = cacheMgr.getCache( FORTRESS_OUS );
     }

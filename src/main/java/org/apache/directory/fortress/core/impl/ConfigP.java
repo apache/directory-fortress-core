@@ -62,14 +62,6 @@ final class ConfigP
 
 
     /**
-     * Package private constructor
-     */
-    ConfigP()
-    {
-    }
-
-
-    /**
      * Create a new cfg node with given name and properties.  The name is required.  If node already exists,
      * a {@link org.apache.directory.fortress.core.SecurityException} with error {@link GlobalErrIds#FT_CONFIG_ALREADY_EXISTS} will be thrown.
      *
