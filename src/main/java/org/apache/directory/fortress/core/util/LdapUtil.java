@@ -115,7 +115,7 @@ public class LdapUtil
      */
     public void setLdapMetaChars(char[] ldapMetaChars)
     {
-        this.ldapMetaChars = ldapMetaChars;
+        this.ldapMetaChars = ldapMetaChars.clone();
     }
 
     /**
@@ -135,6 +135,6 @@ public class LdapUtil
      */
     public void setLdapReplVals(String[] ldapReplVals)
     {
-        this.ldapReplVals = ldapReplVals;
+        this.ldapReplVals = ldapReplVals.clone();
     }
 }
