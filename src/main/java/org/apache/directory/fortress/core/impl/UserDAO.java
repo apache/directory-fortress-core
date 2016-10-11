@@ -1472,7 +1472,7 @@ final class UserDAO extends LdapDataProvider
      * @throws SecurityException
      * @throws PasswordException
      */
-    boolean changePassword( User entity, char[] newPassword ) throws SecurityException
+    boolean changePassword( User entity, String newPassword ) throws SecurityException
     {
         boolean rc = true;
         LdapConnection ld = null;
@@ -1487,7 +1487,7 @@ final class UserDAO extends LdapDataProvider
             mods = new ArrayList<Modification>();
 
             mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants
-                .USER_PASSWORD_AT, new String( newPassword ) ) );
+                .USER_PASSWORD_AT, newPassword ) );
 
             // This modify changes the password and checks password policies (if enabled)
             modify( ld, userDn, mods );

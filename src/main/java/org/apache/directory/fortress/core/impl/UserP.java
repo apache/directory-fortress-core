@@ -561,7 +561,7 @@ final class UserP
      * @param newPassword contains the new password which must pass the password policy constraints.
      * @throws SecurityException in the event of data validation failure, password policy violation or DAO error.
      */
-    void changePassword( User entity, char[] newPassword ) throws SecurityException
+    void changePassword( User entity, String newPassword ) throws SecurityException
     {
         String userId = entity.getUserId();
         boolean result = uDao.changePassword( entity, newPassword );

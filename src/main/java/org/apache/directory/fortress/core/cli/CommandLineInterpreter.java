@@ -652,7 +652,7 @@ public class CommandLineInterpreter
                 LOG.info( command );
                 User user = options.getUser();
                 String newPassword = options.getNewPassword();
-                adminMgr.changePassword( user, newPassword.toCharArray() );
+                adminMgr.changePassword( user, newPassword );
             }
             else if ( commands.contains( RESET_PASSWORD ) )
             {
@@ -660,7 +660,7 @@ public class CommandLineInterpreter
                 LOG.info( command );
                 User user = options.getUser();
                 String newPassword = options.getNewPassword();
-                adminMgr.resetPassword( user, newPassword.toCharArray() );
+                adminMgr.resetPassword( user, newPassword );
             }
             else if ( commands.contains( LOCK_USER_ACCOUNT ) )
             {
@@ -865,7 +865,7 @@ public class CommandLineInterpreter
                 command = AUTHENTICATE;
                 LOG.info( command );
                 User inUser = options.getUser();
-                Session session = accessMgr.authenticate( inUser.getUserId(), inUser.getPassword().toCharArray() );
+                Session session = accessMgr.authenticate( inUser.getUserId(), inUser.getPassword() );
                 printSession( session );
             }
             else if ( commands.contains( ASSIGNED_ROLES ) )

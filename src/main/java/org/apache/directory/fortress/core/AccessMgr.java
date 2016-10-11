@@ -78,7 +78,7 @@ public interface AccessMgr extends Manageable
      * @throws SecurityException
      *          in the event of data validation failure, security policy violation or DAO error.
      */
-    Session authenticate( String userId, char[] password )
+    Session authenticate( String userId, String password )
         throws SecurityException;
 
 
@@ -160,7 +160,7 @@ public interface AccessMgr extends Manageable
      * </h4>
      * <ul>
      * <li> roles that violate Dynamic Separation of Duty Relationships will not be activated into session.
-     * <li> role activations will proceed in same order as supplied to User entity setter, see {@link User#setRole(String)}.
+     * <li> role activations will proceed in same order as supplied to User entity setter, see {@link User#setRoleName(String)}.
      * </ul>
      *
      * @param user      Contains {@link User#userId}, {@link org.apache.directory.fortress.core.model.User#password} 

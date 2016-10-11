@@ -78,7 +78,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
      * {@inheritDoc}
      */
     @Override
-    public Session authenticate(String userId, char[] password)
+    public Session authenticate(String userId, String password)
         throws SecurityException
     {
         VUtil.assertNotNullOrEmpty(userId, GlobalErrIds.USER_ID_NULL, CLS_NM + ".authenticate");
@@ -86,7 +86,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
         Session retSession;
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
-        request.setEntity( new User( userId, new String ( password ) ) );
+        request.setEntity( new User( userId, password ) );
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.RBAC_AUTHN);
         FortResponse response = RestUtils.unmarshall(szResponse);

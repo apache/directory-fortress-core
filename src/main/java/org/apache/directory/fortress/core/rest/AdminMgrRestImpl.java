@@ -197,14 +197,14 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * {@inheritDoc}
      */
     @Override
-    public void changePassword( User user, char[] newPassword )
+    public void changePassword( User user, String newPassword )
         throws SecurityException
     {
         VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".changePassword" );
         VUtil.assertNotNullOrEmpty( newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + ".changePassword" );
         FortRequest request = new FortRequest();
         request.setContextId( this.contextId );
-        user.setNewPassword( new String( newPassword ) );
+        user.setNewPassword( newPassword );
         request.setEntity( user );
         if ( this.adminSess != null )
         {
@@ -274,14 +274,14 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
      * {@inheritDoc}
      */
     @Override
-    public void resetPassword( User user, char[] newPassword )
+    public void resetPassword( User user, String newPassword )
         throws SecurityException
     {
         VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".resetPassword" );
         VUtil.assertNotNullOrEmpty( newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + ".resetPassword" );
         FortRequest request = new FortRequest();
         request.setContextId( this.contextId );
-        user.setNewPassword( new String( newPassword )  );
+        user.setNewPassword( newPassword );
         request.setEntity( user );
         if ( this.adminSess != null )
         {

@@ -224,7 +224,7 @@ public class AccessMgrSample extends TestCase
             // Instantiate the AccessMgr implementation.
             AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
             // authenticate will check the password but will not activated any roles into Session.
-            Session session = authenticate( CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD.toCharArray(),
+            Session session = authenticate( CreateUserSample.TEST_USERID, CreateUserSample.TEST_PASSWORD,
                 accessMgr );
             assertNotNull( session );
             // now, activate roles into User's Session one at a time:
@@ -472,7 +472,7 @@ public class AccessMgrSample extends TestCase
      * @param password String contains case sensitive, clear text password field.
      * @return User Session that has no Roles activated thus will fail checkAccess and sessionPermission calls.
      */
-    private static Session authenticate( String userId, char[] password, AccessMgr accessMgr )
+    private static Session authenticate( String userId, String password, AccessMgr accessMgr )
     {
         String szLocation = ".authenticate";
         Session session = null;

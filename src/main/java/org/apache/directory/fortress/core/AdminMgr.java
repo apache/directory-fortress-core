@@ -242,7 +242,7 @@ public interface AdminMgr extends Manageable
      * @param newPassword contains new user password.
      * @throws SecurityException will be thrown in the event of password policy violation or system error.
      */
-    void changePassword( User user, char[] newPassword )
+    void changePassword( User user, String newPassword )
         throws SecurityException;
 
 
@@ -291,7 +291,7 @@ public interface AdminMgr extends Manageable
      * @param newPassword The new password to set
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
-    void resetPassword( User user, char[] newPassword )
+    void resetPassword( User user, String newPassword )
         throws SecurityException;
 
 

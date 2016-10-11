@@ -775,7 +775,7 @@ class AdminMgrConsole
             user.setPassword(oldPw);
             System.out.println("Enter new password");
             String newPw = ReaderUtil.readLn();
-            am.changePassword(user, newPw.toCharArray());
+            am.changePassword(user, newPw);
             System.out.println("userId [" + userId + "]");
             System.out.println("password has been changed");
             System.out.println("ENTER to continue");
@@ -799,7 +799,7 @@ class AdminMgrConsole
             user.setUserId(userId);
             System.out.println("Enter new password");
             String newPw = ReaderUtil.readLn();
-            am.resetPassword(user, newPw.toCharArray());
+            am.resetPassword(user, newPw);
             System.out.println("userId [" + userId + "]");
             System.out.println("password has been reset");
             System.out.println("ENTER to continue");

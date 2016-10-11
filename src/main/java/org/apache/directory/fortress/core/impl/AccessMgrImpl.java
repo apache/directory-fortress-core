@@ -84,7 +84,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
      * {@inheritDoc}
      */
     @Override
-    public Session authenticate( String userId, char[] password )
+    public Session authenticate( String userId, String password )
         throws SecurityException
     {
         String methodName = "authenticate";
@@ -95,7 +95,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
 
         // Determine if user valid.
         User user = userP.read( inUser, false );
-        user.setPassword( new String( password ) );
+        user.setPassword( password );
         user.setContextId( contextId );
         Session ftSess = userP.authenticate( user );
         ftSess.setUser( user );

@@ -141,7 +141,7 @@ class AccessMgrConsole
             String userId = ReaderUtil.readLn();
             System.out.println("Enter password:");
             String password = ReaderUtil.readLn();
-            session = am.authenticate(userId, password.toCharArray());
+            session = am.authenticate(userId, password);
             System.out.println("Authentication successful for userId [" + userId + "]");
             System.out.println("session [" + session + "]");
             System.out.println("ENTER to continue");
