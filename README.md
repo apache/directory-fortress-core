@@ -19,7 +19,7 @@
 -------------------------------------------------------------------------------
 # README for Apache Fortress Core
 
- * Version 1.0.2-SNAPSHOT
+ * Version 2.0.0-RC1-SNAPSHOT
  * Apache Fortress Core System Architecture Diagram
  ![Apache Fortress Core System Architecture](images/fortress-core-system-arch.png "Apache Fortress Core System Architecture")
 
