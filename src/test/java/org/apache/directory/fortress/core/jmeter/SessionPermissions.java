@@ -161,7 +161,7 @@ public class SessionPermissions extends AbstractJavaSamplerClient
                 String message;
                 User user = new User(userId);
                 // positive test case:
-                user.setPassword( "secret".toCharArray() );
+                user.setPassword( "secret" );
                 if( StringUtils.isNotEmpty( val ) && val.equals( "1" ))
                 {
                     message = "AC SETUP CreateSession, User: " + user.getUserId() + ", key: " + key + ", TID: " + getThreadId();

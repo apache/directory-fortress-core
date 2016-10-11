@@ -204,7 +204,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNullOrEmpty( newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + ".changePassword" );
         FortRequest request = new FortRequest();
         request.setContextId( this.contextId );
-        user.setNewPassword( newPassword );
+        user.setNewPassword( new String( newPassword ) );
         request.setEntity( user );
         if ( this.adminSess != null )
         {
@@ -281,7 +281,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNullOrEmpty( newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + ".resetPassword" );
         FortRequest request = new FortRequest();
         request.setContextId( this.contextId );
-        user.setNewPassword( newPassword );
+        user.setNewPassword( new String( newPassword )  );
         request.setEntity( user );
         if ( this.adminSess != null )
         {

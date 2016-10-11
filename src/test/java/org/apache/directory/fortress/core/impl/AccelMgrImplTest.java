@@ -120,7 +120,7 @@ public class AccelMgrImplTest extends TestCase
                 // now try negative test case:
                 try
                 {
-                    User userBad = new User( user.getUserId(), "badpw".toCharArray() );
+                    User userBad = new User( user.getUserId(), "badpw" );
                     accelMgr.createSession( userBad, false );
                     fail( CLS_NM + ".createSessions failed negative test" );
                 }

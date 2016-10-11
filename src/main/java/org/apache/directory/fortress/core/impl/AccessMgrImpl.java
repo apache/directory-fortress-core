@@ -95,7 +95,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
 
         // Determine if user valid.
         User user = userP.read( inUser, false );
-        user.setPassword( password );
+        user.setPassword( new String( password ) );
         user.setContextId( contextId );
         Session ftSess = userP.authenticate( user );
         ftSess.setUser( user );

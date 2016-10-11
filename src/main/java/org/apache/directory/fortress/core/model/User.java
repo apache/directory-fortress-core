@@ -67,7 +67,7 @@ import javax.xml.bind.annotation.XmlType;
  * <h4>User entity attribute usages include</h4>
  * <ul>
  *   <li>
- *     {@link #setPassword(char[])} must be set before calling 
+ *     {@link #setPassword(String)} must be set before calling
  *     {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#authenticate} and 
  *     {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#createSession(User, boolean)} (unless trusted).
  *   </li>
@@ -272,8 +272,8 @@ public class User extends FortEntity implements Constraint, Serializable
     private static final long serialVersionUID = 1L;
 
     private String userId;
-    private char[] password;
-    private char[] newPassword;
+    private String password;
+    private String newPassword;
     private String internalId;
     private List<UserRole> roles;
     private List<UserAdminRole> adminRoles;
@@ -404,14 +404,10 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param userId   String validated using simple length test and optional regular expression, i.e. safe text.
      * @param password validated using simple length test and OpenLDAP password policies.
      */
-    public User( String userId, char[] password )
+    public User( String userId, String  password )
     {
         this.userId = userId;
-
-        if ( password != null )
-        {
-            this.password = password.clone();
-        }
+        this.password = password;
     }
 
 
@@ -422,15 +418,10 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param password validated using simple length test and OpenLDAP password policies.
      * @param roleName contains role that caller is requesting activation.
      */
-    public User( String userId, char[] password, String roleName )
+    public User( String userId, String password, String roleName )
     {
         this.userId = userId;
-
-        if ( password != null )
-        {
-            this.password = password.clone();
-        }
-
+        this.password = password;
         setRole( new UserRole( roleName ) );
     }
 
@@ -442,14 +433,10 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param password validated using simple length test and OpenLDAP password policies.
      * @param roleNames contains array of roleNames that caller is requesting activation.
      */
-    public User( String userId, char[] password, String[] roleNames )
+    public User( String userId, String password, String[] roleNames )
     {
         this.userId = userId;
-
-        if ( password != null )
-        {
-            this.password = password.clone();
-        }
+        this.password = password;
 
         if ( roleNames != null )
         {
@@ -469,15 +456,10 @@ public class User extends FortEntity implements Constraint, Serializable
      * @param roleName contains role that caller is requesting activation (see {@link org.apache.directory.fortress.core.AccessMgr#createSession(User, boolean)}) or assignment (see {@link org.apache.directory.fortress.core.AdminMgr#addUser(User)}).
      * @param ou org unit name that caller is requesting assigned to newly created User (see {@link org.apache.directory.fortress.core.AdminMgr#addUser(User)}).
      */
-    public User( String userId, char[] password, String roleName, String ou )
+    public User( String userId, String password, String roleName, String ou )
     {
         this.userId = userId;
-
-        if ( password != null )
-        {
-            this.password = password.clone();
-        }
-
+        this.password = password;
         setRole( new UserRole( roleName ) );
         this.ou = ou;
     }
@@ -860,24 +842,15 @@ public class User extends FortEntity implements Constraint, Serializable
 
 
     /**
-     * Return the optional password attribute for User.  Note this will only return values that were set by client
-     * as the Fortress User DAO class does not return the value of stored password to caller.
+     * Get the optional password attribute associated for a User.  Note, this value is required before User will pass Fortress
+     * authentication in {@link org.apache.directory.fortress.core.impl.AccessMgrImpl#createSession(User, boolean)}.
+     * Even though password is char[] format here it will be stored on the ldap server (using server-side controls) in configurable and standard hashed formats.
      *
-     * @return attribute containing User password.
+     * @return value maps to 'userPassword' attribute in 'inetOrgPerson' object class.
      */
-    public char[] getPassword()
+    public String getPassword()
     {
-        if ( password != null )
-        {
-            char[] copy = new char[password.length];
-            System.arraycopy( password, 0, copy, 0, password.length );
-
-            return copy;
-        }
-        else
-        {
-            return null;
-        }
+        return password;
     }
 
 
@@ -888,49 +861,31 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param password maps to 'userPassword' attribute in 'inetOrgPerson' object class.
      */
-    public void setPassword( char[] password )
+    public void setPassword(String password)
     {
-        if ( password != null )
-        {
-            // Copy the password
-            this.password = new char[password.length];
-            System.arraycopy( password, 0, this.password, 0, password.length );
-        }
-        else
-        {
-            this.password = null;
-        }
+        this.password = password;
     }
 
 
-    public char[] getNewPassword()
+    /**
+     * Get the new password which will be used in a password change.
+     *
+     * @return value maps to a new 'userPassword' attribute in 'inetOrgPerson' object class.
+     */
+    public String getNewPassword()
     {
-        if ( newPassword != null )
-        {
-            char[] copy = new char[newPassword.length];
-            System.arraycopy( newPassword, 0, copy, 0, newPassword.length );
-
-            return copy;
-        }
-        else
-        {
-            return null;
-        }
+        return newPassword;
     }
 
 
-    public void setNewPassword( char[] newPassword )
+    /**
+     * Set the new password which will be used in a password change.
+     *
+     * @param newPassword maps to a new 'userPassword' attribute in 'inetOrgPerson' object class.
+     */
+    public void setNewPassword(String newPassword)
     {
-        if ( newPassword != null )
-        {
-            // Copy the newPassword
-            this.newPassword = new char[newPassword.length];
-            System.arraycopy( newPassword, 0, this.newPassword, 0, newPassword.length );
-        }
-        else
-        {
-            this.newPassword = null;
-        }
+        this.newPassword = newPassword;
     }
 
 

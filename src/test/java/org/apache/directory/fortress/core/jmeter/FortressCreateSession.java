@@ -67,7 +67,7 @@ public class FortressCreateSession extends AbstractJavaSamplerClient
             User user = new User();
             // positive test case:
             user.setUserId( userId );
-            user.setPassword( "secret".toCharArray() );
+            user.setPassword( "secret" );
             session = accessMgr.createSession( user, false );
             assertNotNull( session );
             assertTrue( session.isAuthenticated() );

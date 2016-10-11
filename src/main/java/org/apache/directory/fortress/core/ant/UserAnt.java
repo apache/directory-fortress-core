@@ -295,18 +295,6 @@ public class UserAnt extends User
     private String country;
 
     /**
-     * Generally not good practice to handle passwords as Strings in Java but this method allows Ant's digester to consume field in String format from the xml input file.
-     * It subsequently converts to char[] as needed by the parent entity - {@link User}.
-     *
-     * @param password String format will be converted to char[].
-     */
-    public void setPassword( String password )
-    {
-        super.setPassword( password.toCharArray() );
-    }
-
-
-    /**
      * Return phone for a user.
      *
      * @return String containing phone number.

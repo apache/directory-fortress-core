@@ -86,7 +86,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
         Session retSession;
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
-        request.setEntity(new User(userId, password));
+        request.setEntity( new User( userId, new String ( password ) ) );
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.RBAC_AUTHN);
         FortResponse response = RestUtils.unmarshall(szResponse);

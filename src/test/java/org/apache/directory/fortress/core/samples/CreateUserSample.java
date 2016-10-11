@@ -86,7 +86,7 @@ public class CreateUserSample extends TestCase
          try
         {
             ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(TestUtils.getContext());
-            User inUser = new User(TEST_USERID, TEST_PASSWORD.toCharArray());
+            User inUser = new User(TEST_USERID, TEST_PASSWORD);
             reviewMgr.readUser(inUser);
             // If we get here, the sample data needs to be removed:
         }
@@ -173,7 +173,7 @@ public class CreateUserSample extends TestCase
              */
             //User inUser = new User(TEST_USERID, TEST_PASSWORD, CreateRoleSample.TEST_SIMPLE_ROLE, CreateUserOrgSample.TEST_USER_OU_NM);
             //User inUser = new User(TEST_USERID, TEST_PASSWORD, CreateRoleSample.TEST_SIMPLE_ROLE, CreateUserOrgSample.TEST_USER_OU_NM);
-            User inUser = new User(TEST_USERID, TEST_PASSWORD.toCharArray());
+            User inUser = new User(TEST_USERID, TEST_PASSWORD);
             inUser.setOu(CreateUserOrgSample.TEST_USER_OU_NM);
             // Now call the add API.  The API will return User entity with associated LDAP dn if creation was successful.
 

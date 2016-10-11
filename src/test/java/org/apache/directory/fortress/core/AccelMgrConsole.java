@@ -69,7 +69,7 @@ class AccelMgrConsole
             String userId = ReaderUtil.readLn();
             System.out.println("Enter password:");
             String password = ReaderUtil.readLn();
-            session = am.createSession(new User(userId, password.toCharArray()), false);
+            session = am.createSession(new User(userId, password), false);
             System.out.println("Session created successfully for userId [" + userId + "]");
             System.out.println("session [" + session + "]");
             System.out.println("ENTER to continue");

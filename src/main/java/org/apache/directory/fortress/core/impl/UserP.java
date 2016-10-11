@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
@@ -800,9 +799,9 @@ final class UserP
                 VUtil.safeText( entity.getSn(), GlobalIds.SN_LEN );
             }
             // password is not required on user object but user cannot execute AccessMgr or DelAccessMgr methods w/out pw.
-            if ( ArrayUtils.isNotEmpty( entity.getPassword() ) )
+            if ( StringUtils.isNotEmpty( entity.getPassword() ) )
             {
-                VUtil.password( entity.getPassword() );
+                VUtil.safeText( entity.getPassword(), GlobalIds.PASSWORD_LEN );
             }
             // the OU attribute is required:
             if ( StringUtils.isEmpty( entity.getOu() ) )
@@ -837,9 +836,9 @@ final class UserP
             {
                 VUtil.safeText( entity.getSn(), GlobalIds.SN_LEN );
             }
-            if ( ArrayUtils.isNotEmpty( entity.getPassword() ) )
+            if ( StringUtils.isNotEmpty( entity.getPassword() ) )
             {
-                VUtil.password( entity.getPassword() );
+                VUtil.safeText( entity.getPassword(), GlobalIds.PASSWORD_LEN );
             }
             if ( StringUtils.isNotEmpty( entity.getOu() ) )
             {

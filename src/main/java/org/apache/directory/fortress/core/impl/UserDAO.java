@@ -245,9 +245,9 @@ final class UserDAO extends LdapDataProvider
 
             myEntry.add( SchemaConstants.SN_AT, entity.getSn() );
 
-            if( ArrayUtils.isNotEmpty( entity.getPassword() ))
+            if( StringUtils.isNotEmpty( entity.getPassword() ))
             {
-                myEntry.add( SchemaConstants.USER_PASSWORD_AT, new String( entity.getPassword() ) );
+                myEntry.add( SchemaConstants.USER_PASSWORD_AT, entity.getPassword() );
             }
             else if( !Config.getInstance().getBoolean( GlobalIds.USER_CREATION_PASSWORD_FIELD, false ) )
             {
@@ -359,10 +359,10 @@ final class UserDAO extends LdapDataProvider
                     entity.getOu() ) );
             }
 
-            if ( ArrayUtils.isNotEmpty( entity.getPassword() ) )
+            if ( StringUtils.isNotEmpty( entity.getPassword() ) )
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants
-                    .USER_PASSWORD_AT, new String( entity.getPassword() ) ) );
+                    .USER_PASSWORD_AT, entity.getPassword() ) );
             }
 
             if ( StringUtils.isNotEmpty( entity.getDescription() ) )

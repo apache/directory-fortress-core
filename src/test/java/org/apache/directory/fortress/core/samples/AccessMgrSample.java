@@ -98,7 +98,7 @@ public class AccessMgrSample extends TestCase
             // utility function will create an Fortress Session.  The Session contains the user's activated
             // roles along with other related attributes and status information (i.e. password status)
             Session session = createSession( CreateUserSample.TEST_USERID,
-                CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr );
+                CreateUserSample.TEST_PASSWORD, accessMgr );
             assertNotNull( session );
 
             for ( int i = 1; i < 6; i++ )
@@ -139,7 +139,7 @@ public class AccessMgrSample extends TestCase
             // utility function will create an Fortress Session.  The Session contains the user's activated
             // roles along with other related attributes and status information (i.e. password status)
             Session session = createSession( CreateUserSample.TEST_USERID,
-                CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr );
+                CreateUserSample.TEST_PASSWORD, accessMgr );
             assertNotNull( session );
             List<Permission> perms = accessMgr.sessionPermissions( session );
             assertNotNull( perms );
@@ -181,7 +181,7 @@ public class AccessMgrSample extends TestCase
             // utility function will create an Fortress Session.  The Session contains the user's activated
             // roles along with other related attributes and status information (i.e. password status)
             Session session = createSession( CreateUserSample.TEST_USERID,
-                CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr );
+                CreateUserSample.TEST_PASSWORD, accessMgr );
             // A null Session would be a bug and should never happen.  Fortress will throw a SecurityException if it cannot create.
             assertNotNull( session );
             // Get the activated Roles from the Session.
@@ -261,7 +261,7 @@ public class AccessMgrSample extends TestCase
             AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
             // Calling createSession and not setting any roles on User beforehand will attempt to activate all assigned Roles:
             Session session = createSession( CreateUserSample.TEST_USERID,
-                CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr );
+                CreateUserSample.TEST_PASSWORD, accessMgr );
             assertNotNull( session );
             // now, drop roles from User's Session one at a time:
             for ( int i = 1; i < 11; i++ )
@@ -294,7 +294,7 @@ public class AccessMgrSample extends TestCase
             // utility function will create an Fortress Session.  The Session contains the user's activated
             // roles along with other related attributes and status information (i.e. password status)
             Session session = createSession( CreateUserSample.TEST_USERID,
-                CreateUserSample.TEST_PASSWORD.toCharArray(), accessMgr );
+                CreateUserSample.TEST_PASSWORD, accessMgr );
             assertNotNull( session );
             User user = accessMgr.getUser( session );
             assertNotNull( user );
@@ -401,7 +401,7 @@ public class AccessMgrSample extends TestCase
      * @param password String contains case sensitive, clear text password field.
      * @return User RBAC Session that is used for subsequent AccessMgr API calls.
      */
-    private static Session createSession( String userId, char[] password, AccessMgr accessMgr )
+    private static Session createSession( String userId, String password, AccessMgr accessMgr )
     {
         String szLocation = ".createSession";
         Session session = null;
@@ -437,7 +437,7 @@ public class AccessMgrSample extends TestCase
      * @param activationRoles array of Role names targeted for activation into User's RBAC Session.
      * @return User RBAC Session that is used for subsequent AccessMgr API calls.
      */
-    private static Session createSession( String userId, char[] password, String[] activationRoles, AccessMgr accessMgr )
+    private static Session createSession( String userId, String password, String[] activationRoles, AccessMgr accessMgr )
     {
         String szLocation = ".createSession";
         Session session = null;

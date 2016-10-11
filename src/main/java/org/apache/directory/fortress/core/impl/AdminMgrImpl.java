@@ -221,7 +221,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
         VUtil.assertNotNullOrEmpty( newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + "." + methodName );
         setEntitySession( CLS_NM, methodName, user );
-        user.setPassword( newPassword );
+        user.setPassword( new String( newPassword ) );
         userP.resetPassword( user );
     }
 

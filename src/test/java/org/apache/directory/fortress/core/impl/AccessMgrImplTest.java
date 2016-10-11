@@ -127,7 +127,7 @@ public class AccessMgrImplTest extends TestCase
             for ( String[] usr : uArray )
             {
                 User user = UserTestData.getUser( usr );
-                Session session = accessMgr.authenticate( user.getUserId(), user.getPassword() );
+                Session session = accessMgr.authenticate( user.getUserId(), user.getPassword().toCharArray() );
                 assertNotNull( session );
                 String userId = accessMgr.getUserId( session );
                 assertTrue( "getUserIds failed compare found userId [" + userId + "] valid userId ["
@@ -208,7 +208,7 @@ public class AccessMgrImplTest extends TestCase
             for ( String[] usr : uArray )
             {
                 User user = UserTestData.getUser( usr );
-                Session session = accessMgr.authenticate( user.getUserId(), user.getPassword() );
+                Session session = accessMgr.authenticate( user.getUserId(), user.getPassword().toCharArray() );
                 assertNotNull( session );
                 // todo: need to test to ensure roles are not added to session.
                 // now try negative test case:
@@ -263,7 +263,7 @@ public class AccessMgrImplTest extends TestCase
                 // now try negative test case:
                 try
                 {
-                    accessMgr.authenticate( user.getUserId(), user.getPassword() );
+                    accessMgr.authenticate( user.getUserId(), user.getPassword().toCharArray() );
                     fail( CLS_NM + ".authenticateLockedUsers failed test" );
                 }
                 catch ( SecurityException se )
@@ -314,7 +314,7 @@ public class AccessMgrImplTest extends TestCase
                 // now try negative test case:
                 try
                 {
-                    accessMgr.authenticate( user.getUserId(), user.getPassword() );
+                    accessMgr.authenticate( user.getUserId(), user.getPassword().toCharArray() );
                     //accessMgr.authenticate( user.getUserId(), user.getPassword() );
                     fail( CLS_NM + ".authenticateResetUsers failed test" );
                 }
@@ -382,7 +382,7 @@ public class AccessMgrImplTest extends TestCase
                 // now try negative test case:
                 try
                 {
-                    User userBad = new User( user.getUserId(), "badpw".toCharArray() );
+                    User userBad = new User( user.getUserId(), "badpw" );
                     accessMgr.createSession( userBad, false );
                     fail( CLS_NM + ".createSessions failed negative test" );
                 }
@@ -1242,7 +1242,7 @@ public class AccessMgrImplTest extends TestCase
                 //Set<String> roles = dsd.getMembers().keySet();
                 Set<String> roles = dsd.getMembers();
                 User user = UserTestData.getUser( usr );
-                Session session = accessMgr.authenticate( user.getUserId(), user.getPassword() );
+                Session session = accessMgr.authenticate( user.getUserId(), user.getPassword().toCharArray() );
                 int j = 0;
                 for ( String role : roles )
                 {

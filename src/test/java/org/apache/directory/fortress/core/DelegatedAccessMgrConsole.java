@@ -170,7 +170,7 @@ class DelegatedAccessMgrConsole
             String password = ReaderUtil.readLn();
             session = new Session();
             //((AccessMgr)dAmgr).createSession(session, userId, password);
-            ( ( AccessMgr ) dAmgr ).createSession( new User( userId, password.toCharArray() ), false );
+            ( ( AccessMgr ) dAmgr ).createSession( new User( userId, password ), false );
             System.out.println( "Session created successfully for userId [" + userId + "]" );
             System.out.println( "session [" + session + "]" );
             System.out.println( "ENTER to continue" );

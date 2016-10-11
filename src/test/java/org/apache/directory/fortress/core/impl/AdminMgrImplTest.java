@@ -328,7 +328,7 @@ public class AdminMgrImplTest extends TestCase
             for ( String[] usr : uOldArray )
             {
                 User user = UserTestData.getUser( usr );
-                adminMgr.changePassword( user, UserTestData.getPassword( uNewArray[i++] ) );
+                adminMgr.changePassword( user, UserTestData.getPassword( uNewArray[i++] ).toCharArray() );
                 LOG.debug( "changePasswords user [" + user.getUserId() + "] successful" );
             }
         }
@@ -433,7 +433,7 @@ public class AdminMgrImplTest extends TestCase
             for ( String[] usr : uArray )
             {
                 User user = UserTestData.getUser( usr );
-                adminMgr.resetPassword( user, UserTestData.getPassword( usr ) );
+                adminMgr.resetPassword( user, UserTestData.getPassword( usr ).toCharArray() );
                 LOG.debug( "resetPasswords user [" + user.getUserId() + "] successful" );
             }
         }

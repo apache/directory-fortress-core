@@ -6430,9 +6430,9 @@ public class UserTestData extends TestCase
      * @param usr
      * @return
      */
-    public static char[] getPassword( String[] usr )
+    public static String getPassword( String[] usr )
     {
-        return usr[PASSWORD_COL].toCharArray();
+        return usr[PASSWORD_COL];
     }
 
 

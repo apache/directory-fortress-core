@@ -59,7 +59,7 @@ public class TestAccelerator
         LOG.info( "testSessionRoles..." );
         User user = new User();
         user.setUserId( "rbacuser1" );
-        user.setPassword( "secret".toCharArray() );
+        user.setPassword( "secret" );
         try
         {
             AccelMgr accelMgr = AccelMgrFactory.createInstance( TestUtils.getContext() );
@@ -85,7 +85,7 @@ public class TestAccelerator
             User user = new User();
             // positive test case:
             user.setUserId( "rbacuser1" );
-            user.setPassword( "secret".toCharArray() );
+            user.setPassword( "secret" );
             user.setRoleName( "rbacrole1" );
             user.setRoleName( "rbacrole2" );
             session = accelMgr.createSession( user, false );
@@ -95,7 +95,7 @@ public class TestAccelerator
             {
                 // negative test case:
                 user.setUserId( "rbacuser1" );
-                user.setPassword( "secretx".toCharArray() );
+                user.setPassword( "secretx" );
                 session = null;
                 session = accelMgr.createSession( user, false );
                 fail("failed negative createSession for rbacuser1");
@@ -122,7 +122,7 @@ public class TestAccelerator
         LOG.info( "testCheckAccess..." );
         User user = new User();
         user.setUserId( "rbacuser1" );
-        user.setPassword( "secret".toCharArray() );
+        user.setPassword( "secret" );
         //user.setRole( "rbacrole1" );
         //user.setRole( "rbacrole2" );
         Session session = null;
@@ -164,7 +164,7 @@ public class TestAccelerator
         LOG.info( "testDeleteSession..." );
         User user = new User();
         user.setUserId( "rbacuser1" );
-        user.setPassword( "secret".toCharArray() );
+        user.setPassword( "secret" );
         try
         {
             AccelMgr accelMgr = AccelMgrFactory.createInstance( TestUtils.getContext() );
@@ -190,7 +190,7 @@ public class TestAccelerator
             User user = new User();
             // positive test case:
             user.setUserId( "rbacuser1" );
-            user.setPassword( "secret".toCharArray() );
+            user.setPassword( "secret" );
             user.setRoleName( "rbacrole1" );
             //user.setRole( "rbacrole2" );
             session = accelMgr.createSession( user, false );
@@ -218,7 +218,7 @@ public class TestAccelerator
             User user = new User();
             // positive test case:
             user.setUserId( "rbacuser1" );
-            user.setPassword( "secret".toCharArray() );
+            user.setPassword( "secret" );
             //user.setRole( "rbacrole1" );
             //user.setRole( "rbacrole2" );
             session = accelMgr.createSession( user, false );
@@ -246,7 +246,7 @@ public class TestAccelerator
             User user = new User();
             // positive test case:
             user.setUserId( "rbacuser1" );
-            user.setPassword( "secret".toCharArray() );
+            user.setPassword( "secret" );
             session = accelMgr.createSession( user, false );
             // positive test case:
             Permission perm = new Permission();

@@ -21,7 +21,6 @@ package org.apache.directory.fortress.core.cli;
 
 import java.util.Vector;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.Address;
 import org.apache.directory.fortress.core.model.AdminRole;
@@ -300,26 +299,14 @@ public class Options implements java.io.Serializable
         return (String) parser.getOptionValue(userId);
     }
 
-    public char[] getPassword()
+    public String getPassword()
     {
-        char[] pw = null;
-        String szPw = (String) parser.getOptionValue(password);
-        if (StringUtils.isNotEmpty(szPw))
-        {
-            pw = szPw.toCharArray();
-        }
-        return pw;
+        return (String) parser.getOptionValue(password);
     }
 
-    public char[] getNewPassword()
+    public String getNewPassword()
     {
-        char[] pw = null;
-        String szPw = (String) parser.getOptionValue(newPassword);
-        if ( StringUtils.isNotEmpty( szPw ))
-        {
-            pw = szPw.toCharArray();
-        }
-        return pw;
+        return (String) parser.getOptionValue(newPassword);
     }
 
     private void updateProperties(User user)

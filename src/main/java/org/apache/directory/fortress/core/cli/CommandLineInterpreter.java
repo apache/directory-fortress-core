@@ -651,16 +651,16 @@ public class CommandLineInterpreter
                 command = CHANGE_PASSWORD;
                 LOG.info( command );
                 User user = options.getUser();
-                char[] newPassword = options.getNewPassword();
-                adminMgr.changePassword( user, newPassword );
+                String newPassword = options.getNewPassword();
+                adminMgr.changePassword( user, newPassword.toCharArray() );
             }
             else if ( commands.contains( RESET_PASSWORD ) )
             {
                 command = RESET_PASSWORD;
                 LOG.info( command );
                 User user = options.getUser();
-                char[] newPassword = options.getNewPassword();
-                adminMgr.resetPassword( user, newPassword );
+                String newPassword = options.getNewPassword();
+                adminMgr.resetPassword( user, newPassword.toCharArray() );
             }
             else if ( commands.contains( LOCK_USER_ACCOUNT ) )
             {
@@ -865,7 +865,7 @@ public class CommandLineInterpreter
                 command = AUTHENTICATE;
                 LOG.info( command );
                 User inUser = options.getUser();
-                Session session = accessMgr.authenticate( inUser.getUserId(), inUser.getPassword() );
+                Session session = accessMgr.authenticate( inUser.getUserId(), inUser.getPassword().toCharArray() );
                 printSession( session );
             }
             else if ( commands.contains( ASSIGNED_ROLES ) )
