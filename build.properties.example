@@ -36,9 +36,6 @@
 # 1. BEGIN BASIC CONFIGURATION SECTION
 ########################################################################
 
-# Use this Fortress Core version:
-version=2.0.0-RC1-SNAPSHOT
-
 # Enable local.mode property if your machine does not have connection to Internet and runtime dependencies have already downloaded to FORTRESS_HOME/lib folder on this machine:
 #local.mode=true
 
@@ -135,6 +132,9 @@ group.properties=configParameter
 ########################################################################
 
 # The following optional HTTP parameters are needed when Fortress core client-side communicates though fortress-rest HTTP proxy (rather than LDAP) server:
+# This used for nav URL to fortress-rest impl: uri = httpProtocol + "://" + httpHost + ":" + httpPort + "/" + "fortress-rest-" + version; + "/";:
+version=2.0.0-RC1-SNAPSHOT
+
 # Setting the enable.mgr.impl.rest to 'true' sets Fortress instance to use HTTP services rather than LDAPv3 protocol. Default value is 'false':
 # Using REST/HTTP allows Fortress communications to pass through firewalls and other non-LDAP network intermediaries.
 enable.mgr.impl.rest=false
