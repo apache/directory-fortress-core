@@ -75,12 +75,18 @@ Minimum software requirements:
 ___________________________________________________________________________________
 ## SECTION 2. Download & Install
 
-SNAPSHOTs from Apache GIT Software Repo:
+From Apache GIT Fortress-Core Software Repo:
 https://git-wip-us.apache.org/repos/asf?p=directory-fortress-core.git
 
-1. Clone the Apache Fortress Core Git Repo::
+1. Clone the SNAPSHOT:
  ```
  git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+ ```
+
+ * or by specific version, e.g. 1.0.1
+
+ ```
+  git clone --branch 1.0.1 https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
  ```
 
 2. Set Java and Maven home on machines.
