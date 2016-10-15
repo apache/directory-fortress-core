@@ -28,7 +28,7 @@ This document describes Apache Fortress multitenacy.
  * SECTION 3. How the APIs work.
  * SECTION 4. How to Setup a New Tenant.
  * SECTION 5. Unit Testing.
- * SECTION 6.  Other Tools.
+ * SECTION 6. Other Tools.
 
 -------------------------------------------------------------------------------
 ## SECTION 1.  Multitenancy Overview
