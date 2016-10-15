@@ -42,6 +42,13 @@ ldap.port=389
 suffix.name=example
 suffix.dc=com
 suffix=dc=${suffix.name},dc=${suffix.dc}
+
+#For a multi-level suffix, e.g. dc=foo, dc=example, dc=com.
+#suffix.name=foo
+#suffix.dc=example
+#suffix.dc2=com
+#suffix=dc=${suffix.name},dc=${suffix.dc},dc=${suffix.dc2}
+
 root.dn=cn=Manager,${suffix}
 # Used to load OpenLDAP admin root password in slapd.conf and was encrypted using 'slappasswd' command:
 root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU

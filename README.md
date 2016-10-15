@@ -55,8 +55,7 @@ ________________________________________________________________________________
  * If you see **FORTRESS_HOME**, refer to the package [root folder](.).
  * If you see **OPENLDAP_HOME**, refer to the root of OpenLDAP binary installation folder, e.g. /opt/etc/openldap
  * This package's Apache Maven [pom.xml](./pom.xml) and Apache Ant [build.xml](./build.xml) files are found in root folder.
- * Apache Ant is deprecated, but still used for some things.
-  * The configuration subsystem [README-CONFIG](./README-CONFIG.md) has more details.
+ * Apache Ant no longer needs to be installed locally, but its artifacts are still used.  The configuration subsystem [README-CONFIG](./README-CONFIG.md) has more details.
  * Questions about this software package should be directed to its mailing list:
    * http://mail-archives.apache.org/mod_mbox/directory-fortress/
 
@@ -336,6 +335,15 @@ ________________________________________________________________________________
  ```
  suffix.name=example
  suffix.dc=com
+ ```
+
+ * Optional - if a multi-level suffix needed, e.g. dc=foo, dc=example, dc=com.
+
+ ```
+  suffix.name=foo
+  suffix.dc=example
+  suffix.dc2=com
+  suffix=dc=${suffix.name},dc=${suffix.dc},dc=${suffix.dc2}
  ```
 
 5. Add to the file to enable LDAP connection pool parameters.
