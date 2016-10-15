@@ -54,10 +54,12 @@ ________________________________________________________________________________
 
  * If you see **FORTRESS_HOME**, refer to the package [root folder](.).
  * If you see **OPENLDAP_HOME**, refer to the root of OpenLDAP binary installation folder, e.g. /opt/etc/openldap
- * This package uses Apache Maven to build, it's configuration [pom.xml](./pom.xml) is in the root folder.
- * Apache Ant no longer needs to be installed locally, but its artifacts are still used.  More details here [README-CONFIG](./README-CONFIG.md).
- * Questions about usage of this software package may be directed to its mailing list:
+ * This package uses Apache Maven to build, it's [pom.xml](./pom.xml) is in the root folder.
+ * The configuration subsystem manages coordinates to the targeted ldap server and more.  Here's how it works [README-CONFIG](./README-CONFIG.md).
+ * This system runs within a multitenant context.  To learn how [README-MULTITENANCY](./README-MULTITENANCY.md).
+ * Questions about usage may be directed to the mailing list:
    * http://mail-archives.apache.org/mod_mbox/directory-fortress/
+
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
