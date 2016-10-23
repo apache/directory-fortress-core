@@ -284,7 +284,16 @@ public class GroupMgrImplTest extends TestCase {
                 List<Group> actualGroups = groupMgr.roleGroups(role);
                 LOG.debug( "roleGroups role [" + role.getName() + "] successful" );
 
-                assertEquals( CLS_NM + ".roleGroups failed", expectedGroups, actualGroups);
+                assertNotNull( actualGroups );
+                // The two list sizes better match or fail the test case.
+                assertTrue( CLS_NM + "roleGroups list size test case", actualGroups.size() == expectedGroups.size() );
+
+                // For each actual group, check to see if it was in expected.  If not fail the test case.
+                for ( Group actualGroup : actualGroups )
+                {
+                    assertTrue( CLS_NM + ".roleGroups actual group name [" + actualGroup.getName() + "] not found", expectedGroups.contains( actualGroup ) );
+                    //TODO : should compare members in expected groups to members in actual groups.
+                }
             }
         }
         catch ( SecurityException ex )
