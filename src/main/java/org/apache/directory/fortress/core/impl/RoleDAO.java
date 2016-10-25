@@ -49,6 +49,7 @@ import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.util.PropUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 
 
@@ -97,7 +98,7 @@ import org.apache.directory.ldap.client.api.LdapConnection;
  *
  * @author Kevin McKinney
  */
-final class RoleDAO extends LdapDataProvider
+final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>
 {
     /*
       *  *************************************************************************
@@ -118,7 +119,8 @@ final class RoleDAO extends LdapDataProvider
             SchemaConstants.DESCRIPTION_AT,
             GlobalIds.CONSTRAINT,
             SchemaConstants.ROLE_OCCUPANT_AT,
-            GlobalIds.PARENT_NODES
+            GlobalIds.PARENT_NODES,
+            GlobalIds.PROPS
     };
 
     /**
@@ -721,9 +723,10 @@ final class RoleDAO extends LdapDataProvider
         entity.setOccupants( getAttributes( le, SchemaConstants.ROLE_OCCUPANT_AT ) );
         //entity.setParents(RoleUtil.getParents(entity.getName().toUpperCase(), contextId));
         entity.setChildren( RoleUtil.getInstance().getChildren( entity.getName().toUpperCase(), contextId ) );
-        entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );
+        entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );        
         unloadTemporal( le, entity );
-        entity.setDn( le.getDn().getName() );
+        entity.setDn( le.getDn().getName() );        
+        entity.addProperties( PropUtil.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
         return entity;
     }
 
@@ -731,5 +734,19 @@ final class RoleDAO extends LdapDataProvider
     private String getDn( String name, String contextId )
     {
         return SchemaConstants.CN_AT + "=" + name + "," + getRootDn( contextId, GlobalIds.ROLE_ROOT );
+    }
+
+
+    @Override
+    public String getDn( Role entity )
+    {
+        return this.getDn( entity.getName(), entity.getContextId() );
+    }
+
+
+    @Override
+    public Role getEntity( Role entity ) throws FinderException
+    {
+        return this.getRole( entity );
     }
 }

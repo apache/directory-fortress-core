@@ -21,8 +21,10 @@ package org.apache.directory.fortress.core.model;
 
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 import java.util.UUID;
 
@@ -209,7 +211,8 @@ import javax.xml.bind.annotation.XmlType;
         "endLockDate",
         "endTime",
         "timeout",
-        "dn"
+        "dn",
+        "props"
 })
 @XmlSeeAlso(
     {
@@ -234,6 +237,7 @@ public class Role extends FortEntity implements Constraint, Graphable, java.io.S
     private String endLockDate; // this attribute is ftCstr
     private String dayMask; // this attribute is ftCstr
     private int timeout; // this attribute is ftCstr
+    private Props props = new Props();
     
     
     /**
@@ -896,5 +900,66 @@ public class Role extends FortEntity implements Constraint, Graphable, java.io.S
     public String toString()
     {
         return toString( "" );
+    }
+    
+    /**
+     * Add name/value pair to list of properties associated with User.  These values are not constrained by Fortress.
+     * Properties are optional.
+     *
+     * @param key   contains property name and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+     * @param value The property value to add
+     */
+    private void addProperty( String key, String value )
+    {
+        Props.Entry entry = new Props.Entry();
+        entry.setKey( key );
+        entry.setValue( value );
+        props.getEntry().add( entry );
+    }
+    
+    /**
+     * Add new collection of name/value pairs to attributes associated with User.  These values are not constrained by Fortress.
+     * Properties are optional.
+     *
+     * @param props contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+     */
+    public void addProperties( Properties props )
+    {
+        if ( props != null )
+        {
+            for ( Enumeration<?> e = props.propertyNames(); e.hasMoreElements(); )
+            {
+                // This LDAP attr is stored as a name-value pair separated by a ':'.
+                String key = ( String ) e.nextElement();
+                String val = props.getProperty( key );
+                addProperty( key, val );
+            }
+        }
+    }
+    
+    /**
+     * Return the collection of name/value pairs to attributes associated with User.  These values are not constrained by Fortress.
+     * Properties are optional.
+     *
+     * @return Properties contains collection of name/value pairs and maps to 'ftProps' attribute in 'ftProperties' aux object class.
+     */
+    public Properties getProperties()
+    {
+        Properties properties = null;
+        List<Props.Entry> props = this.props.getEntry();
+
+        if ( props.size() > 0 )
+        {
+            properties = new Properties();
+
+            for ( Props.Entry entry : props )
+            {
+                String key = entry.getKey();
+                String val = entry.getValue();
+                properties.setProperty( key, val );
+            }
+        }
+
+        return properties;
     }
 }
