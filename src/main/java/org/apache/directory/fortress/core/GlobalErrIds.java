@@ -1732,5 +1732,14 @@ public final class GlobalErrIds
      * The entity does not support properties
      */
     public static final int ENTITY_PROP_NOT_SUPPORTED = 10501;
+    
+    /**
+     * The entity was not found
+     */
+    public static final int ENTITY_PROPS_NOT_FOUND = 10502;
 
+    /**
+     * The entity was not found
+     */
+    public static final int ENTITY_PROPS_LOAD_FAILED = 10503;
 }

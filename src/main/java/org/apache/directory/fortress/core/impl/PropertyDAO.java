@@ -27,9 +27,11 @@ import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.entry.DefaultModification;
+import org.apache.directory.api.ldap.model.entry.Entry;
 import org.apache.directory.api.ldap.model.entry.Modification;
 import org.apache.directory.api.ldap.model.entry.ModificationOperation;
 import org.apache.directory.api.ldap.model.exception.LdapException;
+import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
@@ -37,6 +39,7 @@ import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.FortEntity;
+import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.PropUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
@@ -74,10 +77,54 @@ public class PropertyDAO extends LdapDataProvider
     }
     
     public void deleteProperties( FortEntity entity, Properties properties, PropertyProvider propProvider ) throws UpdateException, FinderException{
-        
+        LdapConnection ld = null;
+        String entityDn = propProvider.getDn( entity );
+
+        try
+        {
+            List<Modification> mods = new ArrayList<Modification>();
+            removeProperties( properties, mods, GlobalIds.PROPS );            
+
+            ld = getAdminConnection();
+            modify( ld, entityDn, mods, entity );            
+        }
+        catch ( LdapException e )
+        {
+            String error = "delete entity properties[" + entity.getClass().getSimpleName() + "] caught LDAPException=" + e.getMessage();
+            throw new UpdateException( GlobalErrIds.USER_UPDATE_FAILED, error, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
     }
     
     public Properties getProperties( FortEntity entity, PropertyProvider propProvider ) throws FinderException{ 
-        return null;
+        Properties props = null;
+        LdapConnection ld = null;
+        String entityDn = propProvider.getDn( entity );
+
+        try
+        {
+            ld = getAdminConnection();
+            Entry findEntry = read( ld, entityDn, new String[]{ GlobalIds.PROPS } );
+            props = PropUtil.getProperties( getAttributes( findEntry, GlobalIds.PROPS ) );
+        }
+        catch ( LdapNoSuchObjectException e )
+        {
+            String warning = "get properties COULD NOT FIND ENTRY for entity [" + entityDn + "]";
+            throw new FinderException( GlobalErrIds.ENTITY_PROPS_NOT_FOUND, warning );
+        }
+        catch ( LdapException e )
+        {
+            String error = "get properties [" + entityDn + "]= caught LDAPException=" + e.getMessage();
+            throw new FinderException( GlobalErrIds.ENTITY_PROPS_LOAD_FAILED, error, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+
+        return props;
     }
 }
