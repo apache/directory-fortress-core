@@ -73,7 +73,25 @@ public class PropertyDAO extends LdapDataProvider
     }
     
     public FortEntity updateProperties( FortEntity entity, Properties properties, PropertyProvider propProvider ) throws UpdateException, FinderException{ 
-        return null;
+        //ftProps all have same name, so will need to delete proprs first, then readd ones that are approprirate
+        
+        //get current properties
+        Properties currentProps = this.getProperties( entity, propProvider );
+        Properties toDeleteProps = new Properties();
+        
+        //look for proeprties (ftProp=key:value) that are being updated and add to delete list
+        for(Object key : properties.keySet()){
+            String value = currentProps.getProperty( (String)key );
+            toDeleteProps.put( (String)key, value );   
+        }
+        
+        //delete exising properties
+        this.deleteProperties( entity, toDeleteProps, propProvider );
+        
+        //add the udpates back
+        this.addProperties( entity, properties, propProvider );        
+        
+        return propProvider.getEntity( entity );
     }
     
     public void deleteProperties( FortEntity entity, Properties properties, PropertyProvider propProvider ) throws UpdateException, FinderException{
