@@ -68,4 +68,16 @@ public class PropertyDAO extends LdapDataProvider
 
         return propProvider.getEntity( entity );
     }
+    
+    public FortEntity updateProperties( FortEntity entity, Properties properties, PropertyProvider propProvider ) throws UpdateException, FinderException{ 
+        return null;
+    }
+    
+    public void deleteProperties( FortEntity entity, Properties properties, PropertyProvider propProvider ) throws UpdateException, FinderException{
+        
+    }
+    
+    public Properties getProperties( FortEntity entity, PropertyProvider propProvider ) throws FinderException{ 
+        return null;
+    }
 }

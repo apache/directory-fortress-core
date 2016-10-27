@@ -154,7 +154,7 @@ import org.apache.directory.ldap.client.api.LdapConnection;
  * 
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-final class PermDAO extends LdapDataProvider
+class PermDAO extends LdapDataProvider
 {
     /*
       *  *************************************************************************
@@ -2098,14 +2098,14 @@ final class PermDAO extends LdapDataProvider
     }
 
 
-    private String getDn( Permission pOp, String contextId )
+    protected String getDn( Permission pOp, String contextId )
     {
         return getOpRdn( pOp.getOpName(), pOp.getObjId() ) + "," + GlobalIds.POBJ_NAME + "=" + pOp.getObjName()
             + "," + getRootDn( pOp.isAdmin(), contextId );
     }
 
 
-    private String getDn( PermObj pObj, String contextId )
+    protected String getDn( PermObj pObj, String contextId )
     {
         return GlobalIds.POBJ_NAME + "=" + pObj.getObjName() + "," + getRootDn( pObj.isAdmin(), contextId );
     }

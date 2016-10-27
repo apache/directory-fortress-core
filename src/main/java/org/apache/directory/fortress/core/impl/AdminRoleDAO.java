@@ -46,6 +46,7 @@ import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.ConstraintUtil;
+import org.apache.directory.fortress.core.model.FortEntity;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.Role;
@@ -107,7 +108,7 @@ import org.apache.directory.ldap.client.api.LdapConnection;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-final class AdminRoleDAO extends LdapDataProvider
+final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<AdminRole>
 {
     private static final String ROLE_OCCUPANT = "roleOccupant";
     private static final String ROLE_OSP = "ftOSP";
@@ -686,10 +687,18 @@ final class AdminRoleDAO extends LdapDataProvider
         return entity;
     }
 
-
-    private String getDn( AdminRole adminRole )
+    
+    @Override
+    public String getDn( AdminRole adminRole )
     {
         return SchemaConstants.CN_AT + "=" + adminRole.getName() + ","
             + getRootDn( adminRole.getContextId(), GlobalIds.ADMIN_ROLE_ROOT );
+    }
+
+
+    @Override
+    public FortEntity getEntity( AdminRole entity ) throws FinderException
+    {
+        return this.getEntity( entity );
     }
 }

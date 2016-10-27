@@ -1724,5 +1724,13 @@ public final class GlobalErrIds
      */
     public static final int RCON_NULL = 10401;
 
+    /**
+     * 10500's - Property Management Error Ids
+     */
+
+    /**
+     * The entity does not support properties
+     */
+    public static final int ENTITY_PROP_NOT_SUPPORTED = 10501;
 
 }

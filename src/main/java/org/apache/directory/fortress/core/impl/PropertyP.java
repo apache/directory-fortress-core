@@ -23,27 +23,56 @@ import java.util.Properties;
 
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.UpdateException;
+import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.FortEntity;
+import org.apache.directory.fortress.core.model.Group;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Role;
 
 public class PropertyP
 {
     private PropertyDAO propDAO = new PropertyDAO();
     private RoleDAO rDAO = new RoleDAO();
+    private AdminRoleDAO arDAO = new AdminRoleDAO();
+    private GroupDAO gDAO = new GroupDAO();
+    private PermOpDAO popDAO = new PermOpDAO();
+    private PermObjDAO pobjDAO = new PermObjDAO();
     
-    public FortEntity addProperties( FortEntity entity, Properties props ) throws UpdateException, FinderException {
-        
+    public FortEntity addProperties( FortEntity entity, Properties props ) throws UpdateException, FinderException {        
         return propDAO.addProperties( entity, props, this.getPropertyProvider( entity ) );
+    }
+    
+    public FortEntity updateProperties( FortEntity entity, Properties props ) throws UpdateException, FinderException {        
+        return propDAO.updateProperties( entity, props, this.getPropertyProvider( entity ) );
+    }
+    
+    public void deleteProperties( FortEntity entity, Properties props ) throws UpdateException, FinderException {        
+        propDAO.deleteProperties( entity, props, this.getPropertyProvider( entity ) );
+    }
+    
+    public Properties getProperties( FortEntity entity ) throws FinderException {        
+        return propDAO.getProperties( entity, this.getPropertyProvider( entity ) );
     }
     
     private PropertyProvider getPropertyProvider( FortEntity entity ){
         if( entity instanceof Role ){
             return rDAO;
         }
-        //TODO: add rest of DAOs
+        else if( entity instanceof AdminRole ){
+            return arDAO;
+        }
+        else if( entity instanceof Group ){
+            return gDAO;
+        }
+        else if( entity instanceof PermObj ){
+            return pobjDAO;
+        }
+        else if( entity instanceof Permission ){
+            return popDAO;
+        }
         else{
-            //TODO: throw exception
-            return null;
+            throw new IllegalArgumentException( "Provided entity does not have an associated property provider DAO" );
         }
     }
 }

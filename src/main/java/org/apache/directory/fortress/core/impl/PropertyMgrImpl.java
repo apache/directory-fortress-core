@@ -22,10 +22,15 @@ package org.apache.directory.fortress.core.impl;
 import java.io.Serializable;
 import java.util.Properties;
 
+import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.PropertyMgr;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.FortEntity;
+import org.apache.directory.fortress.core.model.Group;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Role;
 
 public class PropertyMgrImpl extends Manageable implements PropertyMgr, Serializable
@@ -33,6 +38,9 @@ public class PropertyMgrImpl extends Manageable implements PropertyMgr, Serializ
 
     private PropertyP propP = new PropertyP();
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public FortEntity add( FortEntity entity, Properties props ) throws SecurityException
     {
@@ -41,35 +49,69 @@ public class PropertyMgrImpl extends Manageable implements PropertyMgr, Serializ
         return propP.addProperties( entity, props );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public FortEntity update( FortEntity entity, Properties props ) throws SecurityException
     {
-        // TODO Auto-generated method stub
-        return null;
+        checkPropertyUpdateAccess( entity );
+        entity.setContextId( this.contextId );
+        return propP.updateProperties( entity, props );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void delete( FortEntity entity, Properties props ) throws SecurityException
     {
-        // TODO Auto-generated method stub
-        
+        checkPropertyUpdateAccess( entity );
+        entity.setContextId( this.contextId );
+        propP.deleteProperties( entity, props );
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String get( FortEntity entity, String key ) throws SecurityException
+    public Properties get( FortEntity entity ) throws SecurityException
     {
-        // TODO Auto-generated method stub
-        return null;
+        checkPropertyGetAccess( entity );
+        entity.setContextId( this.contextId );
+        return propP.getProperties( entity );
     }
     
     private void checkPropertyUpdateAccess( FortEntity entity ) throws SecurityException{
         if( entity instanceof Role ){
             checkAccess( AdminMgrImpl.class.getName(), "updateRole" );
         }
-        //TODO: add checks for other instances
+        else if( entity instanceof AdminRole ){
+            checkAccess( DelAdminMgrImpl.class.getName(), "updateRole" );
+        }
+        else if( entity instanceof Group ){
+            checkAccess( GroupMgrImpl.class.getName(), "update" );
+        }
+        else if( entity instanceof PermObj ){
+            PermObj pObj = (PermObj)entity;
+            if(pObj.isAdmin()){
+                checkAccess( DelAdminMgrImpl.class.getName(), "updatePermObj" );
+            }
+            else{
+                checkAccess( AdminMgrImpl.class.getName(), "updatePermObj" );
+            }       
+        }
+        else if( entity instanceof Permission ){
+            Permission perm = (Permission)entity;
+            if(perm.isAdmin()){
+                checkAccess( DelAdminMgrImpl.class.getName(), "updatePermission" );
+            }
+            else{
+                checkAccess( AdminMgrImpl.class.getName(), "updatePermission" );
+            }  
+        }
         else{
-            //TODO: valid error code
-            throw new SecurityException( 1, "Properties not allowed on supplied entity" );
+            throw new SecurityException( GlobalErrIds.ENTITY_PROP_NOT_SUPPORTED, "Properties not allowed on supplied entity" );
         }
     }
     
@@ -77,10 +119,32 @@ public class PropertyMgrImpl extends Manageable implements PropertyMgr, Serializ
         if( entity instanceof Role ){
             checkAccess( ReviewMgrImpl.class.getName(), "readRole" );
         }
-        //TODO: add checks for other instances
+        else if( entity instanceof AdminRole ){
+            checkAccess( DelReviewMgrImpl.class.getName(), "readRole" );
+        }
+        else if( entity instanceof Group ){
+            checkAccess( GroupMgrImpl.class.getName(), "read" );
+        }
+        else if( entity instanceof PermObj ){
+            PermObj pObj = (PermObj)entity;
+            if(pObj.isAdmin()){
+                checkAccess( DelReviewMgrImpl.class.getName(), "readPermObj" );
+            }
+            else{
+                checkAccess( ReviewMgrImpl.class.getName(), "readPermObj" );
+            }       
+        }
+        else if( entity instanceof Permission ){
+            Permission perm = (Permission)entity;
+            if(perm.isAdmin()){
+                checkAccess( DelReviewMgrImpl.class.getName(), "readPermission" );
+            }
+            else{
+                checkAccess( ReviewMgrImpl.class.getName(), "readPermission" );
+            }  
+        }
         else{
-            //TODO: valid error code
-            throw new SecurityException( 1, "Properties not allowed on supplied entity" );
+            throw new SecurityException( GlobalErrIds.ENTITY_PROP_NOT_SUPPORTED, "Properties not allowed on supplied entity" );
         }
     }
 

@@ -25,11 +25,41 @@ import org.apache.directory.fortress.core.model.FortEntity;
 
 public interface PropertyMgr
 {
+    /**
+     * Adds properties (ftProps) to a supplied fortress entity (Group, Role, AdminRole, Permission, PermObj) 
+     *
+     * @param entity Entity to add properties
+     * @param props Properties to add to entity
+     * @return Updated entity
+     * @throws SecurityException
+     */
     FortEntity add( FortEntity entity, Properties props ) throws SecurityException;
     
+    /**
+     * Update properties (ftProps) to a supplied fortress entity (Group, Role, AdminRole, Permission, PermObj) 
+     *
+     * @param entity Entity to update properties
+     * @param props Properties to update to entity
+     * @return Updated entity
+     * @throws SecurityException
+     */
     FortEntity update( FortEntity entity, Properties props ) throws SecurityException;
     
+    /**
+     * Delete properties (ftProps) from a supplied fortress entity (Group, Role, AdminRole, Permission, PermObj) 
+     *
+     * @param entity Entity to delete properties from
+     * @param props Properties to delete from entity
+     * @throws SecurityException
+     */
     void delete( FortEntity entity, Properties props ) throws SecurityException;
     
-    String get( FortEntity entity, String key ) throws SecurityException;
+    /**
+     * Retrieve properties (ftProps) from a supplied fortress entity (Group, Role, AdminRole, Permission, PermObj) 
+     *
+     * @param entity Entity to return properties from
+     * @return Properties for the supplied entity
+     * @throws SecurityException
+     */
+    Properties get( FortEntity entity ) throws SecurityException;
 }
