@@ -50,7 +50,7 @@
     <developerConnection>
       scm:git:https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
     </developerConnection>
-    <tag>1.0.1</tag>
+    <tag>2.0.0-RC1</tag>
   </scm>
 
   <issueManagement>
@@ -90,19 +90,19 @@
     <!-- Jars -->
     <version.accelerator.api>1.0-RC41</version.accelerator.api>
     <version.accelerator.impl>1.0-RC41</version.accelerator.impl>
-    <version.ant>1.9.6</version.ant>
+    <version.ant>1.9.7</version.ant>
     <version.ant.launcher>1.9.1</version.ant.launcher>
     <version.antlr>2.7.7</version.antlr>
     <version.apache.jdbm1>2.0.0-M3</version.apache.jdbm1>
-    <version.apacheds>2.0.0-M21</version.apacheds>
-    <version.api.all>1.0.0-RC1</version.api.all>
+    <version.apacheds>2.0.0-M23</version.apacheds>
+    <version.api.all>1.0.0-RC2</version.api.all>
     <version.commons.beanutils>1.7.0</version.commons.beanutils>
     <version.commons.beanutils-core>1.8.0</version.commons.beanutils-core>
     <version.commons.codec>1.10</version.commons.codec>
     <version.commons.collections>3.2.1</version.commons.collections>
     <version.commons.configuration>1.10</version.commons.configuration>
     <version.commons.digester>1.8</version.commons.digester>
-    <version.commons.io>2.4</version.commons.io>
+    <version.commons.io>2.5</version.commons.io>
     <version.commons.lang>2.6</version.commons.lang>
     <version.commons.logging>1.1.1</version.commons.logging>
     <version.commons.pool>1.6</version.commons.pool>
@@ -115,15 +115,15 @@
     <version.javaee.api>7.0</version.javaee.api>
     <version.javax.ws.rs-api>2.0.1</version.javax.ws.rs-api>
     <version.jaxb>2.2.11</version.jaxb>
-    <version.jgrapht-core>0.9.2</version.jgrapht-core>
+    <version.jgrapht-core>1.0.0</version.jgrapht-core>
     <version.jmeter.core>2.11</version.jmeter.core>
     <version.jmeter.java>2.11</version.jmeter.java>
     <version.junit>4.12</version.junit>
     <version.log4j>1.2.17</version.log4j>
     <version.mina.core>2.0.13</version.mina.core>
     <version.opencsv>2.3</version.opencsv>
-    <version.slf4j.api>1.7.18</version.slf4j.api>
-    <version.slf4j.log4j12>1.7.18</version.slf4j.log4j12>
+    <version.slf4j.api>1.7.21</version.slf4j.api>
+    <version.slf4j.log4j12>1.7.21</version.slf4j.log4j12>
     <version.stax2.api>3.1.1</version.stax2.api>
     <version.woodstox.core.asl>4.2.0</version.woodstox.core.asl>
     <version.xml.apis>1.0b2</version.xml.apis>
