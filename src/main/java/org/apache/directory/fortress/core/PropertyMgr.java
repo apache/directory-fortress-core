@@ -23,7 +23,7 @@ import java.util.Properties;
 
 import org.apache.directory.fortress.core.model.FortEntity;
 
-public interface PropertyMgr
+public interface PropertyMgr extends Manageable
 {
     /**
      * Adds properties (ftProps) to a supplied fortress entity (Group, Role, AdminRole, Permission, PermObj) 

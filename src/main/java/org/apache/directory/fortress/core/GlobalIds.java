@@ -108,6 +108,11 @@ public final class GlobalIds
      */
     public static final String GROUP_IMPLEMENTATION = "groupmgr.implementation";
 
+    /**
+     * When this optional tag, {@code propertyImplementation}, is placed in Fortress properties, its class name will be the default {@link PropertyMgr} instance used.
+     */
+    public static final String PROPERTY_IMPLEMENTATION = "propertymgr.implementation";
+    
     // AUTHENTICATION_TYPE
     /**
      * This property is used to specify if authentication is being performed within a security realm.

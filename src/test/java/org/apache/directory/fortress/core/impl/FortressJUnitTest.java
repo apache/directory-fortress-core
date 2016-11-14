@@ -219,6 +219,9 @@ public class FortressJUnitTest extends TestCase
         suite.addTest( new GroupMgrImplTest( "testGroupRoles" ) );
         suite.addTest( new GroupMgrImplTest( "testRoleGroups" ) );
 
+        // PropertyMgr APIs
+        suite.addTest( new PropertyMgrImplTest( "testAddProperties" ) );
+        
         /***********************************************************/
         /* 3. Interrogation                                        */
         /***********************************************************/
