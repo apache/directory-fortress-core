@@ -31,7 +31,12 @@ RUN \
     # Workaround for FC-33: enable rbac.accelerator=true to enable ACLs in slapd.conf
     sed -i 's/#rbac\.accelerator=true/rbac\.accelerator=true/' build.properties && \
     # Fortress Quickstart README Section II
-    sed -i 's/export JAVA_HOME=.*/export JAVA_HOME=\/usr\/lib\/jvm\/java-1.8.0-openjdk-amd64\//' b.sh && \
+    sed -i 's/export JAVA_HOME=.*/export JAVA_HOME=\/usr\/lib\/jvm\/java-1.8.0-openjdk-amd64\//' b.sh
+
+ADD fortress.schema /root/fortress/ldap/schema/
+ADD rbac.schema /root/fortress/ldap/schema/
+
+RUN \
     ./b.sh dist && \
     # Fortress Quickstart README Section III
     ./b.sh init-slapd && \

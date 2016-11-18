@@ -1,0 +1,261 @@
+######################################################################
+#
+#   Licensed to the Apache Software Foundation (ASF) under one
+#   or more contributor license agreements.  See the NOTICE file
+#   distributed with this work for additional information
+#   regarding copyright ownership.  The ASF licenses this file
+#   to you under the Apache License, Version 2.0 (the
+#   "License"); you may not use this file except in compliance
+#   with the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing,
+#   software distributed under the License is distributed on an
+#   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+#   KIND, either express or implied.  See the License for the
+#   specific language governing permissions and limitations
+#   under the License.
+#
+######################################################################
+###  RBAC Accelerator Schema version 1.0.0.RC34
+###  This schema is required for OoenLDAP slapo-rbac (accelerator) overlay
+###  Not required for fortress-core (only) deployments.
+######################################################################
+
+objectIdentifier RBAC OpenLDAProot:1000
+objectIdentifier RBACattributeType RBAC:3
+objectIdentifier RBACobjectClass RBAC:4
+
+######################################################################
+## 1. RBAC attribute definitions
+######################################################################
+#
+## A1: rbacSessid, type STRING, SINGLE VALUE
+attributetype ( RBACattributeType:1
+    NAME 'rbacSessid'
+    DESC 'RBAC Session ID'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+
+## A2: rbacRoles, type STRING, MULTI VALUE
+attributetype ( RBACattributeType:2
+    NAME 'rbacRoles'
+    DESC 'RBAC User Role Assignments'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
+
+## A3: User Role Constraints, type STRING, MULTI VALUE
+attributetype ( RBACattributeType:3
+    NAME 'rbacRoleConstraints'
+    DESC 'RBAC User Role Constraints'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
+## A4: rbacUserdn, type STRING, SINGLE VALUE
+## A4: should be DN syntax
+attributetype ( RBACattributeType:4
+    NAME 'rbacUserDN'
+    DESC 'RBAC User DN'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+#
+## A5: Permission Operation Name, type STRING, SINGLE VALUE
+attributetype ( RBACattributeType:5
+    NAME 'rbacOpName'
+    DESC 'RBAC Permission Operation Name'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+##
+## A6: Permission Object Name, type STRING, SINGLE VALUE
+attributetype ( RBACattributeType:6
+    NAME 'rbacObjName'
+    DESC 'RBAC Permission Object Name'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+#
+## A4: Permission Object ID, type STRING, SINGLE VALUE
+#attributetype ( 1.3.6.1.4.1.1.38088.1.4
+#    NAME 'ftObjId'
+#    DESC 'Fortress Permission Object ID'
+#    EQUALITY caseIgnoreMatch
+#    SUBSTR caseIgnoreSubstringsMatch
+#    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+#
+#
+## A5: Role Name, type STRING, SINGLE VALUE
+attributetype ( RBACattributeType:7
+    NAME 'rbacRoleName'
+    DESC 'RBAC Role Name'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+
+
+## A6: tenant id, type STRING, SINGLE VALUE
+attributetype ( RBACattributeType:8
+    NAME 'tenantid'
+    DESC 'RBAC tenant id'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+
+
+## A7: Audit operation id, type STRING, SINGLE VALUE
+attributetype ( RBACattributeType:9
+    NAME 'rbacAuditOp'
+    DESC 'RBAC operation id'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+
+## A8: Audit roles, type STRING, MULTIPLE VALUES
+attributetype ( RBACattributeType:10
+    NAME 'rbacAuditRoles'
+    DESC 'RBAC Roles in a session '
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
+## A9: Audit requested roles, type STRING, MULTIPLE VALUES
+attributetype ( RBACattributeType:11
+    NAME 'rbacAuditRequestedRoles'
+    DESC 'RBAC Roles in a request'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
+## A10: Audit resources, type STRING, MULTIPLE VALUES
+attributetype ( RBACattributeType:12
+    NAME 'rbacAuditResources'
+    DESC 'RBAC audit resources'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
+## A11: Audit result, type STRING, SINGLE VALUE
+attributetype ( RBACattributeType:13
+    NAME 'rbacAuditResult'
+    DESC 'RBAC operation result'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+
+## A12: Audit properties, type STRING, MULTIPLE VALUES
+attributetype ( RBACattributeType:14
+    NAME 'rbacAuditProperties'
+    DESC 'RBAC operation result'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
+## A13: Audit properties, type STRING, SINGLE VALUE
+attributetype ( RBACattributeType:15
+    NAME 'rbacAuditTimestamp'
+    DESC 'RBAC audit timestamp'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+
+## A14: Audit messages, type STRING, MULTIPLE VALUES
+attributetype ( RBACattributeType:16
+    NAME 'rbacAuditMessages'
+    DESC 'RBAC audit messages'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
+## A15: Audit Objects, type STRING, MULTIPLE VALUES
+attributetype ( RBACattributeType:17
+    NAME 'rbacAuditObjects'
+    DESC 'RBAC audit objects'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
+## A16: Audit Operations, type STRING, MULTIPLE VALUES
+attributetype ( RBACattributeType:18
+    NAME 'rbacAuditOperations'
+    DESC 'RBAC audit operations'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+
+attributetype ( RBACattributeType:19
+    NAME 'rbacAuditId'
+    DESC 'RBAC audit id'
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 SINGLE-VALUE )
+
+
+#
+#######################################################################
+### 2. ObjectClasses
+#######################################################################
+#
+
+objectclass ( RBACobjectClass:1
+    NAME 'rbacSession'
+    DESC 'RBAC Session Object Class'
+    STRUCTURAL
+    MUST (
+        rbacSessid $
+        uid $
+        tenantid
+        )
+    MAY (
+        rbacUserdn $
+        rbacRoles $
+        rbacRoleConstraints
+        )
+    )
+
+objectclass ( RBACobjectClass:2
+    NAME 'rbacPermission'
+    DESC 'RBAC Permission Object Class'
+    STRUCTURAL
+    MAY (
+        rbacRoles $
+        rbacObjName $
+        rbacOpName $
+        uid
+        )
+    )
+
+objectclass ( RBACobjectClass:3
+    NAME 'rbacAudit'
+    DESC 'RBAC Audit Object Class'
+    STRUCTURAL
+    MAY (
+        uid $
+        rbacAuditId $
+        rbacSessid $
+        rbacAuditOp $
+        rbacAuditRoles $
+        rbacAuditRequestedRoles $
+        rbacAuditObjects $
+        rbacAuditOperations $
+        rbacAuditResult $
+        rbacAuditResources $
+        rbacAuditProperties $
+        rbacAuditTimestamp $
+        rbacAuditMessages
+        )
+    )
+
+objectclass ( RBACobjectClass:4
+    NAME 'rbacContainer'
+    DESC 'RBAC Container Object Class'
+    STRUCTURAL
+    MAY (
+        cn
+        )
+    )
