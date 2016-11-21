@@ -1473,6 +1473,7 @@ public class CommandLineInterpreter
             accessMgr = AccessMgrFactory.createInstance( contextId );
             accessMgr = AccessMgrFactory.createInstance( contextId );
             groupMgr = GroupMgrFactory.createInstance( contextId );
+            delAdminMgr = DelAdminMgrFactory.createInstance(contextId);
             //delReviewMgr = DelReviewMgrFactory.createInstance(contextId);
             //delAccessMgr = DelAccessMgrFactory.createInstance(contextId);
             //pwPolicyMgr = PwPolicyMgrFactory.createInstance(contextId);
