@@ -37,6 +37,13 @@ Or just to be sure don't use cached layers:
     docker build --no-cache=true -t apachedirectory/openldap-for-apache-fortress-tests .
 
 
+## Publish image to Docker Hub
+
+You need an account at <https://hub.docker.com> and join the `apachedirectory` team (ask Stefan).
+
+    docker push apachedirectory/openldap-for-apache-fortress-tests:latest
+
+
 ## Run container
 
     CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)

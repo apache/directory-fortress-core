@@ -1,3 +1,22 @@
+/*
+ *   Licensed to the Apache Software Foundation (ASF) under one
+ *   or more contributor license agreements.  See the NOTICE file
+ *   distributed with this work for additional information
+ *   regarding copyright ownership.  The ASF licenses this file
+ *   to you under the Apache License, Version 2.0 (the
+ *   "License"); you may not use this file except in compliance
+ *   with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing,
+ *   software distributed under the License is distributed on an
+ *   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *   KIND, either express or implied.  See the License for the
+ *   specific language governing permissions and limitations
+ *   under the License.
+ *
+ */
 package org.apache.directory.fortress.core.impl;
 
 import junit.framework.*;
@@ -284,7 +303,16 @@ public class GroupMgrImplTest extends TestCase {
                 List<Group> actualGroups = groupMgr.roleGroups(role);
                 LOG.debug( "roleGroups role [" + role.getName() + "] successful" );
 
-                assertEquals( CLS_NM + ".roleGroups failed", expectedGroups, actualGroups);
+                assertNotNull( actualGroups );
+                // The two list sizes better match or fail the test case.
+                assertTrue( CLS_NM + "roleGroups list size test case", actualGroups.size() == expectedGroups.size() );
+
+                // For each actual group, check to see if it was in expected.  If not fail the test case.
+                for ( Group actualGroup : actualGroups )
+                {
+                    assertTrue( CLS_NM + ".roleGroups actual group name [" + actualGroup.getName() + "] not found", expectedGroups.contains( actualGroup ) );
+                    //TODO : should compare members in expected groups to members in actual groups.
+                }
             }
         }
         catch ( SecurityException ex )
