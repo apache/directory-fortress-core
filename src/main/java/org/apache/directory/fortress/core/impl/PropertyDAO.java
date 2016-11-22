@@ -127,6 +127,10 @@ public class PropertyDAO extends LdapDataProvider
             ld = getAdminConnection();
             Entry findEntry = read( ld, entityDn, new String[]{ GlobalIds.PROPS } );
             props = PropUtil.getProperties( getAttributes( findEntry, GlobalIds.PROPS ) );
+            
+            if( props == null ){
+                props = new Properties();
+            }
         }
         catch ( LdapNoSuchObjectException e )
         {

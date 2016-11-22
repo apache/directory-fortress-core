@@ -699,6 +699,6 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
     @Override
     public FortEntity getEntity( AdminRole entity ) throws FinderException
     {
-        return this.getEntity( entity );
+        return this.getRole( entity );
     }
 }

@@ -56,11 +56,11 @@ public class PropertyP
     }
     
     private PropertyProvider getPropertyProvider( FortEntity entity ){
-        if( entity instanceof Role ){
-            return rDAO;
-        }
-        else if( entity instanceof AdminRole ){
+        if( entity instanceof AdminRole ){
             return arDAO;
+        }
+        else  if( entity instanceof Role ){
+            return rDAO;
         }
         else if( entity instanceof Group ){
             return gDAO;

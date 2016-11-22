@@ -6,7 +6,11 @@ import java.util.Properties;
 import org.apache.directory.fortress.core.PropertyMgr;
 import org.apache.directory.fortress.core.PropertyMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.FortEntity;
+import org.apache.directory.fortress.core.model.Group;
+import org.apache.directory.fortress.core.model.PermObj;
+import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.util.LogUtil;
@@ -25,6 +29,17 @@ public class PropertyMgrImplTest extends TestCase
         {
             "test-key",
             "test-value"
+        },
+        {
+            "test-key-2",
+            "test-value-2"
+        }        
+    };
+    
+    public static final String[][] PROPS_UPDATED = {
+        {
+            "test-key",
+            "test-value-updated"
         }        
     };
     
@@ -33,23 +48,84 @@ public class PropertyMgrImplTest extends TestCase
         super( name );
     }
 
-    public void testAddProperties(){
+    public void testCrudProperties(){
         
         Role role = RoleTestData.getRole( RoleTestData.ROLES_TR1[0] );
+        AdminRole adminRole = AdminRoleTestData.getRole( AdminRoleTestData.AROLES_TR1[0] );
+        PermObj permObj = PermTestData.getObj( PermTestData.OBJS_TOB1[0] );
+        Permission permOp = PermTestData.getOp( permObj.getObjName(), PermTestData.OPS_TOP1[0] );
+        Group group = GroupTestData.TEST_GROUP1;
         
-        addProperties( "ADD-PROP-RLE", role, PROPS[0] );        
+        addProperties( "ADD-PROP-RLE", role, PROPS );        
+        addProperties( "ADD-PROP-ADMRLE", adminRole, PROPS );
+        addProperties( "ADD-PROP-POBJ", permObj, PROPS );
+        addProperties( "ADD-PROP-POP", permOp, PROPS );
+        addProperties( "ADD-PROP-GRP", group, PROPS );
+        
+        updateProperties( "UPD-PROP-RLE", role, PROPS_UPDATED[0] );        
+        updateProperties( "UPD-PROP-ADMRLE", adminRole, PROPS_UPDATED[0] );
+        updateProperties( "UPD-PROP-POBJ", permObj, PROPS_UPDATED[0] );
+        updateProperties( "UPD-PROP-POP", permOp, PROPS_UPDATED[0] );
+        updateProperties( "UPD-PROP-POP", group, PROPS_UPDATED[0] );
+        
+        deleteProperties( "DEL-PROP-RLE", role, PROPS_UPDATED[0] );        
+        deleteProperties( "DEL-PROP-ADMRLE", adminRole, PROPS_UPDATED[0] );
+        deleteProperties( "DEL-PROP-POBJ", permObj, PROPS_UPDATED[0] );
+        deleteProperties( "DEL-PROP-POP", permOp, PROPS_UPDATED[0] );
+        deleteProperties( "DEL-PROP-POP", group, PROPS_UPDATED[0] );
     }
     
-    public static void addProperties(String msg, FortEntity entity, String[] propArray )
+    public static void addProperties(String msg, FortEntity entity, String[][] propArrays )
+    {
+        LogUtil.logIt( msg );
+        try
+        {                        
+            PropertyMgr propertyMgr = getManagedPropertyMgr();
+            
+            for(String[] propArray : propArrays){
+                propertyMgr.add( entity, getProperty( propArray ) );
+            
+                Properties newAddedProps = propertyMgr.get( entity );
+                assertEquals( propArray[1],  newAddedProps.getProperty( propArray[0] ) );
+            }
+        }
+        catch ( SecurityException ex )
+        {
+            LOG.error(
+                "addProperties caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
+        }
+    }
+    
+    public static void updateProperties(String msg, FortEntity entity, String[] propArray )
     {
         LogUtil.logIt( msg );
         try
         {            
             PropertyMgr propertyMgr = getManagedPropertyMgr();
-            propertyMgr.add( entity, getProperty( propArray ) );
+            propertyMgr.update( entity, getProperty( propArray ) );
             
             Properties newAddedProps = propertyMgr.get( entity );
             assertEquals( propArray[1],  newAddedProps.getProperty( propArray[0] ) );
+        }
+        catch ( SecurityException ex )
+        {
+            LOG.error(
+                "addProperties caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
+        }
+    }
+    
+    public static void deleteProperties(String msg, FortEntity entity, String[] propArray )
+    {
+        LogUtil.logIt( msg );
+        try
+        {            
+            PropertyMgr propertyMgr = getManagedPropertyMgr();
+            propertyMgr.delete( entity, getProperty( propArray ) );
+            
+            Properties newAddedProps = propertyMgr.get( entity );
+            assertNull( newAddedProps.getProperty( propArray[0] ) );
         }
         catch ( SecurityException ex )
         {
