@@ -30,7 +30,7 @@ import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Role;
 
-public class PropertyP
+final class PropertyP
 {
     private PropertyDAO propDAO = new PropertyDAO();
     private RoleDAO rDAO = new RoleDAO();
@@ -48,7 +48,7 @@ public class PropertyP
      * @throws UpdateException
      * @throws FinderException
      */
-    public FortEntity addProperties( FortEntity entity, Properties props ) throws UpdateException, FinderException 
+    FortEntity addProperties( FortEntity entity, Properties props ) throws UpdateException, FinderException
     {        
         return propDAO.addProperties( entity, props, this.getPropertyProvider( entity ) );
     }
@@ -62,7 +62,7 @@ public class PropertyP
      * @throws UpdateException
      * @throws FinderException
      */
-    public FortEntity updateProperties( FortEntity entity, Properties props ) throws UpdateException, FinderException 
+    FortEntity updateProperties( FortEntity entity, Properties props ) throws UpdateException, FinderException
     {        
         return propDAO.updateProperties( entity, props, this.getPropertyProvider( entity ) );
     }
@@ -75,7 +75,7 @@ public class PropertyP
      * @throws UpdateException
      * @throws FinderException
      */
-    public void deleteProperties( FortEntity entity, Properties props ) throws UpdateException, FinderException 
+    void deleteProperties( FortEntity entity, Properties props ) throws UpdateException, FinderException
     {        
         propDAO.deleteProperties( entity, props, this.getPropertyProvider( entity ) );
     }
@@ -87,7 +87,7 @@ public class PropertyP
      * @return Properties for the given entity
      * @throws FinderException
      */
-    public Properties getProperties( FortEntity entity ) throws FinderException 
+    Properties getProperties( FortEntity entity ) throws FinderException
     {        
         return propDAO.getProperties( entity, this.getPropertyProvider( entity ) );
     }

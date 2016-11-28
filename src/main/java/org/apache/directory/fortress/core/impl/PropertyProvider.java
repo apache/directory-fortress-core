@@ -22,7 +22,7 @@ package org.apache.directory.fortress.core.impl;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.model.FortEntity;
 
-public interface PropertyProvider<T>
+interface PropertyProvider<T>
 {
     String getDn( T entity );
     

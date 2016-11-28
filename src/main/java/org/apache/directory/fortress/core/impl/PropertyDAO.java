@@ -44,7 +44,7 @@ import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.PropUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 
-public class PropertyDAO extends LdapDataProvider
+final class PropertyDAO extends LdapDataProvider
 {
 
     /**
@@ -57,7 +57,7 @@ public class PropertyDAO extends LdapDataProvider
      * @throws UpdateException
      * @throws FinderException
      */
-    public FortEntity addProperties( FortEntity entity, Properties properties, PropertyProvider propProvider ) throws UpdateException, FinderException
+    FortEntity addProperties( FortEntity entity, Properties properties, PropertyProvider propProvider ) throws UpdateException, FinderException
     { 
         LdapConnection ld = null;
         String entityDn = propProvider.getDn( entity );
@@ -93,7 +93,7 @@ public class PropertyDAO extends LdapDataProvider
      * @throws UpdateException
      * @throws FinderException
      */
-    public FortEntity updateProperties( FortEntity entity, Properties properties, PropertyProvider propProvider ) throws UpdateException, FinderException
+    FortEntity updateProperties( FortEntity entity, Properties properties, PropertyProvider propProvider ) throws UpdateException, FinderException
     { 
         //ftProps all have same name, so will need to delete proprs first, then readd ones that are approprirate
         
@@ -125,7 +125,7 @@ public class PropertyDAO extends LdapDataProvider
      * @throws UpdateException
      * @throws FinderException
      */
-    public void deleteProperties( FortEntity entity, Properties properties, PropertyProvider propProvider ) throws UpdateException, FinderException
+    void deleteProperties( FortEntity entity, Properties properties, PropertyProvider propProvider ) throws UpdateException, FinderException
     {
         LdapConnection ld = null;
         String entityDn = propProvider.getDn( entity );
@@ -157,7 +157,7 @@ public class PropertyDAO extends LdapDataProvider
      * @return Current properties of entity
      * @throws FinderException
      */
-    public Properties getProperties( FortEntity entity, PropertyProvider propProvider ) throws FinderException
+    Properties getProperties( FortEntity entity, PropertyProvider propProvider ) throws FinderException
     { 
         Properties props = null;
         LdapConnection ld = null;
