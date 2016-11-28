@@ -472,7 +472,10 @@ objectClass ( ftObId:8
          configProtocol $
          ftType
          )
-    MAY configParameter
+    MAY (
+    	configParameter $
+    	ftProps
+    	)
     )
 
 ## OC9: Fortress Permission Attribute Set Structural Object Class

@@ -108,3 +108,6 @@ GroupTest=org.apache.directory.fortress.core.group.GroupAntTest
 # Default behaviour when creating a user with no password is to set userPassword set to an empty string. 
 #The Fortress API will not allow auth binding if password is empty string or null, but enabling this property will cause the userPassword field to not be created. 
 #user.creation.field.password.disable=false
+
+#attribute to use for group properties
+group.properties=ftProps

@@ -81,7 +81,7 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
         GROUP_PROTOCOL_ATTR_IMPL = Config.getInstance().getProperty( GROUP_PROTOCOL_ATTR );
         GROUP_PROPERTY_ATTR_IMPL = Config.getInstance().getProperty( GROUP_PROPERTY_ATTR );
         
-        GROUP_OBJ_CLASS = new String[]{SchemaConstants.TOP_OC, GROUP_OBJECT_CLASS_IMPL, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME };
+        GROUP_OBJ_CLASS = new String[]{SchemaConstants.TOP_OC, GROUP_OBJECT_CLASS_IMPL };
         
         GROUP_ATRS = new String[]
             {
