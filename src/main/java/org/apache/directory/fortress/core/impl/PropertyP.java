@@ -39,23 +39,61 @@ public class PropertyP
     private PermOpDAO popDAO = new PermOpDAO();
     private PermObjDAO pobjDAO = new PermObjDAO();
     
-    public FortEntity addProperties( FortEntity entity, Properties props ) throws UpdateException, FinderException {        
+    /**
+     * Adds the provided properties to the provided entity 
+     *
+     * @param entity A FortressEntity that supports properties (Role, AdminRole, Group, Permission, PermObj)
+     * @param props Properties to add
+     * @return Updated entity with current properties
+     * @throws UpdateException
+     * @throws FinderException
+     */
+    public FortEntity addProperties( FortEntity entity, Properties props ) throws UpdateException, FinderException 
+    {        
         return propDAO.addProperties( entity, props, this.getPropertyProvider( entity ) );
     }
     
-    public FortEntity updateProperties( FortEntity entity, Properties props ) throws UpdateException, FinderException {        
+    /**
+     * Updates the provided properties on the provided entity
+     *
+     * @param entity A FortressEntity that supports properties (Role, AdminRole, Group, Permission, PermObj)
+     * @param props Properties to update
+     * @return Updated entity with current properties
+     * @throws UpdateException
+     * @throws FinderException
+     */
+    public FortEntity updateProperties( FortEntity entity, Properties props ) throws UpdateException, FinderException 
+    {        
         return propDAO.updateProperties( entity, props, this.getPropertyProvider( entity ) );
     }
     
-    public void deleteProperties( FortEntity entity, Properties props ) throws UpdateException, FinderException {        
+    /**
+     * Deletes the provided properties on the provided entity
+     *
+     * @param entity A FortressEntity that supports properties (Role, AdminRole, Group, Permission, PermObj)
+     * @param props Properties to delete
+     * @throws UpdateException
+     * @throws FinderException
+     */
+    public void deleteProperties( FortEntity entity, Properties props ) throws UpdateException, FinderException 
+    {        
         propDAO.deleteProperties( entity, props, this.getPropertyProvider( entity ) );
     }
     
-    public Properties getProperties( FortEntity entity ) throws FinderException {        
+    /**
+     * Gets the properties that are present on the provided entity     
+     *
+     * @param entity A FortressEntity that supports properties (Role, AdminRole, Group, Permission, PermObj)
+     * @return Properties for the given entity
+     * @throws FinderException
+     */
+    public Properties getProperties( FortEntity entity ) throws FinderException 
+    {        
         return propDAO.getProperties( entity, this.getPropertyProvider( entity ) );
     }
     
-    private PropertyProvider getPropertyProvider( FortEntity entity ){
+    private PropertyProvider getPropertyProvider( FortEntity entity )
+    {
         if( entity instanceof AdminRole ){
             return arDAO;
         }

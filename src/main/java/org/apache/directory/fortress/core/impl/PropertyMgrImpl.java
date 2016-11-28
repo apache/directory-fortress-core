@@ -82,7 +82,8 @@ public class PropertyMgrImpl extends Manageable implements PropertyMgr, Serializ
         return propP.getProperties( entity );
     }
     
-    private void checkPropertyUpdateAccess( FortEntity entity ) throws SecurityException{
+    private void checkPropertyUpdateAccess( FortEntity entity ) throws SecurityException    
+    {
         if( entity instanceof Role ){
             checkAccess( AdminMgrImpl.class.getName(), "updateRole" );
         }
@@ -115,7 +116,8 @@ public class PropertyMgrImpl extends Manageable implements PropertyMgr, Serializ
         }
     }
     
-    private void checkPropertyGetAccess( FortEntity entity ) throws SecurityException{
+    private void checkPropertyGetAccess( FortEntity entity ) throws SecurityException
+    {
         if( entity instanceof Role ){
             checkAccess( ReviewMgrImpl.class.getName(), "readRole" );
         }

@@ -47,7 +47,18 @@ import org.apache.directory.ldap.client.api.LdapConnection;
 public class PropertyDAO extends LdapDataProvider
 {
 
-    public FortEntity addProperties( FortEntity entity, Properties properties, PropertyProvider propProvider ) throws UpdateException, FinderException{ 
+    /**
+     * Add properties to the provided entity using the provided property provider
+     *
+     * @param entity A FortressEntity that supports properties (Role, AdminRole, Group, Permission, PermObj)
+     * @param properties
+     * @param propProvider DAO for entity type that implements property provider interface
+     * @return Entity with current property value
+     * @throws UpdateException
+     * @throws FinderException
+     */
+    public FortEntity addProperties( FortEntity entity, Properties properties, PropertyProvider propProvider ) throws UpdateException, FinderException
+    { 
         LdapConnection ld = null;
         String entityDn = propProvider.getDn( entity );
 
@@ -72,7 +83,18 @@ public class PropertyDAO extends LdapDataProvider
         return propProvider.getEntity( entity );
     }
     
-    public FortEntity updateProperties( FortEntity entity, Properties properties, PropertyProvider propProvider ) throws UpdateException, FinderException{ 
+    /**
+     * Update properties on the provided entity using the provided property provider     
+     *
+     * @param entity A FortressEntity that supports properties (Role, AdminRole, Group, Permission, PermObj)
+     * @param properties
+     * @param propProvider DAO for entity type that implements property provider interface
+     * @return Entity with current property value
+     * @throws UpdateException
+     * @throws FinderException
+     */
+    public FortEntity updateProperties( FortEntity entity, Properties properties, PropertyProvider propProvider ) throws UpdateException, FinderException
+    { 
         //ftProps all have same name, so will need to delete proprs first, then readd ones that are approprirate
         
         //get current properties
@@ -94,7 +116,17 @@ public class PropertyDAO extends LdapDataProvider
         return propProvider.getEntity( entity );
     }
     
-    public void deleteProperties( FortEntity entity, Properties properties, PropertyProvider propProvider ) throws UpdateException, FinderException{
+    /**
+     * Delete properties to the provided entity using the provided property provider    
+     *
+     * @param entity A FortressEntity that supports properties (Role, AdminRole, Group, Permission, PermObj)
+     * @param properties
+     * @param propProvider DAO for entity type that implements property provider interface
+     * @throws UpdateException
+     * @throws FinderException
+     */
+    public void deleteProperties( FortEntity entity, Properties properties, PropertyProvider propProvider ) throws UpdateException, FinderException
+    {
         LdapConnection ld = null;
         String entityDn = propProvider.getDn( entity );
 
@@ -117,7 +149,16 @@ public class PropertyDAO extends LdapDataProvider
         }
     }
     
-    public Properties getProperties( FortEntity entity, PropertyProvider propProvider ) throws FinderException{ 
+    /**
+     * Get properties on the provided entity using the provided property provider     
+     *
+     * @param entity A FortressEntity that supports properties (Role, AdminRole, Group, Permission, PermObj)
+     * @param propProvider DAO for entity type that implements property provider interface
+     * @return Current properties of entity
+     * @throws FinderException
+     */
+    public Properties getProperties( FortEntity entity, PropertyProvider propProvider ) throws FinderException
+    { 
         Properties props = null;
         LdapConnection ld = null;
         String entityDn = propProvider.getDn( entity );
