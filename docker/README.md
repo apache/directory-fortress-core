@@ -58,7 +58,7 @@ You need an account at <https://hub.docker.com> and join the `apachedirectory` t
 
 ## Restart container
 
-    docker restart CONTAINER_ID
+    docker restart $CONTAINER_ID
 
 
 ## Stop and delete container
