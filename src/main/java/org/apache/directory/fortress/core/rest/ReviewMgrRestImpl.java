@@ -567,8 +567,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
     {
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".assignedUsers");
         List<User> retUsers;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity(role);
         if (this.adminSess != null)
         {

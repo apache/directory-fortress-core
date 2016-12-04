@@ -52,8 +52,7 @@ public class GroupMgrRestImpl  extends Manageable implements GroupMgr
     {
         VUtil.assertNotNull( group, GlobalErrIds.GROUP_NULL, CLS_NM + ".add" );
         Group retGroup;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( group );
         if ( this.adminSess != null )
         {
@@ -81,8 +80,7 @@ public class GroupMgrRestImpl  extends Manageable implements GroupMgr
     {
         VUtil.assertNotNull( group, GlobalErrIds.GROUP_NULL, CLS_NM + ".update" );
         Group retGroup;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( group );
         if ( this.adminSess != null )
         {
@@ -110,8 +108,7 @@ public class GroupMgrRestImpl  extends Manageable implements GroupMgr
     {
         VUtil.assertNotNull( group, GlobalErrIds.GROUP_NULL, CLS_NM + ".delete" );
         Group retGroup;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( group );
         if ( this.adminSess != null )
         {
@@ -261,8 +258,7 @@ public class GroupMgrRestImpl  extends Manageable implements GroupMgr
         VUtil.assertNotNull( group, GlobalErrIds.GROUP_NULL, CLS_NM + ".assign" );
         VUtil.assertNotNull( member, GlobalErrIds.GROUP_MEMBER_NULL, CLS_NM + ".assign" );
         Group retGroup;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( group );
         request.setValue( member );
         if ( this.adminSess != null )
@@ -292,8 +288,7 @@ public class GroupMgrRestImpl  extends Manageable implements GroupMgr
         VUtil.assertNotNull( group, GlobalErrIds.GROUP_NULL, CLS_NM + ".deassign" );
         VUtil.assertNotNull( member, GlobalErrIds.GROUP_MEMBER_NULL, CLS_NM + ".deassign" );
         Group retGroup;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( group );
         request.setValue( member );
         if ( this.adminSess != null )

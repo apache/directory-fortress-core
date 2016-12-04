@@ -74,8 +74,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
         throws SecurityException
     {
         VUtil.assertNotNull( policy, GlobalErrIds.PSWD_PLCY_NULL, CLS_NM + ".add" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( policy );
         if ( this.adminSess != null )
         {
@@ -99,8 +98,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
         throws SecurityException
     {
         VUtil.assertNotNull( policy, GlobalErrIds.PSWD_PLCY_NULL, CLS_NM + ".update" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( policy );
         if ( this.adminSess != null )
         {
@@ -124,8 +122,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
         throws SecurityException
     {
         VUtil.assertNotNull( policy, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + ".delete" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( policy );
         if ( this.adminSess != null )
         {
@@ -150,8 +147,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
     {
         VUtil.assertNotNullOrEmpty( name, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + ".read" );
         PwPolicy retPolicy;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( new PwPolicy( name ) );
         if ( this.adminSess != null )
         {
@@ -181,8 +177,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
     {
         VUtil.assertNotNull( searchVal, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + ".search" );
         List<PwPolicy> retPolicies;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( new PwPolicy( searchVal ) );
         if ( this.adminSess != null )
         {
@@ -213,8 +208,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
         String methodName = "updateUserPolicy";
         VUtil.assertNotNullOrEmpty( userId, GlobalErrIds.USER_NULL, CLS_NM + "." + methodName );
         VUtil.assertNotNullOrEmpty( name, GlobalErrIds.PSWD_NAME_NULL, CLS_NM + "." + methodName );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( new PwPolicy( name ) );
         request.setValue( userId );
         if ( this.adminSess != null )
@@ -239,8 +233,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
         throws SecurityException
     {
         VUtil.assertNotNullOrEmpty( userId, GlobalErrIds.USER_NULL, CLS_NM + ".deletePasswordPolicy" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setValue( userId );
         if ( this.adminSess != null )
         {

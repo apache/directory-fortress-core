@@ -90,8 +90,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".addUser" );
         User retUser;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( user );
         if ( this.adminSess != null )
         {
@@ -120,8 +119,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         throws SecurityException
     {
         VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".disableUser" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( user );
         if ( this.adminSess != null )
         {
@@ -145,8 +143,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         throws SecurityException
     {
         VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".deleteUser" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( user );
         if ( this.adminSess != null )
         {
@@ -171,8 +168,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".updateUser" );
         User retUser;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( user );
         if ( this.adminSess != null )
         {
@@ -202,8 +198,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".changePassword" );
         VUtil.assertNotNullOrEmpty( newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + ".changePassword" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         user.setNewPassword( newPassword );
         request.setEntity( user );
         if ( this.adminSess != null )
@@ -228,8 +223,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         throws SecurityException
     {
         VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".lockUserAccount" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( user );
         if ( this.adminSess != null )
         {
@@ -253,8 +247,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         throws SecurityException
     {
         VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".unlockUserAccount" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( user );
         if ( this.adminSess != null )
         {
@@ -279,8 +272,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".resetPassword" );
         VUtil.assertNotNullOrEmpty( newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + ".resetPassword" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         user.setNewPassword( newPassword );
         request.setEntity( user );
         if ( this.adminSess != null )
@@ -318,8 +310,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".addRole" );
         Role retRole;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( role );
         if ( this.adminSess != null )
         {
@@ -348,8 +339,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         throws SecurityException
     {
         VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".deleteRole" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( role );
         if ( this.adminSess != null )
         {
@@ -374,8 +364,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".updateRole" );
         Role retRole;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( role );
         if ( this.adminSess != null )
         {
@@ -404,8 +393,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         throws SecurityException
     {
         VUtil.assertNotNull( uRole, GlobalErrIds.URLE_NULL, CLS_NM + ".assignUser" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( uRole );
         if ( this.adminSess != null )
         {
@@ -429,8 +417,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         throws SecurityException
     {
         VUtil.assertNotNull( uRole, GlobalErrIds.URLE_NULL, CLS_NM + ".deassignUser" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( uRole );
         if ( this.adminSess != null )
         {
@@ -455,8 +442,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".addPermission" );
         Permission retPerm;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( perm );
         if ( this.adminSess != null )
         {
@@ -486,8 +472,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".updatePermission" );
         Permission retPerm;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( perm );
         if ( this.adminSess != null )
         {
@@ -516,8 +501,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         throws SecurityException
     {
         VUtil.assertNotNull( perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".deletePermission" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( perm );
         if ( this.adminSess != null )
         {
@@ -542,8 +526,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".addPermObj" );
         PermObj retObj;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( pObj );
         if ( this.adminSess != null )
         {
@@ -573,8 +556,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".updatePermObj" );
         PermObj retObj;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( pObj );
         if ( this.adminSess != null )
         {
@@ -603,8 +585,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         throws SecurityException
     {
         VUtil.assertNotNull( pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".deletePermObj" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( pObj );
         if ( this.adminSess != null )
         {
@@ -629,8 +610,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".grantPermission" );
         VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".grantPermission" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         PermGrant permGrant = new PermGrant();
         permGrant.setAdmin( perm.isAdmin() );
         permGrant.setObjName( perm.getObjName() );
@@ -661,8 +641,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".revokePermission" );
         VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".revokePermission" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         PermGrant permGrant = new PermGrant();
         permGrant.setAdmin( perm.isAdmin() );
         permGrant.setObjName( perm.getObjName() );
@@ -693,8 +672,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".grantPermissionUser" );
         VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".grantPermissionUser" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         PermGrant permGrant = new PermGrant();
         permGrant.setAdmin( perm.isAdmin() );
         permGrant.setObjName( perm.getObjName() );
@@ -725,8 +703,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".revokePermission" );
         VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".revokePermission" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         PermGrant permGrant = new PermGrant();
         permGrant.setAdmin( perm.isAdmin() );
         permGrant.setObjName( perm.getObjName() );
@@ -757,8 +734,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + ".addDescendant" );
         VUtil.assertNotNull( childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + ".addDescendant" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         RoleRelationship relationship = new RoleRelationship();
         relationship.setParent( parentRole );
         relationship.setChild( childRole );
@@ -786,8 +762,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + ".addAscendant" );
         VUtil.assertNotNull( childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + ".addAscendant" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         RoleRelationship relationship = new RoleRelationship();
         relationship.setParent( parentRole );
         relationship.setChild( childRole );
@@ -815,8 +790,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + ".addInheritance" );
         VUtil.assertNotNull( childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + ".addInheritance" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         RoleRelationship relationship = new RoleRelationship();
         relationship.setParent( parentRole );
         relationship.setChild( childRole );
@@ -844,8 +818,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( parentRole, GlobalErrIds.PARENT_ROLE_NULL, CLS_NM + ".deleteInheritance" );
         VUtil.assertNotNull( childRole, GlobalErrIds.CHILD_ROLE_NULL, CLS_NM + ".deleteInheritance" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         RoleRelationship relationship = new RoleRelationship();
         relationship.setParent( parentRole );
         relationship.setChild( childRole );
@@ -873,8 +846,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".createSsdSet" );
         SDSet retSet;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( ssdSet );
         if ( this.adminSess != null )
         {
@@ -903,8 +875,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".updateSsdSet" );
         SDSet retSet;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( ssdSet );
         if ( this.adminSess != null )
         {
@@ -935,8 +906,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNull( ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".addSsdRoleMember" );
         VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".addSsdRoleMember" );
         SDSet retSet;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( ssdSet );
         request.setValue( role.getName() );
         if ( this.adminSess != null )
@@ -968,8 +938,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNull( ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".deleteSsdRoleMember" );
         VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".deleteSsdRoleMember" );
         SDSet retSet;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( ssdSet );
         request.setValue( role.getName() );
         if ( this.adminSess != null )
@@ -1000,8 +969,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".deleteSsdSet" );
         SDSet retSet;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( ssdSet );
         if ( this.adminSess != null )
         {
@@ -1031,8 +999,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( ssdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".setSsdSetCardinality" );
         SDSet retSet;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         ssdSet.setCardinality( cardinality );
         request.setEntity( ssdSet );
         if ( this.adminSess != null )
@@ -1063,8 +1030,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".createDsdSet" );
         SDSet retSet;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( dsdSet );
         if ( this.adminSess != null )
         {
@@ -1093,8 +1059,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".updateDsdSet" );
         SDSet retSet;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( dsdSet );
         if ( this.adminSess != null )
         {
@@ -1125,8 +1090,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNull( dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".addDsdRoleMember" );
         VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".addDsdRoleMember" );
         SDSet retSet;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( dsdSet );
         request.setValue( role.getName() );
         if ( this.adminSess != null )
@@ -1158,8 +1122,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNull( dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".deleteDsdRoleMember" );
         VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".deleteSsdRoleMember" );
         SDSet retSet;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( dsdSet );
         request.setValue( role.getName() );
         if ( this.adminSess != null )
@@ -1190,8 +1153,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".deleteDsdSet" );
         SDSet retSet;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( dsdSet );
         if ( this.adminSess != null )
         {
@@ -1221,8 +1183,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( dsdSet, GlobalErrIds.SSD_NULL, CLS_NM + ".setSsdSetCardinality" );
         SDSet retSet;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         dsdSet.setCardinality( cardinality );
         request.setEntity( dsdSet );
         if ( this.adminSess != null )
@@ -1254,8 +1215,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNull( uRole, GlobalErrIds.URLE_NULL, CLS_NM + ".addRoleConstraint" );
         VUtil.assertNotNull( roleConstraint, GlobalErrIds.RCON_NULL, CLS_NM + ".addRoleConstraint" );
         RoleConstraint retCnst;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( uRole );
         request.setEntity2( roleConstraint );
         if ( this.adminSess != null )
@@ -1285,8 +1245,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( uRole, GlobalErrIds.URLE_NULL, CLS_NM + ".removeRoleConstraint" );
         VUtil.assertNotNull( roleConstraint, GlobalErrIds.RCON_NULL, CLS_NM + ".removeRoleConstraint" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( uRole );
         request.setEntity2( roleConstraint );
         if ( this.adminSess != null )
@@ -1312,8 +1271,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( permAttributeSet, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL, CLS_NM + ".addPermissionAttributeSet" );
         PermissionAttributeSet retSet;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( permAttributeSet );
         if ( this.adminSess != null )
         {
@@ -1342,8 +1300,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
 			PermissionAttributeSet permAttributeSet) throws SecurityException
     {
         VUtil.assertNotNull( permAttributeSet, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL, CLS_NM + ".deletePermissionAttributeSet" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( permAttributeSet );
         if ( this.adminSess != null )
         {
@@ -1369,8 +1326,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNull( permAttribute, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL, CLS_NM + ".addPermissionAttributeToSet" );
         VUtil.assertNotNull( attributeSetName, GlobalErrIds.PERM_ATTRIBUTE_SET_NM_NULL, CLS_NM + ".addPermissionAttributeToSet" );
         PermissionAttribute retAttr;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( permAttribute );
         request.setValue( attributeSetName );
         if ( this.adminSess != null )
@@ -1401,8 +1357,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     {
         VUtil.assertNotNull( permAttribute, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL, CLS_NM + ".removePermissionAttributeFromSet" );
         VUtil.assertNotNull( attributeSetName, GlobalErrIds.PERM_ATTRIBUTE_SET_NM_NULL, CLS_NM + ".removePermissionAttributeFromSet" );
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( permAttribute );
         request.setValue( attributeSetName );
         if ( this.adminSess != null )
@@ -1429,8 +1384,7 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNull( permAttribute, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL, CLS_NM + ".updatePermissionAttributeInSet" );
         VUtil.assertNotNull( attributeSetName, GlobalErrIds.PERM_ATTRIBUTE_SET_NM_NULL, CLS_NM + ".updatePermissionAttributeInSet" );
         PermissionAttribute retAttr;
-        FortRequest request = new FortRequest();
-        request.setContextId( this.contextId );
+        FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( permAttribute );
         request.setValue( attributeSetName );
         request.setIsFlag( replaceValidValues );

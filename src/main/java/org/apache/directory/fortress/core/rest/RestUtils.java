@@ -93,6 +93,18 @@ public final class RestUtils
     // These members contain the http coordinates to a running fortress-rest instance:
     private String httpUid, httpPw, httpHost, httpPort, httpProtocol, fortressRestVersion, serviceName, uri;
 
+    /**
+     * create a new request and set its tenant id.
+     * @param szContextId contains the tenant id
+     * @return a brand new FortRequest
+     */
+    static FortRequest getRequest( String szContextId )
+    {
+        FortRequest request = new FortRequest();
+        request.setContextId(szContextId);
+        return request;
+    }
+
     public static RestUtils getInstance()
     {
         if(sINSTANCE == null)
