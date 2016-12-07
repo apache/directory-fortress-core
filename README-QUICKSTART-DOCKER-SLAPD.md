@@ -48,26 +48,22 @@ Minimum software requirements:
 ___________________________________________________________________________________
 ## SECTION 2. Apache Fortress Core Setup using OpenLDAP Docker Image
 
-1. Download the package:
+1. Download the apache directory fortress-core source from apache git repo:
 
- a. from git:
+ a. from the command line:
  ```
  git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
  cd directory-fortress-core
  ```
-2. Run the docker build:
+
+2. Now build the apache directory fortress docker image (trailing dot matters):
+
  ```
  docker build -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .
  ```
 
- *note: trailing dot matters
-
 3. Run the docker container:
- ```
- CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
- ```
 
-4. Run the docker container:
  ```
  CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
  CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
@@ -77,28 +73,28 @@ ________________________________________________________________________________
  *note: make note of the port as it's needed later
  *depending on your docker setup may need to run as root or sudo priv's.
 
-5. Prepare the fortress package:
+4. Prepare fortress to use the slapd running inside docker container:
 
  ```
  cp build.properties.example build.properties
  cp slapd.properties.example slapd.properties
  ```
 
-6. Edit the *slapd.properties* file:
+5. Edit the *slapd.properties* file:
 
  ```
  vi slapd.properties
  ```
 
-7. Update the *ldap.port* prop:
+6. Update the *ldap.port* prop:
 
  ```
  ldap.port= port from earlier step
  ```
 
-8. Save and exit
+7. Save and exit
 
-9. Prepare your terminal for execution of maven commands.
+8. Prepare your terminal for execution of maven commands.
 
  ```
  #!/bin/sh
@@ -107,13 +103,13 @@ ________________________________________________________________________________
  export PATH=$PATH:$M2_HOME/bin
  ```
 
-10. Run the maven install to build fortress lib and prepare its configuration (fortress.properties):
+9. Run the maven install to build fortress lib and prepare its configuration (fortress.properties):
 
  ```
  mvn clean install
  ```
 
-11. To start the slapd process (as root or sudo):
+10. To start the slapd process (as root or sudo):
 
   ```
   mvn test -Pstart-slapd
@@ -215,27 +211,21 @@ ________________________________________________________________________________
 ___________________________________________________________________________________
 ## SECTION 4. Docker Commands
 
-## Build image
+#### Build image
+
  ```
  docker build -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .
  ```
 
- *trailing dot matters
+ * trailing dot matters
 
 Or just to be sure don't use cached layers:
+
  ```
  docker build  --no-cache=true -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .
  ```
 
-## Publish image to Docker Hub
-
-You need an account at <https://hub.docker.com> and join the `apachedirectory` team (ask Stefan).
-
- ```
- docker push apachedirectory/openldap-for-apache-fortress-tests:latest
- ```
-
-## Run container
+#### Run container
 
  ```
  CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
@@ -243,23 +233,24 @@ You need an account at <https://hub.docker.com> and join the `apachedirectory` t
  echo $CONTAINER_PORT
  ```
 
-## Go into the container
+#### Go into the container
 
  ```
  docker exec -it $CONTAINER_ID bash
  ```
 
-## Restart container
+#### Restart container
 
  ```
  docker restart $CONTAINER_ID
  ```
 
-## Stop and delete container
+#### Stop and delete container
 
  ```
  docker stop $CONTAINER_ID
  docker rm $CONTAINER_ID
  ```
+
 ____________________________________________________________________________________
 #### END OF README-QUICKSTART-DOCKER-SLAPD
