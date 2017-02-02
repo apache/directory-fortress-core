@@ -71,6 +71,7 @@ public class LockDate
         }
         else
         {
+            // Does current date fall inside lock date?
             if (!(constraint.getBeginLockDate().compareTo(time.date) <= 0
                 && constraint.getEndLockDate().compareTo(time.date) >= 0))
             {
