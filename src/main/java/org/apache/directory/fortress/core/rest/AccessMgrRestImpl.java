@@ -358,6 +358,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".getUser");
         User retUser;
         FortRequest request = new FortRequest();
+        request.setContextId(this.contextId);
         request.setSession(session);
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.RBAC_USER);
