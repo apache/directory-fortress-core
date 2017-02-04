@@ -26,6 +26,9 @@ import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.FortEntity;
 import org.apache.directory.fortress.core.model.Session;
 
+/**
+ * TODO: implement me...
+ */
 public class PropertyMgrRestImpl implements PropertyMgr
 {
 
@@ -33,42 +36,41 @@ public class PropertyMgrRestImpl implements PropertyMgr
     public FortEntity add( FortEntity entity, Properties props ) throws SecurityException
     {
         // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException( "not implemented" );
     }
 
     @Override
     public FortEntity update( FortEntity entity, Properties props ) throws SecurityException
     {
         // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException( "not implemented" );
     }
 
     @Override
     public void delete( FortEntity entity, Properties props ) throws SecurityException
     {
         // TODO Auto-generated method stub
-        
+        throw new UnsupportedOperationException( "not implemented" );
     }
 
     @Override
     public Properties get( FortEntity entity ) throws SecurityException
     {
         // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException( "not implemented" );
     }
 
     @Override
     public void setAdmin( Session session )
     {
         // TODO Auto-generated method stub
-        
+        throw new UnsupportedOperationException( "not implemented" );
     }
 
     @Override
     public void setContextId( String contextId )
     {
         // TODO Auto-generated method stub
-        
+        throw new UnsupportedOperationException( "not implemented" );
     }
-
 }

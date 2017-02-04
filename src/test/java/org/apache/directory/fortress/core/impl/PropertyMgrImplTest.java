@@ -84,8 +84,8 @@ public class PropertyMgrImplTest extends TestCase
             
             for(String[] propArray : propArrays){
                 propertyMgr.add( entity, getProperty( propArray ) );
-            
                 Properties newAddedProps = propertyMgr.get( entity );
+                assertNotNull( newAddedProps );
                 assertEquals( propArray[1],  newAddedProps.getProperty( propArray[0] ) );
             }
         }
