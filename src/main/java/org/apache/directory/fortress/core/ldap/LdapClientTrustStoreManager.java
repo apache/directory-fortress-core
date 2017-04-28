@@ -68,7 +68,7 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
     /**
      * Constructor used by connection configuration utility to load trust store manager.
      *
-     * @param trustStoreFile    contains fully qualified name of trust store file.
+     * @param trustStoreFile    contains name of trust store file.
      * @param trustStorePw      contains the password for trust store
      * @param trustStoreFormat  contains the format for trust store
      * @param isExamineValidity boolean var determines if certificate will be examined for valid dates on load.
@@ -82,7 +82,7 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
             throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_JSSE_TRUSTSTORE_NULL,
                 "LdapClientTrustStoreManager constructor : input file name is null" );
         }
-        // contains the fully-qualified file name of a valid JSSE TrustStore on local file system:
+        // contains the file name of a valid JSSE TrustStore found on classpath:
         this.trustStoreFile = trustStoreFile;
         // the password to the JSSE TrustStore:
         this.trustStorePw = trustStorePw.clone();
@@ -282,7 +282,7 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
         InputStream result = ResourceUtil.getInputStream(trustStoreFile);
         if (null == result)
         {
-            throw new CertificateException("LdapClientTrustStoreManager.getTrustStoreInputStream file does not exist" );
+            throw new CertificateException("LdapClientTrustStoreManager.getTrustStoreInputStream file does not exist on fortress classpath" );
         }
         return result;
     }

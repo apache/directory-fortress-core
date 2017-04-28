@@ -84,7 +84,7 @@ log.ops=logops bind writes compare
 #ldap.host=fortressdemo2.com
 #ldap.port=10636
 #enable.ldap.ssl.debug=true
-# The trust store is picked up off the classpath:
+# The trust store is picked up off the classpath i.e. fortress-home/config:
 #trust.store=mytruststore
 #trust.store.password=changeit
 #trust.store.set.prop=true
