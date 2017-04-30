@@ -77,16 +77,18 @@ log.root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
 log.suffix=cn=log
 log.ops=logops bind writes compare
 
-#ldap.uris=ldap://${ldap.host}:${ldap.port}
+#ldap.uris=ldaps://${ldap.host}:${ldap.port}
 
 # These are needed for client SSL connections with LDAP Server:
 #enable.ldap.ssl=true
 #ldap.host=fortressdemo2.com
-#ldap.port=10636
+# 636 is default LDAPS on OpenLDAP:
+#ldap.port=636
 #enable.ldap.ssl.debug=true
-# The trust store is picked up off the classpath i.e. fortress-home/config:
+# The trust store is found either on the application's classpath or filepath as specified by trust.store.onclasspath:
 #trust.store=mytruststore
 #trust.store.password=changeit
+# Will pick up the truststore from the classpath if set to true  which is the default.  Otherwise, file must be specified a fully qualified filename:
 #trust.store.onclasspath=true
 
 # These are needed for slapd startup SSL configuration:
@@ -150,7 +152,8 @@ slapd.start=${openldap.root}/lib64/slapd -h ldap://${ldap.host}:${ldap.port} -f 
 ########################################################################
 # 4. RBAC ACCELERATOR OVERLAY PROPS
 ########################################################################
-rbac.accelerator=true
+
+rbac.accelerator=false
 rbac.module=moduleload slapo-rbac.la
 dds.module=moduleload  dds.la
 monitor.module=moduleload  back_monitor.la
@@ -162,3 +165,24 @@ db.audit.dir=${db.root}/rbacaudit
 db.rbac.dir=${db.root}/rbacoverlay
 db.bak.audit.dir=${db.root}/backup/rbacaudit
 db.bak.sess.dir=${db.root}/backup/rbacsess
+
+########################################################################
+# 5. BEGIN HTTP CLIENT CONFIGURATION SECTION (Ignore if using LDAPv3):
+########################################################################
+
+# The following optional HTTP parameters are needed when Fortress core client-side communicates though fortress-rest HTTP proxy (rather than LDAP) server:
+# Thr nav URL to fortress-rest impl: uri = httpProtocol + "://" + httpHost + ":" + httpPort + "/" + "fortress-rest-" + version; + "/";:
+# version is set as system property, i.e. -Dversion=2.0.0
+# Setting the enable.mgr.impl.rest to 'true' sets Fortress instance to use HTTP services rather than LDAPv3 protocol. Default value is 'false':
+# Use interface over REST/HTTP?  Default is false (use LDAPv3)
+#enable.mgr.impl.rest=true
+
+# This user account is added automatically during deployment of fortress-rest via -Dload.file=./src/main/resources/FortressRestServerPolicy.xml:
+#http.user=demouser4
+#http.pw=password
+#http.host=localhost
+#http.port=8080
+#http.protocol=http
+# For TLs connections:
+#http.port=8443
+#http.protocol=https
