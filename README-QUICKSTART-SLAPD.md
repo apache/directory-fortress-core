@@ -133,6 +133,7 @@ ________________________________________________________________________________
   ```
   # These are needed for client SSL connections with LDAP Server:
   enable.ldap.ssl=true
+  # The LDAP hostname must match the common name in the server certificate:
   ldap.host=fortressdemo2.com
   # 636 is default LDAPS on OpenLDAP:
   ldap.port=636

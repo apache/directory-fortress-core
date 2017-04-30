@@ -56,6 +56,7 @@ ldap.port=10389
 
 # These are needed for client SSL connections with LDAP Server:
 #enable.ldap.ssl=true
+# The LDAP hostname must match the common name in the server certificate:
 #ldap.host=fortressdemo2.com
 # 10636 is default apacheds LDAPS port:
 #ldap.port=10636
