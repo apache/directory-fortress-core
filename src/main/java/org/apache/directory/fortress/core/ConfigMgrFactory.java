@@ -53,7 +53,6 @@ public final class ConfigMgrFactory
     {
     	String configClassName = Config.getInstance().getProperty( GlobalIds.CONFIG_IMPLEMENTATION );
     	boolean IS_REST = ((Config.getInstance().getProperty(ENABLE_REST) != null) && (Config.getInstance().getProperty(ENABLE_REST).equalsIgnoreCase("true")));
-    	
         return ConfigMgrFactory.createInstance(configClassName, IS_REST);
     }
     
@@ -62,7 +61,8 @@ public final class ConfigMgrFactory
     {
         if (configClassName == null || configClassName.compareTo("") == 0)
         {
-            if(IS_REST)
+            if(Config.getInstance().isRestEnabled())
+            // if(IS_REST)
             {
                 configClassName = ConfigMgrRestImpl.class.getName();
             }
