@@ -121,12 +121,12 @@ ________________________________________________________________________________
 8. (optional) Specify whether you want to communicate over SSL using LDAPS:
 
  a. Place .pem files for ca-certificate, server certificate and private key in folder named *certs* : [fortress-core-[VERSION]/src/test/resources/certs](./src/test/resources/certs)
- 
- They will get copied to openldap ssl folder during init-slapd target.
- For example:
- - ca-cert.pem is the ca certificate file
- - server-cert.pem is the server certificate
- - server-key.pem is the server private key
+
+  These will get copied to openldap ssl folder during init-slapd target.
+  For example:
+  - ca-cert.pem is the ca certificate file
+  - server-cert.pem is the server certificate
+  - server-key.pem is the server private key
 
  b. add or replace the following slapd.properties:
 
