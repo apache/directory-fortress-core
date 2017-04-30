@@ -443,6 +443,7 @@ public final class GlobalIds
     public static final String TRUST_STORE_PW = "trust.store.password";
 
 
+    public static final String TRUST_STORE_ON_CLASSPATH = "trust.store.onclasspath";
     public static final String SET_TRUST_STORE_PROP = "trust.store.set.prop";
     public static final String LDAP_HOST = "host";
     public static final String LDAP_PORT = "port";

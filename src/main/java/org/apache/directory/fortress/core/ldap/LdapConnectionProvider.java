@@ -144,6 +144,7 @@ public class LdapConnectionProvider
         int logmax = Config.getInstance().getInt( LDAP_LOG_POOL_MAX, 10 );
         LOG.info( "LDAP POOL:  host=[{}], port=[{}], min=[{}], max=[{}]", host, port, min, max );
 
+/*
         if ( IS_SET_TRUST_STORE_PROP )
         {
             LOG.info( "Set JSSE truststore properties in Apache LDAP client:" );
@@ -154,7 +155,7 @@ public class LdapConnectionProvider
                 .TRUST_STORE_PW ) );
             System.setProperty( "javax.net.debug", Boolean.valueOf( IS_SSL_DEBUG ).toString() );
         }
-
+*/
         LdapConnectionConfig config = new LdapConnectionConfig();
         config.setLdapHost( host );
         config.setLdapPort( port );
