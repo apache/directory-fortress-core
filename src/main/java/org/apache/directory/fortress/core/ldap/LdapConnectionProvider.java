@@ -67,10 +67,7 @@ public class LdapConnectionProvider
     private static final String LDAP_LOG_POOL_MAX = "max.log.conn";
 
     private static final String ENABLE_LDAP_STARTTLS = "enable.ldap.starttls";
-
     private boolean IS_SSL;
-    private boolean IS_SET_TRUST_STORE_PROP;
-    private boolean IS_SSL_DEBUG;
 
     /**
      * The Admin connection pool
@@ -128,14 +125,6 @@ public class LdapConnectionProvider
             Config.getInstance().getProperty( GlobalIds.TRUST_STORE ) != null &&
             Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ) != null );
 
-        IS_SET_TRUST_STORE_PROP = ( IS_SSL &&
-            Config.getInstance().getProperty( GlobalIds.SET_TRUST_STORE_PROP ) != null &&
-            Config.getInstance().getProperty( GlobalIds.SET_TRUST_STORE_PROP ).equalsIgnoreCase( "true" ) );
-
-        IS_SSL_DEBUG = ( ( Config.getInstance().getProperty( GlobalIds.ENABLE_LDAP_SSL_DEBUG ) != null ) && ( Config
-            .getInstance().getProperty( GlobalIds.ENABLE_LDAP_SSL_DEBUG ).equalsIgnoreCase( "true" ) ) );
-
-
         String host = Config.getInstance().getProperty( GlobalIds.LDAP_HOST, "localhost" );
         int port = Config.getInstance().getInt( GlobalIds.LDAP_PORT, 389 );
         int min = Config.getInstance().getInt( GlobalIds.LDAP_ADMIN_POOL_MIN, 1 );
@@ -144,18 +133,6 @@ public class LdapConnectionProvider
         int logmax = Config.getInstance().getInt( LDAP_LOG_POOL_MAX, 10 );
         LOG.info( "LDAP POOL:  host=[{}], port=[{}], min=[{}], max=[{}]", host, port, min, max );
 
-/*
-        if ( IS_SET_TRUST_STORE_PROP )
-        {
-            LOG.info( "Set JSSE truststore properties in Apache LDAP client:" );
-            LOG.info( "javax.net.ssl.trustStore: {}", Config.getInstance().getProperty( GlobalIds.TRUST_STORE ) );
-            LOG.info( "javax.net.debug: {}", IS_SSL_DEBUG );
-            System.setProperty( "javax.net.ssl.trustStore", Config.getInstance().getProperty( GlobalIds.TRUST_STORE ) );
-            System.setProperty( "javax.net.ssl.trustStorePassword", Config.getInstance().getProperty( GlobalIds
-                .TRUST_STORE_PW ) );
-            System.setProperty( "javax.net.debug", Boolean.valueOf( IS_SSL_DEBUG ).toString() );
-        }
-*/
         LdapConnectionConfig config = new LdapConnectionConfig();
         config.setLdapHost( host );
         config.setLdapPort( port );

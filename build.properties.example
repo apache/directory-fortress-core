@@ -61,7 +61,7 @@ ldap.port=10389
 # The trust store is picked up off the classpath i.e. fortress-home/config:
 #trust.store=mytruststore
 #trust.store.password=changeit
-#trust.store.set.prop=true
+#trust.store.onclasspath=true
 
 # These are the connection parameters used for LDAP service account:
 root.dn=uid=admin,ou=system

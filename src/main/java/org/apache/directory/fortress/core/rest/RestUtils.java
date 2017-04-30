@@ -81,15 +81,6 @@ public final class RestUtils
     // static member contains this
     private static volatile RestUtils sINSTANCE = null;
 
-    /**
-     * Used to manage trust store properties.  If enabled, create SSL connection.
-     *
-     */
-    private static String trustStoreSetProp = "trust.store.set.prop";
-    private String trustStore;
-    private String trustStorePw;
-    private boolean isTrustStoreSetProp;
-
     // These members contain the http coordinates to a running fortress-rest instance:
     private String httpUid, httpPw, httpHost, httpPort, httpProtocol, fortressRestVersion, serviceName, uri;
 
@@ -128,22 +119,9 @@ public final class RestUtils
         httpHost = Config.getInstance().getProperty( "http.host" );
         httpPort = Config.getInstance().getProperty( "http.port" );
         httpProtocol = Config.getInstance().getProperty( "http.protocol", "http" );
-        trustStore = Config.getInstance().getProperty( "trust.store" );
-        trustStorePw = Config.getInstance().getProperty( "trust.store.password" );
-        isTrustStoreSetProp = (
-            Config.getInstance().getProperty( trustStoreSetProp ) != null &&
-            Config.getInstance().getProperty( trustStoreSetProp ).equalsIgnoreCase( "true" ) );
         fortressRestVersion = System.getProperty( "version" );
         serviceName = "fortress-rest-" + fortressRestVersion;
         uri = httpProtocol + "://" + httpHost + ":" + httpPort + "/" + serviceName + "/";
-        
-        if ( isTrustStoreSetProp )
-        {
-            LOG.info( "Set JSSE truststore properties:" );
-            LOG.info( "javax.net.ssl.trustStore: {}", trustStore );
-            System.setProperty( "javax.net.ssl.trustStore", trustStore );
-            System.setProperty( "javax.net.ssl.trustStorePassword", trustStorePw );
-        }
     }
 
     private RestUtils(){

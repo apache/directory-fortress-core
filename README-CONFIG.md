@@ -82,7 +82,7 @@ The ant config task, **init-fortress-config**, uses the values found within the 
  * fortress.enable.ldap.ssl.debug
  * fortress.trust.store
  * fortress.trust.store.password
- * fortress.trust.store.set.prop
+ * fortress.trust.store.onclasspath
  * fortress.config.realm
  * fortress.config.root
  * fortress.ldap.server.type

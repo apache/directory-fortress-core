@@ -159,7 +159,6 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
         CertificateException
     {
         String szTrustStoreOnClasspath = Config.getInstance().getProperty( GlobalIds.TRUST_STORE_ON_CLASSPATH );
-        LOG.info( CLS_NM + ".getTrustManagers trust.store.onclasspath: {}", szTrustStoreOnClasspath );
 
         // If false or null, read the truststore from a fully qualified filename.
         if( szTrustStoreOnClasspath != null && szTrustStoreOnClasspath.equalsIgnoreCase( "false" ))

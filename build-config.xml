@@ -329,7 +329,8 @@
          <replace file="${dst.bootstrap.conf}" token="@ENABLE_LDAP_SSL_DEBUG@" value="${enable.ldap.ssl.debug}"/>
          <replace file="${dst.bootstrap.conf}" token="@TRUST_STORE@" value="${trust.store}"/>
          <replace file="${dst.bootstrap.conf}" token="@TRUST_STORE_PW@" value="${trust.store.password}"/>
-         <replace file="${dst.bootstrap.conf}" token="@TRUST_STORE_SET_PROPW@" value="${trust.store.set.prop}"/>
+
+         <replace file="${dst.bootstrap.conf}" token="@TRUST_STORE_ONCLASSPATHW@" value="${trust.store.onclasspath}"/>
 
        <copy file="${src.remote.conf}" tofile="${dst.remote.conf}"/>
          <replace file="${dst.remote.conf}" token="@SUFFIX@" value="${suffix}"/>
@@ -358,7 +359,7 @@
          <replace file="${dst.remote.conf}" token="@ENABLE_LDAP_SSL_DEBUG@" value="${enable.ldap.ssl.debug}"/>
          <replace file="${dst.remote.conf}" token="@TRUST_STORE@" value="${trust.store}"/>
          <replace file="${dst.remote.conf}" token="@TRUST_STORE_PW@" value="${trust.store.password}"/>
-         <replace file="${dst.remote.conf}" token="@TRUST_STORE_SET_PROPW@" value="${trust.store.set.prop}"/>
+         <replace file="${dst.remote.conf}" token="@TRUST_STORE_ONCLASSPATHW@" value="${trust.store.onclasspath}"/>
          <replace file="${dst.remote.conf}" token="@KEY_STORE@" value="${key.store}"/>
          <replace file="${dst.remote.conf}" token="@KEY_STORE_PW@" value="${key.store.password}"/>
          <replace file="${dst.remote.conf}" token="@SERVER_TYPE@" value="${ldap.server.type}"/>

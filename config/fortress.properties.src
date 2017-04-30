@@ -34,7 +34,7 @@ enable.ldap.ssl=@ENABLE_LDAP_SSL@
 enable.ldap.ssl.debug=@ENABLE_LDAP_SSL_DEBUG@
 trust.store=@TRUST_STORE@
 trust.store.password=@TRUST_STORE_PW@
-trust.store.set.prop=@TRUST_STORE_SET_PROPW@
+trust.store.onclasspath=@TRUST_STORE_ONCLASSPATHW@
 
 # Used to enable STARTTLS on Connection to LDAP Server
 enable.ldap.starttls=false

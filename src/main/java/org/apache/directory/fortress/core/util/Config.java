@@ -66,7 +66,7 @@ public final class Config
     private static final String EXT_ENABLE_LDAP_SSL_DEBUG = "fortress.enable.ldap.ssl.debug";
     private static final String EXT_TRUST_STORE = "fortress.trust.store";
     private static final String EXT_TRUST_STORE_PW = "fortress.trust.store.password";
-    private static final String EXT_SET_TRUST_STORE_PROP = "fortress.trust.store.set.prop";
+    private static final String EXT_TRUST_STORE_ONCLASSPATH = "fortress.trust.store.onclasspath";
     private static final String EXT_CONFIG_REALM = "fortress.config.realm";
     private static final String EXT_CONFIG_ROOT_DN = "fortress.config.root";
     private static final String EXT_SERVER_TYPE = "fortress.ldap.server.type";
@@ -544,12 +544,12 @@ public final class Config
             LOG.info( "getExternalConfig override name [{}]", GlobalIds.TRUST_STORE_PW );
         }
 
-        // Check to see if the trust store set parameter has been overridden by a system property:
-        szValue = System.getProperty( EXT_SET_TRUST_STORE_PROP );
+        // Check to see if the trust store onclasspath parameter has been overridden by a system property:
+        szValue = System.getProperty( EXT_TRUST_STORE_ONCLASSPATH );
         if( StringUtils.isNotEmpty( szValue ))
         {
-            config.setProperty( GlobalIds.SET_TRUST_STORE_PROP, szValue );
-            LOG.info( PREFIX, GlobalIds.SET_TRUST_STORE_PROP, szValue );
+            config.setProperty( GlobalIds.TRUST_STORE_ON_CLASSPATH, szValue );
+            LOG.info( PREFIX, GlobalIds.TRUST_STORE_ON_CLASSPATH, szValue );
         }
 
         // Check to see if the config realm name has been overridden by a system property:
