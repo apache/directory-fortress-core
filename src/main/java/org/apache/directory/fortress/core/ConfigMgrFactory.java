@@ -62,7 +62,6 @@ public final class ConfigMgrFactory
         if (configClassName == null || configClassName.compareTo("") == 0)
         {
             if(Config.getInstance().isRestEnabled())
-            // if(IS_REST)
             {
                 configClassName = ConfigMgrRestImpl.class.getName();
             }

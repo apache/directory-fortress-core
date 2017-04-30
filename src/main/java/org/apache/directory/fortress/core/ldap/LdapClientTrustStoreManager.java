@@ -48,6 +48,13 @@ import java.util.Date;
  * client-to-server communications over TLS/SSL.
  * It is used during certificate validation operations within JSSE.
  * <p>
+ * There are the controlling fortress.properties:
+ * <ul>
+ *     <li>trust.store : contains the name of the truststore (must be fully qualified iff trust.store.onclasspath=false</li>
+ *     <li>trust.store.password : contains the pw for the specified truststore</li>
+ *     <li>trust.onclasspath : if false name must be fully qualified, otherwise file must be on classpath as named</li>
+ * </ul>
+ *
  * Note: This class allows self-signed certificates to pass the validation checks.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
@@ -63,7 +70,7 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
     // Config variables
     private final boolean isExamineValidityDates;
     private final char[] trustStorePw;
-    // This is found on the classpath:
+    // This is found on the classpath if trust.store.onclasspath = true (default), otherwise must include exact location on filepath:
     private final String trustStoreFile;
     private final String trustStoreFormat;
 
