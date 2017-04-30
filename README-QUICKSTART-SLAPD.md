@@ -95,13 +95,11 @@ ________________________________________________________________________________
 6. Update the *slapd.properties* file *slapd.install* statement with a reference to the openldap install downloaded earlier.
 
  a. For Debian installs:
-
   ```
   slapd.install=dpkg -i symas-openldap-silver.version.platform.deb
   ```
 
  b. For Centos:
-
   ```
   slapd.install=rpm -i symas-openldap-silver.version.platform.rpm
   ```
@@ -109,7 +107,6 @@ ________________________________________________________________________________
 7. Specify whether you want to enable the slapo-rbac overlay:
 
  a. Yes, I want to enable slapo-rbac:
-
   ```
   rbac.accelerator=true
   ```
@@ -117,7 +114,6 @@ ________________________________________________________________________________
  *To use this option, symas-openldap version 2.4.43++ is required.*
 
  b. No, I don't want to enable slapo-rbac:
-
   ```
   rbac.accelerator=false
   ```
@@ -125,6 +121,7 @@ ________________________________________________________________________________
 8. (optional) Specify whether you want to communicate over SSL using LDAPS:
 
  a. Place .pem files for ca-certificate, server certificate and private key in folder named *certs* : [fortress-core-[VERSION]/src/test/resources/certs](./src/test/resources/certs)
+ 
  They will get copied to openldap ssl folder during init-slapd target.
  For example:
  - ca-cert.pem is the ca certificate file
