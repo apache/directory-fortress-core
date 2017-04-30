@@ -77,7 +77,9 @@ ________________________________________________________________________________
 
  *[slapd.properties.example](slapd.properties.example) contains the slapd default config. Learn more about how the config works: [README-CONFIG](README-CONFIG.md)*
 
-3. Download the latest Symas OpenLDAP Silver edition for your platform [https://downloads.symas.com/products/symas-openldap-directory-silver-edition/](https://downloads.symas.com/products/symas-openldap-directory-silver-edition/)
+3. Download the latest Symas OpenLDAP Silver edition for your platform:
+
+ https://downloads.symas.com/products/symas-openldap-directory-silver-edition/](https://downloads.symas.com/products/symas-openldap-directory-silver-edition/)
 
 4. Place either a centos or debian package under the folder named *ldap* : [fortress-core-[VERSION]/ldap](./ldap)
 
