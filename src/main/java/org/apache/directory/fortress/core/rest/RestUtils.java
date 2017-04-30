@@ -81,6 +81,13 @@ public final class RestUtils
     // static member contains this
     private static volatile RestUtils sINSTANCE = null;
 
+    /**
+     * Used to manage trust store properties.  If enabled, create SSL connection.
+     *
+     */
+    private String trustStore;
+    private String trustStorePw;
+
     // These members contain the http coordinates to a running fortress-rest instance:
     private String httpUid, httpPw, httpHost, httpPort, httpProtocol, fortressRestVersion, serviceName, uri;
 
@@ -104,30 +111,36 @@ public final class RestUtils
             {
                 if(sINSTANCE == null)
                 {
-        	        sINSTANCE = new RestUtils();
+                    sINSTANCE = new RestUtils();
                 }
             }
         }
         return sINSTANCE;
     }
-    
+
     private void init()
     {
         httpUid = Config.getInstance().getProperty( "http.user" );
         httpPw = ( ( EncryptUtil.isEnabled() ) ? EncryptUtil.getInstance().decrypt( Config
-        		.getInstance().getProperty( HTTP_PW_PROP ) ) : Config.getInstance().getProperty( HTTP_PW_PROP ) );
+            .getInstance().getProperty( HTTP_PW_PROP ) ) : Config.getInstance().getProperty( HTTP_PW_PROP ) );
         httpHost = Config.getInstance().getProperty( "http.host" );
         httpPort = Config.getInstance().getProperty( "http.port" );
         httpProtocol = Config.getInstance().getProperty( "http.protocol", "http" );
+        trustStore = Config.getInstance().getProperty( "trust.store" );
+        trustStorePw = Config.getInstance().getProperty( "trust.store.password" );
         fortressRestVersion = System.getProperty( "version" );
         serviceName = "fortress-rest-" + fortressRestVersion;
         uri = httpProtocol + "://" + httpHost + ":" + httpPort + "/" + serviceName + "/";
+        LOG.info( "Set JSSE truststore properties:" );
+        LOG.info( "javax.net.ssl.trustStore: {}", trustStore );
+        System.setProperty( "javax.net.ssl.trustStore", trustStore );
+        System.setProperty( "javax.net.ssl.trustStorePassword", trustStorePw );
     }
 
     private RestUtils(){
-    	init();
+        init();
     }
-    
+
     /**
      * Marshall the request into an XML String.
      *
@@ -218,7 +231,7 @@ public final class RestUtils
         HttpGet get = new HttpGet(url);
         setMethodHeaders( get );
         return handleHttpMethod( get ,HttpClientBuilder.create()
-                .setDefaultCredentialsProvider(getCredentialProvider(userId, password)).build() );
+            .setDefaultCredentialsProvider(getCredentialProvider(userId, password)).build() );
     }
 
 
@@ -260,7 +273,7 @@ public final class RestUtils
             HttpEntity entity = new StringEntity( szInput, ContentType.TEXT_XML );
             post.setEntity( entity );
             org.apache.http.client.HttpClient httpclient = HttpClientBuilder.create()
-                    .setDefaultCredentialsProvider(getCredentialProvider(userId, password)).build();
+                .setDefaultCredentialsProvider(getCredentialProvider(userId, password)).build();
             HttpResponse response = httpclient.execute( post );
             String error;
 
@@ -272,12 +285,12 @@ public final class RestUtils
                     break;
                 case HTTP_401_UNAUTHORIZED :
                     error = "post uri=[" + uri + "], function=[" + function
-                            + "], 401 function unauthorized on host";
+                        + "], 401 function unauthorized on host";
                     LOG.error( error );
                     throw new RestException( GlobalErrIds.REST_UNAUTHORIZED_ERR, error );
                 case HTTP_403_FORBIDDEN :
                     error = "post uri=[" + uri + "], function=[" + function
-                            + "], 403 function forbidden on host";
+                        + "], 403 function forbidden on host";
                     LOG.error( error );
                     throw new RestException( GlobalErrIds.REST_FORBIDDEN_ERR, error );
                 case HTTP_404_NOT_FOUND :
@@ -286,7 +299,7 @@ public final class RestUtils
                     throw new RestException( GlobalErrIds.REST_NOT_FOUND_ERR, error );
                 default :
                     error = "post uri=[" + uri + "], function=[" + function
-                            + "], error received from host: " + response.getStatusLine().getStatusCode();
+                        + "], error received from host: " + response.getStatusLine().getStatusCode();
                     LOG.error( error );
                     throw new RestException( GlobalErrIds.REST_UNKNOWN_ERR, error );
             }
@@ -300,7 +313,7 @@ public final class RestUtils
         catch ( WebApplicationException we )
         {
             String error = "post uri=[" + uri + "], function=[" + function
-                    + "] caught WebApplicationException=" + we;
+                + "] caught WebApplicationException=" + we;
             LOG.error( error );
             throw new RestException( GlobalErrIds.REST_WEB_ERR, error, we );
         }
@@ -337,7 +350,7 @@ public final class RestUtils
     private CredentialsProvider getCredentialProvider(String uid, String password) {
         BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials( new AuthScope( httpHost,Integer.valueOf( httpPort )),
-                new UsernamePasswordCredentials(uid==null? httpUid :uid,password==null? httpPw :password) );
+            new UsernamePasswordCredentials(uid==null? httpUid :uid,password==null? httpPw :password) );
         return credentialsProvider;
     }
 
