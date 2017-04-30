@@ -109,7 +109,6 @@ ________________________________________________________________________________
 ## SECTION 3. Apache Fortress Core Setup
 
 1. Download the package:
-
  a. from git:
  ```
  git clone --branch 2.0.0-RC1 https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
