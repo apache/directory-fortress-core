@@ -77,7 +77,7 @@ log.root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
 log.suffix=cn=log
 log.ops=logops bind writes compare
 
-#ldap.uris=ldaps://${ldap.host}:${ldap.port}
+#ldap.uris=ldap://${ldap.host}:${ldap.port}
 
 # These are needed for client SSL connections with LDAP Server:
 #enable.ldap.ssl=true
@@ -147,7 +147,10 @@ platform=Redhat-Silver-x86-64
 slapd.install=rpm -i symas-openldap-silver.x86_64-2.4.43-1.rpm
 slapd.uninstall=rpm -e symas-openldap-silver
 slapd.module.dir=${openldap.root}/lib64/openldap
-slapd.start=${openldap.root}/lib64/slapd -h ldap://${ldap.host}:${ldap.port} -f ${openldap.root}/etc/openldap/slapd.conf -F ${openldap.root}/etc/openldap
+# use the symas openldap startup script:
+slapd.start=${openldap.root}/etc/solserver start -f ${openldap.root}/etc/openldap/slapd.conf -F ${openldap.root}/etc/openldap
+#slapd.start=${openldap.root}/lib64/slapd -h ldap://${ldap.host}:${ldap.port} -f ${openldap.root}/etc/openldap/slapd.conf -F ${openldap.root}/etc/openldap
+
 
 ########################################################################
 # 4. RBAC ACCELERATOR OVERLAY PROPS

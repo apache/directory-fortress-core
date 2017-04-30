@@ -122,9 +122,47 @@ ________________________________________________________________________________
   rbac.accelerator=false
   ```
 
-8. Save and exit
+8. (optional) Specify whether you want to communicate over SSL using LDAPS:
 
-9. Prepare your terminal for execution of maven commands.
+ a. Place .pem files for ca-certificate, server certificate and private key in folder named *certs* : [fortress-core-[VERSION]/src/test/resources/certs](./src/test/resources/certs)
+ They will get copied to openldap ssl folder during init-slapd target.
+ For example:
+ - ca-cert.pem is the ca certificate file
+ - server-cert.pem is the server certificate
+ - server-key.pem is the server private key
+
+ b. add or replace the following slapd.properties:
+
+  ```
+  # These are needed for client SSL connections with LDAP Server:
+  enable.ldap.ssl=true
+  ldap.host=fortressdemo2.com
+  # 636 is default LDAPS on OpenLDAP:
+  ldap.port=636
+  enable.ldap.ssl.debug=true
+  # The trust store is found either on the application's classpath or filepath as specified by trust.store.onclasspath:
+  trust.store=mytruststore
+  trust.store.password=changeit
+  # Will pick up the truststore from the classpath if set to true  which is the default.  Otherwise, file must be specified a fully qualified filename:
+  trust.store.onclasspath=true
+
+  # These are needed for slapd startup SSL configuration:
+  ldap.uris=ldap://${ldap.host}:389 ldaps://${ldap.host}:${ldap.port}
+
+  # These are the 3 crypto artifacts copied earlier:
+  tls.ca.cert.file=ca-cert.pem
+  tls.cert.file=server-cert.pem
+  tls.key.file=server-key.pem
+  ```
+
+  more notes
+  - whatever used for LDAP host name must match the common name element of the server's certificate
+  - the truststore may be found on the classpath or as a fully qualified file name determined by trust.store.onclasspath.
+  - The LDAP URIs are used by the server listener during startup.
+
+9. Save and exit
+
+10. Prepare your terminal for execution of maven commands.
 
  ```
  #!/bin/sh
@@ -133,25 +171,25 @@ ________________________________________________________________________________
  export PATH=$PATH:$M2_HOME/bin
  ```
 
-10. Run the maven install:
+11. Run the maven install:
 
  ```
  mvn clean install
  ```
 
-11. Install, configure and load the slapd server:
+12. Install, configure and load the slapd server:
 
   ```
   mvn test -Pinit-slapd
   ```
 
-12. To start the slapd process:
+13. To start the slapd process:
 
   ```
   mvn test -Pstart-slapd
   ```
 
-13. To stop the slapd process:
+14. To stop the slapd process:
 
   ```
   mvn test -Pstop-slapd
