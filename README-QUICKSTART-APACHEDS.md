@@ -18,7 +18,7 @@
 
 # ApacheDS & Fortress QUICKSTART
 
- Apache Fortress 2.0.0-RC1-SNAPSHOT and ApacheDS Quickstart System Architecture
+ Apache Fortress 2.0.0-RC2-SNAPSHOT and ApacheDS Quickstart System Architecture
  ![ApacheDS & Fortress System Architecture](images/fortress-apacheds-system-arch.png "ApacheDS & Fortress System Architecture")
 
 -------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ Minimum hardware requirements:
 
 Minimum software requirements:
  * Centos or Debian Machine
- * Java SDK 7++
+ * Java SDK 8
  * Apache Maven3++
 
 Everything else covered in steps that follow.  Tested on Debian & Centos systems.

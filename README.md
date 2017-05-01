@@ -19,7 +19,7 @@
 -------------------------------------------------------------------------------
 # README for Apache Fortress Core
 
- * Version 2.0.0-RC1-SNAPSHOT
+ * Version 2.0.0-RC2-SNAPSHOT
  * Apache Fortress Core System Architecture Diagram
  ![Apache Fortress Core System Architecture](images/fortress-core-system-arch.png "Apache Fortress Core System Architecture")
 
@@ -69,7 +69,7 @@ Minimum hardware requirements to run Apache Fortress and LDAP server:
 
 Minimum software requirements:
  * git
- * Java SDK 7++
+ * Java SDK 8
  * Apache Maven3++
 
 ___________________________________________________________________________________
