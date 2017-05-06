@@ -36,7 +36,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * This document contains instructions to install Apache Fortress 2.0.0-RC1 Core, Web, Rest and ApacheDS.
+ * This document contains instructions to install Apache Fortress 2.0.0-RC2 Core, Web, Rest and ApacheDS.
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
@@ -111,15 +111,15 @@ ________________________________________________________________________________
 1. Download the package:
  a. from git:
  ```
- git clone --branch 2.0.0-RC1 https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+ git clone --branch 2.0.0-RC2 https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
  cd directory-fortress-core
  ```
 
  b. or download package:
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/2.0.0-RC1/fortress-core-2.0.0-RC1-source-release.zip
- unzip fortress-core-2.0.0-RC1-source-release.zip
- cd fortress-core-2.0.0-RC1
+ wget http://www.apache.org/dist/directory/fortress/dist/2.0.0-RC2/fortress-core-2.0.0-RC2-source-release.zip
+ unzip fortress-core-2.0.0-RC2-source-release.zip
+ cd fortress-core-2.0.0-RC2
  ```
 
 2. Prepare the package:
@@ -279,7 +279,7 @@ During this section, you will be asked to setup Apache Tomcat 8 and prepare for 
 2. Download the fortress realm proxy jar into tomcat/lib folder:
 
   ```
-  sudo wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.0-RC1/fortress-realm-proxy-2.0.0-RC1.jar -P /usr/local/tomcat8/lib
+  sudo wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.0-RC2/fortress-realm-proxy-2.0.0-RC2.jar -P /usr/local/tomcat8/lib
   ```
 
 3. Prepare tomcat fortress usage:
@@ -374,15 +374,15 @@ During this section, you will be asked to setup Apache Fortress Rest Application
 
  a. from git:
  ```
- git clone --branch 2.0.0-RC1 https://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git
+ git clone --branch 2.0.0-RC2 https://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git
  cd directory-fortress-enmasse
  ```
 
  b. or download package:
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/2.0.0-RC1/fortress-rest-2.0.0-RC1-source-release.zip
- unzip fortress-rest-2.0.0-RC1-source-release.zip
- cd fortress-rest-2.0.0-RC1
+ wget http://www.apache.org/dist/directory/fortress/dist/2.0.0-RC2/fortress-rest-2.0.0-RC2-source-release.zip
+ unzip fortress-rest-2.0.0-RC2-source-release.zip
+ cd fortress-rest-2.0.0-RC2
  ```
 
 2. Prepare:
@@ -420,15 +420,15 @@ During this section, you will be asked to setup Apache Fortress Web Application
 
  a. from git:
  ```
- git clone --branch 2.0.0-RC1 https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
+ git clone --branch 2.0.0-RC2 https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
  cd directory-fortress-commander
  ```
 
  b. or download package:
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/2.0.0-RC1/fortress-web-2.0.0-RC1-source-release.zip
- unzip fortress-web-2.0.0-RC1-source-release.zip
- cd fortress-web-2.0.0-RC1
+ wget http://www.apache.org/dist/directory/fortress/dist/2.0.0-RC2/fortress-web-2.0.0-RC2-source-release.zip
+ unzip fortress-web-2.0.0-RC2-source-release.zip
+ cd fortress-web-2.0.0-RC2
  ```
 
 2. Prepare:
