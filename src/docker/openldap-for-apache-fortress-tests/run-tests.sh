@@ -25,6 +25,7 @@ set -e
 set -x
 
 # startup docker container
+docker pull apachedirectory/openldap-for-apache-fortress-tests
 CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
 CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
 echo $CONTAINER_PORT
@@ -39,7 +40,6 @@ sed -i 's/^suffix\.dc=.*/suffix.dc=com/' build.properties
 sed -i 's/^root\.dn=.*/root.dn=cn=Manager,${suffix}/' build.properties
 sed -i 's/^root\.pw=.*/root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU/' build.properties
 sed -i 's/^cfg\.root\.pw=.*/cfg.root.pw=secret/' build.properties
-sed -i 's/^root\.dn=.*/root.dn=cn=Manager,${suffix}/' build.properties
 
 # prepare
 mvn clean install
