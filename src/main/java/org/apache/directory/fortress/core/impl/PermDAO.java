@@ -1903,7 +1903,7 @@ class PermDAO extends LdapDataProvider
                     filterbuf.append( "(" );
                     filterbuf.append( ROLES );
                     filterbuf.append( "=" );
-                    filterbuf.append( uRole );
+                    filterbuf.append( encodeSafeText( uRole, GlobalIds.ROLE_LEN ) );
                     filterbuf.append( ")" );
                 }
             }
