@@ -183,6 +183,24 @@ class PermDAO extends LdapDataProvider
             GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
             GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
     };
+    
+    private static final String PERM_ATTR_SET_OBJ_CLASS[] =
+        {
+            SchemaConstants.TOP_OC,
+            SchemaConstants.ORGANIZATIONAL_UNIT_OC,
+            PERMISSION_ATTRIBUTE_SET_OBJECT_CLASS_NAME,
+            GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
+            GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
+    };
+    
+    private static final String PERM_ATTR_OBJ_CLASS[] =
+        {
+            SchemaConstants.TOP_OC,
+            SchemaConstants.ORGANIZATIONAL_ROLE_OC,
+            PERMISSION_ATTRIBUTE_OBJECT_CLASS_NAME,
+            GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
+            GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
+    };
 
     private static final String PERM_NAME = "ftPermName";
     private static final String ROLES = "ftRoles";
@@ -486,7 +504,7 @@ class PermDAO extends LdapDataProvider
         {
             Entry entry = new DefaultEntry( dn );
 
-            entry.add( SchemaConstants.OBJECT_CLASS_AT, PERMISSION_ATTRIBUTE_SET_OBJECT_CLASS_NAME );
+            entry.add( SchemaConstants.OBJECT_CLASS_AT, PERM_ATTR_SET_OBJ_CLASS );
 
             entry.add( GlobalIds.FT_PERMISSION_ATTRIBUTE_SET, entity.getName() );
             
@@ -551,7 +569,7 @@ class PermDAO extends LdapDataProvider
         {
             Entry entry = new DefaultEntry( dn );
 
-            entry.add( SchemaConstants.OBJECT_CLASS_AT, PERMISSION_ATTRIBUTE_OBJECT_CLASS_NAME );
+            entry.add( SchemaConstants.OBJECT_CLASS_AT, PERM_ATTR_OBJ_CLASS );
 
             // this will generate a new random, unique id on this entity:
             entity.setInternalId();            
