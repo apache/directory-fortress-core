@@ -16,7 +16,7 @@
    specific language governing permissions and limitations
    under the License.
 -->
-<!-- This file is for ant processing of targets required to initialize fortress configuration artifacts including property and data load files.
+<!-- This file is for ant processing of targets required to initialize fortress configuration artifacts including property and data load files. -->
 <project name="fortress-core" default="init-fortress-config" basedir="." >
     <!-- =================================
           initialize all Fortress Core package properties
