@@ -403,15 +403,6 @@
          <echo message="Target init-all-config complete."/>
      </target>
 
-    <target name="foo" depends="init" description="--> does some foo">
-        <echo message="############### Foo Fighters Rule!!!  ###############"/>
-        <echo message="############### Foo Fighters Rule!!!  ###############"/>
-        <echo message="############### Foo Fighters Rule!!!  ###############"/>
-        <echo message="############### Foo Fighters Rule!!!  ###############"/>
-        <echo message="############### Foo Fighters Rule!!!  ###############"/>
-    </target>
-
-
     <!-- =================================
           target: init-slapd - Performs the following functions:
 
