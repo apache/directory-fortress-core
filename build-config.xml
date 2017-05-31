@@ -16,7 +16,7 @@
    specific language governing permissions and limitations
    under the License.
 -->
-<!--<project name="fortress-core" default="build" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:artifact="antlib:org.apache.maven.artifact.ant">-->
+<!-- This file is for ant processing of targets required to initialize fortress configuration artifacts including property and data load files. -->
 <project name="fortress-core" default="init-fortress-config" basedir="." >
     <!-- =================================
           initialize all Fortress Core package properties
@@ -402,15 +402,6 @@
          <antcall target="init-fortress-config"></antcall>
          <echo message="Target init-all-config complete."/>
      </target>
-
-    <target name="foo" depends="init" description="--> does some foo">
-        <echo message="############### Foo Fighters Rule!!!  ###############"/>
-        <echo message="############### Foo Fighters Rule!!!  ###############"/>
-        <echo message="############### Foo Fighters Rule!!!  ###############"/>
-        <echo message="############### Foo Fighters Rule!!!  ###############"/>
-        <echo message="############### Foo Fighters Rule!!!  ###############"/>
-    </target>
-
 
     <!-- =================================
           target: init-slapd - Performs the following functions:
