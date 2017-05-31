@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.directory.fortress.annotation.AdminPermissionOperation;
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.AdminMgrFactory;
 import org.apache.directory.fortress.core.DelAdminMgr;
@@ -79,6 +80,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public AdminRole addRole(AdminRole role)
         throws SecurityException
     {
@@ -92,6 +94,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void deleteRole(AdminRole role)
         throws SecurityException
     {
@@ -134,6 +137,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public AdminRole updateRole(AdminRole role)
         throws SecurityException
     {
@@ -172,6 +176,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void assignUser(UserAdminRole uAdminRole)
         throws SecurityException
     {
@@ -203,6 +208,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void deassignUser(UserAdminRole uAdminRole)
         throws SecurityException
     {
@@ -222,6 +228,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public OrgUnit add(OrgUnit entity) throws SecurityException
     {
         String methodName = "addOU";
@@ -235,6 +242,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public OrgUnit update(OrgUnit entity)
         throws SecurityException
     {
@@ -249,6 +257,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public OrgUnit delete(OrgUnit entity)
         throws SecurityException
     {
@@ -324,6 +333,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void addDescendant(OrgUnit parent, OrgUnit child)
         throws SecurityException
     {
@@ -359,6 +369,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation(operationName="addAscendantOU")
     public void addAscendant(OrgUnit child, OrgUnit parent)
         throws SecurityException
     {
@@ -396,6 +407,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation(operationName="addInheritanceOU")
     public void addInheritance(OrgUnit parent, OrgUnit child)
         throws SecurityException
     {
@@ -435,6 +447,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation(operationName="deleteInheritanceOU")
     public void deleteInheritance(OrgUnit parent, OrgUnit child)
         throws SecurityException
     {
@@ -481,6 +494,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void addDescendant(AdminRole parentRole, AdminRole childRole)
         throws SecurityException
     {
@@ -501,6 +515,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void addAscendant(AdminRole childRole, AdminRole parentRole)
         throws SecurityException
     {
@@ -528,6 +543,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void addInheritance(AdminRole parentRole, AdminRole childRole)
         throws SecurityException
     {
@@ -557,6 +573,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void deleteInheritance(AdminRole parentRole, AdminRole childRole)
         throws SecurityException
     {

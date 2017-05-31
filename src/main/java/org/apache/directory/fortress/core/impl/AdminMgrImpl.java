@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.directory.fortress.annotation.AdminPermissionOperation;
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
@@ -105,6 +106,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public User addUser( User user ) throws SecurityException
     {
         String methodName = "addUser";
@@ -120,6 +122,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void disableUser( User user ) throws SecurityException
     {
         String methodName = "disableUser";
@@ -142,6 +145,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void deleteUser( User user ) throws SecurityException
     {
         String methodName = "deleteUser";
@@ -162,6 +166,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public User updateUser( User user ) throws SecurityException
     {
         String methodName = "updateUser";
@@ -175,6 +180,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void changePassword( User user, String newPassword ) throws SecurityException
     {
         String methodName = "changePassword";
@@ -189,6 +195,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void lockUserAccount( User user ) throws SecurityException
     {
         String methodName = "lockUserAccount";
@@ -202,6 +209,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void unlockUserAccount( User user ) throws SecurityException
     {
         String methodName = "unlockUserAccount";
@@ -215,6 +223,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void resetPassword( User user, String newPassword ) throws SecurityException
     {
         String methodName = "resetPassword";
@@ -230,6 +239,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void deletePasswordPolicy( User user ) throws SecurityException
     {
         String methodName = "deletePasswordPolicy";
@@ -243,6 +253,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Role addRole( Role role ) throws SecurityException
     {
         String methodName = "addRole";
@@ -256,6 +267,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void deleteRole( Role role ) throws SecurityException
     {
         String methodName = "deleteRole";
@@ -308,6 +320,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Role updateRole( Role role ) throws SecurityException
     {
         String methodName = "updateRole";
@@ -321,6 +334,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void assignUser( UserRole uRole ) throws SecurityException
     {
         String methodName = "assignUser";
@@ -351,6 +365,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public RoleConstraint addRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
     	   	throws SecurityException
     {        
@@ -368,6 +383,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void removeRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
         	throws SecurityException
     {        
@@ -384,6 +400,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void deassignUser( UserRole uRole ) throws SecurityException
     {
         String methodName = "deassignUser";
@@ -404,6 +421,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Permission addPermission( Permission perm ) throws SecurityException
     {
         String methodName = "addPermission";
@@ -416,6 +434,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public PermissionAttributeSet addPermissionAttributeSet( PermissionAttributeSet permAttributeSet ) throws SecurityException
     {
         String methodName = "addPermissionAttributeSet";         
@@ -428,6 +447,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void deletePermissionAttributeSet( PermissionAttributeSet permAttributeSet ) throws SecurityException
     {
         String methodName = "deletePermissionAttributeSet";         
@@ -440,6 +460,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public PermissionAttribute addPermissionAttributeToSet( PermissionAttribute permAttribute, String attributeSetName )
     	throws SecurityException
     {
@@ -453,6 +474,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void removePermissionAttributeFromSet( PermissionAttribute permAttribute, String attributeSetName )
     	throws SecurityException
     {
@@ -466,6 +488,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override    
+    @AdminPermissionOperation
     public void updatePermissionAttributeInSet(PermissionAttribute permAttribute, String attributeSetName, boolean replaceValidValues) 
         throws SecurityException 
     {
@@ -479,6 +502,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Permission updatePermission( Permission perm ) throws SecurityException
     {
         String methodName = "updatePermission";
@@ -492,6 +516,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void deletePermission( Permission perm ) throws SecurityException
     {
         String methodName = "deletePermission";
@@ -505,6 +530,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public PermObj addPermObj( PermObj pObj ) throws SecurityException
     {
         String methodName = "addPermObj";
@@ -518,6 +544,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public PermObj updatePermObj( PermObj pObj ) throws SecurityException
     {
         String methodName = "updatePermObj";
@@ -531,6 +558,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void deletePermObj( PermObj pObj ) throws SecurityException
     {
         String methodName = "deletePermObj";
@@ -544,6 +572,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void grantPermission( Permission perm, Role role ) throws SecurityException
     {
         String methodName = "grantPermission";
@@ -571,6 +600,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void revokePermission( Permission perm, Role role ) throws SecurityException
     {
         String methodName = "revokePermission";
@@ -589,6 +619,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void grantPermission( Permission perm, User user ) throws SecurityException
     {
         String methodName = "grantPermissionUser";
@@ -605,6 +636,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void revokePermission( Permission perm, User user ) throws SecurityException
     {
         String methodName = "revokePermissionUser";
@@ -619,6 +651,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void addDescendant( Role parentRole, Role childRole ) throws SecurityException
     {
         String methodName = "addDescendant";
@@ -641,6 +674,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void addAscendant( Role childRole, Role parentRole ) throws SecurityException
     {
         String methodName = "addAscendant";
@@ -670,6 +704,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void addInheritance( Role parentRole, Role childRole ) throws SecurityException
     {
         String methodName = "addInheritance";
@@ -701,6 +736,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void deleteInheritance( Role parentRole, Role childRole ) throws SecurityException
     {
         String methodName = "deleteInheritance";
@@ -738,6 +774,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public SDSet createSsdSet( SDSet ssdSet ) throws SecurityException
     {
         String methodName = "createSsdSet";
@@ -757,6 +794,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     /**
      * {@inheritDoc}
      */
+    @AdminPermissionOperation
     public SDSet updateSsdSet( SDSet ssdSet ) throws SecurityException
     {
         String methodName = "updateSsdSet";
@@ -771,6 +809,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public SDSet addSsdRoleMember( SDSet ssdSet, Role role ) throws SecurityException
     {
         String methodName = "addSsdRoleMember";
@@ -792,6 +831,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public SDSet deleteSsdRoleMember( SDSet ssdSet, Role role ) throws SecurityException
     {
         String methodName = "deleteSsdRoleMember";
@@ -819,6 +859,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public SDSet deleteSsdSet( SDSet ssdSet ) throws SecurityException
     {
         String methodName = "deleteSsdSet";
@@ -865,6 +906,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public SDSet setSsdSetCardinality( SDSet ssdSet, int cardinality ) throws SecurityException
     {
         String methodName = "setSsdSetCardinality";
@@ -882,6 +924,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public SDSet createDsdSet( SDSet dsdSet ) throws SecurityException
     {
         String methodName = "createDsdSet";
@@ -900,6 +943,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     /**
      * {@inheritDoc}
      */
+    @AdminPermissionOperation
     public SDSet updateDsdSet( SDSet dsdSet ) throws SecurityException
     {
         String methodName = "updateDsdSet";
@@ -914,6 +958,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public SDSet addDsdRoleMember( SDSet dsdSet, Role role ) throws SecurityException
     {
         String methodName = "addDsdRoleMember";
@@ -935,6 +980,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public SDSet deleteDsdRoleMember( SDSet dsdSet, Role role ) throws SecurityException
     {
         String methodName = "deleteDsdRoleMember";
@@ -962,6 +1008,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public SDSet deleteDsdSet( SDSet dsdSet ) throws SecurityException
     {
         String methodName = "deleteDsdSet";
@@ -978,6 +1025,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public SDSet setDsdSetCardinality( SDSet dsdSet, int cardinality ) throws SecurityException
     {
         String methodName = "setDsdSetCardinality";

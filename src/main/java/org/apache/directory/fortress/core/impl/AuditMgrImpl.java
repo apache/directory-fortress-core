@@ -23,6 +23,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.fortress.annotation.AdminPermissionOperation;
 import org.apache.directory.fortress.core.AuditMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.ReviewMgr;
@@ -115,6 +116,7 @@ public class AuditMgrImpl extends Manageable implements AuditMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<AuthZ> getUserAuthZs(UserAudit uAudit)
         throws SecurityException
     {
@@ -129,6 +131,7 @@ public class AuditMgrImpl extends Manageable implements AuditMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<AuthZ> searchAuthZs(UserAudit uAudit)
         throws SecurityException
     {
@@ -143,6 +146,7 @@ public class AuditMgrImpl extends Manageable implements AuditMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<Bind> searchBinds(UserAudit uAudit)
         throws SecurityException
     {
@@ -156,6 +160,7 @@ public class AuditMgrImpl extends Manageable implements AuditMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<Mod> searchUserSessions(UserAudit uAudit)
         throws SecurityException
     {
@@ -169,6 +174,7 @@ public class AuditMgrImpl extends Manageable implements AuditMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<Mod> searchAdminMods(UserAudit uAudit)
         throws SecurityException
     {
@@ -189,6 +195,7 @@ public class AuditMgrImpl extends Manageable implements AuditMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<AuthZ> searchInvalidUsers(UserAudit uAudit)
         throws SecurityException
     {
