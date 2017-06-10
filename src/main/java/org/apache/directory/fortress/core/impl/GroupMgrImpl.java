@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.directory.fortress.annotation.AdminPermissionOperation;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GroupMgr;
 import org.apache.directory.fortress.core.ReviewMgr;
@@ -52,6 +53,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Group add( Group group ) throws org.apache.directory.fortress.core.SecurityException
     {
         String methodName = "add";
@@ -78,6 +80,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Group update( Group group ) throws SecurityException
     {
         String methodName = "update";
@@ -91,6 +94,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Group delete( Group group ) throws SecurityException
     {
         String methodName = "delete";
@@ -103,6 +107,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
     /**
      * {@inheritDoc}
      */
+    @AdminPermissionOperation(operationName="addProperty")
     public Group add( Group group, String key, String value ) throws SecurityException
     {
         String methodName = "addProperty";
@@ -115,6 +120,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
     /**
      * {@inheritDoc}
      */
+    @AdminPermissionOperation(operationName="deleteProperty")
     public Group delete( Group group, String key, String value ) throws SecurityException
     {
         String methodName = "deleteProperty";
@@ -128,6 +134,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Group read( Group group ) throws SecurityException
     {
         String methodName = "read";
@@ -141,6 +148,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<Group> find( Group group ) throws SecurityException
     {
         String methodName = "find";
@@ -153,6 +161,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
     /**
      * {@inheritDoc}
      */
+    @AdminPermissionOperation(operationName="findWithUsers")
     public List<Group> find( User user ) throws SecurityException
     {
         String methodName = "findWithUsers";
@@ -167,6 +176,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<Group> roleGroups( Role role ) throws SecurityException
     {
         String methodName = "roleGroups";
@@ -181,6 +191,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<UserRole> groupRoles( Group group ) throws SecurityException
     {
         String methodName = "groupRoles";
@@ -194,6 +205,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Group assign( Group group, String member ) throws SecurityException
     {
         String methodName = "assign";
@@ -225,6 +237,7 @@ public class GroupMgrImpl extends Manageable implements GroupMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Group deassign( Group group, String member ) throws SecurityException
     {
         String methodName = "deassign";

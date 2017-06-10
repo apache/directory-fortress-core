@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.directory.fortress.annotation.AdminPermissionOperation;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.SecurityException;
@@ -93,6 +94,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Permission readPermission(Permission permission)
         throws SecurityException
     {
@@ -108,6 +110,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public PermObj readPermObj(PermObj permObj)
         throws SecurityException
     {
@@ -122,6 +125,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public PermissionAttributeSet readPermAttributeSet( PermissionAttributeSet permAttributeSet )
     		throws SecurityException
     {
@@ -138,6 +142,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<Permission> findPermissions(Permission permission)
         throws SecurityException
     {
@@ -151,6 +156,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
 	@Override
+	@AdminPermissionOperation
 	public List<Permission> findPermsByObj(PermObj permObj)
 			throws SecurityException {
         String methodName = "findPermsByObj";
@@ -164,6 +170,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<Permission> findAnyPermissions(Permission permission)
         throws SecurityException
     {
@@ -177,6 +184,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<PermObj> findPermObjs(PermObj permObj)
         throws SecurityException
     {
@@ -190,6 +198,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<PermObj> findPermObjs(OrgUnit ou)
         throws SecurityException
     {
@@ -204,6 +213,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Role readRole(Role role)
         throws SecurityException
     {
@@ -218,6 +228,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<Role> findRoles(String searchVal)
         throws SecurityException
     {
@@ -233,6 +244,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<String> findRoles(String searchVal, int limit)
         throws SecurityException
     {
@@ -248,6 +260,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public final User readUser(User user)
         throws SecurityException
     {
@@ -262,6 +275,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public final List<User> findUsers(User user)
         throws SecurityException
     {
@@ -275,6 +289,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<User> findUsers(OrgUnit ou)
         throws SecurityException
     {
@@ -289,6 +304,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public final List<String> findUsers(User user, int limit)
         throws SecurityException
     {
@@ -302,6 +318,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<String> assignedUsers(Role role, int limit)
         throws SecurityException
     {
@@ -330,6 +347,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<User> assignedUsers(Role role)
         throws SecurityException
     {
@@ -343,6 +361,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<UserRole> assignedRoles(User user)
         throws SecurityException
     {
@@ -357,6 +376,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<String> assignedRoles(String userId)
         throws SecurityException
     {
@@ -372,6 +392,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<User> authorizedUsers(Role role)
         throws SecurityException
     {
@@ -385,6 +406,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Set<String> authorizedRoles(User user)
         throws SecurityException
     {
@@ -415,6 +437,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<Permission> rolePermissions(Role role, boolean noInheritance )
         throws SecurityException
     {
@@ -457,6 +480,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<Permission> userPermissions(User user)
         throws SecurityException
     {
@@ -472,6 +496,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<String> permissionRoles(Permission perm)
         throws SecurityException
     {
@@ -495,6 +520,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Set<String> authorizedPermissionRoles(Permission perm)
         throws SecurityException
     {
@@ -514,6 +540,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<String> permissionUsers(Permission perm)
         throws SecurityException
     {
@@ -537,6 +564,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Set<String> authorizedPermissionUsers(Permission perm)
         throws SecurityException
     {
@@ -587,6 +615,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<SDSet> ssdRoleSets(Role role)
         throws SecurityException
     {
@@ -599,6 +628,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
     /**
      * {@inheritDoc}
      */
+    @AdminPermissionOperation
     public List<SDSet> ssdSets(SDSet ssd)
         throws SecurityException
     {
@@ -613,6 +643,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public SDSet ssdRoleSet(SDSet set)
         throws SecurityException
     {
@@ -627,6 +658,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Set<String> ssdRoleSetRoles(SDSet ssd)
         throws SecurityException
     {
@@ -642,6 +674,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public int ssdRoleSetCardinality(SDSet ssd)
         throws SecurityException
     {
@@ -656,6 +689,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<SDSet> dsdRoleSets(Role role)
         throws SecurityException
     {
@@ -669,6 +703,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public SDSet dsdRoleSet(SDSet set)
         throws SecurityException
     {
@@ -682,6 +717,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
     /**
      * {@inheritDoc}
      */
+    @AdminPermissionOperation
     public List<SDSet> dsdSets(SDSet ssd)
         throws SecurityException
     {
@@ -696,6 +732,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Set<String> dsdRoleSetRoles(SDSet dsd)
         throws SecurityException
     {
@@ -711,6 +748,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public int dsdRoleSetCardinality(SDSet dsd)
         throws SecurityException
     {
@@ -725,6 +763,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<RoleConstraint> findRoleConstraints(User user, Permission permission, RoleConstraint.RCType rcType) throws SecurityException
     {
         String methodName = "findRoleConstraints";

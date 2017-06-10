@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core.impl;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.directory.fortress.annotation.AdminPermissionOperation;
 import org.apache.directory.fortress.core.DelReviewMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
@@ -71,6 +72,7 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr, Serial
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public AdminRole readRole(AdminRole role)
         throws SecurityException
     {
@@ -85,6 +87,7 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr, Serial
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<AdminRole> findRoles(String searchVal)
         throws SecurityException
     {
@@ -100,6 +103,7 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr, Serial
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<UserAdminRole> assignedRoles(User user)
         throws SecurityException
     {
@@ -115,6 +119,7 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr, Serial
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<User> assignedUsers(AdminRole role)
         throws SecurityException
     {
@@ -129,6 +134,7 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr, Serial
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation(operationName="readOU")
     public OrgUnit read(OrgUnit entity)
         throws SecurityException
     {
@@ -143,6 +149,7 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr, Serial
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation(operationName="searchOU")
     public List<OrgUnit> search(OrgUnit.Type type, String searchVal)
         throws SecurityException
     {
@@ -171,6 +178,7 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr, Serial
      * {@inheritDoc}
      */
 	@Override
+	@AdminPermissionOperation
 	public List<Permission> rolePermissions(AdminRole role,
 			boolean noInheritance) throws SecurityException {
         String methodName = "rolePermissions";

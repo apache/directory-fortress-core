@@ -21,6 +21,7 @@ package org.apache.directory.fortress.core.impl;
 
 import java.util.List;
 
+import org.apache.directory.fortress.annotation.AdminPermissionOperation;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.PwPolicyMgr;
 import org.apache.directory.fortress.core.SecurityException;
@@ -78,6 +79,7 @@ public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void add(PwPolicy policy)
         throws SecurityException
     {
@@ -92,6 +94,7 @@ public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void update(PwPolicy policy)
         throws SecurityException
     {
@@ -106,6 +109,7 @@ public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void delete(PwPolicy policy)
         throws SecurityException
     {
@@ -121,6 +125,7 @@ public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public PwPolicy read(String name)
         throws SecurityException
     {
@@ -137,6 +142,7 @@ public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<PwPolicy> search(String searchVal)
         throws SecurityException
     {
@@ -153,6 +159,7 @@ public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void updateUserPolicy(String userId, String policyName)
         throws SecurityException
     {
@@ -171,6 +178,7 @@ public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public void deletePasswordPolicy(String userId)
         throws SecurityException
     {

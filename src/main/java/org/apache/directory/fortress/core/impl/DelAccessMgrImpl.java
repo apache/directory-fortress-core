@@ -25,6 +25,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.directory.fortress.annotation.AdminPermissionOperation;
 import org.apache.directory.fortress.core.DelAccessMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
@@ -213,6 +214,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<UserAdminRole> sessionAdminRoles(Session session)
         throws SecurityException
     {
@@ -226,6 +228,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public Set<String> authorizedAdminRoles(Session session)
         throws SecurityException
     {
@@ -240,6 +243,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
      * {@inheritDoc}
      */
     @Override
+    @AdminPermissionOperation
     public List<Permission> sessionPermissions(Session session)
         throws SecurityException
     {
