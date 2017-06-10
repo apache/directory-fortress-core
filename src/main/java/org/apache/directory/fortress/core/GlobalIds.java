@@ -200,6 +200,12 @@ public final class GlobalIds
      */
     public static final String GROUP_ROOT = "group.root";
 
+    /**
+     * Specifies the dn of the container where password policies are stored in ApachDS.  This is typically here:
+     * {@code ou=passwordPolicies,ads-interceptorId=authenticationInterceptor,ou=interceptors,ads-directoryServiceId=default,ou=config}
+     */
+    public static final String ADS_PPOLICY_ROOT = "apacheds.pwpolicy.root";
+
     /*
       *  *************************************************************************
       *  **  BEGIN LDAP STANDARD ATTRIBUTE NAMES

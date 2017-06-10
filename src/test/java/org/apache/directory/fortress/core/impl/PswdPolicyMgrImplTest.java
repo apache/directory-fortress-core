@@ -75,13 +75,15 @@ public class PswdPolicyMgrImplTest extends TestCase
     }
 
 
-    public static Test suiteX()
+    public static Test suite()
     {
         TestSuite suite = new TestSuite();
         suite.addTest( new PswdPolicyMgrImplTest( "testDelete" ) );
-        suite.addTest( new AdminMgrImplTest( "testDeleteUser" ) );
+        suite.addTest( new PswdPolicyMgrImplTest( "testDeleteUser" ) );
         suite.addTest( new PswdPolicyMgrImplTest( "testAdd" ) );
-        suite.addTest( new AdminMgrImplTest( "testAddUser" ) );
+        suite.addTest( new PswdPolicyMgrImplTest( "testAddUser" ) );
+
+/*
         suite.addTest( new PswdPolicyMgrImplTest( "testMinAge" ) );
         suite.addTest( new PswdPolicyMgrImplTest( "testMaxAge" ) );
         suite.addTest( new PswdPolicyMgrImplTest( "testInHistory" ) );
@@ -92,6 +94,8 @@ public class PswdPolicyMgrImplTest extends TestCase
         suite.addTest( new PswdPolicyMgrImplTest( "testLockoutDuration" ) );
         suite.addTest( new PswdPolicyMgrImplTest( "testLockout" ) );
         suite.addTest( new PswdPolicyMgrImplTest( "testFailureCountInterval" ) );
+*/
+
         suite.addTest( new PswdPolicyMgrImplTest( "testMustChange" ) );
         suite.addTest( new PswdPolicyMgrImplTest( "testAllowUserChange" ) );
         suite.addTest( new PswdPolicyMgrImplTest( "testSafeModify" ) );
@@ -99,7 +103,7 @@ public class PswdPolicyMgrImplTest extends TestCase
     }
 
 
-    public static Test suite()
+    public static Test suitex()
     {
         TestSuite suite = new TestSuite();
         suite.addTest( new PswdPolicyMgrImplTest( "testDelete" ) );
@@ -151,6 +155,19 @@ public class PswdPolicyMgrImplTest extends TestCase
         return mergedArray;
     }
 
+
+    public void testAddUser()
+    {
+
+        AdminMgrImplTest.addUsers( "ADD-USRS TU5", UserTestData.USERS_TU5, true );
+    }
+
+
+    public void testDeleteUser()
+    {
+        //     public void disableUser(User user)
+        AdminMgrImplTest.deleteUsers( "DEL-USRS TU5", UserTestData.USERS_TU5, true, true );
+    }
 
     /**
      * @throws SecurityException

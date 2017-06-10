@@ -369,6 +369,10 @@ public final class Config
     {
         return ( ( getProperty( GlobalIds.SERVER_TYPE ) != null ) && ( getProperty( GlobalIds.SERVER_TYPE ).equalsIgnoreCase( "openldap" ) ) );
     }
+    public boolean isApacheds()
+    {
+        return ( ( getProperty( GlobalIds.SERVER_TYPE ) != null ) && ( getProperty( GlobalIds.SERVER_TYPE ).equalsIgnoreCase( "apacheds" ) ) );
+    }
     public boolean isRealm()
     {
         return GlobalIds.REALM_TYPE.equalsIgnoreCase( getProperty( GlobalIds.AUTHENTICATION_TYPE ) );

@@ -26,6 +26,8 @@ port=@LDAP_PORT@
 # Options are openldap or apacheds (default):
 ldap.server.type=@SERVER_TYPE@
 
+apacheds.pwpolicy.root=ou=passwordPolicies,ads-interceptorId=authenticationInterceptor,ou=interceptors,ads-directoryServiceId=default,ou=config
+
 # Audit only works if ldap.server.type == openldap:
 disable.audit=@IS_AUDIT@
 

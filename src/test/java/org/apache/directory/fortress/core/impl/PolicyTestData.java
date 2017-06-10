@@ -73,7 +73,7 @@ public class PolicyTestData extends TestCase
                 "0", /* LOCKDURATION_COL */
                 "3", /* MAXFAIL_COL */
                 "0", /* INTERVAL_COL */
-                "TRUE", /* MUSTCHG_COL */
+                "FALSE", /* MUSTCHG_COL */
                 "TRUE", /* ALLOWCHG_COL */
                 "FALSE" /* SAFEMODIFY_COL */
             },
@@ -137,7 +137,7 @@ public class PolicyTestData extends TestCase
                 "0", /* LOCKDURATION_COL */
                 "3", /* MAXFAIL_COL */
                 "0", /* INTERVAL_COL */
-                "TRUE", /* MUSTCHG_COL */
+                "FALSE", /* MUSTCHG_COL */
                 "TRUE", /* ALLOWCHG_COL */
                 "FALSE" /* SAFEMODIFY_COL */
 },
@@ -155,7 +155,7 @@ public class PolicyTestData extends TestCase
                 "0", /* LOCKDURATION_COL */
                 "3", /* MAXFAIL_COL */
                 "0", /* INTERVAL_COL */
-                "TRUE", /* MUSTCHG_COL */
+                "FALSE", /* MUSTCHG_COL */
                 "TRUE", /* ALLOWCHG_COL */
                 "FALSE" /* SAFEMODIFY_COL */
 },
@@ -479,7 +479,7 @@ public class PolicyTestData extends TestCase
                 "0", /* LOCKDURATION_COL */
                 "3", /* MAXFAIL_COL */
                 "0", /* INTERVAL_COL */
-                "FALSE", /* MUSTCHG_COL */
+                "TRUE", /* MUSTCHG_COL */
                 "TRUE", /* ALLOWCHG_COL */
                 "FALSE" /* SAFEMODIFY_COL */
 },

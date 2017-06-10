@@ -278,11 +278,10 @@ final class UserDAO extends LdapDataProvider
                 myEntry.add( SYSTEM_USER, entity.isSystem().toString().toUpperCase() );
             }
 
-            if ( Config.getInstance().isOpenldap() && StringUtils.isNotEmpty( entity.getPwPolicy() ) )
+            // If password policy is set and either openldap or apacheds in use:
+            if ( ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() ) && StringUtils.isNotEmpty( entity.getPwPolicy() ) )
             {
-                String pwdPolicyDn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + "," + getRootDn(
-                    entity.getContextId(), GlobalIds.PPOLICY_ROOT );
-                myEntry.add( OPENLDAP_POLICY_SUBENTRY, pwdPolicyDn );
+                myEntry.add( OPENLDAP_POLICY_SUBENTRY, PolicyDAO.getPolicyDn( entity ) );
             }
 
             if ( StringUtils.isNotEmpty( entity.getOu() ) )
@@ -383,12 +382,11 @@ final class UserDAO extends LdapDataProvider
                     entity.getTitle() ) );
             }
 
-            if ( Config.getInstance().isOpenldap() && StringUtils.isNotEmpty( entity.getPwPolicy() ) )
+            // If password policy is set and either openldap or apacheds in use:
+            if ( ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() ) && StringUtils.isNotEmpty( entity.getPwPolicy() ) )
             {
-                String szDn = GlobalIds.POLICY_NODE_TYPE + "=" + entity.getPwPolicy() + "," + getRootDn( entity
-                    .getContextId(), GlobalIds.PPOLICY_ROOT );
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, OPENLDAP_POLICY_SUBENTRY,
-                    szDn ) );
+                    PolicyDAO.getPolicyDn( entity ) ) );
             }
 
             if ( entity.isSystem() != null )
@@ -1940,7 +1938,7 @@ final class UserDAO extends LdapDataProvider
 
         entity.addProperties( PropUtil.getProperties( getAttributes( entry, GlobalIds.PROPS ) ) );
 
-        if ( Config.getInstance().isOpenldap() )
+        if ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() )
         {
             szBoolean = getAttribute( entry, OPENLDAP_PW_RESET );
             if ( szBoolean != null && szBoolean.equalsIgnoreCase( "true" ) )
@@ -2406,8 +2404,7 @@ final class UserDAO extends LdapDataProvider
 
     private void initAttrArrays()
     {
-        boolean isOpenldap = Config.getInstance().isOpenldap();
-        if ( isOpenldap )
+        if ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() )
         {
             // This default set of attributes contains all and is used for search operations.
             defaultAtrs = new String[]

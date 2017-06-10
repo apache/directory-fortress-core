@@ -98,7 +98,7 @@ public abstract class LdapDataProvider
      * @param root      contains the fortress parameter name that corresponds with a particular LDAP container.
      * @return String contains the dn to use for operation.
      */
-    protected String getRootDn( String contextId, String root )
+    protected static String getRootDn( String contextId, String root )
     {
         String szDn = Config.getInstance().getProperty( root );
 

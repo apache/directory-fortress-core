@@ -105,7 +105,7 @@ public class FortressJUnitTest extends TestCase
         if ( !isFirstRun() )
         {
             // PwPolicyMgr PW Policy Teardown:
-            if ( Config.getInstance().isOpenldap() )
+            if ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() )
             {
                 suite.addTest( new PswdPolicyMgrImplTest( "testDeletePasswordPolicy" ) );
             }
@@ -132,7 +132,7 @@ public class FortressJUnitTest extends TestCase
             suite.addTest( new AdminMgrImplTest( "testDelRoleDescendant" ) );
             suite.addTest( new AdminMgrImplTest( "testDelRoleAscendant" ) );
             suite.addTest( new AdminMgrImplTest( "testDeleteRole" ) );
-            if ( Config.getInstance().isOpenldap() )
+            if ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() )
             {
                 suite.addTest( new PswdPolicyMgrImplTest( "testDelete" ) );
             }
@@ -157,7 +157,7 @@ public class FortressJUnitTest extends TestCase
         /* 2. Build Up                                             */
         /***********************************************************/
         // PW PolicyMgr APIs:
-        if ( Config.getInstance().isOpenldap() )
+        if ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() )
         {
             suite.addTest( new PswdPolicyMgrImplTest( "testAdd" ) );
             suite.addTest( new PswdPolicyMgrImplTest( "testUpdate" ) );
@@ -194,7 +194,7 @@ public class FortressJUnitTest extends TestCase
         suite.addTest( new AdminMgrImplTest( "testUpdateRole" ) );
         suite.addTest( new AdminMgrImplTest( "testAddUser" ) );
         suite.addTest( new AdminMgrImplTest( "testUpdateUser" ) );
-        if ( Config.getInstance().isOpenldap() )
+        if ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() )
         {
             suite.addTest( new PswdPolicyMgrImplTest( "testUpdatePasswordPolicy" ) );
         }
@@ -232,7 +232,7 @@ public class FortressJUnitTest extends TestCase
         suite.addTest( new DelegatedMgrImplTest( "testSearchAdminRole" ) );
 
         // ReviewMgr RBAC:
-        if ( Config.getInstance().isOpenldap() )
+        if ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() )
         {
             suite.addTest( new PswdPolicyMgrImplTest( "testRead" ) );
             suite.addTest( new PswdPolicyMgrImplTest( "testSearch" ) );
@@ -281,7 +281,7 @@ public class FortressJUnitTest extends TestCase
         // AccessMgr RBAC:
         suite.addTest( new AccessMgrImplTest( "testGetUserId" ) );
         suite.addTest( new AccessMgrImplTest( "testGetUser" ) );
-        if ( Config.getInstance().isOpenldap() )
+        if ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() )
         {
             // These tests are reliant on OpenLDAP's pwpolicy overlay:
             suite.addTest( new AdminMgrImplTest( "testResetPassword" ) );
@@ -307,7 +307,7 @@ public class FortressJUnitTest extends TestCase
         suite.addTest( new AccessMgrImplTest( "testCreateSessionWithRolesTrusted" ) );
 
         // PwPolicyMgr PW Policy checks:
-        if ( Config.getInstance().isOpenldap() )
+        if ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() )
         {
             // These tests are reliant on OpenLDAP's pwpolicy overlay:
             suite.addTest( new PswdPolicyMgrImplTest( "testMinAge" ) );
