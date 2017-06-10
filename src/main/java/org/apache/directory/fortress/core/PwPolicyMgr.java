@@ -29,7 +29,7 @@ import java.util.List;
  * This class is used to perform administrative and review functions on the PWPOLICIES and USERS data sets.
  * <h3></h3>
  * <h4>Password Policies</h4>
- * <a href="http://www.openldap.org/">OpenLDAP</a> supports the IETF draft 
+ * OpenLDAP and ApacheDS support the IETF draft
  * <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10/">Password Policies LDAP directories</a>. 
  * Policies may be applied at the user, group or global level.
  * <p>

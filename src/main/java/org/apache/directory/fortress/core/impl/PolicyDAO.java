@@ -53,7 +53,7 @@ import org.apache.directory.ldap.client.api.LdapConnection;
 
 
 /**
- * This DAO class maintains the OpenLDAP Password Policy entity which is a composite of the following structural and aux object classes:
+ * This DAO class maintains the LDAP Password Policy entity which is a composite of the following structural and aux object classes:
  * <h4>1. organizationalRole Structural Object Class is used to store basic attributes like cn and description</h4>
  * <ul>
  * <li>  ------------------------------------------
