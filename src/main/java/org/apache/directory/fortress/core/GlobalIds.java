@@ -207,19 +207,8 @@ public final class GlobalIds
     public static final String ADS_PPOLICY_ROOT = "apacheds.pwpolicy.root";
 
     /*
-      *  *************************************************************************
-      *  **  BEGIN LDAP STANDARD ATTRIBUTE NAMES
-      *  ************************************************************************
-      */
-
-    /**
-     * Password policy object class structure uses cn attribute name.
-     */
-    public static final String POLICY_NODE_TYPE = SchemaConstants.CN_AT;
-
-    /*
     *  *************************************************************************
-    *  **  OPENLDAP ATTRIBUTES AND CONSTANTS
+    *  **  LDAP ATTRIBUTE NAMES AND CONSTANT VALUES
     *  ************************************************************************
     */
 

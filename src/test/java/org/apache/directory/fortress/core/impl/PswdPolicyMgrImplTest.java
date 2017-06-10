@@ -83,7 +83,6 @@ public class PswdPolicyMgrImplTest extends TestCase
         suite.addTest( new PswdPolicyMgrImplTest( "testAdd" ) );
         suite.addTest( new PswdPolicyMgrImplTest( "testAddUser" ) );
 
-/*
         suite.addTest( new PswdPolicyMgrImplTest( "testMinAge" ) );
         suite.addTest( new PswdPolicyMgrImplTest( "testMaxAge" ) );
         suite.addTest( new PswdPolicyMgrImplTest( "testInHistory" ) );
@@ -94,7 +93,6 @@ public class PswdPolicyMgrImplTest extends TestCase
         suite.addTest( new PswdPolicyMgrImplTest( "testLockoutDuration" ) );
         suite.addTest( new PswdPolicyMgrImplTest( "testLockout" ) );
         suite.addTest( new PswdPolicyMgrImplTest( "testFailureCountInterval" ) );
-*/
 
         suite.addTest( new PswdPolicyMgrImplTest( "testMustChange" ) );
         suite.addTest( new PswdPolicyMgrImplTest( "testAllowUserChange" ) );
