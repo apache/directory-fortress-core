@@ -1524,6 +1524,12 @@ final class UserDAO extends LdapDataProvider
             closeUserConnection( ld );
         }
 
+        // apacheds does not remove the pwdreset flag automatically when password is changed:
+        if( Config.getInstance().isApacheds() )
+        {
+            deleteResetFlag(entity);
+        }
+
         return rc;
     }
 
@@ -1552,6 +1558,40 @@ final class UserDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String warning = "resetUserPassword userId [" + user.getUserId() + "] caught LDAPException=" + e
+                .getMessage();
+            throw new UpdateException( GlobalErrIds.USER_PW_RESET_FAILED, warning, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+    }
+
+
+    /**
+1     * @param user
+     * @throws UpdateException
+     */
+    private void deleteResetFlag( User user ) throws UpdateException
+    {
+        LdapConnection ld = null;
+        String userDn = getDn( user.getUserId(), user.getContextId() );
+
+        try
+        {
+            List<Modification> mods = new ArrayList<Modification>();
+            mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, OPENLDAP_PW_RESET ) );
+            ld = getAdminConnection();
+            modify( ld, userDn, mods, user );
+        }
+        catch ( LdapNoSuchAttributeException e )
+        {
+            // Log, but don't throw, if reset attribute not present on account.
+            LOG.info( "deleteResetFlag user [" + user.getUserId() + "] no such attribute:" + OPENLDAP_PW_RESET );
+        }
+        catch ( LdapException e )
+        {
+            String warning = "deleteResetFlag userId [" + user.getUserId() + "] caught LDAPException=" + e
                 .getMessage();
             throw new UpdateException( GlobalErrIds.USER_PW_RESET_FAILED, warning, e );
         }
