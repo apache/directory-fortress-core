@@ -19,7 +19,7 @@
 #   under the License.
 #
 #
-###  Fortress Schema version 2.0.0-RC2
+###  Fortress Schema version 2.0.0
 ###  This schema is required for all Apache Fortress Core deployments
 ###  IANA PRIVATE ENTERPRISE NUMBER: 1.3.6.1.4.1.18060.17
 ###  1. Fortress Attributes: 1.3.6.1.4.1.18060.17.1.*

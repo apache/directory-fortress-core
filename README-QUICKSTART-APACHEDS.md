@@ -18,7 +18,7 @@
 
 # ApacheDS & Fortress QUICKSTART
 
- Apache Fortress 2.0.0-RC2 and ApacheDS Quickstart System Architecture
+ Apache Fortress 2.0.0 and ApacheDS Quickstart System Architecture
  ![ApacheDS & Fortress System Architecture](images/fortress-apacheds-system-arch.png "ApacheDS & Fortress System Architecture")
 
 -------------------------------------------------------------------------------
@@ -36,7 +36,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * This document contains instructions to install Apache Fortress 2.0.0-RC2 Core, Web, Rest and ApacheDS.
+ * This document contains instructions to install Apache Fortress 2.0.0 Core, Web, Rest and ApacheDS.
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
@@ -57,33 +57,31 @@ ________________________________________________________________________________
 
 1. Download and install Apache Directory Server
 
- a. For 32-bit (as sudo or root):
+ a. [Download either the 32 or 64-bit linux binary](http://directory.apache.org/apacheds/download/download-linux-bin.html)
+
+ b. For 32-bit (as sudo or root):
 
  ```
- wget http://www.trieuvan.com/apache//directory/apacheds/dist/2.0.0-M21/apacheds-2.0.0-M21-32bit.bin
  chmod a+x *.bin
- ./apacheds-2.0.0-M21-32bit.bin
+ ./apacheds-[version]-32bit.bin
  ```
 
  b. For 64-bit (as sudo or root):
 
  ```
- wget http://www.trieuvan.com/apache//directory/apacheds/dist/2.0.0-M21/apacheds-2.0.0-M21-64bit.bin
  chmod a+x *.bin
- ./apacheds-2.0.0-M21-64bit.bin
+ ./apacheds-[version]-64bit.bin
  ```
 
  *Accept the defaults.*
 
-2. If you have trouble pulling you can get binaries here: [Apache Directory Downloads Page](http://directory.staging.apache.org/apacheds/downloads.html).
-
-3. Edit ApacheDS conf file
+2. Edit ApacheDS conf file
 
  ```
- sudo vi /opt/apacheds-2.0.0-M21/conf/wrapper.conf
+ sudo vi /opt/apacheds-[version]/conf/wrapper.conf
  ```
 
-4. Add location of java:
+3. Add location of java:
 
  ```
  wrapper.java.command=/usr/bin/java
@@ -96,12 +94,12 @@ ________________________________________________________________________________
 6. After installation start the directory server process. From system command prompt (as sudo or root):
 
  ```
- /etc/init.d/apacheds-2.0.0-M21-default start
+ /etc/init.d/apacheds-[version]-default start
  ```
 7. Check the status of server process. From system command prompt (as sudo or root):
 
  ```
- /etc/init.d/apacheds-2.0.0-M21-default status
+ /etc/init.d/apacheds-[version]-default status
  ApacheDS - default is running (70041).
  ```
 
@@ -111,15 +109,15 @@ ________________________________________________________________________________
 1. Download the package:
  a. from git:
  ```
- git clone --branch 2.0.0-RC2 https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+ git clone --branch 2.0.0 https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
  cd directory-fortress-core
  ```
 
  b. or download package:
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/2.0.0-RC2/fortress-core-2.0.0-RC2-source-release.zip
- unzip fortress-core-2.0.0-RC2-source-release.zip
- cd fortress-core-2.0.0-RC2
+ wget http://www.apache.org/dist/directory/fortress/dist/2.0.0/fortress-core-2.0.0-source-release.zip
+ unzip fortress-core-2.0.0-source-release.zip
+ cd fortress-core-2.0.0
  ```
 
 2. Prepare the package:
@@ -279,7 +277,7 @@ During this section, you will be asked to setup Apache Tomcat 8 and prepare for 
 2. Download the fortress realm proxy jar into tomcat/lib folder:
 
   ```
-  sudo wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.0-RC2/fortress-realm-proxy-2.0.0-RC2.jar -P /usr/local/tomcat8/lib
+  sudo wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.0/fortress-realm-proxy-2.0.0.jar -P /usr/local/tomcat8/lib
   ```
 
 3. Prepare tomcat fortress usage:
@@ -374,15 +372,15 @@ During this section, you will be asked to setup Apache Fortress Rest Application
 
  a. from git:
  ```
- git clone --branch 2.0.0-RC2 https://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git
+ git clone --branch 2.0.0 https://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git
  cd directory-fortress-enmasse
  ```
 
  b. or download package:
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/2.0.0-RC2/fortress-rest-2.0.0-RC2-source-release.zip
- unzip fortress-rest-2.0.0-RC2-source-release.zip
- cd fortress-rest-2.0.0-RC2
+ wget http://www.apache.org/dist/directory/fortress/dist/2.0.0/fortress-rest-2.0.0-source-release.zip
+ unzip fortress-rest-2.0.0-source-release.zip
+ cd fortress-rest-2.0.0
  ```
 
 2. Prepare:
@@ -420,15 +418,15 @@ During this section, you will be asked to setup Apache Fortress Web Application
 
  a. from git:
  ```
- git clone --branch 2.0.0-RC2 https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
+ git clone --branch 2.0.0 https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
  cd directory-fortress-commander
  ```
 
  b. or download package:
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/2.0.0-RC2/fortress-web-2.0.0-RC2-source-release.zip
- unzip fortress-web-2.0.0-RC2-source-release.zip
- cd fortress-web-2.0.0-RC2
+ wget http://www.apache.org/dist/directory/fortress/dist/2.0.0/fortress-web-2.0.0-source-release.zip
+ unzip fortress-web-2.0.0-source-release.zip
+ cd fortress-web-2.0.0
  ```
 
 2. Prepare:

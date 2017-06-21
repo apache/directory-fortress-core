@@ -19,7 +19,7 @@
 -------------------------------------------------------------------------------
 # README for Apache Fortress Core
 
- * Version 2.0.0-RC2
+ * Version 2.0.0
  * Apache Fortress Core System Architecture Diagram
  ![Apache Fortress Core System Architecture](images/fortress-core-system-arch.png "Apache Fortress Core System Architecture")
 
@@ -83,10 +83,10 @@ https://git-wip-us.apache.org/repos/asf?p=directory-fortress-core.git
  git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
  ```
 
- * or by specific version, e.g. 2.0.0-RC2
+ * or by specific version, e.g. 2.0.0
 
  ```
-  git clone --branch 2.0.0-RC2 https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+  git clone --branch 2.0.0 https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
  ```
 
 2. Set Java and Maven home on machines.
@@ -101,18 +101,6 @@ https://git-wip-us.apache.org/repos/asf?p=directory-fortress-core.git
 
  ```
  mvn javadoc:javadoc
- ```
-
- If using java 8, add this param to the pom.xml:
- ```
- <plugin>
-    ...
-    <artifactId>maven-javadoc-plugin</artifactId>
-    <configuration>
-        <additionalparam>-Xdoclint:none</additionalparam>
-        ...
-    </configuration>
- </plugin>
  ```
 
 5. View the generated document here: [./target/site/apidocs/overview-summary.html](./target/site/apidocs/overview-summary.html).

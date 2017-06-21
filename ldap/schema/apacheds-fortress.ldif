@@ -18,7 +18,7 @@
 #   under the License.
 #
 
-# SCHEMA "FORTRESS" v2.0.0-RC2
+# SCHEMA "FORTRESS" v2.0.0
 dn: cn=fortress, ou=schema
 objectclass: metaSchema
 objectclass: top

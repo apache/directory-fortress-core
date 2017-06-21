@@ -19,7 +19,7 @@
 -------------------------------------------------------------------------------
 # README for Apache Fortress Ten Minute Guide
 
- * Version 2.0.0-RC2
+ * Version 2.0.0
  * This document has been deprecated in favor of:
     * Follow these instructions: [README-QUICKSTART-APACHEDS](./README-QUICKSTART-APACHEDS.md)
     * Follow these instructions: [README-QUICKSTART-SLAPD](./README-QUICKSTART-SLAPD.md)
@@ -68,18 +68,6 @@ Everything else covered in steps that follow.  Tested on Debian & Centos systems
  ```
  mvn clean install
  mvn javadoc:javadoc
- ```
-
- Javadoc note: if using java 8, add this param to the pom.xml:
- ```
- <plugin>
-    ...
-    <artifactId>maven-javadoc-plugin</artifactId>
-    <configuration>
-        <additionalparam>-Xdoclint:none</additionalparam>
-        ...
-    </configuration>
- </plugin>
  ```
 
 5. Point your web browser to the following location:
