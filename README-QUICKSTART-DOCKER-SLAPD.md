@@ -62,6 +62,12 @@ ________________________________________________________________________________
  docker build -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .
  ```
 
+Or just pull the prebuild image:
+
+ ```
+ docker pull apachedirectory/openldap-for-apache-fortress-tests
+ ```
+
 3. Run the docker container:
 
  ```

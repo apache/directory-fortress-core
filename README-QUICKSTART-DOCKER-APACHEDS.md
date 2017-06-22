@@ -60,7 +60,12 @@ ________________________________________________________________________________
 
  ```
  docker build -t apachedirectory/apacheds-for-apache-fortress-tests -f src/docker/apacheds-for-apache-fortress-tests/Dockerfile .
+ ```
 
+Or just pull the prebuild image:
+
+ ```
+ docker pull apachedirectory/apacheds-for-apache-fortress-tests
  ```
 
 3. Run the docker container:
@@ -192,7 +197,7 @@ Here are some common commands needed to manage the Docker image.
 #### Build image
 
  ```
- docker build -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .
+ docker build -t apachedirectory/apacheds-for-apache-fortress-tests -f src/docker/apacheds-for-apache-fortress-tests/Dockerfile .
  ```
 
  * trailing dot matters
@@ -200,7 +205,7 @@ Here are some common commands needed to manage the Docker image.
 Or just to be sure don't use cached layers:
 
  ```
- docker build   --no-cache=true -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .
+ docker build   --no-cache=true -t apachedirectory/apacheds-for-apache-fortress-tests -f src/docker/apacheds-for-apache-fortress-tests/Dockerfile .
  ```
 
 #### Run container
