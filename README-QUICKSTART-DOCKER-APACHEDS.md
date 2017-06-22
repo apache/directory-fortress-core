@@ -66,8 +66,8 @@ ________________________________________________________________________________
 3. Run the docker container:
 
  ```
- CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
- CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "103389/tcp") 0).HostPort}}' $CONTAINER_ID)
+ CONTAINER_ID=$(docker run -d -P apachedirectory/apacheds-for-apache-fortress-tests)
+ CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "10389/tcp") 0).HostPort}}' $CONTAINER_ID)
  echo $CONTAINER_PORT
  ```
 
@@ -206,8 +206,8 @@ Or just to be sure don't use cached layers:
 #### Run container
 
  ```
- CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
- CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "103389/tcp") 0).HostPort}}' $CONTAINER_ID)
+ CONTAINER_ID=$(docker run -d -P apachedirectory/apacheds-for-apache-fortress-tests)
+ CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "10389/tcp") 0).HostPort}}' $CONTAINER_ID)
  echo $CONTAINER_PORT
  ```
 
