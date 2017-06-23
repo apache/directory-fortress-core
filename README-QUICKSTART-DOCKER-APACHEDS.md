@@ -62,7 +62,7 @@ ________________________________________________________________________________
  docker build -t apachedirectory/apacheds-for-apache-fortress-tests -f src/docker/apacheds-for-apache-fortress-tests/Dockerfile .
  ```
 
-Or just pull the prebuild image:
+Or just pull the prebuilt image:
 
  ```
  docker pull apachedirectory/apacheds-for-apache-fortress-tests

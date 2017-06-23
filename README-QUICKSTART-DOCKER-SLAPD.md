@@ -62,7 +62,7 @@ ________________________________________________________________________________
  docker build -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .
  ```
 
-Or just pull the prebuild image:
+Or just pull the prebuilt image:
 
  ```
  docker pull apachedirectory/openldap-for-apache-fortress-tests
@@ -114,19 +114,6 @@ Or just pull the prebuild image:
  ```
  mvn clean install
  ```
-
-10. To start the slapd process (as root or sudo):
-
-  ```
-  mvn test -Pstart-slapd
-  ```
-
-11. To stop the slapd process (as root or sudo):
-
-  ```
-  mvn test -Pstop-slapd
-  ```
-
 ___________________________________________________________________________________
 ## SECTION 3. Apache Fortress Core Integration Test
 
