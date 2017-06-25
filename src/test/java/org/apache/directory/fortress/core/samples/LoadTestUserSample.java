@@ -127,16 +127,8 @@ public class LoadTestUserSample extends TestCase
             LOG.info(szLocation + " begin users delete... (every '-' is 1000 users)");
             for( int i = 1; i <= NUMBER_TEST_USERS; i++)
             {
-                try
-                {
-                    User inUser = new User( TEST_USERID + i );
-                    adminMgr.deleteUser( inUser );
-                }
-                catch (SecurityException ex)
-                {
-                    LOG.error(szLocation + "testDeleteUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-                    fail(ex.getMessage());
-                }
+                User inUser = new User( TEST_USERID + i );
+                adminMgr.deleteUser( inUser );
                 if( i % 1000 == 0)
                 {
                     System.out.print( "-" );
