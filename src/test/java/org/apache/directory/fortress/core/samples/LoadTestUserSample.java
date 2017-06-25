@@ -44,7 +44,7 @@ public class LoadTestUserSample extends TestCase
 {
     private static final String CLS_NM = CreateUserSample.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    public static int NUMBER_TEST_USERS = 1000;
+    public static int NUMBER_TEST_USERS = 1000000;
     public static int NUMBER_TEST_ROLES = 10;
     public static final String TEST_ROLE = "loadtestrole";
     public static final String TEST_USERID = "loadtestuser";
@@ -127,8 +127,16 @@ public class LoadTestUserSample extends TestCase
             LOG.info(szLocation + " begin users delete... (every '-' is 1000 users)");
             for( int i = 1; i <= NUMBER_TEST_USERS; i++)
             {
-                User inUser = new User( TEST_USERID + i );
-                adminMgr.deleteUser( inUser );
+                try
+                {
+                    User inUser = new User( TEST_USERID + i );
+                    adminMgr.deleteUser( inUser );
+                }
+                catch (SecurityException ex)
+                {
+                    LOG.error(szLocation + "testDeleteUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+                    //fail(ex.getMessage());
+                }
                 if( i % 1000 == 0)
                 {
                     System.out.print( "-" );
@@ -169,10 +177,25 @@ public class LoadTestUserSample extends TestCase
             {
                 User inUser = new User(TEST_USERID + i, TEST_PASSWORD);
                 inUser.setOu("DEV0");
-                // Now call the add API.  The API will return User entity with associated LDAP dn if creation was successful.
-                User outUser = adminMgr.addUser(inUser);
-                assertNotNull(outUser);
 
+                try
+                {
+                    // Now call the add API.  The API will return User entity with associated LDAP dn if creation was successful.
+                    User outUser = adminMgr.addUser(inUser);
+                    assertNotNull(outUser);
+                }
+                catch (SecurityException ex)
+                {
+                    if(ex.getErrorId() == GlobalErrIds.USER_ADD_FAILED_ALREADY_EXISTS)
+                    {
+                        // ignore
+                    }
+                    else
+                    {
+                        LOG.error(szLocation + "testAddUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+                        fail(ex.getMessage());
+                    }
+                }
                 if( i % 1000 == 0)
                 {
                     System.out.print( "+" );
@@ -183,17 +206,8 @@ public class LoadTestUserSample extends TestCase
         }
         catch (SecurityException ex)
         {
-            // org.apache.directory.api.ldap.model.exception.LdapEntryAlreadyExistsException:
-
-            if(ex.getErrorId() == GlobalErrIds.USER_ADD_FAILED_ALREADY_EXISTS)
-            {
-                // ignore
-            }
-            else
-            {
                 LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
                 fail(ex.getMessage());
-            }
         }
     }
 
@@ -224,9 +238,17 @@ public class LoadTestUserSample extends TestCase
             {
                 for( int j = 1; j <= NUMBER_TEST_ROLES; j++ )
                 {
-                    UserRole inUserRole = new UserRole(TEST_USERID + i, TEST_ROLE + j);
-                    // Now call the assignUser API.  The API will assign user to specified role.
-                    adminMgr.assignUser( inUserRole );
+                    try
+                    {
+                        UserRole inUserRole = new UserRole(TEST_USERID + i, TEST_ROLE + j);
+                        // Now call the assignUser API.  The API will assign user to specified role.
+                        adminMgr.assignUser( inUserRole );
+                    }
+                    catch (SecurityException ex)
+                    {
+                        LOG.error(szLocation + "testAssignUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+                        //fail(ex.getMessage());
+                    }
                     if( i % 1000 == 0)
                     {
                         System.out.print( "@" );
