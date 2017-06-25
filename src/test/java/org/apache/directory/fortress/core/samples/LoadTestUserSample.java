@@ -124,7 +124,7 @@ public class LoadTestUserSample extends TestCase
         {
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
             AdminMgr adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
-
+            LOG.info(szLocation + " begin users delete... (every '-' is 1000 users)");
             for( int i = 1; i <= NUMBER_TEST_USERS; i++)
             {
                 User inUser = new User( TEST_USERID + i );
@@ -164,6 +164,7 @@ public class LoadTestUserSample extends TestCase
              *   {@link User#setRole(String)}="sampleRole1"
              *   {@link User#ou}="sampleUserOU1"
              */
+            LOG.info(szLocation + " begin users add... (every '+' is 1000 users)");
             for( int i = 1; i <= NUMBER_TEST_USERS; i++)
             {
                 User inUser = new User(TEST_USERID + i, TEST_PASSWORD);
