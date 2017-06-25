@@ -219,7 +219,7 @@ public class LoadTestUserSample extends TestCase
              */
             //User inUser = new User(TEST_USERID, TEST_PASSWORD, CreateRoleSample.TEST_SIMPLE_ROLE, CreateUserOrgSample.TEST_USER_OU_NM);
             //User inUser = new User(TEST_USERID, TEST_PASSWORD, CreateRoleSample.TEST_SIMPLE_ROLE, CreateUserOrgSample.TEST_USER_OU_NM);
-
+            LOG.info(szLocation + " begin users assign... (every '@' is 1000 users)");
             for( int i = 1; i <= NUMBER_TEST_USERS; i++)
             {
                 for( int j = 1; j <= NUMBER_TEST_ROLES; j++ )
@@ -227,9 +227,13 @@ public class LoadTestUserSample extends TestCase
                     UserRole inUserRole = new UserRole(TEST_USERID + i, TEST_ROLE + j);
                     // Now call the assignUser API.  The API will assign user to specified role.
                     adminMgr.assignUser( inUserRole );
+                    if( i % 1000 == 0)
+                    {
+                        System.out.print( "@" );
+                    }
                 }
             }
-
+            System.out.println("");
             LOG.info(szLocation + " users assignment success");
         }
         catch (SecurityException ex)
