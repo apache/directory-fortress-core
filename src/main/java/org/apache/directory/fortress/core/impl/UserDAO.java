@@ -43,6 +43,7 @@ import org.apache.directory.api.ldap.model.entry.Modification;
 import org.apache.directory.api.ldap.model.entry.ModificationOperation;
 import org.apache.directory.api.ldap.model.exception.LdapAttributeInUseException;
 import org.apache.directory.api.ldap.model.exception.LdapAuthenticationException;
+import org.apache.directory.api.ldap.model.exception.LdapEntryAlreadyExistsException;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
 import org.apache.directory.api.ldap.model.exception.LdapNoPermissionException;
@@ -311,6 +312,11 @@ final class UserDAO extends LdapDataProvider
             ld = getAdminConnection();
             add( ld, myEntry, entity );
             entity.setDn( dn );
+        }
+        catch ( LdapEntryAlreadyExistsException e )
+        {
+            String error = "create userId [" + entity.getUserId() + "] failed, already exists in directory";
+            throw new CreateException( GlobalErrIds.USER_ADD_FAILED_ALREADY_EXISTS, error, e );
         }
         catch ( LdapException e )
         {

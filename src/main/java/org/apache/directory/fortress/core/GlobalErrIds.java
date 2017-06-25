@@ -382,6 +382,11 @@ public final class GlobalErrIds
     public static final int USER_BIND_FAILED = 1037;
 
     /**
+     * The User node could not be added to ldap.
+     */
+    public static final int USER_ADD_FAILED_ALREADY_EXISTS = 1038;
+
+    /**
      * 2000's User-Role assignments
      */
 

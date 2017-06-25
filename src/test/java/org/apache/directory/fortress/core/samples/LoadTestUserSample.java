@@ -33,6 +33,7 @@ import junit.framework.TestSuite;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import sun.rmi.runtime.Log;
 
 /**
  * LoadTestUserSample JUnit Test.  These samples create many users and assign them to roles.
@@ -158,9 +159,6 @@ public class LoadTestUserSample extends TestCase
              *   {@link User#setRole(String)}="sampleRole1"
              *   {@link User#ou}="sampleUserOU1"
              */
-            //User inUser = new User(TEST_USERID, TEST_PASSWORD, CreateRoleSample.TEST_SIMPLE_ROLE, CreateUserOrgSample.TEST_USER_OU_NM);
-            //User inUser = new User(TEST_USERID, TEST_PASSWORD, CreateRoleSample.TEST_SIMPLE_ROLE, CreateUserOrgSample.TEST_USER_OU_NM);
-
             for( int i = 1; i <= NUMBER_TEST_USERS; i++)
             {
                 User inUser = new User(TEST_USERID + i, TEST_PASSWORD);
@@ -168,14 +166,28 @@ public class LoadTestUserSample extends TestCase
                 // Now call the add API.  The API will return User entity with associated LDAP dn if creation was successful.
                 User outUser = adminMgr.addUser(inUser);
                 assertNotNull(outUser);
+
+                if( i % 1000 == 0)
+                {
+                    System.out.println( ".");
+                }
             }
 
             LOG.info(szLocation + " users create success");
         }
         catch (SecurityException ex)
         {
-            LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-            fail(ex.getMessage());
+            // org.apache.directory.api.ldap.model.exception.LdapEntryAlreadyExistsException:
+
+            if(ex.getErrorId() == GlobalErrIds.USER_ADD_FAILED_ALREADY_EXISTS)
+            {
+                // ignore
+            }
+            else
+            {
+                LOG.error(szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
+                fail(ex.getMessage());
+            }
         }
     }
 
