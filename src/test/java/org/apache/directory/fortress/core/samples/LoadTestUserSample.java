@@ -135,7 +135,7 @@ public class LoadTestUserSample extends TestCase
                 catch (SecurityException ex)
                 {
                     LOG.error(szLocation + "testDeleteUsers caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex);
-                    //fail(ex.getMessage());
+                    fail(ex.getMessage());
                 }
                 if( i % 1000 == 0)
                 {
