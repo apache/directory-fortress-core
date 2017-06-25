@@ -129,7 +129,12 @@ public class LoadTestUserSample extends TestCase
             {
                 User inUser = new User( TEST_USERID + i );
                 adminMgr.deleteUser( inUser );
+                if( i % 1000 == 0)
+                {
+                    System.out.print( "-" );
+                }
             }
+            System.out.println("");
             LOG.info(szLocation + " users delete success");
         }
         catch (SecurityException ex)
@@ -169,11 +174,11 @@ public class LoadTestUserSample extends TestCase
 
                 if( i % 1000 == 0)
                 {
-                    System.out.println( ".");
+                    System.out.print( "+" );
                 }
             }
-
-            LOG.info(szLocation + " users create success");
+            System.out.println("");
+            LOG.info( szLocation + " users create success" );
         }
         catch (SecurityException ex)
         {
