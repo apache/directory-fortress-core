@@ -62,6 +62,11 @@
                 <stringProp name="Argument.value">2</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
+              <elementProp name="number" elementType="Argument">
+                <stringProp name="Argument.name">number</stringProp>
+                <stringProp name="Argument.value">100</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
             </collectionProp>
           </elementProp>
           <stringProp name="classname">org.apache.directory.fortress.core.jmeter.CheckAccess</stringProp>
