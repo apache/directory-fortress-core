@@ -116,8 +116,8 @@
     <version.javax.ws.rs-api>2.0.1</version.javax.ws.rs-api>
     <version.jaxb>2.2.11</version.jaxb>
     <version.jgrapht-core>1.0.0</version.jgrapht-core>
-    <version.jmeter.core>3.2</version.jmeter.core>
-    <version.jmeter.java>3.2</version.jmeter.java>
+    <version.jmeter.core>2.11</version.jmeter.core>
+    <version.jmeter.java>2.11</version.jmeter.java>
     <version.junit>4.12</version.junit>
     <version.log4j>1.2.17</version.log4j>
     <version.mina.core>2.0.13</version.mina.core>
