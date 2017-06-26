@@ -329,10 +329,9 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
         checkAccess(CLS_NM, methodName);
         List<String> users = null;
 
-        // If role occupant is set on role, get it from there:
+        // If role occupant is set on role, get it from the role object itself:
         if( Config.getInstance().isRoleOccupant() )
         {
-
             Role entity = roleP.read( role );
             // this one retrieves from the role itself.
             users = entity.getOccupants();
@@ -341,7 +340,7 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
                 users = users.subList( 0, limit );
             }
         }
-        // otherwise search across people tree for users assigned to the role:
+        // otherwise, search across the people tree for all users assigned to this role:
         else
         {
             users = userP.getAssignedUserIds( role );
@@ -353,9 +352,8 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
         {
             users = new ArrayList<>();
         }
+
         return users;
-        // this one does a search across all users:
-        //return userP.getAuthorizedUsers(role, limit);
     }
 
     /**

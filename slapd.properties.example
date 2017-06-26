@@ -43,7 +43,7 @@ suffix.name=example
 suffix.dc=com
 suffix=dc=${suffix.name},dc=${suffix.dc}
 
-# Disable storing user membership on role object, default is true:
+# A value of 'false' disables storing user membership on role object, default is 'true':
 #role.occupants=false
 
 #For a multi-level suffix, e.g. dc=foo, dc=example, dc=com.

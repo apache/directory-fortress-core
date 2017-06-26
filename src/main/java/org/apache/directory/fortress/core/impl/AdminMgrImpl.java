@@ -292,7 +292,33 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
             groupP.deassign( group, outRole.getDn() );
         }
 
-        // If user membership associated with role, remove it here:
+        // If user membership associated with role, remove the role object:
+        if( Config.getInstance().isRoleOccupant() )
+        {
+            // this reads the role object itself:
+            List<User> users = userP.getAssignedUsers( role );
+            if ( users != null )
+            {
+                for ( User ue : users )
+                {
+                    UserRole uRole = new UserRole( ue.getUserId(), role.getName() );
+                    setAdminData( CLS_NM, methodName, uRole );
+                    deassignUser( uRole );
+                }
+            }
+        }
+        else
+        {
+            // search for all users assigned this role and deassign:
+            List<String> userIds = userP.getAssignedUserIds( role );
+            for ( String userId : userIds )
+            {
+                UserRole uRole = new UserRole( userId, role.getName() );
+                setAdminData( CLS_NM, methodName, uRole );
+                deassignUser( uRole );
+            }
+        }
+/*
         if( Config.getInstance().isRoleOccupant() )
         {
             List<String> userIds = userP.getAssignedUserIds( role );
@@ -317,6 +343,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
                 }
             }
         }
+*/
 
         permP.remove( role );
         // remove all parent relationships from the role graph:
