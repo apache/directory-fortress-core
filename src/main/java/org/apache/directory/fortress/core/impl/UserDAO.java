@@ -196,6 +196,7 @@ final class UserDAO extends LdapDataProvider
     private static String[] defaultAtrs = null;
     private static final String[] ROLE_ATR = { GlobalIds.USER_ROLE_DATA };
     private static final String[] AROLE_ATR = { GlobalIds.USER_ADMINROLE_DATA };
+    private static final String[] USERID_ATR = { SchemaConstants.UID_AT };
 
     /**
      * Default constructor is public
@@ -1181,6 +1182,60 @@ final class UserDAO extends LdapDataProvider
 
 
     /**
+     * @param role
+     * @return
+     * @throws FinderException
+     */
+    List<String> getAssignedUserIds( Role role ) throws FinderException
+    {
+        List<String> userList = new ArrayList<>();
+        LdapConnection ld = null;
+        String userRoot = getRootDn( role.getContextId(), GlobalIds.USER_ROOT );
+
+        try
+        {
+            String roleVal = encodeSafeText( role.getName(), GlobalIds.USERID_LEN );
+            StringBuilder filterbuf = new StringBuilder();
+            filterbuf.append( GlobalIds.FILTER_PREFIX );
+            filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
+            filterbuf.append( ")(" );
+            filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
+            filterbuf.append( "=" );
+            filterbuf.append( roleVal );
+            filterbuf.append( "))" );
+
+            ld = getAdminConnection();
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID_ATR, false,
+                GlobalIds.BATCH_SIZE );
+            long sequence = 0;
+
+            while ( searchResults.next() )
+            {
+                userList.add( unloadUser( searchResults.getEntry() ) );
+            }
+        }
+        catch ( LdapException e )
+        {
+            String warning = "getAssignedUserIds role name [" + role.getName() + "] caught LDAPException=" + e
+                .getMessage();
+            throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+        }
+        catch ( CursorException e )
+        {
+            String warning = "getAssignedUserIds role name [" + role.getName() + "] caught LDAPException=" + e
+                .getMessage();
+            throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+
+        return userList;
+    }
+
+
+    /**
      * @param roles
      * @return
      * @throws FinderException
@@ -1927,8 +1982,7 @@ final class UserDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String warning = "deletePwPolicy userId [" + user.getUserId() + "] caught LDAPException=" + e.getMessage
-                () + " msg=" + e.getMessage();
+            String warning = "deletePwPolicy userId [" + user.getUserId() + "] caught LDAPException=" + e.getMessage() + " msg=" + e.getMessage();
             throw new UpdateException( GlobalErrIds.USER_PW_PLCY_DEL_FAILED, warning, e );
         }
         finally
@@ -1937,6 +1991,19 @@ final class UserDAO extends LdapDataProvider
         }
 
         return userDn;
+    }
+
+
+    /**
+     * @param entry
+     * @return
+     * @throws LdapInvalidAttributeValueException
+     */
+    private String unloadUser( Entry entry )
+        throws LdapInvalidAttributeValueException
+    {
+        String userId = getAttribute( entry, SchemaConstants.UID_AT );
+        return userId;
     }
 
 

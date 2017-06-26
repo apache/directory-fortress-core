@@ -377,6 +377,23 @@ public final class Config
     {
         return GlobalIds.REALM_TYPE.equalsIgnoreCase( getProperty( GlobalIds.AUTHENTICATION_TYPE ) );
     }
+    /*
+            if( ( Config.getInstance().getProperty( GlobalIds.ROLE_OCCUPANTS ) != null )
+            && (  ! Config.getInstance().getProperty( GlobalIds.ROLE_OCCUPANTS ).equalsIgnoreCase( "false" ) ) )
+
+     */
+    public boolean isRoleOccupant()
+    {
+        // misc LDAP:
+        String ROLE_OCCUPANTS = "role.occupants";
+
+        // default is true:
+        boolean result = true;
+        if(( ( getProperty( ROLE_OCCUPANTS ) != null ) && ( getProperty( ROLE_OCCUPANTS ).equalsIgnoreCase( "false" ) ) ))
+            result = false;
+        return result;
+    }
+
     private boolean isRemoteConfigLoaded()
     {
         return remoteConfigLoaded;

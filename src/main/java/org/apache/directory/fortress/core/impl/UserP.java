@@ -167,6 +167,20 @@ final class UserP
 
 
     /**
+     * Return a list of Users assigned the given RBAC role.
+     * "Assigned" implies the hierarchical role relation graph will NOT be considered in result set.
+     *
+     * @param role contains name of RBAC role used for search.
+     * @return List of fully populated User entities matching target search. If no records found this will be empty.
+     * @throws SecurityException in the event of DAO search error.
+     */
+    List<String> getAssignedUserIds( Role role ) throws SecurityException
+    {
+        return uDao.getAssignedUserIds( role );
+    }
+
+
+    /**
      * Return a list of Users assigned the given Administrative role.
      * "Assigned" implies the hierarchical role relation graph will NOT be considered in result set.
      *

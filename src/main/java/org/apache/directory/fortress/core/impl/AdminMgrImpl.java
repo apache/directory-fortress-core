@@ -45,6 +45,7 @@ import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
 
 import org.slf4j.Logger;
@@ -290,17 +291,33 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
             group.setContextId( this.contextId );
             groupP.deassign( group, outRole.getDn() );
         }
-        // search for all users assigned this role and deassign:
-        List<User> users = userP.getAssignedUsers( role );
-        if ( users != null )
+
+        // If user membership associated with role, remove it here:
+        if( Config.getInstance().isRoleOccupant() )
         {
-            for ( User ue : users )
+            List<String> userIds = userP.getAssignedUserIds( role );
+            for ( String userId : userIds )
             {
-                UserRole uRole = new UserRole( ue.getUserId(), role.getName() );
+                UserRole uRole = new UserRole( userId, role.getName() );
                 setAdminData( CLS_NM, methodName, uRole );
                 deassignUser( uRole );
             }
         }
+        else
+        {
+            // search for all users assigned this role and deassign:
+            List<User> users = userP.getAssignedUsers( role );
+            if ( users != null )
+            {
+                for ( User ue : users )
+                {
+                    UserRole uRole = new UserRole( ue.getUserId(), role.getName() );
+                    setAdminData( CLS_NM, methodName, uRole );
+                    deassignUser( uRole );
+                }
+            }
+        }
+
         permP.remove( role );
         // remove all parent relationships from the role graph:
         Set<String> parents = RoleUtil.getInstance().getParents( role.getName(), this.contextId );
@@ -352,13 +369,17 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         Role validRole = roleP.read( role );
         // if the input role entity attribute doesn't have temporal constraints set, copy from the role declaration:
         ConstraintUtil.validateOrCopy( validRole, uRole );
-
         // Assign the Role data to User:
         String dn = userP.assign( uRole );
-        setAdminData( CLS_NM, methodName, role );
-        // Assign user dn attribute to the role, this will add a single, standard attribute value,
-        // called "roleOccupant", directly onto the role node:
-        roleP.assign( role, dn );
+
+        // If user membership associated with role, set it here:
+        if( Config.getInstance().isRoleOccupant() )
+        {
+            setAdminData( CLS_NM, methodName, role );
+            // Assign user dn attribute to the role, this will add a single, standard attribute value,
+            // called "roleOccupant", directly onto the role node:
+            roleP.assign( role, dn );
+        }
     }
 
     /**
@@ -411,10 +432,14 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         setEntitySession( CLS_NM, methodName, uRole );
         AdminUtil.canDeassign( user.getAdminSession(), user, role, contextId );
         String dn = userP.deassign( uRole );
-        setAdminData( CLS_NM, methodName, role );
-        // Now "deassign" user dn attribute, this will remove a single, standard attribute value,
-        // called "roleOccupant", from the node:
-        roleP.deassign( role, dn );
+        // If user membership is assocated with role, remove role occupants:
+        if( Config.getInstance().isRoleOccupant() )
+        {
+            setAdminData( CLS_NM, methodName, role );
+            // Now "deassign" user dn attribute, this will remove a single, standard attribute value,
+            // called "roleOccupant", from the node:
+            roleP.deassign( role, dn );
+        }
     }    
 
     /**

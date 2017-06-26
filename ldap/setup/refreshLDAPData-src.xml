@@ -100,6 +100,7 @@
                 <config props="group.objectclass:@GROUP_OBJECT_CLASS@"/>
                 <config props="group.protocol:@GROUP_PROTOCOL@"/>
                 <config props="group.properties:@GROUP_PROPERTIES@"/>
+                <config props="role.occupants:@ROLE_OCCUPANTS@"/>
                 <config props="attr.delimiter:$"/>
                 <config props="field.length:130"/>
                 <config props="ldap.filter.size:15"/>

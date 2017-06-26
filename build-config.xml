@@ -310,6 +310,7 @@
          <replace file="${dst.bootstrap.conf}" token="@USR_MAX_CONN@" value="${user.max.conn}"/>
          <replace file="${dst.bootstrap.conf}" token="@CFG_CRYPTO_PROP@" value="${crypto.prop}"/>
          <replace file="${dst.bootstrap.conf}" token="@SERVER_TYPE@" value="${ldap.server.type}"/>
+         <replace file="${dst.bootstrap.conf}" token="@ROLE_OCCUPANTS@" value="${role.occupants}"/>
          <replace file="${dst.bootstrap.conf}" token="@LDAP_CLIENT_TYPE@" value="${ldap.client.type}"/>
          <replace file="${dst.bootstrap.conf}" token="@USERS_DN@" value="${users.dn}"/>
          <replace file="${dst.bootstrap.conf}" token="@ROLES_DN@" value="${roles.dn}"/>
@@ -342,6 +343,7 @@
          <replace file="${dst.remote.conf}" token="@ADM_MAX_CONN@" value="${admin.max.conn}"/>
          <replace file="${dst.remote.conf}" token="@LOG_ROOT_DN@" value="${log.admin.user}"/>
          <replace file="${dst.remote.conf}" token="@CFG_LOG_ROOT_PW@" value="${log.admin.pw}"/>
+         <replace file="${dst.remote.conf}" token="@ROLE_OCCUPANTS@" value="${role.occupants}"/>
 
          <replace file="${dst.remote.conf}" token="@LOG_MIN_CONN@" value="${min.log.conn}"/>
          <replace file="${dst.remote.conf}" token="@LOG_MAX_CONN@" value="${max.log.conn}"/>
@@ -387,6 +389,7 @@
          <replace file="${dst.load.bootstrap.script}" token="@GROUP_OBJECT_CLASS@" value="${group.objectclass}"/>
          <replace file="${dst.load.bootstrap.script}" token="@GROUP_PROTOCOL@" value="${group.protocol}"/>
          <replace file="${dst.load.bootstrap.script}" token="@GROUP_PROPERTIES@" value="${group.properties}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@ROLE_OCCUPANTS@" value="${role.occupants}"/>
          <echo message="###############  Copy ehcache config to bootstrap config folder  ###############"/>
          <delete file="${bootstrap.ehcache.conf}"/>
        <copy file="${ehcache.conf}" tofile="${bootstrap.ehcache.conf}"/>

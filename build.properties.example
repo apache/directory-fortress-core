@@ -75,6 +75,9 @@ cfg.root.pw=secret
 # This is the default:
 ldap.client.type=apache
 
+# Disable storing user membership on role object, default is true:
+#role.occupants=false
+
 # These are used to construct suffix for DIT, i.e. dc=example,dc=com.
 suffix.name=example
 suffix.dc=com

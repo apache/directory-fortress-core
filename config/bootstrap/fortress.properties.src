@@ -51,6 +51,9 @@ log.admin.pw=@CFG_LOG_ROOT_PW@
 min.log.conn=@LOG_MIN_CONN@
 max.log.conn=@LOG_MAX_CONN@
 
+# Disable storing user membership on role object, default is true:
+role.occupants=@ROLE_OCCUPANTS@
+
 # enable this to see trace statements when connection pool allocates new connections:
 debug.ldap.pool=true
 # Default for pool reconnect flag is false:
