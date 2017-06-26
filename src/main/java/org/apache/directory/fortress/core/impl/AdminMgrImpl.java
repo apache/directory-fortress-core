@@ -282,6 +282,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
             LOG.error( error );
             throw new SecurityException( GlobalErrIds.HIER_DEL_FAILED_HAS_CHILD, error, null );
         }
+        // Read the Role from LDAP:
         Role outRole = roleP.read( role );
         outRole.setContextId( role.getContextId() );
         // deassign all groups assigned to this role first (because of schema's configGroup class constraints)
@@ -318,33 +319,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
                 deassignUser( uRole );
             }
         }
-/*
-        if( Config.getInstance().isRoleOccupant() )
-        {
-            List<String> userIds = userP.getAssignedUserIds( role );
-            for ( String userId : userIds )
-            {
-                UserRole uRole = new UserRole( userId, role.getName() );
-                setAdminData( CLS_NM, methodName, uRole );
-                deassignUser( uRole );
-            }
-        }
-        else
-        {
-            // search for all users assigned this role and deassign:
-            List<User> users = userP.getAssignedUsers( role );
-            if ( users != null )
-            {
-                for ( User ue : users )
-                {
-                    UserRole uRole = new UserRole( ue.getUserId(), role.getName() );
-                    setAdminData( CLS_NM, methodName, uRole );
-                    deassignUser( uRole );
-                }
-            }
-        }
-*/
 
+        // Now remove the role association from all permissions:
         permP.remove( role );
         // remove all parent relationships from the role graph:
         Set<String> parents = RoleUtil.getInstance().getParents( role.getName(), this.contextId );
@@ -356,6 +332,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
                     parent.toUpperCase() ), Hier.Op.REM );
             }
         }
+
+        // Finally, delete the role object:
         roleP.delete( role );
    }
 
