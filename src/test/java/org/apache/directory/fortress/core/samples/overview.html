@@ -19,68 +19,35 @@
 -->
 <html>
    <head>
-      <title>Overview of the org.openldap.fortress programming samples</title>
+      <title>Overview of the fortress programming samples</title>
    </head>
    <body>
       <p>
-         This package contains samples that show how the Fortress APIs can be used.  The samples use JUnit
-         test harness.
+         This package contains samples that show how its APIs can be used.  These samples run as JUnit test cases inside of maven.
       <h3>Samples</h3>
           <ol>
-          <li>{@link org.openldap.fortress.samples.AccessMgrSample} demonstrates {@code org.openldap.fortress.AccessMgr} APIs</li>
-          <li>{@link org.openldap.fortress.samples.AllSamplesJUnitTest} will execute all tests in their proper order</li>
-          <li>{@link org.openldap.fortress.samples.CreatePermOrgHierarchySample} demonstrates {@code org.openldap.fortress.DelegatedAdminMgr} APis to create Perm organizational unit hierarchies</li>
-          <li>{@link org.openldap.fortress.samples.CreatePermOrgSample} demonstrates {@code org.openldap.fortress.DelegatedAdminMgr} APis to create a Perm organizational unit node</li>
-          <li>{@link org.openldap.fortress.samples.CreatePermSample} demonstrates {@code org.openldap.fortress.AdminMgr} to create RBAC permissions</li>
-          <li>{@link org.openldap.fortress.samples.CreateRoleHierarchySample} demonstrates {@code org.openldap.fortress.AdminMgr} to create RBAC Role hierarchies</li>
-          <li>{@link org.openldap.fortress.samples.CreateRoleSample} demonstrates {@code org.openldap.fortress.AdminMgr} to create RBAC Roles and assign constraints</li>
-          <li>{@link org.openldap.fortress.samples.CreateSessionSample} demonstrates various ways to create a session using {@code org.openldap.fortress.AccessMgr} APIs</li>
-          <li>{@link org.openldap.fortress.samples.CreateUserOrgHierarchySample}  demonstrates {@code org.openldap.fortress.DelegatedAdminMgr} APis to create User organizational unit hierarchies</li>
-          <li>{@link org.openldap.fortress.samples.CreateUserOrgSample} demonstrates {@code org.openldap.fortress.DelegatedAdminMgr} APis to create a User organizational unit node</li>
-          <li>{@link org.openldap.fortress.samples.CreateUserRoleSample} demonstrates {@code org.openldap.fortress.AdminMgr} APIs to assign Roles to Users</li>
-          <li>{@link org.openldap.fortress.samples.CreateUserSample} demonstrates {@code org.openldap.fortress.AdminMgr} APIs to create User object nodes</li>
+          <li>{@link org.apache.directory.fortress.core.samples.AccessMgrSample} demonstrates {@code org.apache.directory.fortress.core.AccessMgr} APIs</li>
+          <li>{@link org.apache.directory.fortress.core.samples.AllSamplesJUnitTest} will execute all tests in their proper order</li>
+          <li>{@link org.apache.directory.fortress.core.samples.CreatePermOrgHierarchySample} demonstrates {@code org.apache.directory.fortress.core.DelegatedAdminMgr} APis to create Perm organizational unit hierarchies</li>
+          <li>{@link org.apache.directory.fortress.core.samples.CreatePermOrgSample} demonstrates {@code org.apache.directory.fortress.core.DelegatedAdminMgr} APis to create a Perm organizational unit node</li>
+          <li>{@link org.apache.directory.fortress.core.samples.CreatePermSample} demonstrates {@code org.apache.directory.fortress.core.AdminMgr} to create RBAC permissions</li>
+          <li>{@link org.apache.directory.fortress.core.samples.CreateRoleHierarchySample} demonstrates {@code org.apache.directory.fortress.core.AdminMgr} to create RBAC Role hierarchies</li>
+          <li>{@link org.apache.directory.fortress.core.samples.CreateRoleSample} demonstrates {@code org.apache.directory.fortress.core.AdminMgr} to create RBAC Roles and assign constraints</li>
+          <li>{@link org.apache.directory.fortress.core.samples.CreateSessionSample} demonstrates various ways to create a session using {@code org.apache.directory.fortress.core.AccessMgr} APIs</li>
+          <li>{@link org.apache.directory.fortress.core.samples.CreateUserOrgHierarchySample}  demonstrates {@code org.apache.directory.fortress.core.DelegatedAdminMgr} APis to create User organizational unit hierarchies</li>
+          <li>{@link org.apache.directory.fortress.core.samples.CreateUserOrgSample} demonstrates {@code org.apache.directory.fortress.core.DelegatedAdminMgr} APis to create a User organizational unit node</li>
+          <li>{@link org.apache.directory.fortress.core.samples.CreateUserRoleSample} demonstrates {@code org.apache.directory.fortress.core.AdminMgr} APIs to assign Roles to Users</li>
+          <li>{@link org.apache.directory.fortress.core.samples.CreateUserSample} demonstrates {@code org.apache.directory.fortress.core.AdminMgr} APIs to create User object nodes</li>
           </ol>
       </p>
       <p>
-         The Fortress samples can be executed by running the <b>test</b> target in the <b>build.xml</b> located in the <b>src/test</b> folder.
-      </p>
-      <p>
-         Over time more samples will be added.  The build.xml in the src/test folder contains targets to compile and run these samples, or they may
-          be executed directly within an IDE.
-      </p>
-      <p>
-
-      <h2>What can Fortress SDK do?</h2>
-
-       Contained within this SDK are APIs and utilities to perform authentication, authorization, administration audit and password policies.
-       The most important package in this system is <b>org.openldap.fortress</b> which contains all of the public APIs that need to be called by outside programs.
-
-      <h2>What technologies are used?</h2>
-      <p>
-         Fortress SDK runs on any platform that supports Java technology and LDAP v3 protocols.  Functionality that extends beyond
-          LDAP v3 is provided via <a href="http://openldap.org/">OpenLDAP</a> specific features.  In other words Fortress was optimized to run on OpenLDAP.
-      </p>
-      <h2>What are the conditions of use?</h2>
-      <p>
-         This software development kit is open source, thus free to use and distribute via the <a href="http://en.wikipedia.org/wiki/BSD_licenses">New BSD License</a>.
-         It was developed and tested on open systems like <a href="http://www.ubuntu.com/">Ubuntu</a> and <a href="http://www.centos.org/">Centos</a> and and was helped along
-         by open source contributions from the following:
-          <ol>
-          <li><a href="http://www.openldap.org/project/">The OpenLDAP Project</a></li>
-          <li><a href="http://www.apache.org/">The Apache Software Foundation</a></li>
-          <li><a href="http://www.eigenbase.org/">The Eigenbase Project</a></li>
-          </ol>
-      </p>
-      <p>
-         Check out the <b>org.openldap.fortress.samples</b> in the test package for how to use these APIs within Java programs.  The
-         <b>dist</b> target in build.xml will create a samples package in the /dist folder of this project.
+         These samples can be executed by entering the following mvn command:
+            <pre>
+                <p style="font: monospace; color: black; background-color: lightgrey; font-size: 10pt">
+mvn -Dtest=NameOfSample test
+                </p>
+            </pre>
+        Where NameOfSample is the name of test to run, e.g. AllSamplesJUnitTest
       </p>
    </body>
 </html>
-
-
-
-
-
-
-

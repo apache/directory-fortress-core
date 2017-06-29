@@ -116,7 +116,7 @@ Currently the following groups of functions are supported:
                 </ul>
                 <h4>optional parameters</h4>
                 <ul>
-                    <li>w : pwPolicy - contains the name of an already existing OpenLDAP password policy node</li>
+                    <li>w : pwPolicy - contains the name of an already existing password policy node</li>
                     <li>c : cn - maps to INetOrgPerson common name attribute</li>
                     <li>s : sn - maps to INetOrgPerson surname attribute</li>
                     <li>d : description - maps to INetOrgPerson description attribute</li>
@@ -189,7 +189,7 @@ Currently the following groups of functions are supported:
                 <ul>
                     <li>p : password - used to authenticate the User</li>
                     <li>o : orgUnit - contains the name of an already existing User OU node</li>
-                    <li>w : pwPolicy - contains the name of an already existing OpenLDAP password policy node</li>
+                    <li>w : pwPolicy - contains the name of an already existing password policy node</li>
                     <li>c : cn - maps to INetOrgPerson common name attribute</li>
                     <li>s : sn - maps to INetOrgPerson surname attribute</li>
                     <li>d : description - maps to INetOrgPerson description attribute</li>
@@ -266,7 +266,7 @@ Currently the following groups of functions are supported:
                 <h3>change : function to change a user's password</h3>
 
                 <p>
-                    OpenLDAP password policies will be enforced if in effect at the time of this function call.
+                    Password policies will be enforced if in effect at the time of this function call.
                 </p>
 
                 <h4>required parameters</h4>
@@ -286,10 +286,8 @@ Currently the following groups of functions are supported:
 
                 <p>
                     Used by administrator to change a user's password when they have forgotten old password or if the
-                    password is
-                    expired. When OpenLDAP policies are in effect this will force User to change their password the next
-                    time
-                    authenticate.
+                    password is expired. When policies are in effect this will force User to change their password the
+                    next time authenticate.
                 </p>
                 <h4>required parameters</h4>
                 <ul>

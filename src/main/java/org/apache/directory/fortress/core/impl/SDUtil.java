@@ -228,7 +228,8 @@ final class SDUtil
                     matchCount++;
 
                     // Does the match count exceed the cardinality allowed for this particular DSD set?
-                    if (matchCount >= dsd.getCardinality() - 1)
+//                    if (matchCount >= dsd.getCardinality() - 1)
+                    if (matchCount > dsd.getCardinality())
                     {
                         // Yes, the target role violates DSD cardinality rule.
                         String error = "validateDSD failed for role [" + role.getName() + "] DSD Set Name:" + dsd.getName() + " Cardinality:" + dsd.getCardinality();

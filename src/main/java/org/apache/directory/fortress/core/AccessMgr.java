@@ -95,11 +95,10 @@ public interface AccessMgr extends Manageable
      * <ul>
      *   <li>authenticate user password if trusted == false.</li>
      *   <li>
-     *     perform <a href="http://www.openldap.org/">OpenLDAP</a> 
-     *     <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>.
+     *     perform <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy evaluation</a>.
      *   </li>
      *   <li>
-     *     fail for any user who is locked by OpenLDAP's policies 
+     *     fail for any user who is locked by pw policies
      *     {@link org.apache.directory.fortress.core.model.User#isLocked()}, regardless of trusted flag being set as parm 
      *     on API.
      *   </li>
@@ -171,7 +170,7 @@ public interface AccessMgr extends Manageable
      * {@link org.apache.directory.fortress.core.model.Session#errorId}, 
      * RBAC role activations {@link org.apache.directory.fortress.core.model.Session#getRoles()}, 
      * Admin Role activations {@link org.apache.directory.fortress.core.model.Session#getAdminRoles()},
-     * OpenLDAP pw policy codes {@link org.apache.directory.fortress.core.model.Session#warnings}, 
+     * Password policy codes {@link org.apache.directory.fortress.core.model.Session#warnings},
      * {@link org.apache.directory.fortress.core.model.Session#expirationSeconds}, 
      * {@link org.apache.directory.fortress.core.model.Session#graceLogins} and more.
      * @throws SecurityException
@@ -242,7 +241,7 @@ public interface AccessMgr extends Manageable
      * @return Session object will contain authentication result code
      * {@link org.apache.directory.fortress.core.model.Session#errorId},
      * RBAC role activations {@link org.apache.directory.fortress.core.model.Session#getRoles()},
-     * OpenLDAP pw policy codes {@link org.apache.directory.fortress.core.model.Session#warnings},
+     * Password policy codes {@link org.apache.directory.fortress.core.model.Session#warnings},
      * {@link org.apache.directory.fortress.core.model.Session#expirationSeconds},
      * {@link org.apache.directory.fortress.core.model.Session#graceLogins} and more.
      * @throws SecurityException
