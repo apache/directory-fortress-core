@@ -1129,10 +1129,11 @@ final class UserDAO extends LdapDataProvider
 
     /**
      * @param role
+     * @param roleConstraint
      * @return
      * @throws FinderException
      */
-    List<User> getAssignedUsers( Role role ) throws FinderException
+    List<User> getAssignedUsers( Role role, RoleConstraint roleConstraint ) throws FinderException
     {
         List<User> userList = new ArrayList<>();
         LdapConnection ld = null;
@@ -1148,8 +1149,18 @@ final class UserDAO extends LdapDataProvider
             filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
             filterbuf.append( "=" );
             filterbuf.append( roleVal );
-            filterbuf.append( "))" );
+            filterbuf.append( ")" );
 
+            if( roleConstraint != null ){
+                filterbuf.append( "(" );
+                filterbuf.append( GlobalIds.USER_ROLE_DATA );
+                filterbuf.append( "=" );
+                filterbuf.append( roleConstraint.getRawData( new UserRole( role.getName() ) ) );
+                filterbuf.append( ")" );                
+            }
+            
+            filterbuf.append( ")" );
+            
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
                 GlobalIds.BATCH_SIZE );

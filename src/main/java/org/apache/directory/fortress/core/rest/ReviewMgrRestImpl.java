@@ -1344,4 +1344,12 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         }
         return retConstraints;
 	}
+
+
+    @Override
+    public List<User> assignedUsers( Role role, RoleConstraint roleConstraint ) throws SecurityException
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

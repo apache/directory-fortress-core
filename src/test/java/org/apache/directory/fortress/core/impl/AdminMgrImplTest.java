@@ -1989,9 +1989,14 @@ public class AdminMgrImplTest extends TestCase
     	Role role = RoleTestData.getRole( rle );
 
     	adminMgr.addRoleConstraint(new UserRole(user.getUserId(), role.getName()), rc);
-
+    	    
     	LOG.debug("assignUserRoleConstraint user [" + user.getUserId() + "] role [" + role.getName() + "] " +
-    			" rcvalue [" + rc.getValue() + "]");       
+    			" rcvalue [" + rc.getValue() + "]");
+    	
+    	//get user with consratint filter
+    	List<User> usersWithRc = reviewMgr.assignedUsers( role, rc );
+    	assertTrue( usersWithRc.size() == 1 );
+    	assertEquals( user.getUserId(), usersWithRc.get( 0 ).getUserId() );
     }
     
     

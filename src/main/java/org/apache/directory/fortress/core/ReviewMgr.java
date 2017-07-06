@@ -373,7 +373,22 @@ public interface ReviewMgr extends Manageable
     List<User> assignedUsers( Role role )
         throws SecurityException;
 
-
+    /**
+     * This method returns the data set of all users who are assigned the given role.  This searches the User data set for
+     * Role relationship.  This method does NOT search for hierarchical RBAC Roles relationships.
+     * <h3></h3>
+     * <h4>required parameters</h4>
+     * <ul>
+     *   <li>{@link Role#name} - contains the name to use for the Role targeted for search.</li>
+     * </ul>
+     *
+     * @param role contains the role name, {@link Role#name} used to search the User data set.
+     * @param roleConstraint constraint to filter the roles return
+     * @return List of type User containing the users assigned data.
+     * @throws SecurityException If system error occurs.
+     */
+    List<User> assignedUsers( Role role, RoleConstraint roleConstraint ) throws SecurityException;
+    
     /**
      * This function returns the set of roles assigned to a given user. The function is valid if and
      * only if the user is a member of the USERS data set.
@@ -740,4 +755,5 @@ public interface ReviewMgr extends Manageable
      */
     List<RoleConstraint>  findRoleConstraints(User user, Permission permission, RoleConstraint.RCType rcType)
         throws SecurityException;
+    
 }

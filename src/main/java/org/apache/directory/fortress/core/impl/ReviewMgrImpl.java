@@ -369,6 +369,20 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
         checkAccess(CLS_NM, methodName);
         return userP.getAssignedUsers(role);
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @AdminPermissionOperation
+    public List<User> assignedUsers(Role role, RoleConstraint roleConstraint)
+        throws SecurityException
+    {
+        String methodName = "assignedUsers";
+        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
+        checkAccess(CLS_NM, methodName);
+        return userP.getAssignedUsers(role, roleConstraint);
+    }
 
     /**
      * {@inheritDoc}

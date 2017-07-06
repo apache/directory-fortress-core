@@ -162,10 +162,23 @@ final class UserP
      */
     List<User> getAssignedUsers( Role role ) throws SecurityException
     {
-        return uDao.getAssignedUsers( role );
+        return uDao.getAssignedUsers( role, null );
     }
 
-
+    /**
+     * Return a list of Users assigned the given RBAC role.
+     * "Assigned" implies the hierarchical role relation graph will NOT be considered in result set.
+     *
+     * @param role contains name of RBAC role used for search.
+     * @param roleConstraint filter roles that have this role constraint
+     * @return List of fully populated User entities matching target search. If no records found this will be empty.
+     * @throws SecurityException in the event of DAO search error.
+     */
+    List<User> getAssignedUsers( Role role, RoleConstraint roleConstraint ) throws SecurityException
+    {
+        return uDao.getAssignedUsers( role, roleConstraint );
+    }
+    
     /**
      * Return a list of Users assigned the given RBAC role.
      * "Assigned" implies the hierarchical role relation graph will NOT be considered in result set.
