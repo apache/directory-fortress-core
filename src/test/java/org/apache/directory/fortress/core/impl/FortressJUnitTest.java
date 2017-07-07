@@ -267,6 +267,7 @@ public class FortressJUnitTest extends TestCase
         
         suite.addTest( new ReviewMgrImplTest( "testReadUserRoleConstraint" ) );
         suite.addTest( new ReviewMgrImplTest( "testFindRoleConstraints" ) );
+        suite.addTest( new ReviewMgrImplTest( "testDeassignRoleWithRoleConstraint" ) );
         
         /***********************************************************/
         /* 4. Security Checks                                      */

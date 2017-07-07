@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.ReviewMgrFactory;
@@ -1681,6 +1682,14 @@ public class ReviewMgrImplTest extends TestCase
     				+ "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
     		fail( ex.getMessage() );
     	}
+    }        
+    
+    public void testDeassignRoleWithRoleConstraint() throws SecurityException{
+        AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();
+        adminMgr.deassignUser( new UserRole( UserTestData.USERS_TU1[0][0], RoleTestData.ROLES_TR1[1][0] ) );
+        
+        ReviewMgr reviewMgr = getManagedReviewMgr();
+        reviewMgr.assignedRoles( new User( UserTestData.USERS_TU1[0][0] ) );
     }
     
     /**

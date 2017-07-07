@@ -1825,13 +1825,19 @@ final class UserDAO extends LdapDataProvider
                     // delete the name assignment attribute using the raw name data:
                     List<Modification> mods = new ArrayList<Modification>();
 
+                    // Remove user role constraints
+                    for( RoleConstraint rc : fRole.getRoleConstraints() ){
+                        this.deassign( fRole, rc );
+                    }
+                    
                     mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, GlobalIds
-                        .USER_ROLE_DATA, fRole.getRawData() ) );
-
+                        .USER_ROLE_DATA, fRole.getRawData() ) );                    
+                    
                     mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, GlobalIds
                         .USER_ROLE_ASSIGN, fRole.getName() ) );
-                    ld = getAdminConnection();
-                    modify( ld, userDn, mods, uRole );
+                    ld = getAdminConnection();                    
+                    
+                    modify( ld, userDn, mods, uRole );                                        
                 }
             }
             // target name not found:
