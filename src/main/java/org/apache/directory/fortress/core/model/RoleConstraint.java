@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.model;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import org.apache.directory.fortress.core.util.Config;
 
@@ -37,6 +38,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement( name = "fortRoleConstraint" )
 @XmlAccessorType( XmlAccessType.FIELD )
 @XmlType( name = "roleConstraint", propOrder = {
+    "id",
     "paSetName",
     "value",
     "type"
@@ -62,22 +64,35 @@ public class RoleConstraint extends FortEntity implements Serializable
         OTHER
     }
 
+    private String id;
     private RCType type;
     private String value;
-    private String paSetName;
+    private String paSetName;    
 
     public RoleConstraint()
     {
 
     }
 
-    public RoleConstraint(String value, RCType type, String paSetName)
+    public RoleConstraint(String id, String value, RCType type, String paSetName)    
     {
+        this.id = id;
         this.type = type;
         this.value = value;
         this.paSetName = paSetName;
     }
 
+    public String getId()
+    {
+        return id;
+    }
+    
+    public void setId()
+    {
+        UUID uuid = UUID.randomUUID();
+        this.id = uuid.toString();
+    }
+    
     public RCType getType()
     {
         return type;
@@ -122,6 +137,8 @@ public class RoleConstraint extends FortEntity implements Serializable
         sb.append( paSetName );
         sb.append( delimeter );
         sb.append( value );
+        sb.append( delimeter );
+        sb.append( id );        
 
         return sb.toString();
     }

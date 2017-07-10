@@ -1400,4 +1400,12 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
             throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
         }
 	}
+
+
+    @Override
+    public void removeRoleConstraint( UserRole uRole, String roleConstraintId ) throws SecurityException
+    {
+        // TODO Auto-generated method stub
+        
+    }
 }

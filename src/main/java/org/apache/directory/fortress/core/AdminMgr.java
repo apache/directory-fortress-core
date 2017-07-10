@@ -488,6 +488,24 @@ public interface AdminMgr extends Manageable
     	throws SecurityException;
     
     /**
+     * Thie method removes a roleConstraint (ftRC) from the user ldap entry.
+     * <h4>required parameters</h4>
+     * <ul>
+     *   <li>{@link UserRole#name} - contains the name for already existing Role to be assigned</li>
+     *   <li>{@link UserRole#userId} - contains the userId for existing User</li>
+     *   <li>{@link RoleConstraint#type} - contains the type of role constraint (filter, other)</li>
+     *   <li>{@link RoleConstraint#value} - contains the value of the role constraint which is currently not validated in any way</li>
+     *   <li>{@link RoleConstraint#paSetName} - contains the userId for existing User, contains the name of the permission attribute set this constraint is applicable for</li>
+     * </ul>
+     * 
+     * @param uRole must contain {@link UserRole#userId} and {@link UserRole#name}
+     * @param roleConstraintId id of the role constraint to remove
+     * @throws SecurityException in the event of validation or system error.
+     */
+    void removeRoleConstraint( UserRole uRole, String roleConstraintId ) 
+        throws SecurityException;
+    
+    /**
      * This command deletes the assignment of the User from the Role entities. The command is
      * valid if and only if the user is a member of the USERS data set, the role is a member of
      * the ROLES data set, and the user is assigned to the role.
@@ -1391,4 +1409,5 @@ public interface AdminMgr extends Manageable
      */
     SDSet setDsdSetCardinality( SDSet dsdSet, int cardinality )
         throws SecurityException;
+    
 }

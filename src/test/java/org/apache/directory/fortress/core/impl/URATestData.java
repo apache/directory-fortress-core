@@ -952,6 +952,20 @@ public class URATestData extends TestCase
     	"TPASET1AttributeName1=testattributevalue" //CONSTAIN_VALUE
     };
     
+    public static final String[] URC_T2 =
+    {
+        "TPASET1", // CONSTRAINT_PASET_NM
+        "FILTER", //CONSTAINT_TYPE
+        "TPASET1AttributeName1=testattributevalue2" //CONSTAIN_VALUE
+    };
+    
+    public static final String[] URC_T3 =
+    {
+        "TPASET1", // CONSTRAINT_PASET_NM
+        "FILTER", //CONSTAINT_TYPE
+        "TPASET1AttributeName1=testattributevalue3" //CONSTAIN_VALUE
+    };
+    
     public static final String[] URC_T1_INVALID =
     {
     	"TPASETNAMENOTEXIST", // CONSTRAINT_PASET_NM

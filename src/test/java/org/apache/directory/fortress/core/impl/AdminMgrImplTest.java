@@ -1616,7 +1616,7 @@ public class AdminMgrImplTest extends TestCase
     public void testDeassignUser()
     {
         //     public void deassignUser(User user, Role role)
-        deassignUsers( "DEASGN-USRS TU1 TR1", UserTestData.USERS_TU1, RoleTestData.ROLES_TR1 );
+        //deassignUsers( "DEASGN-USRS TU1 TR1", UserTestData.USERS_TU1, RoleTestData.ROLES_TR1 );
         deassignUsers( "DEASGN-USRS TU4 TR2", UserTestData.USERS_TU4, RoleTestData.ROLES_TR2 );
         deassignUsers( "DEASGN-USRS TU3 TR3", UserTestData.USERS_TU3, RoleTestData.ROLES_TR3 );
         deassignUsersH( "DEASGN-USRS_H TU7 TR5 HIER", UserTestData.USERS_TU7_HIER, RoleTestData.ROLES_TR5_HIER );
@@ -1978,7 +1978,7 @@ public class AdminMgrImplTest extends TestCase
     
     }
     
-    public static void assignUserRoleConstraint( String msg, String[] usr, String[] rle, RoleConstraint rc ) throws SecurityException
+    public static RoleConstraint assignUserRoleConstraint( String msg, String[] usr, String[] rle, RoleConstraint rc ) throws SecurityException
     {
     	LogUtil.logIt( msg );
 
@@ -1988,7 +1988,7 @@ public class AdminMgrImplTest extends TestCase
     	User user = UserTestData.getUser( usr );
     	Role role = RoleTestData.getRole( rle );
 
-    	adminMgr.addRoleConstraint(new UserRole(user.getUserId(), role.getName()), rc);
+    	RoleConstraint createdRoleConstraint = adminMgr.addRoleConstraint(new UserRole(user.getUserId(), role.getName()), rc);
     	    
     	LOG.debug("assignUserRoleConstraint user [" + user.getUserId() + "] role [" + role.getName() + "] " +
     			" rcvalue [" + rc.getValue() + "]");
@@ -1997,9 +1997,43 @@ public class AdminMgrImplTest extends TestCase
     	List<User> usersWithRc = reviewMgr.assignedUsers( role, rc );
     	assertTrue( usersWithRc.size() == 1 );
     	assertEquals( user.getUserId(), usersWithRc.get( 0 ).getUserId() );
+    	
+    	return createdRoleConstraint;
     }
     
+    public void testRemoveUserRoleConstraint() throws SecurityException
+    {
+        this.assertRoleConstraintSize( UserTestData.USERS_TU1[0][0], RoleTestData.ROLES_TR1[1][0], 1 );
+        
+        RoleConstraint rc1 = assignUserRoleConstraint( "ASGN-URC-VALID TU1 TR1", UserTestData.USERS_TU1[0], RoleTestData.ROLES_TR1[1], URATestData.getRC(URATestData.URC_T2) );
+        RoleConstraint rc2 = assignUserRoleConstraint( "ASGN-URC-VALID TU1 TR1", UserTestData.USERS_TU1[0], RoleTestData.ROLES_TR1[1], URATestData.getRC(URATestData.URC_T3) ); 
+        
+        this.assertRoleConstraintSize( UserTestData.USERS_TU1[0][0], RoleTestData.ROLES_TR1[1][0], 3 );
+        
+        AdminMgr adminMgr = getManagedAdminMgr();
+        adminMgr.removeRoleConstraint( new UserRole( UserTestData.USERS_TU1[0][0], RoleTestData.ROLES_TR1[1][0] ), rc1 );
+        this.assertRoleConstraintSize( UserTestData.USERS_TU1[0][0], RoleTestData.ROLES_TR1[1][0], 2 );
+        
+        adminMgr.removeRoleConstraint( new UserRole( UserTestData.USERS_TU1[0][0], RoleTestData.ROLES_TR1[1][0] ), rc2.getId() );
+        this.assertRoleConstraintSize( UserTestData.USERS_TU1[0][0], RoleTestData.ROLES_TR1[1][0], 1 );
+    }
     
+    private void assertRoleConstraintSize(String userId, String roleName, int size) throws SecurityException{
+        boolean roleFound = false;
+        
+        ReviewMgr reviewMgr = ReviewMgrImplTest.getManagedReviewMgr();
+        List<UserRole> userRoles = reviewMgr.readUser( new User( userId ) ).getRoles();
+        for(UserRole ur : userRoles){
+            if( ur.getName().equals( roleName )){
+                assertEquals( size, ur.getRoleConstraints().size() );
+                roleFound = true;
+            }
+        }
+        
+        if( !roleFound ){
+            fail("Role with name " + roleName + " not found");
+        }
+    }
     
     /**
      *

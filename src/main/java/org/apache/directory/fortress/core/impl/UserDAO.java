@@ -1735,6 +1735,8 @@ final class UserDAO extends LdapDataProvider
 
         try
         {
+            roleConstraint.setId();
+            
             List<Modification> mods = new ArrayList<Modification>();
             szRoleConstraint = roleConstraint.getRawData(uRole);
 

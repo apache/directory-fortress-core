@@ -1728,6 +1728,11 @@ public final class GlobalErrIds
      * The RoleConstraint entity was not supplied but is required.
      */
     public static final int RCON_NULL = 10401;
+    
+    /**
+     * The RoleConstraint entity was not found
+     */
+    public static final int RCON_NOT_FOUND = 10402;
 
     /**
      * 10500's - Property Management Error Ids

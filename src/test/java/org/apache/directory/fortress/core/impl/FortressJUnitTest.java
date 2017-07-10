@@ -211,6 +211,7 @@ public class FortressJUnitTest extends TestCase
         suite.addTest( new AdminMgrImplTest( "testAddPASetToPermission" ) );
         
         suite.addTest( new AdminMgrImplTest( "testAddUserRoleConstraint" ) );
+        suite.addTest( new AdminMgrImplTest( "testRemoveUserRoleConstraint" ) );
         
         // GroupMgr APIs
         suite.addTest( new GroupMgrImplTest( "testAddGroup" ) );

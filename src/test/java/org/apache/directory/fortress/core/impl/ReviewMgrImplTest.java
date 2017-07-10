@@ -1636,6 +1636,7 @@ public class ReviewMgrImplTest extends TestCase
     						urcFound = true;
     						assertEquals(rc.getType(), r.getType());
     						assertEquals(rc.getValue(), r.getValue());
+    						assertNotNull( r.getId() );
     					}
     				}
     			}

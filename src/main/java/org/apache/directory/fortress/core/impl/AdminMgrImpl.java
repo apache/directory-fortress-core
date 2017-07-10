@@ -27,6 +27,7 @@ import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.annotation.AdminPermissionOperation;
 import org.apache.directory.fortress.core.AdminMgr;
+import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
@@ -420,6 +421,42 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         // todo assert roleconstraint here
 
         userP.deassign( uRole, roleConstraint );    	
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @AdminPermissionOperation
+    public void removeRoleConstraint( UserRole uRole, String roleConstraintId )
+            throws SecurityException
+    {        
+        String methodName = "assignUser";
+        assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
+        AdminUtil.canDeassign( uRole.getAdminSession(), new User( uRole.getUserId() ), new Role( uRole.getName() ), contextId );
+        
+        //find role constraint that needs removed
+        boolean found = false;
+        
+        List<UserRole> userRoles = userP.read( new User(uRole.getUserId()), true ).getRoles();
+        for( UserRole ur : userRoles ){
+            // find matching name
+            if( ur.getName().equals( uRole.getName() ) ){
+                //find matching constraint
+                List<RoleConstraint> rcs = ur.getRoleConstraints();
+                for( RoleConstraint rc : rcs ){
+                    if( rc.getId().equals( roleConstraintId )){
+                        userP.deassign( uRole, rc );
+                        found = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if( !found ){
+            throw new FinderException( GlobalErrIds.RCON_NOT_FOUND, "Role constraint with id " + roleConstraintId + " not found" );
+        }
     }
     
     /**
