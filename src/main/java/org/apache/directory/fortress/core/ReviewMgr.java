@@ -29,6 +29,7 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.RoleConstraint;
+import org.apache.directory.fortress.core.model.RoleConstraint.RCType;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
@@ -388,6 +389,18 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException If system error occurs.
      */
     List<User> assignedUsers( Role role, RoleConstraint roleConstraint ) throws SecurityException;
+    
+    /**
+     * This method returns the user roles for all users who have the given role, with a specified constraint type
+     * and permission attribute set name.
+     *
+     * @param role
+     * @param rcType
+     * @param paSetName
+     * @return
+     * @throws SecurityException
+     */
+    List<UserRole> assignedUsers( Role role, RCType rcType, String paSetName ) throws SecurityException;
     
     /**
      * This function returns the set of roles assigned to a given user. The function is valid if and

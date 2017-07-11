@@ -39,6 +39,7 @@ import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PwPolicy;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.RoleConstraint;
+import org.apache.directory.fortress.core.model.RoleConstraint.RCType;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
@@ -177,6 +178,20 @@ final class UserP
     List<User> getAssignedUsers( Role role, RoleConstraint roleConstraint ) throws SecurityException
     {
         return uDao.getAssignedUsers( role, roleConstraint );
+    }
+    
+    /**
+     * Return a list of user roles for the provided role name, role constraint type and pa set name
+     *
+     * @param role
+     * @param rcType
+     * @param paSetName
+     * @return
+     * @throws SecurityException
+     */
+    List<UserRole> getAssignedUsers( Role role, RCType rcType, String paSetName ) throws SecurityException
+    {
+        return uDao.getUserRoles( role, rcType, paSetName );
     }
     
     /**

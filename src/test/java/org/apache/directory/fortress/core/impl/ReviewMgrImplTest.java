@@ -1662,28 +1662,50 @@ public class ReviewMgrImplTest extends TestCase
     public void testFindRoleConstraints()
     {
     	findRoleConstraints( "SRCH-RCS TU1 TR1", UserTestData.USERS_TU1[0][0], PermTestData.getOp("TOB1_1", PermTestData.OPS_TOP1_UPD[0]), URATestData.getRC(URATestData.URC_T1).getType() );
+    	findUserRoleWithConstraints( "SRCH-RCS TU1 TR1", UserTestData.USERS_TU1[0][0], RoleTestData.ROLES_TR1[1][0], URATestData.getRC(URATestData.URC_T1).getType(), URATestData.getRC(URATestData.URC_T1).getPaSetName() );
     }
     
-    public static void findRoleConstraints( String msg, String usr, Permission permission, RoleConstraint.RCType rcType )
+    public static void findUserRoleWithConstraints( String msg, String usr, String role, RoleConstraint.RCType rcType, String paSetName )
     {
     	LogUtil.logIt(msg);
     	try
     	{
     		ReviewMgr reviewMgr = getManagedReviewMgr();   		
 
-    		List<RoleConstraint> rcs = reviewMgr.findRoleConstraints(new User(usr), permission, rcType);
-    		assertTrue(rcs.size() > 0);
-    		assertTrue(rcs.get(0).getType().equals(rcType));
+    		List<UserRole> urs = reviewMgr.assignedUsers( new Role(role), rcType, paSetName);
+    		assertTrue(urs.size() > 0);
+    		assertTrue(urs.get(0).getRoleConstraints().size() > 0);
    
-    		LOG.debug( "findRoleConstraints permission [" + permission.getObjName() + "." + permission.getOpName() + "] successful" );
+    		LOG.debug( "findUserRoleWithConstraints paSetName [" + paSetName + "] successful" );
     	}
     	catch ( SecurityException ex )
     	{
-    		LOG.error( "findRoleConstraints permission [" + permission.getObjName() + "." + permission.getOpName()
+    		LOG.error( "findUserRoleWithConstraints paSetName [" + paSetName
     				+ "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
     		fail( ex.getMessage() );
     	}
     }        
+    
+    public static void findRoleConstraints( String msg, String usr, Permission permission, RoleConstraint.RCType rcType )
+    {
+        LogUtil.logIt(msg);
+        try
+        {
+            ReviewMgr reviewMgr = getManagedReviewMgr();        
+
+            List<RoleConstraint> rcs = reviewMgr.findRoleConstraints(new User(usr), permission, rcType);
+            assertTrue(rcs.size() > 0);
+            assertTrue(rcs.get(0).getType().equals(rcType));
+   
+            LOG.debug( "findRoleConstraints permission [" + permission.getObjName() + "." + permission.getOpName() + "] successful" );
+        }
+        catch ( SecurityException ex )
+        {
+            LOG.error( "findRoleConstraints permission [" + permission.getObjName() + "." + permission.getOpName()
+                    + "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
+        }
+    }   
     
     public void testDeassignRoleWithRoleConstraint() throws SecurityException{
         AdminMgr adminMgr = AdminMgrImplTest.getManagedAdminMgr();

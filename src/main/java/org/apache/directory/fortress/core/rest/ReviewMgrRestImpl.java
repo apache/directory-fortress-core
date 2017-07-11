@@ -36,6 +36,7 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.RoleConstraint;
+import org.apache.directory.fortress.core.model.RoleConstraint.RCType;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
@@ -1348,6 +1349,14 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
 
     @Override
     public List<User> assignedUsers( Role role, RoleConstraint roleConstraint ) throws SecurityException
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+
+    @Override
+    public List<UserRole> assignedUsers( Role role, RCType rcType, String paSetName ) throws SecurityException
     {
         // TODO Auto-generated method stub
         return null;

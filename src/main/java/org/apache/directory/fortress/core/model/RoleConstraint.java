@@ -142,5 +142,5 @@ public class RoleConstraint extends FortEntity implements Serializable
 
         return sb.toString();
     }
-
+    
 }

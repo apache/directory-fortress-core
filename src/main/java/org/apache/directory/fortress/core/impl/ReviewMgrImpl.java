@@ -39,6 +39,7 @@ import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.PermissionAttributeSet;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.RoleConstraint;
+import org.apache.directory.fortress.core.model.RoleConstraint.RCType;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
@@ -382,6 +383,20 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
         assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
         checkAccess(CLS_NM, methodName);
         return userP.getAssignedUsers(role, roleConstraint);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @AdminPermissionOperation
+    public List<UserRole> assignedUsers(Role role, RCType rcType, String paSetName)
+        throws SecurityException
+    {
+        String methodName = "assignedUsers";
+        assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
+        checkAccess(CLS_NM, methodName);
+        return userP.getAssignedUsers(role, rcType, paSetName);
     }
 
     /**

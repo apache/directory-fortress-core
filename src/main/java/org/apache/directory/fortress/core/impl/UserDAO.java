@@ -70,6 +70,7 @@ import org.apache.directory.fortress.core.util.PropUtil;
 import org.apache.directory.fortress.core.model.PwMessage;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.RoleConstraint;
+import org.apache.directory.fortress.core.model.RoleConstraint.RCType;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
@@ -1190,8 +1191,80 @@ final class UserDAO extends LdapDataProvider
 
         return userList;
     }
+    
+    List<UserRole> getUserRoles( Role role, RCType rcType, String paSetName ) throws FinderException
+    {
+        List<UserRole> userRoleList = new ArrayList<>();
+        LdapConnection ld = null;
+        String userRoot = getRootDn( role.getContextId(), GlobalIds.USER_ROOT );
 
+        try
+        {
+            String roleVal = encodeSafeText( role.getName(), GlobalIds.ROLE_LEN );
+            StringBuilder filterbuf = new StringBuilder();
+            filterbuf.append( GlobalIds.FILTER_PREFIX );
+            filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
+            filterbuf.append( ")(" );
+            filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
+            filterbuf.append( "=" );
+            filterbuf.append( roleVal );
+            filterbuf.append( ")" );
 
+            filterbuf.append( "(" );
+            filterbuf.append( GlobalIds.USER_ROLE_DATA );
+            filterbuf.append( "=" );
+            filterbuf.append( this.getFilterForRoleConstraint( role.getName(), rcType, paSetName ) );
+            filterbuf.append( ")" );                
+            
+            filterbuf.append( ")" );
+            
+            ld = getAdminConnection();
+            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
+                GlobalIds.BATCH_SIZE );
+
+            while ( searchResults.next() )
+            {
+                userRoleList.addAll( this.unloadUserRoles( searchResults.getEntry(), getAttribute( searchResults.getEntry(), SchemaConstants.UID_AT ), role.getContextId(), role.getName() ) );
+            }
+        }
+        catch ( LdapException e )
+        {
+            String warning = "getAssignedUsers role name [" + role.getName() + "] caught LDAPException=" + e
+                .getMessage();
+            throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+        }
+        catch ( CursorException e )
+        {
+            String warning = "getAssignedUsers role name [" + role.getName() + "] caught LDAPException=" + e
+                .getMessage();
+            throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+
+        return userRoleList;
+    }
+
+    private String getFilterForRoleConstraint(String roleName, RCType rcType, String paSetName)
+    {
+        StringBuilder sb = new StringBuilder();
+        String delimeter = Config.getInstance().getDelimiter();
+
+        sb.append( roleName );
+        sb.append( delimeter );
+        sb.append( RoleConstraint.RC_TYPE_NAME );
+        sb.append( delimeter );
+        sb.append( rcType );
+        sb.append( delimeter );
+        sb.append( paSetName );
+        sb.append( delimeter );
+        sb.append( "*" );
+
+        return sb.toString();
+    }
+    
     /**
      * @param role
      * @return
@@ -2047,7 +2120,7 @@ final class UserDAO extends LdapDataProvider
         entity.setTitle( getAttribute( entry, SchemaConstants.TITLE_AT ) );
         entity.setEmployeeType( getAttribute( entry, EMPLOYEE_TYPE ) );
         unloadTemporal( entry, entity );
-        entity.setRoles( unloadUserRoles( entry, entity.getUserId(), contextId ) );
+        entity.setRoles( unloadUserRoles( entry, entity.getUserId(), contextId, null ) );
         entity.setAdminRoles( unloadUserAdminRoles( entry, entity.getUserId(), contextId ) );
         entity.setAddress( unloadAddress( entry ) );
         entity.setPhones( getAttributes( entry, SchemaConstants.TELEPHONE_NUMBER_AT ) );
@@ -2111,7 +2184,7 @@ final class UserDAO extends LdapDataProvider
         {
             ld = getAdminConnection();
             Entry findEntry = read( ld, userDn, ROLE_ATR );
-            roles = unloadUserRoles( findEntry, userId, contextId );
+            roles = unloadUserRoles( findEntry, userId, contextId, null );
         }
         catch ( LdapNoSuchObjectException e )
         {
@@ -2478,9 +2551,10 @@ final class UserDAO extends LdapDataProvider
      * @param entry     contains ldap entry to retrieve roles from.
      * @param userId    attribute maps to {@link UserRole#userId}.
      * @param contextId
+     * @param roleNameFilter optional filter to only unload specified roles
      * @return List of type {@link UserRole} containing RBAC roles assigned to a particular user.
      */
-    private List<UserRole> unloadUserRoles( Entry entry, String userId, String contextId )
+    private List<UserRole> unloadUserRoles( Entry entry, String userId, String contextId, String roleNameFilter )
     {
     	Map<String, UserRole> uRoles = new HashMap<String, UserRole>();    	
         List<String> roles = getAttributes( entry, GlobalIds.USER_ROLE_DATA );
@@ -2494,18 +2568,21 @@ final class UserDAO extends LdapDataProvider
             	//get role name
             	String roleName = raw.substring(0, raw.indexOf( Config.getInstance().getDelimiter() )).toUpperCase();
             	
-            	//if already found, add to user role
-            	if(uRoles.containsKey(roleName)){
-            		UserRole ure = uRoles.get(roleName);
-            		ure.load( raw, contextId, RoleUtil.getInstance() );
-            	}
-            	//else create new
-            	else{            	
-	                UserRole ure = new ObjectFactory().createUserRole();
-	                ure.load( raw, contextId, RoleUtil.getInstance() );
-	                ure.setUserId( userId );
-	                ure.setSequenceId( sequence++ );
-	                uRoles.put(roleName, ure );
+            	//if role name filter provided, only unload role if it has that name
+            	if(roleNameFilter == null || roleNameFilter.toUpperCase().equals( roleName )){            	
+                	//if already found, add to user role
+                	if(uRoles.containsKey(roleName)){
+                		UserRole ure = uRoles.get(roleName);
+                		ure.load( raw, contextId, RoleUtil.getInstance() );
+                	}
+                	//else create new
+                	else{            	
+    	                UserRole ure = new ObjectFactory().createUserRole();
+    	                ure.load( raw, contextId, RoleUtil.getInstance() );
+    	                ure.setUserId( userId );
+    	                ure.setSequenceId( sequence++ );
+    	                uRoles.put(roleName, ure );
+                	}            	
             	}
             }
         }
