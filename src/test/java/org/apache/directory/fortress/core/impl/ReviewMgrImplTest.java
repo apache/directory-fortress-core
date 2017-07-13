@@ -1713,6 +1713,8 @@ public class ReviewMgrImplTest extends TestCase
         
         ReviewMgr reviewMgr = getManagedReviewMgr();
         reviewMgr.assignedRoles( new User( UserTestData.USERS_TU1[0][0] ) );
+        
+        adminMgr.assignUser( new UserRole( UserTestData.USERS_TU1[0][0], RoleTestData.ROLES_TR1[1][0] ) );
     }
     
     /**
