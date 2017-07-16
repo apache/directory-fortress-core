@@ -27,7 +27,7 @@
 -------------------------------------------------------------------------------
 ## SECTION 1.  Fortress Configuration Subsystem Overview
 
-This document lists the various properties used within the fortress core.  These properties can be stored in various locations.  For example as system.properties, in a file on within an LDAP node.  See the README-CONFIG for description of how the config system works.
+This document lists the properties used within the fortress core.  These props can be stored in various locations.  For example as system.properties, in a file on within an LDAP node.  See the README-CONFIG for description of how the config system works.
 
 -------------------------------------------------------------------------------
 ## SECTION 16. Fortress Core properties
