@@ -78,7 +78,6 @@ audit.root=@AUDITS_DN@
 group.root=@GROUPS_DN@
 example.root=ou=Examples,@SUFFIX@
 
-superadmin.role=oamSuperAdmin
 
 # these properties will enable temporal constraint checks on role activations:
 temporal.validator.0=org.apache.directory.fortress.core.util.time.Date
@@ -100,8 +99,6 @@ sys.user.5=oamTU6User5
 # Fortress Class Definitions:  NOT NEEDED UNLESS OVERIDING DEFAULT IMPLEMENTATIONS
 accessmgr.implementation=org.apache.directory.fortress.core.impl.AccessMgrImpl
 auditmgr.implementation=org.apache.directory.fortress.core.impl.AuditMgrImpl
-
-dao.connector=@LDAP_CLIENT_TYPE@
 
 ehcache.config.file=ehcache.xml
 

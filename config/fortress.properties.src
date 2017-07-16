@@ -92,7 +92,6 @@ http.pw=@REST_HTTP_PW@
 http.host=@REST_HTTP_HOST@
 http.port=@REST_HTTP_PORT@
 http.protocol=@REST_HTTP_PROTOCOL@
-dao.connector=@LDAP_CLIENT_TYPE@
 
 GroupTest=org.apache.directory.fortress.core.group.GroupAntTest
 
