@@ -160,14 +160,14 @@ This section describes the properties needed to control fortress core.
  temporal.validator.4=org.apache.directory.fortress.core.util.time.Day
  ```
 
-13. Enable validation for dynamic static separaation of duty constraints.
+13. Enable validation for dynamic static separation of duty constraints.
 
  ```
  # enabling this property will enable Dynamic Separation of Duty constraint checks on role activations:
  temporal.validator.dsd=org.apache.directory.fortress.core.impl.DSDChecker
  ```
 
-14. Define system user accounts that cannot be deleted using fortress APIs.
+14. Define system user accounts that may not be deleted with fortress APIs.
 
  ```
  # Users in the following list cannot be deleted using OAM admin functions (AdminMgr.deleteUser, AdminMgr.forceDeleteUser)
