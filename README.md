@@ -19,9 +19,11 @@
 -------------------------------------------------------------------------------
 # README for Apache Fortress Core
 
- * Version 2.0.0
+ * FORTRESS, a sub-project of the Apache Directory, is a standards-based access management system, written in Java, that provides
+  role-based access control, delegated administration and password policy services with LDAP.
  * Apache Fortress Core System Architecture Diagram
  ![Apache Fortress Core System Architecture](images/fortress-core-system-arch.png "Apache Fortress Core System Architecture")
+ * For more information, visit http://directory.apache.org/fortress/
 
 -------------------------------------------------------------------------------
 ## Table of Contents
