@@ -19,6 +19,8 @@
  */
 package org.apache.directory.fortress.core.impl;
 
+import org.apache.directory.fortress.core.ldap.LdapCounters;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.util.Config;
 
 import junit.framework.Test;
@@ -357,17 +359,14 @@ public class FortressJUnitTest extends TestCase
 
     public void testDisplayCounters()
     {
-        // TODO: fix me (removed for unboundid)
-/*
-        LdapCounters counters = UnboundIdDataProvider.getLdapCounters();
+        LdapCounters counters = LdapDataProvider.getLdapCounters();
+        System.out.println( "NUMBER OF ADDS: " + counters.getAdd() );
+        System.out.println( "NUMBER OF BINDS: " + counters.getBind() );
+        System.out.println( "NUMBER OF DELETES: " + counters.getDelete() );
+        System.out.println( "NUMBER OF MODS: " + counters.getMod() );
         System.out.println( "NUMBER OF READS: " + counters.getRead() );
         System.out.println( "NUMBER OF SEARCHES: " + counters.getSearch() );
-        System.out.println( "NUMBER OF COMPARES: " + counters.getCompare() );
-        System.out.println( "NUMBER OF BINDS: " + counters.getBind() );
-        System.out.println( "NUMBER OF ADDS: " + counters.getAdd() );
-        System.out.println( "NUMBER OF MODS: " + counters.getMod() );
-        System.out.println( "NUMBER OF DELETES: " + counters.getDelete() );
-*/
+        //System.out.println( "NUMBER OF COMPARES: " + counters.getCompare() );
     }
 
     /**
