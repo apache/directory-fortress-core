@@ -107,10 +107,10 @@ public class LdapConnectionProvider
     }
 
     /**
-     * Default constructor calls the init method which initializes the connection pools.
+     * Private constructor calls the init method which initializes the connection pools.
      *
      */
-    public LdapConnectionProvider()
+    private LdapConnectionProvider()
     {
         init();
     }
