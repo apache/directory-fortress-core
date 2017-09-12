@@ -62,7 +62,7 @@ ________________________________________________________________________________
  docker build -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .
  ```
 
-Or just pull the prebuilt image:
+ Or just pull the prebuilt image:
 
  ```
  docker pull apachedirectory/openldap-for-apache-fortress-tests
@@ -212,7 +212,7 @@ ________________________________________________________________________________
 
  * trailing dot matters
 
-Or just to be sure don't use cached layers:
+ Or just to be sure don't use cached layers:
 
  ```
  docker build  --no-cache=true -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .

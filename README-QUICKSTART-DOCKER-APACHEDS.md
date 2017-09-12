@@ -62,7 +62,7 @@ ________________________________________________________________________________
  docker build -t apachedirectory/apacheds-for-apache-fortress-tests -f src/docker/apacheds-for-apache-fortress-tests/Dockerfile .
  ```
 
-Or just pull the prebuilt image:
+ Or just pull the prebuilt image:
 
  ```
  docker pull apachedirectory/apacheds-for-apache-fortress-tests
@@ -202,7 +202,7 @@ Here are some common commands needed to manage the Docker image.
 
  * trailing dot matters
 
-Or just to be sure don't use cached layers:
+ Or just to be sure don't use cached layers:
 
  ```
  docker build   --no-cache=true -t apachedirectory/apacheds-for-apache-fortress-tests -f src/docker/apacheds-for-apache-fortress-tests/Dockerfile .
