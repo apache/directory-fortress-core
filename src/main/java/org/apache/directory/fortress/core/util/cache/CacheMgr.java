@@ -52,36 +52,49 @@ public final class CacheMgr
      */
     public static CacheMgr getInstance()
     {
-        if( sINSTANCE == null)
+        try
         {
-            synchronized (CacheMgr.class)
+            if( sINSTANCE == null)
             {
-                if( sINSTANCE == null){
-        	        sINSTANCE = new CacheMgr();
+                synchronized (CacheMgr.class)
+                {
+                    if( sINSTANCE == null){
+                        sINSTANCE = new CacheMgr();
+                    }
                 }
             }
+        }
+        catch (Exception e)
+        {
+            String error = "CacheMgr.getInstance caught Exception=" + e.getMessage();
+            LOG.error( error );
+            throw new CfgRuntimeException( GlobalErrIds.FT_CACHE_NOT_CONFIGURED, error, e );
         }
         return sINSTANCE;
     }
     
     private void init()
     {
-        // Use default name of 'ehache.xml':
+        // Use default name of 'ehcache.xml':
         String cacheConfig = Config.getInstance().getProperty( EHCACHE_CONFIG_FILE, "ehcache.xml" );
         try
         {
-            // This static block performs the following:
             // 1. Construct an instance of Ehcache's CacheManager object.
             // 2. Requires location of ehcache's config file as parameter.
-            // 3. The CacheManager reference then gets passed to constructor of self.
-            // 4. Store the reference of self as a static member variable of this class.
+            // 3. The CacheManager reference then gets stored as member variable of this class instance.
             mEhCacheImpl = new CacheManager( ClassUtil.resourceAsStream( cacheConfig ) );
         }
         catch(CfgException ce)
         {
             // The ehcache file cannot be located on this program's classpath.  Ehcache is required, throw runtime exception.
-            LOG.error( "CfgException caught in static initializer=" + ce.getMessage());
+            LOG.error( "CfgException caught  initializing cacher=" + ce.getMessage());
             throw new CfgRuntimeException( GlobalErrIds.FT_CACHE_NOT_CONFIGURED, cacheConfig, ce );
+        }
+        catch(Exception e)
+        {
+            String error = "CacheMgr.init caught Exception=" + e.getMessage();
+            LOG.error( error );
+            throw new CfgRuntimeException( GlobalErrIds.FT_CACHE_NOT_CONFIGURED, error, e );
         }
     }
 
