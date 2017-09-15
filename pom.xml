@@ -213,6 +213,12 @@
       <artifactId>api-all</artifactId>
       <version>${version.api.all}</version>
       <type>jar</type>
+      <exclusions>
+        <exclusion>
+          <groupId>xml-apis</groupId>
+          <artifactId>xml-apis</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -451,7 +457,6 @@
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
       <version>${version.commons.codec}</version>
-      <!--<scope>test</scope>-->
     </dependency>
 
     <dependency>
