@@ -123,7 +123,7 @@ public class LdapConnectionProvider
         IS_SSL = ( Config.getInstance().getProperty( GlobalIds.ENABLE_LDAP_SSL ) != null &&
             Config.getInstance().getProperty( GlobalIds.ENABLE_LDAP_SSL ).equalsIgnoreCase( "true" ) &&
             Config.getInstance().getProperty( GlobalIds.TRUST_STORE ) != null &&
-            Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ) != null );
+            Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW, true ) != null );
 
         String host = Config.getInstance().getProperty( GlobalIds.LDAP_HOST, "localhost" );
         int port = Config.getInstance().getInt( GlobalIds.LDAP_PORT, 389 );
@@ -159,11 +159,11 @@ public class LdapConnectionProvider
         if ( EncryptUtil.isEnabled() )
         {
             adminPw = EncryptUtil.getInstance().decrypt( Config.getInstance().getProperty( GlobalIds
-                .LDAP_ADMIN_POOL_PW ) );
+                .LDAP_ADMIN_POOL_PW, true ) );
         }
         else
         {
-            adminPw = Config.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_PW );
+            adminPw = Config.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_PW, true );
         }
 
         config.setCredentials( adminPw );
@@ -236,11 +236,11 @@ public class LdapConnectionProvider
             String logPw;
             if ( EncryptUtil.isEnabled() )
             {
-                logPw = EncryptUtil.getInstance().decrypt( Config.getInstance().getProperty( LDAP_LOG_POOL_PW ) );
+                logPw = EncryptUtil.getInstance().decrypt( Config.getInstance().getProperty( LDAP_LOG_POOL_PW, true ) );
             }
             else
             {
-                logPw = Config.getInstance().getProperty( LDAP_LOG_POOL_PW );
+                logPw = Config.getInstance().getProperty( LDAP_LOG_POOL_PW, true );
             }
             logConfig.setCredentials( logPw );
             poolFactory = new ValidatingPoolableLdapConnectionFactory( logConfig );

@@ -126,11 +126,23 @@ public final class Config
      */
     public String getProperty( String name )
     {
+        return getProperty( name, false );
+    }
+
+    /**
+     * Gets the prop attribute as String value from the apache commons cfg component.
+     *
+     * @param name contains the name of the property.
+     * @param nologvalue if true will not output this prop's value to the debug logger.
+     * @return contains the value associated with the property or null if not not found.
+     */
+    public String getProperty( String name, boolean nologvalue )
+    {
         String value = null;
         if ( config != null )
         {
             value = ( String ) config.getProperty( name );
-            LOG.debug( "getProperty name [{}] value [{}]", name, value );
+            LOG.debug( "getProperty name [{}] value [{}]", name, nologvalue ? "****" : value );
         }
         else
         {
