@@ -224,11 +224,11 @@ public class LdapConnectionProvider
             logConfig.setUseSsl( IS_SSL );
 
             if ( IS_SSL && StringUtils.isNotEmpty( Config.getInstance().getProperty( GlobalIds.TRUST_STORE ) ) &&
-                StringUtils.isNotEmpty( Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ) ) )
+                StringUtils.isNotEmpty( Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW, true ) ) )
             {
                 // validate certificates but allow self-signed certs if within this truststore:
                 logConfig.setTrustManagers( new LdapClientTrustStoreManager( Config.getInstance().getProperty(
-                    GlobalIds.TRUST_STORE ), Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ).toCharArray
+                    GlobalIds.TRUST_STORE ), Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW, true ).toCharArray
                     (), null, true ) );
             }
 
