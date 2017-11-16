@@ -688,11 +688,10 @@ final class PolicyDAO extends LdapDataProvider
         String szDn;
 
         // ApacheDS requires pw policy objects to be stored under ou=config node;
-        if( Config.getInstance().isOpenldap() )
-            szDn = getRootDn( contextId, GlobalIds.PPOLICY_ROOT );
-        else
+        if ( Config.getInstance().isApacheds() )
             szDn = getRootDn( contextId, GlobalIds.ADS_PPOLICY_ROOT );
-
+        else
+            szDn = getRootDn( contextId, GlobalIds.PPOLICY_ROOT );
         return szDn;
     }
 }
