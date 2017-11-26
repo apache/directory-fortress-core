@@ -23,7 +23,7 @@ import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.model.FortEntity;
 import org.apache.directory.fortress.core.model.Permission;
 
-public class PermOpDAO extends PermDAO implements PropertyProvider<Permission>
+class PermOpDAO extends PermDAO implements PropertyProvider<Permission>
 {
 
     @Override
