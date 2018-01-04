@@ -214,7 +214,7 @@ public class PermObj extends FortEntity implements Serializable
      */
     public void setInternalId()
     {
-        // generate a unique id that will be used as the rDn for this entry:
+        // generate a unique id`:
         UUID uuid = UUID.randomUUID();
         this.internalId = uuid.toString();
 

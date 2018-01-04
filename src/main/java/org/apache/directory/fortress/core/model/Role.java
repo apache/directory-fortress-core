@@ -394,7 +394,7 @@ public class Role extends FortEntity implements Constraint, Graphable, java.io.S
      */
     public void setId()
     {
-        // generate a unique id that will be used as the rDn for this entry:
+        // generate a unique id:
         UUID uuid = UUID.randomUUID();
         this.id = uuid.toString();
     }

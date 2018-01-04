@@ -264,7 +264,7 @@ public class SDSet extends FortEntity implements Serializable, Comparable<SDSet>
      */
     public void setId()
     {
-        // generate a unique id that will be used as the rDn for this entry:
+        // generate a unique id:
         UUID uuid = UUID.randomUUID();
         this.id = uuid.toString();
     }
