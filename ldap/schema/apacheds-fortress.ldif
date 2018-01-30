@@ -19,6 +19,7 @@
 #
 
 # SCHEMA "FORTRESS" v2.0.0
+#  This schema is required for Apache Fortress Core deployments using Apache Directory Server
 dn: cn=fortress, ou=schema
 objectclass: metaSchema
 objectclass: top
