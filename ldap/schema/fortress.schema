@@ -37,7 +37,7 @@ objectidentifier ftObId ftBase:2
 objectidentifier ftAxId ftBase:3
 
 ######################################################################
-## 1. OpenLDAP Fortress attribute definitions
+## 1. Apache Fortress attribute definitions
 ######################################################################
 
 # A1: Permission Name, type STRING, SINGLE VALUE
@@ -344,7 +344,7 @@ attributetype ( ftAtId:38
     SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
 
 ######################################################################
-## 2. OpenLDAP Fortress Structural object class definitions
+## 2. Apache Fortress Structural object class definitions
 ######################################################################
 
 ## OC1: Fortress Roles Structural Object Class
@@ -519,7 +519,7 @@ objectclass ( ftObId:10
     )
 
 ######################################################################
-## 3. OpenLDAP Fortress Auxiliary object class definitions
+## 3. Apache Fortress Auxiliary object class definitions
 ######################################################################
 
 ## AC1: Fortress User Attributes Auxiliary Object Class
