@@ -230,7 +230,7 @@ public final class RestUtils
         LOG.debug( "get function1:{}, id1:{}, id2:{}, id3:{}, url:{}", function, id, id2, id3, url );
         HttpGet get = new HttpGet(url);
         setMethodHeaders( get );
-        return handleHttpMethod( get ,HttpClientBuilder.create()
+        return handleHttpMethod( get ,HttpClientBuilder.create().useSystemProperties()
             .setDefaultCredentialsProvider(getCredentialProvider(userId, password)).build() );
     }
 
@@ -272,7 +272,7 @@ public final class RestUtils
         {
             HttpEntity entity = new StringEntity( szInput, ContentType.TEXT_XML );
             post.setEntity( entity );
-            org.apache.http.client.HttpClient httpclient = HttpClientBuilder.create()
+            org.apache.http.client.HttpClient httpclient = HttpClientBuilder.create().useSystemProperties()
                 .setDefaultCredentialsProvider(getCredentialProvider(userId, password)).build();
             HttpResponse response = httpclient.execute( post );
             String error;
