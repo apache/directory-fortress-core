@@ -230,7 +230,7 @@ public final class RestUtils
         LOG.debug( "get function1:{}, id1:{}, id2:{}, id3:{}, url:{}", function, id, id2, id3, url );
         HttpGet get = new HttpGet(url);
         setMethodHeaders( get );
-        return handleHttpMethod( get ,HttpClientBuilder.create()
+        return handleHttpMethod( get ,HttpClientBuilder.create().useSystemProperties()
             .setDefaultCredentialsProvider(getCredentialProvider(userId, password)).build() );
     }
 
@@ -272,7 +272,7 @@ public final class RestUtils
         {
             HttpEntity entity = new StringEntity( szInput, ContentType.TEXT_XML );
             post.setEntity( entity );
-            org.apache.http.client.HttpClient httpclient = HttpClientBuilder.create()
+            org.apache.http.client.HttpClient httpclient = HttpClientBuilder.create().useSystemProperties()
                 .setDefaultCredentialsProvider(getCredentialProvider(userId, password)).build();
             HttpResponse response = httpclient.execute( post );
             String error;
@@ -284,46 +284,40 @@ public final class RestUtils
                     LOG.debug( "post uri=[{}], function=[{}], response=[{}]", uri, function, szResponse );
                     break;
                 case HTTP_401_UNAUTHORIZED :
-                    error = "post uri=[" + uri + "], function=[" + function
-                        + "], 401 function unauthorized on host";
+                    error = generateErrorMessage( uri, function, "401 function unauthorized on host" );
                     LOG.error( error );
                     throw new RestException( GlobalErrIds.REST_UNAUTHORIZED_ERR, error );
                 case HTTP_403_FORBIDDEN :
-                    error = "post uri=[" + uri + "], function=[" + function
-                        + "], 403 function forbidden on host";
+                    error = generateErrorMessage( uri, function, "403 function forbidden on host" );
                     LOG.error( error );
                     throw new RestException( GlobalErrIds.REST_FORBIDDEN_ERR, error );
                 case HTTP_404_NOT_FOUND :
-                    error = "post uri=[" + uri + "], function=[" + function + "], 404 not found from host";
+                    error = generateErrorMessage( uri, function, "404 not found from host" );
                     LOG.error( error );
                     throw new RestException( GlobalErrIds.REST_NOT_FOUND_ERR, error );
                 default :
-                    error = "post uri=[" + uri + "], function=[" + function
-                        + "], error received from host: " + response.getStatusLine().getStatusCode();
+                    error = generateErrorMessage( uri, function, "error received from host: " + response.getStatusLine().getStatusCode() );
                     LOG.error( error );
                     throw new RestException( GlobalErrIds.REST_UNKNOWN_ERR, error );
             }
         }
         catch ( IOException ioe )
         {
-            String error = "post uri=[" + uri + "], function=[" + function + "] caught IOException=" + ioe;
-            LOG.error( error );
+            String error = generateErrorMessage( uri, function, "caught IOException=" + ioe.getMessage() );
+            LOG.error( error, ioe );
             throw new RestException( GlobalErrIds.REST_IO_ERR, error, ioe );
         }
         catch ( WebApplicationException we )
         {
-            String error = "post uri=[" + uri + "], function=[" + function
-                + "] caught WebApplicationException=" + we;
-            LOG.error( error );
+            String error = generateErrorMessage( uri,function, "caught WebApplicationException=" + we.getMessage() );
+            LOG.error( error, we);
             throw new RestException( GlobalErrIds.REST_WEB_ERR, error, we );
         }
         catch ( java.lang.NoSuchMethodError e )
         {
-            String error = "post uri=[" + uri + "], function=[" + function
-                + "] caught Exception=" + e;
-            LOG.error( error );
-            e.printStackTrace();
-            throw new RestException( GlobalErrIds.REST_UNKNOWN_ERR, error );
+            String error = generateErrorMessage( uri, function, "caught Exception = "+ e.getMessage() );
+            LOG.error( error, e );
+            throw new RestException( GlobalErrIds.REST_UNKNOWN_ERR, error);
         }
         finally
         {
@@ -331,6 +325,11 @@ public final class RestUtils
             post.releaseConnection();
         }
         return szResponse;
+    }
+
+    private String generateErrorMessage( String uri, String function, String messageToShow ) {
+        return new StringBuilder().append( "post uri=[" ).append( uri) .append( "], function=[" )
+                .append( function ).append( "], " ).append( messageToShow ).toString();
     }
 
 
