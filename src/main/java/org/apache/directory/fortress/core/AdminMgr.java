@@ -107,7 +107,7 @@ public interface AdminMgr extends Manageable
      *   <li>{@link User#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
      *   <li>{@link User#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
      *   <li>{@link User#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
-     *   <li>{@link User#timeout} - number in seconds of session inactivity time allowed</li>
+     *   <li>{@link User#timeout} - number (in minutes) of session inactivity time allowed</li>
      *   <li>
      *     {@link User#props} * - multi-occurring attribute contains property key and values are separated with a ':'.
      *     e.g. mykey1:myvalue1
@@ -205,7 +205,7 @@ public interface AdminMgr extends Manageable
      *   <li>{@link User#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
      *   <li>{@link User#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
      *   <li>{@link User#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
-     *   <li>{@link User#timeout} - number in seconds of session inactivity time allowed</li>
+     *   <li>{@link User#timeout} - number (in minutes) of session inactivity time allowed</li>
      *   <li>
      *     {@link User#props} * - multi-occurring attribute contains property key and values are separated with a ':'.  
      *     e.g. mykey1:myvalue1
@@ -413,7 +413,7 @@ public interface AdminMgr extends Manageable
      *   <li> (optional) Temporal constraints may be associated with <code>ftUserAttrs</code> aux object class based on:</li>
      *   <li>
      *     <ul>
-     *       <li> timeout - number in seconds of session inactivity time allowed.</li>
+     *       <li> timeout - number (in minutes) of session inactivity time allowed.</li>
      *       <li> beginDate - YYYYMMDD - determines date when role may be activated.</li>
      *       <li> endDate - YYMMDD - indicates latest date role may be activated.</li>
      *       <li> beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>

@@ -141,7 +141,7 @@ Currently the following groups of functions are supported:
                     <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
                     <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on
                     </li>
-                    <li>t : timeout - number in seconds of session inactivity time allowed</li>
+                    <li>t : timeout - number (in minutes) of session inactivity time allowed</li>
                     <li>v : properties * - multi-occurring attribute contains property key and values are separated with
                         a ':'. e.g.
                         mykey1:myvalue1
@@ -214,7 +214,7 @@ Currently the following groups of functions are supported:
                     <li>N : endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
                     <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on
                     </li>
-                    <li>t : timeout - number in seconds of session inactivity time allowed</li>
+                    <li>t : timeout - number (in minutes) of session inactivity time allowed</li>
                     <li>v : properties * - multi-occurring attribute contains property key and values are separated with
                         a ':'. e.g.
                         mykey1:myvalue1
@@ -1069,7 +1069,7 @@ Currently the following groups of functions are supported:
                         class based on:
                 </ul>
                 <ul>
-                    <li> timeout - number in seconds of session inactivity time allowed.
+                    <li> timeout - number (in minutes) of session inactivity time allowed.
                     <li> beginDate - YYYYMMDD - determines date when role may be activated.
                     <li> endDate - YYYYMMDD - indicates latest date role may be activated.
                     <li> beginLockDate - YYYYMMDD - determines beginning of enforced inactive status

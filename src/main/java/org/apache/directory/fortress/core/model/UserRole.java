@@ -370,7 +370,7 @@ public class UserRole extends FortEntity implements Serializable, Constraint
 
 
     /**
-     * Set the integer timeout that contains max time (in seconds) that entity may remain inactive.
+     * Set the integer timeout that contains max time ((in minutes)) that entity may remain inactive.
      * This attribute is optional but if set will be validated for reasonableness.
      *
      * @param timeout maps to 'ftRC', attribute on 'ftUserAttrs' object class.
@@ -481,7 +481,7 @@ public class UserRole extends FortEntity implements Serializable, Constraint
 
 
     /**
-     * Return the integer timeout that contains total time (in seconds) that entity may remain inactive.
+     * Return the integer timeout that contains total time ((in minutes)) that entity may remain inactive.
      * This attribute is optional but if set will be validated for reasonableness.
      *
      * @return int that maps to 'ftRC', attribute on 'ftUserAttrs' object class.

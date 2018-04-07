@@ -74,7 +74,7 @@ public interface Constraint
 
 
     /**
-     * Set the integer timeout that contains max time (in seconds) that entity may remain inactive.
+     * Set the integer timeout that contains max time ((in minutes)) that entity may remain inactive.
      * This attribute is optional but if set will be validated for reasonableness.
      *
      * @param timeout maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.
@@ -162,7 +162,7 @@ public interface Constraint
 
 
     /**
-     * Return the integer timeout that contains total time (in seconds) that entity may remain inactive.
+     * Return the integer timeout that contains total time ((in minutes)) that entity may remain inactive.
      * This attribute is optional but if set will be validated for reasonableness.
      *
      * @return int that maps to {@code ftCstr}, {@code ftRC}, {@code ftARC} attributes in {@code ftUserAttrs} object class and {@code ftCstr} attribute in {@code ftRls} object class.

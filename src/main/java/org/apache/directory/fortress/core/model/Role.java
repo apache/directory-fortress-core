@@ -623,7 +623,7 @@ public class Role extends FortEntity implements Constraint, Graphable, java.io.S
     
     
     /**
-     * Return the integer timeout that contains total time (in seconds) that Role may remain inactive in User's session 
+     * Return the integer timeout that contains total time ((in minutes)) that Role may remain inactive in User's session
      * before it is deactivated.
      * This attribute is optional but if set will be validated for reasonableness.
      *
@@ -637,7 +637,7 @@ public class Role extends FortEntity implements Constraint, Graphable, java.io.S
     
     
     /**
-     * Set the integer timeout that contains max time (in seconds) that Role may remain inactive in User's session before it 
+     * Set the integer timeout that contains max time ((in minutes)) that Role may remain inactive in User's session before it
      * is deactivated.
      * This attribute is optional but if set will be validated for reasonableness.
      *

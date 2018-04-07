@@ -510,7 +510,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
     
 
     /**
-     * Get the integer timeout that contains max time (in seconds) that User's session may remain inactive.
+     * Get the integer timeout that contains max time ((in minutes)) that User's session may remain inactive.
      * This attribute is optional but if set will be validated for reasonableness.
      *
      * @return int maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
@@ -711,7 +711,7 @@ public class Session  extends FortEntity implements PwMessage, Serializable
     
 
     /**
-     * Set the integer timeout that contains max time (in seconds) that User's session may remain inactive.
+     * Set the integer timeout that contains max time ((in minutes)) that User's session may remain inactive.
      * This attribute is optional but if set will be validated for reasonableness.
      *
      * @param timeout maps to 'ftCstr' attribute in 'ftUserAttrs' object class.

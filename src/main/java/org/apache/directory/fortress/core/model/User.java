@@ -1204,7 +1204,7 @@ public class User extends FortEntity implements Constraint, Serializable
 
 
     /**
-     * Return the integer timeout that contains total time (in seconds) that User's session may remain inactive.
+     * Return the integer timeout that contains total time ((in minutes)) that User's session may remain inactive.
      * This attribute is optional but if set will be validated for reasonableness.
      *
      * @return attribute maps to 'ftCstr' attribute in 'ftUserAttrs' object class.
@@ -1217,7 +1217,7 @@ public class User extends FortEntity implements Constraint, Serializable
 
 
     /**
-     * Set the integer timeout that contains max time (in seconds) that User's session may remain inactive.
+     * Set the integer timeout that contains max time ((in minutes)) that User's session may remain inactive.
      * This attribute is optional but if set will be validated for reasonableness.
      *
      * @param timeout maps to 'ftCstr' attribute in 'ftUserAttrs' object class.

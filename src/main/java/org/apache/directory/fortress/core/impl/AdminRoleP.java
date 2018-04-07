@@ -176,7 +176,7 @@ final class AdminRoleP
      * <li> AdminRole entity (resides in admin role container) has userId added as role occupant.
      * <li> (optional) Temporal constraints may be associated with <code>ftUserAttrs</code> aux object class based on:
      * <ul>
-     * <li> timeout - number in seconds of session inactivity time allowed.
+     * <li> timeout - number (in minutes) of session inactivity time allowed.
      * <li> beginDate - YYYYMMDD - determines date when role may be activated.
      * <li> endDate - YYMMDD - indicates latest date role may be activated.
      * <li> beginLockDate - YYYYMMDD - determines beginning of enforced inactive status

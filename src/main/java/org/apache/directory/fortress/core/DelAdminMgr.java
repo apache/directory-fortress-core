@@ -192,7 +192,7 @@ public interface DelAdminMgr extends Manageable
      *   <li>AdminRole entity (resides in admin role container) has userId added as role occupant.</li>
      *   <li>(optional) Temporal constraints may be associated with <code>ftUserAttrs</code> aux object class based on:
      *     <ul>
-     *       <li>timeout - number in seconds of session inactivity time allowed.</li>
+     *       <li>timeout - number (in minutes) of session inactivity time allowed.</li>
      *       <li>beginDate - YYYYMMDD - determines date when role may be activated.</li>
      *       <li>endDate - YYMMDD - indicates latest date role may be activated.</li>
      *       <li>beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
