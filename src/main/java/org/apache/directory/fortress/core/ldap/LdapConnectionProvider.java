@@ -58,6 +58,7 @@ import org.slf4j.LoggerFactory;
 public class LdapConnectionProvider
 {
 
+    private static final int DEFAULT_LDAP_TIMEOUT = 2000;
     private static final String CLS_NM = LdapConnectionProvider.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
@@ -72,17 +73,18 @@ public class LdapConnectionProvider
     /**
      * The Admin connection pool
      */
-    private static LdapConnectionPool adminPool;
+//    private static LdapConnectionPool adminPool;
+    private static LdapHAConnectionPool adminPool;
 
     /**
      * The Log connection pool
      */
-    private static LdapConnectionPool logPool;
+    private static LdapHAConnectionPool logPool;
 
     /**
      * The User connection pool
      */
-    private static LdapConnectionPool userPool;
+    private static LdapHAConnectionPool userPool;
 
     private static volatile LdapConnectionProvider sINSTANCE = null;
 
@@ -99,10 +101,12 @@ public class LdapConnectionProvider
             {
                 if ( sINSTANCE == null )
                 {
+                    LOG.info( "construct a new ldap connection provider" );
                     sINSTANCE = new LdapConnectionProvider();
                 }
             }
         }
+        LOG.info( "return existing ldap connection provider" );
         return sINSTANCE;
     }
 
@@ -133,81 +137,12 @@ public class LdapConnectionProvider
         int logmax = Config.getInstance().getInt( LDAP_LOG_POOL_MAX, 10 );
         LOG.info( "LDAP POOL:  host=[{}], port=[{}], min=[{}], max=[{}]", host, port, min, max );
 
-        LdapConnectionConfig config = new LdapConnectionConfig();
-        config.setLdapHost( host );
-        config.setLdapPort( port );
-        config.setName( Config.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_UID, "" ) );
-
-        config.setUseSsl( IS_SSL );
-        //config.setTrustManagers( new NoVerificationTrustManager() );
-
-        if ( Config.getInstance().getBoolean( ENABLE_LDAP_STARTTLS, false ) )
-        {
-            config.setUseTls( true );
-        }
-
-        if ( IS_SSL && StringUtils.isNotEmpty( Config.getInstance().getProperty( GlobalIds.TRUST_STORE ) ) &&
-            StringUtils.isNotEmpty( Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ) ) )
-        {
-            // validate certificates but allow self-signed certs if within this truststore:
-            config.setTrustManagers( new LdapClientTrustStoreManager( Config.getInstance().getProperty( GlobalIds
-                .TRUST_STORE ), Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ).toCharArray(), null,
-                true ) );
-        }
-
-        String adminPw;
-        if ( EncryptUtil.isEnabled() )
-        {
-            adminPw = EncryptUtil.getInstance().decrypt( Config.getInstance().getProperty( GlobalIds
-                .LDAP_ADMIN_POOL_PW, true ) );
-        }
-        else
-        {
-            adminPw = Config.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_PW, true );
-        }
-
-        config.setCredentials( adminPw );
-        try
-        {
-            List<String> listExOps = new ArrayList<>();
-            listExOps.add( "org.openldap.accelerator.impl.createSession.RbacCreateSessionFactory" );
-            listExOps.add( "org.openldap.accelerator.impl.checkAccess.RbacCheckAccessFactory" );
-            listExOps.add( "org.openldap.accelerator.impl.addRole.RbacAddRoleFactory" );
-            listExOps.add( "org.openldap.accelerator.impl.dropRole.RbacDropRoleFactory" );
-            listExOps.add( "org.openldap.accelerator.impl.deleteSession.RbacDeleteSessionFactory" );
-            listExOps.add( "org.openldap.accelerator.impl.sessionRoles.RbacSessionRolesFactory" );
-            LdapApiService ldapApiService = new StandaloneLdapApiService( new ArrayList<String>(), listExOps );
-
-            if ( !LdapApiServiceFactory.isInitialized() )
-            {
-                LdapApiServiceFactory.initialize( ldapApiService );
-            }
-            config.setLdapApiService( ldapApiService );
-        }
-        catch ( Exception ex )
-        {
-            String error = "Exception caught initializing Admin Pool: " + ex;
-            throw new CfgRuntimeException( GlobalErrIds.FT_APACHE_LDAP_POOL_INIT_FAILED, error, ex );
-        }
-
-        PoolableObjectFactory<LdapConnection> poolFactory = new ValidatingPoolableLdapConnectionFactory( config );
-
-        // Create the Admin pool
-        adminPool = new LdapConnectionPool( poolFactory );
-        adminPool.setTestOnBorrow( true );
-        adminPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
-        adminPool.setMaxActive( max );
-        adminPool.setMinIdle( min );
-        adminPool.setMaxIdle( -1 );
-        //adminPool.setMaxWait( 0 );
-
-        // Create the User pool
-        userPool = new LdapConnectionPool( poolFactory );
-        userPool.setTestOnBorrow( true );
-        userPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
-        userPool.setMaxActive( max );
-        userPool.setMinIdle( min );
-        userPool.setMaxIdle( -1 );
+        LdapConnectionConfig[] ldapConnectionConfigs = populateLdapConnectionConfigs( host, port, IS_SSL, Config.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_UID, "" ), Config.getInstance().getProperty( GlobalIds
+                .LDAP_ADMIN_POOL_PW, true ), Config.getInstance().getBoolean( ENABLE_LDAP_STARTTLS, false ), Config.getInstance().getProperty( GlobalIds
+                      .TRUST_STORE ), Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ) );
+        
+        adminPool = new LdapHAConnectionPool( ldapConnectionConfigs, HAConnectionStrategy.ROUND_ROBIN, true, GenericObjectPool.WHEN_EXHAUSTED_GROW, max, min, -1, 2 );
+        userPool = new LdapHAConnectionPool( ldapConnectionConfigs, HAConnectionStrategy.ROUND_ROBIN, true, GenericObjectPool.WHEN_EXHAUSTED_GROW, max, min, -1, 2 );
 
         // This pool of access log connections is used by {@link org.apache.directory.fortress.AuditMgr}.
         // To enable, set {@code log.admin.user} && {@code log.admin.pw} inside fortress.properties file:
@@ -216,39 +151,13 @@ public class LdapConnectionProvider
             // Initializing the log pool in static block requires static props set within fortress.properties.
             // To make this dynamic requires moving this code outside of static block AND storing the connection
             // metadata inside fortress config node (in ldap).
-            LdapConnectionConfig logConfig = new LdapConnectionConfig();
-            logConfig.setLdapHost( host );
-            logConfig.setLdapPort( port );
-            logConfig.setName( Config.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_UID, "" ) );
-
-            logConfig.setUseSsl( IS_SSL );
-
-            if ( IS_SSL && StringUtils.isNotEmpty( Config.getInstance().getProperty( GlobalIds.TRUST_STORE ) ) &&
-                StringUtils.isNotEmpty( Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW, true ) ) )
-            {
-                // validate certificates but allow self-signed certs if within this truststore:
-                logConfig.setTrustManagers( new LdapClientTrustStoreManager( Config.getInstance().getProperty(
-                    GlobalIds.TRUST_STORE ), Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW, true ).toCharArray
-                    (), null, true ) );
-            }
-
-            logConfig.setName( Config.getInstance().getProperty( LDAP_LOG_POOL_UID, "" ) );
-            String logPw;
-            if ( EncryptUtil.isEnabled() )
-            {
-                logPw = EncryptUtil.getInstance().decrypt( Config.getInstance().getProperty( LDAP_LOG_POOL_PW, true ) );
-            }
-            else
-            {
-                logPw = Config.getInstance().getProperty( LDAP_LOG_POOL_PW, true );
-            }
-            logConfig.setCredentials( logPw );
-            poolFactory = new ValidatingPoolableLdapConnectionFactory( logConfig );
-            logPool = new LdapConnectionPool( poolFactory );
-            logPool.setTestOnBorrow( true );
-            logPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
-            logPool.setMaxActive( logmax );
-            logPool.setMinIdle( logmin );
+            LdapConnectionConfig logConfigs[] = populateLdapConnectionConfigs( host, port, IS_SSL, 
+                    Config.getInstance().getProperty( LDAP_LOG_POOL_UID, "" ), 
+                    Config.getInstance().getProperty( LDAP_LOG_POOL_PW, true ), 
+                    Config.getInstance().getBoolean( ENABLE_LDAP_STARTTLS, false ), Config.getInstance().getProperty( GlobalIds.TRUST_STORE ), Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW, true ) );
+            
+            
+            logPool = new LdapHAConnectionPool( logConfigs, HAConnectionStrategy.ROUND_ROBIN, true, GenericObjectPool.WHEN_EXHAUSTED_GROW, logmax, logmin, -1, 2 );
         }
     }
 
@@ -370,7 +279,7 @@ public class LdapConnectionProvider
     {
         try
         {
-            LOG.info( "Closing admin pool" );
+            LOG.trace( "Closing admin pool" );
             adminPool.close();
         }
         catch ( Exception e )
@@ -380,7 +289,7 @@ public class LdapConnectionProvider
 
         try
         {
-            LOG.info( "Closing user pool" );
+            LOG.trace( "Closing user pool" );
             userPool.close();
         }
         catch ( Exception e )
@@ -390,12 +299,81 @@ public class LdapConnectionProvider
 
         try
         {
-            LOG.info( "Closing log pool" );
+            LOG.trace( "Closing log pool" );
             logPool.close();
         }
         catch ( Exception e )
         {
             LOG.warn( "Error closing log pool: " + e.getMessage() );
         }
+    }
+    
+    private LdapConnectionConfig[] populateLdapConnectionConfigs(String host, int port, boolean isSSL, String ldapAdminId, String ldapAdminPassword, boolean isEnableLdapStartTLS, String trustStore, String trustStorePassword) {
+        String[] hosts = null;
+        if(host.contains( "," )) {
+            hosts = host.split( "," );
+        } else {
+            hosts = new String[1];
+            hosts[0] = host;
+        }
+        LdapConnectionConfig[] configs = new LdapConnectionConfig[hosts.length];
+        for(int i = 0; i < hosts.length ; i++) {
+            configs[i] = new LdapConnectionConfig();
+            configs[i].setLdapHost( hosts[i] );
+            configs[i].setLdapPort( port );
+            configs[i].setName( ldapAdminId );
+            //TODO: later need to include at the configuration level to adjust the value.
+            configs[i].setTimeout( DEFAULT_LDAP_TIMEOUT );
+            configs[i].setUseSsl( isSSL );
+            //config.setTrustManagers( new NoVerificationTrustManager() );
+
+            if ( isEnableLdapStartTLS )
+            {
+                configs[i].setUseTls( true );
+            }
+
+            if ( isSSL && StringUtils.isNotEmpty( trustStore ) &&
+                StringUtils.isNotEmpty( trustStorePassword ) )
+            {
+                // validate certificates but allow self-signed certs if within this truststore:
+                configs[i].setTrustManagers( new LdapClientTrustStoreManager( trustStore, trustStorePassword.toCharArray(), null,
+                    true ) );
+            }
+
+            String adminPw;
+            if ( EncryptUtil.isEnabled() )
+            {
+                adminPw = EncryptUtil.getInstance().decrypt( ldapAdminPassword );
+            }
+            else
+            {
+                adminPw = ldapAdminPassword;
+            }
+
+            configs[i].setCredentials( adminPw );
+            try
+            {
+                List<String> listExOps = new ArrayList<>();
+                listExOps.add( "org.openldap.accelerator.impl.createSession.RbacCreateSessionFactory" );
+                listExOps.add( "org.openldap.accelerator.impl.checkAccess.RbacCheckAccessFactory" );
+                listExOps.add( "org.openldap.accelerator.impl.addRole.RbacAddRoleFactory" );
+                listExOps.add( "org.openldap.accelerator.impl.dropRole.RbacDropRoleFactory" );
+                listExOps.add( "org.openldap.accelerator.impl.deleteSession.RbacDeleteSessionFactory" );
+                listExOps.add( "org.openldap.accelerator.impl.sessionRoles.RbacSessionRolesFactory" );
+                LdapApiService ldapApiService = new StandaloneLdapApiService( new ArrayList<String>(), listExOps );
+
+                if ( !LdapApiServiceFactory.isInitialized() )
+                {
+                    LdapApiServiceFactory.initialize( ldapApiService );
+                }
+                configs[i].setLdapApiService( ldapApiService );
+            }
+            catch ( Exception ex )
+            {
+                String error = "Exception caught initializing Admin Pool: " + ex;
+                throw new CfgRuntimeException( GlobalErrIds.FT_APACHE_LDAP_POOL_INIT_FAILED, error, ex );
+            }
+        }
+        return configs;
     }
 }

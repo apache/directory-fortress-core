@@ -1,7 +1,10 @@
 package org.apache.directory.fortress.core.ldap;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.apache.commons.pool.impl.GenericObjectPool;
@@ -44,14 +47,34 @@ public class LdapHAConnectionPool
         connectionPools = new LdapConnectionPool[configs.length];
         for ( int i = 0; i < configs.length; i++ )
         {
-            connectionPools[i] = new LdapConnectionPool( new ValidatingPoolableLdapConnectionFactory( configs[i] ) );
+            ValidatingPoolableLdapConnectionFactory validatingPoolableLdapConnectionFactory = new ValidatingPoolableLdapConnectionFactory( configs[i] );
+            connectionPools[i] = new LdapConnectionPool( validatingPoolableLdapConnectionFactory );
             connectionPools[i].setTestOnBorrow( true );
             connectionPools[i].setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
             connectionPools[i].setMaxActive( maxActive );
             connectionPools[i].setMinIdle( minIdle );
             connectionPools[i].setMaxIdle( maxIdle );
+            connectionPools[i].setTestWhileIdle( true );
         }
         this.connectionStrategy = connectionStrategy;
+    }
+
+    public void close() throws Exception {
+        List<Exception> exceptions = new ArrayList<>();
+        String closingProcessId = UUID.randomUUID().toString().toUpperCase();
+        for(LdapConnectionPool connectionPool : connectionPools) {
+            try
+            {
+                connectionPool.close();
+            } catch ( Exception e )
+            {
+                LOG.error( "could not close connection pool, process id : " + closingProcessId, e );
+                exceptions.add( e );
+            }
+        }
+        if(!exceptions.isEmpty()) {
+            throw new Exception("there some close connection error, check your log for process id : " + closingProcessId);
+        }
     }
 
     public LdapConnection getConnection() throws LdapException
@@ -82,6 +105,7 @@ public class LdapHAConnectionPool
                 try
                 {
                     int poolIndex = masterNodeIndex.get();
+                    LOG.trace( "active passive poolIndex : " + poolIndex );
                     borrowedConnection = connectionPools[poolIndex].borrowObject();
                     allowedRetriesCounter.set( allowedRetries );
                     CONNECTION_POOL_LOOKUP_TABLE.put( borrowedConnection.toString(), connectionPools[poolIndex] );
@@ -114,13 +138,16 @@ public class LdapHAConnectionPool
                 try
                 {
                     int poolIndex = getCurrentRequestNode();
+                    LOG.trace( "round robin poolIndex : " + poolIndex );
                     borrowedConnection = connectionPools[poolIndex].borrowObject();
                     allowedRetriesCounter.set( allowedRetries );
+                    LOG.trace( "putting " + borrowedConnection.toString() + " to the lookup pool" );
                     CONNECTION_POOL_LOOKUP_TABLE.put( borrowedConnection.toString(), connectionPools[poolIndex] );
                 } catch ( LdapException | RuntimeException e )
                 {
                     if ( allowedRetriesCounter.decrementAndGet() > 0 )
                     {
+                        LOG.trace( "retrying connection left " +  allowedRetriesCounter.get());
                         return getConnectionByStrategy();
                     } else
                     {
@@ -140,7 +167,13 @@ public class LdapHAConnectionPool
 
     private int getCurrentRequestNode()
     {
-        return requestCounter.getAndIncrement() % availableNodes;
+        int current = requestCounter.getAndIncrement();
+        LOG.trace( "current : "+ current );
+        if(Integer.MAX_VALUE == current) {
+            requestCounter.set( 0 );
+            current = 0;
+        }
+        return current % availableNodes;
     }
 
     public void releaseConnection( LdapConnection connection )
