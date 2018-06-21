@@ -131,8 +131,8 @@ final class ConfigDAO extends LdapDataProvider
             ld = getAdminConnection();
             myEntry.add( SchemaConstants.CN_AT, name );
             loadProperties( props, myEntry, GlobalIds.PROPS );
-            myEntry.add( GID_SEQ, "" + 0 );
-            myEntry.add( UID_SEQ, "" + 0 );
+            //myEntry.add( GID_SEQ, "" + 0 );
+            //myEntry.add( UID_SEQ, "" + 0 );
             add( ld, myEntry );
         }
         catch ( LdapEntryAlreadyExistsException e )
