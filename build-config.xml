@@ -295,6 +295,7 @@
          <delete file="${dst.remote.conf}"/>
 
        <copy file="${src.bootstrap.conf}" tofile="${dst.bootstrap.conf}"/>
+         <!-- These params are bound for config/bootstrap/config.properties file and are used during the initial load of  Fortress which creates the Directory Information Tree (DIT) and a configuration node.  -->
          <replace file="${dst.bootstrap.conf}" token="@SUFFIX@" value="${suffix}"/>
          <replace file="${dst.bootstrap.conf}" token="@LDAP_HOST@" value="${ldap.host}"/>
          <replace file="${dst.bootstrap.conf}" token="@LDAP_PORT@" value="${ldap.port}"/>
@@ -323,17 +324,14 @@
          <replace file="${dst.bootstrap.conf}" token="@ADMINPERMS_DN@" value="${adminperms.dn}"/>
          <replace file="${dst.bootstrap.conf}" token="@AUDITS_DN@" value="${audits.dn}"/>
          <replace file="${dst.bootstrap.conf}" token="@GROUPS_DN@" value="${groups.dn}"/>
-         <replace file="${dst.bootstrap.conf}" token="@GROUP_OBJECT_CLASS@" value="${group.objectclass}"/>
-         <replace file="${dst.bootstrap.conf}" token="@GROUP_PROTOCOL@" value="${group.protocol}"/>
-         <replace file="${dst.bootstrap.conf}" token="@GROUP_PROPERTIES@" value="${group.properties}"/>
          <replace file="${dst.bootstrap.conf}" token="@ENABLE_LDAP_SSL@" value="${enable.ldap.ssl}"/>
          <replace file="${dst.bootstrap.conf}" token="@ENABLE_LDAP_SSL_DEBUG@" value="${enable.ldap.ssl.debug}"/>
          <replace file="${dst.bootstrap.conf}" token="@TRUST_STORE@" value="${trust.store}"/>
          <replace file="${dst.bootstrap.conf}" token="@TRUST_STORE_PW@" value="${trust.store.password}"/>
-
          <replace file="${dst.bootstrap.conf}" token="@TRUST_STORE_ONCLASSPATHW@" value="${trust.store.onclasspath}"/>
 
        <copy file="${src.remote.conf}" tofile="${dst.remote.conf}"/>
+         <!-- These params are bound for config/config.properties file and contain coordinate to the target ldap server (only). -->
          <replace file="${dst.remote.conf}" token="@SUFFIX@" value="${suffix}"/>
          <replace file="${dst.remote.conf}" token="@LDAP_HOST@" value="${ldap.host}"/>
          <replace file="${dst.remote.conf}" token="@LDAP_PORT@" value="${ldap.port}"/>
@@ -344,7 +342,6 @@
          <replace file="${dst.remote.conf}" token="@LOG_ROOT_DN@" value="${log.admin.user}"/>
          <replace file="${dst.remote.conf}" token="@CFG_LOG_ROOT_PW@" value="${log.admin.pw}"/>
          <replace file="${dst.remote.conf}" token="@ROLE_OCCUPANTS@" value="${role.occupants}"/>
-
          <replace file="${dst.remote.conf}" token="@LOG_MIN_CONN@" value="${min.log.conn}"/>
          <replace file="${dst.remote.conf}" token="@LOG_MAX_CONN@" value="${max.log.conn}"/>
          <replace file="${dst.remote.conf}" token="@USR_MIN_CONN@" value="${user.min.conn}"/>
@@ -368,13 +365,13 @@
          <replace file="${dst.remote.conf}" token="@IS_AUDIT@" value="${disable.audit}"/>
 
          <echo message="###############  Modify fortress load scripts per user settings  ###############"/>
+         <!-- The load script builds the Directory Information Tree and load the configuration entry used to hold params not needed to establish a connection with server. -->
          <delete file="${dst.load.bootstrap.script}"/>
          <copy file="${src.load.bootstrap.script}" tofile="${dst.load.bootstrap.script}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX_NAME@" value="${suffix.name}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX_DC@" value="${suffix.dc}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX_DC2@" value="${suffix.dc2}"/>
          <replace file="${dst.load.bootstrap.script}" token="@SUFFIX@" value="${suffix}"/>
-
          <replace file="${dst.load.bootstrap.script}" token="@USERS_DN@" value="${users.dn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@GROUPS_DN@" value="${groups.dn}"/>
          <replace file="${dst.load.bootstrap.script}" token="@ROLES_DN@" value="${roles.dn}"/>
@@ -390,6 +387,10 @@
          <replace file="${dst.load.bootstrap.script}" token="@GROUP_PROTOCOL@" value="${group.protocol}"/>
          <replace file="${dst.load.bootstrap.script}" token="@GROUP_PROPERTIES@" value="${group.properties}"/>
          <replace file="${dst.load.bootstrap.script}" token="@ROLE_OCCUPANTS@" value="${role.occupants}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@IS_RFC2307@" value="${rfc2307}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@RFC2307_GROUP@" value="${rfc2307.group}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@RFC2307_USER_MBR@" value="${rfc2307.user.member}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@RFC2307_GROUP_MBR@" value="${rfc2307.group.member}"/>
          <echo message="###############  Copy ehcache config to bootstrap config folder  ###############"/>
          <delete file="${bootstrap.ehcache.conf}"/>
        <copy file="${ehcache.conf}" tofile="${bootstrap.ehcache.conf}"/>

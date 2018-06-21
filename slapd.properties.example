@@ -193,3 +193,11 @@ db.bak.sess.dir=${db.root}/backup/rbacsess
 # For TLs connections:
 #http.port=8443
 #http.protocol=https
+
+########################################################################
+# 6. RFC2307 OBJECT CLASS DEFINITIONS
+########################################################################
+rfc2307=false
+rfc2307.group=groupOfNames
+rfc2307.user.member=memberof
+rfc2307.group.member=memberuid
