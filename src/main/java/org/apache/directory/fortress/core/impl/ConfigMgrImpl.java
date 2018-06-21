@@ -70,6 +70,15 @@ public class ConfigMgrImpl implements ConfigMgr, Serializable
      * {@inheritDoc}
      */
     @Override
+    public void updateProperty(String name, String key, String value, String newValue) throws SecurityException
+    {
+        cfgP.updateProperty(name, key, value, newValue);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void delete(String name) throws SecurityException
     {
         cfgP.delete(name);

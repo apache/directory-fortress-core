@@ -37,6 +37,7 @@ import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.fortress.core.CfgException;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -49,6 +50,8 @@ import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.util.Config;
+import org.apache.directory.fortress.core.util.PropUpdater;
 import org.apache.directory.fortress.core.util.PropUtil;
 import org.apache.directory.ldap.client.api.LdapConnection;
 
@@ -98,7 +101,7 @@ import org.apache.directory.ldap.client.api.LdapConnection;
  *
  * @author Kevin McKinney
  */
-final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>
+final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, PropUpdater
 {
     /*
       *  *************************************************************************
@@ -112,6 +115,14 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>
             ROLE_NM
     };
 
+
+    // rfc2307 decls:
+    private static final String POSIX_GROUP = "posixGroup";
+    static final boolean IS_RFC2307 = Config.getInstance().getProperty( GlobalIds.RFC2307_PROP ) != null && Config.getInstance().getProperty( GlobalIds.RFC2307_PROP ).equalsIgnoreCase( "true" ) ? true : false;
+    private static final String MEMBER_UID = "memberuid";
+    private static final String RFC2307_GROUP = Config.getInstance().getProperty( "rfc2307.group" ) != null ? Config.getInstance().getProperty( "rfc2307.group" ) : "groupOfNames";
+    //private static final String RFC2307_GROUP_MEMBER = IS_RFC2307 && Config.getInstance().getProperty( "rfc2307.group.member" ) != null ? Config.getInstance().getProperty( "rfc2307.group.member" ) : GlobalIds.ROLE_OCCUPANT;
+
     private static final String[] ROLE_ATRS =
         {
             GlobalIds.FT_IID,
@@ -120,19 +131,43 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>
             GlobalIds.CONSTRAINT,
             SchemaConstants.ROLE_OCCUPANT_AT,
             GlobalIds.PARENT_NODES,
-            GlobalIds.PROPS
+            GlobalIds.PROPS,
+            IS_RFC2307 ? MEMBER_UID : null,
+            IS_RFC2307 ? GlobalIds.GID_NUMBER : null
     };
 
     /**
      * Defines the object class structure used within Fortress Role processing.
      */
-    private static final String ROLE_OBJ_CLASS[] =
+    private static String[] ROLE_OBJ_CLASS = IS_RFC2307 ? new String[]
+        {
+            SchemaConstants.TOP_OC,
+            GlobalIds.ROLE_OBJECT_CLASS_NM,
+            GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
+            GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME,
+            POSIX_GROUP
+        }
+        : new String[]
         {
             SchemaConstants.TOP_OC,
             GlobalIds.ROLE_OBJECT_CLASS_NM,
             GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
             GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
-    };
+        };
+
+
+    /**
+     * Method on PropUdater interface used to increment UID and GID prop values.
+     * @param value contains a String that will be converted to an Integer before incremeting.
+     * @return String value contains the new sequence value.
+     */
+    public String newValue(String value)
+    {
+        Integer id = new Integer( value );
+        Integer newId = id + 1;
+        return newId.toString();
+    }
+
 
     /**
      * @param entity
@@ -151,6 +186,25 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>
             entity.setId();
             entry.add( GlobalIds.FT_IID, entity.getId() );
             entry.add( ROLE_NM, entity.getName() );
+            // If supporting RFC2307 posixGroups && the gidNumber has not already been set.
+            if ( IS_RFC2307 && StringUtils.isEmpty( entity.getGidNumber() ) )
+            {
+                String name = Config.getInstance().getProperty( GlobalIds.CONFIG_REALM );
+                try
+                {
+                    entity.setGidNumber( Config.getInstance().replaceProperty( name, GlobalIds.GID_NUMBER, this ) );
+                }
+                catch ( CfgException ce )
+                {
+                    String error = "create role caught CfgException replacing the GID prop:" + ce.getMessage();
+                    throw new CreateException( GlobalErrIds.ROLE_ADD_FAILED, error, ce );
+                }
+            }
+            // gidNumber is optional:
+            if ( IS_RFC2307 && StringUtils.isNotEmpty( entity.getGidNumber() ) )
+            {
+                entry.add( GlobalIds.GID_NUMBER, entity.getGidNumber() );
+            }
 
             // description field is optional on this object class:
             if ( StringUtils.isNotEmpty( entity.getDescription() ) )
@@ -201,6 +255,12 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE,
                     SchemaConstants.DESCRIPTION_AT, entity.getDescription() ) );
+            }
+
+            if ( IS_RFC2307 && StringUtils.isNotEmpty( entity.getGidNumber() ) )
+            {
+                mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE,
+                    GlobalIds.GID_NUMBER, entity.getGidNumber() ) );
             }
 
             if ( entity.isTemporalSet() )
@@ -296,6 +356,11 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>
             List<Modification> mods = new ArrayList<Modification>();
             mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, SchemaConstants.ROLE_OCCUPANT_AT,
                 userDn ) );
+            if ( IS_RFC2307 )
+            {
+                mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, MEMBER_UID,
+                    getRdnValue( userDn ) ) );
+            }
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }
@@ -330,6 +395,11 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>
             List<Modification> mods = new ArrayList<Modification>();
             mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE,
                 SchemaConstants.ROLE_OCCUPANT_AT, userDn ) );
+            if ( IS_RFC2307 )
+            {
+                mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, MEMBER_UID,
+                    getRdnValue( userDn ) ) );
+            }
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }
@@ -720,13 +790,22 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>
         entity.setId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setName( getAttribute( le, ROLE_NM ) );
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
-        entity.setOccupants( getAttributes( le, SchemaConstants.ROLE_OCCUPANT_AT ) );
         //entity.setParents(RoleUtil.getParents(entity.getName().toUpperCase(), contextId));
         entity.setChildren( RoleUtil.getInstance().getChildren( entity.getName().toUpperCase(), contextId ) );
         entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );        
         unloadTemporal( le, entity );
         entity.setDn( le.getDn().getName() );        
         entity.addProperties( PropUtil.getProperties( getAttributes( le, GlobalIds.PROPS ) ) );
+        if ( IS_RFC2307 )
+        {
+            entity.setGidNumber( getAttribute( le, GlobalIds.GID_NUMBER ) );
+            //entity.setOccupants( getAttributes( le, MEMBER_UID ) );
+        }
+        //else
+        //{
+        entity.setOccupants( getAttributes( le, SchemaConstants.ROLE_OCCUPANT_AT ) );
+        //}
+
         return entity;
     }
 

@@ -257,7 +257,7 @@ public final class GlobalIds
 
     /*
       *  *************************************************************************
-      *  **  OpenAccessMgr PROPERTIES are used by USER, PERM, CONFIG DAO'S.
+      *  **  Fortress PROPERTIES are used by USER, PERM, CONFIG DAO'S.
       *  ************************************************************************
       */
     /**
@@ -302,7 +302,7 @@ public final class GlobalIds
     /**
      * Multi-occurring attribute contains RBAC Role assignments for Users.
      */
-    public static final String USER_ROLE_ASSIGN = "ftRA";
+    //public static final String USER_ROLE_ASSIGN = "ftRA";
 
     /**
      * Multi-occurring attribute contains constraint policies for RBAC Role assignments for Users.
@@ -338,6 +338,56 @@ public final class GlobalIds
      * Attribute name for storing type on either permission or groups.
      */
     public static final String TYPE = "ftType";
+
+/*
+    */
+/**
+     * Begin RF2307 properties...
+     *//*
+
+    */
+/**
+     * Is RF2307 enabled?  Set to 'true'.
+     *//*
+
+    public static final String RFC_2307_PROP_NM = "rfc2307";
+
+    */
+/**
+     * RF2307bis uses groupOfNames but could be different.
+     *//*
+
+    public static final String RFC_2307_GROUP_PROP_NM = "rfc2307.group";
+
+    */
+/**
+     * RF2307bis specifies memberuid.
+     *//*
+
+    public static final String RFC_2307_GROUP_MEMBER_PROP_NM = "rfc2307.group.member";
+
+    */
+/**
+     * RF2307bis specifies memberOf
+     *//*
+
+    public static final String RFC_2307_USER_MEMBER_PROP_NM = "rfc2307.user.member";
+
+    */
+/**
+     * RF2307bis uses this for users:
+     *//*
+
+    public static final String RFC2307_USER_OBJECT_CLASS_NM = "posixAccount";
+*/
+
+    /**
+     * RF2307bis uses this for groiups:
+     */
+    public static final String RFC2307_PROP = "rfc2307";
+    public static final String GID_NUMBER = "gidNumber";
+    public static final String UID_NUMBER = "uidNumber";
+
 
     /*
     *  *************************************************************************

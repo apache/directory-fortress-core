@@ -96,7 +96,7 @@
                 <user userId="demoUser9" password="password" description="Demo Test User 9" ou="demousrs1" cn="JoeUser9" sn="User9"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="" endLockDate="" dayMask="1234567" timeout="60" photo="p9.jpeg"/>
                 <user userId="demoUser10" password="password" description="Demo Test User 10" ou="demousrs1" cn="JoeUser10" sn="User10"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="" endLockDate="" dayMask="1234567" timeout="60" photo="p10.jpeg"/>
 
-                <user userId="tcmanager" password="m@nager123" system="true" description="Tomcat Manager User" ou="demousrs1" cn="tcmanager" sn="manager"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="" endLockDate="" dayMask="1234567" timeout="0" photo="p11.jpeg"/>
+                <user userId="tcmanager" password="m@nager123" system="true" description="Tomcat Manager User" ou="demousrs1" cn="tcmanager" sn="manager" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="" endLockDate="" dayMask="1234567" timeout="0" photo="p11.jpeg"/>
 
                 <user userId="wasadmin" password="@dmin123" system="true" description="Websphere Console Admin" ou="demousrs1" cn="wasadmin" sn="admin"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="" endLockDate="" dayMask="1234567" timeout="0" photo="p12.jpeg"/>
 

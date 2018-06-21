@@ -101,6 +101,13 @@
                 <config props="group.protocol:@GROUP_PROTOCOL@"/>
                 <config props="group.properties:@GROUP_PROPERTIES@"/>
                 <config props="role.occupants:@ROLE_OCCUPANTS@"/>
+                <config props="rfc2307:@IS_RFC2307@"/>
+                <config props="rfc2307.group:@RFC2307_GROUP@"/>
+                <config props="rfc2307.group.member:@RFC2307_GROUP_MBR@"/>
+                <config props="rfc2307.user.member:@RFC2307_USER_MBR@"/>
+                <config props="gidNumber:5000"/>
+                <config props="uidNumber:1000"/>
+
                 <config props="attr.delimiter:$"/>
                 <config props="field.length:130"/>
                 <config props="ldap.filter.size:15"/>
@@ -167,6 +174,10 @@
                 <config props="group.objectclass:@GROUP_OBJECT_CLASS@"/>
                 <config props="group.protocol:@GROUP_PROTOCOL@"/>
                 <config props="group.properties:@GROUP_PROPERTIES@"/>
+                <config props="rfc2307:@IS_RFC2307@"/>
+                <config props="rfc2307.group:@RFC2307_GROUP@"/>
+                <config props="rfc2307.group.member:@RFC2307_GROUP_MBR@"/>
+                <config props="rfc2307.user.member:@RFC2307_USER_MBR@"/>
                 <config props="attr.delimiter:$"/>
                 <config props="field.length:130"/>
                 <config props="ldap.filter.size:15"/>

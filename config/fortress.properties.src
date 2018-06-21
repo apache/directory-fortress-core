@@ -17,7 +17,7 @@
 #   under the License.
 #
 # Fortress slapd.conf default settings.
-# Note: Directives that begin with '@' are substitution parms for Fortress' build.xml 'init-slapd' target.
+# Note: Directives that begin with '@' are substitution parms that get automatically replaced.
 
 # Host name and port of LDAP DIT:
 host=@LDAP_HOST@

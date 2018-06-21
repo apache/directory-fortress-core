@@ -265,8 +265,7 @@ public abstract class LdapDataProvider
     protected void modify( LdapConnection connection, String dn, List<Modification> mods ) throws LdapException
     {
         COUNTERS.incrementMod();
-        connection.modify( dn, mods.toArray( new Modification[]
-            {} ) );
+        connection.modify( dn, mods.toArray( new Modification[]{} ) );
     }
 
 
@@ -817,6 +816,19 @@ public abstract class LdapDataProvider
         try
         {
             return new Dn( dn ).getRdn().getName();
+        }
+        catch ( LdapInvalidDnException lide )
+        {
+            return null;
+        }
+    }
+
+
+    protected String getRdnValue( String dn )
+    {
+        try
+        {
+            return new Dn( dn ).getRdn().getNormValue();
         }
         catch ( LdapInvalidDnException lide )
         {

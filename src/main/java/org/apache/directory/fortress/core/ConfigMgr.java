@@ -66,6 +66,18 @@ public interface ConfigMgr
 
 
     /**
+     * This method will update a single property with a new value..
+     *
+     * @param name of the config node, mostly likely 'DEFAULT'.
+     * @param key used for the property.
+     * @param value this is old value to be replaced with newValue.
+     * @param newValue new value for the property
+     * @throws org.apache.directory.fortress.core.SecurityException in the event entry not present or other system error.
+     */
+    void updateProperty(String name, String key, String value, String newValue) throws SecurityException;
+
+
+    /**
      * Completely removes named cfg node from the directory.  The name is required.  If node does not exist,
      * a {@link org.apache.directory.fortress.core.SecurityException} with error 
      * {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.

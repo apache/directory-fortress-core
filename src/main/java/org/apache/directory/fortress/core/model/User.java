@@ -305,12 +305,7 @@ public class User extends FortEntity implements Constraint, Serializable
     private List<String> emails;
     @XmlTransient
     private byte[] jpegPhoto;
-
     // RFC2307bis:
-    /*
-    MUST ( cn $ uid $ uidNumber $ gidNumber $ homeDirectory )
-    MAY ( userPassword $ loginShell $ gecos $ description ) )
-     */
     private String uidNumber;
     private String gidNumber;
     private String homeDirectory;
@@ -466,9 +461,9 @@ public class User extends FortEntity implements Constraint, Serializable
 
 
     /**
-     * Used to retrieve User's valid userId attribute.  The Fortress userId maps to 'uid' for InetOrgPerson object class.
+     * Used to retrieve userId attributes concatenated in a comma separated value String..
      *
-     * @return String containing the userId.
+     * @return String value containing attributes in CSV format.
      */
     @Override
     public String toString()

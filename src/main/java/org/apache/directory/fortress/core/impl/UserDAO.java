@@ -52,6 +52,7 @@ import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.BindResponse;
 import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
 import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.fortress.core.CfgException;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
 import org.apache.directory.fortress.core.GlobalErrIds;
@@ -66,6 +67,7 @@ import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.ConstraintUtil;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.util.PropUpdater;
 import org.apache.directory.fortress.core.util.PropUtil;
 import org.apache.directory.fortress.core.model.PwMessage;
 import org.apache.directory.fortress.core.model.Role;
@@ -151,7 +153,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  * @created August 30, 2009
  */
-final class UserDAO extends LdapDataProvider
+final class UserDAO extends LdapDataProvider implements PropUpdater
 {
     /*
       *  *************************************************************************
@@ -189,8 +191,19 @@ final class UserDAO extends LdapDataProvider
     private static final String OPENLDAP_PW_LOCKED_TIME = "pwdAccountLockedTime";
     private static final String OPENLDAP_ACCOUNT_LOCKED_TIME = "pwdAccountLockedTime";
     private static final String LOCK_VALUE = "000001010000Z";
+
+    // RFC2307bis decls:
+    private static final String POSIX_ACCOUNT = "posixAccount";
+    private static final String HOME_DIRECTORY =  "homeDirectory";
+    private static final boolean IS_RFC2307 = Config.getInstance().getProperty( GlobalIds.RFC2307_PROP ) != null && Config.getInstance().getProperty( GlobalIds.RFC2307_PROP ).equalsIgnoreCase( "true" ) ? true : false;
+    /**
+     * RF2307bis uses groupOfNames instead of ftRA:
+     */
+    private static final String USER_ROLE_ASSIGN =  "ftRA";
+    //private static final String USER_ROLE_ASSIGN = IS_RFC2307 && Config.getInstance().getProperty( "rfc2307.user.member" ) != null ? Config.getInstance().getProperty( "rfc2307.user.member" ) : "ftRA";
+
     private static final String[] USERID = { SchemaConstants.UID_AT };
-    private static final String[] ROLES = { GlobalIds.USER_ROLE_ASSIGN };
+    private static final String[] ROLES = { USER_ROLE_ASSIGN };
     private static final String[] USERID_ATRS = { SchemaConstants.UID_AT };
     // These will be loaded in static initializer that follows:
     private static String[] authnAtrs = null;
@@ -207,6 +220,20 @@ final class UserDAO extends LdapDataProvider
     {
         initAttrArrays();
 	}
+
+
+    /**
+     * Method on PropUdater interface used to increment UID and GID prop values.
+     * @param value contains a String that will be converted to an Integer before incremeting.
+     * @return String value contains the new sequence value.
+     */
+    public String newValue(String value)
+    {
+        Integer id = new Integer( value );
+        Integer newId = id + 1;
+        return newId.toString();
+    }
+
 
     /**
      * Add new user entity to LDAP
@@ -309,6 +336,55 @@ final class UserDAO extends LdapDataProvider
             if ( ArrayUtils.isNotEmpty( entity.getJpegPhoto() ) )
             {
                 myEntry.add( JPEGPHOTO, entity.getJpegPhoto() );
+            }
+
+            // These are the posixAccount attributes specified by RFC2307bis (proposed) IETF standard:
+            if ( IS_RFC2307 )
+            {
+                // if not set, generate:
+                if ( StringUtils.isEmpty( entity.getUidNumber() ) )
+                {
+                    String name = Config.getInstance().getProperty( GlobalIds.CONFIG_REALM );
+                    try
+                    {
+                        entity.setUidNumber( Config.getInstance().replaceProperty( name, GlobalIds.UID_NUMBER, this ) );
+                    }
+                    catch ( CfgException ce )
+                    {
+                        String error = "create user caught CfgException replacing the UID prop:" + ce.getMessage();
+                        throw new CreateException( GlobalErrIds.USER_ADD_FAILED, error, ce );
+                    }
+                }
+
+                // required on PosixAccount:
+                myEntry.add( GlobalIds.UID_NUMBER, entity.getUidNumber() );
+
+                // if not set, generate:
+                if ( StringUtils.isEmpty( entity.getGidNumber() ) )
+                {
+                    String name = Config.getInstance().getProperty( GlobalIds.CONFIG_REALM );
+                    try
+                    {
+                        entity.setGidNumber( Config.getInstance().replaceProperty( name, GlobalIds.GID_NUMBER, this ) );
+                    }
+                    catch ( CfgException ce )
+                    {
+                        String error = "create user caught CfgException replacing the GID prop:" + ce.getMessage();
+                        throw new CreateException( GlobalErrIds.USER_ADD_FAILED, error, ce );
+                    }
+                }
+
+                // required on PosixAccount:
+                myEntry.add( GlobalIds.GID_NUMBER, entity.getGidNumber() );
+
+                // if not set, generate:
+                if ( StringUtils.isEmpty( entity.getHomeDirectory() ) )
+                {
+                    entity.setHomeDirectory( "not set" );
+                }
+
+                // required on PosixAccount:
+                myEntry.add( HOME_DIRECTORY, entity.getHomeDirectory() );
             }
 
             ld = getAdminConnection();
@@ -432,6 +508,29 @@ final class UserDAO extends LdapDataProvider
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, JPEGPHOTO, entity
                     .getJpegPhoto() ) );
+            }
+
+            // These are the posixAccount attributes specified by RFC2307bis (proposed) IETF standard:
+            if ( IS_RFC2307 )
+            {
+                if ( StringUtils.isNotEmpty( entity.getUidNumber() ) )
+                {
+                    mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.UID_NUMBER,
+                        entity.getUidNumber() ) );
+                }
+
+                if ( StringUtils.isNotEmpty( entity.getGidNumber() ) )
+                {
+                    mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.GID_NUMBER,
+                        entity.getGidNumber() ) );
+                }
+
+                // if not set, generate:
+                if ( StringUtils.isNotEmpty( entity.getHomeDirectory() ) )
+                {
+                    mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, HOME_DIRECTORY,
+                        entity.getHomeDirectory() ) );
+                }
             }
 
             if ( mods.size() > 0 )
@@ -722,7 +821,7 @@ final class UserDAO extends LdapDataProvider
                 throw new FinderException( GlobalErrIds.USER_NOT_FOUND, warning );
             }
 
-            roles = getAttributes( findEntry, GlobalIds.USER_ROLE_ASSIGN );
+            roles = getAttributes( findEntry, USER_ROLE_ASSIGN );
         }
         catch ( LdapNoSuchObjectException e )
         {
@@ -1072,7 +1171,7 @@ final class UserDAO extends LdapDataProvider
             if ( CollectionUtils.isNotEmpty( roles ) )
             {
                 filterbuf.append( "|(" );
-                filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
+                filterbuf.append( USER_ROLE_ASSIGN );
                 filterbuf.append( "=" );
                 filterbuf.append( roleVal );
                 filterbuf.append( ")" );
@@ -1080,7 +1179,7 @@ final class UserDAO extends LdapDataProvider
                 for ( String uRole : roles )
                 {
                     filterbuf.append( "(" );
-                    filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
+                    filterbuf.append( USER_ROLE_ASSIGN );
                     filterbuf.append( "=" );
                     filterbuf.append( uRole );
                     filterbuf.append( ")" );
@@ -1090,7 +1189,7 @@ final class UserDAO extends LdapDataProvider
             }
             else
             {
-                filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
+                filterbuf.append( USER_ROLE_ASSIGN );
                 filterbuf.append( "=" );
                 filterbuf.append( roleVal );
                 filterbuf.append( ")" );
@@ -1147,7 +1246,7 @@ final class UserDAO extends LdapDataProvider
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
             filterbuf.append( ")(" );
-            filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
+            filterbuf.append( USER_ROLE_ASSIGN );
             filterbuf.append( "=" );
             filterbuf.append( roleVal );
             filterbuf.append( ")" );
@@ -1205,7 +1304,7 @@ final class UserDAO extends LdapDataProvider
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
             filterbuf.append( ")(" );
-            filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
+            filterbuf.append( USER_ROLE_ASSIGN );
             filterbuf.append( "=" );
             filterbuf.append( roleVal );
             filterbuf.append( ")" );
@@ -1283,7 +1382,7 @@ final class UserDAO extends LdapDataProvider
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
             filterbuf.append( ")(" );
-            filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
+            filterbuf.append( USER_ROLE_ASSIGN );
             filterbuf.append( "=" );
             filterbuf.append( roleVal );
             filterbuf.append( "))" );
@@ -1343,7 +1442,7 @@ final class UserDAO extends LdapDataProvider
                 {
                     String filteredVal = encodeSafeText( roleVal, GlobalIds.USERID_LEN );
                     filterbuf.append( "(" );
-                    filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
+                    filterbuf.append( USER_ROLE_ASSIGN );
                     filterbuf.append( "=" );
                     filterbuf.append( filteredVal );
                     filterbuf.append( ")" );
@@ -1457,7 +1556,7 @@ final class UserDAO extends LdapDataProvider
             filterbuf.append( GlobalIds.FILTER_PREFIX );
             filterbuf.append( USERS_AUX_OBJECT_CLASS_NAME );
             filterbuf.append( ")(" );
-            filterbuf.append( GlobalIds.USER_ROLE_ASSIGN );
+            filterbuf.append( USER_ROLE_ASSIGN );
             filterbuf.append( "=" );
             filterbuf.append( roleVal );
             filterbuf.append( "))" );
@@ -1766,7 +1865,7 @@ final class UserDAO extends LdapDataProvider
             mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, GlobalIds.USER_ROLE_DATA,
                 szUserRole ) );
 
-            mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, GlobalIds.USER_ROLE_ASSIGN, uRole
+            mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, USER_ROLE_ASSIGN, uRole
                 .getName() ) );
 
             ld = getAdminConnection();
@@ -1908,8 +2007,7 @@ final class UserDAO extends LdapDataProvider
                     mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, GlobalIds
                         .USER_ROLE_DATA, fRole.getRawData() ) );                    
                     
-                    mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, GlobalIds
-                        .USER_ROLE_ASSIGN, fRole.getName() ) );
+                    mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, USER_ROLE_ASSIGN, fRole.getName() ) );
                     ld = getAdminConnection();                    
                     
                     modify( ld, userDn, mods, uRole );                                        
@@ -2132,15 +2230,6 @@ final class UserDAO extends LdapDataProvider
             entity.setSystem( Boolean.valueOf( szBoolean ) );
         }
 
-        /*
-                TODO: Add for RFC2307BIS
-                entity.setUidNumber( getAttribute( entry, UID_NUMBER ) );
-                entity.setGidNumber( getAttribute( entry, GID_NUMBER ) );
-                entity.setHomeDirectory( getAttribute( entry, HOME_DIRECTORY ) );
-                entity.setLoginShell( getAttribute( entry, LOGIN_SHELL ) );
-                entity.setGecos( getAttribute( entry, GECOS ) );
-        */
-
         entity.addProperties( PropUtil.getProperties( getAttributes( entry, GlobalIds.PROPS ) ) );
 
         if ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() )
@@ -2165,6 +2254,14 @@ final class UserDAO extends LdapDataProvider
         }
 
         entity.setJpegPhoto( getPhoto( entry, JPEGPHOTO ) );
+
+        // These are the posixAccount attributes specified by RFC2307bis (proposed) IETF standard:
+        if ( IS_RFC2307 )
+        {
+            entity.setUidNumber( getAttribute( entry, GlobalIds.UID_NUMBER ) );
+            entity.setGidNumber( getAttribute( entry, GlobalIds.GID_NUMBER ) );
+            entity.setHomeDirectory( getAttribute( entry, HOME_DIRECTORY ) );
+        }
 
         return entity;
     }
@@ -2247,7 +2344,7 @@ final class UserDAO extends LdapDataProvider
         throws LdapInvalidAttributeValueException
     {
         Attribute userRoleData = new DefaultAttribute( GlobalIds.USER_ROLE_DATA );
-        Attribute userRoleAssign = new DefaultAttribute( GlobalIds.USER_ROLE_ASSIGN );
+        Attribute userRoleAssign = new DefaultAttribute( USER_ROLE_ASSIGN );
 
         if ( list != null )
         {
@@ -2317,7 +2414,7 @@ final class UserDAO extends LdapDataProvider
         if ( list != null )
         {
             Attribute userRoleData = new DefaultAttribute( GlobalIds.USER_ROLE_DATA );
-            Attribute userRoleAssign = new DefaultAttribute( GlobalIds.USER_ROLE_ASSIGN );
+            Attribute userRoleAssign = new DefaultAttribute( USER_ROLE_ASSIGN );
 
             for ( UserRole userRole : list )
             {
@@ -2599,7 +2696,17 @@ final class UserDAO extends LdapDataProvider
      */
     private String[] getUserObjectClass()
     {
-        String userObjectClass[] = new String[]
+        String[] userObjectClass = IS_RFC2307 ? new String[]
+            {
+                SchemaConstants.TOP_OC,
+                Config.getInstance().getProperty( USER_OBJECT_CLASS ),
+                USERS_AUX_OBJECT_CLASS_NAME,
+                GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
+                GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME,
+                USERS_EXTENSIBLE_OBJECT,
+                POSIX_ACCOUNT
+            }
+            : new String[]
             {
                 SchemaConstants.TOP_OC,
                 Config.getInstance().getProperty( USER_OBJECT_CLASS ),
@@ -2611,8 +2718,18 @@ final class UserDAO extends LdapDataProvider
         return userObjectClass;
     }
 
+
+
+    /**
+     * Begin RF2307 properties...
+     */
+
+    //private static final String USER_ROLE_ASSIGN = IS_RFC2307 && Config.getInstance().getProperty( "rfc2307.user.member" ) != null ? Config.getInstance().getProperty( "rfc2307.user.member" ) : "ftRA";
+    //private static final String USER_MEMBER = IS_RFC2307 && Config.getInstance().getProperty( "rfc2307.user.member" ) != null ? Config.getInstance().getProperty( "rfc2307.user.member" ) : USER_ROLE_ASSIGN;
+
     private void initAttrArrays()
     {
+
         if ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() )
         {
             // This default set of attributes contains all and is used for search operations.
@@ -2627,7 +2744,7 @@ final class UserDAO extends LdapDataProvider
                     SchemaConstants.SN_AT,
                     GlobalIds.USER_ROLE_DATA,
                     GlobalIds.CONSTRAINT,
-                    GlobalIds.USER_ROLE_ASSIGN,
+                    USER_ROLE_ASSIGN,
                     OPENLDAP_PW_RESET,
                     OPENLDAP_PW_LOCKED_TIME,
                     OPENLDAP_POLICY_SUBENTRY,
@@ -2650,14 +2767,9 @@ final class UserDAO extends LdapDataProvider
                     SchemaConstants.TITLE_AT,
                     SYSTEM_USER,
                     JPEGPHOTO,
-                /*
-                            TODO: add for RFC2307Bis
-                            UID_NUMBER,
-                            GID_NUMBER,
-                            HOME_DIRECTORY,
-                            LOGIN_SHELL,
-                            GECOS
-                */};
+                    IS_RFC2307 ? HOME_DIRECTORY : null,
+                    IS_RFC2307 ? GlobalIds.GID_NUMBER : null,
+                    IS_RFC2307 ? GlobalIds.UID_NUMBER : null };
 
             // This smaller result set of attributes are needed for user validation and authentication operations.
             authnAtrs = new String[]
@@ -2688,7 +2800,7 @@ final class UserDAO extends LdapDataProvider
                     SchemaConstants.SN_AT,
                     GlobalIds.USER_ROLE_DATA,
                     GlobalIds.CONSTRAINT,
-                    GlobalIds.USER_ROLE_ASSIGN,
+                    USER_ROLE_ASSIGN,
                     GlobalIds.PROPS,
                     GlobalIds.USER_ADMINROLE_ASSIGN,
                     GlobalIds.USER_ADMINROLE_DATA,
@@ -2706,7 +2818,11 @@ final class UserDAO extends LdapDataProvider
                     EMPLOYEE_TYPE,
                     SchemaConstants.TITLE_AT,
                     SYSTEM_USER,
-                    JPEGPHOTO, };
+                    JPEGPHOTO,
+                    IS_RFC2307 ? HOME_DIRECTORY : null,
+                    IS_RFC2307 ? GlobalIds.GID_NUMBER : null,
+                    IS_RFC2307 ? GlobalIds.UID_NUMBER : null
+                };
 
             // This smaller result set of attributes are needed for user validation and authentication operations.
             authnAtrs = new String[]

@@ -26,8 +26,10 @@ import java.util.Properties;
 
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.entry.DefaultEntry;
+import org.apache.directory.api.ldap.model.entry.DefaultModification;
 import org.apache.directory.api.ldap.model.entry.Entry;
 import org.apache.directory.api.ldap.model.entry.Modification;
+import org.apache.directory.api.ldap.model.entry.ModificationOperation;
 import org.apache.directory.api.ldap.model.exception.LdapEntryAlreadyExistsException;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
@@ -96,6 +98,8 @@ final class ConfigDAO extends LdapDataProvider
             SchemaConstants.CN_AT, GlobalIds.PROPS
     };
 
+    public static final String GID_SEQ = "ftGidSequence";
+    public static final String UID_SEQ = "ftUidSequence";
 
     /**
      * Package private default constructor.
@@ -127,6 +131,8 @@ final class ConfigDAO extends LdapDataProvider
             ld = getAdminConnection();
             myEntry.add( SchemaConstants.CN_AT, name );
             loadProperties( props, myEntry, GlobalIds.PROPS );
+            myEntry.add( GID_SEQ, "" + 0 );
+            myEntry.add( UID_SEQ, "" + 0 );
             add( ld, myEntry );
         }
         catch ( LdapEntryAlreadyExistsException e )
@@ -186,6 +192,42 @@ final class ConfigDAO extends LdapDataProvider
             closeAdminConnection( ld );
         }
         return props;
+    }
+
+
+    /**
+     * This method will update a single property with a new value.
+     *
+     * @param name of the config node, mostly likely 'DEFAULT'.
+     * @param key used for the property.
+     * @param value this is old value to be replaced with newValue.
+     * @param newValue new value for the property
+     * @throws UpdateException in the event the attribute can't be replaced.
+     * @throws FinderException in the event the config node and/or property key:value can't be located.
+     */
+    void updateProperty( String name, String key, String value, String newValue ) throws UpdateException, FinderException
+    {
+        LdapConnection ld = null;
+        String dn = getDn( name );
+        LOG.debug
+            ( "update dn [{}], key [{}], value [{}], newValue [{}]", dn, key, value, newValue );
+        try
+        {
+            List<Modification> mods = new ArrayList<Modification>();
+            mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, GlobalIds.PROPS, key + GlobalIds.PROP_SEP + value ) );
+            mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, GlobalIds.PROPS, key + GlobalIds.PROP_SEP + newValue ) );
+            ld = getAdminConnection();
+            modify( ld, dn, mods );
+        }
+        catch ( LdapException e )
+        {
+            String error = "updateProperty dn [" + dn + "] caught LDAPException=" + e.getMessage();
+            throw new UpdateException( GlobalErrIds.FT_CONFIG_UPDATE_FAILED, error, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
     }
 
 

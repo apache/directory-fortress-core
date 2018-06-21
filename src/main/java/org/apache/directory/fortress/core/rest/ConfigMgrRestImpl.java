@@ -108,6 +108,16 @@ public class ConfigMgrRestImpl implements ConfigMgr
      * {@inheritDoc}
      */
     @Override
+    public void updateProperty(String name, String key, String value, String newValue) throws SecurityException
+    {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void delete(String name) throws SecurityException
     {
         VUtil.assertNotNull(name, GlobalErrIds.FT_CONFIG_NAME_NULL, CLS_NM + ".deleteProp");

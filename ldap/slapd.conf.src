@@ -19,7 +19,7 @@
 
 #
 # Fortress slapd.conf default settings.
-# Note: Directives that begin with '@' are substitution parms for Fortress' build.xml 'init-slapd' target.
+# Note: Directives that begin with '@' are substitution parms that get automatically replaced.
 
 include		@SCHEMA_PATH@/core.schema
 include		@SCHEMA_PATH@/ppolicy.schema

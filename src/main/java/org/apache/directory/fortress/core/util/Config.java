@@ -119,6 +119,33 @@ public final class Config
     }
 
     /**
+     * Replaces property stored in the named configuration node and updates what's held in memory by commons config.
+     * Method is synchronized to prevent race condition where two threads access and update the same property value.
+     *
+     * @param name of the config node, mostly likely 'DEFAULT'.
+     * @param key used for the property.
+     * @param propUpdater reference to object that updates to new value.
+     * @return String containing the new value for the property.
+     */
+    public synchronized String replaceProperty( String name, String key, PropUpdater propUpdater ) throws CfgException
+    {
+        String value = getProperty( key );
+        try
+        {
+            String newValue = propUpdater.newValue( value );
+            ConfigMgr cfgMgr = ConfigMgrFactory.createInstance();
+            cfgMgr.updateProperty( name, key, value, newValue );
+            setProperty( key, newValue );
+        }
+        catch ( SecurityException se )
+        {
+            String error = "replaceProperty failed, exception=" + se.getMessage();
+            throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_UPDATE_FAILED, error, se );
+        }
+        return value;
+    }
+
+    /**
      * Gets the prop attribute as String value from the apache commons cfg component.
      *
      * @param name contains the name of the property.
