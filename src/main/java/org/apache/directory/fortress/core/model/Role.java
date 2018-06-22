@@ -212,6 +212,7 @@ import javax.xml.bind.annotation.XmlType;
         "endTime",
         "timeout",
         "dn",
+        "gidNumber",
         "props"
 })
 @XmlSeeAlso(
