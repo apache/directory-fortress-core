@@ -356,11 +356,13 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
             List<Modification> mods = new ArrayList<Modification>();
             mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, SchemaConstants.ROLE_OCCUPANT_AT,
                 userDn ) );
+/*
             if ( IS_RFC2307 )
             {
                 mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, MEMBER_UID,
                     getRdnValue( userDn ) ) );
             }
+*/
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }
@@ -395,11 +397,13 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
             List<Modification> mods = new ArrayList<Modification>();
             mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE,
                 SchemaConstants.ROLE_OCCUPANT_AT, userDn ) );
+/*
             if ( IS_RFC2307 )
             {
                 mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, MEMBER_UID,
                     getRdnValue( userDn ) ) );
             }
+*/
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }
