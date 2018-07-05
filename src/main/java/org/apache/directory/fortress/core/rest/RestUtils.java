@@ -131,10 +131,12 @@ public final class RestUtils
         fortressRestVersion = System.getProperty( "version" );
         serviceName = "fortress-rest-" + fortressRestVersion;
         uri = httpProtocol + "://" + httpHost + ":" + httpPort + "/" + serviceName + "/";
+        LOG.info("HTTP Connect Properties: host:{}, port:{}, protocol:{}, version:{}, service:{}, uri:{}", httpHost, httpPort, httpProtocol, fortressRestVersion, serviceName, uri);
         LOG.info( "Set JSSE truststore properties:" );
         LOG.info( "javax.net.ssl.trustStore: {}", trustStore );
         System.setProperty( "javax.net.ssl.trustStore", trustStore );
         System.setProperty( "javax.net.ssl.trustStorePassword", trustStorePw );
+        System.setProperty( "http.maxConnections", "50" );
     }
 
     private RestUtils(){
@@ -228,10 +230,36 @@ public final class RestUtils
             url += "/" + id3;
         }
         LOG.debug( "get function1:{}, id1:{}, id2:{}, id3:{}, url:{}", function, id, id2, id3, url );
-        HttpGet get = new HttpGet(url);
-        setMethodHeaders( get );
-        return handleHttpMethod( get ,HttpClientBuilder.create().useSystemProperties()
-            .setDefaultCredentialsProvider(getCredentialProvider(userId, password)).build() );
+
+        String szResponse;
+        HttpGet get = null;
+        try
+        {
+            get = new HttpGet(url);
+            setMethodHeaders( get );
+            szResponse = handleHttpMethod( get ,HttpClientBuilder.create().useSystemProperties()
+                .setDefaultCredentialsProvider(getCredentialProvider(userId, password)).build() );
+        }
+        catch ( WebApplicationException we )
+        {
+            String error = generateErrorMessage( uri,function, "caught WebApplicationException=" + we.getMessage() );
+            LOG.error( error, we);
+            throw new RestException( GlobalErrIds.REST_WEB_ERR, error, we );
+        }
+        catch ( java.lang.NoSuchMethodError e )
+        {
+            String error = generateErrorMessage( uri, function, "caught NoSuchMethodError = "+ e.getMessage() );
+            LOG.error( error, e );
+            throw new RestException( GlobalErrIds.REST_UNKNOWN_ERR, error);
+        }
+        finally
+        {
+            // Release current connection to the connection pool.
+            if ( get != null )
+                get.releaseConnection();
+        }
+
+        return szResponse;
     }
 
 
