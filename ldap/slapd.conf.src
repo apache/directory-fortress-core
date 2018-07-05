@@ -25,7 +25,7 @@ include		@SCHEMA_PATH@/core.schema
 include		@SCHEMA_PATH@/ppolicy.schema
 include		@SCHEMA_PATH@/cosine.schema
 include		@SCHEMA_PATH@/inetorgperson.schema
-include		@SCHEMA_PATH@/nis.schema
+include		@SCHEMA_PATH@/rfc2307bis.schema
 include		@SCHEMA_PATH@/openldap.schema
 include		@SCHEMA_PATH@/fortress.schema
 @IS_RBAC_ACCELERATOR@include		@SCHEMA_PATH@/rbac.schema
