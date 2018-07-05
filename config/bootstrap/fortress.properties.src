@@ -172,6 +172,3 @@ attr.delimiter=$
 
 # These are used to enable RFC2307bis support on User and Role entities:
 rfc2307=@IS_RFC2307@
-rfc2307.group=@RFC2307_GROUP@
-rfc2307.user.member=@RFC2307_USER_MBR@
-rfc2307.group.member=@RFC2307_GROUP_MBR@

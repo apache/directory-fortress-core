@@ -105,7 +105,7 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
 {
     /*
       *  *************************************************************************
-      *  **  OpenAccessMgr ROLE STATICS
+      *  **  ROLE STATICS contain object and attribute definitions for LDAP operations.
       *  ************************************************************************
       */
     private static final String ROLE_NM = "ftRoleName";
@@ -119,9 +119,6 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
     // rfc2307 decls:
     private static final String POSIX_GROUP = "posixGroup";
     static final boolean IS_RFC2307 = Config.getInstance().getProperty( GlobalIds.RFC2307_PROP ) != null && Config.getInstance().getProperty( GlobalIds.RFC2307_PROP ).equalsIgnoreCase( "true" ) ? true : false;
-    private static final String MEMBER_UID = "memberuid";
-    private static final String RFC2307_GROUP = Config.getInstance().getProperty( "rfc2307.group" ) != null ? Config.getInstance().getProperty( "rfc2307.group" ) : "groupOfNames";
-    //private static final String RFC2307_GROUP_MEMBER = IS_RFC2307 && Config.getInstance().getProperty( "rfc2307.group.member" ) != null ? Config.getInstance().getProperty( "rfc2307.group.member" ) : GlobalIds.ROLE_OCCUPANT;
 
     private static final String[] ROLE_ATRS =
         {
@@ -132,7 +129,6 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
             SchemaConstants.ROLE_OCCUPANT_AT,
             GlobalIds.PARENT_NODES,
             GlobalIds.PROPS,
-            IS_RFC2307 ? MEMBER_UID : null,
             IS_RFC2307 ? GlobalIds.GID_NUMBER : null
     };
 
@@ -155,7 +151,6 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
             GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
         };
 
-
     /**
      * Method on PropUdater interface used to increment UID and GID prop values.
      * @param value contains a String that will be converted to an Integer before incremeting.
@@ -167,7 +162,6 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
         Integer newId = id + 1;
         return newId.toString();
     }
-
 
     /**
      * @param entity
@@ -352,17 +346,9 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
 
         try
         {
-            //ld = getAdminConnection();
             List<Modification> mods = new ArrayList<Modification>();
             mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, SchemaConstants.ROLE_OCCUPANT_AT,
                 userDn ) );
-/*
-            if ( IS_RFC2307 )
-            {
-                mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, MEMBER_UID,
-                    getRdnValue( userDn ) ) );
-            }
-*/
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }
@@ -397,13 +383,6 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
             List<Modification> mods = new ArrayList<Modification>();
             mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE,
                 SchemaConstants.ROLE_OCCUPANT_AT, userDn ) );
-/*
-            if ( IS_RFC2307 )
-            {
-                mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, MEMBER_UID,
-                    getRdnValue( userDn ) ) );
-            }
-*/
             ld = getAdminConnection();
             modify( ld, dn, mods, entity );
         }

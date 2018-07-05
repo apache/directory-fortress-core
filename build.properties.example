@@ -155,5 +155,9 @@ group.properties=configParameter
 #http.port=8443
 #http.protocol=https
 
-
+########################################################################
+# 5. RFC2307 OBJECT CLASS DEFINITIONS
+########################################################################
+# Boolean value. If true, requires rfc2307bis schema because posixUser and posixGroup must be auxiliary object classes to work with ftRls which is structural..
+rfc2307=false
 

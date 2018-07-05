@@ -197,7 +197,5 @@ db.bak.sess.dir=${db.root}/backup/rbacsess
 ########################################################################
 # 6. RFC2307 OBJECT CLASS DEFINITIONS
 ########################################################################
+# Boolean value. If true, requires rfc2307bis schema because posixUser and posixGroup must be auxiliary object classes to work with ftRls which is structural..
 rfc2307=false
-rfc2307.group=groupOfNames
-rfc2307.user.member=memberof
-rfc2307.group.member=memberuid

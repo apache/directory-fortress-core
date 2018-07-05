@@ -388,9 +388,6 @@
          <replace file="${dst.load.bootstrap.script}" token="@GROUP_PROPERTIES@" value="${group.properties}"/>
          <replace file="${dst.load.bootstrap.script}" token="@ROLE_OCCUPANTS@" value="${role.occupants}"/>
          <replace file="${dst.load.bootstrap.script}" token="@IS_RFC2307@" value="${rfc2307}"/>
-         <replace file="${dst.load.bootstrap.script}" token="@RFC2307_GROUP@" value="${rfc2307.group}"/>
-         <replace file="${dst.load.bootstrap.script}" token="@RFC2307_USER_MBR@" value="${rfc2307.user.member}"/>
-         <replace file="${dst.load.bootstrap.script}" token="@RFC2307_GROUP_MBR@" value="${rfc2307.group.member}"/>
          <echo message="###############  Copy ehcache config to bootstrap config folder  ###############"/>
          <delete file="${bootstrap.ehcache.conf}"/>
        <copy file="${ehcache.conf}" tofile="${bootstrap.ehcache.conf}"/>
