@@ -95,7 +95,7 @@
     <version.antlr>2.7.7</version.antlr>
     <version.apache.jdbm1>2.0.0-M3</version.apache.jdbm1>
     <version.apacheds>2.0.0-M24</version.apacheds>
-    <version.api.all>1.0.0</version.api.all>
+    <version.api.all>1.0.1</version.api.all>
     <version.commons.beanutils>1.7.0</version.commons.beanutils>
     <version.commons.beanutils-core>1.8.0</version.commons.beanutils-core>
     <version.commons.codec>1.10</version.commons.codec>
@@ -870,11 +870,14 @@
             <artifactId>jmeter-maven-plugin</artifactId>
             <version>1.10.0</version>
             <configuration>
-              <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
+              <overrideRootLogLevel>INFO</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
               <testFilesIncluded>
                 <jMeterTestFile>ftCheckAccess.jmx</jMeterTestFile>
               </testFilesIncluded>
+              <propertiesSystem>
+                <version>${project.version}</version>
+              </propertiesSystem>
             </configuration>
             <executions>
               <execution>
@@ -925,6 +928,9 @@
               <testFilesIncluded>
                 <jMeterTestFile>acCreateSession.jmx</jMeterTestFile>
               </testFilesIncluded>
+              <propertiesSystem>
+                <version>${project.version}</version>
+              </propertiesSystem>
             </configuration>
             <executions>
               <execution>
@@ -975,6 +981,9 @@
               <testFilesIncluded>
                 <jMeterTestFile>ftCreateSession.jmx</jMeterTestFile>
               </testFilesIncluded>
+              <propertiesSystem>
+                <version>${project.version}</version>
+              </propertiesSystem>
             </configuration>
             <executions>
               <execution>
@@ -1025,6 +1034,9 @@
               <testFilesIncluded>
                 <jMeterTestFile>ftSessionPerms.jmx</jMeterTestFile>
               </testFilesIncluded>
+              <propertiesSystem>
+                <version>${project.version}</version>
+              </propertiesSystem>
             </configuration>
             <executions>
               <execution>
@@ -1073,6 +1085,9 @@
               <testFilesIncluded>
                 <jMeterTestFile>acSessionPerms.jmx</jMeterTestFile>
               </testFilesIncluded>
+              <propertiesSystem>
+                <version>${project.version}</version>
+              </propertiesSystem>
             </configuration>
             <executions>
               <execution>
