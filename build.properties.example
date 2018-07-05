@@ -60,12 +60,16 @@ ldap.port=10389
 #ldap.host=fortressdemo2.com
 # 10636 is default apacheds LDAPS port:
 #ldap.port=10636
+# If you need the ldap api to spit out more info on ssl connections:
 #enable.ldap.ssl.debug=true
-# The trust store is found either on the application's classpath or filepath as specified by trust.store.onclasspath:
-#trust.store=mytruststore
 #trust.store.password=changeit
-# Will pick up the truststore from the classpath if set to true  which is the default.  Otherwise, file must be specified a fully qualified filename:
+# Will pick up the truststore from the classpath if set to true  which is the default.
 #trust.store.onclasspath=true
+#trust.store=mytruststore
+# Otherwise, file must be specified a fully qualified filename:
+#trust.store.onclasspath=false
+#trust.store=/fully/qualified/path/to/mytruststore
+
 
 # These are the connection parameters used for LDAP service account:
 root.dn=uid=admin,ou=system

@@ -325,14 +325,20 @@ ________________________________________________________________________________
  vi slapd.properties
  ```
 
-3. Set the LDAP Host and port properties.  Either a valid host name or IP address can be used.  If you are running on the same platform as your LDAP server, localhost will do.
+3. Tell the runtime using OpenLDAP:
+
+ ```
+ ldap.server.type=openldap
+ ```
+
+4. Set the LDAP Host and port properties.  Either a valid host name or IP address can be used.  If you are running on the same platform as your LDAP server, localhost will do.
 
  ```
  host=localhost
  port=389
  ```
 
-4. Set the suffix name and domain component.  These may be set according to your requirements.  For example **suffix.name=example** and **suffix.dc=com** turns into **dc=example,dc=com**.
+5. Set the suffix name and domain component.  These may be set according to your requirements.  For example **suffix.name=example** and **suffix.dc=com** turns into **dc=example,dc=com**.
 
  ```
  suffix.name=example
@@ -348,7 +354,7 @@ ________________________________________________________________________________
   suffix=dc=${suffix.name},dc=${suffix.dc},dc=${suffix.dc2}
  ```
 
-5. Add to the file to enable LDAP connection pool parameters.
+6. Add to the file to enable LDAP connection pool parameters.
 
  ```
  # Here we are testing with slapd's root user.  Never do this in prod envs.
@@ -371,7 +377,7 @@ ________________________________________________________________________________
  user.max.conn=10
  ```
 
-6. Enable the fortress audit and its connection pool.
+7. Enable the fortress audit and its connection pool.
 
  *This step is optional.*
 
@@ -402,7 +408,7 @@ ________________________________________________________________________________
 8. Rebuild the configuration artifacts:
 
  ```
- mvn install
+ mvn clean install
  ```
 
 9. Perform an initial load to the target LDAP server:
@@ -418,6 +424,7 @@ More usage notes of fortress build property files:
  * The [build.properties.example]([build.properties.example) contains defaults for ApacheDS.  This file is required and will activate once renamed to **build.properties**.
  * The [slapd.properties.example](slapd.properties.example) is optional.  Use *only* when OpenLDAP is the target server.  Once renamed to **slapd.properties**, it will override any values found in the **build.properties** file.
  * Learn more about the configuration subsystem: [README-CONFIG](./README-CONFIG.md)
+ * Learn more about what properties there are: [README-PROPERTIES](README-PROPERTIES.md).
  * Don't change the ant substitution parameters within the properties *unless you know what you're doing*.  These are are the settings inside of curly brackets, e.g. **${param1}**.
 
 ___________________________________________________________________________________

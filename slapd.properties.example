@@ -88,14 +88,17 @@ log.ops=logops bind writes compare
 #ldap.host=fortressdemo2.com
 # 636 is default LDAPS on OpenLDAP:
 #ldap.port=636
+# If you need the ldap api to spit out more info on ssl connections:
 #enable.ldap.ssl.debug=true
-# The trust store is found either on the application's classpath or filepath as specified by trust.store.onclasspath:
-#trust.store=mytruststore
 #trust.store.password=changeit
-# Will pick up the truststore from the classpath if set to true  which is the default.  Otherwise, file must be specified a fully qualified filename:
+# Will pick up the truststore from the classpath if set to true  which is the default.
 #trust.store.onclasspath=true
+#trust.store=mytruststore
+# Otherwise, file must be specified a fully qualified filename:
+#trust.store.onclasspath=false
+#trust.store=/fully/qualified/path/to/mytruststore
 
-# These are needed for slapd startup SSL configuration:
+# These are needed for OpenLDAP startup script to enable SSL configuration:
 #ldap.uris=ldap://${ldap.host}:389 ldaps://${ldap.host}:${ldap.port}
 # These are needed for slapd server-side SSL configuration:
 #tls.ca.cert.file=ca-cert.pem
@@ -154,7 +157,6 @@ slapd.module.dir=${openldap.root}/lib64/openldap
 # use the symas openldap startup script:
 slapd.start=${openldap.root}/etc/solserver start -f ${openldap.root}/etc/openldap/slapd.conf -F ${openldap.root}/etc/openldap
 #slapd.start=${openldap.root}/lib64/slapd -h ldap://${ldap.host}:${ldap.port} -f ${openldap.root}/etc/openldap/slapd.conf -F ${openldap.root}/etc/openldap
-
 
 ########################################################################
 # 4. RBAC ACCELERATOR OVERLAY PROPS

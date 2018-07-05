@@ -51,7 +51,7 @@ This section describes the properties needed to control fortress core.
 
  ```
  # Else if OpenLDAP server:
- ldap.server.type=slapd
+ ldap.server.type=openldap
  ```
 
  ```
@@ -94,10 +94,26 @@ This section describes the properties needed to control fortress core.
  # Used for SSL Connection to LDAP Server:
  enable.ldap.ssl=true
  enable.ldap.ssl.debug=true
- trust.store=/fully/qualified/path/and/file/name/to/java/truststore
  trust.store.password=changeit
- trust.store.set.prop=true
  ```
+
+ a. Trust store can found on the classpath
+
+ ```
+ trust.store.onclasspath=true
+ trust.store=mytruststorename
+ ```
+
+ b. Trust store can found as fully qualified filename:
+
+ ```
+ trust.store.onclasspath=false
+ trust.store=/fully/qualified/path/and/file/name/to/java/mytruststorename
+ ```
+
+ * Question: Should I access my truststore from classpath or as fully qualified?
+ * Answer: It's usually best find on classpath, that way it can be bundled inside the impl's jar or war files.
+ * Except, when using SSL in processes where JDBC also is using SSL. Due to limitations in how JDBC works, must specify as fully-qualified name.
 
 7. To use REST instead of LDAP.  Points to fortress-rest instance.
 
@@ -123,12 +139,23 @@ This section describes the properties needed to control fortress core.
  apacheds.pwpolicy.root=ou=passwordPolicies,ads-interceptorId=authenticationInterceptor,ou=interceptors,ads-directoryServiceId=default,ou=config
  ```
 
-10. LDAP Directory Information Tree Directives
+10. LDAP Directory Information Tree (DIT) Samples
 
  ```
- # Define the high-level structure of LDAP DIT:
+ # Define the high-level structure of LDAP DIT
+ # For a two-part domain context, e.g. dc=example,dc=com:
+ suffix.name=example
+ suffix.dc=com
  suffix=dc=example,dc=com
+ suffix=dc=${suffix.name},dc=${suffix.dc}
+ # Else, for a three-part domain context, e.g. dc=foo, dc=example,dc=com:
+ suffix.name=foo
+ suffix.dc=example
+ suffix.dc2=com
+ suffix=dc=${suffix.name},dc=${suffix.dc},dc=${suffix.dc2}
+ # The Config container must be specified in the properties file.
  config.root=ou=Config,dc=example,dc=com
+ # The other fortress containers may either be in the build.properties file, or loaded into the config node.
  user.root=ou=People,dc=example,dc=com
  pwpolicy.root=ou=Policies,dc=example,dc=com
  role.root=ou=Roles,ou=RBAC,dc=example,dc=com
@@ -138,10 +165,10 @@ This section describes the properties needed to control fortress core.
  permou.root=ou=OS-P,ou=ARBAC,dc=example,dc=com
  adminrole.root=ou=AdminRoles,ou=ARBAC,dc=example,dc=com
  adminperm.root=ou=AdminPerms,ou=ARBAC,dc=example,dc=com
- audit.root=cn=log
  group.root=ou=Groups,dc=example,dc=com
- example.root=ou=Examples,dc=example,dc=com
  ```
+
+ Note: See the [README-CONFIG](./README-CONFIG.md)) guide for more info how fortress finds its properties.
 
 11. Define the delegated administration super admin role.  Any user who is assigned this role will bypass all ARBAC02 security checks, when they are enabled.
 
@@ -263,29 +290,35 @@ This section describes the properties needed to control fortress core.
  group.properties=ftProps
  ```
 
-20. Disable OpenLDAP audit operations.  If server type is OpenLDAP *ldap.server.type-slapd*, setting this value to true will disable all auditing operations.  Default is false.
+20. Enable RFC2307bis support for Users and Roles (groups)
+ Setting this prop to true requires the RFC2307bis schema to be present in ldap server. This defines the posixAccount and posixGroup object classes as auxiliary not structural.
+ This will add uidNumber, gidNumber, uidNumber and homeDirectory to Users and gidNumber to Roles. Those attributes are required and will be automatically generated if not otherwise passed in.
+
+ ```
+ # Boolean value. If true, requires rfc2307bis schema because posixUser and posixGroup must be auxiliary object classes to work with ftRls which is structural..
+ rfc2307=true
+ ```
+
+21. Disable OpenLDAP audit operations.  If server type is OpenLDAP *ldap.server.type-slapd*, setting this value to true will disable all auditing operations.  Default is false.
 
  ```
  disable.audit=true
  ```
 
-21. Define delimiter to use for storage of fortress temporal constraints in LDAP.  It is used to delimit fields that are combined into a single attribute, i.e. ftConstraint.
+22. Define delimiter to use for storage of fortress temporal constraints in LDAP.  It is used to delimit fields that are combined into a single attribute, i.e. ftConstraint.
 
   ```
   # Use '$' as delimiter
   attr.delimiter=$
   ```
 
-22. These properties still have some wiring inside fortress but aren't typically used or needed.
+23. These properties still have some wiring inside fortress but aren't typically used or needed.
 
  ```
  dao.connector=apache
-
  #keep alphanumerics and dashes
  regXSafetext=^A-Za-z0-9- .
-
  crypto.prop=${crypto.prop}
-
  clientside.sorting=true
  ```
 

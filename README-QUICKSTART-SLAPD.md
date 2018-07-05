@@ -75,7 +75,9 @@ ________________________________________________________________________________
  cp slapd.properties.example slapd.properties
  ```
 
- *[slapd.properties.example](slapd.properties.example) contains the slapd default config. Learn more about how the config works: [README-CONFIG](README-CONFIG.md)*
+ *[slapd.properties.example](slapd.properties.example) contains the slapd default config.
+ * Learn more about how the config works: [README-CONFIG](README-CONFIG.md).
+ * Learn more about what properties there are: [README-PROPERTIES](README-PROPERTIES.md).
 
 3. Download the latest OpenLDAP binaries for your platform:
  [Symas OpenLDAP Silver Edition](https://downloads.symas.com/products/symas-openldap-directory-silver-edition/)
