@@ -16,7 +16,6 @@
 #   specific language governing permissions and limitations
 #   under the License.
 #
-
 #
 # Fortress slapd.conf default settings.
 # Note: Directives that begin with '@' are substitution parms that get automatically replaced.
@@ -132,6 +131,7 @@ rootpw      "@ROOT_PW@"
 index uidNumber,gidNumber,objectclass eq
 index cn,sn,ftObjNm,ftOpNm,ftRoleName,uid,ou eq,sub
 index ftId,ftPermName,ftRoles,ftUsers,ftRA,ftARA eq
+index roleOccupant eq
 
 directory	"@DEFAULT_DB_PATH@"
 overlay accesslog
