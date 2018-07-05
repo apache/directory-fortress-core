@@ -261,7 +261,6 @@ final class HierUtil
             String v = vertex.get( VERTEX );
             if ( v == null )
             {
-                //log.debug("getDescendants vertex is null");
                 return 0;
             }
             LOG.debug( "hasChildren [{}]", v );
@@ -285,8 +284,7 @@ final class HierUtil
     static Set<String> getAscendants( String childName, SimpleDirectedGraph<String, Relationship> graph )
     {
         Map<String, String> vx = new HashMap<>();
-        // TreeSet will return in sorted order:
-        // create Set with case insensitive comparator:
+        // TreeSet will return in sorted order with case insensitive comparator:
         Set<String> parents = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
         vx.put( VERTEX, childName.toUpperCase() );
         getAscendants( vx, graph, parents );
@@ -346,8 +344,7 @@ final class HierUtil
     static Set<String> getDescendants( String parentName, SimpleDirectedGraph<String, Relationship> graph )
     {
         Map<String, String> vx = new HashMap<>();
-        // TreeSet will return in sorted order:
-        // create Set with case insensitive comparator:
+        // TreeSet will return in sorted order with case insensitive comparator:
         Set<String> children = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
         vx.put( VERTEX, parentName.toUpperCase() );
         getDescendants( vx, graph, children );
@@ -411,12 +408,10 @@ final class HierUtil
         String v = vertex.get( VERTEX );
         if ( v == null )
         {
-            // vertex is null
             return null;
         }
         else if ( graph == null )
         {
-            // graph is null
             return null;
         }
         LOG.debug( "getDescendants [{}]", v);
@@ -452,7 +447,6 @@ final class HierUtil
         Set<String> descendants = new HashSet<>();
         if ( graph == null )
         {
-            // graph is null
             return null;
         }
 
@@ -488,8 +482,7 @@ final class HierUtil
         SimpleDirectedGraph<String, Relationship> graph )
     {
         Map<String, String> vx = new HashMap<>();
-        // TreeSet will return in sorted order:
-        // create Set with case insensitive comparator:
+        // TreeSet will return in sorted order with case insensitive comparator:
         Set<String> parents = new TreeSet<>( String.CASE_INSENSITIVE_ORDER );
 
         vx.put( VERTEX, childName.toUpperCase() );
@@ -514,12 +507,10 @@ final class HierUtil
         String v = vertex.get( VERTEX );
         if ( v == null )
         {
-            // vertex is null
             return null;
         }
         else if ( graph == null )
         {
-            // graph is null
             return null;
         }
         LOG.debug( "getAscendants [{}]", v);
@@ -566,7 +557,6 @@ final class HierUtil
         Set<String> parents = new HashSet<>();
         if ( graph == null )
         {
-            // graph is null
             return null;
         }
         LOG.debug( "getParents [{}]", vertex);
@@ -667,7 +657,6 @@ final class HierUtil
             return null;
         }
         graph = toGraph( hier );
-        LOG.debug( "buildGraph success to toGraph" );
         LOG.debug( "buildGraph is success" );
         return graph;
     }
