@@ -34,26 +34,6 @@ This ehcache.xml corresponds to a single CacheManager.
     <cacheManagerEventListenerFactory class="" properties=""/>
 
     <!--
-    Default Cache configuration. These settings will be applied to caches
-    created programmatically using CacheManager.add(String cacheName).
-    This element is optional, and using CacheManager.add(String cacheName) when
-    its not present will throw CacheException
-
-    The defaultCache has an implicit name "default" which is a reserved cache name.
-    -->
-    <defaultCache
-           eternal="false"
-           overflowToDisk="false"
-           timeToIdleSeconds="120"
-           timeToLiveSeconds="120"
-           diskSpoolBufferSizeMB="30"
-           maxElementsOnDisk="10"
-           diskPersistent="false"
-           diskExpiryThreadIntervalSeconds="120"
-           memoryStoreEvictionPolicy="LRU"
-           />
-
-    <!--
         Thic cache contains password policy entries.  It is used to save a read on User password policy edits. There should be one element for every tenant.
     -->
     <cache name="fortress.policies"
