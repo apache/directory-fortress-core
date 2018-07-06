@@ -30,6 +30,13 @@
                 <config props="pwpolicy.root:ou=Policies,dc=example,dc=com"/>
             </addconfig>
 
+            <updconfig>
+                <!-- To update existing config node with new props specify config.realm name: -->
+                <config props="config.realm:DEFAULT"/>
+                <config props="newname:newvalue"/>
+            </updconfig>
+
+
             <addconfig>
                 <config props="config.realm:TOMCAT"/>
                 <config props="authn.type:realm"/>

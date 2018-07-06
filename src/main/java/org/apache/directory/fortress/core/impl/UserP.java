@@ -44,6 +44,7 @@ import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
 
 import org.slf4j.Logger;
@@ -512,6 +513,12 @@ final class UserP
                 }
             }
         }
+        // Did the caller pass in a set of dynamic constraints as properties?
+        if ( user.getProps() != null )
+        {
+            session.getUser().addProperties( user.getProperties() );
+        }
+
         // Check role temporal constraints + activate roles:
         VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.ROLE, true );
         return session;

@@ -343,14 +343,14 @@ class AdminMgrConsole
             System.out.println("Enter organization unit, blank for default");
             ue.setOu(ReaderUtil.readLn());
 
-            System.out.println("Do you want to set temporal constraints on User - Y or N");
+            System.out.println("Do you want to set temporal constraints on User - Y or NULL to skip");
             String choice = ReaderUtil.readLn();
             if (choice != null && choice.equalsIgnoreCase("Y"))
             {
                 enterTemporal(ue);
             }
 
-            System.out.println("Do you want to set posix account attributes on User - Y or N");
+            System.out.println("Do you want to set posix account attributes on User - Y or NULL to skip");
             choice = ReaderUtil.readLn();
             if (choice != null && choice.equalsIgnoreCase("Y"))
             {
@@ -365,7 +365,7 @@ class AdminMgrConsole
                 userRole.setName(val);
                 userRole.setUserId( ue.getUserId() );
                 ue.setRole(userRole);
-                System.out.println("Do you want to set temporal constraints on User - Y or N");
+                System.out.println("Do you want to set temporal constraints on User - Y or NULL to skip");
                 choice = ReaderUtil.readLn();
                 if (choice != null && choice.equalsIgnoreCase("Y"))
                 {

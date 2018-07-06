@@ -19,11 +19,17 @@
  */
 package org.apache.directory.fortress.core;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Properties;
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.impl.TestUtils;
-import org.apache.directory.fortress.core.model.*;
-
-import java.util.*;
-
 import org.apache.directory.fortress.core.util.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -163,7 +169,9 @@ class AccessMgrConsole
             String userId = ReaderUtil.readLn();
             System.out.println("Enter password:");
             String password = ReaderUtil.readLn();
-            session = am.createSession(new User(userId, password), false);
+            User inUser = new User(userId, password);
+            getRuntimeConstraint( inUser );
+            session = am.createSession(inUser, false);
             System.out.println("Session created successfully for userId [" + userId + "]");
             System.out.println("session [" + session + "]");
             System.out.println("ENTER to continue");
@@ -175,6 +183,7 @@ class AccessMgrConsole
         ReaderUtil.readChar();
     }
 
+
     void createSessionTrusted()
     {
         try
@@ -182,7 +191,9 @@ class AccessMgrConsole
             ReaderUtil.clearScreen();
             System.out.println("Enter userId:");
             String userId = ReaderUtil.readLn();
-            session = am.createSession(new User(userId), true);
+            User inUser = new User(userId);
+            getRuntimeConstraint( inUser );
+            session = am.createSession(inUser, true);
             System.out.println("Trusted Session created successfully for userId [" + userId + "]");
             System.out.println("session [" + session + "]");
             System.out.println("ENTER to continue");
@@ -192,6 +203,23 @@ class AccessMgrConsole
             LOG.error("createSessionTrusted caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
+    }
+
+
+    private void getRuntimeConstraint(User user)
+    {
+        System.out.println("Do you want to set a runtime constrait on user role activation? - Y or NULL to skip");
+        String choice = ReaderUtil.readLn();
+        if (choice != null && choice.equalsIgnoreCase("Y"))
+        {
+            System.out.println("Enter constraint type):");
+            String key = ReaderUtil.readLn();
+            System.out.println("Enter constraint value):");
+            String value = ReaderUtil.readLn();
+            Properties props = new Properties(  );
+            props.setProperty( key, value );
+            user.addProperties( props );
+        }
     }
 
     /**

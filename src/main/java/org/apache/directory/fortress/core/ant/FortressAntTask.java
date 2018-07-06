@@ -263,6 +263,7 @@ public class FortressAntTask extends Task implements InputHandler
         "debug.admin" ).equalsIgnoreCase( "true" ) ) );
     private static final String SEMICOLON = ";";
     private final List<Addconfig> addconfig = new ArrayList<>();
+    private final List<Updconfig> updconfig = new ArrayList<>();
     private final List<Delconfig> delconfig = new ArrayList<>();
     private final List<Adduser> addusers = new ArrayList<>();
     private final List<Deluser> delusers = new ArrayList<>();
@@ -408,6 +409,17 @@ public class FortressAntTask extends Task implements InputHandler
     public void addAddconfig( Addconfig addcfg )
     {
         this.addconfig.add( addcfg );
+    }
+
+
+    /**
+     * Load the entity with data.
+     *
+     * @param updcfg contains the ant initialized data entities to be handed off for further processing.
+     */
+    public void addUpdconfig( Updconfig updcfg )
+    {
+        this.updconfig.add( updcfg );
     }
 
 
@@ -910,6 +922,7 @@ public class FortressAntTask extends Task implements InputHandler
         addSuffixes();
         addContainers();
         addConfig();
+        updConfig();
         addOrgunits();
         addUserOrgunitInheritances();
         addPermOrgunitInheritances();
@@ -2403,7 +2416,7 @@ public class FortressAntTask extends Task implements InputHandler
 
 
     /**
-     * @throws BuildException An error occurred while building
+     * Add a new configuration node and its associated property values into the directory.
      */
     private void addConfig() throws BuildException
     {
@@ -2454,6 +2467,66 @@ public class FortressAntTask extends Task implements InputHandler
                 else
                 {
                     LOG.warn( "addConfig realm name={} failed SecurityException={}", configNodeName, se );
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Update existing configuration node with new values.
+     */
+    private void updConfig() throws BuildException
+    {
+        if( updconfig == null )
+        {
+            return;
+        }
+
+        Properties props = new Properties();
+        String configNodeName = "";
+        // Loop through the entityclass elements
+        for ( Updconfig updcfg : updconfig )
+        {
+            List<ConfigAnt> cfgs = updcfg.getConfig();
+            for ( ConfigAnt cfg : cfgs )
+            {
+                LOG.info( "updateConfig" );
+                String val = cfg.getProps();
+                int indx = val.indexOf( GlobalIds.PROP_SEP );
+                if ( indx >= 1 )
+                {
+                    String name = val.substring( 0, indx );
+                    String value = val.substring( indx + 1 );
+
+                    // The config realm property is required on updconfig op and points to the existing node in ldap to update with these new props.
+                    if( name.equalsIgnoreCase( GlobalIds.CONFIG_REALM ))
+                    {
+                        configNodeName = value;
+                    }
+                    else
+                    {
+                        props.setProperty( name, value );
+                    }
+                }
+            }
+            // Can't go on w/out a name for the config node to update.
+            if ( StringUtils.isEmpty( configNodeName ))
+            {
+                LOG.warn( "updConfig realm name not specified, operation aborted." );
+                LOG.warn( "Add entry like this  to input xml: <config props=\"config.realm:DEFAULT\"/>" );
+            }
+            else
+            {
+                try
+                {
+                    LOG.info( "updateConfig realm name [{}]", configNodeName );
+                    cfgMgr.update( configNodeName, props );
+                }
+                catch ( SecurityException se )
+                {
+                    LOG.warn( "updConfig realm name={} failed SecurityException={}", configNodeName, se );
+                    LOG.warn( "Verify that config realm name={} exists", configNodeName);
                 }
             }
         }

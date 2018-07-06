@@ -98,8 +98,6 @@ final class ConfigDAO extends LdapDataProvider
             SchemaConstants.CN_AT, GlobalIds.PROPS
     };
 
-    public static final String GID_SEQ = "ftGidSequence";
-    public static final String UID_SEQ = "ftUidSequence";
 
     /**
      * Package private default constructor.
@@ -113,8 +111,9 @@ final class ConfigDAO extends LdapDataProvider
 
 
     /**
-     * @param name
-     * @param props
+     * Create a new configuration node and load it with properties.
+     * @param name of the new configuration node to be created in ldap.
+     * @param props each name/value pair becomes an ftprop in this entry.
      * @return
      * @throws org.apache.directory.fortress.core.CreateException
      */
@@ -131,8 +130,6 @@ final class ConfigDAO extends LdapDataProvider
             ld = getAdminConnection();
             myEntry.add( SchemaConstants.CN_AT, name );
             loadProperties( props, myEntry, GlobalIds.PROPS );
-            //myEntry.add( GID_SEQ, "" + 0 );
-            //myEntry.add( UID_SEQ, "" + 0 );
             add( ld, myEntry );
         }
         catch ( LdapEntryAlreadyExistsException e )
@@ -157,8 +154,9 @@ final class ConfigDAO extends LdapDataProvider
 
 
     /**
-     * @param name
-     * @param props
+     * Update existing node with new properties.
+     * @param name contains existing config node name
+     * @param props each property name value will loaded into an attribute (ftprops) under the config node.
      * @return
      * @throws org.apache.directory.fortress.core.UpdateException
      */
@@ -173,7 +171,7 @@ final class ConfigDAO extends LdapDataProvider
             List<Modification> mods = new ArrayList<Modification>();
             if ( PropUtil.isNotEmpty( props ) )
             {
-                loadProperties( props, mods, GlobalIds.PROPS, true );
+                loadProperties( props, mods, GlobalIds.PROPS, false );
             }
             ld = getAdminConnection();
             if ( mods.size() > 0 )
@@ -184,7 +182,7 @@ final class ConfigDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "update dn [" + dn + "] caught LDAPException=" + e.getMessage();
+            String error = "update dn [" + dn + "] caught LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.FT_CONFIG_UPDATE_FAILED, error, e );
         }
         finally
@@ -232,7 +230,8 @@ final class ConfigDAO extends LdapDataProvider
 
 
     /**
-     * @param name
+     * Remove the configuration node from the directory.
+     * @param name of the node to be removed.
      * @throws org.apache.directory.fortress.core.RemoveException
      */
     void remove( String name )
@@ -259,8 +258,9 @@ final class ConfigDAO extends LdapDataProvider
 
 
     /**
-     * @param name
-     * @param props
+     * A set of properties from a configuration node.
+     * @param name the name of config node.
+     * @param props each name/value will be a ftprop attribute to remove.
      * @return
      * @throws org.apache.directory.fortress.core.UpdateException
      */

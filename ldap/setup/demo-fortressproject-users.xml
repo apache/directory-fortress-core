@@ -43,9 +43,9 @@
             </deluser>
 
             <adduser>
-                <user userId="user1" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test1" sn="user1"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" userProps="fortressdemo1:ROLE_TEST1,ROLE_TEST_SUPER" photo="p27.jpeg" />
-                <user userId="user2" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test2" sn="user2"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" userProps="fortressdemo1:ROLE_TEST2,ROLE_TEST_USER" photo="p20.jpeg"/>
-                <user userId="user3" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test3" sn="user3"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" userProps="fortressdemo1:ROLE_TEST3,ROLE_TEST_USER" photo="p28.jpeg"/>
+                <user userId="user1" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test1" sn="user1"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" userProps="fortressdemo1:ROLE_TEST1$ROLE_TEST_SUPER" photo="p27.jpeg" />
+                <user userId="user2" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test2" sn="user2"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" userProps="fortressdemo1:ROLE_TEST2$ROLE_TEST_USER" photo="p20.jpeg"/>
+                <user userId="user3" password="password" description="Wicket Fortress Project Demo User1" ou="WicketUsers" cn="test3" sn="user3"  pwPolicy="Test1" beginTime="0000" endTime="0000" beginDate="20090101" endDate="20990101" beginLockDate="none" endLockDate="none" dayMask="1234567" timeout="0" userProps="fortressdemo1:ROLE_TEST3$ROLE_TEST_USER" photo="p28.jpeg"/>
             </adduser>
 
             <deluserrole>
