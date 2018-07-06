@@ -500,9 +500,9 @@ public final class GlobalErrIds
     public static final int ACTV_FAILED_AUTHN = 2056;
 
     /**
-     * Entity activation failed dynamic constraint.
+     * Entity activation failed during dynamic discriminator test on Role.
      */
-    public static final int ACTV_DYNAMIC_RUNTIME = 2057;
+    public static final int ACTV_FAILED_DISCRIMINANT = 2057;
     /**
      * 3000's - Permission Entity
      */

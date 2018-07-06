@@ -31,55 +31,54 @@ import org.apache.directory.fortress.core.util.VUtil;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class Discrimant
+public class Discriminant
     implements Validator
 {
     /**
      * This method is called during entity activation, {@link org.apache.directory.fortress.core.util.VUtil#validateConstraints} and ensures role has a
      * matching constraint value.
      *
-     * @param session    required for {@link Validator} interface but not used here.
-     * @param constraint only the name is used on this validator.
-     * @param time       contains the current time stamp which is not needed here.
-     * @param type       here it is used as this validator should not be applied to a user.
-     * @return '0' if validation succeeds else {@link org.apache.directory.fortress.core.GlobalErrIds#ACTV_DYNAMIC_RUNTIME} if failed.
+     * @param session Contains the name and value of discriminator, passed by the caller, along with its corresponding values, stored on the user's properties.
+     * @param role only the name is used on this argument.
+     * @param time contains the current time stamp, and required by the interface, but not needed here.
+     * @param type used on this validator to prevent it from ever being applied to a user's constraint.
+     * @return '0' if validation succeeds else {@link org.apache.directory.fortress.core.GlobalErrIds#ACTV_FAILED_DISCRIMINANT} if failed.
      */
     @Override
-    public int validate(Session session, Constraint constraint, Time time, VUtil.ConstraintType type )
+    public int validate(Session session, Constraint role, Time time, VUtil.ConstraintType type )
     {
         int rc = 0;
 
         // Doesn't make sense to apply this constraint on a user:
         if ( type != VUtil.ConstraintType.USER )
         {
-            String constraintType = Config.getInstance().getProperty( constraint.getName() );
+            // This constraint type requires a global config parameter keyed by the role name:
+            String constraintType = Config.getInstance().getProperty( role.getName() );
             // Is there a runtime constraint placed on this role activation?
             if ( StringUtils.isNotEmpty( constraintType ))
             {
-                // Get the value for the constraint set by the caller:
-                String userProp = session.getUser().getProperty( constraint.getName() );
+                // Get the constraint value for this user set as property on the user entity keyed with the role's name:
+                String userProp = session.getUser().getProperty( role.getName() );
 
-                // Does the user object have a property that is associated with the runtime constraint set by the caller on this particular role?
+                // Does the user have one set?
                 if ( StringUtils.isNotEmpty( userProp ) )
                 {
-                    // The constraint is passed by caller in a property with keyName located in the constraintType for the role.
-                    //String constraintValue = user.getProperty( constraintType );
+                    // This value must be placed here by the caller:
                     String constraintValue = session.getUser().getProperty( constraintType );
 
-                    // Is the activated role's constraint valid per the constraint value passed in by the caller?  (Is the role allowed here)
+                    // Verify the role's corresponding property value matches the value passed in by the caller of this function.
                     if ( !userProp.equalsIgnoreCase( constraintValue ) )
                     {
-                        rc = GlobalErrIds.ACTV_DYNAMIC_RUNTIME;
+                        rc = GlobalErrIds.ACTV_FAILED_DISCRIMINANT;
                     }
                 }
                 else
                 {
-                    // No, there is no constraint value on a role that requires one.
-                    rc = GlobalErrIds.ACTV_DYNAMIC_RUNTIME;
+                    // This user does not have a corresponding property applied to a role that has a runtime constraint set.
+                    rc = GlobalErrIds.ACTV_FAILED_DISCRIMINANT;
                 }
             }
         }
         return rc;
     }
 }
-

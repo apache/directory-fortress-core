@@ -95,7 +95,7 @@
                 <config props="temporal.validator.2:org.apache.directory.fortress.core.util.time.Timeout"/>
                 <config props="temporal.validator.3:org.apache.directory.fortress.core.util.time.ClockTime"/>
                 <config props="temporal.validator.4:org.apache.directory.fortress.core.util.time.Day"/>
-                <config props="temporal.validator.5:org.apache.directory.fortress.core.util.time.Discrimant"/>
+                <config props="temporal.validator.5:org.apache.directory.fortress.core.util.time.Discriminant"/>
                 <config props="temporal.validator.dsd:org.apache.directory.fortress.core.impl.DSDChecker"/>
                 <config props="user.objectclass:inetOrgPerson"/>
                 <config props="group.objectclass:@GROUP_OBJECT_CLASS@"/>
@@ -165,7 +165,7 @@
                 <config props="temporal.validator.2:org.apache.directory.fortress.core.util.time.Timeout"/>
                 <config props="temporal.validator.3:org.apache.directory.fortress.core.util.time.ClockTime"/>
                 <config props="temporal.validator.4:org.apache.directory.fortress.core.util.time.Day"/>
-                <config props="temporal.validator.5:org.apache.directory.fortress.core.util.time.Discrimant"/>
+                <config props="temporal.validator.5:org.apache.directory.fortress.core.util.time.Discriminant"/>
                 <config props="temporal.validator.dsd:org.apache.directory.fortress.core.impl.DSDChecker"/>
                 <config props="accessmgr.implementation:org.apache.directory.fortress.core.impl.AccessMgrImpl"/>
                 <config props="auditmgr.implementation:org.apache.directory.fortress.core.impl.AuditMgrImpl"/>
