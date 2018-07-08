@@ -21,7 +21,7 @@
 # 0. About the fortress build.properties file
 ########################################################################
 
-# The file contains Apache Directory Server specific configs. 
+# The file contains Apache Directory Server specific configs.
 # Use this property file to specify environment settings specific to your environment and fortress runtime components.
 # These parameters are bound for the following locations by the Fortress during the init targets within the build.xml ant management utility:
 # a. fortress.properties - Fortress' configuration file tells fortress runtime how to connect to remote resources
@@ -112,10 +112,6 @@ admin.max.conn=10
 # User Pool:
 user.min.conn=1
 user.max.conn=10
-
-# Used for slapd logger connection pool.  Leave zeros when using apacheds:
-min.log.conn=1
-max.log.conn=3
 
 ########################################################################
 # 3. GROUP OBJECT CLASS DEFINITIONS
