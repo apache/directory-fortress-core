@@ -21,6 +21,7 @@
 # 0. About the fortress build.properties file
 ########################################################################
 
+# The file contains Apache Directory Server specific configs. 
 # Use this property file to specify environment settings specific to your environment and fortress runtime components.
 # These parameters are bound for the following locations by the Fortress during the init targets within the build.xml ant management utility:
 # a. fortress.properties - Fortress' configuration file tells fortress runtime how to connect to remote resources
@@ -48,7 +49,6 @@ tenant=HOME
 
 # This is default, tells fortress what type of ldap server in use:
 ldap.server.type=apacheds
-#ldap.server.type=openldap
 
 # These parameters point fortress to LDAP host:
 ldap.host=localhost
@@ -113,13 +113,6 @@ admin.max.conn=10
 user.min.conn=1
 user.max.conn=10
 
-# Only disable audit IF ldap.server.type=openldap AND the slapo access log overlay is NOT enabled.  This will save roundtrip w/ server for ldapcompare:
-#disable.audit=true
-
-# Used for searching openldap slapo access log:
-log.admin.user=cn=Manager,cn=log
-log.admin.pw=secret
-
 # Used for slapd logger connection pool.  Leave zeros when using apacheds:
 min.log.conn=1
 max.log.conn=3
@@ -164,4 +157,3 @@ group.properties=configParameter
 ########################################################################
 # Boolean value. If true, requires rfc2307bis schema because posixUser and posixGroup must be auxiliary object classes to work with ftRls which is structural..
 rfc2307=false
-
