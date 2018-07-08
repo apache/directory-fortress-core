@@ -504,7 +504,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-site-plugin</artifactId>
-          <version>3.6</version>
+          <!-- Don't place a version here, 'mvn site' won't work during release. -->
         </plugin>
 
         <!-- Fires on 'mvn -Dtest=ClassName' where ClassName is junit test class name -->
