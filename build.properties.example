@@ -102,7 +102,6 @@ userous.dn=ou=OS-U,ou=ARBAC,${suffix}
 permous.dn=ou=OS-P,ou=ARBAC,${suffix}
 adminroles.dn=ou=AdminRoles,ou=ARBAC,${suffix}
 adminperms.dn=ou=AdminPerms,ou=ARBAC,${suffix}
-audits.dn=cn=log
 groups.dn=ou=Groups,${suffix}
 
 # This specifies the number of default LDAP connections to maintain in the pool:

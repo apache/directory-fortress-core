@@ -54,7 +54,7 @@ suffix=dc=${suffix.name},dc=${suffix.dc}
 
 root.dn=cn=Manager,${suffix}
 # Used to load OpenLDAP admin root password in slapd.conf and was encrypted using 'slappasswd' command:
-root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
+#root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
 cfg.root.pw=secret
 
 ########################################################################
@@ -105,6 +105,37 @@ log.ops=logops bind writes compare
 #tls.cert.file=server-cert.pem
 #tls.key.file=server-key.pem
 
+########################################################################
+# 3. BEGIN HTTP CLIENT CONFIGURATION SECTION (Ignore if using LDAPv3):
+########################################################################
+
+# The following optional HTTP parameters are needed when Fortress core client-side communicates though fortress-rest HTTP proxy (rather than LDAP) server:
+# Thr nav URL to fortress-rest impl: uri = httpProtocol + "://" + httpHost + ":" + httpPort + "/" + "fortress-rest-" + version; + "/";:
+# version is set as system property, i.e. -Dversion=2.0.1
+# Setting the enable.mgr.impl.rest to 'true' sets Fortress instance to use HTTP services rather than LDAPv3 protocol. Default value is 'false':
+# Use interface over REST/HTTP?  Default is false (use LDAPv3)
+#enable.mgr.impl.rest=true
+
+# This user account is added automatically during deployment of fortress-rest via -Dload.file=./src/main/resources/FortressRestServerPolicy.xml:
+#http.user=demouser4
+#http.pw=password
+#http.host=localhost
+#http.port=8080
+#http.protocol=http
+# For TLs connections:
+#http.port=8443
+#http.protocol=https
+
+########################################################################
+# 4. RFC2307 OBJECT CLASS DEFINITIONS
+########################################################################
+# Boolean value. If true, requires rfc2307bis schema because posixUser and posixGroup must be auxiliary object classes to work with ftRls which is structural..
+rfc2307=false
+
+########################################################################
+# 5. BEGIN OPENLDAP SERVER INSTALLATION SETUP: (Ignore if not calling the 'init-slapd' target to automatically install Symas OpenLDAP packages:
+####################################################################################
+
 # OpenLDAP MDB Backend config is default setting for Fortress::
 db.type=mdb
 dflt.rdrs=maxreaders 64
@@ -135,10 +166,6 @@ dflt.dbnosynch=dbnosync
 log.checkpoint=checkpoint   64 5
 dflt.checkpoint=checkpoint    64 5
 
-###########################################################################################
-# 3. BEGIN SYMAS-OPENLDAP INSTALL CONFIGURATION SECTION:
-###########################################################################################
-
 # Each of the options are used for a particular Symas-OpenLDAP platform.Debian 64-bit Silver:
 
 #Debian 64-bit Silver:
@@ -159,7 +186,7 @@ slapd.start=${openldap.root}/etc/solserver start -f ${openldap.root}/etc/openlda
 #slapd.start=${openldap.root}/lib64/slapd -h ldap://${ldap.host}:${ldap.port} -f ${openldap.root}/etc/openldap/slapd.conf -F ${openldap.root}/etc/openldap
 
 ########################################################################
-# 4. RBAC ACCELERATOR OVERLAY PROPS
+# 6. RBAC ACCELERATOR OVERLAY PROPS
 ########################################################################
 
 rbac.accelerator=false
@@ -174,30 +201,3 @@ db.audit.dir=${db.root}/rbacaudit
 db.rbac.dir=${db.root}/rbacoverlay
 db.bak.audit.dir=${db.root}/backup/rbacaudit
 db.bak.sess.dir=${db.root}/backup/rbacsess
-
-########################################################################
-# 5. BEGIN HTTP CLIENT CONFIGURATION SECTION (Ignore if using LDAPv3):
-########################################################################
-
-# The following optional HTTP parameters are needed when Fortress core client-side communicates though fortress-rest HTTP proxy (rather than LDAP) server:
-# Thr nav URL to fortress-rest impl: uri = httpProtocol + "://" + httpHost + ":" + httpPort + "/" + "fortress-rest-" + version; + "/";:
-# version is set as system property, i.e. -Dversion=2.0.1
-# Setting the enable.mgr.impl.rest to 'true' sets Fortress instance to use HTTP services rather than LDAPv3 protocol. Default value is 'false':
-# Use interface over REST/HTTP?  Default is false (use LDAPv3)
-#enable.mgr.impl.rest=true
-
-# This user account is added automatically during deployment of fortress-rest via -Dload.file=./src/main/resources/FortressRestServerPolicy.xml:
-#http.user=demouser4
-#http.pw=password
-#http.host=localhost
-#http.port=8080
-#http.protocol=http
-# For TLs connections:
-#http.port=8443
-#http.protocol=https
-
-########################################################################
-# 6. RFC2307 OBJECT CLASS DEFINITIONS
-########################################################################
-# Boolean value. If true, requires rfc2307bis schema because posixUser and posixGroup must be auxiliary object classes to work with ftRls which is structural..
-rfc2307=false

@@ -110,10 +110,9 @@ This section describes the properties needed to control fortress core.
  trust.store.onclasspath=false
  trust.store=/fully/qualified/path/and/file/name/to/java/mytruststorename
  ```
-
+ 
  * Question: Should I access my truststore from classpath or as fully qualified?
- * Answer: It's usually best find on classpath, that way it can be bundled inside the impl's jar or war files.
- * Except, when using SSL in processes where JDBC also is using SSL. Due to limitations in how JDBC works, must specify as fully-qualified name.
+ * Answer: If using for REST/HTTPS or JDBC/SSL - yes, otherwise your option (classpath=true only works with LDAPS).
 
 7. To use REST instead of LDAP.  Points to fortress-rest instance.
 
