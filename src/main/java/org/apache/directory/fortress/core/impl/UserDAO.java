@@ -398,7 +398,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapException e )
         {
-            String error = "create userId [" + entity.getUserId() + "] caught LDAPException=" + e.getMessage();
+            String error = "create userId [" + entity.getUserId() + "] caught LDAPException=" + e;
             throw new CreateException( GlobalErrIds.USER_ADD_FAILED, error, e );
         }
         finally
@@ -544,7 +544,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapException e )
         {
-            String error = "update userId [" + entity.getUserId() + "] caught LDAPException=" + e.getMessage();
+            String error = "update userId [" + entity.getUserId() + "] caught LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.USER_UPDATE_FAILED, error, e );
         }
         finally
@@ -588,7 +588,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         catch ( LdapException e )
         {
             String error = "updateProps userId [" + entity.getUserId() + "] isReplace [" + replace + "] caught " +
-                "LDAPException=" + e.getMessage();
+                "LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.USER_UPDATE_FAILED, error, e );
         }
         finally
@@ -616,7 +616,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapException e )
         {
-            String error = "remove userId [" + user.getUserId() + "] caught LDAPException=" + e.getMessage();
+            String error = "remove userId [" + user.getUserId() + "] caught LDAPException=" + e;
             throw new RemoveException( GlobalErrIds.USER_DELETE_FAILED, error, e );
         }
         finally
@@ -647,7 +647,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapException e )
         {
-            String error = "lock user [" + user.getUserId() + "] caught LDAPException=" + e.getMessage();
+            String error = "lock user [" + user.getUserId() + "] caught LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.USER_PW_LOCK_FAILED, error, e );
         }
         finally
@@ -681,7 +681,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapException e )
         {
-            String error = "unlock user [" + user.getUserId() + "] caught LDAPException= " + e.getMessage();
+            String error = "unlock user [" + user.getUserId() + "] caught LDAPException= " + e;
             throw new UpdateException( GlobalErrIds.USER_PW_UNLOCK_FAILED, error, e );
         }
         finally
@@ -731,7 +731,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapException e )
         {
-            String error = "getUser [" + userDn + "]= caught LDAPException=" + e.getMessage();
+            String error = "getUser [" + userDn + "]= caught LDAPException=" + e;
             throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
         }
         finally
@@ -786,7 +786,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapException e )
         {
-            String error = "getUserAdminRoles [" + userDn + "]= caught LDAPException=" + e.getMessage();
+            String error = "getUserAdminRoles [" + userDn + "]= caught LDAPException=" + e;
             throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
         }
         finally
@@ -830,7 +830,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapException e )
         {
-            String error = "getRoles [" + userDn + "]= caught LDAPException=" + e.getMessage();
+            String error = "getRoles [" + userDn + "]= caught LDAPException=" + e;
             throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, error, e );
         }
         finally
@@ -895,7 +895,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapException e )
         {
-            String error = "checkPassword userId [" + user.getUserId() + "] caught LDAPException=" + e.getMessage();
+            String error = "checkPassword userId [" + user.getUserId() + "] caught LDAPException=" + e;
             throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
         }
         finally
@@ -1077,7 +1077,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapException e )
         {
-            String warning = "findUsers userRoot [" + userRoot + "] caught LDAPException=" + e.getMessage();
+            String warning = "findUsers userRoot [" + userRoot + "] caught LDAPException=" + e;
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
         catch ( CursorException e )
@@ -1130,7 +1130,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapException e )
         {
-            String warning = "findUsers caught LdapException=" + e.getMessage();
+            String warning = "findUsers caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
         catch ( CursorException e )
@@ -1466,7 +1466,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapException e )
         {
-            String warning = "getAssignedUsers caught LDAPException=" + e.getMessage();
+            String warning = "getAssignedUsers caught LDAPException=" + e;
             throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
         }
         catch ( CursorException e )
@@ -1627,7 +1627,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapException e )
         {
-            String warning = "findUsersList caught LDAPException=" + e.getMessage();
+            String warning = "findUsersList caught LDAPException=" + e;
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
         catch ( CursorException e )
@@ -1689,7 +1689,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapException e )
         {
-            String warning = "findUsers caught LDAPException=" + e.getMessage();
+            String warning = "findUsers caught LDAPException=" + e;
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
         catch ( CursorException e )
@@ -1745,7 +1745,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         {
             String warning = User.class.getName() + ".changePassword user [" + entity.getUserId() + "] ";
 
-            warning += " constraint violation, ldap rc=" + e.getMessage() + " Fortress rc=" + GlobalErrIds
+            warning += " constraint violation, ldap rc=" + e + " Fortress rc=" + GlobalErrIds
                 .PSWD_CONST_VIOLATION;
 
             throw new PasswordException( GlobalErrIds.PSWD_CONST_VIOLATION, warning );
@@ -1753,14 +1753,14 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         catch ( LdapNoPermissionException e )
         {
             String warning = User.class.getName() + ".changePassword user [" + entity.getUserId() + "] ";
-            warning += " user not authorized to change password, ldap rc=" + e.getMessage() + " Fortress rc=" +
+            warning += " user not authorized to change password, ldap rc=" + e + " Fortress rc=" +
                 GlobalErrIds.USER_PW_MOD_NOT_ALLOWED;
             throw new UpdateException( GlobalErrIds.USER_PW_MOD_NOT_ALLOWED, warning );
         }
         catch ( LdapException e )
         {
             String warning = User.class.getName() + ".changePassword user [" + entity.getUserId() + "] ";
-            warning += " caught LDAPException rc=" + e.getMessage();
+            warning += " caught LDAPException rc=" + e;
             throw new UpdateException( GlobalErrIds.USER_PW_CHANGE_FAILED, warning, e );
         }
         finally
@@ -1882,7 +1882,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         {
             String warning = "assign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] ";
 
-            warning += "caught LDAPException=" + e.getMessage();
+            warning += "caught LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.URLE_ASSIGN_FAILED, warning, e );
         }
         finally
@@ -1922,7 +1922,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         {
             String warning = "assign userId [" + uRole.getUserId() + "] role constraint [" + szRoleConstraint + "] ";
 
-            warning += "caught LDAPException=" + e.getMessage();
+            warning += "caught LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.URLE_ASSIGN_FAILED, warning, e );
         }
         finally
@@ -1958,7 +1958,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         {
             String warning = "deassign userId [" + uRole.getUserId() + "] role constraint [" + szRoleConstraint + "] ";
 
-            warning += "caught LDAPException=" + e.getMessage();
+            warning += "caught LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.URLE_ASSIGN_FAILED, warning, e );
         }
         finally
@@ -2025,7 +2025,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         catch ( LdapException e )
         {
             String warning = "deassign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] caught " +
-                "LDAPException=" + e.getMessage();
+                "LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.URLE_DEASSIGN_FAILED, warning, e );
         }
         finally
@@ -2070,7 +2070,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         catch ( LdapException e )
         {
             String warning = "assign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] caught " +
-                "LDAPException=" + e.getMessage();
+                "LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.ARLE_ASSIGN_FAILED, warning, e );
         }
         finally
@@ -2139,7 +2139,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         catch ( LdapException e )
         {
             String warning = "deassign userId [" + uRole.getUserId() + "] name [" + uRole.getName() + "] caught " +
-                "LDAPException=" + e.getMessage();
+                "LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.ARLE_DEASSIGN_FAILED, warning, e );
         }
         finally
@@ -2172,7 +2172,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapException e )
         {
-            String warning = "deletePwPolicy userId [" + user.getUserId() + "] caught LDAPException=" + e.getMessage() + " msg=" + e.getMessage();
+            String warning = "deletePwPolicy userId [" + user.getUserId() + "] caught LDAPException=" + e + " msg=" + e;
             throw new UpdateException( GlobalErrIds.USER_PW_PLCY_DEL_FAILED, warning, e );
         }
         finally
@@ -2290,7 +2290,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapException e )
         {
-            String error = "getUserRoles [" + userDn + "]= caught LDAPException=" + e.getMessage();
+            String error = "getUserRoles [" + userDn + "]= caught LDAPException=" + e;
             throw new FinderException( GlobalErrIds.USER_READ_FAILED, error, e );
         }
         finally

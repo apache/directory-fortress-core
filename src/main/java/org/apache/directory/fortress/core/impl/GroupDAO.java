@@ -128,7 +128,7 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
         }
         catch ( LdapException e )
         {
-            String error = "create group node dn [" + nodeDn + "] caught LDAPException=" + e.getMessage();
+            String error = "create group node dn [" + nodeDn + "] caught LDAPException=" + e;
             throw new CreateException( GlobalErrIds.GROUP_ADD_FAILED, error, e );
         }
         finally
@@ -179,7 +179,7 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
         }
         catch ( LdapException e )
         {
-            String error = "update group node dn [" + nodeDn + "] caught LDAPException=" + e.getMessage();
+            String error = "update group node dn [" + nodeDn + "] caught LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.GROUP_UPDATE_FAILED, error, e );
         }
         finally
@@ -206,7 +206,7 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
         }
         catch ( LdapException e )
         {
-            String error = "update group property node dn [" + nodeDn + "] caught LDAPException=" + e.getMessage();
+            String error = "update group property node dn [" + nodeDn + "] caught LDAPException=" + e;
             throw new CreateException( GlobalErrIds.GROUP_ADD_PROPERTY_FAILED, error, e );
         }
         finally
@@ -234,7 +234,7 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
         }
         catch ( LdapException e )
         {
-            String error = "delete group property node dn [" + nodeDn + "] caught LDAPException=" + e.getMessage();
+            String error = "delete group property node dn [" + nodeDn + "] caught LDAPException=" + e;
             throw new RemoveException( GlobalErrIds.GROUP_DELETE_PROPERTY_FAILED, error, e );
         }
         finally
@@ -264,7 +264,7 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
         }
         catch ( LdapException e )
         {
-            String error = "remove group node dn [" + nodeDn + "] caught LDAPException=" + e.getMessage();
+            String error = "remove group node dn [" + nodeDn + "] caught LDAPException=" + e;
             throw new RemoveException( GlobalErrIds.GROUP_DELETE_FAILED, error, e );
         }
         finally
@@ -298,7 +298,7 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
         catch ( LdapException e )
         {
             String error = "assign group name [" + entity.getName() + "] user dn [" + userDn + "] caught " +
-                "LDAPException=" + e.getMessage();
+                "LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.GROUP_USER_ASSIGN_FAILED, error, e );
         }
         finally
@@ -334,7 +334,7 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
         catch ( LdapException e )
         {
             String error = "deassign group name [" + entity.getName() + "] user dn [" + userDn + "] caught " +
-                "LDAPException=" + e.getMessage();
+                "LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.GROUP_USER_DEASSIGN_FAILED, error, e );
         }
         finally
@@ -376,7 +376,7 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
         }
         catch ( LdapException e )
         {
-            String error = "read dn [" + dn + "] LdapException=" + e.getMessage();
+            String error = "read dn [" + dn + "] LdapException=" + e;
             throw new FinderException( GlobalErrIds.GROUP_READ_FAILED, error, e );
         }
         finally
@@ -422,7 +422,7 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
         }
         catch ( LdapException e )
         {
-            String error = "find filter [" + filter + "] caught LDAPException=" + e.getMessage();
+            String error = "find filter [" + filter + "] caught LDAPException=" + e;
             throw new FinderException( GlobalErrIds.GROUP_SEARCH_FAILED, error, e );
         }
         finally
@@ -470,7 +470,7 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
         }
         catch ( LdapException e )
         {
-            String error = "find filter [" + filter + "] caught LDAPException=" + e.getMessage();
+            String error = "find filter [" + filter + "] caught LDAPException=" + e;
             throw new FinderException( GlobalErrIds.GROUP_SEARCH_FAILED, error, e );
         }
         finally
@@ -518,7 +518,7 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
         }
         catch ( LdapException e )
         {
-            String error = "find filter [" + filter + "] caught LDAPException=" + e.getMessage();
+            String error = "find filter [" + filter + "] caught LDAPException=" + e;
             throw new FinderException( GlobalErrIds.GROUP_SEARCH_FAILED, error, e );
         }
         finally

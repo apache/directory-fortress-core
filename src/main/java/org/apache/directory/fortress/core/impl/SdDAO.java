@@ -178,7 +178,7 @@ final class SdDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "create SD set name [" + entity.getName() + "] type [" + entity.getType()
-                + "] caught LdapException=" + e.getMessage();
+                + "] caught LdapException=" + e;
             int errCode;
             if ( entity.getType() == SDSet.SDType.DYNAMIC )
             {
@@ -236,7 +236,7 @@ final class SdDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "update name [" + entity.getName() + "] type [" + entity.getType()
-                + "] caught LdapException=" + e.getMessage();
+                + "] caught LdapException=" + e;
             int errCode;
             if ( entity.getType() == SDSet.SDType.DYNAMIC )
             {
@@ -275,7 +275,7 @@ final class SdDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "remove SD name=" + entity.getName() + " type [" + entity.getType() + "] LdapException="
-                + e.getMessage();
+                + e;
             int errCode;
             if ( entity.getType() == SDSet.SDType.DYNAMIC )
             {
@@ -384,7 +384,7 @@ final class SdDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "search sdset name [" + sdset.getName() + "] type [" + sdset.getType()
-                + "] caught LdapException=" + e.getMessage();
+                + "] caught LdapException=" + e;
             int errCode;
 
             if ( sdset.getType() == SDSet.SDType.DYNAMIC )
@@ -491,7 +491,7 @@ final class SdDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "search role [" + role.getName() + "] type [" + type + "] caught LdapException="
-                + e.getMessage();
+                + e;
             int errCode;
 
             if ( type == SDSet.SDType.DYNAMIC )
@@ -580,7 +580,7 @@ final class SdDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "search type [" + sdSet.getType() + "] caught LdapException=" + e.getMessage();
+            String error = "search type [" + sdSet.getType() + "] caught LdapException=" + e;
             int errCode;
 
             if ( sdSet.getType() == SDSet.SDType.DYNAMIC )

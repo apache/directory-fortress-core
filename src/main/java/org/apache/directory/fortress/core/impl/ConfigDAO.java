@@ -135,13 +135,13 @@ final class ConfigDAO extends LdapDataProvider
         catch ( LdapEntryAlreadyExistsException e )
         {
             String warning = "create config dn [" + dn + "] caught LdapEntryAlreadyExistsException="
-                + e.getMessage() + " msg=" + e.getMessage();
+                + e;
             throw new CreateException( GlobalErrIds.FT_CONFIG_ALREADY_EXISTS, warning, e );
         }
         catch ( LdapException e )
         {
             String error;
-            error = "create config dn [" + dn + "] caught LDAPException=" + e.getMessage();
+            error = "create config dn [" + dn + "] caught LDAPException=" + e;
             LOG.error( error, e );
             throw new CreateException( GlobalErrIds.FT_CONFIG_CREATE_FAILED, error, e );
         }
@@ -219,7 +219,7 @@ final class ConfigDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "updateProperty dn [" + dn + "] caught LDAPException=" + e.getMessage();
+            String error = "updateProperty dn [" + dn + "] caught LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.FT_CONFIG_UPDATE_FAILED, error, e );
         }
         finally
@@ -247,7 +247,7 @@ final class ConfigDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "remove dn [" + dn + "] LDAPException=" + e.getMessage();
+            String error = "remove dn [" + dn + "] LDAPException=" + e;
             throw new RemoveException( GlobalErrIds.FT_CONFIG_DELETE_FAILED, error, e );
         }
         finally
@@ -285,7 +285,7 @@ final class ConfigDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "remove props dn [" + dn + "] caught LDAPException=" + e.getMessage();
+            String error = "remove props dn [" + dn + "] caught LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.FT_CONFIG_DELETE_PROPS_FAILED, error, e );
         }
         finally
@@ -321,7 +321,7 @@ final class ConfigDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "getConfig dn [" + dn + "] caught LdapException=" + e.getMessage();
+            String error = "getConfig dn [" + dn + "] caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.FT_CONFIG_READ_FAILED, error, e );
         }
         finally

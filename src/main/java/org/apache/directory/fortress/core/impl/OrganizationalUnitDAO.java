@@ -153,7 +153,7 @@ final class OrganizationalUnitDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "remove container node dn [" + nodeDn + "] caught LDAPException="
-                + e.getMessage();
+                + e;
             throw new RemoveException( GlobalErrIds.CNTR_DELETE_FAILED, error, e );
         }
         finally

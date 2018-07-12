@@ -300,7 +300,7 @@ class PermDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "createObject perm obj [" + entity.getObjName() + "] caught LdapException="
-                + e.getMessage();
+                + e;
             throw new CreateException( GlobalErrIds.PERM_ADD_FAILED, error, e );
         }
         finally
@@ -361,7 +361,7 @@ class PermDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "updateObj objName [" + entity.getObjName() + "] caught LdapException="
-                + e.getMessage();
+                + e;
             throw new UpdateException( GlobalErrIds.PERM_UPDATE_FAILED, error, e );
         }
         finally
@@ -391,7 +391,7 @@ class PermDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "deleteObj objName [" + entity.getObjName() + "] caught LdapException="
-                + e.getMessage();
+                + e;
             throw new RemoveException( GlobalErrIds.PERM_DELETE_FAILED, error, e );
         }
         catch ( CursorException e )
@@ -478,7 +478,7 @@ class PermDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "createOperation objName [" + entity.getObjName() + "] opName ["
-                + entity.getOpName() + "] caught LdapException=" + e.getMessage();
+                + entity.getOpName() + "] caught LdapException=" + e;
             throw new CreateException( GlobalErrIds.PERM_ADD_FAILED, error, e );
         }
         finally
@@ -535,7 +535,7 @@ class PermDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "createPermissionAttributeSet name [" + entity.getName() + "] caught LdapException=" + e.getMessage();
+            String error = "createPermissionAttributeSet name [" + entity.getName() + "] caught LdapException=" + e;
             throw new CreateException( GlobalErrIds.PERM_ADD_FAILED, error, e );
         }
         finally
@@ -622,7 +622,7 @@ class PermDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "createPermissionAttribute name [" + entity.getAttributeName() + "] caught LdapException=" + e.getMessage();
+            String error = "createPermissionAttribute name [" + entity.getAttributeName() + "] caught LdapException=" + e;
             throw new CreateException( GlobalErrIds.PERM_ATTR_ADD_FAILED, error, e );
         }
         finally
@@ -695,7 +695,7 @@ class PermDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "updatePermissionAttribute name [" + entity.getAttributeName() + "] caught LdapException=" + e.getMessage();
+            String error = "updatePermissionAttribute name [" + entity.getAttributeName() + "] caught LdapException=" + e;
             throw new UpdateException( GlobalErrIds.PERM_ATTRIBUTE_UPDATE_FAILED, error, e );
         }
         finally
@@ -765,7 +765,7 @@ class PermDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "updateOperation objName [" + entity.getObjName() + "] opName ["
-                + entity.getOpName() + "] caught LdapException=" + e.getMessage();
+                + entity.getOpName() + "] caught LdapException=" + e;
             throw new UpdateException( GlobalErrIds.PERM_UPDATE_FAILED, error, e );
         }
         finally
@@ -796,7 +796,7 @@ class PermDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "deleteOperation objName [" + entity.getObjName() + "] opName ["
-                + entity.getOpName() + "] caught LdapException=" + e.getMessage();
+                + entity.getOpName() + "] caught LdapException=" + e;
             throw new RemoveException( GlobalErrIds.PERM_DELETE_FAILED, error, e );
         }
         catch ( CursorException e )
@@ -828,7 +828,7 @@ class PermDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "deleteAttributeSet name [" + entity.getName() + "]"
-            		+ " caught LdapException=" + e.getMessage();
+            		+ " caught LdapException=" + e;
             throw new RemoveException( GlobalErrIds.PERM_ATTRIBUTE_SET_DELETE_FAILED, error, e );
         }
         catch ( CursorException e )
@@ -860,7 +860,7 @@ class PermDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "deletePermission name [" + entity.getAttributeName() + "] set ["
-            		+ attributeSetName + "] caught LdapException=" + e.getMessage();
+            		+ attributeSetName + "] caught LdapException=" + e;
             throw new RemoveException( GlobalErrIds.PERM_ATTRIBUTE_DELETE_FAILED, error, e );
         }     
         finally
@@ -910,7 +910,7 @@ class PermDAO extends LdapDataProvider
         {
             String error = "grant perm object [" + pOp.getObjName() + "] operation ["
                 + pOp.getOpName() + "] name [" + role.getName() + "]  caught LdapException="
-                + e.getMessage();
+                + e;
             throw new UpdateException( GlobalErrIds.PERM_GRANT_FAILED, error, e );
         }
         finally
@@ -952,7 +952,7 @@ class PermDAO extends LdapDataProvider
         {
             String error = "revoke perm object [" + pOp.getObjName() + "] operation ["
                 + pOp.getOpName() + "] name [" + role.getName() + "] caught LdapException=" +
-                e.getMessage();
+                e;
             throw new UpdateException( GlobalErrIds.PERM_REVOKE_FAILED, error, e );
         }
         finally
@@ -1003,7 +1003,7 @@ class PermDAO extends LdapDataProvider
         {
             String error = "grant perm object [" + pOp.getObjName() + "] operation ["
                 + pOp.getOpName() + "] userId [" + user.getUserId() + "] caught LdapException="
-                + e.getMessage();
+                + e;
             throw new UpdateException( GlobalErrIds.PERM_GRANT_USER_FAILED, error, e );
         }
         finally
@@ -1046,7 +1046,7 @@ class PermDAO extends LdapDataProvider
         {
             String error = "revoke perm object [" + pOp.getObjName() + "] operation ["
                 + pOp.getOpName() + "] userId [" + user.getUserId() + "] caught LdapException="
-                + e.getMessage();
+                + e;
             throw new UpdateException( GlobalErrIds.PERM_REVOKE_FAILED, error, e );
         }
         finally
@@ -1088,7 +1088,7 @@ class PermDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "getUser [" + dn + "] caught LdapException=" + e.getMessage();
+            String error = "getUser [" + dn + "] caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.PERM_READ_OP_FAILED, error, e );
         }
         finally
@@ -1131,7 +1131,7 @@ class PermDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "getPerm Obj dn [" + dn + "] caught LdapException=" + e.getMessage();
+            String error = "getPerm Obj dn [" + dn + "] caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.PERM_READ_OBJ_FAILED, error, e );
         }
         finally
@@ -1170,7 +1170,7 @@ class PermDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "getPermAttributeSet dn [" + dn + "] caught LdapException=" + e.getMessage();
+            String error = "getPermAttributeSet dn [" + dn + "] caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, error, e );
         }
         finally
@@ -1211,7 +1211,7 @@ class PermDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "findPermissionAttributes caught LdapException=" + e.getMessage();
+            String error = "findPermissionAttributes caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )
@@ -1298,7 +1298,7 @@ class PermDAO extends LdapDataProvider
         catch ( LdapException e ) {
             if (!(e instanceof LdapNoSuchObjectException))
             {
-                String error = "checkPermission caught LdapException=" + e.getMessage();
+                String error = "checkPermission caught LdapException=" + e;
                 throw new FinderException(GlobalErrIds.PERM_READ_OP_FAILED, error, e);
             }
 
@@ -1347,7 +1347,7 @@ class PermDAO extends LdapDataProvider
             {
                 if ( !( e instanceof LdapNoSuchObjectException ) )
                 {
-                    String error = "addAuthZAudit caught LdapException=" + e.getMessage();
+                    String error = "addAuthZAudit caught LdapException=" + e;
                     throw new FinderException( GlobalErrIds.PERM_COMPARE_OP_FAILED, error, e );
                 }
             }
@@ -1551,7 +1551,7 @@ class PermDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "findPermissions caught LdapException=" + e.getMessage();
+            String error = "findPermissions caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )
@@ -1596,7 +1596,7 @@ class PermDAO extends LdapDataProvider
             }
             catch ( LdapException e )
             {
-                String error = "findPermissions caught LdapException=" + e.getMessage();
+                String error = "findPermissions caught LdapException=" + e;
                 throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
             }
             catch ( CursorException e )
@@ -1663,7 +1663,7 @@ class PermDAO extends LdapDataProvider
             }
             catch ( LdapException e )
             {
-                String error = "findAnyPermissions caught LdapException=" + e.getMessage();
+                String error = "findAnyPermissions caught LdapException=" + e;
                 throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
             }
             catch ( CursorException e )
@@ -1715,7 +1715,7 @@ class PermDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "findPermissions caught LdapException=" + e.getMessage();
+            String error = "findPermissions caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )
@@ -1777,7 +1777,7 @@ class PermDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "findPermissions caught LdapException=" + e.getMessage();
+            String error = "findPermissions caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.PERM_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )
@@ -1877,7 +1877,7 @@ class PermDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "findPermissions caught LdapException=" + e.getMessage();
+            String error = "findPermissions caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.PERM_ROLE_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )
@@ -1944,7 +1944,7 @@ class PermDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "findPermissions user [" + user.getUserId()
-                + "] caught LdapException in PermDAO.findPermissions=" + e.getMessage();
+                + "] caught LdapException in PermDAO.findPermissions=" + e;
             throw new FinderException( GlobalErrIds.PERM_USER_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )
@@ -1997,7 +1997,7 @@ class PermDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "findUserPermissions user [" + user.getUserId()
-                + "] caught LdapException in PermDAO.findPermissions=" + e.getMessage();
+                + "] caught LdapException in PermDAO.findPermissions=" + e;
             throw new FinderException( GlobalErrIds.PERM_USER_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )
@@ -2076,7 +2076,7 @@ class PermDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "findPermissions user [" + session.getUserId()
-                + "] caught LdapException in PermDAO.findPermissions=" + e.getMessage();
+                + "] caught LdapException in PermDAO.findPermissions=" + e;
             throw new FinderException( GlobalErrIds.PERM_SESS_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )

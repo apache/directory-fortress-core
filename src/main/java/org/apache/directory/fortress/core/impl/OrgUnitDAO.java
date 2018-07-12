@@ -591,7 +591,7 @@ final class OrgUnitDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "getAllDescendants filter [" + filter + "] caught LdapException="
-                + e.getMessage();
+                + e;
             throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )

@@ -191,7 +191,7 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
         }
         catch ( LdapException e )
         {
-            String error = "create role [" + entity.getName() + "] caught LdapException=" + e.getMessage();
+            String error = "create role [" + entity.getName() + "] caught LdapException=" + e;
             throw new CreateException( GlobalErrIds.ARLE_ADD_FAILED, error, e );
         }
         finally
@@ -267,7 +267,7 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
         }
         catch ( LdapException e )
         {
-            String error = "update name [" + entity.getName() + "] caught LdapException=" + e.getMessage();
+            String error = "update name [" + entity.getName() + "] caught LdapException=" + e;
             throw new UpdateException( GlobalErrIds.ARLE_UPDATE_FAILED, error, e );
         }
         finally
@@ -298,7 +298,7 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
         }
         catch ( LdapException e )
         {
-            String error = "deleteParent name [" + entity.getName() + "] caught LdapException=" + e.getMessage();
+            String error = "deleteParent name [" + entity.getName() + "] caught LdapException=" + e;
             throw new UpdateException( GlobalErrIds.ARLE_REMOVE_PARENT_FAILED, error, e );
         }
         finally
@@ -332,7 +332,7 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
         catch ( LdapException e )
         {
             String error = "assign role name [" + entity.getName() + "] user dn [" + userDn + "] caught LdapException="
-                + e.getMessage();
+                + e;
             throw new UpdateException( GlobalErrIds.ARLE_USER_ASSIGN_FAILED, error, e );
         }
         finally
@@ -369,7 +369,7 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
         catch ( LdapException e )
         {
             String error = "deassign role name [" + entity.getName() + "] user dn [" + userDn
-                + "] caught LdapException=" + e.getMessage();
+                + "] caught LdapException=" + e;
             throw new UpdateException( GlobalErrIds.ARLE_USER_DEASSIGN_FAILED, error, e );
         }
         finally
@@ -399,7 +399,7 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
         }
         catch ( LdapException e )
         {
-            String error = "remove role name=" + role.getName() + " LdapException=" + e.getMessage();
+            String error = "remove role name=" + role.getName() + " LdapException=" + e;
             throw new RemoveException( GlobalErrIds.ARLE_DELETE_FAILED, error, e );
         }
         finally
@@ -444,7 +444,7 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
         }
         catch ( LdapException e )
         {
-            String error = "getRole dn [" + dn + "] LEXCD=" + e.getMessage();
+            String error = "getRole dn [" + dn + "] LEXCD=" + e;
             throw new FinderException( GlobalErrIds.ARLE_READ_FAILED, error, e );
         }
         finally
@@ -486,7 +486,7 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
         }
         catch ( LdapException e )
         {
-            String error = "findRoles name [" + adminRole.getName() + "] caught LdapException=" + e.getMessage();
+            String error = "findRoles name [" + adminRole.getName() + "] caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )
@@ -535,7 +535,7 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
         }
         catch ( LdapException e )
         {
-            String error = "findRoles name [" + searchVal + "] caught LdapException=" + e.getMessage();
+            String error = "findRoles name [" + searchVal + "] caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )
@@ -578,7 +578,7 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
         }
         catch ( LdapException e )
         {
-            String error = "findAssignedRoles userDn [" + userDn + "] caught LdapException=" + e.getMessage();
+            String error = "findAssignedRoles userDn [" + userDn + "] caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.ARLE_OCCUPANT_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )
@@ -627,7 +627,7 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
         }
         catch ( LdapException e )
         {
-            String error = "getAllDescendants filter [" + filter + "] caught LdapException=" + e.getMessage();
+            String error = "getAllDescendants filter [" + filter + "] caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )

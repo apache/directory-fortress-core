@@ -266,7 +266,7 @@ public class LdapConnectionProvider
         }
         catch ( Exception e )
         {
-            throw new RuntimeException( e.getMessage(), e );
+            throw new RuntimeException( e );
         }
     }
 
@@ -284,7 +284,7 @@ public class LdapConnectionProvider
         }
         catch ( Exception e )
         {
-            throw new RuntimeException( e.getMessage(), e );
+            throw new RuntimeException( e );
         }
     }
 
@@ -302,7 +302,7 @@ public class LdapConnectionProvider
         }
         catch ( Exception e )
         {
-            throw new RuntimeException( e.getMessage(), e );
+            throw new RuntimeException( e );
         }
     }
 
@@ -321,7 +321,7 @@ public class LdapConnectionProvider
         }
         catch ( Exception e )
         {
-            throw new LdapException( e.getMessage(), e );
+            throw new LdapException( e );
         }
     }
 
@@ -340,7 +340,7 @@ public class LdapConnectionProvider
         }
         catch ( Exception e )
         {
-            throw new LdapException( e.getMessage(), e );
+            throw new LdapException( e );
         }
     }
 
@@ -359,7 +359,7 @@ public class LdapConnectionProvider
         }
         catch ( Exception e )
         {
-            throw new LdapException( e.getMessage(), e );
+            throw new LdapException( e );
         }
     }
 
@@ -375,7 +375,7 @@ public class LdapConnectionProvider
         }
         catch ( Exception e )
         {
-            LOG.warn( "Error closing admin pool: " + e.getMessage() );
+            LOG.warn( "Error closing admin pool: " + e );
         }
 
         try
@@ -385,7 +385,7 @@ public class LdapConnectionProvider
         }
         catch ( Exception e )
         {
-            LOG.warn( "Error closing user pool: " + e.getMessage() );
+            LOG.warn( "Error closing user pool: " + e );
         }
 
         try
@@ -395,7 +395,7 @@ public class LdapConnectionProvider
         }
         catch ( Exception e )
         {
-            LOG.warn( "Error closing log pool: " + e.getMessage() );
+            LOG.warn( "Error closing log pool: " + e );
         }
     }
 }

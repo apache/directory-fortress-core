@@ -260,7 +260,7 @@ final class PolicyDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "create name [" + entity.getName() + "] caught LdapException=" + e.getMessage();
+            String error = "create name [" + entity.getName() + "] caught LdapException=" + e;
             throw new CreateException( GlobalErrIds.PSWD_CREATE_FAILED, error, e );
         }
         finally
@@ -404,7 +404,7 @@ final class PolicyDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "update name [" + entity.getName() + "] caught LdapException=" + e.getMessage();
+            String error = "update name [" + entity.getName() + "] caught LdapException=" + e;
             throw new UpdateException( GlobalErrIds.PSWD_UPDATE_FAILED, error, e );
         }
         finally
@@ -430,7 +430,7 @@ final class PolicyDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "remove name [" + entity.getName() + "] caught LdapException=" + e.getMessage();
+            String error = "remove name [" + entity.getName() + "] caught LdapException=" + e;
             throw new RemoveException( GlobalErrIds.PSWD_DELETE_FAILED, error, e );
         }
         finally
@@ -466,7 +466,7 @@ final class PolicyDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "getPolicy name [" + policy.getName() + "] caught LdapException="
-                + e.getMessage();
+                + e;
             throw new FinderException( GlobalErrIds.PSWD_READ_FAILED, error, e );
         }
         finally
@@ -613,7 +613,7 @@ final class PolicyDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "findPolicy name [" + searchVal + "] caught LdapException=" + e.getMessage();
+            String error = "findPolicy name [" + searchVal + "] caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.PSWD_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )
@@ -656,7 +656,7 @@ final class PolicyDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "getPolicies caught LdapException=" + e.getMessage();
+            String error = "getPolicies caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.PSWD_SEARCH_FAILED, error, e );
         }
         catch ( CursorException e )

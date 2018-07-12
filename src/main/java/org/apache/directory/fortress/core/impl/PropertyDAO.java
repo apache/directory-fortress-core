@@ -64,7 +64,7 @@ final class PropertyDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "add entity properties[" + entity.getClass().getSimpleName() + "] caught LDAPException=" + e.getMessage();
+            String error = "add entity properties[" + entity.getClass().getSimpleName() + "] caught LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.USER_UPDATE_FAILED, error, e );
         }
         finally
@@ -132,7 +132,7 @@ final class PropertyDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "delete entity properties[" + entity.getClass().getSimpleName() + "] caught LDAPException=" + e.getMessage();
+            String error = "delete entity properties[" + entity.getClass().getSimpleName() + "] caught LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.USER_UPDATE_FAILED, error, e );
         }
         finally
@@ -172,7 +172,7 @@ final class PropertyDAO extends LdapDataProvider
         }
         catch ( LdapException e )
         {
-            String error = "get properties [" + entityDn + "]= caught LDAPException=" + e.getMessage();
+            String error = "get properties [" + entityDn + "]= caught LDAPException=" + e;
             throw new FinderException( GlobalErrIds.ENTITY_PROPS_LOAD_FAILED, error, e );
         }
         finally

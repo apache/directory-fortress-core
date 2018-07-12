@@ -97,7 +97,7 @@ final class SuffixDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "create container node dn [" + nodeDn + "] caught LDAPException="
-                + e.getMessage();
+                + e;
             throw new CreateException( GlobalErrIds.SUFX_CREATE_FAILED, error, e );
         }
         finally
@@ -138,7 +138,7 @@ final class SuffixDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "remove suffix node dn [" + nodeDn + "] caught LDAPException="
-                + e.getMessage();
+                + e;
             throw new RemoveException( GlobalErrIds.SUFX_DELETE_FAILED, error, e );
         }
         finally
