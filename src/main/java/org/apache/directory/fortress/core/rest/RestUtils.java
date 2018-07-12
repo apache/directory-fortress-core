@@ -136,7 +136,7 @@ public final class RestUtils
         LOG.info( "javax.net.ssl.trustStore: {}", trustStore );
         System.setProperty( "javax.net.ssl.trustStore", trustStore );
         System.setProperty( "javax.net.ssl.trustStorePassword", trustStorePw );
-        System.setProperty( "http.maxConnections", "50" );
+        //System.setProperty( "http.maxConnections", "50" );
     }
 
     private RestUtils(){
