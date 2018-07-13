@@ -119,7 +119,7 @@ public final class Config
     }
 
     /**
-     * Replaces property stored in the named configuration node and updates what's held in memory by commons config.
+     * Replaces property stored in the named configuration node.
      * Method is synchronized to prevent race condition where two threads access and update the same property value.
      *
      * @param name of the config node, mostly likely 'DEFAULT'.
@@ -129,11 +129,14 @@ public final class Config
      */
     public synchronized String replaceProperty( String name, String key, PropUpdater propUpdater ) throws CfgException
     {
-        String value = getProperty( key );
+        String value;
         try
         {
-            String newValue = propUpdater.newValue( value );
             ConfigMgr cfgMgr = ConfigMgrFactory.createInstance();
+            Properties props = cfgMgr.read( name );
+            // TODO: The key should be scoped to an instance, e.g. FORT104
+            value = props.getProperty( key );
+            String newValue = propUpdater.newValue( value );
             cfgMgr.updateProperty( name, key, value, newValue );
             setProperty( key, newValue );
         }

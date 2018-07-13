@@ -105,7 +105,6 @@ final class ConfigDAO extends LdapDataProvider
     ConfigDAO()
     {
     	super();
-    	
     	CONFIG_ROOT_DN = Config.getInstance().getProperty( GlobalIds.CONFIG_ROOT_PARAM );
     }
 
@@ -168,7 +167,7 @@ final class ConfigDAO extends LdapDataProvider
         LOG.info( "update dn [{}]", dn );
         try
         {
-            List<Modification> mods = new ArrayList<Modification>();
+            List<Modification> mods = new ArrayList<>();
             if ( PropUtil.isNotEmpty( props ) )
             {
                 loadProperties( props, mods, GlobalIds.PROPS, false );
@@ -207,8 +206,7 @@ final class ConfigDAO extends LdapDataProvider
     {
         LdapConnection ld = null;
         String dn = getDn( name );
-        LOG.debug
-            ( "update dn [{}], key [{}], value [{}], newValue [{}]", dn, key, value, newValue );
+        LOG.debug( "update dn [{}], key [{}], value [{}], newValue [{}]", dn, key, value, newValue );
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
@@ -272,7 +270,7 @@ final class ConfigDAO extends LdapDataProvider
         LOG.info( "remove props dn [{}]", dn );
         try
         {
-            List<Modification> mods = new ArrayList<Modification>();
+            List<Modification> mods = new ArrayList<>();
             if ( PropUtil.isNotEmpty( props ) )
             {
                 removeProperties( props, mods, GlobalIds.PROPS );
@@ -307,7 +305,7 @@ final class ConfigDAO extends LdapDataProvider
         Properties props = null;
         LdapConnection ld = null;
         String dn = getDn( name );
-        LOG.info( "getConfig dn [{}]", dn );
+        LOG.debug( "getConfig dn [{}]", dn );
         try
         {
             ld = getAdminConnection();
@@ -317,7 +315,7 @@ final class ConfigDAO extends LdapDataProvider
         catch ( LdapNoSuchObjectException e )
         {
             String warning = "getConfig COULD NOT FIND ENTRY for dn [" + dn + "]";
-            throw new FinderException( GlobalErrIds.USER_NOT_FOUND, warning, e );
+            throw new FinderException( GlobalErrIds.FT_CONFIG_NOT_FOUND, warning, e );
         }
         catch ( LdapException e )
         {
