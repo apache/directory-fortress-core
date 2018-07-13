@@ -69,8 +69,8 @@
 
             <addconfig>
                 <config props="config.realm:DEFAULT"/>
-                <config props="min.user.conn:@USR_MIN_CONN@"/>
-                <config props="max.user.conn:@USR_MAX_CONN@"/>
+                <!--config props="min.user.conn:@USR_MIN_CONN@"/-->
+                <!--config props="max.user.conn:@USR_MAX_CONN@"/-->
                 <config props="user.session.props.enabled:false"/>
                 <config props="authn.type:default"/>
                 <config props="clientside.sorting:true"/>
@@ -85,7 +85,7 @@
                 <config props="permou.root:@PERMOUS_DN@"/>
                 <config props="adminrole.root:@ADMINROLES_DN@"/>
                 <config props="adminperm.root:@ADMINPERMS_DN@"/>
-                <config props="example.root:ou=Examples,@SUFFIX@"/>
+                <!--config props="example.root:ou=Examples,@SUFFIX@"/-->
                 <!--config props="accessmgr.implementation:org.apache.directory.fortress.core.impl.AccessMgrImpl"/-->
                 <!--config props="auditmgr.implementation:org.apache.directory.fortress.audit.AuditMgrImpl"/-->
                 <config props="audit.root:@AUDITS_DN@"/>

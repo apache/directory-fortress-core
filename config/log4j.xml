@@ -38,17 +38,20 @@
         </layout>
     </appender>
 
-<!--
-    <category name="org.apache.directory.api" class="org.apache.log4j.Logger" additivity="false">
-        <priority value="DEBUG" class="org.apache.log4j.Level"/>
-        <appender-ref ref="file"/>
+    <category name="org.apache.directory.fortress.core" class="org.apache.log4j.Logger" additivity="false">
+        <priority value="INFO" class="org.apache.log4j.Level"/>
+        <appender-ref ref="console"/>
     </category>
--->
+
+    <!--category name="org.apache.directory.api" class="org.apache.log4j.Logger" additivity="false">
+        <priority value="DEBUG" class="org.apache.log4j.Level"/>
+        <appender-ref ref="console"/>
+    </category-->
 
     <root>
         <priority value="INFO" class="org.apache.log4j.Level"/>
         <appender-ref ref="console"/>
-        <appender-ref ref="file"/>
+        <!--<appender-ref ref="file"/>-->
     </root>
 
 </log4j:configuration>
