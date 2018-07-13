@@ -69,8 +69,8 @@
 
             <addconfig>
                 <config props="config.realm:DEFAULT"/>
-                <!--config props="min.user.conn:@USR_MIN_CONN@"/-->
-                <!--config props="max.user.conn:@USR_MAX_CONN@"/-->
+                config props="min.user.conn:@USR_MIN_CONN@"/
+                config props="max.user.conn:@USR_MAX_CONN@"/
                 <config props="user.session.props.enabled:false"/>
                 <config props="authn.type:default"/>
                 <config props="clientside.sorting:true"/>
