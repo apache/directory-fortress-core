@@ -39,7 +39,7 @@
                 <user userId="curly"
                       description="Test Location Constraint on User Role Assignments"
                       ou="foo"
-                      userProps="oamrole1:locale1$oamrole2:locale3$oamrole3:locale2" />
+                      userProps="oamrole1:locale1,abc,def,ghi$oamrole2:locale3,jkl,mno$oamrole3:locale2,pqr,stu" />
 
                 <user userId="moe"
                       description="Test Location Constraint on User Role Assignments"
