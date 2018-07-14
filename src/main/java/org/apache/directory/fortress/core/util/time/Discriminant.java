@@ -26,6 +26,11 @@ import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.StringTokenizer;
+import java.util.TreeSet;
+
 /**
  * This class performs dynamic constraint validation on role per FC-235
  *
@@ -59,15 +64,13 @@ public class Discriminant
             {
                 // Get the constraint value for this user set as property on the user entity keyed with the role's name:
                 String userProp = session.getUser().getProperty( role.getName() );
-
                 // Does the user have one set?
                 if ( StringUtils.isNotEmpty( userProp ) )
                 {
+                    Set<String> values = getValues( userProp );
                     // This value must be placed here by the caller:
                     String constraintValue = session.getUser().getProperty( constraintType );
-
-                    // Verify the role's corresponding property value matches the value passed in by the caller of this function.
-                    if ( !userProp.equalsIgnoreCase( constraintValue ) )
+                    if( StringUtils.isEmpty( constraintValue ) || !values.contains( constraintValue ) )
                     {
                         rc = GlobalErrIds.ACTV_FAILED_DISCRIMINANT;
                     }
@@ -81,4 +84,22 @@ public class Discriminant
         }
         return rc;
     }
+
+    public Set getValues( String members )
+    {
+        Set<String> values = new HashSet<>(  );
+        if ( members != null )
+        {
+            StringTokenizer tkn = new StringTokenizer( members, "," );
+            if ( tkn.countTokens() > 0 )
+            {
+                while ( tkn.hasMoreTokens() )
+                {
+                    values.add( tkn.nextToken() );
+                }
+            }
+        }
+        return values;
+    }
+
 }
