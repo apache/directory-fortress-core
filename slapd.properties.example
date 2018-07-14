@@ -57,10 +57,6 @@ root.dn=cn=Manager,${suffix}
 #root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
 cfg.root.pw=secret
 
-########################################################################
-# 2. BEGIN OPENLDAP SERVER CONFIGURATION SECTION: (Ignore if using HTTP or ApacheDS):
-####################################################################################
-
 # This specifies the number of default LDAP connections to maintain in the pool:
 admin.min.conn=1
 admin.max.conn=10
@@ -80,6 +76,11 @@ log.admin.pw=secret
 
 # Use if ldap.server.type=openldap.  (Default is false):
 disable.audit=false
+audits.dn=cn=log
+
+########################################################################
+# 2. BEGIN OPENLDAP SERVER CONFIGURATION SECTION: (Ignore if using HTTP or ApacheDS):
+####################################################################################
 
 # This OpenLDAP slapd logger password is bound for slapd.conf and was encrypted using 'slappasswd' command:
 log.root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
