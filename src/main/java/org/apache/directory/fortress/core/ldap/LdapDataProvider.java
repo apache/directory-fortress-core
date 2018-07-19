@@ -713,9 +713,9 @@ public abstract class LdapDataProvider
             Attribute attr = entry.get( attributeName );
             if ( attr != null )
             {
-                for ( Value<?> value : attr )
+                for ( Value value : attr )
                 {
-                    attrValues.add( value.getString() );
+                    attrValues.add( value.getValue() );
                 }
             }
             else
@@ -765,9 +765,9 @@ public abstract class LdapDataProvider
 
         if ( entry != null && entry.containsAttribute( attributeName ) )
         {
-            for ( Value<?> value : entry.get( attributeName ) )
+            for ( Value value : entry.get( attributeName ) )
             {
-                attrValues.add( value.getString() );
+                attrValues.add( value.getValue() );
             }
         }
 
@@ -828,7 +828,7 @@ public abstract class LdapDataProvider
     {
         try
         {
-            return new Dn( dn ).getRdn().getNormValue();
+            return new Dn( dn ).getRdn().getValue();
         }
         catch ( LdapInvalidDnException lide )
         {

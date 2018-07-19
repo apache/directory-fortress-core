@@ -25,6 +25,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.pool.PoolableObjectFactory;
 import org.apache.commons.pool.impl.GenericObjectPool;
+import org.apache.commons.pool2.PooledObjectFactory;
 import org.apache.directory.api.ldap.codec.api.LdapApiService;
 import org.apache.directory.api.ldap.codec.api.LdapApiServiceFactory;
 import org.apache.directory.api.ldap.codec.standalone.StandaloneLdapApiService;
@@ -176,7 +177,7 @@ public class LdapConnectionProvider
             listExOps.add( "org.openldap.accelerator.impl.dropRole.RbacDropRoleFactory" );
             listExOps.add( "org.openldap.accelerator.impl.deleteSession.RbacDeleteSessionFactory" );
             listExOps.add( "org.openldap.accelerator.impl.sessionRoles.RbacSessionRolesFactory" );
-            LdapApiService ldapApiService = new StandaloneLdapApiService( new ArrayList<String>(), listExOps );
+            LdapApiService ldapApiService = new StandaloneLdapApiService( null, new ArrayList<String>(), listExOps );
 
             if ( !LdapApiServiceFactory.isInitialized() )
             {
@@ -190,13 +191,13 @@ public class LdapConnectionProvider
             throw new CfgRuntimeException( GlobalErrIds.FT_APACHE_LDAP_POOL_INIT_FAILED, error, ex );
         }
 
-        PoolableObjectFactory<LdapConnection> poolFactory = new ValidatingPoolableLdapConnectionFactory( config );
+        PooledObjectFactory<LdapConnection> poolFactory = new ValidatingPoolableLdapConnectionFactory( config );
 
         // Create the Admin pool
         adminPool = new LdapConnectionPool( poolFactory );
         adminPool.setTestOnBorrow( true );
-        adminPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
-        adminPool.setMaxActive( max );
+        adminPool.setBlockWhenExhausted(false);
+        adminPool.setMaxTotal( max );
         adminPool.setMinIdle( min );
         adminPool.setMaxIdle( -1 );
         //adminPool.setMaxWait( 0 );
@@ -204,8 +205,8 @@ public class LdapConnectionProvider
         // Create the User pool
         userPool = new LdapConnectionPool( poolFactory );
         userPool.setTestOnBorrow( true );
-        userPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
-        userPool.setMaxActive( max );
+        userPool.setBlockWhenExhausted( false );
+        userPool.setMaxTotal( max );
         userPool.setMinIdle( min );
         userPool.setMaxIdle( -1 );
 
@@ -246,8 +247,8 @@ public class LdapConnectionProvider
             poolFactory = new ValidatingPoolableLdapConnectionFactory( logConfig );
             logPool = new LdapConnectionPool( poolFactory );
             logPool.setTestOnBorrow( true );
-            logPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
-            logPool.setMaxActive( logmax );
+            logPool.setBlockWhenExhausted( false );
+            logPool.setMaxTotal( logmax );
             logPool.setMinIdle( logmin );
         }
     }
