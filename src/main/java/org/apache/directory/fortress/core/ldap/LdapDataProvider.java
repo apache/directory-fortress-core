@@ -90,7 +90,7 @@ public abstract class LdapDataProvider
     private static final int MAX_DEPTH = 100;
     private static final LdapCounters COUNTERS = new LdapCounters();
     private static final PasswordPolicy PP_REQ_CTRL = new PasswordPolicyImpl();
-    
+
     /**
      * Given a contextId and a fortress param name return the LDAP dn.
      *
@@ -106,8 +106,8 @@ public abstract class LdapDataProvider
         if ( StringUtils.isNotEmpty( contextId ) && !contextId.equalsIgnoreCase( GlobalIds.NULL ) && !contextId
             .equals( GlobalIds.HOME ) )
         {
-          int idx = szDn.indexOf( Config.getInstance().getProperty( GlobalIds.SUFFIX ) );
-          if ( idx > 0 )
+            int idx = szDn.indexOf( Config.getInstance().getProperty( GlobalIds.SUFFIX ) );
+            if ( idx > 0 )
             {
                 // Found. The DN is ,ou=<contextId>,
                 StringBuilder dn = new StringBuilder();
@@ -713,9 +713,9 @@ public abstract class LdapDataProvider
             Attribute attr = entry.get( attributeName );
             if ( attr != null )
             {
-                for ( Value value : attr )
+                for ( Value<?> value : attr )
                 {
-                    attrValues.add( value.getValue() );
+                    attrValues.add( value.getString() );
                 }
             }
             else
@@ -765,9 +765,9 @@ public abstract class LdapDataProvider
 
         if ( entry != null && entry.containsAttribute( attributeName ) )
         {
-            for ( Value value : entry.get( attributeName ) )
+            for ( Value<?> value : entry.get( attributeName ) )
             {
-                attrValues.add( value.getValue() );
+                attrValues.add( value.getString() );
             }
         }
 
@@ -828,7 +828,7 @@ public abstract class LdapDataProvider
     {
         try
         {
-            return new Dn( dn ).getRdn().getValue();
+            return new Dn( dn ).getRdn().getNormValue();
         }
         catch ( LdapInvalidDnException lide )
         {
@@ -1109,14 +1109,14 @@ public abstract class LdapDataProvider
         if ( ( props != null ) && ( props.size() > 0 ) )
         {
             Attribute attr = null;
-            
+
             for ( Enumeration<?> e = props.propertyNames(); e.hasMoreElements(); )
             {
                 // This LDAP attr is stored as a name-value pair separated by a ':'.
                 String key = ( String ) e.nextElement();
                 String val = props.getProperty( key );
                 String prop = key + separator + val;
-                
+
                 if ( attr == null )
                 {
                     attr = new DefaultAttribute( attrName );
@@ -1126,7 +1126,7 @@ public abstract class LdapDataProvider
                     attr.add( prop );
                 }
             }
-            
+
             if ( attr != null )
             {
                 entry.add( attr );
@@ -1137,7 +1137,7 @@ public abstract class LdapDataProvider
 
     /**
      * Encode some text so that it can be used in a LDAP filter.
-     * 
+     *
      * @param value The value to encode
      * @param validLen The maximum accepted length of the value. 
      * @return String containing encoded data.
@@ -1232,9 +1232,9 @@ public abstract class LdapDataProvider
      *
      * @param connection handle to ldap connection object.
      */
-    protected void closeUserConnection( LdapConnection connection )    
+    protected void closeUserConnection( LdapConnection connection )
     {
-    	LdapConnectionProvider.getInstance().closeUserConnection(connection);
+        LdapConnectionProvider.getInstance().closeUserConnection(connection);
     }
 
 
@@ -1246,7 +1246,7 @@ public abstract class LdapDataProvider
      */
     public LdapConnection getAdminConnection() throws LdapException
     {
-    	return LdapConnectionProvider.getInstance().getAdminConnection();
+        return LdapConnectionProvider.getInstance().getAdminConnection();
     }
 
 
@@ -1258,7 +1258,7 @@ public abstract class LdapDataProvider
      */
     protected LdapConnection getLogConnection() throws LdapException
     {
-    	return LdapConnectionProvider.getInstance().getLogConnection();
+        return LdapConnectionProvider.getInstance().getLogConnection();
     }
 
 
@@ -1270,7 +1270,7 @@ public abstract class LdapDataProvider
      */
     protected LdapConnection getUserConnection() throws LdapException
     {
-    	return LdapConnectionProvider.getInstance().getUserConnection();
+        return LdapConnectionProvider.getInstance().getUserConnection();
     }
 
 
@@ -1285,7 +1285,7 @@ public abstract class LdapDataProvider
     }
 
 
-  
+
 
     /**
      * Perform encoding on supplied input string for certain unsafe ascii characters.  These chars may be unsafe
@@ -1334,7 +1334,7 @@ public abstract class LdapDataProvider
      * Closes all the ldap connection pools.
      */
     public static void closeAllConnectionPools(){
-    	LdapConnectionProvider.getInstance().closeAllConnectionPools();
+        LdapConnectionProvider.getInstance().closeAllConnectionPools();
     }
-    
+
 }
