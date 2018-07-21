@@ -110,7 +110,7 @@ This section describes the properties needed to control fortress core.
  trust.store.onclasspath=false
  trust.store=/fully/qualified/path/and/file/name/to/java/mytruststorename
  ```
- 
+
  * Question: Should I access my truststore from classpath or as fully qualified?
  * Answer: If using for REST/HTTPS or JDBC/SSL - yes, otherwise your option (classpath=true only works with LDAPS).
 
@@ -319,6 +319,7 @@ This section describes the properties needed to control fortress core.
  regXSafetext=^A-Za-z0-9- .
  crypto.prop=${crypto.prop}
  clientside.sorting=true
+ user.session.props.enabled
  ```
 
  ___________________________________________________________________________________
