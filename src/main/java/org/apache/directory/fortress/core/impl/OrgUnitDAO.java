@@ -719,6 +719,7 @@ final class OrgUnitDAO extends LdapDataProvider
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         String dn = le.getDn().getName();
 
+        // TODO: the dn.contains is case sensitive which needs to be fixed:
         if ( dn.contains( getRootDn( contextId, GlobalIds.PSU_ROOT ) ) )
         {
             entity.setType( OrgUnit.Type.PERM );

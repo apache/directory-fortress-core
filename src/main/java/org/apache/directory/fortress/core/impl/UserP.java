@@ -513,6 +513,7 @@ final class UserP
             }
         }
         // Did the caller pass in a set of dynamic constraints as properties?
+        // TODO: Guard with a property? i.e. user.session.props.enabled
         if ( user.getProps() != null )
         {
             session.getUser().addProperties( user.getProperties() );
