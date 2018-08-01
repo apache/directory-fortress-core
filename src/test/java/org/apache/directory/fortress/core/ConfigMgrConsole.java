@@ -96,7 +96,7 @@ class ConfigMgrConsole
             String value = ReaderUtil.readLn();
             Properties props = new Properties();
             props.setProperty(key, value);
-            cm.add(realm, props);
+            cm.update(realm, props);
             System.out.println("Property successfully updated");
             System.out.println("ENTER to continue");
         }
