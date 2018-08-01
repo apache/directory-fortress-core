@@ -113,7 +113,6 @@
        <property name="target.fortress.schema" value="${slapd.schema.dir}/fortress.schema"/>
        <property name="source.rbac.schema" value="${ldap.schema.dir}/rbac.schema"/>
        <property name="target.rbac.schema" value="${slapd.schema.dir}/rbac.schema"/>
-       <property name="db.cfg" value="${ldap.dir}/DB_CONFIG"/>
 
     </target>
 
@@ -442,8 +441,6 @@
         <echo message="###############  Create new slapd bdb folders  ###############"/>
         <mkdir dir="${db.dir}"/>
         <mkdir dir="${db.hist.dir}"/>
-        <copy todir="${db.dir}" file="${db.cfg}"/>
-        <copy todir="${db.hist.dir}" file="${db.cfg}"/>
 
         <echo message="###############  Backup slapd configuration and Fortress LDAP schema  ###############"/>
         <move file="${dst.slapd.conf}" tofile="${dst.slapd.conf}.bak.${TODAY}" failonerror="false" />
