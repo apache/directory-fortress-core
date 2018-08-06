@@ -458,7 +458,7 @@ public interface AdminMgr extends Manageable
      *   <li>{@link UserRole#userId} - contains the userId for existing User</li>
      *   <li>{@link RoleConstraint#type} - contains the type of role constraint (filter, other)</li>
      *   <li>{@link RoleConstraint#value} - contains the value of the role constraint which is currently not validated in any way</li>
-     *   <li>{@link RoleConstraint#paSetName} - contains the userId for existing User, contains the name of the permission attribute set this constraint is applicable for</li>
+     *   <li>{@link RoleConstraint#paSetName} - contains the name of the permission attribute set this constraint is applicable for</li>
      * </ul>
      * 
      * @param uRole must contain {@link UserRole#userId} and {@link UserRole#name}
@@ -477,7 +477,7 @@ public interface AdminMgr extends Manageable
      *   <li>{@link UserRole#userId} - contains the userId for existing User</li>
      *   <li>{@link RoleConstraint#type} - contains the type of role constraint (filter, other)</li>
      *   <li>{@link RoleConstraint#value} - contains the value of the role constraint which is currently not validated in any way</li>
-     *   <li>{@link RoleConstraint#paSetName} - contains the userId for existing User, contains the name of the permission attribute set this constraint is applicable for</li>
+     *   <li>{@link RoleConstraint#paSetName} - contains the name of the permission attribute set this constraint is applicable for</li>
      * </ul>
      * 
      * @param uRole must contain {@link UserRole#userId} and {@link UserRole#name}
