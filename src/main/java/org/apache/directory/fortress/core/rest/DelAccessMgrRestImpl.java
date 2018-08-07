@@ -352,7 +352,6 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
             throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
         return retRoleNames;
-        //throw new java.lang.UnsupportedOperationException();
     }
 
 
@@ -382,6 +381,5 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
             throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
         return retPerms;
-        //throw new java.lang.UnsupportedOperationException();
     }
 }
