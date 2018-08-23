@@ -1426,6 +1426,7 @@ public class FortressAntTask extends Task implements InputHandler
             {
                 try
                 {
+                    roleConstraint.setPaSetName( roleConstraint.getKey() );
                     adminMgr.addRoleConstraint( new UserRole( roleConstraint.getUserId(), roleConstraint.getRole() ), roleConstraint );
                     LOG.info( "addRoleConstraint successfully added: tenant={} type={} userid={} role={} key={} value={}", getTenant(), roleConstraint.getType(), roleConstraint.getUserId(), roleConstraint.getRole(), roleConstraint.getPaSetName(), roleConstraint.getValue() );
                 }
@@ -1457,6 +1458,7 @@ public class FortressAntTask extends Task implements InputHandler
             {
                 try
                 {
+                    roleConstraint.setPaSetName( roleConstraint.getKey() );
                     adminMgr.removeRoleConstraint( new UserRole( roleConstraint.getUserId(), roleConstraint.getRole()
                     ), roleConstraint );
                     LOG.info( "removeRoleConstraint success: tenant={} type={} userid={} role={} key={} value={}",

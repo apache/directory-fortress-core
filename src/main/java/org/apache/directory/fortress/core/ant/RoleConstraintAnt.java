@@ -35,6 +35,28 @@ public class RoleConstraintAnt extends RoleConstraint
     /** Default serialVersionUID */
     private static final long serialVersionUID = 1L;
     private String role;
+    private String key;
+
+    /**
+     * Maps to paSetName in RoleConstraint entity.
+     *
+     * @return
+     */
+    public String getKey()
+    {
+        return key;
+    }
+
+    /**
+     * Maps to paSetName in RoleConstraint entity.
+     *
+     * @param key
+     */
+    public void setKey(String key)
+    {
+        this.key = key;
+    }
+
 
     /**
      *

@@ -77,32 +77,32 @@
             </addrole>
 
             <addroleconstraint>
-                <roleconstraint userId="curly" role="Tellers" paSetName="locale" value="east" typeName="USER"/>
-                <roleconstraint userId="curly" role="Washers" paSetName="locale" value="north" typeName="USER"/>
-                <roleconstraint userId="curly" role="Washers" paSetName="locale" value="south" typeName="USER"/>
+                <roleconstraint userId="curly" role="Tellers" key="locale" value="east" typeName="USER"/>
+                <roleconstraint userId="curly" role="Washers" key="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="curly" role="Washers" key="locale" value="south" typeName="USER"/>
 
-                <roleconstraint userId="moe" role="Tellers" paSetName="locale" value="north" typeName="USER"/>
-                <roleconstraint userId="moe" role="Washers" paSetName="locale" value="east" typeName="USER"/>
-                <roleconstraint userId="moe" role="Washers" paSetName="locale" value="south" typeName="USER"/>
+                <roleconstraint userId="moe" role="Tellers" key="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="moe" role="Washers" key="locale" value="east" typeName="USER"/>
+                <roleconstraint userId="moe" role="Washers" key="locale" value="south" typeName="USER"/>
 
-                <roleconstraint userId="larry" role="Tellers" paSetName="locale" value="south" typeName="USER"/>
-                <roleconstraint userId="larry" role="Washers" paSetName="locale" value="north" typeName="USER"/>
-                <roleconstraint userId="larry" role="Washers" paSetName="locale" value="east" typeName="USER"/>
+                <roleconstraint userId="larry" role="Tellers" key="locale" value="south" typeName="USER"/>
+                <roleconstraint userId="larry" role="Washers" key="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="larry" role="Washers" key="locale" value="east" typeName="USER"/>
             </addroleconstraint>
 
 <!--
             <delroleconstraint>
-                <roleconstraint userId="curly" role="Tellers" paSetName="locale" value="east" typeName="USER"/>
-                <roleconstraint userId="curly" role="Washers" paSetName="locale" value="north" typeName="USER"/>
-                <roleconstraint userId="curly" role="Washers" paSetName="locale" value="south" typeName="USER"/>
+                <roleconstraint userId="curly" role="Tellers" key="locale" value="east" typeName="USER"/>
+                <roleconstraint userId="curly" role="Washers" key="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="curly" role="Washers" key="locale" value="south" typeName="USER"/>
 
-                <roleconstraint userId="moe" role="Tellers" paSetName="locale" value="north" typeName="USER"/>
-                <roleconstraint userId="moe" role="Washers" paSetName="locale" value="east" typeName="USER"/>
-                <roleconstraint userId="moe" role="Washers" paSetName="locale" value="south" typeName="USER"/>
+                <roleconstraint userId="moe" role="Tellers" key="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="moe" role="Washers" key="locale" value="east" typeName="USER"/>
+                <roleconstraint userId="moe" role="Washers" key="locale" value="south" typeName="USER"/>
 
-                <roleconstraint userId="larry" role="Tellers" paSetName="locale" value="south" typeName="USER"/>
-                <roleconstraint userId="larry" role="Washers" paSetName="locale" value="north" typeName="USER"/>
-                <roleconstraint userId="larry" role="Washers" paSetName="locale" value="east" typeName="USER"/>
+                <roleconstraint userId="larry" role="Tellers" key="locale" value="south" typeName="USER"/>
+                <roleconstraint userId="larry" role="Washers" key="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="larry" role="Washers" key="locale" value="east" typeName="USER"/>
             </delroleconstraint>
 -->
 
