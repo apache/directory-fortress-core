@@ -590,6 +590,12 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     }
 
 
+    @Override
+    public List<RoleConstraint> getConstraints()
+    {
+        return getRoleConstraints();
+    }
+
     /**
      * Get the names of roles that are parents (direct ascendants) of this role.
      *
@@ -688,9 +694,11 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     }
 
 
-	public List<RoleConstraint> getRoleConstraints() {
-		if(roleConstraints == null){
-			roleConstraints = new ArrayList<RoleConstraint>();
+	public List<RoleConstraint> getRoleConstraints()
+    {
+		if(roleConstraints == null)
+        {
+			roleConstraints = new ArrayList();
 		}
 		return roleConstraints;
 	}

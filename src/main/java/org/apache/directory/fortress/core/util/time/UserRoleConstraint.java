@@ -22,39 +22,33 @@ package org.apache.directory.fortress.core.util.time;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.model.Constraint;
+import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.StringTokenizer;
-import java.util.TreeSet;
-
 /**
- * This class performs dynamic constraint validation on role per FC-235
+ * This class performs dynamic constraint validation on role activation, per FC-235
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-@Deprecated
-public class Discriminant
+public class UserRoleConstraint
     implements Validator
 {
     /**
      * This method is called during entity activation, {@link org.apache.directory.fortress.core.util.VUtil#validateConstraints} and ensures role has a
      * matching constraint value.
      *
-     * @param session Contains the name and value of discriminator, passed by the caller, along with its corresponding values, stored on the user's properties.
-     * @param role only the name is used on this argument.
-     * @param time contains the current time stamp, and required by the interface, but not needed here.
+     * @param session Contains the name and value of discriminator, passed by the caller.  e.g. locale=north
+     * @param role contains the attribute constraint allowed for a given user's role.  e.g. role=tellers, locale=north.
+     * @param time contains the current time stamp, required by the interface, not used here.
      * @param type used on this validator to prevent it from ever being applied to a user's constraint.
-     * @return '0' if validation succeeds else {@link org.apache.directory.fortress.core.GlobalErrIds#ACTV_FAILED_DISCRIMINANT} if failed.
+     * @return '0' if validation succeeds else {@link org.apache.directory.fortress.core.GlobalErrIds#ACTV_FAILED_ABAC} if failed.
      */
     @Override
     public int validate(Session session, Constraint role, Time time, VUtil.ConstraintType type )
     {
         int rc = 0;
-
         // Doesn't make sense to apply this constraint on a user:
         if ( type != VUtil.ConstraintType.USER )
         {
@@ -63,44 +57,30 @@ public class Discriminant
             // Is there a runtime constraint placed on this role activation?
             if ( StringUtils.isNotEmpty( constraintType ))
             {
-                // Get the constraint value for this user set as property on the user entity keyed with the role's name:
-                String userProp = session.getUser().getProperty( role.getName() );
-                // Does the user have one set?
-                if ( StringUtils.isNotEmpty( userProp ) )
+                String constraintValue = session.getUser().getProperty( constraintType );
+                if( StringUtils.isEmpty( constraintValue ) || role.getConstraints().isEmpty() )
                 {
-                    Set<String> values = getValues( userProp );
-                    // This value must be placed here by the caller:
-                    String constraintValue = session.getUser().getProperty( constraintType );
-                    if( StringUtils.isEmpty( constraintValue ) || !values.contains( constraintValue ) )
-                    {
-                        rc = GlobalErrIds.ACTV_FAILED_DISCRIMINANT;
-                    }
+                    // This user does not have a corresponding property applied to a role that has a runtime constraint set -OR- Have no applicable role constraint.
+                    rc = GlobalErrIds.ACTV_FAILED_ABAC;
                 }
                 else
                 {
-                    // This user does not have a corresponding property applied to a role that has a runtime constraint set.
-                    rc = GlobalErrIds.ACTV_FAILED_DISCRIMINANT;
+                    boolean found = false;
+                    for ( RoleConstraint constraint : role.getConstraints() )
+                    {
+                        if( constraint.getType() == RoleConstraint.RCType.USER && constraint.getPaSetName().equalsIgnoreCase( constraintType ) && constraint.getValue().equalsIgnoreCase( constraintValue ) )
+                        {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if( !found)
+                    {
+                        rc = GlobalErrIds.ACTV_FAILED_ABAC;
+                    }
                 }
             }
         }
         return rc;
     }
-
-    public Set getValues( String members )
-    {
-        Set<String> values = new HashSet<>(  );
-        if ( members != null )
-        {
-            StringTokenizer tkn = new StringTokenizer( members, "," );
-            if ( tkn.countTokens() > 0 )
-            {
-                while ( tkn.hasMoreTokens() )
-                {
-                    values.add( tkn.nextToken() );
-                }
-            }
-        }
-        return values;
-    }
-
 }

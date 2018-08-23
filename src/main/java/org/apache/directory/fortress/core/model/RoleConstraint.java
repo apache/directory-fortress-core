@@ -61,13 +61,15 @@ public class RoleConstraint extends FortEntity implements Serializable
     public enum RCType
     {
         FILTER,
+        USER,
         OTHER
     }
 
     private String id;
     private RCType type;
     private String value;
-    private String paSetName;    
+    private String paSetName;
+    private String typeName;
 
     public RoleConstraint()
     {
@@ -128,19 +130,55 @@ public class RoleConstraint extends FortEntity implements Serializable
         StringBuilder sb = new StringBuilder();
         String delimeter = Config.getInstance().getDelimiter();
 
-        sb.append( uRole.getName() );
+        sb.append( uRole.getName().toLowerCase() );
         sb.append( delimeter );
         sb.append( RC_TYPE_NAME );
         sb.append( delimeter );
         sb.append( type );
         sb.append( delimeter );
+        //sb.append( paSetName.toLowerCase() );
         sb.append( paSetName );
         sb.append( delimeter );
+        //sb.append( value.toLowerCase() );
         sb.append( value );
         sb.append( delimeter );
-        sb.append( id );        
-
+        // ID's not needed for user roleconstraints and complicate deassignment so don't use:
+        if( getType() != RCType.USER)
+        {
+            sb.append( id );
+        }
         return sb.toString();
     }
-    
+
+    /**
+     * Return the type of OU in string format.
+     *
+     * @return String that represents static or dynamic relations.
+     */
+    public String getTypeName()
+    {
+        return typeName;
+    }
+
+    /**
+     * Method accepts a String variable that maps to its parent's set type.
+     *
+     * @param typeName String value represents perm or user ou data sets.
+     */
+    public void setTypeName( String typeName )
+    {
+        this.typeName = typeName;
+        if ( typeName != null && typeName.equalsIgnoreCase( "FILTER" ) )
+        {
+            setType( RCType.FILTER );
+        }
+        else if ( typeName != null && typeName.equalsIgnoreCase( "USER" ) )
+        {
+            setType( RCType.USER );
+        }
+        else
+        {
+            setType( RCType.OTHER );
+        }
+    }
 }

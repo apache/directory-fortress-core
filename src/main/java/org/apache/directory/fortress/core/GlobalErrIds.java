@@ -503,6 +503,11 @@ public final class GlobalErrIds
      * Entity activation failed during dynamic discriminator test on Role.
      */
     public static final int ACTV_FAILED_DISCRIMINANT = 2057;
+
+    /**
+     * Entity activation failed during dynamic discriminator test on Role.
+     */
+    public static final int ACTV_FAILED_ABAC = 2058;
     /**
      * 3000's - Permission Entity
      */

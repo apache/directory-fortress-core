@@ -306,6 +306,8 @@ public class FortressAntTask extends Task implements InputHandler
     private final List<Delgroupmember> delgroupmembers = new ArrayList<>();
     private final List<Addgroupproperty> addgroupproperties = new ArrayList<>();
     private final List<Delgroupproperty> delgroupproperties = new ArrayList<>();
+    private final List<Addroleconstraint> addroleconstraints = new ArrayList<>();
+    private final List<Delroleconstraint> delroleconstraints = new ArrayList<>();
 
     private ConfigMgr cfgMgr = null;
     private AdminMgr adminMgr = null;
@@ -877,6 +879,28 @@ public class FortressAntTask extends Task implements InputHandler
 
 
     /**
+     * Load the entity with data.
+     *
+     * @param addroleconstraint contains the ant initialized data entities to be handed off for further processing.
+     */
+    public void addAddroleconstraint( Addroleconstraint addroleconstraint )
+    {
+        this.addroleconstraints.add( addroleconstraint );
+    }
+
+
+    /**
+     * Load the entity with data.
+     *
+     * @param delroleconstraint contains the ant initialized data entities to be handed off for further processing.
+     */
+    public void addDelroleconstraint( Delroleconstraint delroleconstraint )
+    {
+        this.delroleconstraints.add( delroleconstraint );
+    }
+
+
+    /**
      * @param list
      * @return boolean
      */
@@ -898,6 +922,7 @@ public class FortressAntTask extends Task implements InputHandler
             setContext( addcontexts.get( 0 ).getContexts().get( 0 ) );
         }
 
+        delRoleConstraints();
         delUserRoles();
         delUserAdminRoles();
         deletePermGrants();
@@ -941,6 +966,7 @@ public class FortressAntTask extends Task implements InputHandler
         addPermGrants();
         addUserAdminRoles();
         addUserRoles();
+        addRoleConstraints();
 
         testResults();
 
@@ -1376,6 +1402,70 @@ public class FortressAntTask extends Task implements InputHandler
                 catch ( SecurityException se )
                 {
                     LOG.warn( "delUserRoles tenant={} userId={} roleName={} caught SecurityException={}", getTenant(), userRole.getUserId(), userRole.getName(), se );
+                }
+            }
+        }
+    }
+
+
+    /**
+     * @throws BuildException An error occurred while building
+     */
+    private void addRoleConstraints() throws BuildException
+    {
+        if( addroleconstraints == null )
+        {
+            return;
+        }
+
+        // Loop through the entityclass elements
+        for ( Addroleconstraint addroleconstraint : addroleconstraints )
+        {
+            List<RoleConstraintAnt> roleconstraints = addroleconstraint.getRoleConstraints();
+            for ( RoleConstraintAnt roleConstraint : roleconstraints )
+            {
+                try
+                {
+                    adminMgr.addRoleConstraint( new UserRole( roleConstraint.getUserId(), roleConstraint.getRole() ), roleConstraint );
+                    LOG.info( "addRoleConstraint successfully added: tenant={} type={} userid={} role={} key={} value={}", getTenant(), roleConstraint.getType(), roleConstraint.getUserId(), roleConstraint.getRole(), roleConstraint.getPaSetName(), roleConstraint.getValue() );
+                }
+                catch ( SecurityException se )
+                {
+                    LOG.warn( "addRoleConstraints tenant={} userId={} roleName={} caught SecurityException={}", getTenant(), roleConstraint.getUserId(), roleConstraint.getRole(), se );
+                }
+            }
+        }
+    }
+
+
+
+    /**
+     * @throws BuildException An error occurred while building
+     */
+    private void delRoleConstraints() throws BuildException
+    {
+        if( addroleconstraints == null )
+        {
+            return;
+        }
+
+        // Loop through the entityclass elements
+        for ( Delroleconstraint delroleconstraint : delroleconstraints )
+        {
+            List<RoleConstraintAnt> roleconstraints = delroleconstraint.getRoleConstraints();
+            for ( RoleConstraintAnt roleConstraint : roleconstraints )
+            {
+                try
+                {
+                    adminMgr.removeRoleConstraint( new UserRole( roleConstraint.getUserId(), roleConstraint.getRole()
+                    ), roleConstraint );
+                    LOG.info( "removeRoleConstraint success: tenant={} type={} userid={} role={} key={} value={}",
+                        getTenant(), roleConstraint.getType(), roleConstraint.getUserId(), roleConstraint.getRole(),
+                        roleConstraint.getPaSetName(), roleConstraint.getValue() );
+                }
+                catch ( SecurityException se )
+                {
+                    LOG.warn( "delRoleConstraints tenant={} userId={} roleName={} caught SecurityException={}", getTenant(), roleConstraint.getUserId(), roleConstraint.getRole(), se );
                 }
             }
         }

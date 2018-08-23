@@ -801,6 +801,12 @@ public final class VUtil implements ConstraintValidator
         public String getName() {
             return group.getName();
         }
+
+        @Override
+        public List getConstraints()
+        {
+            throw new java.lang.UnsupportedOperationException();
+        }
     }
 
     /**

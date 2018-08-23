@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+<project basedir="." default="all" name="Fortress Sample Data">
+
+    <!-- This script drives fortress core apis to load security policies for this application -->
+
+    <taskdef classname="org.apache.directory.fortress.core.ant.FortressAntTask" name="FortressAdmin">
+        <classpath path="${java.class.path}"/>
+    </taskdef>
+
+    <target name="all">
+        <FortressAdmin>
+
+            <!-- This config setting constrains role activation by locale on Teller and Washer -->
+            <updconfig>
+                <config props="config.realm:DEFAULT"/>
+                <config props="Tellers:locale"/>
+                <config props="Washers:locale"/>
+            </updconfig>
+
+            <adduser>
+                <!-- The userProps attribute is used to map user role activation to locale (branch) attribute. -->
+                <user userId="curly"
+                      password="password"
+                      description="Head Teller of the East, Coin Washer in North and South"
+                      cn="Curly Howrowitz"
+                      sn="Horowitz"
+                      ou="u1" />
+                <user userId="moe"
+                      password="password"
+                      description="Head Teller of the North, Coin Washer in East and South"
+                      cn="Moe Howard"
+                      sn="Howard"
+                      ou="u1" />
+                <user userId="larry"
+                      password="password"
+                      description="Head Teller of the South, Coin Washer in North and East"
+                      cn="Larry Fine"
+                      sn="Fine"
+                      ou="u1" />
+            </adduser>
+
+            <adduserrole>
+                <!-- Although each user is assigned both Teller and Washer, activation is limited by locale. -->
+                <userrole userId="curly" name="Bank_Users"/>
+                <userrole userId="curly" name="Tellers"/>
+                <userrole userId="curly" name="Washers"/>
+                <userrole userId="moe" name="Bank_Users"/>
+                <userrole userId="moe" name="Tellers"/>
+                <userrole userId="moe" name="Washers"/>
+                <userrole userId="larry" name="Bank_Users"/>
+                <userrole userId="larry" name="Tellers"/>
+                <userrole userId="larry" name="Washers"/>
+            </adduserrole>
+
+            <addrole>
+                <role name="Bank_Users" description="Basic rights to log into the web app"/>
+                <role name="Tellers" description="May transact on customer accounts"/>
+                <role name="Washers" description="May wash currency"/>
+            </addrole>
+
+            <addroleconstraint>
+                <roleconstraint userId="curly" role="Tellers" paSetName="locale" value="east" typeName="USER"/>
+                <roleconstraint userId="curly" role="Washers" paSetName="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="curly" role="Washers" paSetName="locale" value="south" typeName="USER"/>
+
+                <roleconstraint userId="moe" role="Tellers" paSetName="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="moe" role="Washers" paSetName="locale" value="east" typeName="USER"/>
+                <roleconstraint userId="moe" role="Washers" paSetName="locale" value="south" typeName="USER"/>
+
+                <roleconstraint userId="larry" role="Tellers" paSetName="locale" value="south" typeName="USER"/>
+                <roleconstraint userId="larry" role="Washers" paSetName="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="larry" role="Washers" paSetName="locale" value="east" typeName="USER"/>
+            </addroleconstraint>
+
+<!--
+            <delroleconstraint>
+                <roleconstraint userId="curly" role="Tellers" paSetName="locale" value="east" typeName="USER"/>
+                <roleconstraint userId="curly" role="Washers" paSetName="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="curly" role="Washers" paSetName="locale" value="south" typeName="USER"/>
+
+                <roleconstraint userId="moe" role="Tellers" paSetName="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="moe" role="Washers" paSetName="locale" value="east" typeName="USER"/>
+                <roleconstraint userId="moe" role="Washers" paSetName="locale" value="south" typeName="USER"/>
+
+                <roleconstraint userId="larry" role="Tellers" paSetName="locale" value="south" typeName="USER"/>
+                <roleconstraint userId="larry" role="Washers" paSetName="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="larry" role="Washers" paSetName="locale" value="east" typeName="USER"/>
+            </delroleconstraint>
+-->
+
+
+            <addsdset>
+                <sdset name="BankSafe" setmembers="Tellers,Washers" cardinality="2" setType="DYNAMIC" description="User may only activate one of these roles"/>
+            </addsdset>
+
+            <addpermobj>
+                <permobj objName="org.rbacabac.HomePage" description="Rbac Abac Sample Home Page" ou="p1" type="Page"/>
+                <permobj objName="TellersPage" description="Used by Tellers" ou="p1" />
+                <permobj objName="WashersPage" description="Used by Washers" ou="p1" />
+                <permobj objName="Branch" description="Corresponds with a particular branch" ou="p1" />
+                <permobj objName="Account" description="Corresponds with a customer account" ou="p1" />
+                <permobj objName="Currency" description="Corresponds to currency" ou="p1" />
+            </addpermobj>
+
+            <addpermop>
+                <permop objName="TellersPage" opName="link" />
+                <permop objName="WashersPage" opName="link" />
+                <permop objName="Account" opName="deposit" description="Deposit funds into an account"/>
+                <permop objName="Account" opName="withdrawal" description="Withdrawal funds from an account"/>
+                <permop objName="Account" opName="inquiry" description="Interrogate balance on an account"/>
+                <permop objName="Currency" opName="soak" description="Permission to soak currency"/>
+                <permop objName="Currency" opName="rinse" description="May rinse currency"/>
+                <permop objName="Currency" opName="dry" description="May dry currency"/>
+                <permop objName="Branch" opName="login" description="May dry currency"/>
+            </addpermop>
+
+            <addpermgrant>
+                <permgrant objName="WashersPage" opName="link" roleNm="Washers"/>
+                <permgrant objName="TellersPage" opName="link" roleNm="Tellers"/>
+                <permgrant objName="Account" opName="deposit" roleNm="Tellers"/>
+                <permgrant objName="Account" opName="withdrawal" roleNm="Tellers"/>
+                <permgrant objName="Account" opName="inquiry" roleNm="Tellers"/>
+                <permgrant objName="Currency" opName="soak" roleNm="Washers"/>
+                <permgrant objName="Currency" opName="rinse" roleNm="Washers"/>
+                <permgrant objName="Currency" opName="dry" roleNm="Washers"/>
+                <permgrant objName="Branch" opName="login" roleNm="Bank_Users"/>
+            </addpermgrant>
+
+            <addorgunit>
+                <orgunit name="u1" typeName="USER" description="Test User Org for RbacAbac Sample"/>
+                <orgunit name="p1" typeName="PERM" description="Test Perm Org for RbacAbac Sample"/>
+            </addorgunit>
+
+        </FortressAdmin>
+    </target>
+</project>

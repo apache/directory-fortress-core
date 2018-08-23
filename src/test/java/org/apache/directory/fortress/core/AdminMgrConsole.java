@@ -40,6 +40,7 @@ import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
@@ -119,7 +120,7 @@ class AdminMgrConsole
             System.out.println("Enter Role's description field");
             re.setDescription(ReaderUtil.readLn());
 
-            Role re2 = am.updateRole(re);
+            Role re2 = am.updateRole( re );
             System.out.println("name [" + re2.getName() + "]");
             System.out.println("internalId [" + re2.getId() + "]");
             System.out.println("name description [" + re2.getDescription() + "]");
@@ -129,6 +130,65 @@ class AdminMgrConsole
         catch (SecurityException e)
         {
             LOG.error("updateRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+        }
+        ReaderUtil.readChar();
+    }
+
+
+    void addRoleConstraint()
+    {
+        UserRole uRole = new UserRole();
+        RoleConstraint roleConstraint = new RoleConstraint();
+        try
+        {
+            ReaderUtil.clearScreen();
+            System.out.println("Enter userId:");
+            uRole.setUserId( ReaderUtil.readLn() );
+            System.out.println("Enter role name:");
+            uRole.setName( ReaderUtil.readLn() );
+            System.out.println("Enter constraint type:");
+            roleConstraint.setTypeName( ReaderUtil.readLn() );
+            System.out.println("Enter constraint key:");
+            roleConstraint.setPaSetName( ReaderUtil.readLn() );
+            System.out.println("Enter constraint value:");
+            roleConstraint.setValue( ReaderUtil.readLn() );
+            RoleConstraint re2 = am.addRoleConstraint( uRole, roleConstraint );
+            System.out.println("constraint name [" + re2.getPaSetName() + "]");
+            System.out.println("has been added");
+            System.out.println("ENTER to continue");
+        }
+        catch (SecurityException e)
+        {
+            LOG.error("addRoleConstraint caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+        }
+        ReaderUtil.readChar();
+    }
+
+
+    void removeRoleConstraint()
+    {
+        UserRole uRole = new UserRole();
+        RoleConstraint roleConstraint = new RoleConstraint();
+        try
+        {
+            ReaderUtil.clearScreen();
+            System.out.println("Enter userId:");
+            uRole.setUserId( ReaderUtil.readLn() );
+            System.out.println("Enter role name:");
+            uRole.setName( ReaderUtil.readLn() );
+            System.out.println("Enter constraint type:");
+            roleConstraint.setTypeName( ReaderUtil.readLn() );
+            System.out.println("Enter constraint key:");
+            roleConstraint.setPaSetName( ReaderUtil.readLn() );
+            System.out.println("Enter constraint value:");
+            roleConstraint.setValue( ReaderUtil.readLn() );
+            am.removeRoleConstraint( uRole, roleConstraint );
+            System.out.println("has been removed");
+            System.out.println("ENTER to continue");
+        }
+        catch (SecurityException e)
+        {
+            LOG.error("addRoleConstraint caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }

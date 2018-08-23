@@ -1224,6 +1224,12 @@ public class User extends FortEntity implements Constraint, Serializable
     }
 
 
+    @Override
+    public List<RoleConstraint> getConstraints()
+    {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
     /**
      * If set to true User's password has been reset by administrator.
      * This attribute will be ignored if set by external callers.

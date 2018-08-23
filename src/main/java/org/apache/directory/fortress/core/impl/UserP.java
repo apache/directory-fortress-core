@@ -793,19 +793,23 @@ final class UserP
      */
     private void validate( RoleConstraint rc, String contextId ) throws ValidationException
     {
-        if( StringUtils.isEmpty( rc.getPaSetName() ))
+        // TODO: This should be for only one type:
+        if( rc.getType() != RCType.USER)
         {
-        	throw new ValidationException( GlobalErrIds.PERM_ATTRIBUTE_SET_NM_NULL, CLS_NM + ".validate pa set name is NULL" );
-        }
-        try
-        {
-            PermP permP = new PermP();
-            permP.validatePaSet( rc.getPaSetName(), contextId );
-        }
-        catch( SecurityException e )
-        {
-            String error = "validate - paSetName not found with name [" + rc.getPaSetName() + "] caught SecurityException=" + e;
-            throw new ValidationException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, error );
+            if( StringUtils.isEmpty( rc.getPaSetName() ))
+            {
+                throw new ValidationException( GlobalErrIds.PERM_ATTRIBUTE_SET_NM_NULL, CLS_NM + ".validate pa set name is NULL" );
+            }
+            try
+            {
+                PermP permP = new PermP();
+                permP.validatePaSet( rc.getPaSetName(), contextId );
+            }
+            catch( SecurityException e )
+            {
+                String error = "validate - paSetName not found with name [" + rc.getPaSetName() + "] caught SecurityException=" + e;
+                throw new ValidationException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, error );
+            }
         }
         if ( rc.getType() == null )
         {

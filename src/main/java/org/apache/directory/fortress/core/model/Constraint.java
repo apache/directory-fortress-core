@@ -20,6 +20,8 @@
 package org.apache.directory.fortress.core.model;
 
 
+import java.util.List;
+
 /**
  * The Fortress Constraint interface prescribes attributes that are used to store, process and retrieve temporal validation attributes on
  * {@link org.apache.directory.fortress.core.model.User}, {@link org.apache.directory.fortress.core.model.UserRole}, {@link org.apache.directory.fortress.core.model.Role},
@@ -240,5 +242,11 @@ public interface Constraint
      */
     String getName();
 
+    /**
+     * Return a list of role constraints on entity.
+     *
+     * @return
+     */
+    List<RoleConstraint> getConstraints();
 
 }

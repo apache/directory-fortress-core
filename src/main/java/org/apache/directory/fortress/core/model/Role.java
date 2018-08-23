@@ -650,8 +650,14 @@ public class Role extends FortEntity implements Constraint, Graphable, java.io.S
     {
         this.timeout = timeout;
     }
-    
-    
+
+
+    @Override
+    public List<RoleConstraint> getConstraints()
+    {
+        throw new java.lang.UnsupportedOperationException();
+    }
+
     /**
      * Get the names of roles that are parents (direct ascendants) of this role.
      * @return Set of parent role names assigned to this role.

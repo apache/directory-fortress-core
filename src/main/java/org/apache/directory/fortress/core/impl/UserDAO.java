@@ -21,11 +21,11 @@ package org.apache.directory.fortress.core.impl;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
@@ -2653,7 +2653,8 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
      */
     private List<UserRole> unloadUserRoles( Entry entry, String userId, String contextId, String roleNameFilter )
     {
-    	Map<String, UserRole> uRoles = new HashMap<String, UserRole>();    	
+    	//Map<String, UserRole> uRoles = new HashMap<String, UserRole>();
+    	Map<String, UserRole> uRoles = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         List<String> roles = getAttributes( entry, GlobalIds.USER_ROLE_DATA );
 
         if ( roles != null )

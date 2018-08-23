@@ -23,6 +23,7 @@ package org.apache.directory.fortress.core.example;
 import org.apache.directory.fortress.core.model.Constraint;
 
 import java.rmi.server.UID;
+import java.util.List;
 
 
 public class Example
@@ -257,5 +258,11 @@ public class Example
     public void setTimeout( Integer timeout )
     {
         this.timeout = timeout;
+    }
+
+    @Override
+    public List getConstraints()
+    {
+        throw new java.lang.UnsupportedOperationException();
     }
 }

@@ -419,19 +419,21 @@ class ProcessMenuCommand
         System.out.println( "C.  Delete Role" );
         System.out.println( "D.  Assign User to Role" );
         System.out.println( "E.  Deassign User from Role" );
-        System.out.println( "F.  Grant Perm to Role" );
-        System.out.println( "G.  Revoke Perm from Role" );
-        System.out.println( "H.  Grant Perm to User" );
-        System.out.println( "I.  Revoke Perm from User" );
-        System.out.println( "J.  Add Role Inheritance" );
-        System.out.println( "K.  Remove Role Inheritance" );
-        System.out.println( "L.  Add Role Ascendant" );
-        System.out.println( "M.  Add Role Descendant" );
-        System.out.println( "N.  Add SSD Data Set" );
-        System.out.println( "O.  Add DSD Data Set" );
-        System.out.println( "X.  Test Annotation" );
-        System.out.println( "Y.  Add Example" );
-        System.out.println( "Z.  Test Config" );
+        System.out.println( "F.  Add User Role Constraint" );
+        System.out.println( "G.  Remove User Role Constraint" );
+        System.out.println( "H.  Grant Perm to Role" );
+        System.out.println( "I.  Revoke Perm from Role" );
+        System.out.println( "J.  Grant Perm to User" );
+        System.out.println( "K.  Revoke Perm from User" );
+        System.out.println( "L.  Add Role Inheritance" );
+        System.out.println( "M.  Remove Role Inheritance" );
+        System.out.println( "N.  Add Role Ascendant" );
+        System.out.println( "O.  Add Role Descendant" );
+        System.out.println( "P.  Add SSD Data Set" );
+        System.out.println( "R.  Add DSD Data Set" );
+        System.out.println( "S.  Test Annotation" );
+        System.out.println( "T.  Add Example" );
+        System.out.println( "U.  Test Config" );
         System.out.println( "Enter q or Q to return to previous menu" );
     }
 
@@ -508,54 +510,62 @@ class ProcessMenuCommand
                         break;
                     case 'f':
                     case 'F':
-                        adminConsole.grantPermission( true );
+                        adminConsole.addRoleConstraint();
                         break;
                     case 'g':
                     case 'G':
-                        adminConsole.revokePermission( true );
+                        adminConsole.removeRoleConstraint();
                         break;
                     case 'h':
                     case 'H':
-                        adminConsole.grantPermission( false );
+                        adminConsole.grantPermission( true );
                         break;
                     case 'i':
                     case 'I':
-                        adminConsole.revokePermission( false );
+                        adminConsole.revokePermission( true );
                         break;
                     case 'j':
                     case 'J':
-                        adminConsole.addRoleInheritance();
+                        adminConsole.grantPermission( false );
                         break;
                     case 'k':
                     case 'K':
-                        adminConsole.removeRoleInheritance();
+                        adminConsole.revokePermission( false );
                         break;
                     case 'l':
                     case 'L':
-                        adminConsole.addRoleAscendant();
+                        adminConsole.addRoleInheritance();
                         break;
                     case 'm':
                     case 'M':
-                        adminConsole.addRoleDescendant();
+                        adminConsole.removeRoleInheritance();
                         break;
                     case 'n':
                     case 'N':
-                        adminConsole.addSsd();
+                        adminConsole.addRoleAscendant();
                         break;
                     case 'o':
                     case 'O':
+                        adminConsole.addRoleDescendant();
+                        break;
+                    case 'p':
+                    case 'P':
+                        adminConsole.addSsd();
+                        break;
+                    case 'r':
+                    case 'R':
                         adminConsole.addDsd();
                         break;
-                    case 'x':
-                    case 'X':
+                    case 's':
+                    case 'S':
                         adminConsole.addAnnotation();
                         break;
-                    case 'y':
-                    case 'Y':
+                    case 't':
+                    case 'T':
                         adminConsole.addExample();
                         break;
-                    case 'z':
-                    case 'Z':
+                    case 'u':
+                    case 'U':
                         adminConsole.testConfig();
                         break;
                     case 'q':
