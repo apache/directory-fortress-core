@@ -531,13 +531,18 @@ final class UserP
      * It saves a step or two for the user, who can simply pass constraint using value object, rather than properties.
      *
      * @param user same as before
-     * @param constraint @RoleConstraint#paSetName is the key, @RoleConstraint#value, is the value.
+     * @param constraint contains attributes {@link RoleConstraint#key}, {@link RoleConstraint#value}, bound for role activation checks.
      * @param trusted same as always, true if no pw
      * @return session with activated roles, etc.
      * @throws SecurityException
      */
     Session createSession( User user, RoleConstraint constraint, boolean trusted ) throws SecurityException
     {
+        // Validate the constraint key/value fields are set:
+        VUtil.assertNotNullOrEmpty( constraint.getKey(), GlobalErrIds.ROLE_CONSTRAINT_KEY_NULL, CLS_NM + "" +
+            ".createSession" );
+        VUtil.assertNotNullOrEmpty( constraint.getValue(), GlobalErrIds.ROLE_CONSTRAINT_VALUE_NULL, CLS_NM + ".createSession" );
+        // Load the constraint key/value into a property bag, pass into runtime context via user entity.
         Properties props = new Properties(  );
         props.setProperty( constraint.getKey(), constraint.getValue() );
         user.addProperties( props );

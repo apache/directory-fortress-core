@@ -1094,6 +1094,10 @@ public final class GlobalErrIds
      * The validation for Role Constraint entity reference not set.
      */
     public static final int ROLE_CONSTRAINT_NULL = 5102;
+    /**
+     * The validation for Role Constraint key is required.
+     */
+    public static final int ROLE_CONSTRAINT_KEY_NULL = 5103;
 
     
     /**
