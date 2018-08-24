@@ -539,8 +539,7 @@ final class UserP
     Session createSession( User user, RoleConstraint constraint, boolean trusted ) throws SecurityException
     {
         // Validate the constraint key/value fields are set:
-        VUtil.assertNotNullOrEmpty( constraint.getKey(), GlobalErrIds.ROLE_CONSTRAINT_KEY_NULL, CLS_NM + "" +
-            ".createSession" );
+        VUtil.assertNotNullOrEmpty( constraint.getKey(), GlobalErrIds.ROLE_CONSTRAINT_KEY_NULL, CLS_NM + ".createSession" );
         VUtil.assertNotNullOrEmpty( constraint.getValue(), GlobalErrIds.ROLE_CONSTRAINT_VALUE_NULL, CLS_NM + ".createSession" );
         // Load the constraint key/value into a property bag, pass into runtime context via user entity.
         Properties props = new Properties(  );
