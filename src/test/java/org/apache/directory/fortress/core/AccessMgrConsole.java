@@ -23,7 +23,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Properties;
+
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.Session;
@@ -223,7 +223,7 @@ class AccessMgrConsole
         {
             constraint = new RoleConstraint();
             System.out.println("Enter constraint type):");
-            constraint.setPaSetName( ReaderUtil.readLn() );
+            constraint.setKey( ReaderUtil.readLn() );
             System.out.println( "Enter constraint value):" );
             constraint.setValue( ReaderUtil.readLn() );
         }

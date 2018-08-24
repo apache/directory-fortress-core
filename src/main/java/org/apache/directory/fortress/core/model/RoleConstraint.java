@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType( XmlAccessType.FIELD )
 @XmlType( name = "roleConstraint", propOrder = {
     "id",
-    "paSetName",
+    "key",
     "value",
     "type",
     "typeName"
@@ -69,7 +69,7 @@ public class RoleConstraint extends FortEntity implements Serializable
     private String id;
     private RCType type;
     private String value;
-    private String paSetName;
+    private String key;
     private String typeName;
 
     public RoleConstraint()
@@ -82,7 +82,7 @@ public class RoleConstraint extends FortEntity implements Serializable
         this.id = id;
         this.type = type;
         this.value = value;
-        this.paSetName = paSetName;
+        this.key = paSetName;
     }
 
     public String getId()
@@ -116,14 +116,14 @@ public class RoleConstraint extends FortEntity implements Serializable
         this.value = value;
     }
 
-    public String getPaSetName()
+    public String getKey()
     {
-        return paSetName;
+        return key;
     }
 
-    public void setPaSetName(String paSetName)
+    public void setKey(String key)
     {
-        this.paSetName = paSetName;
+        this.key = key;
     }
 
     public String getRawData(UserRole uRole)
@@ -137,10 +137,8 @@ public class RoleConstraint extends FortEntity implements Serializable
         sb.append( delimeter );
         sb.append( type );
         sb.append( delimeter );
-        //sb.append( paSetName.toLowerCase() );
-        sb.append( paSetName );
+        sb.append( key );
         sb.append( delimeter );
-        //sb.append( value.toLowerCase() );
         sb.append( value );
         sb.append( delimeter );
         // ID's not needed for user roleconstraints and complicate deassignment so don't use:

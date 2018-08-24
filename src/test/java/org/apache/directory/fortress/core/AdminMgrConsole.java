@@ -149,11 +149,11 @@ class AdminMgrConsole
             System.out.println("Enter constraint type:");
             roleConstraint.setTypeName( ReaderUtil.readLn() );
             System.out.println("Enter constraint key:");
-            roleConstraint.setPaSetName( ReaderUtil.readLn() );
+            roleConstraint.setKey( ReaderUtil.readLn() );
             System.out.println("Enter constraint value:");
             roleConstraint.setValue( ReaderUtil.readLn() );
             RoleConstraint re2 = am.addRoleConstraint( uRole, roleConstraint );
-            System.out.println("constraint name [" + re2.getPaSetName() + "]");
+            System.out.println("constraint name [" + re2.getKey() + "]");
             System.out.println("has been added");
             System.out.println("ENTER to continue");
         }
@@ -179,7 +179,7 @@ class AdminMgrConsole
             System.out.println("Enter constraint type:");
             roleConstraint.setTypeName( ReaderUtil.readLn() );
             System.out.println("Enter constraint key:");
-            roleConstraint.setPaSetName( ReaderUtil.readLn() );
+            roleConstraint.setKey( ReaderUtil.readLn() );
             System.out.println("Enter constraint value:");
             roleConstraint.setValue( ReaderUtil.readLn() );
             am.removeRoleConstraint( uRole, roleConstraint );

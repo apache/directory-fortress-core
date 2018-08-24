@@ -68,7 +68,7 @@ public class UserRoleConstraint
                     boolean found = false;
                     for ( RoleConstraint constraint : role.getConstraints() )
                     {
-                        if( constraint.getType() == RoleConstraint.RCType.USER && constraint.getPaSetName().equalsIgnoreCase( constraintType ) && constraint.getValue().equalsIgnoreCase( constraintValue ) )
+                        if( constraint.getType() == RoleConstraint.RCType.USER && constraint.getKey().equalsIgnoreCase( constraintType ) && constraint.getValue().equalsIgnoreCase( constraintValue ) )
                         {
                             found = true;
                             break;

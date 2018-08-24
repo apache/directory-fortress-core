@@ -20,7 +20,6 @@
 package org.apache.directory.fortress.core.rest;
 
 import java.util.List;
-import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -142,7 +141,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
         throws SecurityException
     {
         VUtil.assertNotNull( constraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + ".createSession" );
-        user.addProperty( constraint.getPaSetName(), constraint.getValue() );
+        user.addProperty( constraint.getKey(), constraint.getValue() );
         return createSession( user, isTrusted );
     }
 

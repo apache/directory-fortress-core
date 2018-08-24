@@ -539,7 +539,7 @@ final class UserP
     Session createSession( User user, RoleConstraint constraint, boolean trusted ) throws SecurityException
     {
         Properties props = new Properties(  );
-        props.setProperty( constraint.getPaSetName(), constraint.getValue() );
+        props.setProperty( constraint.getKey(), constraint.getValue() );
         user.addProperties( props );
         return createSession( user, trusted );
     }
@@ -816,18 +816,18 @@ final class UserP
         // TODO: This should be for only one type:
         if( rc.getType() != RCType.USER)
         {
-            if( StringUtils.isEmpty( rc.getPaSetName() ))
+            if( StringUtils.isEmpty( rc.getKey() ))
             {
                 throw new ValidationException( GlobalErrIds.PERM_ATTRIBUTE_SET_NM_NULL, CLS_NM + ".validate pa set name is NULL" );
             }
             try
             {
                 PermP permP = new PermP();
-                permP.validatePaSet( rc.getPaSetName(), contextId );
+                permP.validatePaSet( rc.getKey(), contextId );
             }
             catch( SecurityException e )
             {
-                String error = "validate - paSetName not found with name [" + rc.getPaSetName() + "] caught SecurityException=" + e;
+                String error = "validate - paSetName not found with name [" + rc.getKey() + "] caught SecurityException=" + e;
                 throw new ValidationException( GlobalErrIds.PERM_ATTRIBUTE_SET_NOT_FOUND, error );
             }
         }
@@ -1008,7 +1008,7 @@ final class UserP
         	//only get constraints for passed in roles
         	if(roles.contains(ur.getName())){
         		for(RoleConstraint rc : ur.getRoleConstraints()){
-        			if(rc.getType().equals(rcType) && paSets.contains(rc.getPaSetName())){
+        			if(rc.getType().equals(rcType) && paSets.contains(rc.getKey())){
         				matchingConstraints.add(rc);
         			}
         		}
