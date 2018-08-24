@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.rest;
 
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -107,7 +108,7 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
     public Session createSession(User user, boolean isTrusted)
         throws SecurityException
     {
-        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".createSession");
+        VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".createSession" );
         Session retSession;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity(user);
@@ -131,6 +132,18 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
             throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
         return retSession;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Session createSession(User user, RoleConstraint constraint, boolean isTrusted)
+        throws SecurityException
+    {
+        VUtil.assertNotNull( constraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + ".createSession" );
+        user.addProperty( constraint.getPaSetName(), constraint.getValue() );
+        return createSession( user, isTrusted );
     }
 
     @Override

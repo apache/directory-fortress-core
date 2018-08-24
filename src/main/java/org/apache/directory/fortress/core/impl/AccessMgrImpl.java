@@ -103,7 +103,6 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
         return ftSess;
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -113,8 +112,20 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
     {
         String methodName = "createSession";
         assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
-
         return userP.createSession( user, isTrusted );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Session createSession( User user, RoleConstraint constraint, boolean isTrusted )
+        throws SecurityException
+    {
+        String methodName = "createSession";
+        assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
+        assertContext( CLS_NM, methodName, constraint, GlobalErrIds.ROLE_CONSTRAINT_NULL );
+        return userP.createSession( user, constraint, isTrusted );
     }
 
     /**
@@ -129,7 +140,6 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
 
         return groupP.createSession( group );
     }
-
 
     /**
      * {@inheritDoc}

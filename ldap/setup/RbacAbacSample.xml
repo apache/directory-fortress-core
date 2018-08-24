@@ -77,32 +77,32 @@
             </addrole>
 
             <addroleconstraint>
-                <roleconstraint userId="curly" role="Tellers" key="locale" value="east" typeName="USER"/>
-                <roleconstraint userId="curly" role="Washers" key="locale" value="north" typeName="USER"/>
-                <roleconstraint userId="curly" role="Washers" key="locale" value="south" typeName="USER"/>
+                <roleconstraint userId="curly" role="tellers" key="locale" value="east" typeName="USER"/>
+                <roleconstraint userId="curly" role="washers" key="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="curly" role="washers" key="locale" value="south" typeName="USER"/>
 
-                <roleconstraint userId="moe" role="Tellers" key="locale" value="north" typeName="USER"/>
-                <roleconstraint userId="moe" role="Washers" key="locale" value="east" typeName="USER"/>
-                <roleconstraint userId="moe" role="Washers" key="locale" value="south" typeName="USER"/>
+                <roleconstraint userId="moe" role="tellers" key="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="moe" role="washers" key="locale" value="east" typeName="USER"/>
+                <roleconstraint userId="moe" role="washers" key="locale" value="south" typeName="USER"/>
 
-                <roleconstraint userId="larry" role="Tellers" key="locale" value="south" typeName="USER"/>
-                <roleconstraint userId="larry" role="Washers" key="locale" value="north" typeName="USER"/>
-                <roleconstraint userId="larry" role="Washers" key="locale" value="east" typeName="USER"/>
+                <roleconstraint userId="larry" role="tellers" key="locale" value="south" typeName="USER"/>
+                <roleconstraint userId="larry" role="washers" key="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="larry" role="washers" key="locale" value="east" typeName="USER"/>
             </addroleconstraint>
 
 <!--
             <delroleconstraint>
-                <roleconstraint userId="curly" role="Tellers" key="locale" value="east" typeName="USER"/>
-                <roleconstraint userId="curly" role="Washers" key="locale" value="north" typeName="USER"/>
-                <roleconstraint userId="curly" role="Washers" key="locale" value="south" typeName="USER"/>
+                <roleconstraint userId="curly" role="tellers" key="locale" value="east" typeName="USER"/>
+                <roleconstraint userId="curly" role="washers" key="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="curly" role="washers" key="locale" value="south" typeName="USER"/>
 
-                <roleconstraint userId="moe" role="Tellers" key="locale" value="north" typeName="USER"/>
-                <roleconstraint userId="moe" role="Washers" key="locale" value="east" typeName="USER"/>
-                <roleconstraint userId="moe" role="Washers" key="locale" value="south" typeName="USER"/>
+                <roleconstraint userId="moe" role="tellers" key="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="moe" role="washers" key="locale" value="east" typeName="USER"/>
+                <roleconstraint userId="moe" role="washers" key="locale" value="south" typeName="USER"/>
 
-                <roleconstraint userId="larry" role="Tellers" key="locale" value="south" typeName="USER"/>
-                <roleconstraint userId="larry" role="Washers" key="locale" value="north" typeName="USER"/>
-                <roleconstraint userId="larry" role="Washers" key="locale" value="east" typeName="USER"/>
+                <roleconstraint userId="larry" role="tellers" key="locale" value="south" typeName="USER"/>
+                <roleconstraint userId="larry" role="washers" key="locale" value="north" typeName="USER"/>
+                <roleconstraint userId="larry" role="washers" key="locale" value="east" typeName="USER"/>
             </delroleconstraint>
 -->
 

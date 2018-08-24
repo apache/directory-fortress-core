@@ -180,6 +180,30 @@ public interface AccessMgr extends Manageable
         throws SecurityException;
 
     /**
+     * Same as {@link AccessMgr#createSession( User user, boolean isTrusted )}
+     * Plus constraint which places attribute key:value, e.g. location=north, into the runtime context, for evaluation during role activation.
+     *
+     * @param user      Contains {@link User#userId}, {@link org.apache.directory.fortress.core.model.User#password}
+     * (optional if {@code isTrusted} is 'true'), optional {@link User#roles}, optional
+     * {@link org.apache.directory.fortress.core.model.User#adminRoles}
+     * @param constraint      Contains {@link RoleConstraint#paSetName}, {@link org.apache.directory.fortress.core.model.RoleConstraint#value}, bound for role activation checks.
+     * (optional if {@code isTrusted} is 'true'), optional {@link User#roles}, optional
+     * {@link org.apache.directory.fortress.core.model.User#adminRoles}
+     * @param isTrusted if true password is not required.
+     * @return Session object will contain authentication result code
+     * {@link org.apache.directory.fortress.core.model.Session#errorId},
+     * RBAC role activations {@link org.apache.directory.fortress.core.model.Session#getRoles()},
+     * Admin Role activations {@link org.apache.directory.fortress.core.model.Session#getAdminRoles()},
+     * Password policy codes {@link org.apache.directory.fortress.core.model.Session#warnings},
+     * {@link org.apache.directory.fortress.core.model.Session#expirationSeconds},
+     * {@link org.apache.directory.fortress.core.model.Session#graceLogins} and more.
+     * @throws SecurityException
+     *          in the event of data validation failure, security policy violation or DAO error.
+     */
+    Session createSession( User user, RoleConstraint constraint, boolean isTrusted )
+        throws SecurityException;
+
+    /**
      * Perform group {@link Group} role activations {@link Group#members}.<br>
      * Group sessions are always trusted. <br>
      * This method must be called once per group prior to calling other methods within this class.

@@ -25,6 +25,7 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
@@ -170,8 +171,8 @@ class AccessMgrConsole
             System.out.println("Enter password:");
             String password = ReaderUtil.readLn();
             User inUser = new User(userId, password);
-            getRuntimeConstraint( inUser );
-            session = am.createSession(inUser, false);
+            RoleConstraint constraint = getRuntimeConstraint( inUser );
+            session = am.createSession(inUser, constraint, false);
             System.out.println("Session created successfully for userId [" + userId + "]");
             System.out.println("session [" + session + "]");
             System.out.println("ENTER to continue");
@@ -192,8 +193,15 @@ class AccessMgrConsole
             System.out.println("Enter userId:");
             String userId = ReaderUtil.readLn();
             User inUser = new User(userId);
-            getRuntimeConstraint( inUser );
-            session = am.createSession(inUser, true);
+            RoleConstraint constraint = getRuntimeConstraint( inUser );
+            if( constraint != null )
+            {
+                session = am.createSession(inUser, constraint, true);
+            }
+            else
+            {
+                session = am.createSession(inUser, true);
+            }
             System.out.println("Trusted Session created successfully for userId [" + userId + "]");
             System.out.println("session [" + session + "]");
             System.out.println("ENTER to continue");
@@ -206,20 +214,20 @@ class AccessMgrConsole
     }
 
 
-    private void getRuntimeConstraint(User user)
+    private RoleConstraint getRuntimeConstraint(User user)
     {
+        RoleConstraint constraint = null;
         System.out.println("Do you want to set a runtime constrait on user role activation? - Y or NULL to skip");
         String choice = ReaderUtil.readLn();
         if (choice != null && choice.equalsIgnoreCase("Y"))
         {
+            constraint = new RoleConstraint();
             System.out.println("Enter constraint type):");
-            String key = ReaderUtil.readLn();
-            System.out.println("Enter constraint value):");
-            String value = ReaderUtil.readLn();
-            Properties props = new Properties(  );
-            props.setProperty( key, value );
-            user.addProperties( props );
+            constraint.setPaSetName( ReaderUtil.readLn() );
+            System.out.println( "Enter constraint value):" );
+            constraint.setValue( ReaderUtil.readLn() );
         }
+        return constraint;
     }
 
     /**

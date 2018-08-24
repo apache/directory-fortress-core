@@ -41,7 +41,8 @@ import javax.xml.bind.annotation.XmlType;
     "id",
     "paSetName",
     "value",
-    "type"
+    "type",
+    "typeName"
 } )
 
 public class RoleConstraint extends FortEntity implements Serializable

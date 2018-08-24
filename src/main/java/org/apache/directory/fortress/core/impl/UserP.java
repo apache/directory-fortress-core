@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -522,6 +523,25 @@ final class UserP
         // Check role temporal constraints + activate roles:
         VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.ROLE, true );
         return session;
+    }
+
+
+    /**
+     * This convenience/passthru method.  It loads a key,value pair of attributes, constained within the RoleConsraint, into the user properties, bound for the constraint validations during role activation step.
+     * It saves a step or two for the user, who can simply pass constraint using value object, rather than properties.
+     *
+     * @param user same as before
+     * @param constraint @RoleConstraint#paSetName is the key, @RoleConstraint#value, is the value.
+     * @param trusted same as always, true if no pw
+     * @return session with activated roles, etc.
+     * @throws SecurityException
+     */
+    Session createSession( User user, RoleConstraint constraint, boolean trusted ) throws SecurityException
+    {
+        Properties props = new Properties(  );
+        props.setProperty( constraint.getPaSetName(), constraint.getValue() );
+        user.addProperties( props );
+        return createSession( user, trusted );
     }
 
 
