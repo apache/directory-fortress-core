@@ -62,7 +62,7 @@ public class Delroleconstraint
      * <pre>
      * {@code
      * <delroleconstraint>
-     *      <roleconstraint userId="curly" role="Tellers" paSetName="locale" value="east" typeName="USER"/>
+     *      <roleconstraint userId="curly" role="Tellers" key="locale" value="east" typeName="USER"/>
      * </delroleconstraint>
      * }
      * </pre>
