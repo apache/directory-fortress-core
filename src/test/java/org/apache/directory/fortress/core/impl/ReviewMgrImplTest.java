@@ -1632,7 +1632,7 @@ public class ReviewMgrImplTest extends TestCase
     				
     				List<RoleConstraint> rcs = ur.getRoleConstraints();
     				for(RoleConstraint r : rcs){
-    					if(r.getPaSetName().equals(rc.getPaSetName())){
+    					if(r.getKey().equals(rc.getKey())){
     						urcFound = true;
     						assertEquals(rc.getType(), r.getType());
     						assertEquals(rc.getValue(), r.getValue());
@@ -1662,7 +1662,7 @@ public class ReviewMgrImplTest extends TestCase
     public void testFindRoleConstraints()
     {
     	findRoleConstraints( "SRCH-RCS TU1 TR1", UserTestData.USERS_TU1[0][0], PermTestData.getOp("TOB1_1", PermTestData.OPS_TOP1_UPD[0]), URATestData.getRC(URATestData.URC_T1).getType() );
-    	findUserRoleWithConstraints( "SRCH-RCS TU1 TR1", UserTestData.USERS_TU1[0][0], RoleTestData.ROLES_TR1[1][0], URATestData.getRC(URATestData.URC_T1).getType(), URATestData.getRC(URATestData.URC_T1).getPaSetName() );
+    	findUserRoleWithConstraints( "SRCH-RCS TU1 TR1", UserTestData.USERS_TU1[0][0], RoleTestData.ROLES_TR1[1][0], URATestData.getRC(URATestData.URC_T1).getType(), URATestData.getRC(URATestData.URC_T1).getKey() );
     }
     
     public static void findUserRoleWithConstraints( String msg, String usr, String role, RoleConstraint.RCType rcType, String paSetName )

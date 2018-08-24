@@ -1067,7 +1067,7 @@ public class URATestData extends TestCase
     public static RoleConstraint getRC( String[] rc )
     {
     	RoleConstraint urc = new RoleConstraint();
-    	urc.setPaSetName(rc[0]);
+    	urc.setKey( rc[0] );
     	urc.setType( RoleConstraint.RCType.valueOf( rc[1] ) );
     	urc.setValue(rc[2]);
         return urc;

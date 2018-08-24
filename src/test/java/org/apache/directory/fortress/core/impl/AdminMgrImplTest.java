@@ -1967,13 +1967,13 @@ public class AdminMgrImplTest extends TestCase
     	try{
     		assignUserRoleConstraint(msg, usr, rle, rc);
     		
-    		String message = "assignInvalidUserRoleConstraint name [" + rc.getPaSetName() + "] was successfull, when should ahve failed.";
+    		String message = "assignInvalidUserRoleConstraint name [" + rc.getKey() + "] was successfull, when should ahve failed.";
     		LOG.error( message );
     		fail( message );
     	}
     	catch ( SecurityException ex )
     	{
-    		LOG.info("Caught exception adding invalid tpa set name " + rc.getPaSetName());
+    		LOG.info("Caught exception adding invalid tpa set name " + rc.getKey());
     	}
     
     }
