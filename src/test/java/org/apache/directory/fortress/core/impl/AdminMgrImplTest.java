@@ -123,6 +123,7 @@ public class AdminMgrImplTest extends TestCase
         addUsers( "ADD-USRS TU19 TR7_ASC", UserTestData.USERS_TU19U_TR7_ASC, true );
         addUsers( "ADD-USRS TU20 TR5_HIER", UserTestData.USERS_TU20U_TR5B, true );
         addUsers( "ADD-USRS TU21 DSD_BRUNO", UserTestData.USERS_TU21_DSD_BRUNO, true );
+        addUsers( "ADD-USRS TU22 ABAC", UserTestData.USERS_TU22_ABAC, true );
     }
 
 
@@ -269,6 +270,7 @@ public class AdminMgrImplTest extends TestCase
         deleteUsers( "FDEL-USRS TU19_TR7_ASC", UserTestData.USERS_TU19U_TR7_ASC, true, true );
         deleteUsers( "FDEL-USRS TU20_TR5_HIER", UserTestData.USERS_TU20U_TR5B, true, true );
         deleteUsers( "FDEL-USRS TU21 DSD_BRUNO", UserTestData.USERS_TU21_DSD_BRUNO, true, true );
+        deleteUsers( "DEL-USRS TU22_ABAC", UserTestData.USERS_TU22_ABAC, true, true );
     }
 
 
@@ -464,7 +466,9 @@ public class AdminMgrImplTest extends TestCase
         addRoles( "ADD-RLS ROLES_TR10_DSD", RoleTestData.ROLES_TR10_DSD );
         addRoles( "ADD-RLS ROLES_TR16_SD", RoleTestData.ROLES_TR16_SD );
         addRoles( "ADD-RLS ROLES_TR17_DSD_BRUNO", RoleTestData.ROLES_TR17_DSD_BRUNO );
-
+        addRoles( "ADD-RLS ROLES_ABAC_WASHERS", RoleTestData.ROLES_ABAC_WASHERS );
+        addRoles( "ADD-RLS ROLES_ABAC_TELLERS", RoleTestData.ROLES_ABAC_TELLERS );
+        addRoles( "ADD-RLS ROLES_ABAC_USERS", RoleTestData.ROLES_ABAC_USERS );
     }
 
 
@@ -510,6 +514,9 @@ public class AdminMgrImplTest extends TestCase
         deleteRoles( "DEL-RLS ROLES_TR10_DSD", RoleTestData.ROLES_TR10_DSD );
         deleteRoles( "DEL-RLS ROLES_TR16_SD", RoleTestData.ROLES_TR16_SD );
         deleteRoles( "DEL-RLS ROLES_TR17_DSD_BRUNO", RoleTestData.ROLES_TR17_DSD_BRUNO );
+        deleteRoles( "DEL-RLS ROLES_ABAC_WASHERS", RoleTestData.ROLES_ABAC_WASHERS );
+        deleteRoles( "DEL-RLS ROLES_ABAC_TELLERS", RoleTestData.ROLES_ABAC_TELLERS );
+        deleteRoles( "DEL-RLS ROLES_ABAC_USERS", RoleTestData.ROLES_ABAC_USERS );
     }
 
 
@@ -1005,6 +1012,7 @@ public class AdminMgrImplTest extends TestCase
         createDsdSet( "ADD-DSD T5", RoleTestData.DSD_T5 );
         createDsdSet( "ADD-DSD T6", RoleTestData.DSD_T6 );
         createDsdSet( "ADD-DSD T8 BRUNO", RoleTestData.DSD_T8_BRUNO );
+        createDsdSet( "ADD-DSD TR18 ABAC6", RoleTestData.DSD_TR18_ABAC );
     }
 
 
@@ -1083,6 +1091,7 @@ public class AdminMgrImplTest extends TestCase
         deleteDsdSet( "DEL-DSD T5", RoleTestData.DSD_T5 );
         deleteDsdSet( "DEL-DSD T6", RoleTestData.DSD_T6 );
         deleteDsdSet( "DEL-DSD T8", RoleTestData.DSD_T7 );
+        deleteDsdSet( "DEL-DSD TR18 ABAC6", RoleTestData.DSD_TR18_ABAC );
     }
 
 
@@ -1404,6 +1413,9 @@ public class AdminMgrImplTest extends TestCase
         assignUsers( "ASGN-USRS TU1 TR1", UserTestData.USERS_TU1, RoleTestData.ROLES_TR1, false );
         assignUsers( "ASGN-USRS TU4 TR2", UserTestData.USERS_TU4, RoleTestData.ROLES_TR2, true );
         assignUsers( "ASGN-USRS TU3 TR3", UserTestData.USERS_TU3, RoleTestData.ROLES_TR3, true );
+        assignUsers( "ASGN-USERS TU22 ABAC WASHERS", UserTestData.USERS_TU22_ABAC, RoleTestData.ROLES_ABAC_WASHERS, true, false );
+        assignUsers( "ASGN-USERS TU22 ABAC TELLERS", UserTestData.USERS_TU22_ABAC, RoleTestData.ROLES_ABAC_TELLERS, true, false );
+        assignUsers( "ASGN-USERS TU22 ABAC USERS", UserTestData.USERS_TU22_ABAC, RoleTestData.ROLES_ABAC_USERS, true, false );
         assignUsersH( "ASGN-USRS_H TU7 HIER TR5 HIER", UserTestData.USERS_TU7_HIER, RoleTestData.ROLES_TR5_HIER, true );
         assignUsersH( "ASGN-USRS_H TU20 TR5B HIER", UserTestData.USERS_TU20U_TR5B, RoleTestData.ROLES_TR5B, true );
         assignUsersSSD( "ASGN-USRS_SSDT1 TU8 SSD_T1", UserTestData.USERS_TU8_SSD, RoleTestData.SSD_T1 );
@@ -1421,13 +1433,20 @@ public class AdminMgrImplTest extends TestCase
     }
 
 
+    public static void assignUsers( String msg, String[][] uArray, String[][] rArray, boolean setTemporal )
+    {
+        assignUsers( msg, uArray, rArray, setTemporal, true );
+    }
+
     /**
+     * Assign the list of users to the list of roles. Perform some rudimentary testing to verify the assignments worked.
+     *
      * @param msg
      * @param uArray
      * @param rArray
      * @param setTemporal
      */
-    public static void assignUsers( String msg, String[][] uArray, String[][] rArray, boolean setTemporal )
+    private static void assignUsers( String msg, String[][] uArray, String[][] rArray, boolean setTemporal, boolean performListCheck )
     {
         LogUtil.logIt( msg );
         try
@@ -1453,15 +1472,19 @@ public class AdminMgrImplTest extends TestCase
                     adminMgr.assignUser( uRole );
                     LOG.debug( "assignUsers user [" + user.getUserId() + "] role [" + uRole.getName()
                         + "] successful" );
-                    // Let's double check the number of users not associated with role:
-                    // This one retrieves the collection of all "roleOccupant" attributes associated with the role node:
-                    List<String> users = reviewMgr.assignedUsers( RoleTestData.getRole( rle ), rArray.length );
-                    // This one searches across all Users and pull back list of type "User":
-                    List<User> users2 = reviewMgr.authorizedUsers( RoleTestData.getRole( rle ) );
-                    assertNotNull( users );
-                    assertNotNull( users2 );
-                    assertTrue( CLS_NM + ".assignUsers list size check", i == users.size() );
-                    assertTrue( CLS_NM + ".assignUsers list2 size check", i == users2.size() );
+
+                    if(performListCheck)
+                    {
+                        // Let's double check the number of users not associated with role:
+                        // This one retrieves the collection of all "roleOccupant" attributes associated with the role node:
+                        List<String> users = reviewMgr.assignedUsers( RoleTestData.getRole( rle ), rArray.length );
+                        // This one searches across all Users and pull back list of type "User":
+                        List<User> users2 = reviewMgr.authorizedUsers( RoleTestData.getRole( rle ) );
+                        assertNotNull( users );
+                        assertNotNull( users2 );
+                        assertTrue( CLS_NM + ".assignUsers list size check", i == users.size() );
+                        assertTrue( CLS_NM + ".assignUsers list2 size check", i == users2.size() );
+                    }
                 }
             }
         }
@@ -1595,10 +1618,10 @@ public class AdminMgrImplTest extends TestCase
                     }
                     catch ( SecurityException ex )
                     {
-                        LOG.error( "assignUsersDSD caught SecurityException rc=" + ex.getErrorId() + ", msg="
-                            + ex.getMessage(), ex );
-                        fail( CLS_NM + "assignUsersDSD user [" + user.getUserId() + "] role [" + role + "] dsd ["
-                            + dsd.getName() + "] failed" );
+                        LOG.error( "assignUsersDSD caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex
+                            .getMessage(), ex );
+                        fail( CLS_NM + "assignUsersDSD user [" + user.getUserId() + "] role [" + role + "] dsd [" +
+                            dsd.getName() + "] failed" );
                     }
                 }
             }
@@ -1612,24 +1635,52 @@ public class AdminMgrImplTest extends TestCase
         }
     }
 
-
     public void testDeassignUser()
     {
         //     public void deassignUser(User user, Role role)
         //deassignUsers( "DEASGN-USRS TU1 TR1", UserTestData.USERS_TU1, RoleTestData.ROLES_TR1 );
         deassignUsers( "DEASGN-USRS TU4 TR2", UserTestData.USERS_TU4, RoleTestData.ROLES_TR2 );
         deassignUsers( "DEASGN-USRS TU3 TR3", UserTestData.USERS_TU3, RoleTestData.ROLES_TR3 );
+        deassignUsers( "DEASGN-USERS TU22 ABAC WASHERS", UserTestData.USERS_TU22_ABAC, RoleTestData
+            .ROLES_ABAC_WASHERS, false );
+        deassignUsers( "DEASGN-USERS TU22 ABAC TELLERS", UserTestData.USERS_TU22_ABAC, RoleTestData.ROLES_ABAC_TELLERS, false );
+        deassignUsers( "DEASGN-USERS TU22 ABAC USERS", UserTestData.USERS_TU22_ABAC, RoleTestData.ROLES_ABAC_USERS, false );
         deassignUsersH( "DEASGN-USRS_H TU7 TR5 HIER", UserTestData.USERS_TU7_HIER, RoleTestData.ROLES_TR5_HIER );
         deassignUsersH( "DEASGN-USRS_H TU20 TR5B HIER", UserTestData.USERS_TU20U_TR5B, RoleTestData.ROLES_TR5B );
     }
 
+
+/*
+    public void testDeassignUser2()
+    {
+        //     public void deassignUser(User user, Role role)
+        //deassignUsers( "DEASGN-USRS TU1 TR1", UserTestData.USERS_TU1, RoleTestData.ROLES_TR1 );
+        deassignUsers( "DEASGN-USRS TU4 TR2", UserTestData.USERS_TU4, RoleTestData.ROLES_TR2 );
+        deassignUsers( "DEASGN-USRS TU3 TR3", UserTestData.USERS_TU3, RoleTestData.ROLES_TR3 );
+        deassignUsers( "DEASGN-USERS TU7 TR5 HIER", UserTestData.USERS_TU7_HIER, RoleTestData.ROLES_TR5_HIER, false );
+
+
+        deassignUsers( "DEASGN-USERS TU22 ABAC WASHERS", UserTestData.USERS_TU22_ABAC, RoleTestData
+            .ROLES_ABAC_WASHERS, false );
+        deassignUsers( "DEASGN-USERS TU22 ABAC TELLERS", UserTestData.USERS_TU22_ABAC, RoleTestData.ROLES_ABAC_TELLERS, false );
+        deassignUsers( "DEASGN-USERS TU22 ABAC USERS", UserTestData.USERS_TU22_ABAC, RoleTestData.ROLES_ABAC_USERS, false );
+        deassignUsersH( "DEASGN-USRS_H TU7 TR5 HIER", UserTestData.USERS_TU7_HIER, RoleTestData.ROLES_TR5_HIER );
+        deassignUsersH( "DEASGN-USRS_H TU20 TR5B HIER", UserTestData.USERS_TU20U_TR5B, RoleTestData.ROLES_TR5B );
+    }
+*/
+
+
+    void deassignUsers( String msg, String[][] uArray, String[][] rArray )
+    {
+        deassignUsers( msg, uArray, rArray, true );
+    }
 
     /**
      * @param msg
      * @param uArray
      * @param rArray
      */
-    void deassignUsers( String msg, String[][] uArray, String[][] rArray )
+    private void deassignUsers( String msg, String[][] uArray, String[][] rArray, boolean performListCheck )
     {
         LogUtil.logIt( msg );
         try
@@ -1646,24 +1697,28 @@ public class AdminMgrImplTest extends TestCase
                     adminMgr.deassignUser( uRole );
                     LOG.debug( "deassignUsers user [" + uRole.getUserId() + "] role [" + uRole.getName()
                         + "] successful" );
-                    // Double check the number of users associated with role:
-                    // This one retrieves the collection of all "roleOccupant" attributes associated with the role node:                    
-                    List<String> users = reviewMgr.assignedUsers( RoleTestData.getRole( rle ), rArray.length );
-                    // This one searches across all Users and pull back list of type "User":
-                    List<User> users2 = reviewMgr.authorizedUsers( RoleTestData.getRole( rle ) );
-                    assertNotNull( users );
-                    assertNotNull( users2 );
 
-                    // If this is the last user deassigned from role, both lists will be returned empty:
-                    if ( i == uArray.length )
+                    if(performListCheck)
                     {
-                        assertTrue( users.size() == 0 );
-                        assertTrue( users2.size() == 0 );
-                    }
-                    else
-                    {
-                        assertTrue( CLS_NM + "deassignUsers list size check", ( rArray.length - i ) == users.size() );
-                        assertTrue( CLS_NM + "deassignUsers list2 size check", ( rArray.length - i ) == users2.size() );
+                        // Double check the number of users associated with role:
+                        // This one retrieves the collection of all "roleOccupant" attributes associated with the role node:
+                        List<String> users = reviewMgr.assignedUsers( RoleTestData.getRole( rle ), rArray.length );
+                        // This one searches across all Users and pull back list of type "User":
+                        List<User> users2 = reviewMgr.authorizedUsers( RoleTestData.getRole( rle ) );
+                        assertNotNull( users );
+                        assertNotNull( users2 );
+
+                        // If this is the last user deassigned from role, both lists will be returned empty:
+                        if ( i == uArray.length )
+                        {
+                            assertTrue( users.size() == 0 );
+                            assertTrue( users2.size() == 0 );
+                        }
+                        else
+                        {
+                            assertTrue( CLS_NM + "deassignUsers list size check", ( rArray.length - i ) == users.size() );
+                            assertTrue( CLS_NM + "deassignUsers list2 size check", ( rArray.length - i ) == users2.size() );
+                        }
                     }
                 }
             }
@@ -1710,6 +1765,68 @@ public class AdminMgrImplTest extends TestCase
     }
 
 
+    public void testAssignUserRoleConstraints()
+    {
+        assignUserRoleConstraints( "ASSGN-USER-ROLE-CONSTRAINTS TR18 ABAC", RoleTestData.ROLE_CONSTRAINTS_TR18_ABAC );
+    }
+
+
+    public static void assignUserRoleConstraints( String msg, String[][] urArray )
+    {
+        LogUtil.logIt( msg );
+        try
+        {
+            AdminMgr adminMgr = getManagedAdminMgr();
+            //ReviewMgr reviewMgr = ReviewMgrImplTest.getManagedReviewMgr();
+            for ( String[] urConstraint : urArray )
+            {
+                UserRole uRole = RoleTestData.getUserRoleConstraintAbac( urConstraint );
+                RoleConstraint rConstraint = uRole.getConstraints().get( 0 );
+                RoleConstraint out = adminMgr.addRoleConstraint( uRole, rConstraint );
+                assertNotNull( out );
+            }
+        }
+        catch ( SecurityException ex )
+        {
+            LOG.error(
+                "assignUserRoleConstraints caught SecurityException rc=" + ex.getErrorId() + ", msg="
+                    + ex.getMessage(), ex );
+            fail( ex.getMessage() );
+        }
+    }
+
+
+    public void testDeassignUserRoleConstraints()
+    {
+        deassignUserRoleConstraints( "DEASSGN-USER-ROLE-CONSTRAINTS TR18 ABAC", RoleTestData
+            .ROLE_CONSTRAINTS_TR18_ABAC );
+    }
+
+
+    public static void deassignUserRoleConstraints( String msg, String[][] urArray )
+    {
+        LogUtil.logIt( msg );
+        try
+        {
+            AdminMgr adminMgr = getManagedAdminMgr();
+            //ReviewMgr reviewMgr = ReviewMgrImplTest.getManagedReviewMgr();
+            for ( String[] urConstraint : urArray )
+            {
+                UserRole uRole = RoleTestData.getUserRoleConstraintAbac( urConstraint );
+                RoleConstraint rConstraint = uRole.getConstraints().get( 0 );
+                adminMgr.removeRoleConstraint( uRole, rConstraint );
+            }
+        }
+        catch ( SecurityException ex )
+        {
+            LOG.error(
+                "deassignUserRoleConstraints caught SecurityException rc=" + ex.getErrorId() + ", msg="
+                    + ex.getMessage(), ex );
+            fail( ex.getMessage() );
+        }
+    }
+
+
     public void testAddPermissionOp()
     {
         //     public PermObj addPermObj(PermObj pObj)
@@ -1718,6 +1835,11 @@ public class AdminMgrImplTest extends TestCase
         addPermOps( "ADD-OPS TOB3 TOP3", PermTestData.OBJS_TOB3, PermTestData.OPS_TOP3, true, false );
         addPermOps( "ADD-OPS TOB4 TOP4", PermTestData.OBJS_TOB4, PermTestData.OPS_TOP4, true, false );
         addPermOps( "ADD-OPS TOB6 TOP5", PermTestData.OBJS_TOB6, PermTestData.OPS_TOP5, true, false );
+        addPermOps( "ADD-OPS ABAC WASHER", PermTestData.ABAC_WASHER_OBJS, PermTestData.ABAC_WASHER_OPS, true, false );
+        addPermOps( "ADD-OPS ABAC TELLER", PermTestData.ABAC_TELLER_OBJS, PermTestData.ABAC_TELLER_OPS, true, false );
+        addPermOps( "ADD-OPS ABAC ACCOUNT", PermTestData.ABAC_ACCOUNT_OBJS, PermTestData.ABAC_ACCOUNT_OPS, true, false );
+        addPermOps( "ADD-OPS ABAC CURRENCY", PermTestData.ABAC_CURRENCY_OBJS, PermTestData.ABAC_CURRENCY_OPS, true, false );
+        addPermOps( "ADD-OPS ABAC BRANCH", PermTestData.ABAC_BRANCH_OBJS, PermTestData.ABAC_BRANCH_OPS, true, false );
     }
 
 
@@ -1772,7 +1894,13 @@ public class AdminMgrImplTest extends TestCase
         addPermObjs( "ADD-OBS TOB3", PermTestData.OBJS_TOB3, true, false );
         addPermObjs( "ADD-OBS TOB4", PermTestData.OBJS_TOB4, true, false );
         addPermObjs( "ADD-OBS TOB6", PermTestData.OBJS_TOB6, true, false );
+        addPermObjs( "ADD-OBS ABAC WASHER", PermTestData.ABAC_WASHER_OBJS, true, false );
+        addPermObjs( "ADD-OBS ABAC TELLER", PermTestData.ABAC_TELLER_OBJS, true, false );
+        addPermObjs( "ADD-OBS ABAC ACCOUNT", PermTestData.ABAC_ACCOUNT_OBJS, true, false );
+        addPermObjs( "ADD-OBS ABAC CURRENCY", PermTestData.ABAC_CURRENCY_OBJS, true, false );
+        addPermObjs( "ADD-OBS ABAC BRANCH", PermTestData.ABAC_BRANCH_OBJS, true, false );
     }
+
 
 
     /**
@@ -2047,6 +2175,12 @@ public class AdminMgrImplTest extends TestCase
         delPermOps( "DEL-OPS TOB3 TOP4", PermTestData.OBJS_TOB3, PermTestData.OPS_TOP3, true, false );
         delPermOps( "DEL-OPS TOB4 TOP4", PermTestData.OBJS_TOB4, PermTestData.OPS_TOP4, true, false );
         delPermOps( "DEL-OPS TOB6 TOP5", PermTestData.OBJS_TOB6, PermTestData.OPS_TOP5, true, false );
+        delPermOps( "DEL-OPS ABAC WASHER", PermTestData.ABAC_WASHER_OBJS, PermTestData.ABAC_WASHER_OPS, true, false );
+        delPermOps( "DEL-OPS ABAC TELLER", PermTestData.ABAC_TELLER_OBJS, PermTestData.ABAC_TELLER_OPS, true, false );
+        delPermOps( "DEL-OPS ABAC ACCOUNT", PermTestData.ABAC_ACCOUNT_OBJS, PermTestData.ABAC_ACCOUNT_OPS, true, false );
+        delPermOps( "DEL-OPS ABAC CURRENCY", PermTestData.ABAC_CURRENCY_OBJS, PermTestData.ABAC_CURRENCY_OPS, true,
+            false );
+        delPermOps( "DEL-OPS ABAC BRANCH", PermTestData.ABAC_BRANCH_OBJS, PermTestData.ABAC_BRANCH_OPS, true, false );
     }
 
 
@@ -2101,6 +2235,11 @@ public class AdminMgrImplTest extends TestCase
         delPermObjs( "DEL-OBJS TOB3", PermTestData.OBJS_TOB3, true );
         delPermObjs( "DEL-OBJS TOB4", PermTestData.OBJS_TOB4, true );
         delPermObjs( "DEL-OBJS TOB6", PermTestData.OBJS_TOB6, true );
+        delPermObjs( "DEL-OBS ABAC WASHER", PermTestData.ABAC_WASHER_OBJS, true );
+        delPermObjs( "DEL-OBS ABAC TELLER", PermTestData.ABAC_TELLER_OBJS, true );
+        delPermObjs( "DEL-OBS ABAC ACCOUNT", PermTestData.ABAC_ACCOUNT_OBJS, true );
+        delPermObjs( "DEL-OBS ABAC CURRENCY", PermTestData.ABAC_CURRENCY_OBJS, true );
+        delPermObjs( "DEL-OBS ABAC BRANCH", PermTestData.ABAC_BRANCH_OBJS, true );
     }
 
 
@@ -2239,6 +2378,11 @@ public class AdminMgrImplTest extends TestCase
             PermTestData.OPS_TOP2, true, false );
         addRoleGrants( "GRNT-PRMS TR3 TOB3 TOP3", RoleTestData.ROLES_TR3, PermTestData.OBJS_TOB3,
             PermTestData.OPS_TOP3, true, false );
+        addRoleGrants( "GRNT-PRMS ABAC WASHER", RoleTestData.ROLES_ABAC_WASHERS, PermTestData.ABAC_WASHER_OBJS, PermTestData.ABAC_WASHER_OPS, true, false );
+        addRoleGrants( "GRNT-PRMS ABAC WASHER CURRENCY", RoleTestData.ROLES_ABAC_WASHERS, PermTestData.ABAC_CURRENCY_OBJS, PermTestData.ABAC_CURRENCY_OPS, true, false );
+        addRoleGrants( "GRNT-PRMS ABAC TELLER", RoleTestData.ROLES_ABAC_TELLERS, PermTestData.ABAC_TELLER_OBJS, PermTestData.ABAC_TELLER_OPS, true, false );
+        addRoleGrants( "GRNT-PRMS ABAC TELLER ACCOUNT", RoleTestData.ROLES_ABAC_TELLERS, PermTestData.ABAC_ACCOUNT_OBJS, PermTestData.ABAC_ACCOUNT_OPS, true, false );
+        addRoleGrants( "GRNT-PRMS ABAC BANK USERS", RoleTestData.ROLES_ABAC_USERS, PermTestData.ABAC_BRANCH_OBJS, PermTestData.ABAC_BRANCH_OPS, true, false );
         addRoleGrantsH( "GRNT-PRMS_H ROLES_TR5_HIER TOB4 TOP4", RoleTestData.ROLES_TR5_HIER, PermTestData.OBJS_TOB4,
             PermTestData.OPS_TOP4 );
         addRoleGrantsHB( "GRNT-PRMS_HB USERS TU20 ROLES_TR5B TOB6 TOP5", UserTestData.USERS_TU20U_TR5B,
@@ -2404,6 +2548,15 @@ public class AdminMgrImplTest extends TestCase
             PermTestData.OPS_TOP2, true );
         delRoleGrants( "REVK-PRMS TR3 TOB3 TOP3", RoleTestData.ROLES_TR3, PermTestData.OBJS_TOB3,
             PermTestData.OPS_TOP3, true );
+        delRoleGrants( "REVK-PRMS ABAC WASHER", RoleTestData.ROLES_ABAC_WASHERS, PermTestData.ABAC_WASHER_OBJS, PermTestData.ABAC_WASHER_OPS, true );
+        delRoleGrants( "REVK-PRMS ABAC WASHER CURRENCY", RoleTestData.ROLES_ABAC_WASHERS, PermTestData
+            .ABAC_CURRENCY_OBJS, PermTestData.ABAC_CURRENCY_OPS, true );
+        delRoleGrants( "REVK-PRMS ABAC TELLER", RoleTestData.ROLES_ABAC_TELLERS, PermTestData.ABAC_TELLER_OBJS,
+            PermTestData.ABAC_TELLER_OPS, true );
+        delRoleGrants( "REVK-PRMS ABAC TELLER ACCOUNT", RoleTestData.ROLES_ABAC_TELLERS, PermTestData
+            .ABAC_ACCOUNT_OBJS, PermTestData.ABAC_ACCOUNT_OPS, true );
+        delRoleGrants( "GRNT-PRMS ABAC BANK USERS", RoleTestData.ROLES_ABAC_USERS, PermTestData.ABAC_BRANCH_OBJS,
+            PermTestData.ABAC_BRANCH_OPS, true );
         delRoleGrantsH( "REVK-PRMS_H ROLES_TR5_HIER TOB4 TOP4", RoleTestData.ROLES_TR5_HIER, PermTestData.OBJS_TOB4,
             PermTestData.OPS_TOP4 );
         delRoleGrantsHB( "REVK-PRMS_H USERS TU20 ROLES_TR5B TOB6 TOP5", UserTestData.USERS_TU20U_TR5B,

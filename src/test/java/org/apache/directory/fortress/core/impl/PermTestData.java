@@ -2739,6 +2739,186 @@ public class PermTestData extends TestCase
 },
     };
 
+
+    public static final String[][] ABAC_TELLER_OBJS =
+        {
+            {
+                "TellersPage",
+                "Used by Tellers", /* DESC_COL */
+                "APP0", /* ORG_COL */
+                "TST", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "F" /* IS_ADMIN_COL */
+            },
+        };
+
+    public static final String[][] ABAC_WASHER_OBJS =
+        {
+            {
+                "WashersPage",
+                "Used by Washers", /* DESC_COL */
+                "APP0", /* ORG_COL */
+                "TST", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "F" /* IS_ADMIN_COL */
+            },
+        };
+
+    public static final String[][] ABAC_ACCOUNT_OBJS =
+        {
+            {
+                "Account",
+                "Things we can do with Customer Accounts", /* DESC_COL */
+                "APP0", /* ORG_COL */
+                "TST", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "F" /* IS_ADMIN_COL */
+            },
+        };
+
+    public static final String[][] ABAC_CURRENCY_OBJS =
+        {
+            {
+                "Currency",
+                "Things we can do with currency", /* DESC_COL */
+                "APP0", /* ORG_COL */
+                "TST", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "F" /* IS_ADMIN_COL */
+            },
+        };
+
+    public static final String[][] ABAC_BRANCH_OBJS =
+        {
+            {
+                "Branch",
+                "Functions corresponds with a particular branch", /* DESC_COL */
+                "APP0", /* ORG_COL */
+                "TST", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "F" /* IS_ADMIN_COL */
+            },
+        };
+
+    /**
+     * Test Case ABAC1:
+     */
+    public static final String[][] ABAC_TELLER_OPS =
+        {
+            {
+                "link", /* NAME_COL */
+                "Tellers will view this link",/* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "TST", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "F" /* IS_ADMIN_COL */
+            },
+        };
+    public static final String[][] ABAC_WASHER_OPS =
+        {
+            {
+                "link", /* NAME_COL */
+                "Washers will view this link",/* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "TST", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "F" /* IS_ADMIN_COL */
+            },
+        };
+    public static final String[][] ABAC_ACCOUNT_OPS =
+        {
+            {
+                "deposit", /* NAME_COL */
+                "account.deposit function",/* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "TST", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "F" /* IS_ADMIN_COL */
+            },
+            {
+                "withdrawal", /* NAME_COL */
+                "dccount.withdrawal function",/* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "TST", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "F" /* IS_ADMIN_COL */
+            },
+            {
+                "inquiry", /* NAME_COL */
+                "account.inquiry function",/* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "TST", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "F" /* IS_ADMIN_COL */
+            },
+        };
+    public static final String[][] ABAC_CURRENCY_OPS =
+        {
+            {
+                "soak", /* NAME_COL */
+                "Currency.soak function",/* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "TST", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "F" /* IS_ADMIN_COL */
+            },
+            {
+                "rinse", /* NAME_COL */
+                "Currency.rinse function",/* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "TST", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "F" /* IS_ADMIN_COL */
+            },
+            {
+                "dry", /* NAME_COL */
+                "Currency.dry function",/* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "TST", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "F" /* IS_ADMIN_COL */
+            },
+        };
+    public static final String[][] ABAC_BRANCH_OPS =
+        {
+            {
+                "login", /* NAME_COL */
+                "ability to login to branch web app",/* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "TST", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "F" /* IS_ADMIN_COL */
+            },
+        };
+
+
     /**
      * The Fortress test data for junit uses 2-dimensional arrays.
      * These are the columns used for Fortress Object Test Data:

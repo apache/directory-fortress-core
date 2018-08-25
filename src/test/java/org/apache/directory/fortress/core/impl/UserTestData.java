@@ -6227,10 +6227,10 @@ public class UserTestData extends TestCase
                 "Permanent", /* EMPLOYEE_TYPE_COL */
                 "FALSE", /* SYSTEM USER */
                 "p2.jpeg", /* JPEGPHOTO_COL  */
-}
+        }
     };
 
-    // Test Case TU12:
+    // Test Case TU21:
     @MyAnnotation(name = "USERS_TU21_DSD_BRUNO", value = "USR TU21_DSD_BRUNO")
     public static final String[][] USERS_TU21_DSD_BRUNO =
         {
@@ -6263,6 +6263,97 @@ public class UserTestData extends TestCase
                 "p3.jpeg", /* JPEGPHOTO_COL  */
         }
     };
+
+
+    // Test Case TU21:
+    @MyAnnotation(name = "USERS_TU22_ABAC", value = "USR TU22 ABAC")
+    public static final String[][] USERS_TU22_ABAC =
+        {
+            {
+                "curly", /* USERID_COL */
+                "password", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Head Teller of the East, Coin Washer in North and South", /* DESC_COL */
+                "Curly Howrowitz", /* CN_COL */
+                "Horowitz", /* SN_COL */
+                "curly.horowitz@stooge.com", /* EMAILS_COL */
+                "", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Lawrence,KS,66045,Strong Hall,Computer Science,222",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "Tester", /* TITLE_COL */
+                "Permanent", /* EMPLOYEE_TYPE_COL */
+                "FALSE", /* SYSTEM USER */
+                "p1.jpeg", /* JPEGPHOTO_COL  */
+            },
+            {
+                "moe", /* USERID_COL */
+                "password", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Head Teller of the North, Coin Washer in East and South", /* DESC_COL */
+                "Moe Howard", /* CN_COL */
+                "Howard", /* SN_COL */
+                "moe.howard@stooge.com", /* EMAILS_COL */
+                "", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Lawrence,KS,66045,Strong Hall,Computer Science,222",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "Tester", /* TITLE_COL */
+                "Permanent", /* EMPLOYEE_TYPE_COL */
+                "FALSE", /* SYSTEM USER */
+                "p1.jpeg", /* JPEGPHOTO_COL  */
+            },
+            {
+                "larry", /* USERID_COL */
+                "password", /* PASSWORD_COL */
+                "Test1", /* PW POLICY ATTR */
+                "Head Teller of the South, Coin Washer in North and East", /* DESC_COL */
+                "Larry Fine", /* CN_COL */
+                "Fine", /* SN_COL */
+                "larry.fine@stooge.com", /* EMAILS_COL */
+                "", /* PROPS_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20091001", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20300101", /* BLOCKDATE_COL */
+                "20300115", /* ELOCKDATE_COL */
+                "1234567", /* DAYMASK_COL */
+                "DEV1", /* ORG_COL */
+                "0", /* TIMEOUT_COL */
+                "", /* ASSGND_ROLES_COL */
+                "", /* AUTHZ_ROLES_COL */
+                "Lawrence,KS,66045,Strong Hall,Computer Science,222",/* ADDRESS_COL */
+                "888-888-8888,777-777-7777",/* PHONES_COL */
+                "555-555-5555,444-444-4444",/* MOBILES_COL */
+                "Tester", /* TITLE_COL */
+                "Permanent", /* EMPLOYEE_TYPE_COL */
+                "FALSE", /* SYSTEM USER */
+                "p3.jpeg", /* JPEGPHOTO_COL  */
+            },
+        };
 
     /**
     * The Fortress test data for junit uses 2-dimensional arrays.

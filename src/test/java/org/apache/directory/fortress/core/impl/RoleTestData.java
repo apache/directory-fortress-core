@@ -32,12 +32,15 @@ import junit.framework.TestCase;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.apache.directory.fortress.core.model.Constraint;
+
+import javax.crypto.spec.RC2ParameterSpec;
 
 
 /**
@@ -3922,4 +3925,178 @@ public class RoleTestData extends TestCase
                 "oamT17DSD1,oamT17DSD3", /* RELATIONSHIP_COL */
 }
     };
+
+
+    public static final String[][] ROLES_ABAC_WASHERS =
+        {
+            {
+                "Washers", /* NAME_COL */
+                "May wash currency", /* DESC_COL */
+                "30", /* TIMEOUT_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20090101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20500101", /* BLOCKDATE_COL */
+                "20500115", /* ELOCKDATE_COL */
+                "1234567" /* DAYMASK_COL */
+            },
+        };
+
+    public static final String[][] ROLES_ABAC_TELLERS =
+        {
+            {
+                "Tellers", /* NAME_COL */
+                "May transact on customer accounts", /* DESC_COL */
+                "30", /* TIMEOUT_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20090101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20500101", /* BLOCKDATE_COL */
+                "20500115", /* ELOCKDATE_COL */
+                "1234567" /* DAYMASK_COL */
+            },
+        };
+
+    public static final String[][] ROLES_ABAC_USERS =
+        {
+            {
+                "Bank_Users", /* NAME_COL */
+                "Basic rights to log into the web app", /* DESC_COL */
+                "0", /* TIMEOUT_COL */
+                "0000", /* BTIME_COL */
+                "0000", /* ETIME_COL */
+                "20090101", /* BDATE_COL */
+                "21000101", /* EDATE_COL */
+                "20500101", /* BLOCKDATE_COL */
+                "20500115", /* ELOCKDATE_COL */
+                "1234567" /* DAYMASK_COL */
+            },
+        };
+
+    public static final String[][] DSD_TR18_ABAC =
+        {
+            {
+                "BankSafe", /* NAME_COL */
+                "User may only activate one of these roles", /* DESC_COL */
+                "2", /* CARDINALITY */
+                "Tellers,Washers", /* RELATIONSHIP_COL */
+            }
+        };
+
+    /**
+     * The Fortress test data for junit uses 2-dimensional arrays.
+     */
+    private final static int C_UID_COL = 0;
+    private final static int C_ROLE_COL = 1;
+    private final static int C_KEY_COL = 2;
+    private final static int C_VALUE_COL = 3;
+    private final static int C_TYPE_COL = 4;
+
+    public static String getConstraintUserid( String[] rle )
+    {
+        return rle[C_UID_COL];
+    }
+    public static String getConstraintRole( String[] rle )
+    {
+        return rle[C_ROLE_COL];
+    }
+    public static String getConstraintKey( String[] rle )
+    {
+        return rle[C_KEY_COL];
+    }
+    public static String getConstraintValue( String[] rle )
+    {
+        return rle[C_VALUE_COL];
+    }
+    public static String getConstraintType( String[] rle )
+    {
+        return rle[C_TYPE_COL];
+    }
+
+    public static UserRole getUserRoleConstraintAbac( String[] constraint )
+    {
+        UserRole uRole = new UserRole();
+        uRole.setUserId( getConstraintUserid( constraint ) );
+        uRole.setName( getConstraintRole( constraint ) );
+        RoleConstraint rConstraint = new RoleConstraint();
+        rConstraint.setTypeName( getConstraintType( constraint ) );
+        rConstraint.setKey( getConstraintKey( constraint ) );
+        rConstraint.setValue( getConstraintValue( constraint ) );
+        List<RoleConstraint> constraints = new ArrayList();
+        constraints.add( rConstraint );
+        uRole.setRoleConstraints( constraints );
+        return uRole;
+    }
+
+
+    public static final String[][] ROLE_CONSTRAINTS_TR18_ABAC =
+        {
+            {
+                "curly", /* USERID */
+                "tellers", /* ROLE NAME */
+                "locale", /* KEY */
+                "east", /* VALUE */
+                "USER" /* TYPE */
+            },
+            {
+                "curly", /* USERID */
+                "washers", /* ROLE NAME */
+                "locale", /* KEY */
+                "north", /* VALUE */
+                "USER" /* TYPE */
+            },
+            {
+                "curly", /* USERID */
+                "washers", /* ROLE NAME */
+                "locale", /* KEY */
+                "south", /* VALUE */
+                "USER" /* TYPE */
+            },
+            {
+                "moe", /* USERID */
+                "tellers", /* ROLE NAME */
+                "locale", /* KEY */
+                "north", /* VALUE */
+                "USER" /* TYPE */
+            },
+            {
+                "moe", /* USERID */
+                "washers", /* ROLE NAME */
+                "locale", /* KEY */
+                "east", /* VALUE */
+                "USER" /* TYPE */
+            },
+            {
+                "moe", /* USERID */
+                "washers", /* ROLE NAME */
+                "locale", /* KEY */
+                "south", /* VALUE */
+                "USER" /* TYPE */
+            },
+            {
+                "larry", /* USERID */
+                "tellers", /* ROLE NAME */
+                "locale", /* KEY */
+                "south", /* VALUE */
+                "USER" /* TYPE */
+            },
+            {
+                "larry", /* USERID */
+                "washers", /* ROLE NAME */
+                "locale", /* KEY */
+                "north", /* VALUE */
+                "USER" /* TYPE */
+            },
+            {
+                "larry", /* USERID */
+                "washers", /* ROLE NAME */
+                "locale", /* KEY */
+                "east", /* VALUE */
+                "USER" /* TYPE */
+            },
+        };
+
+
 }

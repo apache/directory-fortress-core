@@ -123,6 +123,7 @@ public class FortressJUnitTest extends TestCase
             suite.addTest( new AdminMgrImplTest( "testDeletePermissionOp" ) );
             suite.addTest( new AdminMgrImplTest( "testDeletePermissionObj" ) );
             suite.addTest( new AdminMgrImplTest( "testDeletePermissionAttributeSets" ) );
+            suite.addTest( new AdminMgrImplTest( "testDeassignUserRoleConstraints" ) );
             suite.addTest( new AdminMgrImplTest( "testDeassignUser" ) );
             suite.addTest( new AdminMgrImplTest( "testDeleteUser" ) );
             suite.addTest( new AdminMgrImplTest( "testForceDeleteUser" ) );
@@ -176,7 +177,6 @@ public class FortressJUnitTest extends TestCase
         suite.addTest( new DelegatedMgrImplTest( "testAddAdminRoleDescendant" ) );
         suite.addTest( new DelegatedMgrImplTest( "testAddAdminRoleAscendants" ) );
         suite.addTest( new DelegatedMgrImplTest( "testAddAdminRoleInheritance" ) );
-
         suite.addTest( new DelegatedMgrImplTest( "testAddUser" ) );
         suite.addTest( new DelegatedMgrImplTest( "testAddPermission" ) );
         suite.addTest( new DelegatedMgrImplTest( "testAssignAdminUser" ) );
@@ -201,17 +201,16 @@ public class FortressJUnitTest extends TestCase
             suite.addTest( new PswdPolicyMgrImplTest( "testUpdatePasswordPolicy" ) );
         }
         suite.addTest( new AdminMgrImplTest( "testAssignUser" ) );
+        suite.addTest( new AdminMgrImplTest( "testAssignUserRoleConstraints" ) );
         suite.addTest( new AdminMgrImplTest( "testAddPermissionObj" ) );
         suite.addTest( new AdminMgrImplTest( "testUpdatePermissionObj" ) );
         suite.addTest( new AdminMgrImplTest( "testAddPermissionOp" ) );
         suite.addTest( new AdminMgrImplTest( "testUpdatePermissionOp" ) );
         suite.addTest( new AdminMgrImplTest( "testGrantPermissionRole" ) );
         suite.addTest( new AdminMgrImplTest( "testGrantPermissionUser" ) );
-
         suite.addTest( new AdminMgrImplTest( "testAddPermissionAttributeSet" ) );
         suite.addTest( new AdminMgrImplTest( "testAddPermissionAttributeToSet" ) );
         suite.addTest( new AdminMgrImplTest( "testAddPASetToPermission" ) );
-        
         suite.addTest( new AdminMgrImplTest( "testAddUserRoleConstraint" ) );
         suite.addTest( new AdminMgrImplTest( "testRemoveUserRoleConstraint" ) );
         
