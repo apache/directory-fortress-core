@@ -75,7 +75,6 @@ userou.root=@USEROUS_DN@
 permou.root=@PERMOUS_DN@
 adminrole.root=@ADMINROLES_DN@
 adminperm.root=@ADMINPERMS_DN@
-audit.root=@AUDITS_DN@
 group.root=@GROUPS_DN@
 example.root=ou=Examples,@SUFFIX@
 

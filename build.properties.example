@@ -156,8 +156,3 @@ group.properties=configParameter
 ########################################################################
 # Boolean value. If true, requires rfc2307bis schema because posixUser and posixGroup must be auxiliary object classes to work with ftRls which is structural..
 rfc2307=false
-
-# TODO: remove me, workaround for broken jenkins build:
-# Used for searching openldap slapo access log:
-log.admin.user=cn=Manager,cn=log
-log.admin.pw=secret

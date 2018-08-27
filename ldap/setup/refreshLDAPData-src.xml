@@ -156,7 +156,7 @@
                 <config props="perm.root:ou=Permissions,ou=RBAC,@SUFFIX@"/>
                 <config props="sdconstraint.root:ou=Constraints,ou=RBAC,@SUFFIX@"/>
                 <config props="adminperm.root:ou=AdminPerms,ou=ARBAC,@SUFFIX@"/>
-                <config props="audit.root:cn=log"/>
+                <config props="audit.root:@AUDITS_DN@"/>
                 <config props="superadmin.role:fortress-core-super-admin"/>
                 <config props="temporal.validator.0:org.apache.directory.fortress.core.util.time.Date"/>
                 <config props="temporal.validator.1:org.apache.directory.fortress.core.util.time.LockDate"/>
