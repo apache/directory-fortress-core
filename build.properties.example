@@ -113,8 +113,8 @@ user.min.conn=1
 user.max.conn=10
 
 # Used for slapd logger connection pool.  Leave zeros when using apacheds:
-min.log.conn=0
-max.log.conn=0
+min.log.conn=1
+max.log.conn=3
 
 ########################################################################
 # 3. GROUP OBJECT CLASS DEFINITIONS
