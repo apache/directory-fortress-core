@@ -1433,6 +1433,22 @@ public class AdminMgrImplTest extends TestCase
     }
 
 
+    /**
+     * Just call the oher one, passing 'true' for performListChck.
+     *
+     * @param msg
+     * @param uArray
+     * @param rArray
+     */
+
+    /**
+     * Just call the oher one, passing 'true' for performListChck.
+     *
+     * @param msg
+     * @param uArray
+     * @param rArray
+     * @param setTemporal
+     */
     public static void assignUsers( String msg, String[][] uArray, String[][] rArray, boolean setTemporal )
     {
         assignUsers( msg, uArray, rArray, setTemporal, true );
@@ -1650,32 +1666,21 @@ public class AdminMgrImplTest extends TestCase
     }
 
 
-/*
-    public void testDeassignUser2()
-    {
-        //     public void deassignUser(User user, Role role)
-        //deassignUsers( "DEASGN-USRS TU1 TR1", UserTestData.USERS_TU1, RoleTestData.ROLES_TR1 );
-        deassignUsers( "DEASGN-USRS TU4 TR2", UserTestData.USERS_TU4, RoleTestData.ROLES_TR2 );
-        deassignUsers( "DEASGN-USRS TU3 TR3", UserTestData.USERS_TU3, RoleTestData.ROLES_TR3 );
-        deassignUsers( "DEASGN-USERS TU7 TR5 HIER", UserTestData.USERS_TU7_HIER, RoleTestData.ROLES_TR5_HIER, false );
-
-
-        deassignUsers( "DEASGN-USERS TU22 ABAC WASHERS", UserTestData.USERS_TU22_ABAC, RoleTestData
-            .ROLES_ABAC_WASHERS, false );
-        deassignUsers( "DEASGN-USERS TU22 ABAC TELLERS", UserTestData.USERS_TU22_ABAC, RoleTestData.ROLES_ABAC_TELLERS, false );
-        deassignUsers( "DEASGN-USERS TU22 ABAC USERS", UserTestData.USERS_TU22_ABAC, RoleTestData.ROLES_ABAC_USERS, false );
-        deassignUsersH( "DEASGN-USRS_H TU7 TR5 HIER", UserTestData.USERS_TU7_HIER, RoleTestData.ROLES_TR5_HIER );
-        deassignUsersH( "DEASGN-USRS_H TU20 TR5B HIER", UserTestData.USERS_TU20U_TR5B, RoleTestData.ROLES_TR5B );
-    }
-*/
-
-
+    /**
+     * Just call the oher one, passing 'true' for performListChck.
+     *
+     * @param msg
+     * @param uArray
+     * @param rArray
+     */
     void deassignUsers( String msg, String[][] uArray, String[][] rArray )
     {
         deassignUsers( msg, uArray, rArray, true );
     }
 
     /**
+     * If performListCheck deassign the list of users to a list of roles. If the boolean is 'true' skip the list size tests which assume no outside entities are assigned..
+     *
      * @param msg
      * @param uArray
      * @param rArray
