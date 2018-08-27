@@ -159,3 +159,6 @@ rfc2307=false
 
 # TODO: remove me
 audits.dn=cn=log
+# Audit Pool:
+log.admin.user=cn=Manager,cn=log
+log.admin.pw=secret
