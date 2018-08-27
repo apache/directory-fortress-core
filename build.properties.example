@@ -156,3 +156,6 @@ group.properties=configParameter
 ########################################################################
 # Boolean value. If true, requires rfc2307bis schema because posixUser and posixGroup must be auxiliary object classes to work with ftRls which is structural..
 rfc2307=false
+
+# TODO: remove me
+audits.dn=cn=log
