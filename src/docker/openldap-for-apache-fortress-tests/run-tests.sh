@@ -40,6 +40,9 @@ sed -i 's/^suffix\.dc=.*/suffix.dc=com/' build.properties
 sed -i 's/^root\.dn=.*/root.dn=cn=Manager,${suffix}/' build.properties
 sed -i 's/^root\.pw=.*/root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU/' build.properties
 sed -i 's/^cfg\.root\.pw=.*/cfg.root.pw=secret/' build.properties
+echo "min.log.conn=1" >> build.properties
+echo "max.log.conn=3" >> build.properties
+
 
 # prepare
 mvn clean install
