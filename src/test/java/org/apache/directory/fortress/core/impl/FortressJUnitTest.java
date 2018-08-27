@@ -112,6 +112,8 @@ public class FortressJUnitTest extends TestCase
                 suite.addTest( new PswdPolicyMgrImplTest( "testDeletePasswordPolicy" ) );
             }
 
+            suite.addTest( new ConfigMgrImplTest( "testDelAbacConfig" ) );
+
             // GroupMgr
             suite.addTest( new GroupMgrImplTest( "testDeassignGroupRoleMember" ) );
             suite.addTest( new GroupMgrImplTest( "testDeassignGroupUserMember" ) );
@@ -308,6 +310,8 @@ public class FortressJUnitTest extends TestCase
         suite.addTest( new AccessMgrImplTest( "testSessionPermission" ) );
         suite.addTest( new AccessMgrImplTest( "testCreateSessionWithRole" ) );
         suite.addTest( new AccessMgrImplTest( "testCreateSessionWithRolesTrusted" ) );
+        suite.addTest( new ConfigMgrImplTest( "testAddAbacConfig" ) );
+        suite.addTest( new AccessMgrImplTest( "testAbacConstraintsRole" ) );
 
         // PwPolicyMgr PW Policy checks:
         if ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() )

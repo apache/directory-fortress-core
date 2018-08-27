@@ -35,6 +35,7 @@ import org.apache.directory.fortress.core.model.SDSet;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,8 +70,10 @@ public class AccessMgrImplTest extends TestCase
         suite.addTest( new AdminMgrImplTest( "testLockUserAccount" ) );
         suite.addTest( new AccessMgrImplTest( "testAuthenticateLocked" ) );
         suite.addTest( new AdminMgrImplTest( "testUnlockUserAccount" ) );
-*/
         suite.addTest( new AccessMgrImplTest( "testCheckAccess" ) );
+*/
+        suite.addTest( new AccessMgrImplTest( "testAbacConstraintsRole" ) );
+
         return suite;
     }
 
@@ -1278,6 +1281,163 @@ public class AccessMgrImplTest extends TestCase
         {
             LOG.error(
                 "addActiveRolesDSD caught SecurityException rc=" + ex.getErrorId() + ", msg="
+                    + ex.getMessage(), ex );
+            fail( ex.getMessage() );
+        }
+    }
+
+
+    /**
+     * Test the Rbac-Abac curly,moe,larry use cases.
+     *
+     */
+    public void testAbacConstraintsRole()
+    {
+
+        createSessionsConstraints( "ABAC RBAC", RoleTestData.ROLE_CONSTRAINTS_TR18_ABAC );
+    }
+
+    public static void createSessionsConstraints( String msg, String[][] cArray  )
+    {
+        LogUtil.logIt( msg );
+        String TELLERS = "tellers"; // DSD excluded from washer
+        String WASHERS = "washers"; // DSD excluded from tellerr
+        String NORTH = "north";
+        String SOUTH = "south";
+        String EAST = "east";
+        String CURLY = "curly"; // Head Teller of the East, Coin Washer in North and South
+        String MOE = "moe"; // Head Teller of the North, Coin Washer in East and South
+        String LARRY = "larry"; // Head Teller of the South, Coin Washer in North and East
+
+        try
+        {
+            AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
+            for( String[] cons : cArray )
+            {
+                UserRole uRole = RoleTestData.getUserRoleConstraintAbac( cons );
+                User user = new User( uRole.getUserId() );
+                RoleConstraint constraint = uRole.getConstraints().get( 0 );
+                Session session = accessMgr.createSession( user, constraint, true );
+                assertNotNull( session );
+                if( uRole.getName().equalsIgnoreCase( TELLERS ))
+                {
+                    List<UserRole> actRoles = session.getRoles();
+                    for( UserRole actRole : actRoles )
+                    {
+                        // Someone with Teller role cannot activate Washer.
+                        if( actRole.getName().equalsIgnoreCase( WASHERS ))
+                        {
+                            fail( CLS_NM + ".createSessionsConstraints " + TELLERS + " cannot contain " + WASHERS +", user: " + uRole.getUserId() + ", constraint value: " + constraint.getValue() );
+                        }
+                    }
+                    if( constraint.getValue().equalsIgnoreCase( EAST ))
+                    {
+                        // Only Curly is an East Teller
+                        if( !uRole.getUserId().equalsIgnoreCase( CURLY ))
+                        {
+                            fail( CLS_NM + ".createSessionsConstraints " + TELLERS + "," + EAST +" invalid relationship, user: " + uRole.getUserId() + ", role name: " + uRole.getName() + ", constraint value: " + constraint.getValue() );
+                        }
+                    }
+                    else if( constraint.getValue().equalsIgnoreCase( NORTH ))
+                    {
+                        // Only Moe is North Teller
+                        if( !uRole.getUserId().equalsIgnoreCase( MOE ))
+                        {
+                            fail( CLS_NM + ".createSessionsConstraints " + TELLERS + "," + NORTH + " invalid relationship, user: " + uRole.getUserId() + ", role name: " + uRole.getName() + ", constraint value: " + constraint.getValue() );
+                        }
+                    }
+                    else if( constraint.getValue().equalsIgnoreCase( SOUTH ))
+                    {
+                        // Only Larry is South Teller
+                        if( !uRole.getUserId().equalsIgnoreCase( LARRY ))
+                        {
+                            fail( CLS_NM + ".createSessionsConstraints " + TELLERS + "," + SOUTH + " invalid relationship, user: " + uRole.getUserId() + ", role name: " + uRole.getName() + ", constraint value: " + constraint.getValue() );
+                        }
+                    }
+                    // Invalid test case
+                    else
+                    {
+                        fail( CLS_NM + ".createSessionsConstraints " + TELLERS + " invalid test role: " + uRole.getName() + ", constraint value: " + constraint.getValue() );
+                    }
+
+                    // Verify that the Teller has access to the account operations:
+                    for( String[] op : PermTestData.ABAC_ACCOUNT_OPS )
+                    {
+                        Permission validPOp = PermTestData.getOp( PermTestData.getName( PermTestData.ABAC_ACCOUNT_OBJS[0] ), op );
+                        boolean result = accessMgr.checkAccess( session, validPOp );
+                        assertTrue( CLS_NM +
+                                ".createSessionsConstraints failed checkAccess USER [" + user.getUserId() +
+                                "] PERM Obj [" + validPOp.getObjName() + "] " +
+                                "OPER [" + validPOp.getOpName() + "]",
+                            result );
+                    }
+                }
+                // Verify the Washer has access to currency operations:
+                else if( uRole.getName().equalsIgnoreCase( WASHERS ))
+                {
+                    List<UserRole> actRoles = session.getRoles();
+                    for( UserRole actRole : actRoles )
+                    {
+                        // Someone with Washer role cannot activate Teller.
+                        if( actRole.getName().equalsIgnoreCase( TELLERS ))
+                        {
+                            fail( CLS_NM + ".createSessionsConstraints " + WASHERS + " cannot contain " + TELLERS +", user: " + uRole.getUserId() + ", constraint value: " + constraint.getValue() );
+                        }
+                    }
+                    if( constraint.getValue().equalsIgnoreCase( EAST ))
+                    {
+                        // Curly cannot be an East Washer
+                        if( uRole.getUserId().equalsIgnoreCase( CURLY ))
+                        {
+                            fail( CLS_NM + ".createSessionsConstraints " + WASHERS + "," + EAST + "  invalid relationship, user: " + uRole.getUserId() + ", role name: " + uRole.getName() + ", constraint value: " + constraint.getValue() );
+                        }
+                    }
+                    else if( constraint.getValue().equalsIgnoreCase( NORTH ))
+                    {
+                        // Moe cannot be a North Washer
+                        if( uRole.getUserId().equalsIgnoreCase( MOE ))
+                        {
+                            fail( CLS_NM + ".createSessionsConstraints " + WASHERS + ","+ NORTH + " invalid relationship, user: " + uRole.getUserId() + ", role name: " + uRole.getName() + ", constraint value: " + constraint.getValue() );
+                        }
+                    }
+                    else if( constraint.getValue().equalsIgnoreCase( SOUTH ))
+                    {
+                        // Larry cannot be a South Washer
+                        if( uRole.getUserId().equalsIgnoreCase( LARRY ))
+                        {
+                            fail( CLS_NM + ".createSessionsConstraints " + WASHERS + "," + SOUTH + " invalid relationship, user: " + uRole.getUserId() + ", role name: " + uRole.getName() + ", constraint value: " + constraint.getValue() );
+                        }
+                    }
+                    // Invalid test case
+                    else
+                    {
+                        fail( CLS_NM + ".createSessionsConstraints " + WASHERS + " invalid test role: " + uRole.getName() + ", constraint value: " + constraint.getValue() );
+                    }
+                    // Verify that the Washer has access to the currency operations:
+                    for( String[] op : PermTestData.ABAC_CURRENCY_OPS )
+                    {
+                        Permission validPOp = PermTestData.getOp( PermTestData.getName( PermTestData.ABAC_CURRENCY_OBJS[0] ), op );
+                        boolean result = accessMgr.checkAccess( session, validPOp );
+                        assertTrue( CLS_NM +
+                                ".createSessionsConstraints failed checkAccess USER [" + user.getUserId() +
+                                "] PERM Obj [" + validPOp.getObjName() + "] " +
+                                "OPER [" + validPOp.getOpName() + "]",
+                            result );
+                    }
+                }
+                // Invalid test case
+                else
+                {
+                    fail( CLS_NM + ".createSessionsConstraints invalid test role: " + uRole.getName() );
+                }
+
+            }
+            LOG.debug( "createSessionsConstraints successful" );
+        }
+        catch ( SecurityException ex )
+        {
+            LOG.error(
+                "createSessionsConstraints: failed with SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }

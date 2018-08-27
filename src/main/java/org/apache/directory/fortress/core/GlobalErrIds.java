@@ -509,6 +509,10 @@ public final class GlobalErrIds
      */
     public static final int ACTV_FAILED_ABAC = 2058;
     /**
+     * Entity activation failed, the ABAC constraint key was not found in user context.
+     */
+    public static final int ACTV_FAILED_ABAC_NO_KEY_FOUND = 2059;
+    /**
      * 3000's - Permission Entity
      */
 

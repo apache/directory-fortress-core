@@ -26,6 +26,8 @@ import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class performs dynamic constraint validation on role activation, per FC-235
@@ -35,6 +37,9 @@ import org.apache.directory.fortress.core.util.VUtil;
 public class UserRoleConstraint
     implements Validator
 {
+    private static final String CLS_NM = UserRoleConstraint.class.getName();
+    private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
+
     /**
      * This method is called during entity activation, {@link org.apache.directory.fortress.core.util.VUtil#validateConstraints} and ensures role has a
      * matching constraint value.
@@ -61,7 +66,8 @@ public class UserRoleConstraint
                 if( StringUtils.isEmpty( constraintValue ) || role.getConstraints().isEmpty() )
                 {
                     // This user does not have a corresponding property applied to a role that has a runtime constraint set -OR- Have no applicable role constraint.
-                    rc = GlobalErrIds.ACTV_FAILED_ABAC;
+                    rc = GlobalErrIds.ACTV_FAILED_ABAC_NO_KEY_FOUND;
+                    LOG.warn( "User: {}, property: {} not found matching role: {}, constraint: ", session.getUserId(), constraintType, role.getName() );
                 }
                 else
                 {
