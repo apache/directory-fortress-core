@@ -24,6 +24,7 @@ import java.util.Properties;
 import org.apache.directory.fortress.core.ConfigMgr;
 import org.apache.directory.fortress.core.ConfigMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.LogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,11 +57,14 @@ public class ConfigMgrImplTest extends TestCase
         for(String[] cArray : cfgArrays )
         {
             props.setProperty( cArray[ConfigTestData.NAME_COL], cArray[ConfigTestData.VALUE_COL] );
+            // update in-memory:
+            Config.getInstance().setProperty( cArray[ConfigTestData.NAME_COL], cArray[ConfigTestData.VALUE_COL] );
         }
         try
         {
             ConfigMgr cMgr = getConfigMgr();
-            cMgr.update( cfgArrays[0][ConfigTestData.REALM_COL], props);
+            // persist property:
+            cMgr.update( cfgArrays[0][ConfigTestData.REALM_COL], props );
         }
         catch ( SecurityException ex )
         {
