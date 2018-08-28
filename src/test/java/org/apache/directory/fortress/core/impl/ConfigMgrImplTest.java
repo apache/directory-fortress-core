@@ -41,10 +41,6 @@ public class ConfigMgrImplTest extends TestCase
         super( name );
     }
 
-    public void testCrudProperties()
-    {
-    }
-
     public void testAddAbacConfig()
     {
         addConfig( "ADD ABAC RBAC CFG", ConfigTestData.ABAC_SAMPLE1 );
