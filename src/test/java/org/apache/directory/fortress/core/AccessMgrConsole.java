@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
@@ -171,8 +172,14 @@ class AccessMgrConsole
             System.out.println("Enter password:");
             String password = ReaderUtil.readLn();
             User inUser = new User(userId, password);
+            List<RoleConstraint> constraints = new ArrayList();
             RoleConstraint constraint = getRuntimeConstraint( inUser );
-            session = am.createSession(inUser, constraint, false);
+            while ( constraint != null )
+            {
+                constraints.add( constraint );
+                constraint = getRuntimeConstraint( inUser );
+            }
+            session = am.createSession(inUser, constraints, false);
             System.out.println("Session created successfully for userId [" + userId + "]");
             System.out.println("session [" + session + "]");
             System.out.println("ENTER to continue");
@@ -193,15 +200,14 @@ class AccessMgrConsole
             System.out.println("Enter userId:");
             String userId = ReaderUtil.readLn();
             User inUser = new User(userId);
+            List<RoleConstraint> constraints = new ArrayList();
             RoleConstraint constraint = getRuntimeConstraint( inUser );
-            if( constraint != null )
+            while ( constraint != null )
             {
-                session = am.createSession(inUser, constraint, true);
+                constraints.add( constraint );
+                constraint = getRuntimeConstraint( inUser );
             }
-            else
-            {
-                session = am.createSession(inUser, true);
-            }
+            session = am.createSession(inUser, constraints, true);
             System.out.println("Trusted Session created successfully for userId [" + userId + "]");
             System.out.println("session [" + session + "]");
             System.out.println("ENTER to continue");

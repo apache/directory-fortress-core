@@ -119,13 +119,13 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
      * {@inheritDoc}
      */
     @Override
-    public Session createSession( User user, RoleConstraint constraint, boolean isTrusted )
+    public Session createSession( User user, List<RoleConstraint> constraints, boolean isTrusted )
         throws SecurityException
     {
         String methodName = "createSession";
         assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
-        assertContext( CLS_NM, methodName, constraint, GlobalErrIds.ROLE_CONSTRAINT_NULL );
-        return userP.createSession( user, constraint, isTrusted );
+        VUtil.assertNotNull( constraints, GlobalErrIds.ROLE_CONSTRAINT_NULL, methodName );
+        return userP.createSession( user, constraints, isTrusted );
     }
 
     /**

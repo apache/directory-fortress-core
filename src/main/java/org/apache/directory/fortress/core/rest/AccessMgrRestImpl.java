@@ -137,11 +137,14 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
      * {@inheritDoc}
      */
     @Override
-    public Session createSession(User user, RoleConstraint constraint, boolean isTrusted)
+    public Session createSession(User user, List<RoleConstraint> constraints, boolean isTrusted)
         throws SecurityException
     {
-        VUtil.assertNotNull( constraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + ".createSession" );
-        user.addProperty( constraint.getKey(), constraint.getValue() );
+        VUtil.assertNotNull( constraints, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + ".createSession" );
+        for( RoleConstraint constraint : constraints )
+        {
+            user.addProperty( constraint.getKey(), constraint.getValue() );
+        }
         return createSession( user, isTrusted );
     }
 

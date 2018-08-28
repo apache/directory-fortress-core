@@ -1317,7 +1317,9 @@ public class AccessMgrImplTest extends TestCase
                 UserRole uRole = RoleTestData.getUserRoleConstraintAbac( cons );
                 User user = new User( uRole.getUserId() );
                 RoleConstraint constraint = uRole.getConstraints().get( 0 );
-                Session session = accessMgr.createSession( user, constraint, true );
+                List<RoleConstraint> constraints = new ArrayList();
+                constraints.add( constraint );
+                Session session = accessMgr.createSession( user, constraints, true );
                 assertNotNull( session );
                 if( uRole.getName().equalsIgnoreCase( TELLERS ))
                 {

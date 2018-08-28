@@ -186,7 +186,7 @@ public interface AccessMgr extends Manageable
      * @param user      Contains {@link User#userId}, {@link org.apache.directory.fortress.core.model.User#password}
      * (optional if {@code isTrusted} is 'true'), optional {@link User#roles}, optional
      * {@link org.apache.directory.fortress.core.model.User#adminRoles}
-     * @param constraint      Contains case-sensitive {@link RoleConstraint#key}, {@link RoleConstraint#value}, bound for role activation checks.
+     * @param constraints List of case-sensitive {@link RoleConstraint#key}, {@link RoleConstraint#value}, bound for role activation checks.
      * (optional if {@code isTrusted} is 'true'), optional {@link User#roles}, optional
      * {@link org.apache.directory.fortress.core.model.User#adminRoles}
      * @param isTrusted if true password is not required.
@@ -200,7 +200,7 @@ public interface AccessMgr extends Manageable
      * @throws SecurityException
      *          in the event of data validation failure, security policy violation or DAO error.
      */
-    Session createSession( User user, RoleConstraint constraint, boolean isTrusted )
+    Session createSession( User user, List<RoleConstraint> constraints, boolean isTrusted )
         throws SecurityException;
 
     /**

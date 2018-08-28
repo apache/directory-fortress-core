@@ -76,10 +76,10 @@ public class AuditMgrImplTest extends TestCase
     public static Test suite()
     {
         TestSuite suite = new TestSuite();
-        //suite.addTest(new AuditMgrImplTest("testSearchBinds"));
+        suite.addTest(new AuditMgrImplTest("testSearchBinds"));
         //suite.addTest(new AuditMgrImplTest("testSearchAuthNInvalid"));
         //suite.addTest(new AuditMgrImplTest("testGetAuthZs"));
-        suite.addTest( new AuditMgrImplTest( "testSearchAuthZs" ) );
+        //suite.addTest( new AuditMgrImplTest( "testSearchAuthZs" ) );
         //suite.addTest(new AuditMgrImplTest("testSearchMods"));
         //suite.addTest(new AuditMgrImplTest("testSearchAdminMods"));
         return suite;
