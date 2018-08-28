@@ -354,8 +354,24 @@ public final class Config
         }
         else
         {
-            String warn = "setProperty invalid config, can't set prop name [" + name + "], value [" + value + "]";
-            LOG.warn( warn );
+            LOG.warn( "setProperty invalid config, can't set prop name {}, value {}" + name, value);
+        }
+    }
+
+    /**
+     * Clear the property from apache commons config.
+     *
+     * @param name  contains the name of the property.
+     */
+    public void clearProperty( String name )
+    {
+        if ( config != null )
+        {
+            config.clearProperty( name );
+        }
+        else
+        {
+            LOG.warn( "clearProperty invalid config, prop name {}", name );
         }
     }
 

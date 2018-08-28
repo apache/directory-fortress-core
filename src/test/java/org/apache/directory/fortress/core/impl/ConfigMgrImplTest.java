@@ -86,10 +86,13 @@ public class ConfigMgrImplTest extends TestCase
         for(String[] cArray : cfgArrays )
         {
             props.setProperty( cArray[ConfigTestData.NAME_COL], cArray[ConfigTestData.VALUE_COL] );
+            // update in-memory:
+            Config.getInstance().clearProperty( cArray[ConfigTestData.NAME_COL] );
         }
         try
         {
             ConfigMgr cMgr = getConfigMgr();
+            // persist
             cMgr.delete( cfgArrays[0][ConfigTestData.REALM_COL], props );
         }
         catch ( SecurityException ex )
