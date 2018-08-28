@@ -32,20 +32,21 @@ echo $CONTAINER_PORT
 
 # configure build.properties
 cp build.properties.example build.properties
-sed -i 's/^ldap\.server\.type=.*/ldap.server.type=openldap/' build.properties
-sed -i 's/^ldap\.host=.*/ldap.host=localhost/' build.properties
-sed -i 's/^ldap\.port=.*/ldap.port='${CONTAINER_PORT}'/' build.properties
-sed -i 's/^suffix\.name=.*/suffix.name=example/' build.properties
-sed -i 's/^suffix\.dc=.*/suffix.dc=com/' build.properties
-sed -i 's/^root\.dn=.*/root.dn=cn=Manager,${suffix}/' build.properties
-sed -i 's/^root\.pw=.*/root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU/' build.properties
-sed -i 's/^cfg\.root\.pw=.*/cfg.root.pw=secret/' build.properties
-echo "" >> build.properties
-echo "log.admin.user=cn=Manager,cn=log" >> build.properties
-echo "log.admin.pw=secret" >> build.properties
-echo "min.log.conn=1" >> build.properties
-echo "max.log.conn=3" >> build.properties
-echo "audits.dn=cn=log" >> build.properties
+cp slapd.properties.example slapd.properties
+#sed -i 's/^ldap\.server\.type=.*/ldap.server.type=openldap/' build.properties
+sed -i 's/^ldap\.host=.*/ldap.host=localhost/' slapd.properties
+sed -i 's/^ldap\.port=.*/ldap.port='${CONTAINER_PORT}'/' slapd.properties
+#sed -i 's/^suffix\.name=.*/suffix.name=example/' build.properties
+#sed -i 's/^suffix\.dc=.*/suffix.dc=com/' build.properties
+#sed -i 's/^root\.dn=.*/root.dn=cn=Manager,${suffix}/' build.properties
+#sed -i 's/^root\.pw=.*/root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU/' build.properties
+#sed -i 's/^cfg\.root\.pw=.*/cfg.root.pw=secret/' build.properties
+#echo "" >> build.properties
+#echo "log.admin.user=cn=Manager,cn=log" >> build.properties
+#echo "log.admin.pw=secret" >> build.properties
+#echo "min.log.conn=1" >> build.properties
+#echo "max.log.conn=3" >> build.properties
+#echo "audits.dn=cn=log" >> build.properties
 
 # prepare
 mvn clean install
