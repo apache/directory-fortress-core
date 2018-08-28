@@ -2125,8 +2125,10 @@ public class AdminMgrImplTest extends TestCase
     	    
     	LOG.debug("assignUserRoleConstraint user [" + user.getUserId() + "] role [" + role.getName() + "] " +
     			" rcvalue [" + rc.getValue() + "]");
-    	
-    	//get user with consratint filter
+
+    	// Use the returned 'createdRoleConstraint' from addRoleConstraint method call, not its argument -- 'rc'.
+    	// Otherwise this will fail over REST, because the 'rc' won't have its 'id' field set, which is needed for this search to yield correct results.
+        // get user with consratint filter:
     	List<User> usersWithRc = reviewMgr.assignedUsers( role, createdRoleConstraint );
     	assertTrue( usersWithRc.size() == 1 );
     	assertEquals( user.getUserId(), usersWithRc.get( 0 ).getUserId() );
@@ -2162,7 +2164,6 @@ public class AdminMgrImplTest extends TestCase
                 roleFound = true;
             }
         }
-        
         if( !roleFound ){
             fail("Role with name " + roleName + " not found");
         }
