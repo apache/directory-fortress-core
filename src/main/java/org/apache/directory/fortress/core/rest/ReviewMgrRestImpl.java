@@ -1350,15 +1350,32 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
     @Override
     public List<User> assignedUsers( Role role, RoleConstraint roleConstraint ) throws SecurityException
     {
-        // TODO Auto-generated method stub
-        return null;
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".assignedUsers");
+        VUtil.assertNotNull(roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + ".assignedUsers");
+        List<User> users;
+        FortRequest request = new FortRequest();
+        request.setContextId( this.contextId );
+        request.setEntity( role );
+        request.setEntity2( roleConstraint );
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_ASGNED_CONSTRAINTS);
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            users = response.getEntities();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+
+        return users;
     }
 
 
     @Override
     public List<UserRole> assignedUsers( Role role, RCType rcType, String paSetName ) throws SecurityException
     {
-        // TODO Auto-generated method stub
-        return null;
+        throw new UnsupportedOperationException( "not implemented" );
     }
 }

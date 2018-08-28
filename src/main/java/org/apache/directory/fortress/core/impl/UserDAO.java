@@ -1907,7 +1907,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
 
         try
         {
-            roleConstraint.setId();
+            roleConstraint.genId();
             
             List<Modification> mods = new ArrayList<Modification>();
             szRoleConstraint = roleConstraint.getRawData(uRole);

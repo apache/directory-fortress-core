@@ -86,13 +86,13 @@ public class AdminMgrImplTest extends TestCase
         suite.addTest(new AdminMgrImplTest("testAddRoleDescendant"));
         suite.addTest(new AdminMgrImplTest("testDelRoleAscendant"));
         suite.addTest(new AdminMgrImplTest("testAddRoleAscendants"));
-        */
-
         suite.addTest( new AdminMgrImplTest( "testDeleteSsdRoleMember" ) );
         suite.addTest( new AdminMgrImplTest( "testDeleteSsdSet" ) );
         suite.addTest( new AdminMgrImplTest( "testCreateSsdSet" ) );
         suite.addTest( new AdminMgrImplTest( "testAddSsdRoleMember" ) );
+        */
 
+        suite.addTest( new AdminMgrImplTest( "testAddUserRoleConstraint" ) );
         return suite;
     }
 
@@ -2127,7 +2127,7 @@ public class AdminMgrImplTest extends TestCase
     			" rcvalue [" + rc.getValue() + "]");
     	
     	//get user with consratint filter
-    	List<User> usersWithRc = reviewMgr.assignedUsers( role, rc );
+    	List<User> usersWithRc = reviewMgr.assignedUsers( role, createdRoleConstraint );
     	assertTrue( usersWithRc.size() == 1 );
     	assertEquals( user.getUserId(), usersWithRc.get( 0 ).getUserId() );
     	

@@ -1405,7 +1405,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     @Override
     public void removeRoleConstraint( UserRole uRole, String roleConstraintId ) throws SecurityException
     {
-        // TODO Auto-generated method stub
-        
+        throw new UnsupportedOperationException( "not implemented" );
     }
 }

@@ -51,6 +51,7 @@ public class HttpIds
     public static final String USER_GRANT = "userGrant";
     public static final String USER_REVOKE = "userRevoke";
     public static final String USER_ASGNED = "userAsigned";
+    public static final String USER_ASGNED_CONSTRAINTS = "userAsignedConstraints";
     public static final String USER_AUTHZED = "userAuthzed";
     public static final String USER_ASGNED_ADMIN = "userAsignedAdmin";
     public static final String ROLE_READ = "roleRead";

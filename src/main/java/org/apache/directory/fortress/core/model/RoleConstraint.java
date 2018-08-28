@@ -89,8 +89,13 @@ public class RoleConstraint extends FortEntity implements Serializable
     {
         return id;
     }
-    
-    public void setId()
+
+    public void setId(String id)
+    {
+        this.id = id;
+    }
+
+    public void genId()
     {
         UUID uuid = UUID.randomUUID();
         this.id = uuid.toString();
