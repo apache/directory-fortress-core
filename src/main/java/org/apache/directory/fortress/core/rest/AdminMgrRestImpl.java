@@ -1402,6 +1402,9 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
 	}
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeRoleConstraint( UserRole uRole, String roleConstraintId ) throws SecurityException
     {
@@ -1417,6 +1420,58 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_DELETE_CONSTRAINT_ID );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
+        {
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void enableRoleConstraint( Role role, RoleConstraint roleConstraint )
+        throws SecurityException
+    {
+        String methodName = ".enableRoleConstraint";
+        VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + methodName );
+        VUtil.assertNotNull( roleConstraint, GlobalErrIds.RCON_NULL, CLS_NM + methodName );
+        FortRequest request = RestUtils.getRequest( this.contextId );
+        request.setEntity( role );
+        request.setEntity2( roleConstraint );
+        if ( this.adminSess != null )
+        {
+            request.setSession( adminSess );
+        }
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_ENABLE_CONSTRAINT );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
+        {
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void disableRoleConstraint( Role role, RoleConstraint roleConstraint )
+        throws SecurityException
+    {
+        String methodName = ".disableRoleConstraint";
+        VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + methodName );
+        VUtil.assertNotNull( roleConstraint, GlobalErrIds.RCON_NULL, CLS_NM + methodName );
+        FortRequest request = RestUtils.getRequest( this.contextId );
+        request.setEntity( role );
+        request.setEntity2( roleConstraint );
+        if ( this.adminSess != null )
+        {
+            request.setSession( adminSess );
+        }
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_DISABLE_CONSTRAINT );
         FortResponse response = RestUtils.unmarshall( szResponse );
         if ( response.getErrorCode() != 0 )
         {

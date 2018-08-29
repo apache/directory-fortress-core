@@ -451,6 +451,36 @@ public interface AdminMgr extends Manageable
         throws SecurityException;
 
     /**
+     * This method enables a role to be constrainted by attributes.
+     * <h4>required parameters</h4>
+     * <ul>
+     *   <li>{@link Role#name} - contains the name for already existing Role to be constrained</li>
+     *   <li>{@link RoleConstraint#key} - contains the name of the constraint, e.g. locale, organization, or accountnumber</li>
+     * </ul>
+     *
+     * @param role must contain {@link Role#name}
+     * @param roleConstraint must contain {@link RoleConstraint#key}
+     * @throws SecurityException in the event of validation or system error.
+     */
+    public void enableRoleConstraint( Role role, RoleConstraint roleConstraint )
+        throws SecurityException;
+
+    /**
+     * This method disables a role to be constrainted by attributes.
+     * <h4>required parameters</h4>
+     * <ul>
+     *   <li>{@link Role#name} - contains the name for already existing Role to be unconstrained</li>
+     *   <li>{@link RoleConstraint#key} - contains the name of the constraint, e.g. locale, organization, or accountnumber</li>
+     * </ul>
+     *
+     * @param role must contain {@link Role#name}
+     * @param roleConstraint must contain {@link RoleConstraint#key}
+     * @throws SecurityException in the event of validation or system error.
+     */
+    public void disableRoleConstraint( Role role, RoleConstraint roleConstraint )
+        throws SecurityException;
+
+    /**
      * This method adds a roleConstraint (ftRC) to the user ldap entry. (ftRC=ROLE_NAME$type$CONSTRAINT_TYPE$CONSTRAINT_PASETNAME$CONSTRAINT_VALUE)
      * <h4>required parameters</h4>
      * <ul>
@@ -458,7 +488,7 @@ public interface AdminMgr extends Manageable
      *   <li>{@link UserRole#userId} - contains the userId for existing User</li>
      *   <li>{@link RoleConstraint#type} - contains the type of role constraint (filter, other)</li>
      *   <li>{@link RoleConstraint#value} - contains the value of the role constraint which is currently not validated in any way</li>
-     *   <li>{@link RoleConstraint#paSetName} - contains the name of the permission attribute set this constraint is applicable for</li>
+     *   <li>{@link RoleConstraint#key} - contains the name of the permission attribute set this constraint is applicable for</li>
      * </ul>
      * 
      * @param uRole must contain {@link UserRole#userId} and {@link UserRole#name}

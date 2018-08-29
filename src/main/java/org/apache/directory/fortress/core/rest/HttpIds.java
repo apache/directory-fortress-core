@@ -74,6 +74,8 @@ public class HttpIds
     public static final String ROLE_AUTHZED = "roleAuthzed";
     public static final String ROLE_ADD_CONSTRAINT = "addRoleConstraint";
     public static final String ROLE_DELETE_CONSTRAINT = "removeRoleConstraint";
+    public static final String ROLE_ENABLE_CONSTRAINT = "roleEnableConstraint";
+    public static final String ROLE_DISABLE_CONSTRAINT = "roleDisableConstraint";
     public static final String ROLE_DELETE_CONSTRAINT_ID = "removeRoleConstraintId";
     public static final String ROLE_FIND_CONSTRAINTS = "findRoleConstraints";
     public static final String OBJ_READ = "objRead";

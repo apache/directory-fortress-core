@@ -4098,5 +4098,22 @@ public class RoleTestData extends TestCase
             },
         };
 
+    public static final String[][] ROLE_CONSTRAINTS_TR18_ROLES =
+        {
+            {
+                "", /* USERID */
+                "Tellers", /* ROLE NAME */
+                "locale", /* KEY */
+                "", /* VALUE */
+                "USER" /* TYPE */
+            },
+            {
+                "", /* USERID */
+                "Washers", /* ROLE NAME */
+                "locale", /* KEY */
+                "", /* VALUE */
+                "USER" /* TYPE */
+            }
+        };
 
 }

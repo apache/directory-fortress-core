@@ -112,7 +112,7 @@ public class FortressJUnitTest extends TestCase
                 suite.addTest( new PswdPolicyMgrImplTest( "testDeletePasswordPolicy" ) );
             }
 
-            suite.addTest( new ConfigMgrImplTest( "testDelAbacConfig" ) );
+            suite.addTest( new AdminMgrImplTest( "testDisableRoleConstraint" ) );
 
             // GroupMgr
             suite.addTest( new GroupMgrImplTest( "testDeassignGroupRoleMember" ) );
@@ -203,6 +203,7 @@ public class FortressJUnitTest extends TestCase
             suite.addTest( new PswdPolicyMgrImplTest( "testUpdatePasswordPolicy" ) );
         }
         suite.addTest( new AdminMgrImplTest( "testAssignUser" ) );
+        suite.addTest( new AdminMgrImplTest( "testEnableRoleConstraint" ) );
         suite.addTest( new AdminMgrImplTest( "testAssignUserRoleConstraints" ) );
         suite.addTest( new AdminMgrImplTest( "testAddPermissionObj" ) );
         suite.addTest( new AdminMgrImplTest( "testUpdatePermissionObj" ) );
@@ -310,7 +311,7 @@ public class FortressJUnitTest extends TestCase
         suite.addTest( new AccessMgrImplTest( "testSessionPermission" ) );
         suite.addTest( new AccessMgrImplTest( "testCreateSessionWithRole" ) );
         suite.addTest( new AccessMgrImplTest( "testCreateSessionWithRolesTrusted" ) );
-        suite.addTest( new ConfigMgrImplTest( "testAddAbacConfig" ) );
+        //suite.addTest( new ConfigMgrImplTest( "testAddAbacConfig" ) );
         suite.addTest( new AccessMgrImplTest( "testAbacConstraintsRole" ) );
 
         // PwPolicyMgr PW Policy checks:

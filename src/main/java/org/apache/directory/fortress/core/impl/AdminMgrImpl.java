@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core.impl;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -101,6 +102,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     private static final SdP sdP = new SdP();
     private static final UserP userP = new UserP();
     private static final GroupP groupP = new GroupP();
+    private static final ConfigP configP = new ConfigP();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
 
@@ -393,9 +395,57 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      */
     @Override
     @AdminPermissionOperation
-    public RoleConstraint addRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
+    public void enableRoleConstraint( Role role, RoleConstraint roleConstraint )
     	   	throws SecurityException
     {        
+    	String methodName = ".enableRoleConstraint";
+        VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + methodName );
+        VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
+        VUtil.assertNotNull( role.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
+        String propKey = GlobalIds.CONSTRAINT_KEY_PREFIX + role.getName().toLowerCase();
+        String propValue = roleConstraint.getKey();
+        VUtil.assertNotNull( propValue, GlobalErrIds.ROLE_CONSTRAINT_KEY_NULL, CLS_NM + methodName );
+        Properties props = new Properties();
+        props.setProperty( propKey, propValue );
+        // Retrieve parameters from the config node stored in target LDAP DIT:
+        String realmName = Config.getInstance().getProperty( GlobalIds.CONFIG_REALM, "DEFAULT" );
+        configP.update( realmName, props );
+        // update in-memory:
+        Config.getInstance().setProperty( propKey, propValue );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @AdminPermissionOperation
+    public void disableRoleConstraint( Role role, RoleConstraint roleConstraint )
+    	   	throws SecurityException
+    {
+        String methodName = ".disableRoleConstraint";
+        VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + methodName );
+        VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
+        VUtil.assertNotNull( role.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
+        String propKey = GlobalIds.CONSTRAINT_KEY_PREFIX + role.getName().toLowerCase();
+        String propValue = roleConstraint.getKey();
+        VUtil.assertNotNull( propValue, GlobalErrIds.ROLE_CONSTRAINT_KEY_NULL, CLS_NM + methodName );
+        Properties props = new Properties();
+        props.setProperty( propKey, propValue );
+        // Retrieve parameters from the config node stored in target LDAP DIT:
+        String realmName = Config.getInstance().getProperty( GlobalIds.CONFIG_REALM, "DEFAULT" );
+        configP.delete( realmName, props );
+        // update in-memory:
+        Config.getInstance().clearProperty( propKey );
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @AdminPermissionOperation
+    public RoleConstraint addRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
+    	   	throws SecurityException
+    {
     	String methodName = "assignUser";
         assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
 
@@ -411,7 +461,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         AdminUtil.canAssign( uRole.getAdminSession(), new User( uRole.getUserId() ), new Role( uRole.getName() ),
             contextId );
         // todo assert roleconstraint here
-        userP.assign( uRole, roleConstraint );        
+        userP.assign( uRole, roleConstraint );
         return roleConstraint;
     }
 
@@ -440,7 +490,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     public void removeRoleConstraint( UserRole uRole, String roleConstraintId )
             throws SecurityException
     {        
-        String methodName = "assignUser";
+        String methodName = "deassignUser";
         assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
         AdminUtil.canDeassign( uRole.getAdminSession(), new User( uRole.getUserId() ), new Role( uRole.getName() ), contextId );
         

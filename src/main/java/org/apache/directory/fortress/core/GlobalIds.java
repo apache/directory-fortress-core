@@ -43,6 +43,7 @@ public final class GlobalIds
     public static final String TENANT = "tenant";
     public static final String DISABLE_AUDIT = "disable.audit";
     public static final String ENABLE_REST = "enable.mgr.impl.rest";
+    public static final String CONSTRAINT_KEY_PREFIX = "RC-";
 
     /**
      * The following constants are used within the factory classes:
