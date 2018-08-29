@@ -1405,6 +1405,22 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
     @Override
     public void removeRoleConstraint( UserRole uRole, String roleConstraintId ) throws SecurityException
     {
-        throw new UnsupportedOperationException( "not implemented" );
+        //throw new UnsupportedOperationException( "not implemented" );
+        VUtil.assertNotNull( uRole, GlobalErrIds.URLE_NULL, CLS_NM + ".removeRoleConstraint" );
+        VUtil.assertNotNull( roleConstraintId, GlobalErrIds.ROLE_CONSTRAINT_VALUE_NULL, CLS_NM + ".removeRoleConstraint" );
+        FortRequest request = RestUtils.getRequest( this.contextId );
+        request.setEntity( uRole );
+        request.setValue( roleConstraintId );
+        if ( this.adminSess != null )
+        {
+            request.setSession( adminSess );
+        }
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_DELETE_CONSTRAINT_ID );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() != 0 )
+        {
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
+        }
     }
 }

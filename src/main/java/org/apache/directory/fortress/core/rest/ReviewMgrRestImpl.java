@@ -1368,14 +1368,35 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         {
             throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
-
         return users;
     }
 
 
     @Override
-    public List<UserRole> assignedUsers( Role role, RCType rcType, String paSetName ) throws SecurityException
+    public List<UserRole> assignedUsers( Role role, RCType rcType, String key ) throws SecurityException
     {
-        throw new UnsupportedOperationException( "not implemented" );
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".assignedUsers");
+        VUtil.assertNotNull(rcType, GlobalErrIds.ROLE_CONSTRAINT_TYPE_NULL, CLS_NM + ".assignedUsers");
+        VUtil.assertNotNull(key, GlobalErrIds.ROLE_CONSTRAINT_KEY_NULL, CLS_NM + ".assignedUsers");
+        List<UserRole> uRoles;
+        FortRequest request = new FortRequest();
+        request.setContextId( this.contextId );
+        request.setEntity( role );
+        RoleConstraint constraint = new RoleConstraint();
+        constraint.setKey( key );
+        constraint.setType( rcType );
+        request.setEntity2( constraint );
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_ASGNED_CONSTRAINTS_KEY);
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            uRoles = response.getEntities();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return uRoles;
     }
 }

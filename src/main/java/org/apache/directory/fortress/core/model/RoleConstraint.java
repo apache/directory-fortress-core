@@ -45,6 +45,10 @@ import javax.xml.bind.annotation.XmlType;
     "typeName"
 } )
 
+/**
+ * This value object stores attributes associated with a User-Role assignment that are used to augment of constraint the usage of that particular Role.  It maps to the 'ftRC' attribute on ftUserAttrs aux object class, stored on the User.
+ * Constraints can be used for various purposes.  For example, it can map to permission attribute sets, or, can constraint the activation of the Role, see {@link org.apache.directory.fortress.core.util.time.UserRoleConstraint}.
+ */
 public class RoleConstraint extends FortEntity implements Serializable
 {
 
@@ -77,60 +81,109 @@ public class RoleConstraint extends FortEntity implements Serializable
 
     }
 
-    public RoleConstraint(String id, String value, RCType type, String paSetName)    
+    public RoleConstraint(String id, String value, RCType type, String key)
     {
         this.id = id;
         this.type = type;
         this.value = value;
-        this.key = paSetName;
+        this.key = key;
     }
 
+    /**
+     * Return the object id.
+     *
+     * @return
+     */
     public String getId()
     {
         return id;
     }
 
+    /**
+     * Set the id.
+     *
+     * @param id
+     */
     public void setId(String id)
     {
         this.id = id;
     }
 
+    /**
+     * Generate a unique, random id, set as the value of id.
+     *
+     */
     public void genId()
     {
         UUID uuid = UUID.randomUUID();
         this.id = uuid.toString();
     }
-    
+
+    /**
+     * Return the type of the constraint.
+     *
+     * @return
+     */
     public RCType getType()
     {
         return type;
     }
 
+    /**
+     * Set the constraint type.
+     *
+     * @param type
+     */
     public void setType(RCType type)
     {
         this.type = type;
     }
 
+    /**
+     * Get the value of a particular constraint. For example, locale=North, has a value of 'North'.
+     *
+     * @return
+     */
     public String getValue()
     {
         return value;
     }
 
+    /**
+     * Set the objects value.
+     *
+     * @param value
+     */
     public void setValue(String value)
     {
         this.value = value;
     }
 
+    /**
+     * The key associated with a particular constraint.  For example, locale=North, key is 'locale'.
+     * @return
+     */
     public String getKey()
     {
         return key;
     }
 
+    /**
+     * Set the key on a constraint.
+     *
+     * @param key
+     */
     public void setKey(String key)
     {
         this.key = key;
     }
 
+    /**
+     * This is the actual value of data stored in the LDAP attribute ftRC.  It concatenates the object's values, separated by a delimiter.
+     *
+     * @param uRole
+     * @return
+     */
     public String getRawData(UserRole uRole)
     {
         StringBuilder sb = new StringBuilder();
@@ -146,7 +199,7 @@ public class RoleConstraint extends FortEntity implements Serializable
         sb.append( delimeter );
         sb.append( value );
         sb.append( delimeter );
-        // ID's not needed for user roleconstraints and complicate deassignment so don't use:
+        // ID's not req'd for RoleConstraints of type 'USER':
         if( getType() != RCType.USER)
         {
             sb.append( id );

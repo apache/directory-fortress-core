@@ -95,6 +95,7 @@ public class ReviewMgrImplTest extends TestCase
 */
 
         suite.addTest( new ReviewMgrImplTest( "testReadUserRoleConstraint" ) );
+        suite.addTest( new ReviewMgrImplTest( "testFindRoleConstraints" ) );
 
         return suite;
     }
@@ -1677,7 +1678,8 @@ public class ReviewMgrImplTest extends TestCase
     		ReviewMgr reviewMgr = getManagedReviewMgr();   		
 
     		List<UserRole> urs = reviewMgr.assignedUsers( new Role(role), rcType, paSetName);
-    		assertTrue(urs.size() > 0);
+            assertNotNull( "findUserRoleWithConstraints no results", urs );
+                assertTrue(urs.size() > 0);
     		assertTrue(urs.get(0).getRoleConstraints().size() > 0);
    
     		LOG.debug( "findUserRoleWithConstraints paSetName [" + paSetName + "] successful" );
@@ -1698,9 +1700,8 @@ public class ReviewMgrImplTest extends TestCase
             ReviewMgr reviewMgr = getManagedReviewMgr();        
 
             List<RoleConstraint> rcs = reviewMgr.findRoleConstraints(new User(usr), permission, rcType);
-            assertTrue(rcs.size() > 0);
-            assertTrue(rcs.get(0).getType().equals(rcType));
-   
+            assertTrue("no constraints found for user:" + usr, rcs.size() > 0);
+            assertTrue("invalid constraint type", rcs.get(0).getType().equals( rcType ) );
             LOG.debug( "findRoleConstraints permission [" + permission.getObjName() + "." + permission.getOpName() + "] successful" );
         }
         catch ( SecurityException ex )

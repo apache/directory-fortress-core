@@ -52,6 +52,7 @@ public class HttpIds
     public static final String USER_REVOKE = "userRevoke";
     public static final String USER_ASGNED = "userAsigned";
     public static final String USER_ASGNED_CONSTRAINTS = "userAsignedConstraints";
+    public static final String USER_ASGNED_CONSTRAINTS_KEY = "userAsignedConstraintsKey";
     public static final String USER_AUTHZED = "userAuthzed";
     public static final String USER_ASGNED_ADMIN = "userAsignedAdmin";
     public static final String ROLE_READ = "roleRead";
@@ -73,6 +74,7 @@ public class HttpIds
     public static final String ROLE_AUTHZED = "roleAuthzed";
     public static final String ROLE_ADD_CONSTRAINT = "addRoleConstraint";
     public static final String ROLE_DELETE_CONSTRAINT = "removeRoleConstraint";
+    public static final String ROLE_DELETE_CONSTRAINT_ID = "removeRoleConstraintId";
     public static final String ROLE_FIND_CONSTRAINTS = "findRoleConstraints";
     public static final String OBJ_READ = "objRead";
     public static final String OBJ_UPDATE = "objUpdate";
