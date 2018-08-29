@@ -29,11 +29,13 @@
         <FortressAdmin>
 
             <!-- This config setting constrains role activation by locale on Teller and Washer -->
+<!--
             <updconfig>
                 <config props="config.realm:DEFAULT"/>
                 <config props="Tellers:locale"/>
                 <config props="Washers:locale"/>
             </updconfig>
+-->
 
             <adduser>
                 <!-- The userProps attribute is used to map user role activation to locale (branch) attribute. -->
@@ -77,6 +79,9 @@
             </addrole>
 
             <addroleconstraint>
+                <roleconstraint role="tellers" key="locale" typeName="USER"/>
+                <roleconstraint role="washers" key="locale" typeName="USER"/>
+
                 <roleconstraint userId="curly" role="tellers" key="locale" value="east" typeName="USER"/>
                 <roleconstraint userId="curly" role="washers" key="locale" value="north" typeName="USER"/>
                 <roleconstraint userId="curly" role="washers" key="locale" value="south" typeName="USER"/>
@@ -90,8 +95,10 @@
                 <roleconstraint userId="larry" role="washers" key="locale" value="east" typeName="USER"/>
             </addroleconstraint>
 
-<!--
             <delroleconstraint>
+                <roleconstraint role="tellers" key="locale" typeName="USER"/>
+                <roleconstraint role="washers" key="locale" typeName="USER"/>
+
                 <roleconstraint userId="curly" role="tellers" key="locale" value="east" typeName="USER"/>
                 <roleconstraint userId="curly" role="washers" key="locale" value="north" typeName="USER"/>
                 <roleconstraint userId="curly" role="washers" key="locale" value="south" typeName="USER"/>
@@ -104,7 +111,6 @@
                 <roleconstraint userId="larry" role="washers" key="locale" value="north" typeName="USER"/>
                 <roleconstraint userId="larry" role="washers" key="locale" value="east" typeName="USER"/>
             </delroleconstraint>
--->
 
 
             <addsdset>

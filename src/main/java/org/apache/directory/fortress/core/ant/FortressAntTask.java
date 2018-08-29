@@ -1426,8 +1426,17 @@ public class FortressAntTask extends Task implements InputHandler
             {
                 try
                 {
-                    adminMgr.addRoleConstraint( new UserRole( roleConstraint.getUserId(), roleConstraint.getRole() ), roleConstraint );
-                    LOG.info( "addRoleConstraint successfully added: tenant={} type={} userid={} role={} key={} value={}", getTenant(), roleConstraint.getType(), roleConstraint.getUserId(), roleConstraint.getRole(), roleConstraint.getKey(), roleConstraint.getValue() );
+                    // If userid null, enable constraint on role:
+                    if( StringUtils.isEmpty( roleConstraint.getUserId() ) && roleConstraint.getType() == org.apache.directory.fortress.core.model.RoleConstraint.RCType.USER )
+                    {
+                        adminMgr.enableRoleConstraint( new Role( roleConstraint.getRole() ), roleConstraint );
+                        LOG.info( "enableRoleConstraint successfully enabled: tenant={} type={} role={} key={}", getTenant(), roleConstraint.getType(), roleConstraint.getRole(), roleConstraint.getKey() );
+                    }
+                    else
+                    {
+                        adminMgr.addRoleConstraint( new UserRole( roleConstraint.getUserId(), roleConstraint.getRole() ), roleConstraint );
+                        LOG.info( "addRoleConstraint successfully added: tenant={} type={} userid={} role={} key={} value={}", getTenant(), roleConstraint.getType(), roleConstraint.getUserId(), roleConstraint.getRole(), roleConstraint.getKey(), roleConstraint.getValue() );
+                    }
                 }
                 catch ( SecurityException se )
                 {
@@ -1436,7 +1445,6 @@ public class FortressAntTask extends Task implements InputHandler
             }
         }
     }
-
 
 
     /**
@@ -1457,11 +1465,20 @@ public class FortressAntTask extends Task implements InputHandler
             {
                 try
                 {
-                    adminMgr.removeRoleConstraint( new UserRole( roleConstraint.getUserId(), roleConstraint.getRole()
-                    ), roleConstraint );
-                    LOG.info( "removeRoleConstraint success: tenant={} type={} userid={} role={} key={} value={}",
-                        getTenant(), roleConstraint.getType(), roleConstraint.getUserId(), roleConstraint.getRole(),
-                        roleConstraint.getKey(), roleConstraint.getValue() );
+                    // If userid null, disable constraint on role:
+                    if( StringUtils.isEmpty( roleConstraint.getUserId() ) && roleConstraint.getType() == org.apache.directory.fortress.core.model.RoleConstraint.RCType.USER )
+                    {
+                        adminMgr.disableRoleConstraint( new Role( roleConstraint.getRole() ), roleConstraint );
+                        LOG.info( "disableRoleConstraint successfully disabled: tenant={} type={} role={} key={}", getTenant(), roleConstraint.getType(), roleConstraint.getRole(), roleConstraint.getKey() );
+                    }
+                    else
+                    {
+                        adminMgr.removeRoleConstraint( new UserRole( roleConstraint.getUserId(), roleConstraint.getRole()
+                        ), roleConstraint );
+                        LOG.info( "removeRoleConstraint success: tenant={} type={} userid={} role={} key={} value={}",
+                            getTenant(), roleConstraint.getType(), roleConstraint.getUserId(), roleConstraint.getRole(),
+                            roleConstraint.getKey(), roleConstraint.getValue() );
+                    }
                 }
                 catch ( SecurityException se )
                 {
