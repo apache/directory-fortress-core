@@ -28,17 +28,7 @@
     <target name="all">
         <FortressAdmin>
 
-            <!-- This config setting constrains role activation by locale on Teller and Washer -->
-<!--
-            <updconfig>
-                <config props="config.realm:DEFAULT"/>
-                <config props="Tellers:locale"/>
-                <config props="Washers:locale"/>
-            </updconfig>
--->
-
             <adduser>
-                <!-- The userProps attribute is used to map user role activation to locale (branch) attribute. -->
                 <user userId="curly"
                       password="password"
                       description="Head Teller of the East, Coin Washer in North and South"
@@ -60,7 +50,7 @@
             </adduser>
 
             <adduserrole>
-                <!-- Although each user is assigned both Teller and Washer, activation is limited by locale. -->
+                <!-- Although each user is assigned both Teller and Washer, activation is limited by locale, and a DSD constraint. -->
                 <userrole userId="curly" name="Bank_Users"/>
                 <userrole userId="curly" name="Tellers"/>
                 <userrole userId="curly" name="Washers"/>
@@ -79,22 +69,30 @@
             </addrole>
 
             <addroleconstraint>
+                <!-- Rle constraints w/out userid bind a particular role to a particular constraint name. -->
                 <roleconstraint role="tellers" key="locale" typeName="USER"/>
                 <roleconstraint role="washers" key="locale" typeName="USER"/>
 
+                <!-- The role constraints w/ uid map the a user and role with a constraint.  -->
+                <!-- These role constraints define a users allowed locales for a given role.  -->
+
+                <!-- Curly is the head teller of the east, coin washer in north and south.  -->
                 <roleconstraint userId="curly" role="tellers" key="locale" value="east" typeName="USER"/>
                 <roleconstraint userId="curly" role="washers" key="locale" value="north" typeName="USER"/>
                 <roleconstraint userId="curly" role="washers" key="locale" value="south" typeName="USER"/>
 
+                <!-- Moe is the head teller of the north, coin washer in east and south.  -->
                 <roleconstraint userId="moe" role="tellers" key="locale" value="north" typeName="USER"/>
                 <roleconstraint userId="moe" role="washers" key="locale" value="east" typeName="USER"/>
                 <roleconstraint userId="moe" role="washers" key="locale" value="south" typeName="USER"/>
 
+                <!-- Larry is the head teller of the south, coin washer in north and east.  -->
                 <roleconstraint userId="larry" role="tellers" key="locale" value="south" typeName="USER"/>
                 <roleconstraint userId="larry" role="washers" key="locale" value="north" typeName="USER"/>
                 <roleconstraint userId="larry" role="washers" key="locale" value="east" typeName="USER"/>
             </addroleconstraint>
 
+<!--
             <delroleconstraint>
                 <roleconstraint role="tellers" key="locale" typeName="USER"/>
                 <roleconstraint role="washers" key="locale" typeName="USER"/>
@@ -111,9 +109,11 @@
                 <roleconstraint userId="larry" role="washers" key="locale" value="north" typeName="USER"/>
                 <roleconstraint userId="larry" role="washers" key="locale" value="east" typeName="USER"/>
             </delroleconstraint>
+-->
 
 
             <addsdset>
+                <!-- This Dynamic Separation of Duty policy prevents Tellers and Washers roles being activated together, no matter what goes on with role constraints.  -->
                 <sdset name="BankSafe" setmembers="Tellers,Washers" cardinality="2" setType="DYNAMIC" description="User may only activate one of these roles"/>
             </addsdset>
 
