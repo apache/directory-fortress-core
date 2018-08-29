@@ -1782,7 +1782,6 @@ public class AdminMgrImplTest extends TestCase
         try
         {
             AdminMgr adminMgr = getManagedAdminMgr();
-            //ReviewMgr reviewMgr = ReviewMgrImplTest.getManagedReviewMgr();
             for ( String[] urConstraint : urArray )
             {
                 UserRole uRole = RoleTestData.getUserRoleConstraintAbac( urConstraint );
@@ -1814,7 +1813,6 @@ public class AdminMgrImplTest extends TestCase
         try
         {
             AdminMgr adminMgr = getManagedAdminMgr();
-            //ReviewMgr reviewMgr = ReviewMgrImplTest.getManagedReviewMgr();
             for ( String[] urConstraint : urArray )
             {
                 UserRole uRole = RoleTestData.getUserRoleConstraintAbac( urConstraint );
@@ -1826,6 +1824,73 @@ public class AdminMgrImplTest extends TestCase
         {
             LOG.error(
                 "deassignUserRoleConstraints caught SecurityException rc=" + ex.getErrorId() + ", msg="
+                    + ex.getMessage(), ex );
+            fail( ex.getMessage() );
+        }
+    }
+
+
+    /**
+     * Test the Rbac-Abac curly,moe,larry use cases.
+     *
+     */
+    public void testEnableRoleConstraint()
+    {
+        enableRoleConstraint( "ENABLE ABAC RBAC", RoleTestData.ROLE_CONSTRAINTS_TR18_ROLES );
+    }
+
+    public static void enableRoleConstraint( String msg, String[][] urArray )
+    {
+        LogUtil.logIt( msg );
+        try
+        {
+            AdminMgr adminMgr = getManagedAdminMgr();
+            for ( String[] urConstraint : urArray )
+            {
+                UserRole uRole = RoleTestData.getUserRoleConstraintAbac( urConstraint );
+                RoleConstraint rConstraint = uRole.getConstraints().get( 0 );
+                Role role = new Role( uRole.getName() );
+                adminMgr.enableRoleConstraint( role, rConstraint );
+            }
+        }
+        catch ( SecurityException ex )
+        {
+            LOG.error(
+                "enableRoleConstraint caught SecurityException rc=" + ex.getErrorId() + ", msg="
+                    + ex.getMessage(), ex );
+            fail( ex.getMessage() );
+        }
+    }
+
+
+    /**
+     * Test the Rbac-Abac curly,moe,larry use cases.
+     *
+     */
+    public void testDisableRoleConstraint()
+    {
+
+        disableRoleConstraint( "DIABLE ABAC RBAC", RoleTestData.ROLE_CONSTRAINTS_TR18_ROLES );
+    }
+
+    public static void disableRoleConstraint( String msg, String[][] urArray )
+    {
+        LogUtil.logIt( msg );
+        try
+        {
+            AdminMgr adminMgr = getManagedAdminMgr();
+            for ( String[] urConstraint : urArray )
+            {
+                UserRole uRole = RoleTestData.getUserRoleConstraintAbac( urConstraint );
+                RoleConstraint rConstraint = uRole.getConstraints().get( 0 );
+                Role role = new Role( uRole.getName() );
+                adminMgr.disableRoleConstraint( role, rConstraint );
+            }
+        }
+        catch ( SecurityException ex )
+        {
+            LOG.error(
+                "disableRoleConstraint caught SecurityException rc=" + ex.getErrorId() + ", msg="
                     + ex.getMessage(), ex );
             fail( ex.getMessage() );
         }

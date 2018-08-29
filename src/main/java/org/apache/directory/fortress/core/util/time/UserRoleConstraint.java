@@ -21,6 +21,7 @@ package org.apache.directory.fortress.core.util.time;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.Session;
@@ -58,7 +59,7 @@ public class UserRoleConstraint
         if ( type != VUtil.ConstraintType.USER )
         {
             // This constraint type requires a global config parameter keyed by the role name:
-            String constraintType = Config.getInstance().getProperty( role.getName() );
+            String constraintType = Config.getInstance().getProperty( GlobalIds.CONSTRAINT_KEY_PREFIX + role.getName().toLowerCase() );
             // Is there a runtime constraint placed on this role activation?
             if ( StringUtils.isNotEmpty( constraintType ))
             {
