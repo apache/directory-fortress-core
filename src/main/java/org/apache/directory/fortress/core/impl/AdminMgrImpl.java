@@ -402,6 +402,9 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + methodName );
         VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
         VUtil.assertNotNull( role.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
+        // The name:value pair is bound as fortress property, using prefix 'RC-'.
+        // It's for convenient and efficient lookup during the runtime checks.
+        // We will cache as java.util.properties, require case insensitivity, convention is use lower case keys:
         String propKey = GlobalIds.CONSTRAINT_KEY_PREFIX + role.getName().toLowerCase();
         String propValue = roleConstraint.getKey();
         VUtil.assertNotNull( propValue, GlobalErrIds.ROLE_CONSTRAINT_KEY_NULL, CLS_NM + methodName );
@@ -428,6 +431,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + methodName );
         VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
         VUtil.assertNotNull( role.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
+        // We want case insensitive on java.util.propp, convention is use lower case key:
         String propKey = GlobalIds.CONSTRAINT_KEY_PREFIX + role.getName().toLowerCase();
         String propValue = roleConstraint.getKey();
         VUtil.assertNotNull( propValue, GlobalErrIds.ROLE_CONSTRAINT_KEY_NULL, CLS_NM + methodName );
