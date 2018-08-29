@@ -405,6 +405,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         String propKey = GlobalIds.CONSTRAINT_KEY_PREFIX + role.getName().toLowerCase();
         String propValue = roleConstraint.getKey();
         VUtil.assertNotNull( propValue, GlobalErrIds.ROLE_CONSTRAINT_KEY_NULL, CLS_NM + methodName );
+        // Verify the role exists:
+        roleP.read( role );
         Properties props = new Properties();
         props.setProperty( propKey, propValue );
         // Retrieve parameters from the config node stored in target LDAP DIT:
