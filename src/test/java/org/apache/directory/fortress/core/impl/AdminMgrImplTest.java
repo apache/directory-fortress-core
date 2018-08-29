@@ -1776,7 +1776,7 @@ public class AdminMgrImplTest extends TestCase
     }
 
 
-    public static void assignUserRoleConstraints( String msg, String[][] urArray )
+    private void assignUserRoleConstraints( String msg, String[][] urArray )
     {
         LogUtil.logIt( msg );
         try
@@ -1807,7 +1807,7 @@ public class AdminMgrImplTest extends TestCase
     }
 
 
-    public static void deassignUserRoleConstraints( String msg, String[][] urArray )
+    private void deassignUserRoleConstraints( String msg, String[][] urArray )
     {
         LogUtil.logIt( msg );
         try
@@ -1839,7 +1839,7 @@ public class AdminMgrImplTest extends TestCase
         enableRoleConstraint( "ENABLE ABAC RBAC", RoleTestData.ROLE_CONSTRAINTS_TR18_ROLES );
     }
 
-    public static void enableRoleConstraint( String msg, String[][] urArray )
+    private void enableRoleConstraint( String msg, String[][] urArray )
     {
         LogUtil.logIt( msg );
         try
@@ -1873,7 +1873,7 @@ public class AdminMgrImplTest extends TestCase
         disableRoleConstraint( "DIABLE ABAC RBAC", RoleTestData.ROLE_CONSTRAINTS_TR18_ROLES );
     }
 
-    public static void disableRoleConstraint( String msg, String[][] urArray )
+    private void disableRoleConstraint( String msg, String[][] urArray )
     {
         LogUtil.logIt( msg );
         try

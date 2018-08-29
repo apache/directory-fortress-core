@@ -390,13 +390,13 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
      */
     @Override
     @AdminPermissionOperation
-    public List<UserRole> assignedUsers(Role role, RCType rcType, String paSetName)
+    public List<UserRole> assignedUsers(Role role, RCType rcType, String keyName)
         throws SecurityException
     {
         String methodName = "assignedUsers";
         assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
         checkAccess(CLS_NM, methodName);
-        return userP.getAssignedUsers(role, rcType, paSetName);
+        return userP.getAssignedUsers(role, rcType, keyName);
     }
 
     /**

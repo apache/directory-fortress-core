@@ -94,8 +94,9 @@ public class ReviewMgrImplTest extends TestCase
         suite.addTest( new ReviewMgrImplTest( "testFindDsdSets" ) );
 */
 
-        suite.addTest( new ReviewMgrImplTest( "testReadUserRoleConstraint" ) );
-        suite.addTest( new ReviewMgrImplTest( "testFindRoleConstraints" ) );
+        //suite.addTest( new ReviewMgrImplTest( "testReadUserRoleConstraint" ) );
+        //suite.addTest( new ReviewMgrImplTest( "testFindRoleConstraints" ) );
+        suite.addTest( new ReviewMgrImplTest( "testAssignedUserRoleConstraints" ) );
 
         return suite;
     }
@@ -1615,12 +1616,13 @@ public class ReviewMgrImplTest extends TestCase
 
     public void testReadUserRoleConstraint()
     {
-    	readUserRoleConstraint( "RD-URC TU1 TR1", UserTestData.USERS_TU1[0], RoleTestData.ROLES_TR1[1], URATestData.getRC(URATestData.URC_T1) );
+    	readUserRoleConstraint( "RD-URC TU1 TR1", UserTestData.USERS_TU1[0], RoleTestData.ROLES_TR1[1], URATestData
+            .getRC( URATestData.URC_T1 ) );
     }
 
     public static void readUserRoleConstraint( String msg, String[] usr, String[] rle, RoleConstraint rc )
     {
-    	LogUtil.logIt(msg);
+    	LogUtil.logIt( msg );
     	try
     	{
     		ReviewMgr reviewMgr = getManagedReviewMgr();   		
@@ -1663,30 +1665,86 @@ public class ReviewMgrImplTest extends TestCase
     		fail( ex.getMessage() );
     	}
     }
-    
+
+    public void testAssignedUserRoleConstraints()
+    {
+        assignUserRoleConstraints( "ASSGN-USER-ROLE-CONSTRAINTS TR18 ABAC", RoleTestData.ROLE_CONSTRAINTS_TR18_ABAC );
+        assignUserRoleConstraintsKey( "ASSGN-USER-ROLE-CONSTRAINTS WKEY TR18 ABAC", RoleTestData.ROLE_CONSTRAINTS_TR18_ABAC );
+    }
+
+    private void assignUserRoleConstraints( String msg, String[][] urArray )
+    {
+        LogUtil.logIt( msg );
+        try
+        {
+            ReviewMgr reviewMgr = ReviewMgrImplTest.getManagedReviewMgr();
+            for ( String[] urConstraint : urArray )
+            {
+                UserRole uRole = RoleTestData.getUserRoleConstraintAbac( urConstraint );
+                RoleConstraint constraint = uRole.getConstraints().get( 0 );
+                List<User> users = reviewMgr.assignedUsers( new Role( uRole.getName() ), constraint );
+                assertTrue( users.size() > 0 );
+            }
+        }
+        catch ( SecurityException ex )
+        {
+            LOG.error(
+                "assignUserRoleConstraints caught SecurityException rc=" + ex.getErrorId() + ", msg="
+                    + ex.getMessage(), ex );
+            fail( ex.getMessage() );
+        }
+    }
+
+
+    private void assignUserRoleConstraintsKey( String msg, String[][] urArray )
+    {
+        LogUtil.logIt( msg );
+        try
+        {
+            ReviewMgr reviewMgr = ReviewMgrImplTest.getManagedReviewMgr();
+            for ( String[] urConstraint : urArray )
+            {
+                UserRole uRole = RoleTestData.getUserRoleConstraintAbac( urConstraint );
+                RoleConstraint constraint = uRole.getConstraints().get( 0 );
+                List<UserRole> uRoles = reviewMgr.assignedUsers( new Role( uRole.getName() ), RoleConstraint.RCType.USER, constraint.getKey());
+                assertTrue( "curly, moe, larry", uRoles.size() == 3 );
+            }
+        }
+        catch ( SecurityException ex )
+        {
+            LOG.error(
+                "assignUserRoleConstraintsKey caught SecurityException rc=" + ex.getErrorId() + ", msg="
+                    + ex.getMessage(), ex );
+            fail( ex.getMessage() );
+        }
+    }
+
+
     public void testFindRoleConstraints()
     {
     	findRoleConstraints( "SRCH-RCS TU1 TR1", UserTestData.USERS_TU1[0][0], PermTestData.getOp("TOB1_1", PermTestData.OPS_TOP1_UPD[0]), URATestData.getRC(URATestData.URC_T1).getType() );
-    	findUserRoleWithConstraints( "SRCH-RCS TU1 TR1", UserTestData.USERS_TU1[0][0], RoleTestData.ROLES_TR1[1][0], URATestData.getRC(URATestData.URC_T1).getType(), URATestData.getRC(URATestData.URC_T1).getKey() );
+    	findUserRoleWithConstraints( "SRCH-RCS TR1", RoleTestData.ROLES_TR1[1][0], URATestData.getRC( URATestData.URC_T1 ).getType(), URATestData.getRC( URATestData.URC_T1 ).getKey() );
+    	findUserRoleWithConstraints( "SRCH-RCS TR18 ABAC", RoleTestData.ROLES_ABAC_WASHERS[0][0], RoleConstraint.RCType.USER, RoleTestData.ROLE_CONSTRAINTS_TR18_ABAC[0][2] );
+    	findUserRoleWithConstraints( "SRCH-RCS TR18 ABAC", RoleTestData.ROLES_ABAC_TELLERS[0][0], RoleConstraint.RCType.USER, RoleTestData.ROLE_CONSTRAINTS_TR18_ABAC[0][2] );
     }
     
-    public static void findUserRoleWithConstraints( String msg, String usr, String role, RoleConstraint.RCType rcType, String paSetName )
+    public static void findUserRoleWithConstraints( String msg, String role, RoleConstraint.RCType rcType, String keyName )
     {
     	LogUtil.logIt(msg);
     	try
     	{
     		ReviewMgr reviewMgr = getManagedReviewMgr();   		
 
-    		List<UserRole> urs = reviewMgr.assignedUsers( new Role(role), rcType, paSetName);
+    		List<UserRole> urs = reviewMgr.assignedUsers( new Role(role), rcType, keyName);
             assertNotNull( "findUserRoleWithConstraints no results", urs );
                 assertTrue(urs.size() > 0);
     		assertTrue(urs.get(0).getRoleConstraints().size() > 0);
    
-    		LOG.debug( "findUserRoleWithConstraints paSetName [" + paSetName + "] successful" );
+    		LOG.debug( "findUserRoleWithConstraints paSetName [" + keyName + "] successful" );
     	}
     	catch ( SecurityException ex )
     	{
-    		LOG.error( "findUserRoleWithConstraints paSetName [" + paSetName
+    		LOG.error( "findUserRoleWithConstraints paSetName [" + keyName
     				+ "] caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
     		fail( ex.getMessage() );
     	}

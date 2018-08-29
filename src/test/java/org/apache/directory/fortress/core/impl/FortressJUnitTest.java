@@ -266,10 +266,9 @@ public class FortressJUnitTest extends TestCase
         suite.addTest( new ReviewMgrImplTest( "testUserPermissions" ) );
         suite.addTest( new ReviewMgrImplTest( "testFindSsdSets" ) );
         suite.addTest( new ReviewMgrImplTest( "testFindDsdSets" ) );
-
+        suite.addTest( new ReviewMgrImplTest( "testAssignedUserRoleConstraints" ) );
         suite.addTest( new ReviewMgrImplTest( "testReadPermissionAttributeSets" ) );
         suite.addTest( new ReviewMgrImplTest( "testReadPASetFromPermission" ) );
-        
         suite.addTest( new ReviewMgrImplTest( "testReadUserRoleConstraint" ) );
         suite.addTest( new ReviewMgrImplTest( "testFindRoleConstraints" ) );
         suite.addTest( new ReviewMgrImplTest( "testDeassignRoleWithRoleConstraint" ) );
