@@ -1156,6 +1156,50 @@ public class PermTestData extends TestCase
                 "T" /* IS_ADMIN_COL */
 },
             {
+                "enableRoleConstraint", /* NAME_COL */
+                "Assign Admin Role",/* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "ADMIN", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "T" /* IS_ADMIN_COL */
+},
+            {
+                "disableRoleConstraint", /* NAME_COL */
+                "Deassign Admin Role",/* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "ADMIN", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "T" /* IS_ADMIN_COL */
+},
+            {
+                "addRoleConstraint", /* NAME_COL */
+                "Assign Admin Role",/* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "ADMIN", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "T" /* IS_ADMIN_COL */
+},
+            {
+                "removeRoleConstraint", /* NAME_COL */
+                "Deassign Admin Role",/* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "ADMIN", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "T" /* IS_ADMIN_COL */
+},
+            {
                 "addOrgUnit", /* NAME_COL */
                 "Add Org Unit", /* DESC_COL */
                 "", /* OBJ_ID_COL */

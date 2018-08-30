@@ -398,10 +398,11 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     public void enableRoleConstraint( Role role, RoleConstraint roleConstraint )
     	   	throws SecurityException
     {        
-    	String methodName = ".enableRoleConstraint";
+    	String methodName = "enableRoleConstraint";
         VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + methodName );
         VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
         VUtil.assertNotNull( role.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
+        setEntitySession( CLS_NM, methodName, role );
         // The name:value pair is bound as fortress property, using prefix 'RC-'.
         // It's for convenient and efficient lookup during the runtime checks.
         // We will cache as java.util.properties, require case insensitivity, convention is use lower case keys:
@@ -427,10 +428,11 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     public void disableRoleConstraint( Role role, RoleConstraint roleConstraint )
     	   	throws SecurityException
     {
-        String methodName = ".disableRoleConstraint";
+        String methodName = "disableRoleConstraint";
         VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + methodName );
         VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
         VUtil.assertNotNull( role.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
+        setEntitySession( CLS_NM, methodName, role );
         // We want case insensitive on java.util.propp, convention is use lower case key:
         String propKey = GlobalIds.CONSTRAINT_KEY_PREFIX + role.getName().toLowerCase();
         String propValue = roleConstraint.getKey();
@@ -452,8 +454,9 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     public RoleConstraint addRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
     	   	throws SecurityException
     {
-    	String methodName = "assignUser";
+    	String methodName = "addRoleConstraint";
         assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
+        setEntitySession( CLS_NM, methodName, uRole );
 
         // Validate the user-role assignment exists:
         List<String> assignedRoles = userP.getAssignedRoles( new User( uRole.getUserId() ) );
@@ -479,13 +482,10 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     public void removeRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
         	throws SecurityException
     {        
-    	String methodName = "assignUser";
+    	String methodName = "removeRoleConstraint";
         assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
-        AdminUtil.canDeassign( uRole.getAdminSession(), new User( uRole.getUserId() ), new Role( uRole.getName() ), contextId );
-        
-        // todo assert roleconstraint here
-
-        userP.deassign( uRole, roleConstraint );    	
+        setEntitySession( CLS_NM, methodName, uRole );
+        userP.deassign( uRole, roleConstraint );
     }
     
     /**
@@ -498,6 +498,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     {        
         String methodName = "deassignUser";
         assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
+        setEntitySession( CLS_NM, methodName, uRole );
         AdminUtil.canDeassign( uRole.getAdminSession(), new User( uRole.getUserId() ), new Role( uRole.getName() ), contextId );
         
         //find role constraint that needs removed

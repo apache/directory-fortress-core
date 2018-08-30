@@ -14,10 +14,11 @@ apache-ant-1.9.1
 ldap/setup/refreshLDAPData.xml
 maven-eclipse.xml
 .idea
-*.conf
 *.rpm
 *.deb
 *.properties
-config
 b.sh
 b.bat
+*.conf
+*.zip
+*.sav

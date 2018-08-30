@@ -97,6 +97,10 @@
                 <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="updateRole" roleNm="fortress-core-super-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="assignUser" roleNm="fortress-core-super-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deassignUser" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addRoleConstraint" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="removeRoleConstraint" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="enableRoleConstraint" roleNm="fortress-core-super-admin" admin="true"/>
+                <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="disableRoleConstraint" roleNm="fortress-core-super-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addPermission" roleNm="fortress-core-super-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addPermObj" roleNm="fortress-core-super-admin" admin="true"/>
                 <permgrant objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deletePermission" roleNm="fortress-core-super-admin" admin="true"/>
@@ -250,6 +254,10 @@
                 <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="updateRole" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="assignUser" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deassignUser" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addRoleConstraint" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="removeRoleConstraint" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="enableRoleConstraint" admin="true"/>
+                <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="disableRoleConstraint" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addPermission" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="addPermObj" admin="true"/>
                 <permop objName="org.apache.directory.fortress.core.impl.AdminMgrImpl" opName="deletePermission" admin="true"/>
