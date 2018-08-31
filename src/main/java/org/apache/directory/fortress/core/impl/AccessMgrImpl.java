@@ -244,7 +244,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
             entityId = session.getUserId();
         }
         role.setUserId(entityId);
-        List<UserRole> uRoles;
+        List<UserRole> assignedRoles;
         List<UserRole> sRoles = session.getRoles();
         // If session already has same role activated:
         if ( sRoles != null && sRoles.contains( role ) )
@@ -259,18 +259,18 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
             Group inGroup = new Group(session.getGroupName());
             inGroup.setContextId(this.contextId);
             Group ge = groupP.read(inGroup);
-            uRoles = ge.getRoles();
+            assignedRoles = ge.getRoles();
         }
         else
         {
             User inUser = new User(session.getUserId());
             inUser.setContextId(this.contextId);
             User ue = userP.read(inUser, true);
-            uRoles = ue.getRoles();
+            assignedRoles = ue.getRoles();
         }
         int indx;
-        // Is the role activation target valid for this user?
-        if ( !CollectionUtils.isNotEmpty( uRoles ) || ( ( indx = uRoles.indexOf( role ) ) == -1 ) )
+        // Is the user has not been assigned the role:
+        if ( CollectionUtils.isEmpty( assignedRoles ) || ( ( indx = assignedRoles.indexOf( role ) ) == -1 ) )
         {
             String info = getFullMethodName(CLS_NM, methodName) + " Role [" + role.getName() + "] Entity ["
                         + entityId + "] role not authorized for entity.";
@@ -281,9 +281,9 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
         SDUtil.getInstance().validateDSD( session, role );
 
         // set the role to the session:
-        session.setRole( uRoles.get( indx ) );
+        session.setRole( assignedRoles.get( indx ) );
 
-        // Check role temporal constraints & DSD:
+        // Check role temporal constraints, not DSD, performed earlier:
         VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.ROLE, false );
     }
 
@@ -309,13 +309,13 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
             entityId = session.getUserId();
         }
         role.setUserId(entityId);
-        List<UserRole> roles = session.getRoles();
+        List<UserRole> activatedRoles = session.getRoles();
         VUtil.getInstance()
-            .assertNotNull( roles, GlobalErrIds.URLE_DEACTIVE_FAILED, CLS_NM + getFullMethodName( CLS_NM, methodName ) );
-        int indx = roles.indexOf( role );
+            .assertNotNull( activatedRoles, GlobalErrIds.URLE_DEACTIVE_FAILED, CLS_NM + getFullMethodName( CLS_NM, methodName ) );
+        int indx = activatedRoles.indexOf( role );
         if ( indx != -1 )
         {
-            roles.remove( role );
+            activatedRoles.remove( role );
         }
         else
         {
