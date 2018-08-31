@@ -28,6 +28,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 /**
@@ -37,12 +38,12 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlRootElement( name = "fortRoleConstraint" )
 @XmlAccessorType( XmlAccessType.FIELD )
-@XmlType( name = "roleConstraint", propOrder = {
+@XmlType( name = "roleConstraint", propOrder =
+{
     "id",
     "key",
     "value",
     "type",
-    "typeName"
 } )
 
 /**
@@ -51,9 +52,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 public class RoleConstraint extends FortEntity implements Serializable
 {
-
     private static final long serialVersionUID = 1L;
-
     public static final String RC_TYPE_NAME = "type";
 
     /**
@@ -74,11 +73,11 @@ public class RoleConstraint extends FortEntity implements Serializable
     private RCType type;
     private String value;
     private String key;
+    @XmlTransient
     private String typeName;
 
     public RoleConstraint()
     {
-
     }
 
     public RoleConstraint(String id, String value, RCType type, String key)
