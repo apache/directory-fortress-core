@@ -719,22 +719,17 @@ final class OrgUnitDAO extends LdapDataProvider
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
         String dn = le.getDn().getName();
 
-        // TODO: the dn.contains is case sensitive which needs to be fixed:
-        if ( dn.contains( getRootDn( contextId, GlobalIds.PSU_ROOT ) ) )
+        if ( dn.toLowerCase().contains( getRootDn( contextId, GlobalIds.PSU_ROOT ).toLowerCase() ) )
         {
             entity.setType( OrgUnit.Type.PERM );
-            //entity.setParents(PsoUtil.getParents(entity.getName().toUpperCase(), contextId));
             entity.setChildren( PsoUtil.getInstance().getChildren( entity.getName().toUpperCase(), contextId ) );
         }
-        else if ( dn.contains( getRootDn( contextId, GlobalIds.OSU_ROOT ) ) )
+        else if ( dn.toLowerCase().contains( getRootDn( contextId, GlobalIds.OSU_ROOT ).toLowerCase() ) )
         {
             entity.setType( OrgUnit.Type.USER );
-            //entity.setParents(UsoUtil.getParents(entity.getName().toUpperCase(), contextId));
             entity.setChildren( UsoUtil.getInstance().getChildren( entity.getName().toUpperCase(), contextId ) );
         }
-
         entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );
-
         return entity;
     }
 }

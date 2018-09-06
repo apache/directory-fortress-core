@@ -773,7 +773,6 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
         entity.setId( getAttribute( le, GlobalIds.FT_IID ) );
         entity.setName( getAttribute( le, ROLE_NM ) );
         entity.setDescription( getAttribute( le, SchemaConstants.DESCRIPTION_AT ) );
-        //entity.setParents(RoleUtil.getParents(entity.getName().toUpperCase(), contextId));
         entity.setChildren( RoleUtil.getInstance().getChildren( entity.getName().toUpperCase(), contextId ) );
         entity.setParents( getAttributeSet( le, GlobalIds.PARENT_NODES ) );        
         unloadTemporal( le, entity );
@@ -782,13 +781,8 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
         if ( IS_RFC2307 )
         {
             entity.setGidNumber( getAttribute( le, GlobalIds.GID_NUMBER ) );
-            //entity.setOccupants( getAttributes( le, MEMBER_UID ) );
         }
-        //else
-        //{
         entity.setOccupants( getAttributes( le, SchemaConstants.ROLE_OCCUPANT_AT ) );
-        //}
-
         return entity;
     }
 
