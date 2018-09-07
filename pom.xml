@@ -595,6 +595,17 @@
             </excludes>
           </configuration>
         </plugin>
+
+        <plugin>
+          <groupId>org.owasp</groupId>
+          <artifactId>dependency-check-maven</artifactId>
+          <version>3.3.1</version>
+          <configuration>
+            <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
+              <suppressionFile>${project.basedir}/src/owasp/suppression.xml</suppressionFile>
+          </configuration>
+        </plugin>
+
       </plugins>
     </pluginManagement>
 
@@ -1200,6 +1211,26 @@
                     <echo message="stop-slapd complete" />
                   </target>
                 </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+      <!-- OWASP Dependency Vulnerability Scanner Profile -->
+    <profile>
+      <id>owasp</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.owasp</groupId>
+            <artifactId>dependency-check-maven</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>check</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>

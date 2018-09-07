@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
+    <!-- Suppress OWASP warnings about openldap serverside vulnerabilities, not applicable here. -->
+    <suppress>
+        <notes><![CDATA[
+      file name: accelerator-api-1.0-RC41.jar
+      ]]></notes>
+        <gav regex="true">^org\.openldap:accelerator-api:.*$</gav>
+        <cpe>cpe:/a:openldap:openldap</cpe>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+      file name: accelerator-impl-1.0-RC41.jar
+      ]]></notes>
+        <gav regex="true">^org\.openldap:accelerator-impl:.*$</gav>
+        <cpe>cpe:/a:openldap:openldap</cpe>
+    </suppress>
+</suppressions>
