@@ -208,6 +208,7 @@ public class RoleConstraint extends FortEntity implements Serializable
 
     /**
      * Return the type of OU in string format.
+
      *
      * @return String that represents static or dynamic relations.
      */
@@ -236,5 +237,60 @@ public class RoleConstraint extends FortEntity implements Serializable
         {
             setType( RCType.OTHER );
         }
+    }
+
+    @Override
+    public String toString()
+    {
+        return "RoleConstraint{" +
+            "type=" + type +
+            ", key='" + key + '\'' +
+            ", value='" + value + '\'' +
+            ", id='" + id + '\'' +
+            '}';
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + type.hashCode();
+        result = 31 * result + value.hashCode();
+        result = 31 * result + key.hashCode();
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if ( this == o )
+        {
+            return true;
+        }
+        if ( o == null || getClass() != o.getClass() )
+        {
+            return false;
+        }
+
+        RoleConstraint that = ( RoleConstraint ) o;
+
+        if ( id != null ? !id.equals( that.id ) : that.id != null )
+        {
+            return false;
+        }
+        if ( !key.equals( that.key ) )
+        {
+            return false;
+        }
+        if ( type != that.type )
+        {
+            return false;
+        }
+        if ( !value.equals( that.value ) )
+        {
+            return false;
+        }
+
+        return true;
     }
 }
