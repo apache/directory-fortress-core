@@ -1,0 +1,173 @@
+#
+#   Licensed to the Apache Software Foundation (ASF) under one
+#   or more contributor license agreements.  See the NOTICE file
+#   distributed with this work for additional information
+#   regarding copyright ownership.  The ASF licenses this file
+#   to you under the Apache License, Version 2.0 (the
+#   "License"); you may not use this file except in compliance
+#   with the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing,
+#   software distributed under the License is distributed on an
+#   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+#   KIND, either express or implied.  See the License for the
+#   specific language governing permissions and limitations
+#   under the License.
+#
+# Note: Directives that begin with '@' are substitution parms that get automatically replaced.
+
+# Host name and port of LDAP DIT:
+host=@LDAP_HOST@
+port=@LDAP_PORT@
+
+# Used for SSL Connection to LDAP Server:
+enable.ldap.ssl=@ENABLE_LDAP_SSL@
+enable.ldap.ssl.debug=@ENABLE_LDAP_SSL_DEBUG@
+trust.store=@TRUST_STORE@
+trust.store.password=@TRUST_STORE_PW@
+trust.store.onclasspath=@TRUST_STORE_ONCLASSPATHW@
+
+# These credentials are used for read/write access to all nodes under suffix:
+admin.user=@ROOT_DN@
+# LDAP admin root pass is encrypted using 'encrypt' target in build.xml:
+admin.pw=@CFG_ROOT_PW@
+
+# This is min/max connection pool settings for User's who access their accounts in ou=People:
+# This is setting for ldap user's pool:
+min.user.conn=@USR_MIN_CONN@
+max.user.conn=@USR_MAX_CONN@
+
+# This is min/max settings for LDAP administrator pool which has read/write access to all nodes under suffix:
+min.admin.conn=@ADM_MIN_CONN@
+max.admin.conn=@ADM_MAX_CONN@
+
+# These credentials are used for read/write access to all nodes under slapd access log suffix:
+log.admin.user=@LOG_ROOT_DN@
+# For corresponding log user:
+log.admin.pw=@CFG_LOG_ROOT_PW@
+
+# This is min/max settings for LDAP administrator pool connections that have read/write access to all nodes under suffix:
+min.log.conn=@LOG_MIN_CONN@
+max.log.conn=@LOG_MAX_CONN@
+
+# Disable storing user membership on role object, default is true:
+role.occupants=@ROLE_OCCUPANTS@
+
+# enable this to see trace statements when connection pool allocates new connections:
+debug.ldap.pool=true
+# Default for pool reconnect flag is false:
+enable.pool.reconnect=true
+authn.type=default
+#authNType=realm
+ldap.server.type=@SERVER_TYPE@
+
+# Define the high-level structure of LDAP DIT:
+suffix=@SUFFIX@
+config.root=ou=Config,@SUFFIX@
+user.root=@USERS_DN@
+pwpolicy.root=@POLICIES_DN@
+role.root=@ROLES_DN@
+perm.root=@PERMS_DN@
+sdconstraint.root=@CONSTRAINTS_DN@
+userou.root=@USEROUS_DN@
+permou.root=@PERMOUS_DN@
+adminrole.root=@ADMINROLES_DN@
+adminperm.root=@ADMINPERMS_DN@
+group.root=@GROUPS_DN@
+example.root=ou=Examples,@SUFFIX@
+
+
+# these properties will enable temporal constraint checks on role activations:
+temporal.validator.0=org.apache.directory.fortress.core.util.time.Date
+temporal.validator.1=org.apache.directory.fortress.core.util.time.LockDate
+temporal.validator.2=org.apache.directory.fortress.core.util.time.Timeout
+temporal.validator.3=org.apache.directory.fortress.core.util.time.ClockTime
+temporal.validator.4=org.apache.directory.fortress.core.util.time.Day
+
+# enabling this property will enable Dynamic Separation of Duty constraint checks on role activations:
+temporal.validator.dsd=org.apache.directory.fortress.core.impl.DSDChecker
+
+# Users in the following list cannot be deleted using OAM admin functions (AdminMgr.deleteUser, AdminMgr.forceDeleteUser)
+sys.user.1=oamTU6User1
+sys.user.2=oamTU6User2
+sys.user.3=oamTU6User3
+sys.user.4=oamTU6User4
+sys.user.5=oamTU6User5
+
+# Fortress Class Definitions:  NOT NEEDED UNLESS OVERIDING DEFAULT IMPLEMENTATIONS
+accessmgr.implementation=org.apache.directory.fortress.core.impl.AccessMgrImpl
+auditmgr.implementation=org.apache.directory.fortress.core.impl.AuditMgrImpl
+
+ehcache.config.file=ehcache.xml
+
+## Fortress Data Validation settings
+field.length=130
+
+#########  This section is for filtering out LDAP meta characters from search field input:
+#########  Ensure the chars are placed in ASCII value ascending order.
+
+# This must match the total number of items that need to be filtered in our list:
+ldap.filter.size=15
+
+#! 33 0041 0x21
+ldap.filter.1=!
+ldap.sub.1=21
+#% 37 0045 0x25
+ldap.filter.2=%
+ldap.sub.2=25
+#& 38 0046 0x26
+ldap.filter.3=&
+ldap.sub.3=26
+#( 40 0050 0x28
+ldap.filter.4=(
+ldap.sub.4=28
+#) 41 0051 0x29
+ldap.filter.5=)
+ldap.sub.5=29
+#* 42 0052 0x2a
+ldap.filter.6=*
+ldap.sub.6=2a
+#+ 43 0053 0x2b
+ldap.filter.7=+
+ldap.sub.7=2b
+#- 45 0055 0x2d
+ldap.filter.8=-
+ldap.sub.8=2d
+#/ 47 0057 0x2f
+ldap.filter.9=/
+ldap.sub.9=2f
+#< 60 0074 0x3c
+ldap.filter.10=<
+ldap.sub.10=3c
+#= 61 0075 0x3d
+ldap.filter.11==
+ldap.sub.11=3d
+#> 62 0076 0x3e
+ldap.filter.12=>
+ldap.sub.12=3e
+#\ 92 0134 0x5c
+ldap.filter.13=\\
+ldap.sub.13=5c
+#| 124 0174 0x7c
+ldap.filter.14=|
+ldap.sub.14=7c
+#~ 126 0176 0x7e
+ldap.filter.15=~
+ldap.sub.15=7e
+
+#keep alphanumerics and dashes
+#regXSafetext=^A-Za-z0-9- .
+
+user.objectclass=inetOrgPerson
+group.objectclass=@GROUP_OBJECT_CLASS@
+group.protocol=@GROUP_PROTOCOL@
+group.properties=@GROUP_PROPERTIES@
+crypto.prop=@CFG_CRYPTO_PROP@
+disable.audit=@IS_AUDIT@
+clientside.sorting=true
+attr.delimiter=$
+
+# These are used to enable RFC2307bis support on User and Role entities:
+rfc2307=@IS_RFC2307@

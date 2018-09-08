@@ -1,0 +1,114 @@
+#
+#   Licensed to the Apache Software Foundation (ASF) under one
+#   or more contributor license agreements.  See the NOTICE file
+#   distributed with this work for additional information
+#   regarding copyright ownership.  The ASF licenses this file
+#   to you under the Apache License, Version 2.0 (the
+#   "License"); you may not use this file except in compliance
+#   with the License.  You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing,
+#   software distributed under the License is distributed on an
+#   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+#   KIND, either express or implied.  See the License for the
+#   specific language governing permissions and limitations
+#   under the License.
+#
+# Fortress slapd.conf default settings.
+# Note: Directives that begin with '@' are substitution parms that get automatically replaced.
+
+# Host name and port of LDAP DIT:
+host=@LDAP_HOST@
+port=@LDAP_PORT@
+
+# Options are openldap or apacheds (default):
+ldap.server.type=@SERVER_TYPE@
+
+apacheds.pwpolicy.root=ou=passwordPolicies,ads-interceptorId=authenticationInterceptor,ou=interceptors,ads-directoryServiceId=default,ou=config
+
+# Audit only works if ldap.server.type == openldap:
+disable.audit=@IS_AUDIT@
+
+# Used for SSL Connection to LDAP Server:
+enable.ldap.ssl=@ENABLE_LDAP_SSL@
+enable.ldap.ssl.debug=@ENABLE_LDAP_SSL_DEBUG@
+trust.store=@TRUST_STORE@
+trust.store.password=@TRUST_STORE_PW@
+trust.store.onclasspath=@TRUST_STORE_ONCLASSPATHW@
+
+# Used to enable STARTTLS on Connection to LDAP Server
+enable.ldap.starttls=false
+
+# Used for SSL Demo with Tomcat:
+key.store=@KEY_STORE@
+key.store.password=@KEY_STORE_PW@
+
+# These credentials are used for read/write access to all nodes under suffix:
+admin.user=@ROOT_DN@
+# LDAP admin root pass is encrypted using 'encrypt' target in build.xml:
+admin.pw=@CFG_ROOT_PW@
+
+# This is min/max settings for LDAP administrator pool connections that have read/write access to all nodes under suffix:
+min.admin.conn=@ADM_MIN_CONN@
+max.admin.conn=@ADM_MAX_CONN@
+
+# This is min/max connection pool settings for LDAP User authentication connection pool:
+min.user.conn=@USR_MIN_CONN@
+max.user.conn=@USR_MAX_CONN@
+
+# These credentials are used for read/write access to all nodes under slapd access log suffix:
+log.admin.user=@LOG_ROOT_DN@
+# For corresponding log user:
+log.admin.pw=@CFG_LOG_ROOT_PW@
+
+# This is min/max settings for LDAP connections to read slapo access log:
+min.log.conn=@LOG_MIN_CONN@
+max.log.conn=@LOG_MAX_CONN@
+
+# This node contains fortress properties stored on behalf of connecting LDAP clients:
+config.realm=DEFAULT
+config.root=ou=Config,@SUFFIX@
+
+# enable this to see trace statements when connection pool allocates new connections:
+debug.ldap.pool=true
+
+# Default for pool reconnect flag is false:
+enable.pool.reconnect=true
+
+crypto.prop=@CFG_CRYPTO_PROP@
+
+ehcache.config.file=ehcache.xml
+
+# If for any reason echcache must be DISABLED for DSD, make sure this parameter is set to 'true' which is the default.  Otherwise performance penalty will be incurred during multi-role activations.
+disable.dsd.cache=false
+
+# This will override default LDAP manager implementations for the RESTful ones:
+enable.mgr.impl.rest=@ENABLE_REST@
+# Optional parameters needed when Fortress client is connecting with the Fortress Rest (rather than LDAP) server:
+http.user=@REST_HTTP_USER@
+http.pw=@REST_HTTP_PW@
+http.host=@REST_HTTP_HOST@
+http.port=@REST_HTTP_PORT@
+http.protocol=@REST_HTTP_PROTOCOL@
+
+GroupTest=org.apache.directory.fortress.core.group.GroupAntTest
+
+# These may be used to override default LDAP or REST with OTHER implementations:
+#reviewmgr.implementation=org.apache.directory.fortress.core.rest.ReviewMgrOtherImpl
+#adminmgr.implementation=org.apache.directory.fortress.core.rest.AdminMgrOtherImpl
+#accessmgr.implementation=org.apache.directory.fortress.core.rest.AccessMgrOtherImpl
+#delegated.adminmgr.implementation=org.apache.directory.fortress.core.rest.DelAdminMgrOtherImpl
+#delegated.reviewmgr.implementation=org.apache.directory.fortress.core.rest.DelReviewMgrOtherImpl
+#policymgr.implementation=org.apache.directory.fortress.core.rest.PwPolicyMgrOtherImpl
+#delegated.accessmgr.implementation=org.apache.directory.fortress.core.rest.DelAccessMgrOtherImpl
+#auditmgr.implementation=org.apache.directory.fortress.core.rest.AuditMgrOtherImpl
+#configmgr.implementation=org.apache.directory.fortress.core.rest.ConfigMgrOtherImpl
+
+# Default behaviour when creating a user with no password is to set userPassword set to an empty string. 
+#The Fortress API will not allow auth binding if password is empty string or null, but enabling this property will cause the userPassword field to not be created. 
+#user.creation.field.password.disable=false
+
+#attribute to use for group properties
+group.properties=ftProps

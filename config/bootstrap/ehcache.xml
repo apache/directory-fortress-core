@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ *   Licensed to the Apache Software Foundation (ASF) under one
+ *   or more contributor license agreements.  See the NOTICE file
+ *   distributed with this work for additional information
+ *   regarding copyright ownership.  The ASF licenses this file
+ *   to you under the Apache License, Version 2.0 (the
+ *   "License"); you may not use this file except in compliance
+ *   with the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing,
+ *   software distributed under the License is distributed on an
+ *   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *   KIND, either express or implied.  See the License for the
+ *   specific language governing permissions and limitations
+ *   under the License.
+ *
+-->
+
+<!--
+Fortress CacheManager Configuration
+==========================
+This ehcache.xml corresponds to a single CacheManager.
+-->
+<ehcache name="fortress" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="ehcache.xsd"
+         updateCheck="true" monitoring="autodetect"
+         dynamicConfig="true"
+        >
+
+    <cacheManagerEventListenerFactory class="" properties=""/>
+
+    <!--
+        Thic cache contains password policy entries.  It is used to save a read on User password policy edits. There should be one element for every tenant.
+    -->
+    <cache name="fortress.policies"
+           maxElementsInMemory="10"
+           maxElementsOnDisk="10"
+           eternal="false"
+           overflowToDisk="false"
+           diskSpoolBufferSizeMB="2"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="600"
+           memoryStoreEvictionPolicy="LFU"
+           />
+
+    <!--
+        Contains the value OrgUnits for User and Permissions. There should be two elements for every tenant.
+    -->
+    <cache name="fortress.ous"
+           maxElementsInMemory="2"
+           maxElementsOnDisk="2"
+           eternal="false"
+           overflowToDisk="false"
+           diskSpoolBufferSizeMB="2"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="600"
+           memoryStoreEvictionPolicy="LFU"
+           />
+
+    <!--
+        Contains the JGraphT hierarchies for RBAC roles.  There should be one element for every tenant.
+    -->
+    <cache name="fortress.roles"
+           maxElementsInMemory="10"
+           maxElementsOnDisk="10"
+           eternal="false"
+           overflowToDisk="false"
+           diskSpoolBufferSizeMB="2"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="600"
+           memoryStoreEvictionPolicy="LFU"
+           />
+
+    <!--
+        Contains the JGraphT hierarchies for ARBAC roles. There should be one element for every tenant.
+    -->
+    <cache name="fortress.admin.roles"
+           maxElementsInMemory="10"
+           maxElementsOnDisk="10"
+           eternal="false"
+           overflowToDisk="false"
+           diskSpoolBufferSizeMB="2"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="600"
+           memoryStoreEvictionPolicy="LFU"
+           />
+
+    <!--
+        Contains the JGraphT hierarchies for Perm OUs. There should be one element for every tenant.
+    -->
+    <cache name="fortress.pso"
+           maxElementsInMemory="10"
+           maxElementsOnDisk="10"
+           eternal="false"
+           overflowToDisk="false"
+           diskSpoolBufferSizeMB="2"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="600"
+           memoryStoreEvictionPolicy="LFU"
+           />
+
+    <!--
+        Contains the JGraphT hierarchies for User OUs.  There should be one element for every tenant.
+    -->
+    <cache name="fortress.uso"
+           maxElementsInMemory="10"
+           maxElementsOnDisk="10"
+           eternal="false"
+           overflowToDisk="false"
+           diskSpoolBufferSizeMB="2"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="600"
+           memoryStoreEvictionPolicy="LFU"
+           />
+
+    <!--
+        Searchable cache contains Role<->DSD mapping.  This configuration sets a fairly long TTL of 1 hour.
+    -->
+    <cache name="fortress.dsd"
+           maxElementsInMemory="1000"
+           maxElementsOnDisk="10"
+           eternal="false"
+           overflowToDisk="false"
+           diskSpoolBufferSizeMB="20"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="3600"
+           memoryStoreEvictionPolicy="LFU">
+           <searchable>
+               <searchAttribute name="member" expression="value.getMember()"/>
+               <searchAttribute name="name" expression="value.getName()"/>
+               <searchAttribute name="contextId" expression="value.getContextId()"/>
+           </searchable>
+        </cache>
+
+    <!--
+        Cache contains Role<->SSD mapping.
+    -->
+    <cache name="fortress.ssd"
+           maxElementsInMemory="1000"
+           maxElementsOnDisk="10"
+           eternal="false"
+           overflowToDisk="false"
+           diskSpoolBufferSizeMB="20"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="600"
+           memoryStoreEvictionPolicy="LFU"
+           />
+
+</ehcache>
