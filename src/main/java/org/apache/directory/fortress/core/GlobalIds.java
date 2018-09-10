@@ -482,6 +482,15 @@ public final class GlobalIds
     public static final String LDAP_ADMIN_POOL_UID = "admin.user";
     public static final String LDAP_ADMIN_POOL_PW = "admin.pw";
 
+    /**
+     * Used for ldap connection pool of log users.
+     */
+    public static final String LDAP_LOG_POOL_UID = "log.admin.user";
+    public static final String LDAP_LOG_POOL_PW = "log.admin.pw";
+    public static final String LDAP_LOG_POOL_MIN = "min.log.conn";
+    public static final String LDAP_LOG_POOL_MAX = "max.log.conn";
+
+
     // Used for TLS/SSL client-side configs:
     public static final String ENABLE_LDAP_SSL = "enable.ldap.ssl";
     public static final String ENABLE_LDAP_SSL_DEBUG = "enable.ldap.ssl.debug";

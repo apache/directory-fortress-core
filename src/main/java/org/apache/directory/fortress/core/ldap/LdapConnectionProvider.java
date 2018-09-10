@@ -60,12 +60,6 @@ public class LdapConnectionProvider
 
     private static final String CLS_NM = LdapConnectionProvider.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-
-    private static final String LDAP_LOG_POOL_UID = "log.admin.user";
-    private static final String LDAP_LOG_POOL_PW = "log.admin.pw";
-    private static final String LDAP_LOG_POOL_MIN = "min.log.conn";
-    private static final String LDAP_LOG_POOL_MAX = "max.log.conn";
-
     private static final String ENABLE_LDAP_STARTTLS = "enable.ldap.starttls";
     private boolean IS_SSL;
 
@@ -129,8 +123,8 @@ public class LdapConnectionProvider
         int port = Config.getInstance().getInt( GlobalIds.LDAP_PORT, 389 );
         int min = Config.getInstance().getInt( GlobalIds.LDAP_ADMIN_POOL_MIN, 1 );
         int max = Config.getInstance().getInt( GlobalIds.LDAP_ADMIN_POOL_MAX, 10 );
-        int logmin = Config.getInstance().getInt( LDAP_LOG_POOL_MIN, 1 );
-        int logmax = Config.getInstance().getInt( LDAP_LOG_POOL_MAX, 10 );
+        int logmin = Config.getInstance().getInt( GlobalIds.LDAP_LOG_POOL_MIN, 1 );
+        int logmax = Config.getInstance().getInt( GlobalIds.LDAP_LOG_POOL_MAX, 10 );
         LOG.info( "LDAP POOL:  host=[{}], port=[{}], min=[{}], max=[{}]", host, port, min, max );
 
         LdapConnectionConfig config = new LdapConnectionConfig();
@@ -211,7 +205,7 @@ public class LdapConnectionProvider
 
         // This pool of access log connections is used by {@link org.apache.directory.fortress.AuditMgr}.
         // To enable, set {@code log.admin.user} && {@code log.admin.pw} inside fortress.properties file:
-        if ( StringUtils.isNotEmpty( LDAP_LOG_POOL_UID ) && StringUtils.isNotEmpty( LDAP_LOG_POOL_PW ) )
+        if ( StringUtils.isNotEmpty( GlobalIds.LDAP_LOG_POOL_UID ) && StringUtils.isNotEmpty( GlobalIds.LDAP_LOG_POOL_PW ) )
         {
             // Initializing the log pool in static block requires static props set within fortress.properties.
             // To make this dynamic requires moving this code outside of static block AND storing the connection
@@ -232,15 +226,15 @@ public class LdapConnectionProvider
                     (), null, true ) );
             }
 
-            logConfig.setName( Config.getInstance().getProperty( LDAP_LOG_POOL_UID, "" ) );
+            logConfig.setName( Config.getInstance().getProperty( GlobalIds.LDAP_LOG_POOL_UID, "" ) );
             String logPw;
             if ( EncryptUtil.isEnabled() )
             {
-                logPw = EncryptUtil.getInstance().decrypt( Config.getInstance().getProperty( LDAP_LOG_POOL_PW, true ) );
+                logPw = EncryptUtil.getInstance().decrypt( Config.getInstance().getProperty( GlobalIds.LDAP_LOG_POOL_PW, true ) );
             }
             else
             {
-                logPw = Config.getInstance().getProperty( LDAP_LOG_POOL_PW, true );
+                logPw = Config.getInstance().getProperty( GlobalIds.LDAP_LOG_POOL_PW, true );
             }
             logConfig.setCredentials( logPw );
             poolFactory = new ValidatingPoolableLdapConnectionFactory( logConfig );

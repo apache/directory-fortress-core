@@ -62,6 +62,10 @@ public final class Config
     private static final String EXT_LDAP_ADMIN_POOL_PW = "fortress.admin.pw";
     private static final String EXT_LDAP_ADMIN_POOL_MIN = "fortress.min.admin.conn";
     private static final String EXT_LDAP_ADMIN_POOL_MAX = "fortress.max.admin.conn";
+    private static final String EXT_LDAP_LOG_POOL_UID = "fortress.log.user";
+    private static final String EXT_LDAP_LOG_POOL_PW = "fortress.log.pw";
+    private static final String EXT_LDAP_LOG_POOL_MIN = "fortress.min.log.conn";
+    private static final String EXT_LDAP_LOG_POOL_MAX = "fortress.max.log.conn";
     private static final String EXT_ENABLE_LDAP_SSL = "fortress.enable.ldap.ssl";
     private static final String EXT_ENABLE_LDAP_SSL_DEBUG = "fortress.enable.ldap.ssl.debug";
     private static final String EXT_TRUST_STORE = "fortress.trust.store";
@@ -588,6 +592,40 @@ public final class Config
         {
             config.setProperty( GlobalIds.LDAP_ADMIN_POOL_MAX, szValue );
             LOG.info( PREFIX, GlobalIds.LDAP_ADMIN_POOL_MAX, szValue );
+        }
+
+        // Check to see if the log pool uid has been overridden by a system property:
+        szValue = System.getProperty( EXT_LDAP_LOG_POOL_UID );
+        if( StringUtils.isNotEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.LDAP_LOG_POOL_UID, szValue );
+            // never display ldap admin userid name to log:
+            LOG.info( "getExternalConfig override name [{}]", GlobalIds.LDAP_LOG_POOL_UID );
+        }
+
+        // Check to see if the log pool pw has been overridden by a system property:
+        szValue = System.getProperty( EXT_LDAP_LOG_POOL_PW );
+        if( StringUtils.isNotEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.LDAP_LOG_POOL_PW, szValue );
+            // never display password of any type to log:
+            LOG.info( "getExternalConfig override name [{}]", GlobalIds.LDAP_LOG_POOL_PW );
+        }
+
+        // Check to see if the log pool min connections has been overridden by a system property:
+        szValue = System.getProperty( EXT_LDAP_LOG_POOL_MIN );
+        if( StringUtils.isNotEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.LDAP_LOG_POOL_MIN, szValue );
+            LOG.info( PREFIX, GlobalIds.LDAP_LOG_POOL_MIN, szValue );
+        }
+
+        // Check to see if the log pool max connections has been overridden by a system property:
+        szValue = System.getProperty( EXT_LDAP_LOG_POOL_MAX );
+        if( StringUtils.isNotEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.LDAP_LOG_POOL_MAX, szValue );
+            LOG.info( PREFIX, GlobalIds.LDAP_LOG_POOL_MAX, szValue );
         }
 
         // Check to see if ssl enabled parameter has been overridden by a system property:
