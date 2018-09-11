@@ -273,6 +273,7 @@ During this section, you will be asked to setup Apache Tomcat 8 and prepare for 
  sudo mv apache-tomcat-8.0.30 /usr/local/tomcat8
  ```
  *Change the tomcat version as neeeded - v7 and beyond are ok.*
+ *For BSD variants (i.e. Mac) append /* to the folder name above on mv command.*
 
 2. Download the fortress realm proxy jar into tomcat/lib folder:
 
