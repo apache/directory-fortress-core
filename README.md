@@ -451,11 +451,11 @@ ________________________________________________________________________________
 3. Verify the tests worked:
 
  ```
- Tests run: 113, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 196 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
+ Tests run: Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 196 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
 
  Results :
 
- Tests run: 113, Failures: 0, Errors: 0, Skipped: 0
+ Tests run: Failures: 0, Errors: 0, Skipped: 0
 
  [INFO]
  [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
@@ -481,11 +481,11 @@ ________________________________________________________________________________
 5. Verify that worked also:
 
  ```
- Tests run: 141, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 207.081 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
+ Tests run: Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 207.081 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
 
  Results :
 
- Tests run: 141, Failures: 0, Errors: 0, Skipped: 0
+ Tests run: Failures: 0, Errors: 0, Skipped: 0
 
  [INFO]
  [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
@@ -501,7 +501,7 @@ ________________________________________________________________________________
  [INFO] Final Memory: 27M/531M
  [INFO] ------------------------------------------------------------------------
  ```
- Notice 141 tests ran this time vs 113 the first time.
+ Notice that more tests ran this time vs the first time, due to teardown.
 
 6. You can now clear out the test data and policies by rerunning this command:
 

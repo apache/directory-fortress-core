@@ -137,10 +137,10 @@ ________________________________________________________________________________
 3. Verify the tests worked:
 
  ```
- Tests run: 122, Failures: 0, Errors: 0, Skipped: 0
+ Tests run: Failures: 0, Errors: 0, Skipped: 0
  Results :
 
- Tests run: 122, Failures: 0, Errors: 0, Skipped: 0
+ Tests run: Failures: 0, Errors: 0, Skipped: 0
 
  [INFO]
  [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
@@ -163,7 +163,7 @@ ________________________________________________________________________________
  ```
  Results :
 
- Tests run: 154, Failures: 0, Errors: 0, Skipped: 0
+ Tests run: Failures: 0, Errors: 0, Skipped: 0
 
  [INFO]
  [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
@@ -175,7 +175,7 @@ ________________________________________________________________________________
  [INFO] BUILD SUCCESS
  [INFO] ------------------------------------------------------------------------
  ```
- Notice 154 tests ran this time vs 122 the first time.
+ Notice more tests ran this time vs the first time, due to teardown.
 
  Test Notes:
   * If tests complete without errors Apache Fortress works with your ApacheDS server (in Docker).

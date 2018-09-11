@@ -197,11 +197,11 @@ ________________________________________________________________________________
 3. Verify the tests worked:
 
  ```
- Tests run: 97, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 372.708 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
+ Tests run: Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 372.708 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
 
- Results :
+ Results:
 
- Tests run: 97, Failures: 0, Errors: 0, Skipped: 0
+ Tests run: Failures: 0, Errors: 0, Skipped: 0
 
  [INFO]
  [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
@@ -226,11 +226,11 @@ ________________________________________________________________________________
 5. Verify that worked also:
 
  ```
- Tests run: 127, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 778.501 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
+ Tests Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 778.501 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
 
  Results :
 
- Tests run: 127, Failures: 0, Errors: 0, Skipped: 0
+ Tests run: Failures: 0, Errors: 0, Skipped: 0
 
  [INFO]
  [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
@@ -246,9 +246,9 @@ ________________________________________________________________________________
  [INFO] Final Memory: 27M/357M
  [INFO] ------------------------------------------------------------------------
  ```
- Notice 109 tests ran this time vs 83 the first time.
+ Notice more tests ran this time vs the first time, due to teardown.
 
- Test Notes:p
+ Test Notes:
   * If tests complete without errors Fortress works with your Apache Directory server.
   * These tests load thousands of objects into the target ldap server.
   * Warning messages are negative tests in action.
