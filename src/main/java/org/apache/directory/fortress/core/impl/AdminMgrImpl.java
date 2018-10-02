@@ -461,7 +461,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         // Validate the user-role assignment exists:
         List<String> assignedRoles = userP.getAssignedRoles( new User( uRole.getUserId() ) );
         assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
-        if ( ! assignedRoles.stream().anyMatch( uRole.getName()::equalsIgnoreCase) )
+        // Do not assign role constraint to user if not assigned the role itself.
+        if ( CollectionUtils.isEmpty( assignedRoles ) || !assignedRoles.stream().anyMatch( uRole.getName()::equalsIgnoreCase) )
         {
             String error =  methodName + " user [" + uRole.getUserId() + "] not assigned role [" + uRole.getName() + "]";
             LOG.error( error );
