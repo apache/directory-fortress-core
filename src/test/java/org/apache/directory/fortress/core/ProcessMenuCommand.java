@@ -431,9 +431,11 @@ class ProcessMenuCommand
         System.out.println( "O.  Add Role Descendant" );
         System.out.println( "P.  Add SSD Data Set" );
         System.out.println( "R.  Add DSD Data Set" );
-        System.out.println( "S.  Test Annotation" );
-        System.out.println( "T.  Add Example" );
-        System.out.println( "U.  Test Config" );
+        System.out.println( "S.  Enable Role Constraint" );
+        System.out.println( "T.  Disable Role Constraint" );
+        System.out.println( "U.  Test Annotation" );
+        System.out.println( "V.  Add Example" );
+        System.out.println( "W.  Test Config" );
         System.out.println( "Enter q or Q to return to previous menu" );
     }
 
@@ -558,14 +560,22 @@ class ProcessMenuCommand
                         break;
                     case 's':
                     case 'S':
-                        adminConsole.addAnnotation();
+                        adminConsole.enableRoleConstraint();
                         break;
                     case 't':
                     case 'T':
-                        adminConsole.addExample();
+                        adminConsole.disableRoleConstraint();
                         break;
                     case 'u':
                     case 'U':
+                        adminConsole.addAnnotation();
+                        break;
+                    case 'v':
+                    case 'V':
+                        adminConsole.addExample();
+                        break;
+                    case 'w':
+                    case 'W':
                         adminConsole.testConfig();
                         break;
                     case 'q':

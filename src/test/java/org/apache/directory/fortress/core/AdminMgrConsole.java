@@ -194,6 +194,54 @@ class AdminMgrConsole
     }
 
 
+    void enableRoleConstraint()
+    {
+        Role role = new Role();
+        RoleConstraint roleConstraint = new RoleConstraint();
+        try
+        {
+            ReaderUtil.clearScreen();
+            System.out.println("Enter role name:");
+            role.setName( ReaderUtil.readLn() );
+            System.out.println("Enter constraint name:");
+            roleConstraint.setKey( ReaderUtil.readLn() );
+            am.enableRoleConstraint( role, roleConstraint );
+            System.out.println( "constraint name [" + roleConstraint.getKey() + "]" );
+            System.out.println("has been added");
+            System.out.println("ENTER to continue");
+        }
+        catch (SecurityException e)
+        {
+            LOG.error("enableRoleConstraint caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+        }
+        ReaderUtil.readChar();
+    }
+
+
+    void disableRoleConstraint()
+    {
+        Role role = new Role();
+        RoleConstraint roleConstraint = new RoleConstraint();
+        try
+        {
+            ReaderUtil.clearScreen();
+            System.out.println("Enter role name:");
+            role.setName( ReaderUtil.readLn() );
+            System.out.println("Enter constraint name:");
+            roleConstraint.setKey( ReaderUtil.readLn() );
+            am.disableRoleConstraint( role, roleConstraint );
+            System.out.println( "constraint name [" + roleConstraint.getKey() + "]" );
+            System.out.println("has been removed");
+            System.out.println("ENTER to continue");
+        }
+        catch (SecurityException e)
+        {
+            LOG.error("disableRoleConstraint caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+        }
+        ReaderUtil.readChar();
+    }
+
+
     void deleteRole()
     {
         Role re = new Role();
