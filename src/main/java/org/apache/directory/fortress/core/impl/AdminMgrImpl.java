@@ -504,8 +504,9 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         
         //find role constraint that needs removed
         boolean found = false;
-        
-        List<UserRole> userRoles = userP.read( new User(uRole.getUserId()), true ).getRoles();
+        User user = new User(uRole.getUserId());
+        user.setContextId( contextId );
+        List<UserRole> userRoles = userP.read( user, true ).getRoles();
         for( UserRole ur : userRoles ){
             // find matching name
             if( ur.getName().equals( uRole.getName() ) ){
