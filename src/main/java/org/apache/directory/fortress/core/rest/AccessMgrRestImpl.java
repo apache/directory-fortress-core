@@ -210,10 +210,38 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
         boolean result;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity2(user);
-        request.setEntity(perm);
+        request.setEntity( perm );
         request.setIsFlag( isTrusted );
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.RBAC_CHECK);
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            result = response.getAuthorized();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isUserInRole( User user, Role role, boolean isTrusted )
+        throws SecurityException
+    {
+        VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".isUserInRole");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".isUserInRole");
+        boolean result;
+        FortRequest request = RestUtils.getRequest( this.contextId );
+        request.setEntity2(user);
+        request.setEntity(role);
+        request.setIsFlag( isTrusted );
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.RBAC_CHECK_ROLE);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {

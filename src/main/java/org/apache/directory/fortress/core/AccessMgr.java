@@ -314,6 +314,21 @@ public interface AccessMgr extends Manageable
         throws SecurityException;
 
     /**
+     * Combine createSession and a role check into a single method.
+     * This function returns a Boolean value meaning whether the User has a particular role.
+     * The function is valid if and only if the user is a valid Fortress user and the role is a member of the ROLES data set.
+     *
+     * @param user      Contains {@link User#userId}, {@link org.apache.directory.fortress.core.model.User#password}
+     * (optional if {@code isTrusted} is 'true'), optional {@link User#roles}}
+     * @param role    object contains the role name, {@link Role#name}, to be checked.
+     * @return True if user has role, false otherwise.
+     * @throws SecurityException
+     *          in the event of data validation failure, security policy violation or DAO error.
+     */
+    public boolean isUserInRole( User user, Role role, boolean isTrusted )
+        throws SecurityException;
+
+    /**
      * This function returns the permissions of the session, i.e., the permissions assigned
      * to its authorized roles. The function is valid if and only if the session is a valid Fortress session.
      *

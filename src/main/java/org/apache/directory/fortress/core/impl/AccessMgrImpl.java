@@ -180,6 +180,29 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
     /**
      * {@inheritDoc}
      */
+    public boolean isUserInRole( User user, Role role, boolean isTrusted )
+        throws SecurityException
+    {
+        String methodName = "isUserInRole";
+        assertContext( CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL );
+        VUtil.getInstance().assertNotNullOrEmpty( role.getName(), GlobalErrIds.ROLE_NM_NULL,
+            getFullMethodName( CLS_NM, methodName ) );
+        boolean result = false;
+        Session session = createSession( user, isTrusted );
+        List<UserRole> sRoles = session.getRoles();
+        UserRole uRole = new UserRole( user.getUserId(), role.getName() );
+        // If session has role activated:
+        if ( sRoles != null && sRoles.contains( uRole ) )
+        {
+            result = true;
+        }
+        return result;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     @AdminPermissionOperation
     public List<Permission> sessionPermissions( Session session )

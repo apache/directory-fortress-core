@@ -29,6 +29,7 @@ public class HttpIds
     public static final String RBAC_AUTHN = "rbacAuthN";
     public static final String RBAC_CREATE = "rbacCreate";
     public static final String RBAC_CHECK = "rbacCheck";
+    public static final String RBAC_CHECK_ROLE = "rbacCheckRole";
     public static final String RBAC_CREATE_TRUSTED = "rbacCreateT";
     public static final String RBAC_AUTHZ = "rbacAuthZ";
     public static final String RBAC_PERMS = "rbacPerms";

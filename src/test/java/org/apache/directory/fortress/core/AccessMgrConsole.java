@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
@@ -352,7 +353,7 @@ class AccessMgrConsole
         try
         {
             Permission perm = new Permission();
-            System.out.println("Enter object name:");
+            System.out.println( "Enter object name:" );
             perm.setObjName( ReaderUtil.readLn() );
             System.out.println("Enter operation name:");
             perm.setOpName( ReaderUtil.readLn() );
@@ -366,10 +367,7 @@ class AccessMgrConsole
             System.out.println("Enter userId:");
             String userId = ReaderUtil.readLn();
             User inUser = new User(userId);
-
-            Properties props = new Properties(  );
-            props.setProperty( "locale", "east" );
-            inUser.addProperties( props );
+            inUser.addProperties( getRuntimeProps() );
             boolean result = am.checkAccess( inUser, perm, true );
             System.out.println("createSessionCheckAccess return [" + result + "] for user [" + userId + "], objName [" + perm.getObjName() + "], operationName [" + perm.getOpName() + "]" +
                 ", objId [" + perm.getObjId() + "]");
@@ -380,6 +378,46 @@ class AccessMgrConsole
             LOG.error("createSessionCheckAccess caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
+    }
+
+    void isUserInRole()
+    {
+        //Session session = null;
+        try
+        {
+            Role role = new Role();
+            System.out.println("Enter role name:");
+            role.setName( ReaderUtil.readLn() );
+
+            System.out.println("Enter userId:");
+            String userId = ReaderUtil.readLn();
+            User inUser = new User(userId);
+            inUser.addProperties( getRuntimeProps() );
+            boolean result = am.isUserInRole( inUser, role, true );
+            System.out.println("isUserInRole return [" + result + "] for user [" + userId + "], role [" + role.getName() + "]");
+            System.out.println("ENTER to continue");
+        }
+        catch (SecurityException e)
+        {
+            LOG.error("isUserInRole caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+        }
+        ReaderUtil.readChar();
+    }
+
+    private Properties getRuntimeProps()
+    {
+        Properties props = new Properties(  );
+        System.out.println("Do you want to set a runtime constrait on user role activation? - Y or NULL to skip");
+        String choice = ReaderUtil.readLn();
+        if (choice != null && choice.equalsIgnoreCase("Y"))
+        {
+            System.out.println("Enter constraint type):");
+            String key = ReaderUtil.readLn();
+            System.out.println( "Enter constraint value):" );
+            String value = ReaderUtil.readLn();
+            props.setProperty( key, value );
+        }
+        return props;
     }
 
     void sessionRoles()
