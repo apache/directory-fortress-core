@@ -187,8 +187,6 @@ public interface AccessMgr extends Manageable
      * (optional if {@code isTrusted} is 'true'), optional {@link User#roles}, optional
      * {@link org.apache.directory.fortress.core.model.User#adminRoles}
      * @param constraints List of case-sensitive {@link RoleConstraint#key}, {@link RoleConstraint#value}, bound for role activation checks.
-     * (optional if {@code isTrusted} is 'true'), optional {@link User#roles}, optional
-     * {@link org.apache.directory.fortress.core.model.User#adminRoles}
      * @param isTrusted if true password is not required.
      * @return Session object will contain authentication result code
      * {@link org.apache.directory.fortress.core.model.Session#errorId},
@@ -275,7 +273,6 @@ public interface AccessMgr extends Manageable
             throws SecurityException;
 
 
-
     /**
      * Perform user RBAC authorization.  This function returns a Boolean value meaning whether the subject of a given 
      * session is allowed or not to perform a given operation on a given object. The function is valid if and
@@ -296,6 +293,25 @@ public interface AccessMgr extends Manageable
     boolean checkAccess( Session session, Permission perm )
         throws SecurityException;
 
+    /**
+     * Combine createSession and checkAccess into a single method.
+     * This function returns a Boolean value meaning whether the User is allowed or not to perform a given operation on a given object.
+     * The function is valid if and only if the user is a valid Fortress user, the object is a member of the OBJS data set,
+     * and the operation is a member of the OPS data set. The user has the permission
+     * to perform the operation on that object if and only if that permission is assigned to (at least)
+     * one of the session's active roles. This implementation will verify the roles or userId correspond
+     * to the user's active roles are registered in the object's access control list.
+     *
+     * @param user      Contains {@link User#userId}, {@link org.apache.directory.fortress.core.model.User#password}
+     * (optional if {@code isTrusted} is 'true'), optional {@link User#roles}}
+     * @param perm    must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, of
+     * permission User is trying to access.
+     * @return True if user has access, false otherwise.
+     * @throws SecurityException
+     *          in the event of data validation failure, security policy violation or DAO error.
+     */
+    public boolean checkAccess( User user, Permission perm, boolean isTrusted )
+        throws SecurityException;
 
     /**
      * This function returns the permissions of the session, i.e., the permissions assigned

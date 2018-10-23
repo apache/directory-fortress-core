@@ -202,6 +202,34 @@ public class AccessMgrRestImpl extends Manageable implements AccessMgr
      * {@inheritDoc}
      */
     @Override
+    public boolean checkAccess(User user, Permission perm, boolean isTrusted)
+        throws SecurityException
+    {
+        VUtil.assertNotNull(perm, GlobalErrIds.PERM_NULL, CLS_NM + ".checkAccess");
+        VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".checkAccess");
+        boolean result;
+        FortRequest request = RestUtils.getRequest( this.contextId );
+        request.setEntity2(user);
+        request.setEntity(perm);
+        request.setIsFlag( isTrusted );
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.RBAC_CHECK);
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        if (response.getErrorCode() == 0)
+        {
+            result = response.getAuthorized();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public List<Permission> sessionPermissions(Session session)
         throws SecurityException
     {

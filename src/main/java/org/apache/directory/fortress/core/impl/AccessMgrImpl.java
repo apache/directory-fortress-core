@@ -169,6 +169,19 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
      */
     @Override
     @AdminPermissionOperation
+    public boolean checkAccess( User user, Permission perm, boolean isTrusted )
+        throws SecurityException
+    {
+        Session session = createSession( user, isTrusted );
+        return checkAccess( session, perm );
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @AdminPermissionOperation
     public List<Permission> sessionPermissions( Session session )
         throws SecurityException
     {

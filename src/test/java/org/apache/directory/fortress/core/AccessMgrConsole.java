@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Properties;
 
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.RoleConstraint;
@@ -288,8 +289,8 @@ class AccessMgrConsole
         {
             User user = new User();
             ReaderUtil.clearScreen();
-            System.out.println("Enter userId:");
-            user.setUserId(ReaderUtil.readLn());
+            System.out.println( "Enter userId:" );
+            user.setUserId( ReaderUtil.readLn() );
             System.out.println("Enter role (or NULL to skip):");
             String key = ReaderUtil.readLn();
             for (int i = 0; key != null && key.length() > 0; i++)
@@ -322,7 +323,7 @@ class AccessMgrConsole
             VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, "AccessMgrConsole.checkAccess");
             ReaderUtil.clearScreen();
             Permission perm = new Permission();
-            System.out.println("Enter object name:");
+            System.out.println( "Enter object name:" );
             perm.setObjName( ReaderUtil.readLn() );
             System.out.println("Enter operation name:");
             perm.setOpName( ReaderUtil.readLn() );
@@ -341,6 +342,42 @@ class AccessMgrConsole
         catch (SecurityException e)
         {
             LOG.error("checkAccess caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
+        }
+        ReaderUtil.readChar();
+    }
+
+    void createSessionCheckAccess()
+    {
+        //Session session = null;
+        try
+        {
+            Permission perm = new Permission();
+            System.out.println("Enter object name:");
+            perm.setObjName( ReaderUtil.readLn() );
+            System.out.println("Enter operation name:");
+            perm.setOpName( ReaderUtil.readLn() );
+            System.out.println("Enter object id (or NULL to skip):");
+            String val = ReaderUtil.readLn();
+            if ( val != null && val.length() > 0 )
+            {
+                perm.setObjId( val );
+            }
+
+            System.out.println("Enter userId:");
+            String userId = ReaderUtil.readLn();
+            User inUser = new User(userId);
+
+            Properties props = new Properties(  );
+            props.setProperty( "locale", "east" );
+            inUser.addProperties( props );
+            boolean result = am.checkAccess( inUser, perm, true );
+            System.out.println("createSessionCheckAccess return [" + result + "] for user [" + userId + "], objName [" + perm.getObjName() + "], operationName [" + perm.getOpName() + "]" +
+                ", objId [" + perm.getObjId() + "]");
+            System.out.println("ENTER to continue");
+        }
+        catch (SecurityException e)
+        {
+            LOG.error("createSessionCheckAccess caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
