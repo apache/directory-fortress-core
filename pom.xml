@@ -520,12 +520,16 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <configuration>
             <argLine>-Xmx1024m</argLine>
-            <systemPropertyVariables>
-              <version>${tenant}</version>
-            </systemPropertyVariables>
-            <systemPropertyVariables>
-              <version>${project.version}</version>
-            </systemPropertyVariables>
+            <systemProperties>
+              <systemProperty>
+                <key>version</key>
+                <value>${project.version}</value>
+              </systemProperty>
+              <systemProperty>
+                <key>tenant</key>
+                <value>${tenant}</value>
+              </systemProperty>
+            </systemProperties>
             <excludes>
               <exclude>${exclude.tests}</exclude>
             </excludes>
@@ -533,7 +537,6 @@
               <include>${include.tests}</include>
             </includes>
             <groups>${testcase.groups}</groups>
-            <!--<forkMode>never</forkMode>-->
             <runOrder>random</runOrder>
           </configuration>
         </plugin>
