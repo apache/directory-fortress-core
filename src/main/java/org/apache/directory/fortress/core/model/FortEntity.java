@@ -29,6 +29,10 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+
 
 /**
  * This abstract class is extended by other Fortress entities.  It is used to store contextual data that can be used for
@@ -91,6 +95,7 @@ import javax.xml.bind.annotation.XmlType;
         PermissionAttributeSet.class,
         RoleConstraint.class
 })
+@JsonTypeInfo(use=Id.CLASS, include=As.PROPERTY, property="fqcn", visible=false)
 public abstract class FortEntity
 {
     protected String modCode;

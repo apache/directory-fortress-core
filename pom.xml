@@ -129,7 +129,8 @@
     <version.xml.apis>1.0b2</version.xml.apis>
     <version.xmlschema.core>2.0.3</version.xmlschema.core>
     <version.xpp3>1.1.4c</version.xpp3>
-
+    <version.jackson-annotations>2.9.7</version.jackson-annotations>
+    
     <!-- ===================================================== -->
     <!-- This is a hack to allow someone to release            -->
     <!-- without having to run the tests. In order to          -->
@@ -249,6 +250,12 @@
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>${version.slf4j.api}</version>
+    </dependency>
+
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>${version.jackson-annotations}</version>
     </dependency>
 
     <dependency>
