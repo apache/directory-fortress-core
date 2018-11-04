@@ -32,7 +32,8 @@ import java.util.StringTokenizer;
 import java.util.TreeSet;
 
 /**
- * This class performs dynamic constraint validation on role per FC-235
+ * Do not use, is deprecated for {@link org.apache.directory.fortress.core.util.time.UserRoleConstraint}.
+ * This class performs dynamic constraint validation on role per FC-235.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
