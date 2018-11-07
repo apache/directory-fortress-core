@@ -127,7 +127,14 @@ public class FortressJUnitTest extends TestCase
             suite.addTest( new AdminMgrImplTest( "testDeletePermissionAttributeSets" ) );
             suite.addTest( new AdminMgrImplTest( "testDeassignUserRoleConstraints" ) );
             suite.addTest( new AdminMgrImplTest( "testDeassignUser" ) );
-            suite.addTest( new AdminMgrImplTest( "testDeleteUser" ) );
+
+
+            // Requires password policies:
+            if ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() )
+            {
+                suite.addTest( new AdminMgrImplTest( "testDeleteUser" ) );
+            }
+
             suite.addTest( new AdminMgrImplTest( "testForceDeleteUser" ) );
             suite.addTest( new AdminMgrImplTest( "testDeleteSsdRoleMember" ) );
             suite.addTest( new AdminMgrImplTest( "testDeleteDsdRoleMember" ) );
