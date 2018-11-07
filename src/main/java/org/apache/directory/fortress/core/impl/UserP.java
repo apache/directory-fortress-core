@@ -45,6 +45,7 @@ import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
 
 import org.slf4j.Logger;
@@ -941,8 +942,8 @@ final class UserP
             }
         }
 
-        // 1 OpenLDAP password policy name must be valid if set:
-        if ( StringUtils.isNotEmpty( entity.getPwPolicy() ) )
+        // password policy name must be valid if set:
+        if ( StringUtils.isNotEmpty( entity.getPwPolicy() ) && ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() ) )
         {
             PwPolicy policy = new PwPolicy( entity.getPwPolicy() );
             policy.setContextId( entity.getContextId() );
