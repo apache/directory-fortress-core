@@ -28,10 +28,10 @@ Role-Based Access Control (RBAC)
   role-based access control, delegated administration and password policy services with LDAP.
  * This repo is contains the Apache Fortress Core component.
  ![Apache Fortress Core System Architecture](images/fortress-core-system-arch.png "Apache Fortress Core System Architecture")
- * There are three others that comprise the project:
-   - [Realm](https://github.com/apache/directory-fortress-realm)
-   - [Rest](https://github.com/apache/directory-fortress-enmasse)
-   - [Web](https://github.com/apache/directory-fortress-commander)
+ * There are three other git repos that comprise the project:
+   - [Realm for Apache Tomcat](https://github.com/apache/directory-fortress-realm)
+   - [Rest/JSON APIs](https://github.com/apache/directory-fortress-enmasse)
+   - [Web Admin Pages](https://github.com/apache/directory-fortress-commander)
  * For more information, visit http://directory.apache.org/fortress/
 
 -------------------------------------------------------------------------------
