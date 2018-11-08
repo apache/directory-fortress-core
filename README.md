@@ -22,9 +22,9 @@ Role-Based Access Control (RBAC) for Java
    under the License.
 
 -------------------------------------------------------------------------------
-# README for Apache Fortress Core
-
 ![Apache Fortress](images/ApacheFortressLogo_FINAL_SM.png "Apache Fortress")
+
+# README Core
 
  * FORTRESS, a sub-project of the Apache Directory, is a standards-based access management system, written in Java, that provides
   role-based access control, delegated administration and password policy services with LDAP.
