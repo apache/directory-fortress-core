@@ -1,8 +1,8 @@
-# APACHE FORTRESS README
+# README
 
 ![Apache Fortress](images/ApacheFortressLogo_FINAL_SM.png "Apache Fortress")
 
-Role-Based Access Control (RBAC) for Java
+Role-Based Access Control (RBAC)
 -------------------------------------------------------------------------------
 # LICENSE
 
