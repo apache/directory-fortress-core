@@ -42,5 +42,6 @@ public class ValidationException extends SecurityException
     public ValidationException( int errorId, String msg )
     {
         super( errorId, msg );
+        setHttpStatus(400);
     }
 }

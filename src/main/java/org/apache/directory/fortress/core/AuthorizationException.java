@@ -42,5 +42,6 @@ public class AuthorizationException extends SecurityException
     public AuthorizationException( int errorId, String msg )
     {
         super( errorId, msg );
+        setHttpStatus(403);
     }
 }

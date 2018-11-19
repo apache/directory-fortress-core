@@ -35,6 +35,7 @@ public abstract class BaseException extends Exception implements StandardExcepti
 
     private final int errorId;
 
+    private int httpStatus = 500; // default is mapped to server error
 
     /**
      * Create exception containing error code and message.
@@ -71,5 +72,21 @@ public abstract class BaseException extends Exception implements StandardExcepti
     public int getErrorId()
     {
         return errorId;
+    }
+
+
+    /**
+     * Returns the HTTP Status code mapped to represent this error
+     * @return HTTP status code assigned for this exception
+     */
+    public int getHttpStatus()
+    {
+        return httpStatus;
+    }
+
+
+    public void setHttpStatus(int httpStatus)
+    {
+        this.httpStatus = httpStatus;
     }
 }

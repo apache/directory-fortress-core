@@ -20,6 +20,9 @@
 package org.apache.directory.fortress.core.model;
 
 import javax.xml.bind.annotation.*;
+
+import org.apache.directory.fortress.core.GlobalErrIds;
+
 import java.util.List;
 import java.util.Set;
 
@@ -53,6 +56,7 @@ public class FortResponse
     private List<String> values;
     private Set<String> valueSet;
     private Session session;
+    private int httpStatus = -1; // the default value is set to an invalid value see #getHttpStatus() for details
 
     public FortEntity getEntity()
     {
@@ -132,6 +136,30 @@ public class FortResponse
     public void setSession(Session session)
     {
         this.session = session;
+    }
+
+    public int getHttpStatus()
+    {
+        // if this is not an error response and
+        // http status code is not set by the creator
+        // of this response then assume the status as
+        // http Success i.e 200 OK
+        if( errorCode == GlobalErrIds.NO_ERROR && httpStatus == -1 )
+        {
+            httpStatus = 200;
+        }
+        // if the errorCode is set but httpStatus is not then assume server error
+        else if( errorCode != GlobalErrIds.NO_ERROR && httpStatus == -1 )
+        {
+            httpStatus = 500;
+        }
+
+        return httpStatus;
+    }
+
+    public void setHttpStatus(int httpStatus)
+    {
+        this.httpStatus = httpStatus;
     }
 }
 

@@ -42,5 +42,6 @@ public class PasswordException extends SecurityException
     public PasswordException( int errorId, String msg )
     {
         super( errorId, msg );
+        setHttpStatus(400);
     }
 }

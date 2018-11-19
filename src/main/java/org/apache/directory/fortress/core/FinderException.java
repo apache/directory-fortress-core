@@ -42,6 +42,7 @@ public class FinderException extends SecurityException
     public FinderException( int errorId, String msg )
     {
         super( errorId, msg );
+        setHttpStatus(404);
     }
 
 
@@ -55,5 +56,6 @@ public class FinderException extends SecurityException
     public FinderException( int errorId, String msg, Exception previousException )
     {
         super( errorId, msg, previousException );
+        setHttpStatus(404);
     }
 }
