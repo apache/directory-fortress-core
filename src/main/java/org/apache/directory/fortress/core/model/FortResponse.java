@@ -44,6 +44,7 @@ import java.util.Set;
     "values",
     "valueSet",
     "isAuthorized",
+    "httpStatus",
     "session"
 })
 public class FortResponse
