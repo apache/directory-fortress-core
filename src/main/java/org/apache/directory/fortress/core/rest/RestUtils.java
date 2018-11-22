@@ -36,6 +36,7 @@ import javax.xml.bind.Unmarshaller;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.RestException;
 import org.apache.directory.fortress.core.model.FortRequest;
@@ -73,9 +74,11 @@ public final class RestUtils
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final String HTTP_PW_PROP = "http.pw";
     private static final int HTTP_OK = 200;
+    private static final int HTTP_400_VALIDATION_EXCEPTION = 400;
     private static final int HTTP_401_UNAUTHORIZED = 401;
     private static final int HTTP_403_FORBIDDEN = 403;
     private static final int HTTP_404_NOT_FOUND = 404;
+    private static final int HTTP_500_INTERNAL_SERVER_ERROR = 500;
     private static CachedJaxbContext cachedJaxbContext = new CachedJaxbContext();
 
     // static member contains this
@@ -309,7 +312,16 @@ public final class RestUtils
             {
                 case HTTP_OK :
                     szResponse = IOUtils.toString( response.getEntity().getContent(), "UTF-8" );
-                    LOG.debug( "post uri=[{}], function=[{}], response=[{}]", uri, function, szResponse );
+                    if( StringUtils.isNotEmpty( szResponse ) )
+                    {
+                        LOG.debug( "post uri=[{}], function=[{}], response=[{}]", uri, function, szResponse );
+                    }
+                    else
+                    {
+                        error = generateErrorMessage( uri, function, "invalid response" );
+                        LOG.error( error );
+                        throw new RestException( GlobalErrIds.REST_NOT_FOUND_ERR, error );
+                    }
                     break;
                 case HTTP_401_UNAUTHORIZED :
                     error = generateErrorMessage( uri, function, "401 function unauthorized on host" );
@@ -319,10 +331,21 @@ public final class RestUtils
                     error = generateErrorMessage( uri, function, "403 function forbidden on host" );
                     LOG.error( error );
                     throw new RestException( GlobalErrIds.REST_FORBIDDEN_ERR, error );
-                case HTTP_404_NOT_FOUND :
-                    error = generateErrorMessage( uri, function, "404 not found from host" );
-                    LOG.error( error );
-                    throw new RestException( GlobalErrIds.REST_NOT_FOUND_ERR, error );
+                case HTTP_404_NOT_FOUND:
+                case HTTP_500_INTERNAL_SERVER_ERROR:
+                case HTTP_400_VALIDATION_EXCEPTION:
+                    szResponse = IOUtils.toString( response.getEntity().getContent(), "UTF-8" );
+                    if( StringUtils.isNotEmpty( szResponse ) )
+                    {
+                        LOG.debug( "post uri=[{}], function=[{}], response=[{}]", uri, function, szResponse );
+                    }
+                    else
+                    {
+                        error = generateErrorMessage( uri, function, "HTTP Error:" + response.getStatusLine().getStatusCode());
+                        LOG.error( error );
+                        throw new RestException( GlobalErrIds.REST_NOT_FOUND_ERR, error );
+                    }
+                    break;
                 default :
                     error = generateErrorMessage( uri, function, "error received from host: " + response.getStatusLine().getStatusCode() );
                     LOG.error( error );
