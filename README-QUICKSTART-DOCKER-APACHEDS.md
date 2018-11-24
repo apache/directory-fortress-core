@@ -46,7 +46,7 @@ Minimum software requirements:
  * docker-engine
 
 ___________________________________________________________________________________
-## SECTION 2. Apache Fortress Core Setup using OpenLDAP Docker Image
+## SECTION 2. Apache Fortress Core Setup using ApacheDS Docker Image
 
 1. Download the apache directory fortress-core source from apache git repo:
 
