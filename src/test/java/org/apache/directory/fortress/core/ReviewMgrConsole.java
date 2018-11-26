@@ -21,6 +21,7 @@ package org.apache.directory.fortress.core;
 
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.impl.TestUtils;
@@ -438,6 +439,44 @@ class ReviewMgrConsole
         catch ( SecurityException e )
         {
             LOG.error( "assignedRoles caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e );
+        }
+        ReaderUtil.readChar();
+    }
+
+
+    void assignedRoleConstraints()
+    {
+        ReaderUtil.clearScreen();
+        try
+        {
+            ReaderUtil.clearScreen();
+            Role role = new Role();
+            RoleConstraint roleConstraint = new RoleConstraint();
+            System.out.println("Enter role name:");
+            role.setName( ReaderUtil.readLn() );
+            System.out.println("Enter constraint type:");
+            roleConstraint.setTypeName( ReaderUtil.readLn() );
+            System.out.println("Enter constraint key:");
+            roleConstraint.setKey( ReaderUtil.readLn() );
+            System.out.println("Enter constraint value:");
+            roleConstraint.setValue( ReaderUtil.readLn() );
+            List<User> users = rm.assignedUsers( role, roleConstraint );
+            if ( users != null )
+            {
+                for ( User user : users )
+                {
+                    System.out.println( "userId      [" + user.getUserId() + "]" );
+                }
+            }
+            else
+            {
+                System.out.println( "No Users found for role [" + role.getName() + "] constraint [" + roleConstraint.getKey() + "]" );
+            }
+            System.out.println( "ENTER to continue" );
+        }
+        catch ( SecurityException e )
+        {
+            LOG.error( "assigneassignedRoleConstraints caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e );
         }
         ReaderUtil.readChar();
     }

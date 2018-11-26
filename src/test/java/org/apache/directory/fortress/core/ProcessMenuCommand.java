@@ -614,6 +614,7 @@ class ProcessMenuCommand
         System.out.println( "A. Authorized Users" );
         System.out.println( "B. Role Permissions" );
         System.out.println( "C. Get Assigned Roles" );
+        System.out.println( "D. Get Assigned Role Constraints" );
         System.out.println( "Enter q or Q to return to previous menu" );
     }
 
@@ -676,6 +677,10 @@ class ProcessMenuCommand
                     case 'c':
                     case 'C':
                         reviewConsole.assignedRoles();
+                        break;
+                    case 'd':
+                    case 'D':
+                        reviewConsole.assignedRoleConstraints();
                         break;
                     case 'q':
                     case 'Q':
