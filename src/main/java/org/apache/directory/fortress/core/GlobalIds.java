@@ -493,6 +493,7 @@ public final class GlobalIds
 
     // Used for TLS/SSL client-side configs:
     public static final String ENABLE_LDAP_SSL = "enable.ldap.ssl";
+    public static final String ENABLE_LDAP_STARTTLS = "enable.ldap.starttls";
     public static final String ENABLE_LDAP_SSL_DEBUG = "enable.ldap.ssl.debug";
     public static final String TRUST_STORE = "trust.store";
     public static final String TRUST_STORE_PW = "trust.store.password";
