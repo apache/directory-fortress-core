@@ -481,6 +481,8 @@ public final class GlobalIds
     public static final String LDAP_ADMIN_POOL_MAX = "max.admin.conn";
     public static final String LDAP_ADMIN_POOL_UID = "admin.user";
     public static final String LDAP_ADMIN_POOL_PW = "admin.pw";
+    public static final String LDAP_ADMIN_POOL_TEST_IDLE = "admin.conn.test.idle";
+    public static final String LDAP_ADMIN_POOL_EVICT_RUN_MILLIS = "admin.conn.evict.run.millis";
 
     /**
      * Used for ldap connection pool of log users.
@@ -489,6 +491,8 @@ public final class GlobalIds
     public static final String LDAP_LOG_POOL_PW = "log.admin.pw";
     public static final String LDAP_LOG_POOL_MIN = "min.log.conn";
     public static final String LDAP_LOG_POOL_MAX = "max.log.conn";
+    public static final String LDAP_LOG_POOL_TEST_IDLE = "log.conn.test.idle";
+    public static final String LDAP_LOG_POOL_EVICT_RUN_MILLIS = "log.conn.evict.run.millis";
 
 
     // Used for TLS/SSL client-side configs:

@@ -125,6 +125,13 @@ public class LdapConnectionProvider
         int max = Config.getInstance().getInt( GlobalIds.LDAP_ADMIN_POOL_MAX, 10 );
         int logmin = Config.getInstance().getInt( GlobalIds.LDAP_LOG_POOL_MIN, 1 );
         int logmax = Config.getInstance().getInt( GlobalIds.LDAP_LOG_POOL_MAX, 10 );
+        
+        boolean testWhileIdle = Config.getInstance().getBoolean( GlobalIds.LDAP_ADMIN_POOL_TEST_IDLE, true );
+        boolean logTestWhileIdle = Config.getInstance().getBoolean( GlobalIds.LDAP_LOG_POOL_TEST_IDLE, true );
+
+        int timeBetweenEvictionRunMillis = Config.getInstance().getInt( GlobalIds.LDAP_ADMIN_POOL_EVICT_RUN_MILLIS, 1000 * 60 * 30 );
+        int logTimeBetweenEvictionRunMillis = Config.getInstance().getInt( GlobalIds.LDAP_LOG_POOL_EVICT_RUN_MILLIS, 1000 * 60 * 30 );
+
         LOG.info( "LDAP POOL:  host=[{}], port=[{}], min=[{}], max=[{}]", host, port, min, max );
 
         LdapConnectionConfig config = new LdapConnectionConfig();
@@ -193,6 +200,8 @@ public class LdapConnectionProvider
         adminPool.setMaxActive( max );
         adminPool.setMinIdle( min );
         adminPool.setMaxIdle( -1 );
+        adminPool.setTestWhileIdle( testWhileIdle );
+        adminPool.setTimeBetweenEvictionRunsMillis( timeBetweenEvictionRunMillis );
         //adminPool.setMaxWait( 0 );
 
         // Create the User pool
@@ -202,6 +211,8 @@ public class LdapConnectionProvider
         userPool.setMaxActive( max );
         userPool.setMinIdle( min );
         userPool.setMaxIdle( -1 );
+        userPool.setTestWhileIdle( testWhileIdle );
+        userPool.setTimeBetweenEvictionRunsMillis( timeBetweenEvictionRunMillis );
 
         // This pool of access log connections is used by {@link org.apache.directory.fortress.AuditMgr}.
         // To enable, set {@code log.admin.user} && {@code log.admin.pw} inside fortress.properties file:
@@ -243,6 +254,8 @@ public class LdapConnectionProvider
             logPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
             logPool.setMaxActive( logmax );
             logPool.setMinIdle( logmin );
+            logPool.setTestWhileIdle( logTestWhileIdle );
+            logPool.setTimeBetweenEvictionRunsMillis( logTimeBetweenEvictionRunMillis );
         }
     }
 
