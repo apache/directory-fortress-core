@@ -1,5 +1,5 @@
 /*
- *   Licensed to the Apache Software Foundation (ASF) under one
+cs *   Licensed to the Apache Software Foundation (ASF) under one
  *   or more contributor license agreements.  See the NOTICE file
  *   distributed with this work for additional information
  *   regarding copyright ownership.  The ASF licenses this file
@@ -67,6 +67,7 @@ public final class Config
     private static final String EXT_LDAP_LOG_POOL_MIN = "fortress.min.log.conn";
     private static final String EXT_LDAP_LOG_POOL_MAX = "fortress.max.log.conn";
     private static final String EXT_ENABLE_LDAP_SSL = "fortress.enable.ldap.ssl";
+    private static final String EXT_ENABLE_LDAP_STARTTLS = "fortress.enable.ldap.starttls";
     private static final String EXT_ENABLE_LDAP_SSL_DEBUG = "fortress.enable.ldap.ssl.debug";
     private static final String EXT_TRUST_STORE = "fortress.trust.store";
     private static final String EXT_TRUST_STORE_PW = "fortress.trust.store.password";
@@ -634,6 +635,14 @@ public final class Config
         {
             config.setProperty( GlobalIds.ENABLE_LDAP_SSL, szValue );
             LOG.info( PREFIX, GlobalIds.ENABLE_LDAP_SSL, szValue );
+        }
+        
+        // Check to see if start tls enabled parameter has been overridden by a system property:
+        szValue = System.getProperty( EXT_ENABLE_LDAP_STARTTLS );
+        if( StringUtils.isNotEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.ENABLE_LDAP_STARTTLS, szValue );
+            LOG.info( PREFIX, GlobalIds.ENABLE_LDAP_STARTTLS, szValue );
         }
 
         // Check to see if the ssl debug enabled parameter has been overridden by a system property:
