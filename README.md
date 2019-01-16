@@ -87,17 +87,17 @@ ________________________________________________________________________________
 ## SECTION 2. Download & Install
 
 From Apache GIT Fortress-Core Software Repo:
-https://git-wip-us.apache.org/repos/asf?p=directory-fortress-core.git
+ https://gitbox.apache.org/repos/asf?p=directory-fortress-core.git
 
 1. Clone the SNAPSHOT:
  ```
- git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+ git clone  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
  ```
 
  * or by specific version, e.g. 2.0.3
 
  ```
-  git clone --branch 2.0.3 https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+  git clone --branch 2.0.3  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
  ```
 
 2. Set Java and Maven home on machines.

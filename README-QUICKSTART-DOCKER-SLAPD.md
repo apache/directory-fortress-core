@@ -52,7 +52,7 @@ ________________________________________________________________________________
 
  a. from the command line:
  ```
- git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+ git clone  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
  cd directory-fortress-core
  ```
 

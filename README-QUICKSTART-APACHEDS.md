@@ -109,7 +109,7 @@ ________________________________________________________________________________
 1. Download the package:
  a. from git:
  ```
- git clone --branch 2.0.3 https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+ git clone --branch 2.0.3  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
  cd directory-fortress-core
  ```
 
@@ -373,7 +373,7 @@ During this section, you will be asked to setup Apache Fortress Rest Application
 
  a. from git:
  ```
- git clone --branch 2.0.3 https://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git
+ git clone --branch 2.0.3  https://gitbox.apache.org/repos/asf/directory-fortress-enmasse.git
  cd directory-fortress-enmasse
  ```
 
@@ -419,7 +419,7 @@ During this section, you will be asked to setup Apache Fortress Web Application
 
  a. from git:
  ```
- git clone --branch 2.0.3 https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
+ git clone --branch 2.0.3  https://gitbox.apache.org/repos/asf/directory-fortress-commander.git
  cd directory-fortress-commander
  ```
 

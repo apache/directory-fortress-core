@@ -51,10 +51,10 @@ Everything else covered in steps that follow.  Tested on Debian & Centos systems
 1. Clone the directory-fortress repos from apache git by commands:
 
  ```
- git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
- git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-realm.git
- git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git
- git clone https://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git
+ git clone  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
+ git clone  https://gitbox.apache.org/repos/asf/directory-fortress-realm.git
+ git clone  https://gitbox.apache.org/repos/asf/directory-fortress-commander.git
+ git clone  https://gitbox.apache.org/repos/asf/directory-fortress-enmasse.git
  ```
 
 2. Change directory to fortress core package home:

@@ -48,7 +48,7 @@
   <scm>
     <connection>scm:git:http://git-wip-us.apache.org/repos/asf/directory-fortress-core.git</connection>
     <developerConnection>
-      scm:git:https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git
+      scm:git: https://gitbox.apache.org/repos/asf/directory-fortress-core.git
     </developerConnection>
     <tag>2.0.3</tag>
   </scm>
