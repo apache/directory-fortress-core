@@ -53,51 +53,38 @@ moduleload  accesslog.la
 @MONITOR_MODULE@
 
 # ACLS:
-access to dn.base=""
-  by * read
+# RootDSE is always readable
+access to dn.base="" by * read
 
-# LDAPv3 Schema
+# The fortress admin needs write access to the whole DIT
+access to dn.subtree="@SUFFIX@"
+        by dn.exact="cn=fortress-admin,dc=admin,@SUFFIX@" write
+        by * break
+
+# Accesslog is readable by replicator and fortress:
+access to dn.subtree="@LOG_SUFFIX@"
+        by dn.exact="cn=replicator,dc=admin,@SUFFIX@" read
+        by dn.exact="cn=fortress-admin,dc=admin,@SUFFIX@" read
+        by * break
+
+# For tooling:
 access to dn.base="cn=subschema"
   by * read
 
-# Internal OpenLDAP config backend
-access to dn.subtree="cn=config"
-  by * none
-
-# Monitor backend
-@IS_RBAC_ACCELERATOR@access to dn.subtree="cn=monitor"
-@IS_RBAC_ACCELERATOR@  by dn.base="@ROOT_DN@" write
-@IS_RBAC_ACCELERATOR@  by users read
-
-# Generic overall privilege
-access to *
+# Allow anonymous ability to bind:
+access to dn.subtree="@SUFFIX@" attrs=userPassword
   by anonymous auth
-  by dn.base="@ROOT_DN@" manage
   by * break
 
-# Password should be protected, allow user to modify their own audit attributes.
-access to attrs=userPassword,ftModifier,ftModCode,ftModId
+# For audit trail:
+# Allow users access to modify their own pw & fortress audit attrs.
+access to dn.subtree="@SUFFIX@" attrs=userPassword,ftModifier,ftModCode,ftModId
   by self =wx
   by * none
 
-# Self-readable password policy info
-access to attrs=pwdFailureTime,pwdChangedTime,pwdGraceUseTime,pwdReset,pwdPolicySubentry
-  by self read
-  by * none
-
-# Admin-only password policy info
-access to attrs=pwdAccountLockedTime,pwdHistory
-  by * none
-
-# Users may read their own attributes
-access to attrs=@inetorgperson
-  by users read
-  by * none
-
-access to attrs=@shadowAccount
-  by * none
-
-access to * by users read
+# Allow users compare access to a fortress perm op name:
+access to dn.subtree="@SUFFIX@" attrs=ftOpNm
+  by users compare
 
 password-hash {SSHA}
 
