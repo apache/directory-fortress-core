@@ -17,7 +17,7 @@
 #   under the License.
 #
 #
-# Fortress slapd.conf default settings.
+# Apache Fortress OpenLDAP slapd.conf default settings.
 # Note: Directives that begin with '@' are substitution parms that get automatically replaced.
 
 include		@SCHEMA_PATH@/core.schema
@@ -52,44 +52,18 @@ moduleload  accesslog.la
 @DDS_MODULE@
 @MONITOR_MODULE@
 
-# ACLS:
+# Global ACLS:
 # RootDSE is always readable
 access to dn.base="" by * read
-
-# The fortress admin needs write access to the whole DIT
-access to dn.subtree="@SUFFIX@"
-        by dn.exact="cn=fortress-admin,dc=admin,@SUFFIX@" write
-        by * break
-
-# Accesslog is readable by replicator and fortress:
-access to dn.subtree="@LOG_SUFFIX@"
-        by dn.exact="cn=replicator,dc=admin,@SUFFIX@" read
-        by dn.exact="cn=fortress-admin,dc=admin,@SUFFIX@" read
-        by * break
 
 # For tooling:
 access to dn.base="cn=subschema"
   by * read
 
-# Allow anonymous ability to bind:
-access to dn.subtree="@SUFFIX@" attrs=userPassword
-  by anonymous auth
-  by * break
-
-# For audit trail:
-# Allow users access to modify their own pw & fortress audit attrs.
-access to dn.subtree="@SUFFIX@" attrs=userPassword,ftModifier,ftModCode,ftModId
-  by self =wx
-  by * none
-
-# Allow users compare access to a fortress perm op name:
-access to dn.subtree="@SUFFIX@" attrs=ftOpNm
-  by users compare
-
 password-hash {SSHA}
 
 #######################################################################
-# History DB Settings
+# Access Log DB Settings
 #######################################################################
 database	 @DB_TYPE@
 @LOG_RDRS@
@@ -104,6 +78,12 @@ access to *
 @LOG_DBNOSYNCH@
 @LOG_CHECKPOINT@
 @LOG_BDB_CACHE_SIZE@
+
+# Accesslog is readable by replicator and fortress:
+access to dn.subtree="@LOG_SUFFIX@"
+        by dn.exact="cn=replicator,dc=admin,@SUFFIX@" read
+        by dn.exact="cn=fortress-admin,dc=admin,@SUFFIX@" read
+        by * break
 
 #######################################################################
 # Default DB Settings
@@ -128,8 +108,34 @@ logdb   "@LOG_SUFFIX@"
 @DFLT_BDB_CACHE_SIZE@
 @DFLT_BDB_CACHE_IDLE_SIZE@
 
+# The fortress admin needs write access to the whole DIT
+access to dn.subtree="@SUFFIX@"
+        by dn.exact="cn=fortress-admin,dc=admin,@SUFFIX@" write
+        by * break
+
+# Accesslog is readable by replicator and fortress:
+access to dn.subtree="@LOG_SUFFIX@"
+        by dn.exact="cn=replicator,dc=admin,@SUFFIX@" read
+        by dn.exact="cn=fortress-admin,dc=admin,@SUFFIX@" read
+        by * break
+
+# Allow anonymous ability to bind:
+access to dn.subtree="@SUFFIX@" attrs=userPassword
+  by anonymous auth
+  by * break
+
+# For audit trail:
+# Allow users access to modify their own pw & fortress audit attrs.
+access to dn.subtree="@SUFFIX@" attrs=userPassword,ftModifier,ftModCode,ftModId
+  by self =wx
+  by * none
+
+# Allow users compare access to a fortress perm op name:
+access to dn.subtree="@SUFFIX@" attrs=ftOpNm
+  by users compare
+
 #######################################################################
-# Audit Log Settings
+# More Audit Log Settings
 #######################################################################
 @LOGOPS@
 logoldattr ftModifier ftModCode ftModId ftRC ftRA ftARC ftARA ftCstr ftId ftPermName ftObjNm ftOpNm ftObjId ftGroups ftRoles ftUsers ftType
