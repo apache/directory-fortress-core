@@ -1,0 +1,20 @@
+version: 1
+
+dn: dc=admin,dc=example,dc=com
+objectClass: organization
+objectClass: dcObject
+dc: admin
+o: Administrator area
+
+dn: cn=fortress-admin,dc=admin,dc=example,dc=com
+objectClass: top
+objectClass: person
+cn: fortress-admin
+sn: fortress
+
+
+dn: cn=replicator,dc=admin,dc=example,dc=com
+objectClass: top
+objectClass: person
+cn: replicator
+sn: openldap

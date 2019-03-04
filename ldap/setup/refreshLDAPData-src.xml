@@ -30,9 +30,6 @@
             </addsuffix>
 
             <delcontainer>
-                <container name="Client123" description="Client 123 test context"/>
-                <container name="Client456" description="Client 456 test context"/>
-                <container name="Client789" description="Client 789 test context"/>
                 <container name="Config" description="Fortress Configuration Realms"/>
                 <container name="People" description="Fortress People"/>
                 <container name="Policies" description="Fortress Policies"/>
@@ -46,12 +43,14 @@
                 <container name="OS-P" parent="ARBAC" description="Fortress Perm Organizational Units"/>
                 <container name="AdminRoles" parent="ARBAC" description="Fortress AdminRoles"/>
                 <container name="AdminPerms" parent="ARBAC" description="Fortress Admin Permissions"/>
+                <!-- Test Multi-tenancy:
+                <container name="Client123" description="Client 123 test context"/>
+                <container name="Client456" description="Client 456 test context"/>
+                <container name="Client789" description="Client 789 test context"/>
+                -->
             </delcontainer>
 
             <addcontainer>
-                <container name="Client123" description="Client 123 test context"/>
-                <container name="Client456" description="Client 456 test context"/>
-                <container name="Client789" description="Client 789 test context"/>
                 <container name="Config" description="Fortress Configuration Realms"/>
                 <container name="People" description="Fortress People"/>
                 <container name="Policies" description="Fortress Policies"/>
@@ -65,6 +64,11 @@
                 <container name="OS-P" parent="ARBAC" description="Fortress Perm Organizational Units"/>
                 <container name="AdminRoles" parent="ARBAC" description="Fortress AdminRoles"/>
                 <container name="AdminPerms" parent="ARBAC" description="Fortress Admin Permissions"/>
+                <!-- Test Multi-tenancy
+                <container name="Client123" description="Client 123 test context"/>
+                <container name="Client456" description="Client 456 test context"/>
+                <container name="Client789" description="Client 789 test context"/>
+                -->
             </addcontainer>
 
             <addconfig>
@@ -137,11 +141,6 @@
                 <config props="ldap.sub.14:7c"/>
                 <config props="ldap.filter.15:~"/>
                 <config props="ldap.sub.15:7e"/>
-
-                <!--config props="ldapFilt3:&"/-->
-                <!--config props="ldapFilt10:<"/-->
-                <!--forward slash-->
-                <!--config props="ldapFilt10:/\//<"/-->
             </addconfig>
 
             <addconfig>
@@ -205,9 +204,6 @@
                 <config props="ldap.sub.14:7c"/>
                 <config props="ldap.sub.15:7e"/>
                 <config props="ldap.filter.15:~"/>
-
-                <!--config props="ldapFilt3:&"/-->
-                <!--config props="ldapFilt10:<"/-->
             </addconfig>
          </FortressAdmin>
     </target>
