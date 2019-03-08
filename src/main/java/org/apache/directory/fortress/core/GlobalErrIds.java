@@ -387,6 +387,11 @@ public final class GlobalErrIds
     public static final int USER_ADD_FAILED_ALREADY_EXISTS = 1038;
 
     /**
+     * The Admin is not authorized to add the User.
+     */
+    public static final int USER_ADMIN_CANNOT_ADD = 1039;
+
+    /**
      * 2000's User-Role assignments
      */
 
@@ -1625,6 +1630,10 @@ public final class GlobalErrIds
      */
     public static final int REST_UNAUTHORIZED_ERR = 10109;
 
+    /**
+     * The REST function could not get handle to HTTP Request.
+     */
+    public static final int REST_NULL_HTTP_REQ_ERR = 10110;
     /**
      * 10200's - RBAC Accelerator Error Ids
      */

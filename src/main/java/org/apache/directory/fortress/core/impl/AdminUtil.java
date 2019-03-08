@@ -19,16 +19,18 @@
  */
 package org.apache.directory.fortress.core.impl;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.DelAccessMgr;
 import org.apache.directory.fortress.core.AuthorizationException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.DelAccessMgrFactory;
-import org.apache.directory.fortress.core.model.FortEntity;
-import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.model.*;
+import org.apache.directory.fortress.core.util.Config;
+
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * This class supplies static wrapper utilities to provide ARBAC functionality to Fortress internal Manager APIs.
@@ -40,14 +42,63 @@ import org.apache.directory.fortress.core.model.User;
  */
 final class AdminUtil
 {
-    private static final String CLS_NM = AdminUtil.class.getName();
-
     /**
      * Private constructor
      *
      */
     private AdminUtil()
     {
+    }
+
+    static void checkUser(Session session, User user) throws SecurityException
+    {
+        String SUPER_ADMIN = Config.getInstance().getProperty("superadmin.role", "fortress-core-super-admin");
+
+        boolean result = false;
+        if( session != null )
+        {
+            List<UserAdminRole> uaRoles = session.getAdminRoles();
+            if(CollectionUtils.isNotEmpty( uaRoles ))
+            {
+                // validate user and retrieve user' ou:
+                //User ue = userP.read(user, false);
+                for(UserAdminRole uaRole : uaRoles)
+                {
+                    if(uaRole.getName().equalsIgnoreCase(SUPER_ADMIN))
+                    {
+                        result = true;
+                        break;
+                    }
+                    Set<String> osUs = uaRole.getOsUSet();
+                    if(CollectionUtils.isNotEmpty( osUs ))
+                    {
+                        // create Set with case insensitive comparator:
+                        Set<String> osUsFinal = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+                        for(String osU : osUs)
+                        {
+                            // Add osU children to the set:
+                            osUsFinal.add(osU);
+                            Set<String> children = UsoUtil.getInstance().getDescendants( osU, user.getContextId() );
+                            osUsFinal.addAll(children);
+                        }
+                        // does the admin role have authority over the user object?
+                        if(osUsFinal.contains(user.getOu()))
+                        {
+                            result = true;
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            result = true;
+        }
+        if( ! result )
+        {
+            String warning = "checkUser User [" + user.getUserId() + "] Admin [" + session.getUserId() + "] failed check.";
+            throw new SecurityException(GlobalErrIds.USER_ADMIN_CANNOT_ADD, warning);
+        }
     }
 
     /**

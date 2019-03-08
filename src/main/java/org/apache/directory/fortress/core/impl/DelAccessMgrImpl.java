@@ -71,7 +71,8 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
     private PermP permP;
     private String SUPER_ADMIN;
 
-    public DelAccessMgrImpl() {    	
+    public DelAccessMgrImpl()
+    {
         userP = new UserP();
         permP = new PermP();
         SUPER_ADMIN = Config.getInstance().getProperty("superadmin.role", "fortress-core-super-admin");

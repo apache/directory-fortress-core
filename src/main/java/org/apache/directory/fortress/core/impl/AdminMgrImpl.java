@@ -33,20 +33,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 
-import org.apache.directory.fortress.core.model.AdminRole;
-import org.apache.directory.fortress.core.model.ConstraintUtil;
-import org.apache.directory.fortress.core.model.Group;
-import org.apache.directory.fortress.core.model.Hier;
-import org.apache.directory.fortress.core.model.PermObj;
-import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.PermissionAttribute;
-import org.apache.directory.fortress.core.model.PermissionAttributeSet;
-import org.apache.directory.fortress.core.model.Relationship;
-import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.model.RoleConstraint;
-import org.apache.directory.fortress.core.model.SDSet;
-import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.UserRole;
+import org.apache.directory.fortress.core.model.*;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.VUtil;
 
@@ -116,7 +103,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         String methodName = "addUser";
         assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
         setEntitySession( CLS_NM, methodName, user );
-
+        // Perform delegated admin check:
+        AdminUtil.checkUser(user.getAdminSession(), user);
         // Add the User record to ldap.
         return userP.add( user );
     }
@@ -175,6 +163,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     {
         String methodName = "updateUser";
         assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
+        setEntitySession( CLS_NM, methodName, user );
         setEntitySession( CLS_NM, methodName, user );
         return userP.update( user );
     }
