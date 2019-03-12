@@ -958,36 +958,6 @@ final class UserP
 
         // 2 Validate constraints on User object:
         ConstraintUtil.validate( entity );
-
-        // 3 Validate or copy constraints on RBAC roles:
-        if ( CollectionUtils.isNotEmpty( entity.getRoles() ) )
-        {
-            RoleP rp = new RoleP();
-            List<UserRole> roles = entity.getRoles();
-            for ( UserRole ure : roles )
-            {
-                Role inRole = new Role( ure.getName() );
-                inRole.setContextId( entity.getContextId() );
-                Role role = rp.read( inRole );
-                ConstraintUtil.validateOrCopy( role, ure );
-            }
-        }
-
-        // 4 Validate and copy constraints on Administrative roles:
-        if ( CollectionUtils.isNotEmpty( entity.getAdminRoles() ) )
-        {
-            List<UserAdminRole> uRoles = entity.getAdminRoles();
-            for ( UserAdminRole uare : uRoles )
-            {
-                AdminRole inRole = new AdminRole( uare.getName() );
-                inRole.setContextId( entity.getContextId() );
-                AdminRole outRole = admRoleP.read( inRole );
-                ConstraintUtil.validateOrCopy( outRole, uare );
-
-                // copy the ARBAC AdminRole attributes to UserAdminRole:
-                copyAdminAttrs( outRole, uare );
-            }
-        }
     }
 
     /**
