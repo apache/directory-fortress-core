@@ -176,6 +176,7 @@ final class ConfigDAO extends LdapDataProvider
             if ( mods.size() > 0 )
             {
                 ld = getAdminConnection();
+                // TODO: change to use modify that leaves audit trail:
                 modify( ld, dn, mods );
             }
         }

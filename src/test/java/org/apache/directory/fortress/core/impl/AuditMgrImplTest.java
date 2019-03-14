@@ -92,12 +92,20 @@ public class AuditMgrImplTest extends TestCase
      */
     public void testSearchAdminMods()
     {
+        searchAdminMods( "SESS-USRS RBAC TU0", PermTestData.ADMINMGR_OBJ,
+            PermTestData.ADMINMGR_OPS );
+        searchAdminMods( "SESS-USRS ARBAC TU0", PermTestData.DELEGATEDMGR_OBJ,
+            PermTestData.DELEGATEDMGR_OPS );
+        searchAdminMods( "SESS-USRS PWPOLICY TU0", PermTestData.PSWDMGR_OBJ,
+            PermTestData.PSWDMGR_OPS );
+/*
         searchAdminMods( "SESS-USRS RBAC TU0", UserTestData.USERS_TU0, PermTestData.ADMINMGR_OBJ,
             PermTestData.ADMINMGR_OPS );
         searchAdminMods( "SESS-USRS ARBAC TU0", UserTestData.USERS_TU0, PermTestData.DELEGATEDMGR_OBJ,
             PermTestData.DELEGATEDMGR_OPS );
         searchAdminMods( "SESS-USRS PWPOLICY TU0", UserTestData.USERS_TU0, PermTestData.PSWDMGR_OBJ,
             PermTestData.PSWDMGR_OPS );
+*/
     }
 
     private static Map disabled = loadAuditMap();
@@ -108,11 +116,12 @@ public class AuditMgrImplTest extends TestCase
         disabled = new HashMap();
         disabled.put("AdminMgrImpl.updateSsdSet", null);
         disabled.put("AdminMgrImpl.updateDsdSet", null);
+        // TODO: this should not be disabled, must place audit context into entry before it is auditable:
         disabled.put("AdminMgrImpl.enableRoleConstraint", null);
         disabled.put("AdminMgrImpl.disableRoleConstraint", null);
-        disabled.put("AdminMgrImpl.addPermissionAttributeToSet", null);
-        disabled.put("AdminMgrImpl.addPermissionAttributeSet", null);
-        disabled.put("AdminMgrImpl.deletePermissionAttributeSet", null);
+        //disabled.put("AdminMgrImpl.addPermissionAttributeSet", null);
+        //disabled.put("AdminMgrImpl.addPermissionAttributeToSet", null);
+        //disabled.put("AdminMgrImpl.deletePermissionAttributeSet", null);
         disabled.put("PwPolicyMgrImpl.search", null);
         disabled.put("PwPolicyMgrImpl.read", null);
         LOG.info( "loadAuditMap isFirstRun [" + FortressJUnitTest.isFirstRun() + "]" );
@@ -133,13 +142,11 @@ public class AuditMgrImplTest extends TestCase
             disabled.put( "AdminMgrImpl.disableUser", null );
             disabled.put( "AdminMgrImpl.deletePermissionAttributeSet", null );
             disabled.put( "AdminMgrImpl.removePermissionAttributeFromSet", null );
-
             disabled.put( "DelAdminMgrImpl.deleteRole", null );
             disabled.put( "DelAdminMgrImpl.deassignUser", null );
             disabled.put( "DelAdminMgrImpl.deleteOU", null );
             disabled.put( "DelAdminMgrImpl.deleteInheritanceOU", null );
             disabled.put( "DelAdminMgrImpl.deleteInheritanceRole", null );
-
             disabled.put( "PwPolicyMgrImpl.deletePasswordPolicy", null );
             disabled.put( "PwPolicyMgrImpl.delete", null );
         }
@@ -174,40 +181,36 @@ public class AuditMgrImplTest extends TestCase
     /**
      *
      * @param msg
-     * @param uArray
      */
-    private static void searchAdminMods( String msg, String[][] uArray, String[][] oArray, String[][] opArray )
+    private static void searchAdminMods( String msg, String[][] oArray, String[][] opArray )
     {
         LogUtil.logIt( msg );
         try
         {
             AuditMgr auditMgr = getManagedAuditMgr();
-            for ( String[] usr : uArray )
+            User user = adminSess.getUser();
+            // now search for successful session creation events:
+            UserAudit uAudit = new UserAudit();
+            uAudit.setUserId( user.getUserId() );
+            for ( String[] obj : oArray )
             {
-                User user = UserTestData.getUser( usr );
-                // now search for successful session creation events:
-                UserAudit uAudit = new UserAudit();
-                uAudit.setUserId( user.getUserId() );
-                for ( String[] obj : oArray )
+                String objName = AdminUtil.getObjName( PermTestData.getName( obj ) );
+                uAudit.setObjName( objName );
+                for ( String[] op : opArray )
                 {
-                    String objName = AdminUtil.getObjName( PermTestData.getName( obj ) );
-                    uAudit.setObjName( objName );
-                    for ( String[] op : opArray )
-                    {
-                        uAudit.setOpName( PermTestData.getName( op ) );
-                        List<Mod> mods = auditMgr.searchAdminMods( uAudit );
-                        assertNotNull( mods );
+                    uAudit.setOpName( PermTestData.getName( op ) );
+                    List<Mod> mods = auditMgr.searchAdminMods( uAudit );
+                    assertNotNull( mods );
 
-                        assertTrue(
-                            CLS_NM + "searchAdminMods failed search for successful authentication user ["
-                                + user.getUserId() + "] object [" + objName + "] operation ["
-                                + PermTestData.getName( op ) + "]",
-                            mods.size() > 0 || !isAudit( objName, PermTestData.getName( op ) ) );
-                        boolean result = mods.size() > 0 || !isAudit( objName, PermTestData.getName( op ) );
-                        LOG.debug( "searchAdminMods search user [" + user.getUserId() + "] object ["
-                            + objName + "] operation [" + PermTestData.getName( op ) + "] result: " + result );
-                        //System.out.println("searchAdminMods search user [" + user.getUserId() + "] object [" + objName + "] operation [" + PermTestData.getName(op) + "] result: " + result);
-                    }
+                    assertTrue(
+                        CLS_NM + "searchAdminMods failed search for successful authentication user ["
+                            + user.getUserId() + "] object [" + objName + "] operation ["
+                            + PermTestData.getName( op ) + "]",
+                        mods.size() > 0 || !isAudit( objName, PermTestData.getName( op ) ) );
+                    boolean result = mods.size() > 0 || !isAudit( objName, PermTestData.getName( op ) );
+                    LOG.debug( "searchAdminMods search user [" + user.getUserId() + "] object ["
+                        + objName + "] operation [" + PermTestData.getName( op ) + "] result: " + result );
+                    //System.out.println("searchAdminMods search user [" + user.getUserId() + "] object [" + objName + "] operation [" + PermTestData.getName(op) + "] result: " + result);
                 }
             }
             LOG.debug( "searchAdminMods successful" );

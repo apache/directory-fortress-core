@@ -62,6 +62,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.apache.directory.fortress.core.GlobalIds.*;
+
 
 /**
  * This utility class provides methods that wrap Apache's HTTP Client APIs.  This class is thread safe.
@@ -72,7 +74,6 @@ public final class RestUtils
 {
     private static final String CLS_NM = RestUtils.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private static final String HTTP_PW_PROP = "http.pw";
     private static final int HTTP_OK = 200;
     private static final int HTTP_400_VALIDATION_EXCEPTION = 400;
     private static final int HTTP_401_UNAUTHORIZED = 401;
@@ -123,7 +124,7 @@ public final class RestUtils
 
     private void init()
     {
-        httpUid = Config.getInstance().getProperty( "http.user" );
+        httpUid = Config.getInstance().getProperty( HTTP_UID_PROP );
         httpPw = ( ( EncryptUtil.isEnabled() ) ? EncryptUtil.getInstance().decrypt( Config
             .getInstance().getProperty( HTTP_PW_PROP ) ) : Config.getInstance().getProperty( HTTP_PW_PROP ) );
         httpHost = Config.getInstance().getProperty( "http.host" );

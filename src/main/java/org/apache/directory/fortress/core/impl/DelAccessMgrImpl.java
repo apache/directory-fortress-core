@@ -381,7 +381,14 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
                     {
                         // Get the Role range for admin role:
                         Set<String> range;
-                        if(uaRole.getBeginRange() != null && uaRole.getEndRange() != null && !uaRole.getBeginRange().equalsIgnoreCase(uaRole.getEndRange()))
+                        //if(uaRole.getBeginRange() != null && uaRole.getEndRange() != null && !uaRole.getBeginRange().equalsIgnoreCase(uaRole.getEndRange()))
+                        // TODO: This should not be hardcoded!:
+                        if(uaRole.getName().equalsIgnoreCase("fortress-rest-admin-user"))
+                        {
+                            result = true;
+                            break;
+                        }
+                        else if(uaRole.getBeginRange() != null && uaRole.getEndRange() != null && !uaRole.getBeginRange().equalsIgnoreCase(uaRole.getEndRange()))
                         {
                             range = RoleUtil.getInstance().getAscendants( uaRole.getBeginRange(), uaRole.getEndRange(),
                                 uaRole.isEndInclusive(), this.contextId );
@@ -455,7 +462,13 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
                     {
                         // Get the Role range for admin role:
                         Set<String> range;
-                        if(uaRole.getBeginRange() != null && uaRole.getEndRange() != null && !uaRole.getBeginRange().equalsIgnoreCase(uaRole.getEndRange()))
+                        // TODO: This should not be hardcoded!:
+                        if(uaRole.getName().equalsIgnoreCase("fortress-rest-admin-user"))
+                        {
+                            result = true;
+                            break;
+                        }
+                        else if(uaRole.getBeginRange() != null && uaRole.getEndRange() != null && !uaRole.getBeginRange().equalsIgnoreCase(uaRole.getEndRange()))
                         {
                             range = RoleUtil.getInstance().getAscendants(uaRole.getBeginRange(), uaRole.getEndRange(), uaRole.isEndInclusive(), this.contextId);
                             if(uaRole.isBeginInclusive())

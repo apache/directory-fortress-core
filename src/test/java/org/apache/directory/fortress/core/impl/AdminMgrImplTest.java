@@ -2025,8 +2025,8 @@ public class AdminMgrImplTest extends TestCase
     	try
     	{
     		paSet.setAttributes(permAttr);
-    		AdminMgr adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );    		
-
+    		//AdminMgr adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );
+            AdminMgr adminMgr = getManagedAdminMgr();
     		adminMgr.addPermissionAttributeSet(paSet);
     		LOG.debug( "addPermissionAttributeSet name [" + paSet.getName() + "] successful" );
     	}
@@ -2053,8 +2053,8 @@ public class AdminMgrImplTest extends TestCase
     	PermissionAttributeSet paSet = new PermissionAttributeSet(name);  
     	try
     	{
-    		AdminMgr adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );    		
-
+    		//AdminMgr adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );
+            AdminMgr adminMgr = getManagedAdminMgr();
     		adminMgr.addPermissionAttributeToSet(permAttr, name);
     		LOG.debug( "addPermissionAttributeToSet name [" + paSet.getName() + "] successful" );
     	}
@@ -2078,8 +2078,8 @@ public class AdminMgrImplTest extends TestCase
     	PermissionAttributeSet paSet = new PermissionAttributeSet(name);  
     	try
     	{
-    		AdminMgr adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );    		
-
+    		//AdminMgr adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );
+            AdminMgr adminMgr = getManagedAdminMgr();
     		adminMgr.deletePermissionAttributeSet(paSet);
     		LOG.debug( "delPermAttrSet name [" + paSet.getName() + "] successful" );
     	}
@@ -2129,8 +2129,8 @@ public class AdminMgrImplTest extends TestCase
     {
     	LogUtil.logIt(msg);
 
-    	AdminMgr adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );    		
-
+    	//AdminMgr adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );
+        AdminMgr adminMgr = getManagedAdminMgr();
     	Permission pop = PermTestData.getOp( obj, op );
     	pop.setPaSetName(paSetName);
 

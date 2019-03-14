@@ -600,5 +600,18 @@ public final class GlobalIds
      * Attribute name for storing Fortress permission attribute valid vals name.
      */
     public static final String FT_PERMISSION_ATTRIBUTE_VALID_VALUES = "ftPAValidVals";
-    		
+
+    /**
+     * Attribute name for property containing HTTP service account userId.
+     */
+    public static final String HTTP_UID_PROP = "http.user";
+
+    /**
+     * Attribute name for property containing HTTP service account password.
+     */
+    public static final String HTTP_PW_PROP = "http.pw";
+
+
+
+
 }

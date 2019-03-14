@@ -30,6 +30,8 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import org.apache.directory.fortress.core.*;
+import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.PermObj;
@@ -38,21 +40,11 @@ import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAdminRole;
+import org.apache.directory.fortress.core.util.Config;
+import org.apache.directory.fortress.core.util.EncryptUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import org.apache.directory.fortress.core.AccessMgr;
-import org.apache.directory.fortress.core.AccessMgrFactory;
-import org.apache.directory.fortress.core.DelAccessMgr;
-import org.apache.directory.fortress.core.DelAccessMgrFactory;
-import org.apache.directory.fortress.core.DelAdminMgr;
-import org.apache.directory.fortress.core.DelAdminMgrFactory;
-import org.apache.directory.fortress.core.DelReviewMgr;
-import org.apache.directory.fortress.core.DelReviewMgrFactory;
-import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.ReviewMgr;
-import org.apache.directory.fortress.core.ReviewMgrFactory;
-import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.util.LogUtil;
 
 
@@ -121,7 +113,7 @@ public class DelegatedMgrImplTest extends TestCase
     public static Test suite()
     {
         TestSuite suite = new TestSuite();
-        suite.addTest( new DelegatedMgrImplTest( "testAddAdminUser" ) );
+        suite.addTest( new DelegatedMgrImplTest( "testCanAssignUser" ) );
 
         return suite;
     }
@@ -786,6 +778,7 @@ public class DelegatedMgrImplTest extends TestCase
                 User aUser = UserTestData.getUser( aUsr );
                 Session session = accessMgr.createSession( aUser, false );
                 assertNotNull( session );
+                delAccessMgr.setAdmin( session );
                 for ( String[] usr : uArray )
                 {
                     User user = UserTestData.getUser( usr );
@@ -2079,7 +2072,16 @@ public class DelegatedMgrImplTest extends TestCase
         try
         {
             AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
-            User admin = UserTestData.getUser( UserTestData.USERS_TU0[0] );
+            User admin;
+            // If these tests are invoked via REST, the admin creds will configured as fortress.properties, otherwise part of the test data.
+            if(Config.getInstance().isRestEnabled())
+            {
+                admin = new User(Config.getInstance().getProperty( GlobalIds.HTTP_UID_PROP ), Config.getInstance().getProperty( GlobalIds.HTTP_PW_PROP ));
+            }
+            else
+            {
+                admin = UserTestData.getUser( UserTestData.USERS_TU0[0] );
+            }
             adminSess = accessMgr.createSession( admin, false );
         }
         catch ( SecurityException ex )
