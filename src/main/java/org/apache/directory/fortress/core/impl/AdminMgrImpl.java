@@ -104,7 +104,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
         setEntitySession( CLS_NM, methodName, user );
         // Perform delegated admin check:
-        AdminUtil.checkUser(user.getAdminSession(), user);
+        AdminUtil.canDo( adminSess, user, contextId, true );
+        //AdminUtil.checkUser(user.getAdminSession(), user);
         // Add the User record to ldap.
         return userP.add( user );
     }
@@ -120,6 +121,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         String methodName = "disableUser";
         assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
         setEntitySession( CLS_NM, methodName, user );
+        // Perform delegated admin check:
+        AdminUtil.canDo( adminSess, user, contextId, false );
         // set the user's status to "deleted"
         String userDn = userP.softDelete( user );
         // lock the user out of ldap.
@@ -143,6 +146,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         String methodName = "deleteUser";
         assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
         setEntitySession( CLS_NM, methodName, user );
+        // Perform delegated admin check:
+        AdminUtil.canDo( adminSess, user, contextId, false );
         // remove the userId attribute from any granted permission operations (if applicable).
         permP.remove( user );
         // remove the user inetOrgPerson object from ldap.
@@ -165,6 +170,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
         setEntitySession( CLS_NM, methodName, user );
         setEntitySession( CLS_NM, methodName, user );
+        // Perform delegated admin check:
+        AdminUtil.canDo( adminSess, user, contextId, false );
         return userP.update( user );
     }
 
@@ -179,6 +186,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         String methodName = "changePassword";
         assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
         setEntitySession( CLS_NM, methodName, user );
+        // Perform delegated admin check:
+        AdminUtil.canDo( adminSess, user, contextId, false );
         VUtil.assertNotNullOrEmpty( newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + methodName );
         userP.changePassword( user, newPassword );
     }
@@ -194,6 +203,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         String methodName = "lockUserAccount";
         assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
         setEntitySession( CLS_NM, methodName, user );
+        // Perform delegated admin check:
+        AdminUtil.canDo( adminSess, user, contextId, false );
         userP.lock( user );
     }
 
@@ -223,6 +234,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
         VUtil.assertNotNullOrEmpty( newPassword, GlobalErrIds.USER_PW_NULL, CLS_NM + "." + methodName );
         setEntitySession( CLS_NM, methodName, user );
+        // Perform delegated admin check:
+        AdminUtil.canDo( adminSess, user, contextId, false );
         user.setPassword( newPassword );
         userP.resetPassword( user );
     }
@@ -238,6 +251,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         String methodName = "deletePasswordPolicy";
         assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
         setEntitySession( CLS_NM, methodName, user );
+        // Perform delegated admin check:
+        AdminUtil.canDo( adminSess, user, contextId, false );
         userP.deletePwPolicy( user );
     }
 

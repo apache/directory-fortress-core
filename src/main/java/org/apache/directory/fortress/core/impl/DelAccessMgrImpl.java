@@ -138,6 +138,33 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
      * {@inheritDoc}
      */
     @Override
+    public boolean canAdd(Session session, User user)
+            throws SecurityException
+    {
+        String methodName = "canAssign";
+        assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
+        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
+        VUtil.assertNotNullOrEmpty(user.getOu(), GlobalErrIds.USER_OU_NULL, methodName);
+        return checkUser(session, user, true);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean canEdit(Session session, User user)
+            throws SecurityException
+    {
+        String methodName = "canAssign";
+        assertContext(CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL);
+        assertContext(CLS_NM, methodName, user, GlobalErrIds.USER_NULL);
+        return checkUser(session, user, false);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public boolean checkAccess(Session session, Permission perm)
         throws SecurityException
     {
@@ -254,6 +281,63 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
         VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.ROLE, false );
         setEntitySession(CLS_NM, methodName, session);
         return permP.search( session, true );
+    }
+
+    /**
+     * This helper function processes "can do".
+     * @param session
+     * @param user
+     * @return boolean
+     * @throws SecurityException
+     */
+    private boolean checkUser(Session session, User user, boolean isAdd)
+        throws SecurityException
+    {
+        boolean result = false;
+        List<UserAdminRole> uaRoles = session.getAdminRoles();
+        if(CollectionUtils.isNotEmpty( uaRoles ))
+        {
+            // validate user and retrieve user' ou:
+            // TODO: If this is an 'add', use the value of ou passed in 'user', other read from directory and use that.
+            User ue;
+            if(!isAdd)
+            {
+                ue = userP.read(user, false);
+            }
+            else
+            {
+                ue = user;
+            }
+
+            for(UserAdminRole uaRole : uaRoles)
+            {
+                if(uaRole.getName().equalsIgnoreCase(SUPER_ADMIN))
+                {
+                    result = true;
+                    break;
+                }
+                Set<String> osUs = uaRole.getOsUSet();
+                if(CollectionUtils.isNotEmpty( osUs ))
+                {
+                    // create Set with case insensitive comparator:
+                    Set<String> osUsFinal = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+                    for(String osU : osUs)
+                    {
+                        // Add osU children to the set:
+                        osUsFinal.add(osU);
+                        Set<String> children = UsoUtil.getInstance().getDescendants( osU, this.contextId );
+                        osUsFinal.addAll(children);
+                    }
+                    // does the admin role have authority over the user object?
+                    if(osUsFinal.contains(ue.getOu()))
+                    {
+                        result = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return result;
     }
 
     /**

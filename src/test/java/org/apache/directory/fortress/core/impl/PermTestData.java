@@ -1639,7 +1639,18 @@ public class PermTestData extends TestCase
                 "", /* USERS_COL */
                 "", /* GROUPS_COL */
                 "T" /* IS_ADMIN_COL */
-}
+},
+            {
+                "read", /* NAME_COL */
+                "PasswordMgr Operation", /* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "ADMIN", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "T" /* IS_ADMIN_COL */
+},
     };
 
     public static final String[][] ADMINMGR_OBJ =
@@ -2088,8 +2099,93 @@ public class PermTestData extends TestCase
                 "", /* GROUPS_COL */
                 "T" /* IS_ADMIN_COL */
 },
+            {
+                "addPermissionAttributeSet", /* NAME_COL */
+                "AdminMgr Operation", /* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "ADMIN", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "T" /* IS_ADMIN_COL */
+},
+            {
+                "addPermissionAttributeToSet", /* NAME_COL */
+                "AdminMgr Operation", /* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "ADMIN", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "T" /* IS_ADMIN_COL */
+},
+            {
+                "deletePermissionAttributeSet", /* NAME_COL */
+                "AdminMgr Operation", /* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "ADMIN", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "T" /* IS_ADMIN_COL */
+},
+/*
+                    "addPermissionAttributeToSet"
+                    "removePermissionAttributeFromSet"
+                    "updatePermissionAttributeInSet",
+                    "addPermissionAttributeSet"
+                    "deletePermissionAttributeSet"
 
+*/
+            {
+                    "addRoleConstraint", /* NAME_COL */
+                    "AdminMgr Operation", /* DESC_COL */
+                    "", /* OBJ_ID_COL */
+                    "ADMIN", /* TYPE_COL */
+                    "", /* PROPS_COL */
+                    "", /* ROLES_COL */
+                    "", /* USERS_COL */
+                    "", /* GROUPS_COL */
+                    "T" /* IS_ADMIN_COL */
+            },
+            {
+                    "removeRoleConstraint", /* NAME_COL */
+                    "AdminMgr Operation", /* DESC_COL */
+                    "", /* OBJ_ID_COL */
+                    "ADMIN", /* TYPE_COL */
+                    "", /* PROPS_COL */
+                    "", /* ROLES_COL */
+                    "", /* USERS_COL */
+                    "", /* GROUPS_COL */
+                    "T" /* IS_ADMIN_COL */
+            },
+            {
+                    "enableRoleConstraint", /* NAME_COL */
+                    "AdminMgr Operation", /* DESC_COL */
+                    "", /* OBJ_ID_COL */
+                    "ADMIN", /* TYPE_COL */
+                    "", /* PROPS_COL */
+                    "", /* ROLES_COL */
+                    "", /* USERS_COL */
+                    "", /* GROUPS_COL */
+                    "T" /* IS_ADMIN_COL */
+            },
+            {
+                    "disableRoleConstraint", /* NAME_COL */
+                    "AdminMgr Operation", /* DESC_COL */
+                    "", /* OBJ_ID_COL */
+                    "ADMIN", /* TYPE_COL */
+                    "", /* PROPS_COL */
+                    "", /* ROLES_COL */
+                    "", /* USERS_COL */
+                    "", /* GROUPS_COL */
+                    "T" /* IS_ADMIN_COL */
+            },
     };
+
 
     public static final String[][] DELEGATEDMGR_OBJ =
         {
@@ -2369,6 +2465,18 @@ public class PermTestData extends TestCase
                 "", /* GROUPS_COL */
                 "T" /* IS_ADMIN_COL */
 },
+                {
+                        "rolePermissions", /* NAME_COL */
+                        "Delegated ReviewMgr Op", /* DESC_COL */
+                        "", /* OBJ_ID_COL */
+                        "ADMIN", /* TYPE_COL */
+                        "", /* PROPS_COL */
+                        "", /* ROLES_COL */
+                        "", /* USERS_COL */
+                        "", /* GROUPS_COL */
+                        "T" /* IS_ADMIN_COL */
+                },
+
     };
 
     public static final String[][] REVIEWMGR_OBJ =
@@ -2423,6 +2531,28 @@ public class PermTestData extends TestCase
 },
             {
                 "findPermObjs", /* NAME_COL */
+                "ReviewMgr Op", /* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "ADMIN", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "T" /* IS_ADMIN_COL */
+},
+            {
+                "findPermsByObj", /* NAME_COL */
+                "ReviewMgr Op", /* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "ADMIN", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "T" /* IS_ADMIN_COL */
+},
+            {
+                "findAnyPermissions", /* NAME_COL */
                 "ReviewMgr Op", /* DESC_COL */
                 "", /* OBJ_ID_COL */
                 "ADMIN", /* TYPE_COL */
@@ -2695,8 +2825,31 @@ public class PermTestData extends TestCase
                 "", /* USERS_COL */
                 "", /* GROUPS_COL */
                 "T" /* IS_ADMIN_COL */
-}
+            },
+            {
+                "readPermAttributeSet", /* NAME_COL */
+                "ReviewMgr Op", /* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "ADMIN", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "T" /* IS_ADMIN_COL */
+            },
+            {
+                "findRoleConstraints", /* NAME_COL */
+                "ReviewMgr Op", /* DESC_COL */
+                "", /* OBJ_ID_COL */
+                "ADMIN", /* TYPE_COL */
+                "", /* PROPS_COL */
+                "", /* ROLES_COL */
+                "", /* USERS_COL */
+                "", /* GROUPS_COL */
+                "T" /* IS_ADMIN_COL */
+            },
     };
+
 
     public static final String[][] AUDITMGR_OBJ =
         {
@@ -2783,6 +2936,157 @@ public class PermTestData extends TestCase
 },
     };
 
+
+    public static final String[][] GROUPMGR_OBJ =
+            {
+                    {
+                            "org.apache.directory.fortress.core.impl.GroupMgrImpl",
+                            "ARBAC02 policies", /* DESC_COL */
+                            "APP0", /* ORG_COL */
+                            "TST", /* TYPE_COL */
+                            "", /* PROPS_COL */
+                            "T" /* IS_ADMIN_COL */
+                    }
+            };
+
+    /**
+     * Test Case TOP1:
+     */
+    public static final String[][] GROUPMGR_OPS =
+            {
+                    {
+                            "add", /* NAME_COL */
+                            "GroupMgr Operation", /* DESC_COL */
+                            "", /* OBJ_ID_COL */
+                            "ADMIN", /* TYPE_COL */
+                            "", /* PROPS_COL */
+                            "", /* ROLES_COL */
+                            "", /* USERS_COL */
+                            "", /* GROUPS_COL */
+                            "T" /* IS_ADMIN_COL */
+                    },
+                    {
+                            "update", /* NAME_COL */
+                            "GroupMgr Operation", /* DESC_COL */
+                            "", /* OBJ_ID_COL */
+                            "ADMIN", /* TYPE_COL */
+                            "", /* PROPS_COL */
+                            "", /* ROLES_COL */
+                            "", /* USERS_COL */
+                            "", /* GROUPS_COL */
+                            "T" /* IS_ADMIN_COL */
+                    },
+                    {
+                            "delete", /* NAME_COL */
+                            "GroupMgr Operation", /* DESC_COL */
+                            "", /* OBJ_ID_COL */
+                            "ADMIN", /* TYPE_COL */
+                            "", /* PROPS_COL */
+                            "", /* ROLES_COL */
+                            "", /* USERS_COL */
+                            "", /* GROUPS_COL */
+                            "T" /* IS_ADMIN_COL */
+                    },
+                    {
+                            "read", /* NAME_COL */
+                            "GroupMgr Operation", /* DESC_COL */
+                            "", /* OBJ_ID_COL */
+                            "ADMIN", /* TYPE_COL */
+                            "", /* PROPS_COL */
+                            "", /* ROLES_COL */
+                            "", /* USERS_COL */
+                            "", /* GROUPS_COL */
+                            "T" /* IS_ADMIN_COL */
+                    },
+                    {
+                            "find", /* NAME_COL */
+                            "GroupMgr Operation", /* DESC_COL */
+                            "", /* OBJ_ID_COL */
+                            "ADMIN", /* TYPE_COL */
+                            "", /* PROPS_COL */
+                            "", /* ROLES_COL */
+                            "", /* USERS_COL */
+                            "", /* GROUPS_COL */
+                            "T" /* IS_ADMIN_COL */
+                    },
+                    {
+                            "findWithUsers", /* NAME_COL */
+                            "GroupMgr Operation", /* DESC_COL */
+                            "", /* OBJ_ID_COL */
+                            "ADMIN", /* TYPE_COL */
+                            "", /* PROPS_COL */
+                            "", /* ROLES_COL */
+                            "", /* USERS_COL */
+                            "", /* GROUPS_COL */
+                            "T" /* IS_ADMIN_COL */
+                    },
+                    {
+                            "roleGroups", /* NAME_COL */
+                            "GroupMgr Operation", /* DESC_COL */
+                            "", /* OBJ_ID_COL */
+                            "ADMIN", /* TYPE_COL */
+                            "", /* PROPS_COL */
+                            "", /* ROLES_COL */
+                            "", /* USERS_COL */
+                            "", /* GROUPS_COL */
+                            "T" /* IS_ADMIN_COL */
+                    },
+                    {
+                            "groupRoles", /* NAME_COL */
+                            "GroupMgr Operation", /* DESC_COL */
+                            "", /* OBJ_ID_COL */
+                            "ADMIN", /* TYPE_COL */
+                            "", /* PROPS_COL */
+                            "", /* ROLES_COL */
+                            "", /* USERS_COL */
+                            "", /* GROUPS_COL */
+                            "T" /* IS_ADMIN_COL */
+                    },
+                    {
+                            "assign", /* NAME_COL */
+                            "GroupMgr Operation", /* DESC_COL */
+                            "", /* OBJ_ID_COL */
+                            "ADMIN", /* TYPE_COL */
+                            "", /* PROPS_COL */
+                            "", /* ROLES_COL */
+                            "", /* USERS_COL */
+                            "", /* GROUPS_COL */
+                            "T" /* IS_ADMIN_COL */
+                    },
+                    {
+                            "deassign", /* NAME_COL */
+                            "GroupMgr Operation", /* DESC_COL */
+                            "", /* OBJ_ID_COL */
+                            "ADMIN", /* TYPE_COL */
+                            "", /* PROPS_COL */
+                            "", /* ROLES_COL */
+                            "", /* USERS_COL */
+                            "", /* GROUPS_COL */
+                            "T" /* IS_ADMIN_COL */
+                    },
+                    {
+                            "addProperty", /* NAME_COL */
+                            "GroupMgr Operation", /* DESC_COL */
+                            "", /* OBJ_ID_COL */
+                            "ADMIN", /* TYPE_COL */
+                            "", /* PROPS_COL */
+                            "", /* ROLES_COL */
+                            "", /* USERS_COL */
+                            "", /* GROUPS_COL */
+                            "T" /* IS_ADMIN_COL */
+                    },
+                    {
+                            "deleteProperty", /* NAME_COL */
+                            "GroupMgr Operation", /* DESC_COL */
+                            "", /* OBJ_ID_COL */
+                            "ADMIN", /* TYPE_COL */
+                            "", /* PROPS_COL */
+                            "", /* ROLES_COL */
+                            "", /* USERS_COL */
+                            "", /* GROUPS_COL */
+                            "T" /* IS_ADMIN_COL */
+                    },
+            };
 
     public static final String[][] ABAC_TELLER_OBJS =
         {

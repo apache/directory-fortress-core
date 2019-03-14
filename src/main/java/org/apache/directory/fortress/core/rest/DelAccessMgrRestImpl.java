@@ -382,4 +382,26 @@ public class DelAccessMgrRestImpl extends AccessMgrRestImpl implements DelAccess
         }
         return retPerms;
     }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean canAdd(Session session, User user)
+            throws SecurityException
+    {
+        throw new UnsupportedOperationException( "not implemented" );
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean canEdit(Session session, User user)
+            throws SecurityException
+    {
+        throw new UnsupportedOperationException( "not implemented" );
+    }
 }

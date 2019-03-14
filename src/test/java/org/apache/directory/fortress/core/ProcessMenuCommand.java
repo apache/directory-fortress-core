@@ -195,7 +195,7 @@ class ProcessMenuCommand
         }
         catch ( Exception e )
         {
-            LOG.error( "Exception caught in processEncryptManagerFunction = " + e );
+            LOG.error( "Exception caught in processGroupManagerFunction = " + e );
         }
     }
 

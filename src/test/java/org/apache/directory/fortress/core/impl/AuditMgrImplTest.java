@@ -34,6 +34,7 @@ import org.apache.directory.fortress.core.model.Mod;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserAudit;
+import org.apache.directory.fortress.core.util.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -107,9 +108,13 @@ public class AuditMgrImplTest extends TestCase
         disabled = new HashMap();
         disabled.put("AdminMgrImpl.updateSsdSet", null);
         disabled.put("AdminMgrImpl.updateDsdSet", null);
+        disabled.put("AdminMgrImpl.enableRoleConstraint", null);
+        disabled.put("AdminMgrImpl.disableRoleConstraint", null);
+        disabled.put("AdminMgrImpl.addPermissionAttributeToSet", null);
+        disabled.put("AdminMgrImpl.addPermissionAttributeSet", null);
+        disabled.put("AdminMgrImpl.deletePermissionAttributeSet", null);
         disabled.put("PwPolicyMgrImpl.search", null);
-        //disabled.put("AdminMgrImpl.changePassword", null);
-        //disabled.put("AdminMgrRestImpl.changePassword", null);
+        disabled.put("PwPolicyMgrImpl.read", null);
         LOG.info( "loadAuditMap isFirstRun [" + FortressJUnitTest.isFirstRun() + "]" );
         if ( FortressJUnitTest.isFirstRun() )
         {
@@ -126,6 +131,8 @@ public class AuditMgrImplTest extends TestCase
             disabled.put( "AdminMgrImpl.deleteDsdRoleMember", null );
             disabled.put( "AdminMgrImpl.deleteDsdSet", null );
             disabled.put( "AdminMgrImpl.disableUser", null );
+            disabled.put( "AdminMgrImpl.deletePermissionAttributeSet", null );
+            disabled.put( "AdminMgrImpl.removePermissionAttributeFromSet", null );
 
             disabled.put( "DelAdminMgrImpl.deleteRole", null );
             disabled.put( "DelAdminMgrImpl.deassignUser", null );
@@ -135,6 +142,24 @@ public class AuditMgrImplTest extends TestCase
 
             disabled.put( "PwPolicyMgrImpl.deletePasswordPolicy", null );
             disabled.put( "PwPolicyMgrImpl.delete", null );
+        }
+        // Only for OpenLDAP and ApacheDS
+        if ( !Config.getInstance().isOpenldap() && !Config.getInstance().isApacheds() )
+        {
+            LOG.info( "loadAuditMap Disable Password Policy" );
+            disabled.put( "PswdPolicyMgrImpl.testMinAge", null );
+            disabled.put( "PswdPolicyMgrImpl.testMaxAge", null );
+            disabled.put( "PswdPolicyMgrImpl.testInHistory", null );
+            disabled.put( "PswdPolicyMgrImpl.testMinLength", null );
+            disabled.put( "PswdPolicyMgrImpl.testExpireWarning", null );
+            disabled.put( "PswdPolicyMgrImpl.testGraceLoginLimit", null );
+            disabled.put( "PswdPolicyMgrImpl.testMaxFailure", null );
+            disabled.put( "PswdPolicyMgrImpl.testLockoutDuration", null );
+            disabled.put( "PswdPolicyMgrImpl.testLockout", null );
+            disabled.put( "PswdPolicyMgrImpl.testFailureCountInterval", null );
+            disabled.put( "PswdPolicyMgrImpl.testMustChange", null );
+            disabled.put( "PswdPolicyMgrImpl.testAllowUserChange", null );
+            disabled.put( "PswdPolicyMgrImpl.testSafeModify", null );
         }
         return disabled;
     }

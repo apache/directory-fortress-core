@@ -116,6 +116,35 @@ public interface DelAccessMgr extends Manageable
 
 
     /**
+     * This function will determine if the user contains an AdminRole that is authorized to add a new User.
+     *
+     * @param session This object must be instantiated by calling
+     * {@link AccessMgr#createSession(org.apache.directory.fortress.core.model.User, boolean)} before passing into the method.  No variables need to be set by client after returned from createSession.
+     * @param user    Instantiated User entity requires only valid userId attribute set.
+     * @return boolean value true indicates access allowed.
+     * @throws SecurityException
+     *          In the event of data validation error (i.e. invalid userId or role name) or system error.
+     */
+    boolean canAdd( Session session, User user )
+            throws SecurityException;
+
+
+    /**
+     * This function will determine if the user contains an AdminRole that is authorized update/delete control over
+     * User.
+     *
+     * @param session This object must be instantiated by calling
+     * {@link AccessMgr#createSession(org.apache.directory.fortress.core.model.User, boolean)} before passing into the method.  No variables need to be set by client after returned from createSession.
+     * @param user    Instantiated User entity requires only valid userId attribute set.
+     * @return boolean value true indicates access allowed.
+     * @throws SecurityException
+     *          In the event of data validation error (i.e. invalid userId or role name) or system error.
+     */
+    boolean canEdit( Session session, User user )
+            throws SecurityException;
+
+
+    /**
      * This function returns a Boolean value meaning whether the subject of a given session is
      * allowed or not to perform a given operation on a given object. The function is valid if and
      * only if the session is a valid Fortress session, the object is a member of the OBJS data set,

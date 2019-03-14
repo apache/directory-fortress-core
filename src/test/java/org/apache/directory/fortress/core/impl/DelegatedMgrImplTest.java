@@ -141,6 +141,11 @@ public class DelegatedMgrImplTest extends TestCase
             AdminMgrImplTest.addPermObjs( "ADD-OBS DELEGATEDREVIEWMGR_OBJ", PermTestData.DELEGATEDREVIEWMGR_OBJ, false,
                 false );
             AdminMgrImplTest.addPermObjs( "ADD-OBS REVIEWMGR_OBJ", PermTestData.REVIEWMGR_OBJ, false, false );
+            AdminMgrImplTest.addPermObjs( "ADD-OBS GROUPMGR_OBJ", PermTestData.GROUPMGR_OBJ, false, false );
+            AdminMgrImplTest.addPermOps( "ADD-OPS GROUPMGR_OBJ GROUPMGR_OPS", PermTestData.GROUPMGR_OBJ,
+                    PermTestData.GROUPMGR_OPS, false, false );
+
+
             AdminMgrImplTest.addPermOps( "ADD-OPS PSWDMGR_OBJ PSWDMGR_OPS", PermTestData.PSWDMGR_OBJ,
                 PermTestData.PSWDMGR_OPS, false, false );
             AdminMgrImplTest.addPermOps( "ADD-OPS ADMINMGR_OBJ ADMINMGR_OPS", PermTestData.ADMINMGR_OBJ,

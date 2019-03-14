@@ -392,6 +392,15 @@ public final class GlobalErrIds
     public static final int USER_ADMIN_CANNOT_ADD = 1039;
 
     /**
+     * The Admin is not authorized to edit the User.
+     */
+    public static final int USER_ADMIN_CANNOT_CHANGE = 1040;
+    /**
+     * The User ou name supplied for User was not found on server.
+     */
+    public static final int USER_OU_NULL = 1041;
+
+    /**
      * 2000's User-Role assignments
      */
 

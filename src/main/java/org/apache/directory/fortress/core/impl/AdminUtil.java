@@ -19,18 +19,12 @@
  */
 package org.apache.directory.fortress.core.impl;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.core.DelAccessMgr;
 import org.apache.directory.fortress.core.AuthorizationException;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.DelAccessMgrFactory;
 import org.apache.directory.fortress.core.model.*;
-import org.apache.directory.fortress.core.util.Config;
-
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * This class supplies static wrapper utilities to provide ARBAC functionality to Fortress internal Manager APIs.
@@ -50,6 +44,7 @@ final class AdminUtil
     {
     }
 
+/*
     static void checkUser(Session session, User user) throws SecurityException
     {
         String SUPER_ADMIN = Config.getInstance().getProperty("superadmin.role", "fortress-core-super-admin");
@@ -100,6 +95,7 @@ final class AdminUtil
             throw new SecurityException(GlobalErrIds.USER_ADMIN_CANNOT_ADD, warning);
         }
     }
+*/
 
     /**
      * Wrapper function to call {@link DelAccessMgrImpl#canAssign(org.apache.directory.fortress.core.model.Session, org.apache.directory.fortress.core.model.User, org.apache.directory.fortress.core.model.Role)}.
@@ -199,6 +195,42 @@ final class AdminUtil
             {
                 String warning = "canRevoke Role [" + role.getName() + "] Perm object [" + perm.getObjName() + "] Perm Operation [" + perm.getOpName() + "] Admin [" + session.getUserId() + "] failed check.";
                 throw new SecurityException(GlobalErrIds.URLE_ADMIN_CANNOT_REVOKE, warning);
+            }
+        }
+    }
+
+    /**
+     * Wrapper function to call {@link DelAccessMgrImpl#canAssign(org.apache.directory.fortress.core.model.Session, org.apache.directory.fortress.core.model.User, org.apache.directory.fortress.core.model.Role)}.
+     * This will determine if the user contains an AdminRole that is authorized assignment control over User.
+     *
+     * @param session This object must be instantiated by calling {@link org.apache.directory.fortress.core.AccessMgr#createSession} method before passing into the method.  No variables need to be set by client after returned from createSession.
+     * @param user    Instantiated User entity requires only valid userId attribute set.
+     * @param contextId maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
+     * @throws org.apache.directory.fortress.core.SecurityException In the event of data validation error (i.e. invalid userId or role name) or system error.
+     */
+    static void canDo(Session session, User user, String contextId, boolean isAdd) throws SecurityException
+    {
+        if (session != null)
+        {
+            boolean result;
+            DelAccessMgr dAccessMgr = DelAccessMgrFactory.createInstance(contextId);
+            if(isAdd)
+            {
+                result = dAccessMgr.canAdd(session, user);
+                if (!result)
+                {
+                    String warning = "canDo User [" + user.getUserId() + "] Admin [" + session.getUserId() + "] failed check.";
+                    throw new SecurityException(GlobalErrIds.USER_ADMIN_CANNOT_ADD, warning);
+                }
+            }
+            else
+            {
+                result = dAccessMgr.canEdit(session, user);
+                if (!result)
+                {
+                    String warning = "canDo User [" + user.getUserId() + "] Admin [" + session.getUserId() + "] failed check.";
+                    throw new SecurityException(GlobalErrIds.USER_ADMIN_CANNOT_CHANGE, warning);
+                }
             }
         }
     }
