@@ -70,12 +70,14 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
     private UserP userP;
     private PermP permP;
     private String SUPER_ADMIN;
+    private String REST_ADMIN;
 
     public DelAccessMgrImpl()
     {
         userP = new UserP();
         permP = new PermP();
         SUPER_ADMIN = Config.getInstance().getProperty("superadmin.role", "fortress-core-super-admin");
+        REST_ADMIN = Config.getInstance().getProperty("serviceadmin.role", "fortress-rest-admin");
 	}
     
     /**
@@ -298,7 +300,6 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
         if(CollectionUtils.isNotEmpty( uaRoles ))
         {
             // validate user and retrieve user' ou:
-            // TODO: If this is an 'add', use the value of ou passed in 'user', other read from directory and use that.
             User ue;
             if(!isAdd)
             {
@@ -381,9 +382,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
                     {
                         // Get the Role range for admin role:
                         Set<String> range;
-                        //if(uaRole.getBeginRange() != null && uaRole.getEndRange() != null && !uaRole.getBeginRange().equalsIgnoreCase(uaRole.getEndRange()))
-                        // TODO: This should not be hardcoded!:
-                        if(uaRole.getName().equalsIgnoreCase("fortress-rest-admin-user"))
+                        if(uaRole.getName().equalsIgnoreCase(REST_ADMIN))
                         {
                             result = true;
                             break;
@@ -462,8 +461,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
                     {
                         // Get the Role range for admin role:
                         Set<String> range;
-                        // TODO: This should not be hardcoded!:
-                        if(uaRole.getName().equalsIgnoreCase("fortress-rest-admin-user"))
+                        if(uaRole.getName().equalsIgnoreCase(REST_ADMIN))
                         {
                             result = true;
                             break;
