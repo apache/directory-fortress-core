@@ -121,10 +121,6 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(uAudit);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.AUDIT_UAUTHZS);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -157,10 +153,6 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(uAudit);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.AUDIT_AUTHZS);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -193,10 +185,6 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(uAudit);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.AUDIT_BINDS);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -229,10 +217,6 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(uAudit);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.AUDIT_SESSIONS);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -265,10 +249,6 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(uAudit);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.AUDIT_MODS);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -301,10 +281,6 @@ public class AuditMgrRestImpl extends Manageable implements AuditMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(uAudit);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.AUDIT_INVLD);
         FortResponse response = RestUtils.unmarshall(szResponse);

@@ -68,10 +68,6 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(role);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -99,10 +95,6 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setValue(searchVal);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -130,10 +122,6 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(user);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_ASGNED);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -161,10 +149,6 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(role);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_ASGNED_ADMIN);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -197,10 +181,6 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(entity);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -229,10 +209,6 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
         request.setContextId(this.contextId);
         OrgUnit inOrg = new OrgUnit(searchVal, type);
         request.setEntity(inOrg);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);

@@ -169,7 +169,6 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         String methodName = "updateUser";
         assertContext( CLS_NM, methodName, user, GlobalErrIds.USER_NULL );
         setEntitySession( CLS_NM, methodName, user );
-        setEntitySession( CLS_NM, methodName, user );
         // Perform delegated admin check:
         AdminUtil.canDo( adminSess, user, contextId, false );
         return userP.update( user );

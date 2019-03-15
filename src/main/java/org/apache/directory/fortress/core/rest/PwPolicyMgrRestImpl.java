@@ -78,7 +78,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
         request.setEntity( policy );
         if ( this.adminSess != null )
         {
-            request.setSession( adminSess );
+            ////request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PSWD_ADD );
@@ -102,7 +102,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
         request.setEntity( policy );
         if ( this.adminSess != null )
         {
-            request.setSession( adminSess );
+            ////request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PSWD_UPDATE );
@@ -126,7 +126,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
         request.setEntity( policy );
         if ( this.adminSess != null )
         {
-            request.setSession( adminSess );
+            ////request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PSWD_DELETE );
@@ -151,7 +151,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
         request.setEntity( new PwPolicy( name ) );
         if ( this.adminSess != null )
         {
-            request.setSession( adminSess );
+            ////request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PSWD_READ );
@@ -181,7 +181,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
         request.setEntity( new PwPolicy( searchVal ) );
         if ( this.adminSess != null )
         {
-            request.setSession( adminSess );
+            ////request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PSWD_SEARCH );
@@ -213,7 +213,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
         request.setValue( userId );
         if ( this.adminSess != null )
         {
-            request.setSession( adminSess );
+            ////request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PSWD_USER_ADD );
@@ -237,7 +237,7 @@ public class PwPolicyMgrRestImpl extends Manageable implements PwPolicyMgr
         request.setValue( userId );
         if ( this.adminSess != null )
         {
-            request.setSession( adminSess );
+            ////request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PSWD_USER_DELETE );

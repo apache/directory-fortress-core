@@ -94,10 +94,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(permission);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -125,10 +121,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(permObj);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.OBJ_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -156,10 +148,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(permission);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -187,10 +175,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(permObj);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_OBJ_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -218,10 +202,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(permission);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_SEARCH_ANY);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -249,10 +229,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(permObj);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.OBJ_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -282,10 +258,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         PermObj inObj = new PermObj();
         inObj.setOu(ou.getName());
         request.setEntity(inObj);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.OBJ_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -313,10 +285,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(role);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -344,10 +312,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setValue(searchVal);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -376,10 +340,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         request.setContextId(this.contextId);
         request.setValue(searchVal);
         request.setLimit(limit);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -407,10 +367,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(user);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -438,10 +394,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(user);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -471,10 +423,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         User inUser = new User();
         inUser.setOu( ou.getName() );
         request.setEntity(inUser);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -503,10 +451,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         request.setContextId(this.contextId);
         request.setLimit( limit );
         request.setEntity(user);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_SEARCH);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -535,10 +479,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         request.setContextId(this.contextId);
         request.setLimit(limit);
         request.setEntity(role);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_ASGNED);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -570,10 +510,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         List<User> retUsers;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity(role);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_ASGNED);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -601,10 +537,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(user);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_ASGNED);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -632,10 +564,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setValue( userId );
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_ASGNED);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -663,10 +591,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity( role );
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_AUTHZED);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -698,10 +622,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(user);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_AUTHZED);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -743,10 +663,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         request.setContextId(this.contextId);
         request.setEntity(role);
         request.setIsFlag( noInheritance );
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_PERMS);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -774,10 +690,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         request.setContextId(this.contextId);
         request.setEntity(role);
         request.setIsFlag( noInhertiance );
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_PERM_ATTR_SETS);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -804,10 +716,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(user);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_PERMS);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -835,10 +743,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(perm);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_ROLES);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -866,10 +770,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(perm);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_ROLES_AUTHZED);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -899,10 +799,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(perm);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_USERS);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -930,10 +826,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(perm);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_USERS_AUTHZED);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -963,10 +855,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(role);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.SSD_ROLE_SETS);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -998,10 +886,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(set);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.SSD_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -1028,10 +912,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
          FortRequest request = new FortRequest();
          request.setContextId(this.contextId);
          request.setEntity(ssd);
-         if (this.adminSess != null)
-         {
-             request.setSession(adminSess);
-         }
          String szRequest = RestUtils.marshal(request);
          String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.SSD_SETS);
          FortResponse response = RestUtils.unmarshall(szResponse);
@@ -1063,10 +943,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(ssd);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.SSD_ROLES);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -1096,10 +972,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(ssd);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.SSD_CARD);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -1127,10 +999,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(role);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.DSD_ROLE_SETS);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -1162,10 +1030,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(set);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.DSD_READ);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -1192,10 +1056,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
          FortRequest request = new FortRequest();
          request.setContextId(this.contextId);
          request.setEntity(dsd);
-         if (this.adminSess != null)
-         {
-             request.setSession(adminSess);
-         }
          String szRequest = RestUtils.marshal(request);
          String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.DSD_SETS);
          FortResponse response = RestUtils.unmarshall(szResponse);
@@ -1227,10 +1087,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(dsd);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.DSD_ROLES);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -1260,10 +1116,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(dsd);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.DSD_CARD);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -1292,10 +1144,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             FortRequest request = new FortRequest();
             request.setContextId(this.contextId);
             request.setEntity(permAttributeSet);
-            if (this.adminSess != null)
-            {
-                request.setSession(adminSess);
-            }
             String szRequest = RestUtils.marshal(request);
             String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_READ_PERM_ATTRIBUTE_SET);
             FortResponse response = RestUtils.unmarshall(szResponse);
@@ -1328,10 +1176,6 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         request.setEntity( user );
         request.setEntity2( permission);
         request.setValue( rcType.toString() );
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_FIND_CONSTRAINTS);
         FortResponse response = RestUtils.unmarshall(szResponse);

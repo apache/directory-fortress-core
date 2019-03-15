@@ -56,7 +56,7 @@ public class GroupMgrRestImpl  extends Manageable implements GroupMgr
         request.setEntity( group );
         if ( this.adminSess != null )
         {
-            request.setSession( adminSess );
+            ////request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.GROUP_ADD );
@@ -84,7 +84,7 @@ public class GroupMgrRestImpl  extends Manageable implements GroupMgr
         request.setEntity( group );
         if ( this.adminSess != null )
         {
-            request.setSession( adminSess );
+            ////request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.GROUP_UPDATE );
@@ -112,7 +112,7 @@ public class GroupMgrRestImpl  extends Manageable implements GroupMgr
         request.setEntity( group );
         if ( this.adminSess != null )
         {
-            request.setSession( adminSess );
+            ////request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.GROUP_DELETE );
@@ -263,7 +263,7 @@ public class GroupMgrRestImpl  extends Manageable implements GroupMgr
         request.setValue( member );
         if ( this.adminSess != null )
         {
-            request.setSession( adminSess );
+            ////request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.GROUP_ASGN );
@@ -293,7 +293,7 @@ public class GroupMgrRestImpl  extends Manageable implements GroupMgr
         request.setValue( member );
         if ( this.adminSess != null )
         {
-            request.setSession( adminSess );
+            ////request.setSession( adminSess );
         }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.GROUP_DEASGN );

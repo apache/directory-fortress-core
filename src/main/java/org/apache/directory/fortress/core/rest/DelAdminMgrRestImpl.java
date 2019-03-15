@@ -69,10 +69,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(role);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_ADD);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -99,10 +95,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(role);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_DELETE);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -125,10 +117,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(role);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_UPDATE);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -155,10 +143,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(uAdminRole);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_ASGN);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -180,10 +164,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(uAdminRole);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_DEASGN);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -206,10 +186,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(entity);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_ADD);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -237,10 +213,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(entity);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_UPDATE);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -268,10 +240,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         FortRequest request = new FortRequest();
         request.setContextId(this.contextId);
         request.setEntity(entity);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_DELETE);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -304,10 +272,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         relationship.setParent(parent);
         relationship.setChild(child);
         request.setEntity(relationship);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_DESC);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -334,10 +298,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         relationship.setParent(parent);
         relationship.setChild(child);
         request.setEntity(relationship);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_ASC);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -365,10 +325,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         relationship.setParent(parent);
         relationship.setChild(child);
         request.setEntity(relationship);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_ADDINHERIT);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -396,10 +352,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         relationship.setParent(parent);
         relationship.setChild(child);
         request.setEntity(relationship);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ORG_DELINHERIT);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -426,10 +378,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         relationship.setParent(parentRole);
         relationship.setChild(childRole);
         request.setEntity(relationship);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_DESC);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -456,10 +404,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         relationship.setParent(parentRole);
         relationship.setChild(childRole);
         request.setEntity(relationship);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_ASC);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -486,10 +430,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         relationship.setParent(parentRole);
         relationship.setChild(childRole);
         request.setEntity(relationship);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_ADDINHERIT);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -516,10 +456,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         relationship.setParent(parentRole);
         relationship.setChild(childRole);
         request.setEntity(relationship);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ARLE_DELINHERIT);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -543,10 +479,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         request.setContextId(this.contextId);
         perm.setAdmin(true);
         request.setEntity(perm);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_ADD);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -575,10 +507,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         request.setContextId(this.contextId);
         perm.setAdmin(true);
         request.setEntity(perm);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_UPDATE);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -606,10 +534,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         request.setContextId(this.contextId);
         perm.setAdmin(true);
         request.setEntity(perm);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.PERM_DELETE);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -633,10 +557,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         request.setContextId(this.contextId);
         pObj.setAdmin(true);
         request.setEntity(pObj);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.OBJ_ADD);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -665,10 +585,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         request.setContextId(this.contextId);
         pObj.setAdmin(true);
         request.setEntity(pObj);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.OBJ_UPDATE);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -696,10 +612,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         request.setContextId(this.contextId);
         pObj.setAdmin(true);
         request.setEntity(pObj);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.OBJ_DELETE);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -728,10 +640,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         permGrant.setOpName(perm.getOpName());
         permGrant.setRoleNm(role.getName());
         request.setEntity(permGrant);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_GRANT);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -760,10 +668,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         permGrant.setOpName(perm.getOpName());
         permGrant.setRoleNm(role.getName());
         request.setEntity(permGrant);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_REVOKE);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -792,10 +696,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         permGrant.setOpName(perm.getOpName());
         permGrant.setUserId(user.getUserId());
         request.setEntity(permGrant);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_GRANT);
         FortResponse response = RestUtils.unmarshall(szResponse);
@@ -824,10 +724,6 @@ public final class DelAdminMgrRestImpl extends Manageable implements DelAdminMgr
         permGrant.setOpName(perm.getOpName());
         permGrant.setUserId(user.getUserId());
         request.setEntity(permGrant);
-        if (this.adminSess != null)
-        {
-            request.setSession(adminSess);
-        }
         String szRequest = RestUtils.marshal(request);
         String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_REVOKE);
         FortResponse response = RestUtils.unmarshall(szResponse);

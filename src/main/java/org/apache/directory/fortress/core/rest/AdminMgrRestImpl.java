@@ -92,10 +92,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         User retUser;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( user );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.USER_ADD );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -121,10 +117,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".disableUser" );
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( user );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.USER_DISABLE );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -145,10 +137,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".deleteUser" );
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( user );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.USER_DELETE );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -170,10 +158,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         User retUser;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( user );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.USER_UPDATE );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -201,10 +185,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         FortRequest request = RestUtils.getRequest( this.contextId );
         user.setNewPassword( newPassword );
         request.setEntity( user );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.USER_CHGPW );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -225,10 +205,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".lockUserAccount" );
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( user );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.USER_LOCK );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -249,10 +225,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNull( user, GlobalErrIds.USER_NULL, CLS_NM + ".unlockUserAccount" );
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( user );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.USER_UNLOCK );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -275,10 +247,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         FortRequest request = RestUtils.getRequest( this.contextId );
         user.setNewPassword( newPassword );
         request.setEntity( user );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.USER_RESET );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -312,10 +280,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         Role retRole;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( role );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_ADD );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -341,10 +305,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + ".deleteRole" );
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( role );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_DELETE );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -366,10 +326,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         Role retRole;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( role );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_UPDATE );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -395,10 +351,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNull( uRole, GlobalErrIds.URLE_NULL, CLS_NM + ".assignUser" );
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( uRole );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_ASGN );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -419,10 +371,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNull( uRole, GlobalErrIds.URLE_NULL, CLS_NM + ".deassignUser" );
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( uRole );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_DEASGN );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -444,10 +392,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         Permission retPerm;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( perm );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PERM_ADD );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -474,10 +418,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         Permission retPerm;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( perm );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PERM_UPDATE );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -503,10 +443,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNull( perm, GlobalErrIds.PERM_OPERATION_NULL, CLS_NM + ".deletePermission" );
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( perm );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PERM_DELETE );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -528,10 +464,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         PermObj retObj;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( pObj );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.OBJ_ADD );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -558,10 +490,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         PermObj retObj;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( pObj );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.OBJ_UPDATE );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -587,10 +515,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNull( pObj, GlobalErrIds.PERM_OBJECT_NULL, CLS_NM + ".deletePermObj" );
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( pObj );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.OBJ_DELETE );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -618,10 +542,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         permGrant.setOpName( perm.getOpName() );
         permGrant.setRoleNm( role.getName() );
         request.setEntity( permGrant );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_GRANT );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -649,10 +569,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         permGrant.setOpName( perm.getOpName() );
         permGrant.setRoleNm( role.getName() );
         request.setEntity( permGrant );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_REVOKE );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -680,10 +596,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         permGrant.setOpName( perm.getOpName() );
         permGrant.setUserId( user.getUserId() );
         request.setEntity( permGrant );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.USER_GRANT );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -711,10 +623,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         permGrant.setOpName( perm.getOpName() );
         permGrant.setUserId( user.getUserId() );
         request.setEntity( permGrant );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.USER_REVOKE );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -739,10 +647,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         relationship.setParent( parentRole );
         relationship.setChild( childRole );
         request.setEntity( relationship );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_DESC );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -767,10 +671,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         relationship.setParent( parentRole );
         relationship.setChild( childRole );
         request.setEntity( relationship );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_ASC );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -795,10 +695,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         relationship.setParent( parentRole );
         relationship.setChild( childRole );
         request.setEntity( relationship );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_ADDINHERIT );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -823,10 +719,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         relationship.setParent( parentRole );
         relationship.setChild( childRole );
         request.setEntity( relationship );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_DELINHERIT );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -848,10 +740,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         SDSet retSet;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( ssdSet );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.SSD_ADD );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -877,10 +765,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         SDSet retSet;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( ssdSet );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.SSD_UPDATE );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -909,10 +793,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( ssdSet );
         request.setValue( role.getName() );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.SSD_ADD_MEMBER );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -941,10 +821,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( ssdSet );
         request.setValue( role.getName() );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.SSD_DEL_MEMBER );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -971,10 +847,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         SDSet retSet;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( ssdSet );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.SSD_DELETE );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -1002,10 +874,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         FortRequest request = RestUtils.getRequest( this.contextId );
         ssdSet.setCardinality( cardinality );
         request.setEntity( ssdSet );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.SSD_CARD_UPDATE );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -1032,10 +900,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         SDSet retSet;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( dsdSet );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.DSD_ADD );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -1061,10 +925,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         SDSet retSet;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( dsdSet );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.DSD_UPDATE );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -1093,10 +953,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( dsdSet );
         request.setValue( role.getName() );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.DSD_ADD_MEMBER );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -1125,10 +981,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( dsdSet );
         request.setValue( role.getName() );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.DSD_DEL_MEMBER );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -1155,10 +1007,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         SDSet retSet;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( dsdSet );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.DSD_DELETE );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -1186,10 +1034,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         FortRequest request = RestUtils.getRequest( this.contextId );
         dsdSet.setCardinality( cardinality );
         request.setEntity( dsdSet );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.DSD_CARD_UPDATE );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -1218,10 +1062,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( uRole );
         request.setEntity2( roleConstraint );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_ADD_CONSTRAINT );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -1248,10 +1088,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( uRole );
         request.setEntity2( roleConstraint );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_DELETE_CONSTRAINT );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -1273,10 +1109,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         PermissionAttributeSet retSet;
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( permAttributeSet );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PERM_ADD_ATTRIBUTE_SET );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -1302,10 +1134,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         VUtil.assertNotNull( permAttributeSet, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL, CLS_NM + ".deletePermissionAttributeSet" );
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( permAttributeSet );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PERM_DELETE_ATTRIBUTE_SET );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -1329,10 +1157,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( permAttribute );
         request.setValue( attributeSetName );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PERM_ADD_PERM_ATTRIBUTE_TO_SET );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -1360,10 +1184,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( permAttribute );
         request.setValue( attributeSetName );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PERM_DELETE_PERM_ATTRIBUTE_TO_SET );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -1388,10 +1208,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         request.setEntity( permAttribute );
         request.setValue( attributeSetName );
         request.setIsFlag( replaceValidValues );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.PERM_UPDATE_PERM_ATTRIBUTE_IN_SET );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -1414,10 +1230,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( uRole );
         request.setValue( roleConstraintId );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_DELETE_CONSTRAINT_ID );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -1440,10 +1252,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( role );
         request.setEntity2( roleConstraint );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_ENABLE_CONSTRAINT );
         FortResponse response = RestUtils.unmarshall( szResponse );
@@ -1466,10 +1274,6 @@ public final class AdminMgrRestImpl extends Manageable implements AdminMgr
         FortRequest request = RestUtils.getRequest( this.contextId );
         request.setEntity( role );
         request.setEntity2( roleConstraint );
-        if ( this.adminSess != null )
-        {
-            request.setSession( adminSess );
-        }
         String szRequest = RestUtils.marshal( request );
         String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.ROLE_DISABLE_CONSTRAINT );
         FortResponse response = RestUtils.unmarshall( szResponse );
