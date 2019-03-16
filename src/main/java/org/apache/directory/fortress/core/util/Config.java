@@ -311,14 +311,21 @@ public final class Config
     public boolean getBoolean( String key )
     {
         boolean value = false;
-        if ( config != null )
+        try
         {
-            value = config.getBoolean( key );
+            if (config != null)
+            {
+                value = config.getBoolean(key);
+            }
+            else
+            {
+                String warn = "getBoolean - invalid config, can't read prop [" + key + "]";
+                LOG.warn(warn);
+            }
         }
-        else
+        catch (java.util.NoSuchElementException e )
         {
-            String warn = "getBoolean - invalid config, can't read prop [" + key + "]";
-            LOG.warn( warn );
+            // prop not found, ignore.
         }
         return value;
     }
@@ -333,14 +340,21 @@ public final class Config
     public boolean getBoolean( String key, boolean defaultValue )
     {
         boolean value = defaultValue;
-        if ( config != null )
+        try
         {
-            value = config.getBoolean( key, defaultValue );
+            if ( config != null )
+            {
+                value = config.getBoolean( key, defaultValue );
+            }
+            else
+            {
+                String warn = "getBoolean - invalid config, can't read prop [" + key + "]";
+                LOG.warn( warn );
+            }
         }
-        else
+        catch (java.util.NoSuchElementException e )
         {
-            String warn = "getBoolean - invalid config, can't read prop [" + key + "]";
-            LOG.warn( warn );
+            // prop not found, ignore.
         }
         return value;
     }
