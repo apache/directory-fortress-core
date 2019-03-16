@@ -132,6 +132,7 @@ public abstract class Manageable implements org.apache.directory.fortress.core.M
         if (this.adminSess != null)
         {
             Permission perm = new Permission(className, opName);
+            entity.setAdminSession(this.adminSess);
             entity.setModCode(AdminUtil.getObjName(perm.getObjName()) + "." + perm.getOpName());
         }
         
