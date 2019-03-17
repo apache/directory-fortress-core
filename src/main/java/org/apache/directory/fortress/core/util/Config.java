@@ -75,6 +75,7 @@ public final class Config
     private static final String EXT_CONFIG_REALM = "fortress.config.realm";
     private static final String EXT_CONFIG_ROOT_DN = "fortress.config.root";
     private static final String EXT_SERVER_TYPE = "fortress.ldap.server.type";
+    private static final String EXT_IS_ARBAC02 = "fortress.is.arbac02";
 
     // static reference contains this.
     private static volatile Config sINSTANCE = null;
@@ -454,11 +455,6 @@ public final class Config
     {
         return GlobalIds.REALM_TYPE.equalsIgnoreCase( getProperty( GlobalIds.AUTHENTICATION_TYPE ) );
     }
-    /*
-            if( ( Config.getInstance().getProperty( GlobalIds.ROLE_OCCUPANTS ) != null )
-            && (  ! Config.getInstance().getProperty( GlobalIds.ROLE_OCCUPANTS ).equalsIgnoreCase( "false" ) ) )
-
-     */
     public boolean isRoleOccupant()
     {
         // misc LDAP:
@@ -714,6 +710,17 @@ public final class Config
         {
             config.setProperty( GlobalIds.SERVER_TYPE, szValue );
             LOG.info( PREFIX, GlobalIds.SERVER_TYPE, szValue );
+        }
+
+        // Check to see if ARBAC02 checking enforced in service layer:
+        szValue = System.getProperty( EXT_IS_ARBAC02 );
+        LOG.info( PREFIX, GlobalIds.IS_ARBAC02, szValue );
+
+        if( StringUtils.isNotEmpty( szValue ))
+        {
+            Boolean isArbac02 = new Boolean(szValue);
+            config.setProperty( GlobalIds.IS_ARBAC02, isArbac02.booleanValue() );
+            LOG.info( PREFIX, GlobalIds.IS_ARBAC02, isArbac02.booleanValue() );
         }
     }
 

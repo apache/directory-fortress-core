@@ -212,7 +212,6 @@ public final class GlobalIds
     *  **  LDAP ATTRIBUTE NAMES AND CONSTANT VALUES
     *  ************************************************************************
     */
-
     public static final String SERVER_TYPE = "ldap.server.type";
 
     /*
@@ -383,7 +382,7 @@ public final class GlobalIds
 */
 
     /**
-     * RF2307bis uses this for groiups:
+     * RF2307bis uses this for groups:
      */
     public static final String RFC2307_PROP = "rfc2307";
     public static final String GID_NUMBER = "gidNumber";
@@ -611,7 +610,8 @@ public final class GlobalIds
      */
     public static final String HTTP_PW_PROP = "http.pw";
 
-
-
-
+    /**
+     * Attribute name for property ARBAC02 enforcement boolean.
+     */
+    public static final String IS_ARBAC02 = "is.arbac02";
 }
