@@ -592,7 +592,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         request.setContextId(this.contextId);
         request.setEntity( role );
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_AUTHZED);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_AUTHZED);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
@@ -623,7 +623,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
         request.setContextId(this.contextId);
         request.setEntity(user);
         String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.USER_AUTHZED);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.ROLE_AUTHZED);
         FortResponse response = RestUtils.unmarshall(szResponse);
         if (response.getErrorCode() == 0)
         {
