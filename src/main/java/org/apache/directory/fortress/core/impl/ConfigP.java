@@ -27,6 +27,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ValidationException;
+import org.apache.directory.fortress.core.model.Configuration;
 import org.apache.directory.fortress.core.util.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,12 +71,13 @@ final class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs just added.
      * @throws SecurityException in the event entry already present or other system error.
      */
-    Properties add( String name, Properties inProps )
+    //Properties add( String name, Properties inProps )
+    Configuration add(Configuration cfg)
         throws SecurityException
     {
-        validate( name, inProps );
+        validate( cfg.getName(), cfg.getProperties(), false );
         ConfigDAO cfgDao = new ConfigDAO();
-        return cfgDao.create( name, inProps );
+        return cfgDao.create( cfg );
     }
 
 
@@ -88,12 +90,13 @@ final class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs to be added to existing node.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry not present or other system error.
      */
-    Properties update( String name, Properties inProps )
+    //Properties update( String name, Properties inProps )
+    Configuration update(Configuration cfg)
         throws SecurityException
     {
-        validate( name, inProps );
+        validate( cfg.getName(), cfg.getProperties(), true );
         ConfigDAO cfgDao = new ConfigDAO();
-        return cfgDao.update( name, inProps );
+        return cfgDao.update( cfg );
     }
 
 
@@ -153,7 +156,7 @@ final class ConfigP
     void delete( String name, Properties inProps )
         throws SecurityException
     {
-        validate( name, inProps );
+        validate( name, inProps, false );
         ConfigDAO cfgDao = new ConfigDAO();
         cfgDao.remove( name, inProps );
     }
@@ -167,13 +170,13 @@ final class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs just added. Maps to 'ftProps' attribute in 'ftProperties' object class.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry doesn't exist or other system error.
      */
-    Properties read( String name )
+    Configuration read( String name )
         throws SecurityException
     {
         Properties outProps;
         ConfigDAO cfgDao = new ConfigDAO();
-        outProps = cfgDao.getConfig( name );
-        return outProps;
+        return cfgDao.getConfig( name );
+        //return outProps;
     }
 
 
@@ -185,7 +188,7 @@ final class ConfigP
      * @param entity contains the name/value properties targeted for operation.
      * @throws org.apache.directory.fortress.core.ValidationException thrown in the event the validations fail.
      */
-    private void validate( String name, Properties entity )
+    private void validate( String name, Properties entity, boolean isUpdate )
         throws ValidationException
     {
         if ( StringUtils.isEmpty( name ) )
@@ -200,7 +203,7 @@ final class ConfigP
             LOG.warn( error );
             throw new ValidationException( GlobalErrIds.FT_CONFIG_NAME_INVLD, error );
         }
-        if ( entity == null || entity.size() == 0 )
+        if ( !isUpdate && ( entity == null || entity.size() == 0 ) )
         {
             String error = "validate name [" + name + "] config props null";
             LOG.warn( error );

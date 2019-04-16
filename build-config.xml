@@ -328,6 +328,7 @@
          <replace file="${dst.bootstrap.conf}" token="@TRUST_STORE@" value="${trust.store}"/>
          <replace file="${dst.bootstrap.conf}" token="@TRUST_STORE_PW@" value="${trust.store.password}"/>
          <replace file="${dst.bootstrap.conf}" token="@TRUST_STORE_ONCLASSPATHW@" value="${trust.store.onclasspath}"/>
+         <replace file="${dst.bootstrap.conf}" token="@IS_RFC2307@" value="${rfc2307}"/>
 
        <copy file="${src.remote.conf}" tofile="${dst.remote.conf}"/>
          <!-- These params are bound for config/config.properties file and contain coordinate to the target ldap server (only). -->

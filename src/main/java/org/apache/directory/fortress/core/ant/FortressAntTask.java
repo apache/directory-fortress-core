@@ -44,23 +44,8 @@ import org.apache.directory.fortress.core.PwPolicyMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.impl.OrganizationalUnitP;
 import org.apache.directory.fortress.core.impl.SuffixP;
-import org.apache.directory.fortress.core.model.AdminRole;
-import org.apache.directory.fortress.core.model.Context;
-import org.apache.directory.fortress.core.model.Group;
-import org.apache.directory.fortress.core.model.OrgUnit;
-import org.apache.directory.fortress.core.model.OrganizationalUnit;
-import org.apache.directory.fortress.core.model.PermGrant;
-import org.apache.directory.fortress.core.model.PermObj;
-import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.*;
 import org.apache.directory.fortress.core.util.PropUtil;
-import org.apache.directory.fortress.core.model.PwPolicy;
-import org.apache.directory.fortress.core.model.Relationship;
-import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.model.SDSet;
-import org.apache.directory.fortress.core.model.Suffix;
-import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.UserAdminRole;
-import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.ClassUtil;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.Testable;
@@ -2527,13 +2512,14 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void addConfig() throws BuildException
     {
+        LOG.info( "addConfig" );
         if( addconfig == null )
         {
             return;
         }
 
         Properties props = new Properties();
-        String configNodeName = "";
+        Configuration configuration = new Configuration();
         // Loop through the entityclass elements
         for ( Addconfig addcfg : addconfig )
         {
@@ -2542,19 +2528,38 @@ public class FortressAntTask extends Task implements InputHandler
                 List<ConfigAnt> cfgs = addcfg.getConfig();
                 for ( ConfigAnt cfg : cfgs )
                 {
-                    LOG.info( "addConfig" );
                     String val = cfg.getProps();
                     int indx = val.indexOf( GlobalIds.PROP_SEP );
                     if ( indx >= 1 )
                     {
                         String name = val.substring( 0, indx );
                         String value = val.substring( indx + 1 );
-                        props.setProperty( name, value );
+
+                        // The config realm property is required on updconfig op and points to the existing node in ldap to update with these new props.
+                        if( name.equalsIgnoreCase( GlobalIds.CONFIG_REALM ))
+                        {
+                            configuration.setName( value );
+                        }
+                        else if( name.equalsIgnoreCase( GlobalIds.CONFIG_UID_NUMBER ))
+                        {
+                            configuration.setUidNumber( value );
+                        }
+                        else if( name.equalsIgnoreCase( GlobalIds.CONFIG_GID_NUMBER ))
+                        {
+                            configuration.setGidNumber( value );
+                        }
+                        else
+                        {
+                            props.setProperty( name, value );
+                            LOG.info( "addConfig name [{}] value [{}]", name, value );
+                        }
                     }
                 }
-                configNodeName = props.getProperty( GlobalIds.CONFIG_REALM );
-                LOG.info( "addConfig realm name [{}]", configNodeName );
-                cfgMgr.add( configNodeName, props );
+                configuration.addProperties( props );
+                LOG.info( "addConfig realm name [{}]", configuration.getName() );
+                LOG.info( "addConfig gid.number [{}]", configuration.getGidNumber() );
+                LOG.info( "addConfig uid.number [{}]", configuration.getUidNumber() );
+                cfgMgr.add( configuration );
             }
             catch ( SecurityException se )
             {
@@ -2562,18 +2567,18 @@ public class FortressAntTask extends Task implements InputHandler
                 {
                     try
                     {
-                        LOG.info( "addConfig realm name={} entry already exists, attempt to update", configNodeName );
-                        cfgMgr.update( configNodeName, props );
-                        LOG.info( "addConfig realm name={} update [{}] successful", configNodeName, configNodeName );
+                        LOG.info( "addConfig realm name={} entry already exists, attempt to update", configuration.getName() );
+                        cfgMgr.update( configuration );
+                        LOG.info( "addConfig realm name={} update [{}] successful", configuration.getName(), configuration.getName() );
                     }
                     catch ( SecurityException se2 )
                     {
-                        LOG.warn( "addConfig realm name={] update failed SecurityException={}", configNodeName, se2 );
+                        LOG.warn( "addConfig realm name={] update failed SecurityException={}", configuration.getName(), se2 );
                     }
                 }
                 else
                 {
-                    LOG.warn( "addConfig realm name={} failed SecurityException={}", configNodeName, se );
+                    LOG.warn( "addConfig realm name={} failed SecurityException={}", configuration.getName(), se );
                 }
             }
         }
@@ -2585,12 +2590,15 @@ public class FortressAntTask extends Task implements InputHandler
      */
     private void updConfig() throws BuildException
     {
+        LOG.info( "updateConfig" );
+
         if( updconfig == null )
         {
             return;
         }
 
         Properties props = new Properties();
+        Configuration configuration = new Configuration();
         String configNodeName = "";
         // Loop through the entityclass elements
         for ( Updconfig updcfg : updconfig )
@@ -2609,26 +2617,38 @@ public class FortressAntTask extends Task implements InputHandler
                     // The config realm property is required on updconfig op and points to the existing node in ldap to update with these new props.
                     if( name.equalsIgnoreCase( GlobalIds.CONFIG_REALM ))
                     {
-                        configNodeName = value;
+                        configuration.setName( value );
+                    }
+                    else if( name.equalsIgnoreCase( GlobalIds.CONFIG_UID_NUMBER ))
+                    {
+                        configuration.setUidNumber( value );
+                    }
+                    else if( name.equalsIgnoreCase( GlobalIds.CONFIG_GID_NUMBER ))
+                    {
+                        configuration.setGidNumber( value );
                     }
                     else
                     {
                         props.setProperty( name, value );
+                        LOG.info( "updateConfig name [{}] value [{}]", name, value );
                     }
                 }
             }
             // Can't go on w/out a name for the config node to update.
-            if ( StringUtils.isEmpty( configNodeName ))
+            if ( StringUtils.isEmpty( configuration.getName() ))
             {
                 LOG.warn( "updConfig realm name not specified, operation aborted." );
                 LOG.warn( "Add entry like this  to input xml: <config props=\"config.realm:DEFAULT\"/>" );
             }
             else
             {
+                configuration.addProperties( props );
+                LOG.info( "updConfig realm name [{}]", configuration.getName() );
+                LOG.info( "updConfig gid.number [{}]", configuration.getGidNumber() );
+                LOG.info( "updConfig uid.number [{}]", configuration.getUidNumber() );
                 try
                 {
-                    LOG.info( "updateConfig realm name [{}]", configNodeName );
-                    cfgMgr.update( configNodeName, props );
+                    cfgMgr.update( configuration );
                 }
                 catch ( SecurityException se )
                 {

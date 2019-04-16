@@ -33,6 +33,7 @@ import org.apache.directory.fortress.core.ConfigMgrFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -139,6 +140,36 @@ public final class Config
         try
         {
             ConfigMgr cfgMgr = ConfigMgrFactory.createInstance();
+            org.apache.directory.fortress.core.model.Configuration inConfig = cfgMgr.read( name );
+            org.apache.directory.fortress.core.model.Configuration outConfig = new Configuration();
+            outConfig.setName( name );
+            if( key.equals( GlobalIds.UID_NUMBER ))
+            {
+                value = inConfig.getUidNumber();
+                outConfig.setUidNumber( propUpdater.newValue( value ) );
+            }
+            else
+            {
+                value = inConfig.getGidNumber();
+                outConfig.setGidNumber( propUpdater.newValue( inConfig.getGidNumber() ) );
+            }
+            cfgMgr.update( outConfig );
+        }
+        catch ( SecurityException se )
+        {
+            String error = "replaceProperty failed, exception=" + se.getMessage();
+            throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_UPDATE_FAILED, error, se );
+        }
+        return value;
+    }
+
+/*
+    public synchronized String replacePropertyx( String name, String key, PropUpdater propUpdater ) throws CfgException
+    {
+        String value;
+        try
+        {
+            ConfigMgr cfgMgr = ConfigMgrFactory.createInstance();
             Properties props = cfgMgr.read( name );
             // TODO: The key should be scoped to an instance, e.g. FORT104
             value = props.getProperty( key );
@@ -153,6 +184,7 @@ public final class Config
         }
         return value;
     }
+*/
 
     /**
      * Gets the prop attribute as String value from the apache commons cfg component.
@@ -410,7 +442,8 @@ public final class Config
         {
             String configClassName = this.getProperty( GlobalIds.CONFIG_IMPLEMENTATION );
             ConfigMgr cfgMgr = ConfigMgrFactory.createInstance(configClassName, false);
-            props = cfgMgr.read( realmName );
+            Configuration configuration = cfgMgr.read( realmName );
+            props = configuration.getProperties();
         }
         catch ( CfgException ce )
         {

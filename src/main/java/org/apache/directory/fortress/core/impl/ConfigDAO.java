@@ -24,12 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
-import org.apache.directory.api.ldap.model.entry.DefaultEntry;
-import org.apache.directory.api.ldap.model.entry.DefaultModification;
-import org.apache.directory.api.ldap.model.entry.Entry;
-import org.apache.directory.api.ldap.model.entry.Modification;
-import org.apache.directory.api.ldap.model.entry.ModificationOperation;
+import org.apache.directory.api.ldap.model.entry.*;
 import org.apache.directory.api.ldap.model.exception.LdapEntryAlreadyExistsException;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
@@ -40,11 +38,15 @@ import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.LdapDataProvider;
+import org.apache.directory.fortress.core.model.Configuration;
 import org.apache.directory.fortress.core.util.PropUtil;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import static org.apache.directory.fortress.core.GlobalIds.GID_NUMBER;
+import static org.apache.directory.fortress.core.GlobalIds.UID_NUMBER;
 
 
 /**
@@ -82,22 +84,21 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 final class ConfigDAO extends LdapDataProvider
-
 {
     private static final String CLS_NM = ConfigDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private String CONFIG_ROOT_DN;
 
-    private final String CONFIG_OBJ_CLASS[] =
-        {
-            SchemaConstants.DEVICE_OC, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME
+    private final String[] CONFIG_OBJ_CLASS =
+    {
+        SchemaConstants.DEVICE_OC, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds.FT_RFC2307_AUX_OBJECT_CLASS_NAME
     };
 
     private final String[] CONFIG_ATRS =
-        {
-            SchemaConstants.CN_AT, GlobalIds.PROPS
-    };
+    {
+        SchemaConstants.CN_AT, GlobalIds.PROPS, GID_NUMBER, UID_NUMBER
 
+    };
 
     /**
      * Package private default constructor.
@@ -108,28 +109,44 @@ final class ConfigDAO extends LdapDataProvider
     	CONFIG_ROOT_DN = Config.getInstance().getProperty( GlobalIds.CONFIG_ROOT_PARAM );
     }
 
-
     /**
      * Create a new configuration node and load it with properties.
-     * @param name of the new configuration node to be created in ldap.
-     * @param props each name/value pair becomes an ftprop in this entry.
-     * @return
+     * @param cfg the new configuration node to be created in ldap.
+     * @return what was just added.
      * @throws org.apache.directory.fortress.core.CreateException
      */
-    Properties create( String name, Properties props )
+    Configuration create( Configuration cfg )
         throws CreateException
     {
         LdapConnection ld = null;
-        String dn = getDn( name );
+        String dn = getDn( cfg.getName() );
         LOG.info( "create dn [{}]", dn );
         try
         {
             Entry myEntry = new DefaultEntry( dn );
             myEntry.add( SchemaConstants.OBJECT_CLASS_AT, CONFIG_OBJ_CLASS );
             ld = getAdminConnection();
-            myEntry.add( SchemaConstants.CN_AT, name );
-            loadProperties( props, myEntry, GlobalIds.PROPS );
-            add( ld, myEntry );
+            myEntry.add( SchemaConstants.CN_AT, cfg.getName() );
+            loadProperties( cfg.getProperties(), myEntry, GlobalIds.PROPS );
+            // These attributes hold sequence numbers:
+            if (StringUtils.isNotEmpty(cfg.getUidNumber()))
+            {
+                myEntry.add( GlobalIds.UID_NUMBER, cfg.getUidNumber() );
+            }
+            else
+            {
+                myEntry.add( GlobalIds.UID_NUMBER, "0" );
+            }
+            if (StringUtils.isNotEmpty(cfg.getGidNumber()))
+            {
+                myEntry.add( GlobalIds.GID_NUMBER, cfg.getGidNumber() );
+            }
+            else
+            {
+                myEntry.add( GlobalIds.GID_NUMBER, "0" );
+            }
+
+            add( ld, myEntry, cfg );
         }
         catch ( LdapEntryAlreadyExistsException e )
         {
@@ -148,36 +165,43 @@ final class ConfigDAO extends LdapDataProvider
         {
             closeAdminConnection( ld );
         }
-        return props;
+        return cfg;
     }
 
 
     /**
      * Update existing node with new properties.
-     * @param name contains existing config node name
-     * @param props each property name value will loaded into an attribute (ftprops) under the config node.
-     * @return
+     * @param cfg contains the name and each property name value will loaded into an attribute (ftprops) under the config node.
+     * @return the updated entity.
      * @throws org.apache.directory.fortress.core.UpdateException
      */
-    Properties update( String name, Properties props )
+    Configuration update( Configuration cfg )
         throws UpdateException
     {
         LdapConnection ld = null;
-        String dn = getDn( name );
-        LOG.info( "update dn [{}]", dn );
+        String dn = getDn( cfg.getName() );
+        LOG.debug( "update dn [{}]", dn );
         try
         {
             List<Modification> mods = new ArrayList<>();
-            if ( PropUtil.isNotEmpty( props ) )
+            if ( PropUtil.isNotEmpty( cfg.getProperties() ) )
             {
-                loadProperties( props, mods, GlobalIds.PROPS, false );
+                loadProperties( cfg.getProperties(), mods, GlobalIds.PROPS, false );
             }
-            ld = getAdminConnection();
+            if (StringUtils.isNotEmpty(cfg.getUidNumber()))
+            {
+                mods.add(new DefaultModification(ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.UID_NUMBER,
+                        cfg.getUidNumber()));
+            }
+            if (StringUtils.isNotEmpty(cfg.getGidNumber()))
+            {
+                mods.add(new DefaultModification(ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.GID_NUMBER,
+                        cfg.getGidNumber()));
+            }
             if ( mods.size() > 0 )
             {
                 ld = getAdminConnection();
-                // TODO: change to use modify that leaves audit trail:
-                modify( ld, dn, mods );
+                modify( ld, dn, mods, cfg );
             }
         }
         catch ( LdapException e )
@@ -189,7 +213,7 @@ final class ConfigDAO extends LdapDataProvider
         {
             closeAdminConnection( ld );
         }
-        return props;
+        return cfg;
     }
 
 
@@ -203,7 +227,7 @@ final class ConfigDAO extends LdapDataProvider
      * @throws UpdateException in the event the attribute can't be replaced.
      * @throws FinderException in the event the config node and/or property key:value can't be located.
      */
-    void updateProperty( String name, String key, String value, String newValue ) throws UpdateException, FinderException
+    void updateProperty( String name, String key, String value, String newValue ) throws UpdateException
     {
         LdapConnection ld = null;
         String dn = getDn( name );
@@ -297,13 +321,13 @@ final class ConfigDAO extends LdapDataProvider
 
     /**
      * @param name
-     * @return
+     * @return the existing config node.
      * @throws org.apache.directory.fortress.core.FinderException
      */
-    Properties getConfig( String name )
+    Configuration getConfig( String name )
         throws FinderException
     {
-        Properties props = null;
+        Configuration configuration = new Configuration();
         LdapConnection ld = null;
         String dn = getDn( name );
         LOG.debug( "getConfig dn [{}]", dn );
@@ -311,7 +335,10 @@ final class ConfigDAO extends LdapDataProvider
         {
             ld = getAdminConnection();
             Entry findEntry = read( ld, dn, CONFIG_ATRS );
-            props = PropUtil.getProperties( getAttributes( findEntry, GlobalIds.PROPS ) );
+            configuration.setName( name );
+            configuration.addProperties( PropUtil.getProperties( getAttributes( findEntry, GlobalIds.PROPS ) ) );
+            configuration.setUidNumber( getAttribute( findEntry, GlobalIds.UID_NUMBER ) );
+            configuration.setGidNumber( getAttribute( findEntry, GlobalIds.GID_NUMBER ) );
         }
         catch ( LdapNoSuchObjectException e )
         {
@@ -327,7 +354,7 @@ final class ConfigDAO extends LdapDataProvider
         {
             closeAdminConnection( ld );
         }
-        return props;
+        return configuration;
     }
 
 

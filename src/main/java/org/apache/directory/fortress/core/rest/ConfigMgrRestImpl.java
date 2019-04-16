@@ -24,6 +24,7 @@ import java.util.Properties;
 import org.apache.directory.fortress.core.ConfigMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.Configuration;
 import org.apache.directory.fortress.core.model.FortRequest;
 import org.apache.directory.fortress.core.model.FortResponse;
 import org.apache.directory.fortress.core.model.Props;
@@ -50,6 +51,12 @@ public class ConfigMgrRestImpl implements ConfigMgr
      * {@inheritDoc}
      */
     @Override
+    public Configuration add(Configuration cfg) throws SecurityException
+    {
+        throw new UnsupportedOperationException( "not implemented" );
+    }
+/*
+    @Override
     public Properties add(String name, Properties inProperties) throws SecurityException
     {
         VUtil.assertNotNull(name, GlobalErrIds.FT_CONFIG_NAME_NULL, CLS_NM + ".add");
@@ -73,11 +80,18 @@ public class ConfigMgrRestImpl implements ConfigMgr
         }
         return retProperties;
     }
+*/
 
 
     /**
      * {@inheritDoc}
      */
+    @Override
+    public Configuration update(Configuration cfg) throws SecurityException
+    {
+        throw new UnsupportedOperationException( "not implemented" );
+    }
+/*
     @Override
     public Properties update(String name, Properties inProperties) throws SecurityException
     {
@@ -102,6 +116,7 @@ public class ConfigMgrRestImpl implements ConfigMgr
         }
         return retProperties;
     }
+*/
 
 
     /**
@@ -159,6 +174,11 @@ public class ConfigMgrRestImpl implements ConfigMgr
      * {@inheritDoc}
      */
     @Override
+    public Configuration read(String name) throws SecurityException
+    {
+        throw new java.lang.UnsupportedOperationException();
+    }
+/*
     public Properties read(String name) throws SecurityException
     {
         VUtil.assertNotNull(name, GlobalErrIds.FT_CONFIG_NAME_NULL, CLS_NM + ".readRole");
@@ -180,4 +200,5 @@ public class ConfigMgrRestImpl implements ConfigMgr
         }
         return retProps;
     }
+*/
 }

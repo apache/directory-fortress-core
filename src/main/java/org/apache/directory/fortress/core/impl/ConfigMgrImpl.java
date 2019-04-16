@@ -23,7 +23,10 @@ import java.io.Serializable;
 import java.util.Properties;
 
 import org.apache.directory.fortress.core.ConfigMgr;
+import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.Configuration;
+import org.apache.directory.fortress.core.util.VUtil;
 
 
 /**
@@ -39,9 +42,10 @@ import org.apache.directory.fortress.core.SecurityException;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class ConfigMgrImpl implements ConfigMgr, Serializable
+public class ConfigMgrImpl  extends Manageable implements ConfigMgr, Serializable
 {
     private ConfigP cfgP;
+    private static final String CLS_NM = ConfigMgrImpl.class.getName();
 
     public ConfigMgrImpl() {
     	cfgP = new ConfigP();
@@ -51,9 +55,14 @@ public class ConfigMgrImpl implements ConfigMgr, Serializable
      * {@inheritDoc}
      */
     @Override
-    public Properties add(String name, Properties inProps) throws SecurityException
+    public Configuration add(Configuration cfg) throws SecurityException
     {
-        return cfgP.add(name, inProps);
+        String methodName = "add";
+        setEntitySession( CLS_NM, methodName, cfg );
+        assertContext( CLS_NM, methodName, cfg, GlobalErrIds.FT_CONFIG_NULL );
+        VUtil.assertNotNull( cfg, GlobalErrIds.FT_CONFIG_NULL, CLS_NM + methodName );
+        VUtil.assertNotNull( cfg.getName(), GlobalErrIds.FT_CONFIG_NAME_NULL, CLS_NM + methodName );
+        return cfgP.add(cfg);
     }
 
 
@@ -61,9 +70,14 @@ public class ConfigMgrImpl implements ConfigMgr, Serializable
      * {@inheritDoc}
      */
     @Override
-    public Properties update(String name, Properties inProps) throws SecurityException
+    public Configuration update(Configuration cfg) throws SecurityException
     {
-        return cfgP.update(name, inProps);
+        String methodName = "update";
+        setEntitySession( CLS_NM, methodName, cfg );
+        assertContext( CLS_NM, methodName, cfg, GlobalErrIds.FT_CONFIG_NULL );
+        VUtil.assertNotNull( cfg, GlobalErrIds.FT_CONFIG_NULL, CLS_NM + methodName );
+        VUtil.assertNotNull( cfg.getName(), GlobalErrIds.FT_CONFIG_NAME_NULL, CLS_NM + methodName );
+        return cfgP.update(cfg);
     }
 
     /**
@@ -97,7 +111,7 @@ public class ConfigMgrImpl implements ConfigMgr, Serializable
      * {@inheritDoc}
      */
     @Override
-    public Properties read(String name) throws SecurityException
+    public Configuration read(String name) throws SecurityException
     {
         return cfgP.read(name);
     }

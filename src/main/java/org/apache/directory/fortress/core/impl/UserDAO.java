@@ -83,6 +83,8 @@ import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.apache.directory.fortress.core.impl.RoleDAO.IS_RFC2307;
+
 
 /**
  * Data access class for LDAP User entity.
@@ -195,7 +197,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
     // RFC2307bis decls:
     private static final String POSIX_ACCOUNT = "posixAccount";
     private static final String HOME_DIRECTORY =  "homeDirectory";
-    private static final boolean IS_RFC2307 = Config.getInstance().getProperty( GlobalIds.RFC2307_PROP ) != null && Config.getInstance().getProperty( GlobalIds.RFC2307_PROP ).equalsIgnoreCase( "true" ) ? true : false;
+    //private static final boolean IS_RFC2307 = Config.getInstance().getProperty( GlobalIds.RFC2307_PROP ) != null && Config.getInstance().getProperty( GlobalIds.RFC2307_PROP ).equalsIgnoreCase( "true" ) ? true : false;
     /**
      * RF2307bis uses groupOfNames instead of ftRA:
      */

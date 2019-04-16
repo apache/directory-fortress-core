@@ -418,7 +418,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         props.setProperty( propKey, propValue );
         // Retrieve parameters from the config node stored in target LDAP DIT:
         String realmName = Config.getInstance().getProperty( GlobalIds.CONFIG_REALM, "DEFAULT" );
-        configP.update( realmName, props );
+
+        configP.update( new Configuration(realmName, props) );
         // update in-memory:
         Config.getInstance().setProperty( propKey, propValue );
     }
