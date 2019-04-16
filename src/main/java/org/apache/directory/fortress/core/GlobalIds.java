@@ -230,9 +230,9 @@ public final class GlobalIds
      */
     public static final String FT_MODIFIER_AUX_OBJECT_CLASS_NAME = "ftMods";
     /**
-     * This aux object class allows requires uidNumber and gidNumber.
+     * This aux object class stores uidNumber and gidNumber sequence numbers.
      */
-    public static final String FT_RFC2307_AUX_OBJECT_CLASS_NAME = "ftConfig";
+    public static final String FT_CONFIG_AUX_OBJECT_CLASS_NAME = "ftConfig";
 
     /**
      * The ftModifier contains the internalUserId of administrator who performed action.

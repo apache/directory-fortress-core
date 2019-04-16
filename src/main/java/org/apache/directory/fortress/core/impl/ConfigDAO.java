@@ -90,7 +90,7 @@ final class ConfigDAO extends LdapDataProvider
 
     private final String[] CONFIG_OBJ_CLASS =
     {
-        SchemaConstants.DEVICE_OC, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds.FT_RFC2307_AUX_OBJECT_CLASS_NAME
+        SchemaConstants.DEVICE_OC, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds.FT_CONFIG_AUX_OBJECT_CLASS_NAME
     };
 
     private final String[] CONFIG_ATRS =
