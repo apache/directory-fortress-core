@@ -2518,11 +2518,11 @@ public class FortressAntTask extends Task implements InputHandler
             return;
         }
 
-        Properties props = new Properties();
-        Configuration configuration = new Configuration();
         // Loop through the entityclass elements
         for ( Addconfig addcfg : addconfig )
         {
+            Properties props = new Properties();
+            Configuration configuration = new Configuration();
             try
             {
                 List<ConfigAnt> cfgs = addcfg.getConfig();
@@ -2597,12 +2597,12 @@ public class FortressAntTask extends Task implements InputHandler
             return;
         }
 
-        Properties props = new Properties();
-        Configuration configuration = new Configuration();
-        String configNodeName = "";
         // Loop through the entityclass elements
         for ( Updconfig updcfg : updconfig )
         {
+            Properties props = new Properties();
+            Configuration configuration = new Configuration();
+            String configNodeName = "";
             List<ConfigAnt> cfgs = updcfg.getConfig();
             for ( ConfigAnt cfg : cfgs )
             {
