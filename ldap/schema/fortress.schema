@@ -585,7 +585,7 @@ objectclass ( ftAxId:4
         )
    )
 
-## AC5: Fortress RFC2307 Auxiliary Object Class
+## AC5: Fortress Auxiliary Object Class to hold config information.
 objectclass ( ftAxId:5
     NAME 'ftConfig'
     DESC 'Fortress Config Properties'
