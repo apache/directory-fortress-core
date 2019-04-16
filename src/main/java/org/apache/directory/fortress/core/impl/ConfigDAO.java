@@ -125,7 +125,6 @@ final class ConfigDAO extends LdapDataProvider
         {
             Entry myEntry = new DefaultEntry( dn );
             myEntry.add( SchemaConstants.OBJECT_CLASS_AT, CONFIG_OBJ_CLASS );
-            ld = getAdminConnection();
             myEntry.add( SchemaConstants.CN_AT, cfg.getName() );
             loadProperties( cfg.getProperties(), myEntry, GlobalIds.PROPS );
             // These attributes hold sequence numbers:
@@ -145,7 +144,7 @@ final class ConfigDAO extends LdapDataProvider
             {
                 myEntry.add( GlobalIds.GID_NUMBER, "0" );
             }
-
+            ld = getAdminConnection();
             add( ld, myEntry, cfg );
         }
         catch ( LdapEntryAlreadyExistsException e )
