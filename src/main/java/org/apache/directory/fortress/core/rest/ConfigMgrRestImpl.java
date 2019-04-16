@@ -23,6 +23,7 @@ import java.util.Properties;
 
 import org.apache.directory.fortress.core.ConfigMgr;
 import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.Configuration;
 import org.apache.directory.fortress.core.model.FortRequest;
@@ -53,8 +54,30 @@ public class ConfigMgrRestImpl implements ConfigMgr
     @Override
     public Configuration add(Configuration cfg) throws SecurityException
     {
+        VUtil.assertNotNull( cfg, GlobalErrIds.FT_CONFIG_NULL, CLS_NM + ".add" );
+        Configuration retCfg;
+        FortRequest request = RestUtils.getRequest( GlobalIds.HOME );
+        request.setEntity( cfg );
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.CFG_ADD );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
+        {
+            retCfg = ( Configuration ) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
+        }
+        return retCfg;
+    }
+/*
+    @Override
+    public Configuration add(Configuration cfg) throws SecurityException
+    {
         throw new UnsupportedOperationException( "not implemented" );
     }
+*/
 /*
     @Override
     public Properties add(String name, Properties inProperties) throws SecurityException
@@ -89,8 +112,30 @@ public class ConfigMgrRestImpl implements ConfigMgr
     @Override
     public Configuration update(Configuration cfg) throws SecurityException
     {
+        VUtil.assertNotNull( cfg, GlobalErrIds.FT_CONFIG_NULL, CLS_NM + ".update" );
+        Configuration retCfg;
+        FortRequest request = RestUtils.getRequest( GlobalIds.HOME );
+        request.setEntity( cfg );
+        String szRequest = RestUtils.marshal( request );
+        String szResponse = RestUtils.getInstance().post( szRequest, HttpIds.CFG_UPDATE );
+        FortResponse response = RestUtils.unmarshall( szResponse );
+        if ( response.getErrorCode() == 0 )
+        {
+            retCfg = ( Configuration ) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException( response.getErrorCode(), response.getErrorMessage() );
+        }
+        return retCfg;
+    }
+/*
+    @Override
+    public Configuration update(Configuration cfg) throws SecurityException
+    {
         throw new UnsupportedOperationException( "not implemented" );
     }
+*/
 /*
     @Override
     public Properties update(String name, Properties inProperties) throws SecurityException
@@ -176,8 +221,31 @@ public class ConfigMgrRestImpl implements ConfigMgr
     @Override
     public Configuration read(String name) throws SecurityException
     {
+        VUtil.assertNotNull(name, GlobalErrIds.FT_CONFIG_NAME_NULL, CLS_NM + ".readRole");
+        Configuration retCfg;
+        FortRequest request = new FortRequest();
+        request.setValue(name);
+        String szRequest = RestUtils.marshal(request);
+        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.CFG_READ);
+        FortResponse response = RestUtils.unmarshall(szResponse);
+        Props props;
+        if (response.getErrorCode() == 0)
+        {
+            retCfg = (Configuration) response.getEntity();
+        }
+        else
+        {
+            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
+        }
+        return retCfg;
+    }
+
+    /*
+    public Configuration read(String name) throws SecurityException
+    {
         throw new java.lang.UnsupportedOperationException();
     }
+*/
 /*
     public Properties read(String name) throws SecurityException
     {

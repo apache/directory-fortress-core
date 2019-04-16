@@ -93,7 +93,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
         Props.class,
         PermissionAttribute.class,
         PermissionAttributeSet.class,
-        RoleConstraint.class
+        RoleConstraint.class,
+        Configuration.class
 })
 @JsonTypeInfo(use=Id.CLASS, include=As.PROPERTY, property="fqcn", visible=false)
 public abstract class FortEntity
@@ -105,8 +106,7 @@ public abstract class FortEntity
     protected long sequenceId;
     @XmlTransient
     protected String contextId;
-    
-    
+
     /**
      * Default constructor will call the setter to load a new internal ID into entity.
      */

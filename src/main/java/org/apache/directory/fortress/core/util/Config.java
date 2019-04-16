@@ -163,29 +163,6 @@ public final class Config
         return value;
     }
 
-/*
-    public synchronized String replacePropertyx( String name, String key, PropUpdater propUpdater ) throws CfgException
-    {
-        String value;
-        try
-        {
-            ConfigMgr cfgMgr = ConfigMgrFactory.createInstance();
-            Properties props = cfgMgr.read( name );
-            // TODO: The key should be scoped to an instance, e.g. FORT104
-            value = props.getProperty( key );
-            String newValue = propUpdater.newValue( value );
-            cfgMgr.updateProperty( name, key, value, newValue );
-            setProperty( key, newValue );
-        }
-        catch ( SecurityException se )
-        {
-            String error = "replaceProperty failed, exception=" + se.getMessage();
-            throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_UPDATE_FAILED, error, se );
-        }
-        return value;
-    }
-*/
-
     /**
      * Gets the prop attribute as String value from the apache commons cfg component.
      *
