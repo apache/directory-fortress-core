@@ -21,6 +21,8 @@ package org.apache.directory.fortress.core;
 
 
 
+import org.apache.directory.fortress.core.model.Configuration;
+
 import java.util.Properties;
 
 
@@ -41,28 +43,48 @@ public interface ConfigMgr
 {
     /**
      * Create a new cfg node with given name and properties.  The name is required.  If node already exists,
-     * a {@link org.apache.directory.fortress.core.SecurityException} with error 
+     * {@link org.apache.directory.fortress.core.SecurityException} with error
      * {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_ALREADY_EXISTS} will be thrown.
+     * <h4>required parameters</h4>
+     * <ul>
+     *   <li>{@link Configuration#name} - contains the name of new object being added</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     *   <li>{@link Configuration#props} - List of name / value pairs corresponding to fortress configuration entries.</li>
+     *   <li>{@link Configuration#uidNumber} - String containing valid integer value for sequence number</li>
+     *   <li>{@link Configuration#gidNumber} - String containing valid integer value for sequence number</li>
+     *   <li>
+     * </ul>
      *
-     * @param name    attribute is required and maps to 'cn' attribute in 'device' object class.
-     * @param inProps contains {@link Properties} with list of name/value pairs to add to existing config node.
-     * @return {@link Properties} containing the collection of name/value pairs just added.
+     * @param cfg contains the name and optional attributes.
+     * @return {@link Configuration} - contains the configuration entity that was added.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry already present or other system error.
      */
-    Properties add( String name, Properties inProps ) throws SecurityException;
+    Configuration add(Configuration cfg) throws SecurityException;
 
 
     /**
-     * Update existing cfg node with additional properties, or, replace existing properties.  The name is required.  
-     * If node does not exist, a {@link org.apache.directory.fortress.core.SecurityException} with error 
+     * Update existing cfg node with additional properties, or, replace existing properties.  The name is required.
+     * If node does not exist, a {@link org.apache.directory.fortress.core.SecurityException} with error
      * {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
+     * <h4>required parameters</h4>
+     * <ul>
+     *   <li>{@link Configuration#name} - contains the name of new object being added</li>
+     * </ul>
+     * <h4>optional parameters</h4>
+     * <ul>
+     *   <li>{@link Configuration#props} - List of name / value pairs corresponding to fortress configuration entries.</li>
+     *   <li>{@link Configuration#uidNumber} - String containing valid integer value for sequence number</li>
+     *   <li>{@link Configuration#gidNumber} - String containing valid integer value for sequence number</li>
+     *   <li>
+     * </ul>
      *
-     * @param name    attribute is required and maps to 'cn' attribute in 'device' object class.
-     * @param inProps contains {@link Properties} with list of name/value pairs to add or update from existing config node.
-     * @return {@link Properties} containing the collection of name/value pairs to be added to existing node.
+     * @param cfg contains the name and optional attributes.
+     * @return {@link Configuration} - contains the configuration entity that was added.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry not present or other system error.
      */
-    Properties update( String name, Properties inProps ) throws SecurityException;
+    Configuration update(Configuration cfg) throws SecurityException;
 
 
     /**
@@ -106,9 +128,9 @@ public interface ConfigMgr
      * {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
      *
      * @param name attribute is required and maps to 'cn' attribute in 'device' object class.
-     * @return {@link Properties} containing the collection of name/value pairs just added. Maps to 'ftProps' attribute 
+     * @return {@link Configuration} containing the collection of name/value pairs present. Maps to 'ftProps' attribute
      * in 'ftProperties' object class.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry doesn't exist or other system error.
      */
-    Properties read( String name ) throws SecurityException;
+    Configuration read( String name ) throws SecurityException;
 }

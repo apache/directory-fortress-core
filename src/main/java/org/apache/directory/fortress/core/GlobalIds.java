@@ -226,9 +226,13 @@ public final class GlobalIds
      */
     public static final String FAILED_AUTHZ_INDICATOR = "%failed%";
     /**
-     * This object class contains Fortress audit contextual information.
+     * This aux object class contains Fortress audit contextual information.
      */
     public static final String FT_MODIFIER_AUX_OBJECT_CLASS_NAME = "ftMods";
+    /**
+     * This aux object class allows requires uidNumber and gidNumber.
+     */
+    public static final String FT_RFC2307_AUX_OBJECT_CLASS_NAME = "ftConfig";
 
     /**
      * The ftModifier contains the internalUserId of administrator who performed action.
@@ -339,55 +343,13 @@ public final class GlobalIds
      */
     public static final String TYPE = "ftType";
 
-/*
-    */
-/**
-     * Begin RF2307 properties...
-     *//*
-
-    */
-/**
-     * Is RF2307 enabled?  Set to 'true'.
-     *//*
-
-    public static final String RFC_2307_PROP_NM = "rfc2307";
-
-    */
-/**
-     * RF2307bis uses groupOfNames but could be different.
-     *//*
-
-    public static final String RFC_2307_GROUP_PROP_NM = "rfc2307.group";
-
-    */
-/**
-     * RF2307bis specifies memberuid.
-     *//*
-
-    public static final String RFC_2307_GROUP_MEMBER_PROP_NM = "rfc2307.group.member";
-
-    */
-/**
-     * RF2307bis specifies memberOf
-     *//*
-
-    public static final String RFC_2307_USER_MEMBER_PROP_NM = "rfc2307.user.member";
-
-    */
-/**
-     * RF2307bis uses this for users:
-     *//*
-
-    public static final String RFC2307_USER_OBJECT_CLASS_NM = "posixAccount";
-*/
 
     /**
-     * RF2307bis uses this for groups:
+     * RF2307bis uses these on users and roles:
      */
     public static final String RFC2307_PROP = "rfc2307";
     public static final String GID_NUMBER = "gidNumber";
     public static final String UID_NUMBER = "uidNumber";
-
 
     /*
     *  *************************************************************************
@@ -521,6 +483,16 @@ public final class GlobalIds
      * {@code cn=DEFAULT,ou=Config,dc=example,dc=com}
      */
     public static final String CONFIG_REALM = "config.realm";
+
+    /**
+     * This config is used to retrieve uidNumber from property list during file load.
+     */
+    public static final String CONFIG_UID_NUMBER = "config.uid.number";
+
+    /**
+     * This config is used to retrieve uidNumber from property list during file load.
+     */
+    public static final String CONFIG_GID_NUMBER = "config.gid.number";
 
     /**
      * Fortress stores name-value pairs within multi-occurring attributes in ldap.  Usually a separator of ':' is used

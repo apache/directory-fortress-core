@@ -73,6 +73,8 @@
 
             <addconfig>
                 <config props="config.realm:DEFAULT"/>
+                <config props="config.gid.number:10000"/>
+                <config props="config.uid.number:20000"/>
                 <config props="user.session.props.enabled:false"/>
                 <config props="authn.type:default"/>
                 <config props="clientside.sorting:true"/>

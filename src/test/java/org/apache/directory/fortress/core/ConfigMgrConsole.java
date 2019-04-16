@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
+import org.apache.directory.fortress.core.model.Configuration;
 import org.apache.directory.fortress.core.model.Session;
 
 import java.util.Enumeration;
@@ -72,7 +73,7 @@ class ConfigMgrConsole
             String value = ReaderUtil.readLn();
             Properties props = new Properties();
             props.setProperty(key, value);
-            cm.add(realm, props);
+            cm.add(new Configuration(realm, props));
             System.out.println("Property successfully added");
             System.out.println("ENTER to continue");
         }
@@ -96,7 +97,7 @@ class ConfigMgrConsole
             String value = ReaderUtil.readLn();
             Properties props = new Properties();
             props.setProperty(key, value);
-            cm.update(realm, props);
+            cm.update(new Configuration(realm, props));
             System.out.println("Property successfully updated");
             System.out.println("ENTER to continue");
         }
@@ -114,7 +115,8 @@ class ConfigMgrConsole
             ReaderUtil.clearScreen();
             System.out.println("Enter config realm name:");
             String realm = ReaderUtil.readLn();
-            Properties props = cm.read(realm);
+            Configuration configuration = cm.read(realm);
+            Properties props = configuration.getProperties();
             int ctr = 0;
             for (Enumeration e = props.propertyNames(); e.hasMoreElements();)
             {

@@ -102,6 +102,11 @@ public final class GlobalErrIds
     public static final int FT_CONFIG_PROPS_NULL = 110;
 
     /**
+     * The cfg object is required but was passed in null.
+     */
+    public static final int FT_CONFIG_NULL = 111;
+
+    /**
      * The config node could not be created on ldap server.
      */
     public static final int FT_CONFIG_CREATE_FAILED = 120;
