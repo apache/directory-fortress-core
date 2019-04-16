@@ -71,39 +71,6 @@ public class ConfigMgrRestImpl implements ConfigMgr
         }
         return retCfg;
     }
-/*
-    @Override
-    public Configuration add(Configuration cfg) throws SecurityException
-    {
-        throw new UnsupportedOperationException( "not implemented" );
-    }
-*/
-/*
-    @Override
-    public Properties add(String name, Properties inProperties) throws SecurityException
-    {
-        VUtil.assertNotNull(name, GlobalErrIds.FT_CONFIG_NAME_NULL, CLS_NM + ".add");
-        VUtil.assertNotNull(inProperties, GlobalErrIds.FT_CONFIG_PROPS_NULL, CLS_NM + ".add");
-        Properties retProperties;
-        FortRequest request = new FortRequest();
-        Props inProps = RestUtils.getProps(inProperties);
-        request.setEntity(inProps);
-        request.setValue(name);
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.CFG_ADD);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
-        {
-            Props outProps = (Props) response.getEntity();
-            retProperties = RestUtils.getProperties(outProps);
-        }
-        else
-        {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
-        }
-        return retProperties;
-    }
-*/
 
 
     /**
@@ -129,39 +96,6 @@ public class ConfigMgrRestImpl implements ConfigMgr
         }
         return retCfg;
     }
-/*
-    @Override
-    public Configuration update(Configuration cfg) throws SecurityException
-    {
-        throw new UnsupportedOperationException( "not implemented" );
-    }
-*/
-/*
-    @Override
-    public Properties update(String name, Properties inProperties) throws SecurityException
-    {
-        VUtil.assertNotNull(name, GlobalErrIds.FT_CONFIG_NAME_NULL, CLS_NM + ".update");
-        VUtil.assertNotNull(inProperties, GlobalErrIds.FT_CONFIG_PROPS_NULL, CLS_NM + ".update");
-        Properties retProperties;
-        FortRequest request = new FortRequest();
-        Props inProps = RestUtils.getProps(inProperties);
-        request.setEntity(inProps);
-        request.setValue(name);
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.CFG_UPDATE);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        if (response.getErrorCode() == 0)
-        {
-            Props outProps = (Props) response.getEntity();
-            retProperties = RestUtils.getProperties(outProps);
-        }
-        else
-        {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
-        }
-        return retProperties;
-    }
-*/
 
 
     /**
@@ -239,34 +173,4 @@ public class ConfigMgrRestImpl implements ConfigMgr
         }
         return retCfg;
     }
-
-    /*
-    public Configuration read(String name) throws SecurityException
-    {
-        throw new java.lang.UnsupportedOperationException();
-    }
-*/
-/*
-    public Properties read(String name) throws SecurityException
-    {
-        VUtil.assertNotNull(name, GlobalErrIds.FT_CONFIG_NAME_NULL, CLS_NM + ".readRole");
-        Properties retProps;
-        FortRequest request = new FortRequest();
-        request.setValue(name);
-        String szRequest = RestUtils.marshal(request);
-        String szResponse = RestUtils.getInstance().post(szRequest, HttpIds.CFG_READ);
-        FortResponse response = RestUtils.unmarshall(szResponse);
-        Props props;
-        if (response.getErrorCode() == 0)
-        {
-            props = (Props) response.getEntity();
-            retProps = RestUtils.getProperties(props);
-        }
-        else
-        {
-            throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
-        }
-        return retProps;
-    }
-*/
 }
