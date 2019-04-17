@@ -39,7 +39,7 @@ sed -i 's/^ldap\.port=.*/ldap.port='${CONTAINER_PORT}'/' slapd.properties
 # prepare
 mvn clean install
 mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
-mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml
+#mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml
 
 # run tests
 mvn test -Dtest=FortressJUnitTest
