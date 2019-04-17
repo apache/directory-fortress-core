@@ -177,7 +177,9 @@ ________________________________________________________________________________
 ___________________________________________________________________________________
 ## SECTION 4. Apache Fortress Core Integration Test
 
-1. From fortress core base folder, enter the following commands:
+1. Perform a base load of data.
+
+ From fortress core base folder, enter the following command:
 
  ```
  mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
@@ -185,7 +187,9 @@ ________________________________________________________________________________
 
  *These will build the Directory Information Tree (DIT), create the config and data policies needed for the integration test to follow.*
 
-2. Next, enter the following command:
+2. Now run junit integration test.
+
+ Enter the following command:
 
  ```
  mvn -Dtest=FortressJUnitTest test
@@ -211,9 +215,6 @@ ________________________________________________________________________________
  [INFO] ------------------------------------------------------------------------
  [INFO] BUILD SUCCESS
  [INFO] ------------------------------------------------------------------------
- [INFO] Total time: 6:21.897s
- [INFO] Finished at: Sun Mar 27 14:52:13 UTC 2016
- [INFO] Final Memory: 31M/356M
  ```
 
 4. Rerun the tests to verify teardown APIs work:
@@ -239,10 +240,6 @@ ________________________________________________________________________________
  [INFO] Executed tasks
  [INFO] ------------------------------------------------------------------------
  [INFO] BUILD SUCCESS
- [INFO] ------------------------------------------------------------------------
- [INFO] Total time: 13:08.304s
- [INFO] Finished at: Sun Mar 27 15:08:41 UTC 2016
- [INFO] Final Memory: 27M/357M
  [INFO] ------------------------------------------------------------------------
  ```
  Notice more tests ran this time vs the first time, due to teardown.
