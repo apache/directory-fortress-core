@@ -470,6 +470,28 @@ m-equality: caseIgnoreMatch
 m-substr: caseIgnoreSubstringsMatch
 m-syntax: 1.3.6.1.4.1.1466.115.121.1.15
 
+dn: m-oid=1.3.6.1.4.1.18060.17.1.39, ou=attributetypes, cn=fortress, ou=schema
+objectclass: metaAttributeType
+objectclass: metaTop
+objectclass: top
+m-oid: 1.3.6.1.4.1.18060.17.1.39
+m-name: ftUidNumber
+m-description: Sequence for uidNumber
+m-equality: integerMatch
+m-syntax: 1.3.6.1.4.1.1466.115.121.1.27
+m-singleValue: TRUE
+
+dn: m-oid=1.3.6.1.4.1.18060.17.1.40, ou=attributetypes, cn=fortress, ou=schema
+objectclass: metaAttributeType
+objectclass: metaTop
+objectclass: top
+m-oid: 1.3.6.1.4.1.18060.17.1.40
+m-name: ftGidNumber
+m-description: Sequence for gidNumber
+m-equality: integerMatch
+m-syntax: 1.3.6.1.4.1.1466.115.121.1.27
+m-singleValue: TRUE
+
 dn: ou=comparators, cn=fortress, ou=schema
 objectclass: organizationalUnit
 objectclass: top
@@ -704,6 +726,17 @@ m-may: ftModifier
 m-may: ftModCode
 m-may: ftModId
 
+dn: m-oid=1.3.6.1.4.1.18060.17.3.5, ou=objectclasses, cn=fortress, ou=schema
+objectclass: metaObjectClass
+objectclass: metaTop
+objectclass: top
+m-oid: 1.3.6.1.4.1.18060.17.3.5
+m-name: ftConfig
+m-description: Fortress Config Properties
+m-typeObjectClass: AUXILIARY
+m-must: ftGidNumber
+m-must: ftUidNumber
+
 dn: ou=syntaxcheckers, cn=fortress, ou=schema
 objectclass: organizationalUnit
 objectclass: top
@@ -713,4 +746,3 @@ dn: ou=syntaxes, cn=fortress, ou=schema
 objectclass: organizationalUnit
 objectclass: top
 ou: syntaxes
-

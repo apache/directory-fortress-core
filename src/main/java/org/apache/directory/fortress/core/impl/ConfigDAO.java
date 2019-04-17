@@ -44,9 +44,6 @@ import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.apache.directory.fortress.core.GlobalIds.GID_NUMBER;
-import static org.apache.directory.fortress.core.GlobalIds.UID_NUMBER;
-
 
 /**
  * This class provides data access for the standard ldap object device that has been extended to support name/value pairs.
@@ -87,6 +84,9 @@ final class ConfigDAO extends LdapDataProvider
     private static final String CLS_NM = ConfigDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private String CONFIG_ROOT_DN;
+    public static final String GID_NUMBER_SEQUENCE = "ftGidNumber";
+    public static final String UID_NUMBER_SEQUENCE = "ftUidNumber";
+
 
     private final String[] CONFIG_OBJ_CLASS =
     {
@@ -95,7 +95,7 @@ final class ConfigDAO extends LdapDataProvider
 
     private final String[] CONFIG_ATRS =
     {
-        SchemaConstants.CN_AT, GlobalIds.PROPS, GID_NUMBER, UID_NUMBER
+        SchemaConstants.CN_AT, GlobalIds.PROPS, GID_NUMBER_SEQUENCE, UID_NUMBER_SEQUENCE
 
     };
 
@@ -129,19 +129,19 @@ final class ConfigDAO extends LdapDataProvider
             // These attributes hold sequence numbers:
             if (StringUtils.isNotEmpty(cfg.getUidNumber()))
             {
-                myEntry.add( GlobalIds.UID_NUMBER, cfg.getUidNumber() );
+                myEntry.add( UID_NUMBER_SEQUENCE, cfg.getUidNumber() );
             }
             else
             {
-                myEntry.add( GlobalIds.UID_NUMBER, "0" );
+                myEntry.add( UID_NUMBER_SEQUENCE, "0" );
             }
             if (StringUtils.isNotEmpty(cfg.getGidNumber()))
             {
-                myEntry.add( GlobalIds.GID_NUMBER, cfg.getGidNumber() );
+                myEntry.add( GID_NUMBER_SEQUENCE, cfg.getGidNumber() );
             }
             else
             {
-                myEntry.add( GlobalIds.GID_NUMBER, "0" );
+                myEntry.add( GID_NUMBER_SEQUENCE, "0" );
             }
             ld = getAdminConnection();
             add( ld, myEntry, cfg );
@@ -188,12 +188,12 @@ final class ConfigDAO extends LdapDataProvider
             }
             if (StringUtils.isNotEmpty(cfg.getUidNumber()))
             {
-                mods.add(new DefaultModification(ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.UID_NUMBER,
+                mods.add(new DefaultModification(ModificationOperation.REPLACE_ATTRIBUTE, UID_NUMBER_SEQUENCE,
                         cfg.getUidNumber()));
             }
             if (StringUtils.isNotEmpty(cfg.getGidNumber()))
             {
-                mods.add(new DefaultModification(ModificationOperation.REPLACE_ATTRIBUTE, GlobalIds.GID_NUMBER,
+                mods.add(new DefaultModification(ModificationOperation.REPLACE_ATTRIBUTE, GID_NUMBER_SEQUENCE,
                         cfg.getGidNumber()));
             }
             if ( mods.size() > 0 )
@@ -335,8 +335,8 @@ final class ConfigDAO extends LdapDataProvider
             Entry findEntry = read( ld, dn, CONFIG_ATRS );
             configuration.setName( name );
             configuration.addProperties( PropUtil.getProperties( getAttributes( findEntry, GlobalIds.PROPS ) ) );
-            configuration.setUidNumber( getAttribute( findEntry, GlobalIds.UID_NUMBER ) );
-            configuration.setGidNumber( getAttribute( findEntry, GlobalIds.GID_NUMBER ) );
+            configuration.setUidNumber( getAttribute( findEntry, UID_NUMBER_SEQUENCE ) );
+            configuration.setGidNumber( getAttribute( findEntry, GID_NUMBER_SEQUENCE ) );
         }
         catch ( LdapNoSuchObjectException e )
         {
