@@ -181,7 +181,6 @@ ________________________________________________________________________________
 
  ```
  mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
- mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml
  ```
 
  *These will build the Directory Information Tree (DIT), create the config and data policies needed for the integration test to follow.*
@@ -363,7 +362,6 @@ During this section, you will be asked to setup Apache Tomcat 8 and prepare for 
  ```
  http://hostname:8080/manager
  ```
-
 ___________________________________________________________________________________
 ## SECTION 6. Apache Fortress Rest Setup
 
@@ -475,5 +473,5 @@ During this section, you will be asked to setup Apache Fortress Web Application
  * **FORTRESS_CORE_HOME**/*FortressJUnitTest* successfully run.  This will load some test data to grind on.
  * [FortressWebDemoUsers](./src/main/resources/FortressWebDemoUsers.xml) policy loaded into target LDAP server.
 
- ___________________________________________________________________________________
-  #### END OF README-QUICKSTART-APACHEDS
+___________________________________________________________________________________
+#### END OF README-QUICKSTART-APACHEDS
