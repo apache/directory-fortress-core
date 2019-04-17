@@ -200,7 +200,6 @@ ________________________________________________________________________________
 
  ```
  mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
- mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml
  ```
 
  *These will build the Directory Information Tree (DIT), create the config and data policies needed for the integration test to follow.*
