@@ -50,7 +50,7 @@ mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
 mvn test -Dtest=FortressJUnitTest
 
 # rerun tests to verify teardown APIs work
-mvn test -Dtest=FortressJUnitTest
+# mvn test -Dtest=FortressJUnitTest
 
 # stop and delete docker container
 docker stop $CONTAINER_ID
