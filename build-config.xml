@@ -43,7 +43,6 @@
        <property name="vendor" value="Joshua Tree Software"/>
        <property name="package" value="org.apache.directory.fortress.*"/>
        <property name="package.samples" value="org.apache.directory.fortress.core.samples"/>
-       <property name="images.dir" value="${basedir}/images"/>
 
        <!-- ########### Env specific properties ########################### -->
        <property name="src.dir" value="${basedir}/src"/>
@@ -92,7 +91,9 @@
        <property name="builder.load.bootstrap.script" value="${builder.home}/ldap/refreshLDAPData-src.xml"/>
        <property name="ehcache.conf" value="${config.dir}/ehcache.xml"/>
        <property name="bootstrap.ehcache.conf" value="${config.bootstrap.dir}/ehcache.xml"/>
-       <property name="apacheds-resource.dir" value="${basedir}/src/test/resources"/>
+       <property name="test-resource.dir" value="${basedir}/src/test/resources"/>
+       <property name="images.dir" value="${test-resource.dir}/resources/images"/>
+
 
        <!-- ########### Slapd manage & config properties ########################### -->
        <property name="stop.slapd.script-win" value="${ldap.setup.dir}/stopSlapd.cmd"/>
