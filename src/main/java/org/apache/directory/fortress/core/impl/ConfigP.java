@@ -71,7 +71,6 @@ final class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs just added.
      * @throws SecurityException in the event entry already present or other system error.
      */
-    //Properties add( String name, Properties inProps )
     Configuration add(Configuration cfg)
         throws SecurityException
     {
@@ -90,7 +89,6 @@ final class ConfigP
      * @return {@link Properties} containing the collection of name/value pairs to be added to existing node.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry not present or other system error.
      */
-    //Properties update( String name, Properties inProps )
     Configuration update(Configuration cfg)
         throws SecurityException
     {
@@ -173,10 +171,24 @@ final class ConfigP
     Configuration read( String name )
         throws SecurityException
     {
-        Properties outProps;
         ConfigDAO cfgDao = new ConfigDAO();
         return cfgDao.getConfig( name );
-        //return outProps;
+    }
+
+
+    /**
+     * Read an existing cfg node with given name and return posixIds to caller.  The name is required.  If node doesn't exist,
+     * a {@link SecurityException} with error {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
+     *
+     * @param name attribute is required and maps to 'cn' attribute in 'device' object class.
+     * @return Configuration entity contains the getPosixIds on the specified node.
+     * @throws org.apache.directory.fortress.core.SecurityException in the event entry doesn't exist or other system error.
+     */
+    Configuration readPosixIds( String name )
+        throws SecurityException
+    {
+        ConfigDAO cfgDao = new ConfigDAO();
+        return cfgDao.getPosixIds( name );
     }
 
 

@@ -92,12 +92,15 @@ final class ConfigDAO extends LdapDataProvider
     {
         SchemaConstants.DEVICE_OC, GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME, GlobalIds.FT_CONFIG_AUX_OBJECT_CLASS_NAME
     };
-
+    private final String[] POSIX_IDS =
+    {
+        GID_NUMBER_SEQUENCE, UID_NUMBER_SEQUENCE
+    };
     private final String[] CONFIG_ATRS =
     {
         SchemaConstants.CN_AT, GlobalIds.PROPS, GID_NUMBER_SEQUENCE, UID_NUMBER_SEQUENCE
-
     };
+
 
     /**
      * Package private default constructor.
@@ -346,6 +349,44 @@ final class ConfigDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "getConfig dn [" + dn + "] caught LdapException=" + e;
+            throw new FinderException( GlobalErrIds.FT_CONFIG_READ_FAILED, error, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+        return configuration;
+    }
+
+    /**
+     *
+     * @param name
+     * @return
+     * @throws FinderException
+     */
+    Configuration getPosixIds( String name )
+        throws FinderException
+    {
+        Configuration configuration = new Configuration();
+        LdapConnection ld = null;
+        String dn = getDn( name );
+        LOG.debug( "getPosixIds dn [{}]", dn );
+        try
+        {
+            ld = getAdminConnection();
+            Entry findEntry = read( ld, dn, POSIX_IDS );
+            configuration.setName( name );
+            configuration.setUidNumber( getAttribute( findEntry, UID_NUMBER_SEQUENCE ) );
+            configuration.setGidNumber( getAttribute( findEntry, GID_NUMBER_SEQUENCE ) );
+        }
+        catch ( LdapNoSuchObjectException e )
+        {
+            String warning = "getPosixIds COULD NOT FIND ENTRY for dn [" + dn + "]";
+            throw new FinderException( GlobalErrIds.FT_CONFIG_NOT_FOUND, warning, e );
+        }
+        catch ( LdapException e )
+        {
+            String error = "getPosixIds dn [" + dn + "] caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.FT_CONFIG_READ_FAILED, error, e );
         }
         finally

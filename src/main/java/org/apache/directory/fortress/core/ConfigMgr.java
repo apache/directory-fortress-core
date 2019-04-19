@@ -46,6 +46,7 @@ public interface ConfigMgr
      * {@link org.apache.directory.fortress.core.SecurityException} with error
      * {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_ALREADY_EXISTS} will be thrown.
      * <h4>required parameters</h4>
+     * @param cfg contains the name and optional attributes.
      * <ul>
      *   <li>{@link Configuration#name} - contains the name of new object being added</li>
      * </ul>
@@ -57,7 +58,6 @@ public interface ConfigMgr
      *   <li>
      * </ul>
      *
-     * @param cfg contains the name and optional attributes.
      * @return {@link Configuration} - contains the configuration entity that was added.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry already present or other system error.
      */
@@ -69,6 +69,7 @@ public interface ConfigMgr
      * If node does not exist, a {@link org.apache.directory.fortress.core.SecurityException} with error
      * {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
      * <h4>required parameters</h4>
+     * @param cfg contains the name and optional attributes.
      * <ul>
      *   <li>{@link Configuration#name} - contains the name of new object being added</li>
      * </ul>
@@ -80,7 +81,6 @@ public interface ConfigMgr
      *   <li>
      * </ul>
      *
-     * @param cfg contains the name and optional attributes.
      * @return {@link Configuration} - contains the configuration entity that was added.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry not present or other system error.
      */
@@ -133,4 +133,15 @@ public interface ConfigMgr
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry doesn't exist or other system error.
      */
     Configuration read( String name ) throws SecurityException;
+
+    /**
+     * Read an existing cfg node with given name and return posixIds to caller.  The name is required.  If node doesn't exist,
+     * a {@link org.apache.directory.fortress.core.SecurityException} with error
+     * {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
+     *
+     * @param name attribute is required and maps to 'cn' attribute in 'device' object class.
+     * @return {@link Configuration} entity contains the getPosixIds on the specified node.
+     * @throws org.apache.directory.fortress.core.SecurityException in the event entry doesn't exist or other system error.
+     */
+    Configuration getIds( String name ) throws SecurityException;
 }

@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core.util;
 
 import java.net.URL;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -34,6 +35,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.Configuration;
+import org.apache.directory.fortress.core.model.Props;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -126,32 +128,34 @@ public final class Config
     }
 
     /**
-     * Replaces property stored in the named configuration node.
-     * Method is synchronized to prevent race condition where two threads access and update the same property value.
+     * Performs auto-increment on a list of key names that map to integer values stored on the current config node of the runtime.
+     * Unfortunately, it's synchronized to prevent a race condition of multiple threads trying to update the same id.
+     * Worse, it doesn't lock meaning not synched across processes and so a temporary workaround until the Apache LDAP API supports RFC 4525 (Modify Increment attribute).
      *
-     * @param name of the config node, mostly likely 'DEFAULT'.
-     * @param key used for the property.
+     * @param props list of attribute names to update on config node.
      * @param propUpdater reference to object that updates to new value.
-     * @return String containing the new value for the property.
+     * @return Configuration entity containing the old values.
      */
-    public synchronized String replaceProperty( String name, String key, PropUpdater propUpdater ) throws CfgException
+    public synchronized Configuration getIncrementReplacePosixIds(List<String> props, PropUpdater propUpdater ) throws CfgException
     {
-        String value;
+        String cfgName = Config.getInstance().getProperty( GlobalIds.CONFIG_REALM );
+        org.apache.directory.fortress.core.model.Configuration inConfig;
         try
         {
             ConfigMgr cfgMgr = ConfigMgrFactory.createInstance();
-            org.apache.directory.fortress.core.model.Configuration inConfig = cfgMgr.read( name );
+            inConfig = cfgMgr.getIds( cfgName );
             org.apache.directory.fortress.core.model.Configuration outConfig = new Configuration();
-            outConfig.setName( name );
-            if( key.equals( GlobalIds.UID_NUMBER ))
+            outConfig.setName( cfgName );
+            for( String name : props )
             {
-                value = inConfig.getUidNumber();
-                outConfig.setUidNumber( propUpdater.newValue( value ) );
-            }
-            else
-            {
-                value = inConfig.getGidNumber();
-                outConfig.setGidNumber( propUpdater.newValue( inConfig.getGidNumber() ) );
+                if( name.equals( GlobalIds.UID_NUMBER ) )
+                {
+                    outConfig.setUidNumber( propUpdater.newValue( inConfig.getUidNumber() ) );
+                }
+                if( name.equals( GlobalIds.GID_NUMBER ) )
+                {
+                    outConfig.setGidNumber( propUpdater.newValue( inConfig.getGidNumber() ) );
+                }
             }
             cfgMgr.update( outConfig );
         }
@@ -160,7 +164,7 @@ public final class Config
             String error = "replaceProperty failed, exception=" + se.getMessage();
             throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_UPDATE_FAILED, error, se );
         }
-        return value;
+        return inConfig;
     }
 
     /**

@@ -45,11 +45,7 @@ import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.LdapDataProvider;
-import org.apache.directory.fortress.core.model.ConstraintUtil;
-import org.apache.directory.fortress.core.model.Graphable;
-import org.apache.directory.fortress.core.model.Group;
-import org.apache.directory.fortress.core.model.ObjectFactory;
-import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.*;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.PropUpdater;
 import org.apache.directory.fortress.core.util.PropUtil;
@@ -180,26 +176,6 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
             entity.setId();
             entry.add( GlobalIds.FT_IID, entity.getId() );
             entry.add( ROLE_NM, entity.getName() );
-            // If supporting RFC2307 posixGroups && the gidNumber has not already been set.
-            if ( IS_RFC2307 && StringUtils.isEmpty( entity.getGidNumber() ) )
-            {
-                String name = Config.getInstance().getProperty( GlobalIds.CONFIG_REALM );
-                try
-                {
-                    entity.setGidNumber( Config.getInstance().replaceProperty( name, GlobalIds.GID_NUMBER, this ) );
-                }
-                catch ( CfgException ce )
-                {
-                    String error = "create role caught CfgException replacing the GID prop:" + ce.getMessage();
-                    throw new CreateException( GlobalErrIds.ROLE_ADD_FAILED, error, ce );
-                }
-            }
-            // gidNumber is optional:
-            if ( IS_RFC2307 && StringUtils.isNotEmpty( entity.getGidNumber() ) )
-            {
-                entry.add( GlobalIds.GID_NUMBER, entity.getGidNumber() );
-            }
-
             // description field is optional on this object class:
             if ( StringUtils.isNotEmpty( entity.getDescription() ) )
             {
@@ -212,6 +188,13 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
 
             // These multi-valued attributes are optional.  The utility function will return quietly if items are not loaded into collection:
             loadAttrs( entity.getParents(), entry, GlobalIds.PARENT_NODES );
+
+            if ( IS_RFC2307 )
+            {
+                // Supporting RFC2307 posixGroups attributes on fortress roles.
+                loadGidNumber( entity );
+                entry.add( GlobalIds.GID_NUMBER, entity.getGidNumber() );
+            }
 
             ld = getAdminConnection();
             add( ld, entry, entity );
@@ -228,7 +211,6 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
 
         return entity;
     }
-
 
     /**
      * @param entity
@@ -251,12 +233,6 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
                     SchemaConstants.DESCRIPTION_AT, entity.getDescription() ) );
             }
 
-            if ( IS_RFC2307 && StringUtils.isNotEmpty( entity.getGidNumber() ) )
-            {
-                mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE,
-                    GlobalIds.GID_NUMBER, entity.getGidNumber() ) );
-            }
-
             if ( entity.isTemporalSet() )
             {
                 String szRawData = ConstraintUtil.setConstraint( entity );
@@ -269,6 +245,12 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
             }
 
             loadAttrs( entity.getParents(), mods, GlobalIds.PARENT_NODES );
+
+            if ( IS_RFC2307 && StringUtils.isNotEmpty( entity.getGidNumber() ) )
+            {
+                mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE,
+                        GlobalIds.GID_NUMBER, entity.getGidNumber() ) );
+            }
 
             if ( mods.size() > 0 )
             {
@@ -736,6 +718,33 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
         return descendants;
     }
 
+
+    /**
+     * Sets the value of gidNumber on Role entity. Will use what's passed in or auto increment current.
+     *
+     * @param entity
+     * @throws CreateException
+     */
+    private void loadGidNumber( Role entity ) throws CreateException
+    {
+        // Generate the value of gidNumber if not passed in by caller:
+        if ( StringUtils.isEmpty( entity.getGidNumber() ) )
+        {
+            List<String> idNumbers = new ArrayList<>();
+            idNumbers.add(GlobalIds.GID_NUMBER);
+            Configuration configuration;
+            try
+            {
+                configuration = Config.getInstance().getIncrementReplacePosixIds(idNumbers, this);
+            }
+            catch (CfgException ce)
+            {
+                String error = "Create role had a problem loading the gidNumber, catching a CfgException:" + ce.getMessage();
+                throw new CreateException(GlobalErrIds.USER_ADD_FAILED, error, ce);
+            }
+            entity.setGidNumber( configuration.getGidNumber() );
+        }
+    }
 
     /**
      *

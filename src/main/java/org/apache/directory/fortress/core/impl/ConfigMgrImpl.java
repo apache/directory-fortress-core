@@ -115,4 +115,13 @@ public class ConfigMgrImpl  extends Manageable implements ConfigMgr, Serializabl
     {
         return cfgP.read(name);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Configuration getIds(String name) throws SecurityException
+    {
+        return cfgP.readPosixIds(name);
+    }
 }

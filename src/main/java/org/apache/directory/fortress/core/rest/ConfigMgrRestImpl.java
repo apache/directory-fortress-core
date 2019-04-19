@@ -173,4 +173,13 @@ public class ConfigMgrRestImpl implements ConfigMgr
         }
         return retCfg;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Configuration getIds(String name) throws SecurityException
+    {
+        throw new UnsupportedOperationException( "not implemented" );
+    }
 }

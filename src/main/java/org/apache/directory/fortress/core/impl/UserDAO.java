@@ -62,22 +62,10 @@ import org.apache.directory.fortress.core.RemoveException;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.UpdateException;
 import org.apache.directory.fortress.core.ldap.LdapDataProvider;
-import org.apache.directory.fortress.core.model.Address;
-import org.apache.directory.fortress.core.model.AdminRole;
-import org.apache.directory.fortress.core.model.ConstraintUtil;
-import org.apache.directory.fortress.core.model.ObjectFactory;
-import org.apache.directory.fortress.core.model.OrgUnit;
+import org.apache.directory.fortress.core.model.*;
 import org.apache.directory.fortress.core.util.PropUpdater;
 import org.apache.directory.fortress.core.util.PropUtil;
-import org.apache.directory.fortress.core.model.PwMessage;
-import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.RoleConstraint.RCType;
-import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.model.User;
-import org.apache.directory.fortress.core.model.UserAdminRole;
-import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.model.Warning;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
@@ -328,7 +316,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
 
             // props are optional as well:
             // Add "initial" property here.
-            entity.addProperty( "initAttrArrays", "" );
+            entity.addProperty( "init", "" );
             loadProperties( entity.getProperties(), myEntry, GlobalIds.PROPS );
             // map the userid to the name field in constraint:
             entity.setName( entity.getUserId() );
@@ -340,52 +328,22 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
                 myEntry.add( JPEGPHOTO, entity.getJpegPhoto() );
             }
 
-            // These are the posixAccount attributes specified by RFC2307bis (proposed) IETF standard:
+            // Load the posixAccount attributes required by the RFC2307bis (proposed) IETF standard:
             if ( IS_RFC2307 )
             {
-                // if not set, generate:
-                if ( StringUtils.isEmpty( entity.getUidNumber() ) )
-                {
-                    String name = Config.getInstance().getProperty( GlobalIds.CONFIG_REALM );
-                    try
-                    {
-                        entity.setUidNumber( Config.getInstance().replaceProperty( name, GlobalIds.UID_NUMBER, this ) );
-                    }
-                    catch ( CfgException ce )
-                    {
-                        String error = "create user caught CfgException replacing the UID prop:" + ce.getMessage();
-                        throw new CreateException( GlobalErrIds.USER_ADD_FAILED, error, ce );
-                    }
-                }
+                loadPosixIds( entity );
 
                 // required on PosixAccount:
                 myEntry.add( GlobalIds.UID_NUMBER, entity.getUidNumber() );
-
-                // if not set, generate:
-                if ( StringUtils.isEmpty( entity.getGidNumber() ) )
-                {
-                    String name = Config.getInstance().getProperty( GlobalIds.CONFIG_REALM );
-                    try
-                    {
-                        entity.setGidNumber( Config.getInstance().replaceProperty( name, GlobalIds.GID_NUMBER, this ) );
-                    }
-                    catch ( CfgException ce )
-                    {
-                        String error = "create user caught CfgException replacing the GID prop:" + ce.getMessage();
-                        throw new CreateException( GlobalErrIds.USER_ADD_FAILED, error, ce );
-                    }
-                }
-
-                // required on PosixAccount:
                 myEntry.add( GlobalIds.GID_NUMBER, entity.getGidNumber() );
 
-                // if not set, generate:
+                // if not set, generate a sensible default:
                 if ( StringUtils.isEmpty( entity.getHomeDirectory() ) )
                 {
-                    entity.setHomeDirectory( "not set" );
+                    entity.setHomeDirectory( "/home/" + entity.getUserId() );
                 }
 
-                // required on PosixAccount:
+                // Also required on PosixAccount:
                 myEntry.add( HOME_DIRECTORY, entity.getHomeDirectory() );
             }
 
@@ -2630,6 +2588,48 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         return uRoles;
     }
 
+    /**
+     * Utility to load posixAccount gidNumber and uidNumber into entry. Handles generation if caller does not set.
+     *
+     * @param entity contains gidNumber and uidNumber values.
+     *
+     * @throws CreateException in the event the configuration handler fails.
+     */
+    private void loadPosixIds( User entity ) throws CreateException
+    {
+        // Were the id numbers passed in or do we need to generate?
+        if ( StringUtils.isEmpty( entity.getUidNumber() ) || StringUtils.isEmpty( entity.getGidNumber() ) )
+        {
+            // Contains list of which attr names to load:
+            List<String> idNumbers = new ArrayList<>();
+            if ( StringUtils.isEmpty( entity.getUidNumber() ) )
+            {
+                idNumbers.add( GlobalIds.UID_NUMBER );
+            }
+            if ( StringUtils.isEmpty( entity.getGidNumber() ) )
+            {
+                idNumbers.add( GlobalIds.GID_NUMBER );
+            }
+            Configuration configuration;
+            try
+            {
+                configuration = Config.getInstance().getIncrementReplacePosixIds( idNumbers, this );
+            }
+            catch ( CfgException ce )
+            {
+                String error = "create user caught CfgException replacing an ID prop:" + ce.getMessage();
+                throw new CreateException( GlobalErrIds.USER_ADD_FAILED, error, ce );
+            }
+            if ( StringUtils.isEmpty( entity.getUidNumber() ) )
+            {
+                entity.setUidNumber( configuration.getUidNumber() );
+            }
+            if ( StringUtils.isEmpty( entity.getGidNumber() ) )
+            {
+                entity.setGidNumber( configuration.getGidNumber() );
+            }
+        }
+    }
 
     /**
      * @param userId
