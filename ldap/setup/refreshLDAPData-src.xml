@@ -72,9 +72,12 @@
             </addcontainer>
 
             <addconfig>
+                <!-- These values are mapped to a config node named 'DEFAULT' by the FortressAntTask: -->
                 <config props="config.realm:DEFAULT"/>
+                <!-- 2.0.4 schema change maps these to 'gidUnumber' and 'uidNumber' attrs on the associated ftConfig entity. -->
                 <config props="config.gid.number:10000"/>
                 <config props="config.uid.number:20000"/>
+                <!-- These values are stored as properties on the configuration node named 'DEFAULT': -->
                 <config props="user.session.props.enabled:false"/>
                 <config props="authn.type:default"/>
                 <config props="clientside.sorting:true"/>
@@ -89,9 +92,6 @@
                 <config props="permou.root:@PERMOUS_DN@"/>
                 <config props="adminrole.root:@ADMINROLES_DN@"/>
                 <config props="adminperm.root:@ADMINPERMS_DN@"/>
-                <!--config props="example.root:ou=Examples,@SUFFIX@"/-->
-                <!--config props="accessmgr.implementation:org.apache.directory.fortress.core.impl.AccessMgrImpl"/-->
-                <!--config props="auditmgr.implementation:org.apache.directory.fortress.audit.AuditMgrImpl"/-->
                 <config props="audit.root:@AUDITS_DN@"/>
                 <config props="superadmin.role:fortress-core-super-admin"/>
                 <config props="temporal.validator.0:org.apache.directory.fortress.core.util.time.Date"/>
@@ -107,9 +107,10 @@
                 <config props="group.properties:@GROUP_PROPERTIES@"/>
                 <config props="role.occupants:@ROLE_OCCUPANTS@"/>
                 <config props="rfc2307:@IS_RFC2307@"/>
+                <!-- Storing these values as props is deprecated since 2.0.4. -->
                 <config props="gidNumber:5000"/>
                 <config props="uidNumber:1000"/>
-
+                <!-- For encoding user input. . -->
                 <config props="attr.delimiter:$"/>
                 <config props="field.length:130"/>
                 <config props="ldap.filter.size:15"/>
@@ -146,7 +147,9 @@
             </addconfig>
 
             <addconfig>
+                <!-- Config realms allow different app domains unique sets of parameters, see README-CONFIG.md.-->
                 <config props="config.realm:TOMCAT"/>
+                <!-- These values are stored as properties on a configuration node named 'TOMCAT' under the suffix: -->
                 <config props="authn.type:realm"/>
                 <config props="ldap.server.type:@SERVER_TYPE@"/>
                 <config props="clientside.sorting:true"/>
@@ -174,6 +177,7 @@
                 <config props="group.protocol:@GROUP_PROTOCOL@"/>
                 <config props="group.properties:@GROUP_PROPERTIES@"/>
                 <config props="rfc2307:@IS_RFC2307@"/>
+                <!-- For encoding user input. . -->
                 <config props="attr.delimiter:$"/>
                 <config props="field.length:130"/>
                 <config props="ldap.filter.size:15"/>
