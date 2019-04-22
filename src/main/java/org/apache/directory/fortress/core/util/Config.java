@@ -756,7 +756,7 @@ public final class Config
 
     /**
      * Constructs a key used to store dynamic role constraints inside the properties, as name:value.
-     * The format is: RC$tenant$role:constraint
+     * The key format is: RC$contextId$role
      * @param role contains the name of the role being constrained.
      * @param contextId contains the tenant name.
      * @return String containing the key name used to lookup the value of the role constraint.
