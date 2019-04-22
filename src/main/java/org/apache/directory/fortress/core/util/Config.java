@@ -35,7 +35,6 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.Configuration;
-import org.apache.directory.fortress.core.model.Props;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -125,46 +124,6 @@ public final class Config
         loadLocalConfig();
         // load the system property overrides:
         getExternalConfig();
-    }
-
-    /**
-     * Performs auto-increment on a list of key names that map to integer values stored on the current config node of the runtime.
-     * Unfortunately, it's synchronized to prevent a race condition of multiple threads trying to update the same id.
-     * Worse, it doesn't lock meaning not synched across processes and so a temporary workaround until the Apache LDAP API supports RFC 4525 (Modify Increment attribute).
-     *
-     * @param props list of attribute names to update on config node.
-     * @param propUpdater reference to object that updates to new value.
-     * @return Configuration entity containing the old values.
-     */
-    public synchronized Configuration getIncrementReplacePosixIds(List<String> props, PropUpdater propUpdater ) throws CfgException
-    {
-        String cfgName = Config.getInstance().getProperty( GlobalIds.CONFIG_REALM );
-        org.apache.directory.fortress.core.model.Configuration inConfig;
-        try
-        {
-            ConfigMgr cfgMgr = ConfigMgrFactory.createInstance();
-            inConfig = cfgMgr.getIds( cfgName );
-            org.apache.directory.fortress.core.model.Configuration outConfig = new Configuration();
-            outConfig.setName( cfgName );
-            for( String name : props )
-            {
-                if( name.equals( GlobalIds.UID_NUMBER ) )
-                {
-                    outConfig.setUidNumber( propUpdater.newValue( inConfig.getUidNumber() ) );
-                }
-                if( name.equals( GlobalIds.GID_NUMBER ) )
-                {
-                    outConfig.setGidNumber( propUpdater.newValue( inConfig.getGidNumber() ) );
-                }
-            }
-            cfgMgr.update( outConfig );
-        }
-        catch ( SecurityException se )
-        {
-            String error = "replaceProperty failed, exception=" + se.getMessage();
-            throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_UPDATE_FAILED, error, se );
-        }
-        return inConfig;
     }
 
     /**
@@ -793,5 +752,61 @@ public final class Config
             LOG.error( error );
             throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_INITIALIZE_FAILED, error, se );
         }
+    }
+
+    /**
+     * Constructs a key used to store dynamic role constraints inside the properties, as name:value.
+     * The format is: RC$tenant$role:constraint
+     * @param role contains the name of the role being constrained.
+     * @param contextId contains the tenant name.
+     * @return String containing the key name used to lookup the value of the role constraint.
+     */
+    public String getConstraintKey( String role, String contextId )
+    {
+        return GlobalIds.CONSTRAINT_KEY_PREFIX +
+                getDelimiter() +
+                contextId +
+                getDelimiter()
+                + role.toLowerCase();
+    }
+
+    /**
+     * Performs auto-increment on a list of key names that map to integer values stored on the current config node of the runtime.
+     * Unfortunately, it's synchronized to prevent a race condition of multiple threads trying to update the same id.
+     * Worse, it doesn't lock meaning not synched across processes and so a temporary workaround until the pending Apache LDAP API/Directory support for RFC 4525 (Modify Increment attribute).
+     *
+     * @param props list of attribute names to update on config node.
+     * @param propUpdater reference to object that updates to new value.
+     * @return Configuration entity containing the old values.
+     */
+    public synchronized Configuration getIncrementReplacePosixIds(List<String> props, PropUpdater propUpdater ) throws CfgException
+    {
+        String cfgName = Config.getInstance().getProperty( GlobalIds.CONFIG_REALM, "DEFAULT" );
+        org.apache.directory.fortress.core.model.Configuration inConfig;
+        try
+        {
+            ConfigMgr cfgMgr = ConfigMgrFactory.createInstance();
+            inConfig = cfgMgr.getIds( cfgName );
+            org.apache.directory.fortress.core.model.Configuration outConfig = new Configuration();
+            outConfig.setName( cfgName );
+            for( String name : props )
+            {
+                if( name.equals( GlobalIds.UID_NUMBER ) )
+                {
+                    outConfig.setUidNumber( propUpdater.newValue( inConfig.getUidNumber() ) );
+                }
+                if( name.equals( GlobalIds.GID_NUMBER ) )
+                {
+                    outConfig.setGidNumber( propUpdater.newValue( inConfig.getGidNumber() ) );
+                }
+            }
+            cfgMgr.update( outConfig );
+        }
+        catch ( SecurityException se )
+        {
+            String error = "replaceProperty failed, exception=" + se.getMessage();
+            throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_UPDATE_FAILED, error, se );
+        }
+        return inConfig;
     }
 }

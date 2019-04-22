@@ -406,10 +406,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
         VUtil.assertNotNull( role.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
         setEntitySession( CLS_NM, methodName, role );
-        // The name:value pair is bound as fortress property, using prefix 'RC-'.
-        // It's for convenient and efficient lookup during the runtime checks.
-        // We will cache as java.util.properties, require case insensitivity, convention is use lower case keys:
-        String propKey = GlobalIds.CONSTRAINT_KEY_PREFIX + role.getName().toLowerCase();
+        // This constraint type requires a global config parameter keyed by RC$tenant$role:constraint:
+        String propKey = Config.getInstance().getConstraintKey( role.getName(), contextId );
         String propValue = roleConstraint.getKey();
         VUtil.assertNotNull( propValue, GlobalErrIds.ROLE_CONSTRAINT_KEY_NULL, CLS_NM + methodName );
         // Verify the role exists:
@@ -418,7 +416,6 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         props.setProperty( propKey, propValue );
         // Retrieve parameters from the config node stored in target LDAP DIT:
         String realmName = Config.getInstance().getProperty( GlobalIds.CONFIG_REALM, "DEFAULT" );
-
         configP.update( new Configuration(realmName, props) );
         // update in-memory:
         Config.getInstance().setProperty( propKey, propValue );
@@ -437,8 +434,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
         VUtil.assertNotNull( role.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
         setEntitySession( CLS_NM, methodName, role );
-        // We want case insensitive on java.util.propp, convention is use lower case key:
-        String propKey = GlobalIds.CONSTRAINT_KEY_PREFIX + role.getName().toLowerCase();
+        // This constraint type requires a global config parameter keyed by RC$tenant$role:constraint:
+        String propKey = Config.getInstance().getConstraintKey( role.getName(), contextId );
         String propValue = roleConstraint.getKey();
         VUtil.assertNotNull( propValue, GlobalErrIds.ROLE_CONSTRAINT_KEY_NULL, CLS_NM + methodName );
         Properties props = new Properties();
