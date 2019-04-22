@@ -1916,8 +1916,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapException e )
         {
-            String warning = "deassign userId [" + uRole.getUserId() + "] role constraint [" + szRoleConstraint + "] ";
-
+            String warning = "deassign userId [" + uRole.getUserId() + "] role constraint [" + szRoleConstraint + "] dn [" + userDn + "] ";
             warning += "caught LDAPException=" + e;
             throw new UpdateException( GlobalErrIds.URLE_ASSIGN_FAILED, warning, e );
         }
@@ -1956,6 +1955,10 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
                 {
                     // Retrieve the targeted name:
                     UserRole fRole = roles.get( indx );
+
+                    // This is required to pass correct tenant downstream:
+                    fRole.setContextId( uRole.getContextId() );
+
                     // delete the name assignment attribute using the raw name data:
                     List<Modification> mods = new ArrayList<Modification>();
 
