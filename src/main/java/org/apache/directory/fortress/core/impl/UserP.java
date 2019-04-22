@@ -496,6 +496,10 @@ final class UserP
             VUtil.assertNotNullOrEmpty( user.getPassword(), GlobalErrIds.USER_PW_NULL, CLS_NM + ".createSession" );
             session = createSession( user );
         }
+        // Normally, the context (tenant) gets set in the mgr layer and passed into here, as in the User.
+        // However, the Session was created down here and must be set here as well, for role constraint (validation) to be multitenant, in validateConstraints method:
+        session.setContextId( user.getContextId() );
+
         // Did the caller pass in a set of roles for selective activation?
         if ( CollectionUtils.isNotEmpty( user.getRoles() ) )
         {
