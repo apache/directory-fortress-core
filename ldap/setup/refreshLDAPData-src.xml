@@ -43,11 +43,10 @@
                 <container name="OS-P" parent="ARBAC" description="Fortress Perm Organizational Units"/>
                 <container name="AdminRoles" parent="ARBAC" description="Fortress AdminRoles"/>
                 <container name="AdminPerms" parent="ARBAC" description="Fortress Admin Permissions"/>
-                <!-- Test Multi-tenancy:
-                <container name="Client123" description="Client 123 test context"/>
+                <!-- Test Multi-tenancy: -->
+                <!--container name="Client123" description="Client 123 test context"/>
                 <container name="Client456" description="Client 456 test context"/>
-                <container name="Client789" description="Client 789 test context"/>
-                -->
+                <container name="Client789" description="Client 789 test context"/-->
             </delcontainer>
 
             <addcontainer>
@@ -64,11 +63,10 @@
                 <container name="OS-P" parent="ARBAC" description="Fortress Perm Organizational Units"/>
                 <container name="AdminRoles" parent="ARBAC" description="Fortress AdminRoles"/>
                 <container name="AdminPerms" parent="ARBAC" description="Fortress Admin Permissions"/>
-                <!-- Test Multi-tenancy
-                <container name="Client123" description="Client 123 test context"/>
+                <!-- Test Multi-tenancy -->
+                <!--container name="Client123" description="Client 123 test context"/>
                 <container name="Client456" description="Client 456 test context"/>
-                <container name="Client789" description="Client 789 test context"/>
-                -->
+                <container name="Client789" description="Client 789 test context"/-->
             </addcontainer>
 
             <addconfig>
