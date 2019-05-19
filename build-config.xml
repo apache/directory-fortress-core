@@ -509,7 +509,7 @@
           copy the slapd impl accelerator overlay libs from install to bin folder
          ================================= -->
     <target name="copy-ssl-keys" depends="init" >
-        <echo message="###############  Copy SSL keys from ${src.slapd.ssl.keys.dir} to ${dst.slapd.ssl.keys.dir}"/>
+        <echo message="###############  Copy SSL keys from to ${dst.slapd.ssl. ${src.slapd.ssl.keys.dir}keys.dir}"/>
         <copy todir="${dst.slapd.ssl.keys.dir}" failonerror="false">
             <fileset dir="${src.slapd.ssl.keys.dir}">
                 <include name="*.pem"/>
