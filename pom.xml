@@ -36,17 +36,17 @@
   <description>
     Apache Fortress is a standards-based Access Management SDK that implements ANSI RBAC INCITS 359.
   </description>
-  <url>http://directory.apache.org/fortress/</url>
+  <url>https://directory.apache.org/fortress/</url>
 
   <licenses>
     <license>
       <name>Apache License 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
     </license>
   </licenses>
 
   <scm>
-    <connection>scm:git:http://git-wip-us.apache.org/repos/asf/directory-fortress-core.git</connection>
+    <connection>scm:git:https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git</connection>
     <developerConnection>
       scm:git: https://gitbox.apache.org/repos/asf/directory-fortress-core.git
     </developerConnection>
