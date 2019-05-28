@@ -19,7 +19,7 @@
 #
 ######################################################################
 ###  RBAC Accelerator Schema version 1.0.0.RC34
-###  This schema is required for OoenLDAP slapo-rbac (accelerator) overlay
+###  This schema is required for OpenLDAP slapo-rbac (accelerator) overlay
 ###  Not required for fortress-core (only) deployments.
 ######################################################################
 
