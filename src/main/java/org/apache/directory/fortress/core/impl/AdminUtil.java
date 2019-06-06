@@ -44,59 +44,6 @@ final class AdminUtil
     {
     }
 
-/*
-    static void checkUser(Session session, User user) throws SecurityException
-    {
-        String SUPER_ADMIN = Config.getInstance().getProperty("superadmin.role", "fortress-core-super-admin");
-
-        boolean result = false;
-        if( session != null )
-        {
-            List<UserAdminRole> uaRoles = session.getAdminRoles();
-            if(CollectionUtils.isNotEmpty( uaRoles ))
-            {
-                // validate user and retrieve user' ou:
-                //User ue = userP.read(user, false);
-                for(UserAdminRole uaRole : uaRoles)
-                {
-                    if(uaRole.getName().equalsIgnoreCase(SUPER_ADMIN))
-                    {
-                        result = true;
-                        break;
-                    }
-                    Set<String> osUs = uaRole.getOsUSet();
-                    if(CollectionUtils.isNotEmpty( osUs ))
-                    {
-                        // create Set with case insensitive comparator:
-                        Set<String> osUsFinal = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
-                        for(String osU : osUs)
-                        {
-                            // Add osU children to the set:
-                            osUsFinal.add(osU);
-                            Set<String> children = UsoUtil.getInstance().getDescendants( osU, user.getContextId() );
-                            osUsFinal.addAll(children);
-                        }
-                        // does the admin role have authority over the user object?
-                        if(osUsFinal.contains(user.getOu()))
-                        {
-                            result = true;
-                        }
-                    }
-                }
-            }
-        }
-        else
-        {
-            result = true;
-        }
-        if( ! result )
-        {
-            String warning = "checkUser User [" + user.getUserId() + "] Admin [" + session.getUserId() + "] failed check.";
-            throw new SecurityException(GlobalErrIds.USER_ADMIN_CANNOT_ADD, warning);
-        }
-    }
-*/
-
     /**
      * Wrapper function to call {@link DelAccessMgrImpl#canAssign(org.apache.directory.fortress.core.model.Session, org.apache.directory.fortress.core.model.User, org.apache.directory.fortress.core.model.Role)}.
      * This will determine if the user contains an AdminRole that is authorized assignment control over User-Role Assignment (URA).  This adheres to the ARBAC02 functional specification for can-assign URA.
