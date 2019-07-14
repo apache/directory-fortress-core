@@ -33,7 +33,6 @@ import junit.framework.TestSuite;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.rmi.runtime.Log;
 
 /**
  * LoadTestUserSample JUnit Test.  These samples create many users and assign them to roles.
