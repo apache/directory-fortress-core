@@ -104,8 +104,16 @@ From Apache GIT Fortress-Core Software Repo:
 
 3. From the FORTRESS_HOME root folder, enter the following command:
 
+a. Java 8 target
+
  ```
  mvn clean install
+ ```
+
+b. Java 11 target
+
+ ```
+ mvn clean install -Djava.version=11
  ```
 
 4. From the FORTRESS_HOME root folder, enter the following command:

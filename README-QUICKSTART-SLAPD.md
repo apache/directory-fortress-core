@@ -169,8 +169,16 @@ ________________________________________________________________________________
 
 11. Run the maven install:
 
+a. Java 8 target
+
  ```
  mvn clean install
+ ```
+
+b. Java 11 target
+
+ ```
+ mvn clean install -Djava.version=11
  ```
 
 12. Install, configure and load the slapd server:

@@ -138,8 +138,16 @@ ________________________________________________________________________________
 
 4. Build fortress core. This step will generate config artifacts using settings from build.properties.
 
+a. Java 8 target
+
  ```
- mvn install
+ mvn clean install
+ ```
+
+b. Java 11 target
+
+ ```
+ mvn clean install -Djava.version=11
  ```
 
 5. Import Fortress ldap schema into ApacheDS server.
