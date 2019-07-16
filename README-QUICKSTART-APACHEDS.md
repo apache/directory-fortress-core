@@ -144,6 +144,8 @@ a. Java 8 target
  mvn clean install
  ```
 
+-- OR --
+
 b. Java 11 target
 
  ```
