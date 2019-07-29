@@ -154,7 +154,7 @@ public final class Config
         }
         else
         {
-            LOG.error( "getProperty invalid config, can't read prop [{}]", name );
+            LOG.warn( "getProperty invalid config, can't read prop [{}]", name );
         }
         return value;
     }
@@ -172,6 +172,7 @@ public final class Config
         if ( config != null )
         {
             value = ( String ) config.getProperty( name );
+            LOG.debug( "getProperty name [{}] value [{}] default value [{}]", name, value, defaultValue );
         }
         else
         {
@@ -201,7 +202,7 @@ public final class Config
         }
         else
         {
-            LOG.error( "getChar invalid config, can't read prop [{}]", name );
+            LOG.warn( "getChar invalid config, can't read prop [{}]", name );
         }
         return value;
     }
@@ -219,11 +220,11 @@ public final class Config
         if ( config != null )
         {
             value = ( char ) config.getProperty( name );
+            LOG.debug( "getChar name [{}] value [{}]", name, value );
         }
         else
         {
-            String warn = "getChar invalid config, can't read prop [" + name + "]";
-            LOG.warn( warn );
+            LOG.warn( "getChar invalid config, can't read prop [{}], using default [{}]", name, defaultValue );
         }
         if ( value == 0 )
         {
@@ -241,14 +242,22 @@ public final class Config
     public int getInt( String key )
     {
         int value = 0;
-        if ( config != null )
+        try
         {
-            value = config.getInt( key );
+            if ( config != null )
+            {
+                value = config.getInt( key );
+                LOG.debug( "getInt name [{}] value [{}]", key, value );
+            }
+            else
+            {
+                LOG.warn( "getInt invalid config, can't read prop [{}]", key );
+
+            }
         }
-        else
+        catch (org.apache.commons.configuration.ConversionException e)
         {
-            String warn = "getInt invalid config, can't read prop [" + key + "]";
-            LOG.warn( warn );
+            LOG.debug( "getInt can't read prop [{}], exception [{}]", key, e );
         }
         return value;
     }
@@ -262,15 +271,23 @@ public final class Config
      */
     public int getInt( String key, int defaultValue )
     {
-        int value = 0;
-        if ( config != null )
+        int value = defaultValue;
+        try
         {
-            value = config.getInt( key, defaultValue );
+            if ( config != null )
+            {
+                value = config.getInt( key, defaultValue );
+                LOG.debug( "getInt name [{}] value [{}]", key, value );
+            }
+            else
+            {
+                LOG.warn( "getInt invalid config, can't read prop [{}], using default [{}]", key, defaultValue );
+
+            }
         }
-        else
+        catch (org.apache.commons.configuration.ConversionException e)
         {
-            String warn = "getInt invalid config, can't read prop [" + key + "]";
-            LOG.warn( warn );
+            LOG.debug( "getInt can't read prop [{}], using default [{}], exception [{}]", key, defaultValue, e );
         }
         return value;
     }
@@ -289,16 +306,17 @@ public final class Config
             if (config != null)
             {
                 value = config.getBoolean(key);
+                LOG.debug( "getBoolean name [{}] value [{}]", key, value );
             }
             else
             {
-                String warn = "getBoolean - invalid config, can't read prop [" + key + "]";
-                LOG.warn(warn);
+                LOG.warn( "getBoolean invalid config, can't read prop [{}], using default [{}]", key, false );
+
             }
         }
         catch (java.util.NoSuchElementException e )
         {
-            // prop not found, ignore.
+            LOG.debug( "getBoolean - no such element [{}], using default [{}]", key, false );
         }
         return value;
     }
@@ -318,16 +336,16 @@ public final class Config
             if ( config != null )
             {
                 value = config.getBoolean( key, defaultValue );
+                LOG.debug( "getBoolean name [{}] value [{}]", key, value );
             }
             else
             {
-                String warn = "getBoolean - invalid config, can't read prop [" + key + "]";
-                LOG.warn( warn );
+                LOG.warn( "getBoolean - invalid config, can't read prop [{}], using default [{}]", key, defaultValue );
             }
         }
         catch (java.util.NoSuchElementException e )
         {
-            // prop not found, ignore.
+            LOG.debug( "getBoolean - no such element [{}], using default [{}]", key, defaultValue );
         }
         return value;
     }

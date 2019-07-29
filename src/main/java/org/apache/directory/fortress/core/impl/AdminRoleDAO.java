@@ -50,6 +50,7 @@ import org.apache.directory.fortress.core.model.FortEntity;
 import org.apache.directory.fortress.core.model.Graphable;
 import org.apache.directory.fortress.core.model.ObjectFactory;
 import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.ldap.client.api.LdapConnection;
 
 
@@ -476,7 +477,7 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
                 + ROLE_NM + "=" + searchVal + "*))";
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, roleRoot,
-                SearchScope.ONELEVEL, filter, ROLE_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.ONELEVEL, filter, ROLE_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -569,7 +570,7 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
             filter += "(" + ROLE_OCCUPANT + "=" + userDn + "))";
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, roleRoot,
-                SearchScope.ONELEVEL, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE );
+                SearchScope.ONELEVEL, filter, ROLE_NM_ATR, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
 
             while ( searchResults.next() )
             {
@@ -617,7 +618,7 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
                 + GlobalIds.PARENT_NODES + "=*))";
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, roleRoot,
-                SearchScope.ONELEVEL, filter, DESC_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.ONELEVEL, filter, DESC_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )

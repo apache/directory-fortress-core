@@ -1201,7 +1201,7 @@ class PermDAO extends LdapDataProvider
             filterbuf.append(  "))" );
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, permRoot,
-                SearchScope.SUBTREE, filterbuf.toString(), PERMISION_ATTRIBUTE_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.SUBTREE, filterbuf.toString(), PERMISION_ATTRIBUTE_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -1541,7 +1541,7 @@ class PermDAO extends LdapDataProvider
             filterbuf.append(  "*))" );
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, permRoot,
-                SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -1586,7 +1586,7 @@ class PermDAO extends LdapDataProvider
                 filterbuf.append(  "))" );
                 ld = getAdminConnection();
                 SearchCursor searchResults = search( ld, permRoot,
-                    SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+                    SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
                 long sequence = 0;
 
                 while ( searchResults.next() )
@@ -1653,7 +1653,7 @@ class PermDAO extends LdapDataProvider
                 filterbuf.append("))");
                 ld = getAdminConnection();
                 SearchCursor searchResults = search( ld, permRoot,
-                    SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+                    SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
                 long sequence = 0;
 
                 while ( searchResults.next() )
@@ -1705,7 +1705,7 @@ class PermDAO extends LdapDataProvider
             filterbuf.append( "*))" );
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, permRoot,
-                SearchScope.SUBTREE, filterbuf.toString(), PERMISION_OBJ_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.SUBTREE, filterbuf.toString(), PERMISION_OBJ_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -1867,7 +1867,7 @@ class PermDAO extends LdapDataProvider
             filterbuf.append( ")" );
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, permRoot,
-                SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -1933,7 +1933,7 @@ class PermDAO extends LdapDataProvider
             filterbuf.append( ")))" );
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, permRoot,
-                SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -1986,7 +1986,7 @@ class PermDAO extends LdapDataProvider
             filterbuf.append( "))" );
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, permRoot,
-                SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -2065,7 +2065,7 @@ class PermDAO extends LdapDataProvider
             filterbuf.append( "))" );
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, permRoot,
-                SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.SUBTREE, filterbuf.toString(), PERMISSION_OP_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )

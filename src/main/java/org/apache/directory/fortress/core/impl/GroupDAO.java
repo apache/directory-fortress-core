@@ -408,7 +408,7 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
                 + "*))";
             ld = getAdminConnection();
             searchResults = search( ld, groupRoot, SearchScope.ONELEVEL, filter, GROUP_ATRS, false,
-                GlobalIds.BATCH_SIZE );
+                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
             while ( searchResults.next() )
             {
@@ -455,7 +455,7 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
                 + user.getDn() + "))";
             ld = getAdminConnection();
             searchResults = search( ld, groupRoot, SearchScope.ONELEVEL, filter, GROUP_ATRS, false,
-                GlobalIds.BATCH_SIZE );
+                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -503,7 +503,7 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
                     + role.getDn() + "))";
             ld = getAdminConnection();
             searchResults = search( ld, groupRoot, SearchScope.ONELEVEL, filter, GROUP_ATRS, false,
-                    GlobalIds.BATCH_SIZE );
+                    Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )

@@ -142,6 +142,7 @@
                 <config props="ldap.sub.14:7c"/>
                 <config props="ldap.filter.15:~"/>
                 <config props="ldap.sub.15:7e"/>
+                <config props="ldap.search.max.batch.size:@LDAP_MAX_BATCH_SIZE@"/>
             </addconfig>
 
             <addconfig>
@@ -209,6 +210,7 @@
                 <config props="ldap.sub.14:7c"/>
                 <config props="ldap.sub.15:7e"/>
                 <config props="ldap.filter.15:~"/>
+                <config props="ldap.search.max.batch.size:@LDAP_MAX_BATCH_SIZE@"/>
             </addconfig>
          </FortressAdmin>
     </target>

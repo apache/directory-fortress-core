@@ -1027,7 +1027,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
 
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
-                GlobalIds.BATCH_SIZE );
+                    Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -1158,7 +1158,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             filterbuf.append( ")" );
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
-                GlobalIds.BATCH_SIZE );
+                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -1223,7 +1223,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
-                GlobalIds.BATCH_SIZE );
+                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -1279,7 +1279,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
-                GlobalIds.BATCH_SIZE );
+                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
 
             while ( searchResults.next() )
             {
@@ -1349,7 +1349,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
 
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID_ATR, false,
-                GlobalIds.BATCH_SIZE );
+                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -1417,7 +1417,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID_ATRS,
                 false,
-                GlobalIds.BATCH_SIZE );
+                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
 
             while ( searchResults.next() )
             {
@@ -1468,7 +1468,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
 
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
-                GlobalIds.BATCH_SIZE );
+                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -1577,7 +1577,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
 
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
-                GlobalIds.BATCH_SIZE );
+                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )

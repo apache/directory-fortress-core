@@ -364,6 +364,7 @@
          <replace file="${dst.remote.conf}" token="@KEY_STORE_PW@" value="${key.store.password}"/>
          <replace file="${dst.remote.conf}" token="@SERVER_TYPE@" value="${ldap.server.type}"/>
          <replace file="${dst.remote.conf}" token="@IS_AUDIT@" value="${disable.audit}"/>
+         <replace file="${dst.remote.conf}" token="@LDAP_MAX_BATCH_SIZE@" value="${ldap.max.batch.size}"/>
 
          <echo message="###############  Modify fortress load scripts per user settings  ###############"/>
          <!-- The load script builds the Directory Information Tree and load the configuration entry used to hold params not needed to establish a connection with server. -->
@@ -389,6 +390,7 @@
          <replace file="${dst.load.bootstrap.script}" token="@GROUP_PROPERTIES@" value="${group.properties}"/>
          <replace file="${dst.load.bootstrap.script}" token="@ROLE_OCCUPANTS@" value="${role.occupants}"/>
          <replace file="${dst.load.bootstrap.script}" token="@IS_RFC2307@" value="${rfc2307}"/>
+         <replace file="${dst.load.bootstrap.script}" token="@LDAP_MAX_BATCH_SIZE@" value="${ldap.max.batch.size}"/>
          <echo message="###############  Copy ehcache config to bootstrap config folder  ###############"/>
          <delete file="${bootstrap.ehcache.conf}"/>
        <copy file="${ehcache.conf}" tofile="${bootstrap.ehcache.conf}"/>

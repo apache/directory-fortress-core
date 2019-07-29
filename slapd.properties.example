@@ -43,6 +43,9 @@ suffix.name=example
 suffix.dc=com
 suffix=dc=${suffix.name},dc=${suffix.dc}
 
+# This sets the maximum search result set from LDAP, default is 1000:
+ldap.max.batch.size=1000
+
 # A value of 'false' disables storing user membership on role object, default is 'true':
 #role.occupants=false
 

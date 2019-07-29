@@ -477,7 +477,7 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
                 + ROLE_NM + "=" + searchVal + "*))";
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, roleRoot,
-                SearchScope.ONELEVEL, filter, ROLE_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.ONELEVEL, filter, ROLE_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -542,7 +542,7 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
 
                 ld = getAdminConnection();
                 SearchCursor searchResults = search( ld, roleRoot,
-                    SearchScope.ONELEVEL, filterbuf.toString(), ROLE_ATRS, false, GlobalIds.BATCH_SIZE );
+                    SearchScope.ONELEVEL, filterbuf.toString(), ROLE_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
                 long sequence = 0;
 
                 while ( searchResults.next() )
@@ -644,7 +644,7 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
             filter += "(" + SchemaConstants.ROLE_OCCUPANT_AT + "=" + userDn + "))";
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, roleRoot,
-                SearchScope.ONELEVEL, filter, ROLE_NM_ATR, false, GlobalIds.BATCH_SIZE );
+                SearchScope.ONELEVEL, filter, ROLE_NM_ATR, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
 
             while ( searchResults.next() )
             {
@@ -692,7 +692,7 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
                 + GlobalIds.PARENT_NODES + "=*))";
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, roleRoot,
-                SearchScope.ONELEVEL, filter, DESC_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.ONELEVEL, filter, DESC_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )

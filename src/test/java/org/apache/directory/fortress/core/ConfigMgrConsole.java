@@ -25,6 +25,7 @@ import org.apache.directory.fortress.core.model.Session;
 import java.util.Enumeration;
 import java.util.Properties;
 
+import org.apache.directory.fortress.core.util.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -156,4 +157,29 @@ class ConfigMgrConsole
         }
         ReaderUtil.readChar();
     }
+
+
+    void getProperty()
+    {
+        ReaderUtil.clearScreen();
+        System.out.println("Enter config param key:");
+        String key = ReaderUtil.readLn();
+        String value = Config.getInstance().getProperty(key);
+        System.out.println("PROP=" + key + " VALUE=" + value);
+        System.out.println("ENTER to continue");
+        ReaderUtil.readChar();
+    }
+
+
+    void getInt()
+    {
+        ReaderUtil.clearScreen();
+        System.out.println("Enter config param key:");
+        String key = ReaderUtil.readLn();
+        int value = Config.getInstance().getInt(key);
+        System.out.println("PROP=" + key + " VALUE=" + value);
+        System.out.println("ENTER to continue");
+        ReaderUtil.readChar();
+    }
+
 }

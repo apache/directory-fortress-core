@@ -54,6 +54,9 @@ ldap.server.type=apacheds
 ldap.host=localhost
 ldap.port=10389
 
+# This sets the maximum search result set from LDAP, default is 1000:
+ldap.max.batch.size=1000
+
 # These are needed for client SSL connections with LDAP Server:
 #enable.ldap.ssl=true
 # The LDAP hostname must match the common name in the server certificate:

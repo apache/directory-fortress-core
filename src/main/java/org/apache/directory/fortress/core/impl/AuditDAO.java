@@ -274,7 +274,7 @@ final class AuditDAO extends LdapDataProvider
             //log.warn("filter=" + filter);
             ld = getLogConnection();
             SearchCursor searchResults = search( ld, auditRoot,
-                SearchScope.ONELEVEL, filter, AUDIT_AUTHZ_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.ONELEVEL, filter, AUDIT_AUTHZ_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -345,7 +345,7 @@ final class AuditDAO extends LdapDataProvider
             //System.out.println("filter=" + filter);
             ld = getLogConnection();
             SearchCursor searchResults = search( ld, auditRoot,
-                SearchScope.ONELEVEL, filter, AUDIT_AUTHZ_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.ONELEVEL, filter, AUDIT_AUTHZ_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -435,7 +435,7 @@ final class AuditDAO extends LdapDataProvider
             //log.warn("filter=" + filter);
             ld = getLogConnection();
             SearchCursor searchResults = search( ld, auditRoot,
-                SearchScope.ONELEVEL, filter, AUDIT_AUTHZ_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.ONELEVEL, filter, AUDIT_AUTHZ_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -518,7 +518,7 @@ final class AuditDAO extends LdapDataProvider
             //log.warn("filter=" + filter);
             ld = getLogConnection();
             SearchCursor searchResults = search( ld, auditRoot,
-                SearchScope.ONELEVEL, filter, AUDIT_BIND_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.ONELEVEL, filter, AUDIT_BIND_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -574,7 +574,7 @@ final class AuditDAO extends LdapDataProvider
             //log.warn("filter=" + filter);
             ld = getLogConnection();
             SearchCursor searchResults = search( ld, auditRoot,
-                SearchScope.ONELEVEL, filter, AUDIT_MOD_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.ONELEVEL, filter, AUDIT_MOD_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -664,7 +664,7 @@ final class AuditDAO extends LdapDataProvider
             //log.warn("filter=" + filter);
             ld = getLogConnection();
             SearchCursor searchResults = search( ld, auditRoot,
-                SearchScope.ONELEVEL, filter, AUDIT_MOD_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.ONELEVEL, filter, AUDIT_MOD_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )

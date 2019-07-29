@@ -603,7 +603,7 @@ final class PolicyDAO extends LdapDataProvider
             String szFilter = GlobalIds.FILTER_PREFIX + PW_POLICY_CLASS + ")(" + PW_PWD_ID + "=" + searchVal + "*))";
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, policyRoot,
-                SearchScope.ONELEVEL, szFilter, PASSWORD_POLICY_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.ONELEVEL, szFilter, PASSWORD_POLICY_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
             long sequence = 0;
 
             while ( searchResults.next() )
@@ -646,7 +646,7 @@ final class PolicyDAO extends LdapDataProvider
             String szFilter = "(objectclass=" + PW_POLICY_CLASS + ")";
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, policyRoot,
-                SearchScope.ONELEVEL, szFilter, PASSWORD_POLICY_NAME_ATR, false, GlobalIds.BATCH_SIZE );
+                SearchScope.ONELEVEL, szFilter, PASSWORD_POLICY_NAME_ATR, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
 
             while ( searchResults.next() )
             {

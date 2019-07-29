@@ -280,7 +280,7 @@ public class ExampleDAO extends LdapDataProvider
             String filter = GlobalIds.FILTER_PREFIX + Arrays.toString(EIds.EXAMPLE_OBJ_CLASS) + ")("
                 + EIds.EXAMPLE_NM + "=" + searchVal + "*))";
             SearchCursor searchResults = search( ld, exampleRoot,
-                SearchScope.SUBTREE, filter, EXAMPLE_ATRS, false, GlobalIds.BATCH_SIZE );
+                SearchScope.SUBTREE, filter, EXAMPLE_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ));
             while ( searchResults.next() )
             {
                 exampleList.add(getEntityFromLdapEntry(searchResults.getEntry()));

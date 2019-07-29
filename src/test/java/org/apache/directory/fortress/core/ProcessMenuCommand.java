@@ -289,6 +289,12 @@ class ProcessMenuCommand
                     case '4':
                         cfgConsole.deleteProps();
                         break;
+                    case '5':
+                        cfgConsole.getProperty();
+                        break;
+                    case '6':
+                        cfgConsole.getInt();
+                        break;
                     case 'q':
                     case 'Q':
                         done = true;
@@ -316,6 +322,8 @@ class ProcessMenuCommand
         System.out.println( "2.  Update Config Param" );
         System.out.println( "3.  Read Config Params" );
         System.out.println( "4.  Delete Config Params" );
+        System.out.println( "5.  GetProperty" );
+        System.out.println( "6.  GetInt" );
         System.out.println( "Enter q or Q to return to previous menu" );
     }
 

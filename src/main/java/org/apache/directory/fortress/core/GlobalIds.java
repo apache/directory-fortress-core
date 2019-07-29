@@ -506,6 +506,11 @@ public final class GlobalIds
     public static final int BATCH_SIZE = 1000;
 
     /**
+     * This is the config property key used to store override of max LDAP batch size:
+     */
+    public static final String CONFIG_LDAP_MAX_BATCH_SIZE = "ldap.search.max.batch.size";
+
+    /**
      * Attribute is used in Fortress time/date constraints as default which will always pass.  i.e. values stored as beginDate=none or beginTime=none will turn the date and time constraints off
      * for a particular entity..
      */
