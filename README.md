@@ -54,7 +54,6 @@ Role-Based Access Control (RBAC)
  * SECTION 13. Instructions to build and test the Apache Fortress samples.
  * SECTION 14. Instructions to performance test.
  * SECTION 15. Instructions to encrypt LDAP passwords used in config files.
-
 ___________________________________________________________________________________
 ## Document Overview
 
