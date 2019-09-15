@@ -252,7 +252,6 @@ public final class Config
             else
             {
                 LOG.warn( "getInt invalid config, can't read prop [{}]", key );
-
             }
         }
         catch (org.apache.commons.configuration.ConversionException e)
@@ -364,7 +363,7 @@ public final class Config
         }
         else
         {
-            LOG.warn( "setProperty invalid config, can't set prop name {}, value {}" + name, value);
+            LOG.warn( "setProperty invalid config, can't set prop name [{}], value [{}]" + name, value);
         }
     }
 
@@ -381,7 +380,7 @@ public final class Config
         }
         else
         {
-            LOG.warn( "clearProperty invalid config, prop name {}", name );
+            LOG.warn( "clearProperty invalid config, prop name [{}]", name );
         }
     }
 
@@ -407,8 +406,7 @@ public final class Config
         {
             if ( ce.getErrorId() == GlobalErrIds.FT_CONFIG_NOT_FOUND )
             {
-                String warning = "getRemoteConfig could not find cfg entry";
-                LOG.warn( warning );
+                LOG.warn( "getRemoteConfig could not find cfg entry [{}]", realmName );
             }
             else
             {
