@@ -21,7 +21,6 @@ package org.apache.directory.fortress.core.samples;
 
 
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 import junit.framework.Test;
@@ -67,7 +66,6 @@ public class AbacSample extends TestCase
         return suite;
     }
 
-
     public static void testMoeNorth()
     {
         String szLocation = ".testMoeNorth";
@@ -75,7 +73,6 @@ public class AbacSample extends TestCase
         {
             // Instantiate the AccessMgr implementation.
             AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
-
             List<RoleConstraint> constraints = new ArrayList();
             RoleConstraint constraint = new RoleConstraint();
             constraint.setKey( "locale" );
@@ -84,7 +81,7 @@ public class AbacSample extends TestCase
             Session session = accessMgr.createSession( new User("moe", "password"), constraints, false );
             assertNotNull( session );
             displayUserRoles( accessMgr, session );
-            //List<Permission> perms = accessMgr.sessionPermissions(session);
+            displaySessionPerms( accessMgr, session );
         }
         catch ( SecurityException ex )
         {
@@ -100,7 +97,6 @@ public class AbacSample extends TestCase
         {
             // Instantiate the AccessMgr implementation.
             AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
-
             List<RoleConstraint> constraints = new ArrayList();
             RoleConstraint constraint = new RoleConstraint();
             constraint.setKey( "locale" );
@@ -109,7 +105,7 @@ public class AbacSample extends TestCase
             Session session = accessMgr.createSession( new User("moe", "password"), constraints, false );
             assertNotNull( session );
             displayUserRoles( accessMgr, session );
-            //List<Permission> perms = accessMgr.sessionPermissions(session);
+            displaySessionPerms( accessMgr, session );
         }
         catch ( SecurityException ex )
         {
@@ -125,7 +121,6 @@ public class AbacSample extends TestCase
         {
             // Instantiate the AccessMgr implementation.
             AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
-
             List<RoleConstraint> constraints = new ArrayList();
             RoleConstraint constraint = new RoleConstraint();
             constraint.setKey( "locale" );
@@ -134,7 +129,7 @@ public class AbacSample extends TestCase
             Session session = accessMgr.createSession( new User("curly", "password"), constraints, false );
             assertNotNull( session );
             displayUserRoles( accessMgr, session );
-            //List<Permission> perms = accessMgr.sessionPermissions(session);
+            displaySessionPerms( accessMgr, session );
         }
         catch ( SecurityException ex )
         {
@@ -150,7 +145,6 @@ public class AbacSample extends TestCase
         {
             // Instantiate the AccessMgr implementation.
             AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
-
             List<RoleConstraint> constraints = new ArrayList();
             RoleConstraint constraint = new RoleConstraint();
             constraint.setKey( "locale" );
@@ -159,7 +153,32 @@ public class AbacSample extends TestCase
             Session session = accessMgr.createSession( new User("curly", "password"), constraints, false );
             assertNotNull( session );
             displayUserRoles( accessMgr, session );
-            //List<Permission> perms = accessMgr.sessionPermissions(session);
+            displaySessionPerms( accessMgr, session );
+        }
+        catch ( SecurityException ex )
+        {
+            LOG.error( szLocation + " caught SecurityException rc=" + ex.getErrorId() + ", msg=" + ex.getMessage(), ex );
+            fail( ex.getMessage() );
+        }
+    }
+
+    public static void displaySessionPerms( AccessMgr accessMgr, Session session )
+    {
+        String szLocation = ".displaySessionPerms";
+        try
+        {
+            LOG.info( szLocation );
+            LOG.info( "S   UID  [" + session.getUserId() + "]:" );
+            List<Permission> perms = accessMgr.sessionPermissions(session);
+            assertNotNull( perms );
+            if ( perms != null )
+            {
+                for ( int i = 0; i < perms.size(); i++ )
+                {
+                    Permission perm = perms.get( i );
+                    LOG.info( "    PERM[" + i + "]:" + perm.getObjName() + "." + perm.getOpName() );
+                }
+            }
         }
         catch ( SecurityException ex )
         {
