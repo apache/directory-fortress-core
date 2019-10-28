@@ -1301,7 +1301,7 @@ public class AccessMgrImplTest extends TestCase
     {
         LogUtil.logIt( msg );
         String TELLERS = "tellers"; // DSD excluded from washer
-        String WASHERS = "washers"; // DSD excluded from tellerr
+        String WASHERS = "washers"; // DSD excluded from teller
         String NORTH = "north";
         String SOUTH = "south";
         String EAST = "east";
