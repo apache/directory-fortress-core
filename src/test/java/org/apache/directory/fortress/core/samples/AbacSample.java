@@ -69,6 +69,7 @@ public class AbacSample extends TestCase
     public static void testMoeNorth()
     {
         String szLocation = ".testMoeNorth";
+        LOG.info( szLocation );
         try
         {
             // Instantiate the AccessMgr implementation.
@@ -93,6 +94,7 @@ public class AbacSample extends TestCase
     public static void testMoeSouth()
     {
         String szLocation = ".testMoeSouth";
+        LOG.info( szLocation );
         try
         {
             // Instantiate the AccessMgr implementation.
@@ -117,6 +119,7 @@ public class AbacSample extends TestCase
     public static void testCurlyEast()
     {
         String szLocation = ".testCurlyEast";
+        LOG.info( szLocation );
         try
         {
             // Instantiate the AccessMgr implementation.
@@ -141,6 +144,7 @@ public class AbacSample extends TestCase
     public static void testCurlyNorth()
     {
         String szLocation = ".testCurlyNorth";
+        LOG.info( szLocation );
         try
         {
             // Instantiate the AccessMgr implementation.
