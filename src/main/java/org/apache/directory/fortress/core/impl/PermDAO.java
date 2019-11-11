@@ -1295,7 +1295,8 @@ class PermDAO extends LdapDataProvider
                 addAuthZAudit( ld, dn, session.getUser().getDn(), attributeValue );
             }
         }
-        catch ( LdapException e ) {
+        catch ( LdapException e )
+        {
             if (!(e instanceof LdapNoSuchObjectException))
             {
                 String error = "checkPermission caught LdapException=" + e;
