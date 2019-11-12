@@ -31,7 +31,7 @@
 * These properties may be bound to various locations. 
     * Java System Properties, e.g. fortress.host, fortress.port
     * Text File: fortress.properties
-    * LDAP Entry: e.g. ou=MyConfiguration, ou=Config, dc=example, dc=com
+    * LDAP Entry: e.g. cn=DEFAULT, ou=Config, dc=example, dc=com
     * OpenLDAP configuration file: slapd.conf
  * See [README-CONFIG](./README-CONFIG.md) for detail description of how the Fortress configuration subsystem works.  
 
