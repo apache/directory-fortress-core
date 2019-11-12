@@ -31,22 +31,22 @@
 -------------------------------------------------------------------------------
 ## SECTION 1.  Fortress Configuration Subsystem Overview
 
-Fortress uses the following source property files to bootstrap configuration:
+Fortress uses interpolation to weave values found in the following source property files into its bootstrap configuration:
 
-1. Apache Ant Property Files:
+1. Apache Ant Property Files (source of substitution parameters):
  * user.properties
  * [slapd.properties](./slapd.properties.example)
  * [build.properties](./build.properties.example)
 2. Apache Ant script:
  * [build-config.xml](./build-config.xml)
 
-Which are used to produce new artifacts used by Fortress runtime:
+Which are used to produce new artifacts used by Fortress runtime (target files of substitution):
 
 1. [fortress.properties](./config/fortress.properties.src)
 2. [refreshLDAPData.xml](./ldap/setup/refreshLDAPData-src.xml)
 3. [slapd.conf](./ldap/slapd.conf.src)  (if using openldap)
 
-Notice the substitution parameters, **@name@**, contained within the above config artifacts.  These are used by an Ant config task
+  Notice the substitution parameters, **@name@**, contained within the above config artifacts.  These are used by an Ant config task
   to replace values into the actual target artifact using values found inside the source property files.  Thus Fortress uses simple Apache Ant
   substitution to seed implementation specific variables, e.g. host names, ports, pw's, into its config artifacts used at runtime.
 
@@ -86,16 +86,16 @@ The ant config task, **init-fortress-config**, uses the values found within the 
  * fortress.config.realm
  * fortress.config.root
  * fortress.ldap.server.type
+ * fortress.is.arbac02
 
- The minimum system.properties to enable fortress apis to work:
+ The minimum system.properties to enable fortress apis to work (without a config file):
   * fortress.admin.user
   * fortress.admin.pw=secret
   * fortress.config.root=ou=Config,dc=example,dc=com
 
- If the ldap host and port are not localhost:389 set these two:
+ If the ldap host and port are not the default (localhost:389) set these two:
  * fortress.host
  * fortress.port
-
 ___________________________________________________________________________________
 ## SECTION 5.  Order Artifacts found in the Fortress Configuration Subsystem
 
