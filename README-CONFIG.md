@@ -58,17 +58,7 @@ D. Apache Ant script with the mapping rules: A -> B = C:
   
 For Example:
 
-A. Snip from [fortress.properties.src](./config/fortress.properties.src)
-```
-# Host name and port of LDAP DIT:
-host=@LDAP_HOST@
-port=@LDAP_PORT@
-
-# Options are openldap or apacheds (default):
-ldap.server.type=@SERVER_TYPE@
-```
-
-B. Snip from [build.properties](./build.properties.example)
+A. Snip from [build.properties](./build.properties)
 ```
 # These parameters point fortress to LDAP host:
 ldap.host=ldapvip.net
@@ -76,6 +66,16 @@ ldap.port=389
 
 # This is default, tells fortress what type of ldap server in use:
 ldap.server.type=openldap
+```
+
+B. Snip from [fortress.properties.src](./config/fortress.properties.src)
+```
+# Host name and port of LDAP DIT:
+host=@LDAP_HOST@
+port=@LDAP_PORT@
+
+# Options are openldap or apacheds (default):
+ldap.server.type=@SERVER_TYPE@
 ```
 
 C. Becomes snip from [fortress.properties](./config/fortress.properties):
@@ -88,7 +88,7 @@ port=389
 ldap.server.type=openldap
 ```
 
-*Note: Files from category C are generated during Fortress build and not checked into source.*
+ *Note: Files from C are generated during build (```mvn install```) and not checked in as source.*
 
 -------------------------------------------------------------------------------
 ## SECTION 2.  Fortress Ant Property Files
