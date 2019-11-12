@@ -27,9 +27,13 @@
 -------------------------------------------------------------------------------
 ## SECTION 1.  Fortress Properties Overview
 
-This document lists the properties used within the fortress core, used by the runtime.  
-These properties can be stored in various locations.  For example as Java System Properties, in a file and/or within an LDAP node.  
-For a detailed description of how the Fortress configuration subsystem, go here: [README-CONFIG](./README-CONFIG.md). 
+* This document lists the properties used within the fortress core, used by the runtime.
+* These properties may be stored in various locations. 
+    * Java System Properties, e.g. fortress.host, fortress.port
+    * Text File: fortress.properties
+    * LDAP Entry: e.g. ou=MyConfiguration, ou=Config, dc=example, dc=com
+    * OpenLDAP configuration file: slapd.conf
+ * See [README-CONFIG](./README-CONFIG.md) for details on how the Fortress configuration subsystem works.  
 
 -------------------------------------------------------------------------------
 ## SECTION 2. Fortress Core properties
