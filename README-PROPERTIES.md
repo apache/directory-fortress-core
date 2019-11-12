@@ -25,12 +25,12 @@
  * SECTION 2. Fortress Properties.
 
 -------------------------------------------------------------------------------
-## SECTION 1.  Fortress Configuration Subsystem Overview
+## SECTION 1.  Fortress Properties Overview
 
 This document lists the properties used within the fortress core.  These props can be stored in various locations.  For example as system.properties, in a file on within an LDAP node.  See the README-CONFIG for description of how the config system works.
 
 -------------------------------------------------------------------------------
-## SECTION 16. Fortress Core properties
+## SECTION 2. Fortress Core properties
 
 This section describes the properties needed to control fortress core.
 
@@ -175,7 +175,7 @@ This section describes the properties needed to control fortress core.
  superadmin.role=fortress-core-super-admin
  ```
 
-12. Enable validation for temporal constraints.
+12. Enable validation for temporal and dynamic constraints.
 
  ```
  # these properties will enable temporal constraint checks on role activations:
@@ -184,6 +184,7 @@ This section describes the properties needed to control fortress core.
  temporal.validator.2=org.apache.directory.fortress.core.util.time.Timeout
  temporal.validator.3=org.apache.directory.fortress.core.util.time.ClockTime
  temporal.validator.4=org.apache.directory.fortress.core.util.time.Day
+ temporal.validator.5=org.apache.directory.fortress.core.util.time.UserRoleConstraint
  ```
 
 13. Enable validation for dynamic static separation of duty constraints.
@@ -218,14 +219,44 @@ This section describes the properties needed to control fortress core.
  ehcache.config.file=ehcache.xml
  ```
 
-17. Max field length for data validations.
+17. Default LDAP data object classes
+
+ ```
+ user.objectclass=inetOrgPerson
+ group.objectclass=configGroup
+ group.protocol=configProtocol
+ group.properties=ftProps
+ ```
+
+18. Enable RFC2307bis support for Users and Roles (groups)
+ Setting this prop to true requires the RFC2307bis schema to be present in ldap server. This defines the posixAccount and posixGroup object classes as auxiliary not structural.
+ This will add uidNumber, gidNumber, uidNumber and homeDirectory to Users and gidNumber to Roles. Those attributes are required and will be automatically generated if not otherwise passed in.
+
+ ```
+ # Boolean value. If true, requires rfc2307bis schema because posixUser and posixGroup must be auxiliary object classes to work with ftRls which is structural..
+ rfc2307=true
+ ```
+
+19. Disable OpenLDAP audit operations.  If server type is OpenLDAP *ldap.server.type-slapd*, setting this value to true will disable all auditing operations.  Default is false.
+
+ ```
+ disable.audit=true
+ ```
+
+20. Define delimiter to use for storage of fortress temporal constraints in LDAP.  It is used to delimit fields that are combined into a single attribute, i.e. ftConstraint.
+
+  ```
+  # Use '$' as delimiter
+  attr.delimiter=$
+  ```
+21. Max field length for data validations.
 
  ```
  # Fortress Data Validation settings
  field.length=130
  ```
 
-18. LDAP encoding defaults.  Used to perform secure encoding on data input to prevent injection attacks.
+22. LDAP encoding defaults.  Used to perform secure encoding on data input to prevent injection attacks.
 
  ```
  #  This section is for filtering out LDAP meta characters from search field input:
@@ -280,37 +311,6 @@ This section describes the properties needed to control fortress core.
  ldap.sub.15=7e
  ```
 
-19. Default LDAP data object classes
-
- ```
- user.objectclass=inetOrgPerson
- group.objectclass=configGroup
- group.protocol=configProtocol
- group.properties=ftProps
- ```
-
-20. Enable RFC2307bis support for Users and Roles (groups)
- Setting this prop to true requires the RFC2307bis schema to be present in ldap server. This defines the posixAccount and posixGroup object classes as auxiliary not structural.
- This will add uidNumber, gidNumber, uidNumber and homeDirectory to Users and gidNumber to Roles. Those attributes are required and will be automatically generated if not otherwise passed in.
-
- ```
- # Boolean value. If true, requires rfc2307bis schema because posixUser and posixGroup must be auxiliary object classes to work with ftRls which is structural..
- rfc2307=true
- ```
-
-21. Disable OpenLDAP audit operations.  If server type is OpenLDAP *ldap.server.type-slapd*, setting this value to true will disable all auditing operations.  Default is false.
-
- ```
- disable.audit=true
- ```
-
-22. Define delimiter to use for storage of fortress temporal constraints in LDAP.  It is used to delimit fields that are combined into a single attribute, i.e. ftConstraint.
-
-  ```
-  # Use '$' as delimiter
-  attr.delimiter=$
-  ```
-
 23. These properties still have some wiring inside fortress but aren't typically used or needed.
 
  ```
@@ -322,5 +322,5 @@ This section describes the properties needed to control fortress core.
  user.session.props.enabled
  ```
 
- ___________________________________________________________________________________
+____________________________________________________________________________________
  #### END OF README
