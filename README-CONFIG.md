@@ -32,6 +32,7 @@
 ## SECTION 1.  Fortress Configuration Subsystem Overview
 
 Fortress uses interpolation to weave values located in source property files into target configuration files.
+The list of possible parameters here: [README-PROPERTIES](./README-PROPERTIES.md) 
 
 A. Option files containing environment specific values:
  * user.properties
