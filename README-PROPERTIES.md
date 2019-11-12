@@ -27,7 +27,9 @@
 -------------------------------------------------------------------------------
 ## SECTION 1.  Fortress Properties Overview
 
-This document lists the properties used within the fortress core.  These props can be stored in various locations.  For example as system.properties, in a file on within an LDAP node.  See the README-CONFIG for description of how the config system works.
+This document lists the properties used within the fortress core, used by the runtime.  
+These properties can be stored in various locations.  For example as system.properties, in a file or within an LDAP node.  See the README-CONFIG for description of how the config system works.
+For a detailed description of how the Fortress configuration subsystem, go here: [README-CONFIG](./README-CONFIG.md) 
 
 -------------------------------------------------------------------------------
 ## SECTION 2. Fortress Core properties
@@ -167,7 +169,7 @@ This section describes the properties needed to control fortress core.
  group.root=ou=Groups,dc=example,dc=com
  ```
 
- Note: See the [README-CONFIG](./README-CONFIG.md)) guide for more info how fortress finds its properties.
+ Note: See the [README-CONFIG](./README-CONFIG.md) guide for more info how fortress finds its properties.
 
 11. Define the delegated administration super admin role.  Any user who is assigned this role will bypass all ARBAC02 security checks, when they are enabled.
 
