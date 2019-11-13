@@ -897,7 +897,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         // are there any parents left?
         if ( !CollectionUtils.isNotEmpty( cRole2.getParents() ) )
         {
-            // The updates only update non-empty multi-occurring attributes
+            // The updates only update non-empty multivalued attributes
             // so if last parent assigned, so must remove the attribute completely:
             roleP.deleteParent( cRole2 );
         }

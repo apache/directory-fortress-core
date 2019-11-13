@@ -698,7 +698,7 @@ public abstract class LdapDataProvider
 
 
     /**
-     * Method wraps ldap client to return multi-occurring attribute values by name within a given entry and returns
+     * Method wraps ldap client to return multivalued attribute by name within a given entry and returns
      * as a list of strings.
      *
      * @param entry         contains the target ldap entry.
@@ -751,7 +751,7 @@ public abstract class LdapDataProvider
 
 
     /**
-     * Method wraps ldap client to return multi-occurring attribute values by name within a given entry and returns
+     * Method wraps ldap client to return multivalued attribute by name within a given entry and returns
      * as a set of strings.
      *
      * @param entry         contains the target ldap entry.
@@ -842,7 +842,7 @@ public abstract class LdapDataProvider
      *
      * @param name   contains attribute name to create.
      * @param values array of string that contains attribute values.
-     * @return Attribute containing multi-occurring attribute set.
+     * @return Attribute containing multivalued attribute set.
      * @throws LdapException in the event of ldap client error.
      */
     protected Attribute createAttributes( String name, String values[] ) throws LdapException

@@ -93,11 +93,11 @@ public interface AdminMgr extends Manageable
      *   <li>{@link User#description} - maps to INetOrgPerson description attribute</li>
      *   <li>{@link User#title} - maps to INetOrgPerson title attribute</li>
      *   <li>{@link User#employeeType} - maps to INetOrgPerson employeeType attribute</li>
-     *   <li>{@link User#phones} * - multi-occurring attribute maps to organizationalPerson telephoneNumber  attribute</li>
-     *   <li>{@link User#mobiles} * - multi-occurring attribute maps to INetOrgPerson mobile attribute</li>
-     *   <li>{@link User#emails} * - multi-occurring attribute maps to INetOrgPerson mail attribute</li>
+     *   <li>{@link User#phones} * - multivalued attribute maps to organizationalPerson telephoneNumber  attribute</li>
+     *   <li>{@link User#mobiles} * - multivalued attribute maps to INetOrgPerson mobile attribute</li>
+     *   <li>{@link User#emails} * - multivalued attribute maps to INetOrgPerson mail attribute</li>
      *   <li>
-     *     {@link User#address} * - multi-occurring attribute maps to organizationalPerson postalAddress, st, 
+     *     {@link User#address} * - multivalued attribute maps to organizationalPerson postalAddress, st,
      *     l, postalCode, postOfficeBox attributes
      *   </li>
      *   <li>{@link User#beginTime} - HHMM - determines begin hour user may activate session</li>
@@ -109,14 +109,14 @@ public interface AdminMgr extends Manageable
      *   <li>{@link User#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
      *   <li>{@link User#timeout} - number (in minutes) of session inactivity time allowed</li>
      *   <li>
-     *     {@link User#props} * - multi-occurring attribute contains property key and values are separated with a ':'.
+     *     {@link User#props} * - multivalued attribute contains property key and values are separated with a ':'.
      *     e.g. mykey1:myvalue1
      *   </li>
      *   <li>
-     *     {@link User#roles} * - multi-occurring attribute contains the name of already existing role to assign to user
+     *     {@link User#roles} * - multivalued attribute contains the name of already existing role to assign to user
      *   </li>
      *   <li>
-     *     {@link User#adminRoles} * - multi-occurring attribute contains the name of already existing adminRole to assign 
+     *     {@link User#adminRoles} * - multivalued attribute contains the name of already existing adminRole to assign
      *     to user
      *   </li>
      * </ul>
@@ -191,11 +191,11 @@ public interface AdminMgr extends Manageable
      *   <li>{@link User#description} - maps to INetOrgPerson description attribute</li>
      *   <li>{@link User#title} - maps to INetOrgPerson title attribute</li>
      *   <li>{@link User#employeeType} - maps to INetOrgPerson employeeType attribute</li>
-     *   <li>{@link User#phones} * - multi-occurring attribute maps to organizationalPerson telephoneNumber  attribute</li>
-     *   <li>{@link User#mobiles} * - multi-occurring attribute maps to INetOrgPerson mobile attribute</li>
-     *   <li>{@link User#emails} * - multi-occurring attribute maps to INetOrgPerson mail attribute</li>
+     *   <li>{@link User#phones} * - multivalued attribute maps to organizationalPerson telephoneNumber  attribute</li>
+     *   <li>{@link User#mobiles} * - multivalued attribute maps to INetOrgPerson mobile attribute</li>
+     *   <li>{@link User#emails} * - multivalued attribute maps to INetOrgPerson mail attribute</li>
      *   <li>
-     *     {@link User#address} * - multi-occurring attribute maps to organizationalPerson postalAddress, st, l, 
+     *     {@link User#address} * - multivalued attribute maps to organizationalPerson postalAddress, st, l,
      *     postalCode, postOfficeBox attributes
      *   </li>
      *   <li>{@link User#beginTime} - HHMM - determines begin hour user may activate session</li>
@@ -207,14 +207,14 @@ public interface AdminMgr extends Manageable
      *   <li>{@link User#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
      *   <li>{@link User#timeout} - number (in minutes) of session inactivity time allowed</li>
      *   <li>
-     *     {@link User#props} * - multi-occurring attribute contains property key and values are separated with a ':'.  
+     *     {@link User#props} * - multivalued attribute contains property key and values are separated with a ':'.
      *     e.g. mykey1:myvalue1
      *   </li>
      *   <li>
-     *     {@link User#roles} * - multi-occurring attribute contains the name of already existing role to assign to user
+     *     {@link User#roles} * - multivalued attribute contains the name of already existing role to assign to user
      *   </li>
      *   <li>
-     *     {@link User#adminRoles} * - multi-occurring attribute contains the name of already existing adminRole to assign 
+     *     {@link User#adminRoles} * - multivalued attribute contains the name of already existing adminRole to assign
      *     to user
      *   </li>
      * </ul>
@@ -1118,7 +1118,7 @@ public interface AdminMgr extends Manageable
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#members} * - multi-occurring attribute contains the RBAC Role names to be added to this set</li>
+     *   <li>{@link SDSet#members} * - multivalued attribute contains the RBAC Role names to be added to this set</li>
      *   <li>
      *     {@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be assigned to
      *      User from a particular set
@@ -1154,7 +1154,7 @@ public interface AdminMgr extends Manageable
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#members} * - multi-occurring attribute contains the RBAC Role names to be added to this set</li>
+     *   <li>{@link SDSet#members} * - multivalued attribute contains the RBAC Role names to be added to this set</li>
      *   <li>
      *     {@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be assigned to 
      *     User from a particular set
@@ -1290,7 +1290,7 @@ public interface AdminMgr extends Manageable
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#members} * - multi-occurring attribute contains the RBAC Role names to be added to this set</li>
+     *   <li>{@link SDSet#members} * - multivalued attribute contains the RBAC Role names to be added to this set</li>
      *   <li>
      *     {@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be assigned to 
      *     User from a particular set
@@ -1327,7 +1327,7 @@ public interface AdminMgr extends Manageable
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#members} * - multi-occurring attribute contains the RBAC Role names to be added to this set</li>
+     *   <li>{@link SDSet#members} * - multivalued attribute contains the RBAC Role names to be added to this set</li>
      *   <li>
      *     {@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be assigned 
      *     to User from a particular set

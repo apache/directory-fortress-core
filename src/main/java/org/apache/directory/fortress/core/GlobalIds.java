@@ -304,22 +304,22 @@ public final class GlobalIds
     // USER Role Definitions:
 
     /**
-     * Multi-occurring attribute contains RBAC Role assignments for Users.
+     * multivalued attribute contains RBAC Role assignments for Users.
      */
     //public static final String USER_ROLE_ASSIGN = "ftRA";
 
     /**
-     * Multi-occurring attribute contains constraint policies for RBAC Role assignments for Users.
+     * multivalued attribute contains constraint policies for RBAC Role assignments for Users.
      */
     public static final String USER_ROLE_DATA = "ftRC";
 
     /**
-     * Multi-occurring attribute contains Administrative Role assignments for Users.
+     * multivalued attribute contains Administrative Role assignments for Users.
      */
     public static final String USER_ADMINROLE_ASSIGN = "ftARA";
 
     /**
-     * Multi-occurring attribute contains constraint policies for Administrative Role assignments for Users.
+     * multivalued attribute contains constraint policies for Administrative Role assignments for Users.
      */
     public static final String USER_ADMINROLE_DATA = "ftARC";
 
@@ -495,7 +495,7 @@ public final class GlobalIds
     public static final String CONFIG_GID_NUMBER = "config.gid.number";
 
     /**
-     * Fortress stores name-value pairs within multi-occurring attributes in ldap.  Usually a separator of ':' is used
+     * Fortress stores name-value pairs within multivalued attributes in ldap.  Usually a separator of ':' is used
      * format: {@code name:value},
      */
     public static final char PROP_SEP = ':';

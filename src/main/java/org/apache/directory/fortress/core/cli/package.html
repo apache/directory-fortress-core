@@ -122,12 +122,12 @@ Currently the following groups of functions are supported:
                     <li>d : description - maps to INetOrgPerson description attribute</li>
                     <li>3 : title - maps to INetOrgPerson title attribute</li>
                     <li>4 : employeeType - maps to INetOrgPerson employeeType attribute</li>
-                    <li>y : phones * - multi-occurring attribute maps to organizationalPerson telephoneNumber
+                    <li>y : phones * - multivalued attribute maps to organizationalPerson telephoneNumber
                         attribute
                     </li>
-                    <li>Y : mobiles * - multi-occurring attribute maps to INetOrgPerson mobile attribute</li>
-                    <li>@ : emails * - multi-occurring attribute maps to INetOrgPerson mail attribute</li>
-                    <li>> : address * - multi-occurring attribute maps to organizationalPerson postalAddress attribute
+                    <li>Y : mobiles * - multivalued attribute maps to INetOrgPerson mobile attribute</li>
+                    <li>@ : emails * - multivalued attribute maps to INetOrgPerson mail attribute</li>
+                    <li>> : address * - multivalued attribute maps to organizationalPerson postalAddress attribute
                     </li>
                     <li>< : state - maps to organizationalPerson st attribute</li>
                     <li>3 : city - maps to organizationalPerson l attribute</li>
@@ -142,14 +142,14 @@ Currently the following groups of functions are supported:
                     <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on
                     </li>
                     <li>t : timeout - number (in minutes) of session inactivity time allowed</li>
-                    <li>v : properties * - multi-occurring attribute contains property key and values are separated with
+                    <li>v : properties * - multivalued attribute contains property key and values are separated with
                         a ':'. e.g.
                         mykey1:myvalue1
                     </li>
-                    <li>r : roles * - multi-occurring attribute contains the name of already existing role to assign to
+                    <li>r : roles * - multivalued attribute contains the name of already existing role to assign to
                         user
                     </li>
-                    <li>a : adminRoles * - multi-occurring attribute contains the name of already existing adminRole to
+                    <li>a : adminRoles * - multivalued attribute contains the name of already existing adminRole to
                         assign to
                         user
                     </li>
@@ -195,12 +195,12 @@ Currently the following groups of functions are supported:
                     <li>d : description - maps to INetOrgPerson description attribute</li>
                     <li>3 : title - maps to INetOrgPerson title attribute</li>
                     <li>4 : employeeType - maps to INetOrgPerson employeeType attribute</li>
-                    <li>y : phones * - multi-occurring attribute maps to organizationalPerson telephoneNumber
+                    <li>y : phones * - multivalued attribute maps to organizationalPerson telephoneNumber
                         attribute
                     </li>
-                    <li>Y : mobiles * - multi-occurring attribute maps to INetOrgPerson mobile attribute</li>
-                    <li>@ : emails * - multi-occurring attribute maps to INetOrgPerson mail attribute</li>
-                    <li>> : address * - multi-occurring attribute maps to organizationalPerson postalAddress attribute
+                    <li>Y : mobiles * - multivalued attribute maps to INetOrgPerson mobile attribute</li>
+                    <li>@ : emails * - multivalued attribute maps to INetOrgPerson mail attribute</li>
+                    <li>> : address * - multivalued attribute maps to organizationalPerson postalAddress attribute
                     </li>
                     <li>< : state - maps to organizationalPerson st attribute</li>
                     <li>3 : city - maps to organizationalPerson l attribute</li>
@@ -215,14 +215,14 @@ Currently the following groups of functions are supported:
                     <li>m : dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on
                     </li>
                     <li>t : timeout - number (in minutes) of session inactivity time allowed</li>
-                    <li>v : properties * - multi-occurring attribute contains property key and values are separated with
+                    <li>v : properties * - multivalued attribute contains property key and values are separated with
                         a ':'. e.g.
                         mykey1:myvalue1
                     </li>
-                    <li>r : roles * - multi-occurring attribute contains the name of already existing role to assign to
+                    <li>r : roles * - multivalued attribute contains the name of already existing role to assign to
                         user
                     </li>
-                    <li>a : adminRoles * - multi-occurring attribute contains the name of already existing adminRole to
+                    <li>a : adminRoles * - multivalued attribute contains the name of already existing adminRole to
                         assign to
                         user
                     </li>
@@ -597,7 +597,7 @@ Currently the following groups of functions are supported:
                 </ul>
                 <h4>optional parameters</h4>
                 <ul>
-                    <li>r : roles * - multi-occurring attribute contains the RBAC Role names to be added to this set
+                    <li>r : roles * - multivalued attribute contains the RBAC Role names to be added to this set
                     </li>
                     <li>C : cardinality - default is 2 which is one more than maximum number of Roles that may be
                         assigned to User
@@ -655,7 +655,7 @@ Currently the following groups of functions are supported:
                 </ul>
                 <h4>optional parameters</h4>
                 <ul>
-                    <li>r : roles * - multi-occurring attribute contains the RBAC Role names to be added to this set
+                    <li>r : roles * - multivalued attribute contains the RBAC Role names to be added to this set
                     </li>
                     <li>C : cardinality - default is 2 which is one more than maximum number of Roles that may be
                         activated into RBAC
@@ -827,7 +827,7 @@ Currently the following groups of functions are supported:
                 </ul>
                 <h4>optional parameters</h4>
                 <ul>
-                    <li>r : roles * - multi-occurring attribute contains RBAC Roles that permission operation is being
+                    <li>r : roles * - multivalued attribute contains RBAC Roles that permission operation is being
                         granted to
                     </li>
                     <li>v : properties * - multi-occurring property key and values are separated with a ':'. e.g.
@@ -932,8 +932,8 @@ Currently the following groups of functions are supported:
                 <h4>optional parameters</h4>
                 <ul>
                     <li>d : description - contains any safe text</li>
-                    <li>P : osPs * - multi-occurring attribute used to set associations to existing PERMS OrgUnits</li>
-                    <li>U : osUs * - multi-occurring attribute used to set associations to existing USERS OrgUnits</li>
+                    <li>P : osPs * - multivalued attribute used to set associations to existing PERMS OrgUnits</li>
+                    <li>U : osUs * - multivalued attribute used to set associations to existing USERS OrgUnits</li>
                     <li>x : beginRange - contains the name of an existing RBAC Role that represents the lowest role in
                         hierarchy
                         that administrator (whoever has this AdminRole activated) controls
@@ -992,8 +992,8 @@ Currently the following groups of functions are supported:
                 <h4>optional parameters</h4>
                 <ul>
                     <li>d : description - contains any safe text</li>
-                    <li>P : osPs * - multi-occurring attribute used to set associations to existing PERMS OrgUnits</li>
-                    <li>U : osUs * - multi-occurring attribute used to set associations to existing USERS OrgUnits</li>
+                    <li>P : osPs * - multivalued attribute used to set associations to existing PERMS OrgUnits</li>
+                    <li>U : osUs * - multivalued attribute used to set associations to existing USERS OrgUnits</li>
                     <li>x : beginRange - contains the name of an existing RBAC Role that represents the lowest role in
                         hierarchy
                         that administrator (whoever has this AdminRole activated) controls
@@ -1852,7 +1852,7 @@ Currently the following groups of functions are supported:
                 <h4>required parameters</h4>
                 <ul>
                     <li>n : name - contains the name to use for new LDAP group. It must be unique.</li>
-                    <li>M : members * - multi-occurring attribute (must include at least one) - maps to userId in LDAP
+                    <li>M : members * - multivalued attribute (must include at least one) - maps to userId in LDAP
                         directory"
                     </li>
                 </ul>
@@ -1860,7 +1860,7 @@ Currently the following groups of functions are supported:
                 <ul>
                     <li>d : description - maps to description attribute on object class</li>
                     <li>X : protocol - used to specify protocol</li>
-                    <li>v : properties * - multi-occurring attribute contains property key and values are separated with
+                    <li>v : properties * - multivalued attribute contains property key and values are separated with
                         a '='. e.g.: key1=val1
                     </li>
                 </ul>
@@ -1880,7 +1880,7 @@ Currently the following groups of functions are supported:
 
                 <p>
                     Modify existing group node. The name is required. Does not update members or properties.
-                    Use ASSIGN_GROUP, DEASSIGN_GROUP, ADD_GROUP_PROP or DEL_GROUP_PROP for multi-occurring attributes.
+                    Use ASSIGN_GROUP, DEASSIGN_GROUP, ADD_GROUP_PROP or DEL_GROUP_PROP for multivalued attributes.
                 </p>
 
                 <h4>required parameters</h4>
@@ -1889,7 +1889,7 @@ Currently the following groups of functions are supported:
                 </ul>
                 <h4>optional parameters</h4>
                 <ul>
-                    <li>M : members * - multi-occurring attribute maps to a userId in the LDAP directory"</li>
+                    <li>M : members * - multivalued attribute maps to a userId in the LDAP directory"</li>
                     <li>d : description - maps to description attribute on object class</li>
                 </ul>
                 <h4>example</h4>
@@ -1925,7 +1925,7 @@ Currently the following groups of functions are supported:
                 <h4>required parameters</h4>
                 <ul>
                     <li>n : name - contains the name of an existing LDAP group.</li>
-                    <li>M : members * - multi-occurring attribute (must include at least one) - maps to userId in LDAP
+                    <li>M : members * - multivalued attribute (must include at least one) - maps to userId in LDAP
                         directory"
                     </li>
                 </ul>
@@ -1945,7 +1945,7 @@ Currently the following groups of functions are supported:
                 <h4>required parameters</h4>
                 <ul>
                     <li>n : name - contains the name of an existing LDAP group.</li>
-                    <li>M : members * - multi-occurring attribute (must include at least one) - maps to userId in LDAP
+                    <li>M : members * - multivalued attribute (must include at least one) - maps to userId in LDAP
                         directory"
                     </li>
                 </ul>

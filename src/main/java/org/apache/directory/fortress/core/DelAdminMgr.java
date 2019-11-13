@@ -62,8 +62,8 @@ public interface DelAdminMgr extends Manageable
      * <h4>optional parameters</h4>
      * <ul>
      *   <li>{@link AdminRole#description} - contains any safe text</li>
-     *   <li>{@link AdminRole#osPs} * - multi-occurring attribute used to set associations to existing PERMS OrgUnits</li>
-     *   <li>{@link AdminRole#osUs} * - multi-occurring attribute used to set associations to existing USERS OrgUnits</li>
+     *   <li>{@link AdminRole#osPs} * - multivalued attribute used to set associations to existing PERMS OrgUnits</li>
+     *   <li>{@link AdminRole#osUs} * - multivalued attribute used to set associations to existing USERS OrgUnits</li>
      *   <li>
      *     {@link AdminRole#beginRange} - contains the name of an existing RBAC Role that represents the lowest role in 
      *     hierarchy that administrator (whoever has this AdminRole activated) controls
@@ -135,8 +135,8 @@ public interface DelAdminMgr extends Manageable
      * <h4>optional parameters</h4>
      * <ul>
      *   <li>{@link AdminRole#description} - contains any safe text</li>
-     *   <li>{@link AdminRole#osPs} * - multi-occurring attribute used to set associations to existing PERMS OrgUnits</li>
-     *   <li>{@link AdminRole#osUs} * - multi-occurring attribute used to set associations to existing USERS OrgUnits</li>
+     *   <li>{@link AdminRole#osPs} * - multivalued attribute used to set associations to existing PERMS OrgUnits</li>
+     *   <li>{@link AdminRole#osUs} * - multivalued attribute used to set associations to existing USERS OrgUnits</li>
      *   <li>
      *     {@link AdminRole#beginRange} - contains the name of an existing RBAC Role that represents the lowest role in 
      *     hierarchy that administrator (whoever has this AdminRole activated) controls

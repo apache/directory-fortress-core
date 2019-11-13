@@ -479,7 +479,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
         // are there any parents left?
         if(!CollectionUtils.isNotEmpty( cOrg.getParents() ))
         {
-            // The updates only update non-empty multi-occurring attributes
+            // The updates only update non-empty multivalued attributes
             // so if last parent assigned, so must remove the attribute completely:
             ouP.deleteParent(cOrg);
         }
@@ -596,7 +596,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
         // are there any parents left?
         if(!CollectionUtils.isNotEmpty( cRole2.getParents() ))
         {
-            // The updates only update non-empty multi-occurring attributes
+            // The updates only update non-empty multivalued attributes
             // so if last parent assigned, so must remove the attribute completely:
             admRP.deleteParent(cRole2);
         }

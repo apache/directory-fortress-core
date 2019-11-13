@@ -51,7 +51,7 @@ public interface GroupMgr extends Manageable
      * Modify existing group node.  The name is required.  Does not update members or properties.
      * Use {@link GroupMgr#add( Group group, String key, String value )}, {@link GroupMgr#delete( Group group, String key, 
      * String value )}, {@link GroupMgr#assign( Group group, String member) }, or 
-     * {@link GroupMgr#deassign( Group group, String member) } for multi-occurring attributes.
+     * {@link GroupMgr#deassign( Group group, String member) } for multivalued attributes.
      *
      * @param group contains {@link Group}.
      * @return {@link Group} containing entity just modified.
