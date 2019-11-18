@@ -79,7 +79,7 @@ Minimum hardware requirements to run Apache Fortress and LDAP server:
 
 Minimum software requirements:
  * git
- * Java SDK 8
+ * Java SDK 8++
  * Apache Maven3++
 
 ___________________________________________________________________________________

@@ -46,7 +46,7 @@ Minimum hardware requirements:
 
 Minimum software requirements:
  * Centos or Debian Machine
- * Java SDK 8
+ * Java SDK 8++
  * Apache Maven3++
 
  *Everything else covered in steps that follow.*
