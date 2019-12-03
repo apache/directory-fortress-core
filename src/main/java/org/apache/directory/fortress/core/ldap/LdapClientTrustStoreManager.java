@@ -55,7 +55,7 @@ import java.util.Date;
  *     <li>trust.onclasspath : if false name must be fully qualified, otherwise file must be on classpath as named</li>
  * </ul>
  *
- * Note: This class allows self-signed certificates to pass the validation checks.
+ * Note: This class allows self-signed certificates to pass the validation checks, if its root certificate is found in the truststore.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
