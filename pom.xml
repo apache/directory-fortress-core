@@ -47,7 +47,7 @@
 
   <scm>
     <connection>scm:git:https://gitbox.apache.org/repos/asf/directory-fortress-core.git</connection>
-    <developerConnection>scm:git: https://gitbox.apache.org/repos/asf/directory-fortress-core.git </developerConnection>
+    <developerConnection>scm:git: https://gitbox.apache.org/repos/asf/directory-fortress-core.git</developerConnection>
     <url>https://github.com/apache/directory-fortress-core/tree/{project.scm.tag}</url>
     <tag>master</tag>
   </scm>
