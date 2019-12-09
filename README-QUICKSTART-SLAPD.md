@@ -18,7 +18,7 @@
 
 # OpenLDAP & Fortress QUICKSTART
 
- Apache Fortress 2.0.3 and OpenLDAP Quickstart System Architecture
+ Apache Fortress 2.0.4 and OpenLDAP Quickstart System Architecture
  ![OpenLDAP & Fortress System Architecture](images/fortress-openldap-accel-system-arch.png "OpenLDAP & Fortress System Architecture")
 
 -------------------------------------------------------------------------------
@@ -35,7 +35,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * This document contains instructions to install Apache Fortress 2.0.3 Core, Web, Rest and OpenLDAP.
+ * This document contains instructions to install Apache Fortress 2.0.4 Core, Web, Rest and OpenLDAP.
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
@@ -57,15 +57,15 @@ ________________________________________________________________________________
 
  a. from git:
  ```
- git clone --branch 2.0.3  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
+ git clone --branch 2.0.4  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
  cd directory-fortress-core
  ```
 
  b. or download package:
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/2.0.3/fortress-core-2.0.3-source-release.zip
- unzip fortress-core-2.0.3-source-release.zip
- cd fortress-core-2.0.3
+ wget http://www.apache.org/dist/directory/fortress/dist/2.0.4/fortress-core-2.0.4-source-release.zip
+ unzip fortress-core-2.0.4-source-release.zip
+ cd fortress-core-2.0.4
  ```
 
 2. Prepare the package:
@@ -307,7 +307,7 @@ During this section, you will be asked to setup Apache Tomcat 8 and prepare for 
 2. Download the fortress realm proxy jar into tomcat/lib folder:
 
   ```
-  sudo wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.3/fortress-realm-proxy-2.0.3.jar -P /usr/local/tomcat8/lib
+  sudo wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.4/fortress-realm-proxy-2.0.4.jar -P /usr/local/tomcat8/lib
   ```
 
 3. Prepare tomcat fortress usage:
@@ -402,15 +402,15 @@ During this section, you will be asked to setup Apache Fortress Rest Application
 
  a. from git:
  ```
- git clone --branch 2.0.3  https://gitbox.apache.org/repos/asf/directory-fortress-enmasse.git
+ git clone --branch 2.0.4  https://gitbox.apache.org/repos/asf/directory-fortress-enmasse.git
  cd directory-fortress-enmasse
  ```
 
  b. or download package:
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/2.0.3/fortress-rest-2.0.3-source-release.zip
- unzip fortress-rest-2.0.3-source-release.zip
- cd fortress-rest-2.0.3
+ wget http://www.apache.org/dist/directory/fortress/dist/2.0.4/fortress-rest-2.0.4-source-release.zip
+ unzip fortress-rest-2.0.4-source-release.zip
+ cd fortress-rest-2.0.4
  ```
 
 2. Prepare:
@@ -448,15 +448,15 @@ During this section, you will be asked to setup Apache Fortress Web Application
 
  a. from git:
  ```
- git clone --branch 2.0.3  https://gitbox.apache.org/repos/asf/directory-fortress-commander.git
+ git clone --branch 2.0.4  https://gitbox.apache.org/repos/asf/directory-fortress-commander.git
  cd directory-fortress-commander
  ```
 
  b. or download package:
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/2.0.3/fortress-web-2.0.3-source-release.zip
- unzip fortress-web-2.0.3-source-release.zip
- cd fortress-web-2.0.3
+ wget http://www.apache.org/dist/directory/fortress/dist/2.0.4/fortress-web-2.0.4-source-release.zip
+ unzip fortress-web-2.0.4-source-release.zip
+ cd fortress-web-2.0.4
  ```
 
 2. Prepare:
