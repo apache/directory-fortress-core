@@ -46,7 +46,7 @@ import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.Config;
-import org.jgrapht.UndirectedGraph;
+//import org.jgrapht.UndirectedGraph;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.jgrapht.graph.SimpleGraph;
@@ -1228,6 +1228,7 @@ class AdminMgrConsole
      * @throws org.apache.directory.fortress.core.SecurityException
      *
      */
+/*
     public static Hier toHierTest(UndirectedGraph<String, Relationship> graph)
     {
         Hier he = new Hier();
@@ -1246,6 +1247,7 @@ class AdminMgrConsole
         }
         return he;
     }
+*/
 
 
     /**
@@ -1285,6 +1287,7 @@ class AdminMgrConsole
         return graph;
     }
 
+/*
     public static void addJGraph2()
     {
         ReaderUtil.clearScreen();
@@ -1313,6 +1316,7 @@ class AdminMgrConsole
         System.out.println("ENTER to continue");
         ReaderUtil.readChar();
     }
+*/
 
     private static String getTestDataLabel2()
     {
