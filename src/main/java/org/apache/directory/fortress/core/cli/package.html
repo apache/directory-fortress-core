@@ -126,9 +126,9 @@ Currently the following groups of functions are supported:
                         attribute
                     </li>
                     <li>Y : mobiles * - multivalued attribute maps to INetOrgPerson mobile attribute</li>
-                    <li>@ : emails * - multivalued attribute maps to INetOrgPerson mail attribute</li>
-                    <li>> : address * - multivalued attribute maps to organizationalPerson postalAddress attribute</li>
-                    <li>< : state - maps to organizationalPerson st attribute</li>
+                    <li>&amp; : emails * - multivalued attribute maps to INetOrgPerson mail attribute</li>
+                    <li>&gt; : address * - multivalued attribute maps to organizationalPerson postalAddress attribute</li>
+                    <li>&lt; : state - maps to organizationalPerson st attribute</li>
                     <li>3 : city - maps to organizationalPerson l attribute</li>
                     <li>z : postalCode - maps to postalCode description attribute</li>
                     <li>2 : postalOfficeBox - maps to organizationalPerson postOfficeBox attribute</li>
@@ -165,7 +165,7 @@ Currently the following groups of functions are supported:
                     </li>
                     <li>admin auser -u testuser3 -p mypasword789 -o dev1 -z 1111111 -2 123 -y 555-555-5555 -y
                         444-444-4444 ->
-                        "joshuatree1 one two three" -> "joshuatree2 four five six" -> CA -3 twentyninepalms -Y
+                        "joshuatree1 one two three" -&gt; "joshuatree2 four five six" -&gt; CA -3 twentyninepalms -Y
                         333-333-3333
                     </li>
                 </ul>
@@ -198,10 +198,10 @@ Currently the following groups of functions are supported:
                         attribute
                     </li>
                     <li>Y : mobiles * - multivalued attribute maps to INetOrgPerson mobile attribute</li>
-                    <li>@ : emails * - multivalued attribute maps to INetOrgPerson mail attribute</li>
-                    <li>> : address * - multivalued attribute maps to organizationalPerson postalAddress attribute
+                    <li>&amp; : emails * - multivalued attribute maps to INetOrgPerson mail attribute</li>
+                    <li>&gt; : address * - multivalued attribute maps to organizationalPerson postalAddress attribute
                     </li>
-                    <li>< : state - maps to organizationalPerson st attribute</li>
+                    <li>&lt; : state - maps to organizationalPerson st attribute</li>
                     <li>3 : city - maps to organizationalPerson l attribute</li>
                     <li>z : postalCode - maps to postalCode description attribute</li>
                     <li>2 : postalOfficeBox - maps to organizationalPerson postOfficeBox attribute</li>
@@ -233,9 +233,9 @@ Currently the following groups of functions are supported:
                         -l 20111215
                         -n 20111217 -m 17 -t 30 -v n1:v1 -v n2:v2
                     </li>
-                    <li>admin uuser -u testuser3 -p password123 -z 1111111 -2 123 -y 555-555-5555 -y 444-444-4444 ->
+                    <li>admin uuser -u testuser3 -p password123 -z 1111111 -2 123 -y 555-555-5555 -y 444-444-4444 -&gt;
                         "joshuatree1
-                        one two three" -> "joshuatree2 four five six" -< CA -3 twentyninepalms -Y 333-333-3333
+                        one two three" -&gt; "joshuatree2 four five six" -&lt; CA -3 twentyninepalms -Y 333-333-3333
                     </li>
                 </ul>
             </li>
@@ -525,7 +525,7 @@ Currently the following groups of functions are supported:
                 <h3>arel : ADD_ROLE_INHERITANCE</h3>
 
                 <p>
-                    This commands establishes a new immediate inheritance relationship parentRole <<-- childRole between
+                    This commands establishes a new immediate inheritance relationship parentRole &lt;&lt;-- childRole between
                     existing
                     roles parentRole, childRole.
 
@@ -551,7 +551,7 @@ Currently the following groups of functions are supported:
 
             <li>
                 <h3>drel : DELETE_ROLE_INHERITANCE</h3>
-                This command deletes an existing immediate inheritance relationship parentRole <<-- childRole.
+                This command deletes an existing immediate inheritance relationship parentRole &lt;&lt;-- childRole.
                 <p>
                     command is valid if and only if:
                 </p>
@@ -560,7 +560,7 @@ Currently the following groups of functions are supported:
                     <li> The parentRole is an immediate ascendant of childRole.
                     <li> The new inheritance relation is computed as the reflexive-transitive closure of the immediate
                         inheritance
-                        relation resulted after deleting the relationship parentRole <<-- childRole.
+                        relation resulted after deleting the relationship parentRole &lt;&lt;-- childRole.
                 </ul>
 
                 <h4>required parameters</h4>
@@ -698,7 +698,7 @@ Currently the following groups of functions are supported:
                     making this call.
                     A PermObj instance exists in a hierarchical, one-many relationship between itself and children as
                     stored in ldap
-                    tree: PermObj*->Permission.
+                    tree: PermObj*-&gt;Permission.
                 </p>
 
                 <h4>required parameters</h4>
@@ -730,7 +730,7 @@ Currently the following groups of functions are supported:
                     making this call.
                     A PermObj instance exists in a hierarchical, one-many relationship between itself and children as
                     stored in ldap
-                    tree: PermObj*->Permission.
+                    tree: PermObj*-&gt;Permission.
                 </p>
 
                 <h4>required parameters</h4>
@@ -783,7 +783,7 @@ Currently the following groups of functions are supported:
                     calling.
                     A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent
                     and itself as
-                    stored in ldap tree: PermObj*->Permission.
+                    stored in ldap tree: PermObj*-&gt;Permission.
                 </p>
 
                 <h4>required parameters</h4>
@@ -845,7 +845,7 @@ Currently the following groups of functions are supported:
 
                 <p>
                     This method will remove permission operation entity from permission object. A Fortress permission is
-                    PermObj*->Permission.
+                    PermObj*-&gt;Permission.
                     The perm operation must exist before making this call.
                 </p>
 
@@ -1139,7 +1139,7 @@ Currently the following groups of functions are supported:
             <li>
                 <h3>arel : ADD_ADMIN_ROLE_INHERITANCE</h3>
 
-                This commands establishes a new immediate inheritance relationship with parent orgunit <<-- child
+                This commands establishes a new immediate inheritance relationship with parent orgunit &lt;&lt;-- child
                 orgunit
                 <p>
                     The command is valid if and only if:
@@ -1165,7 +1165,7 @@ Currently the following groups of functions are supported:
             <li>
                 <h3>drel : DELETE_ADMIN_ROLE_INHERITANCE</h3>
 
-                This command deletes an existing immediate inheritance relationship parent <<-- child.
+                This command deletes an existing immediate inheritance relationship parent &lt;&lt;-- child.
 
                 <p>
                     The command is valid if and only if:
@@ -1175,7 +1175,7 @@ Currently the following groups of functions are supported:
                     <li> The parent is an immediate ascendant of child.
                     <li> The new inheritance relation is computed as the reflexive-transitive closure of the immediate
                         inheritance
-                        relation resulted after deleting the relationship parent <<-- child.
+                        relation resulted after deleting the relationship parent &lt;&lt;-- child.
                 </ul>
 
                 <h4>required parameters</h4>
@@ -1249,7 +1249,7 @@ Currently the following groups of functions are supported:
             <li>
                 <h3>aurel : ADD_USERORG_INHERITANCE</h3>
 
-                This commands establishes a new immediate inheritance relationship with parent USERS orgunit <<-- child
+                This commands establishes a new immediate inheritance relationship with parent USERS orgunit &lt;&lt;-- child
                 orgunit
                 <p>
                     The command is valid if and only if:
@@ -1275,7 +1275,7 @@ Currently the following groups of functions are supported:
 
             <li>
                 <h3>durel : DELETE_USERORG_INHERITANCE</h3>
-                This command deletes an existing immediate inheritance relationship parent <<-- child.
+                This command deletes an existing immediate inheritance relationship parent &lt;&lt;-- child.
 
                 <p>
                     The command is valid if and only if:
@@ -1285,7 +1285,7 @@ Currently the following groups of functions are supported:
                     <li> The parent is an immediate ascendant of child.
                     <li> The new inheritance relation is computed as the reflexive-transitive closure of the immediate
                         inheritance
-                        relation resulted after deleting the relationship parent <<-- child.
+                        relation resulted after deleting the relationship parent &lt;&lt;-- child.
                 </ul>
 
                 <h4>required parameters</h4>
@@ -1359,7 +1359,7 @@ Currently the following groups of functions are supported:
             <li>
                 <h3>aprel : ADD_PERMORG_INHERITANCE</h3>
 
-                This commands establishes a new immediate inheritance relationship with parent PERMS orgunit <<-- child
+                This commands establishes a new immediate inheritance relationship with parent PERMS orgunit &lt;&lt;-- child
                 orgunit
 
                 <p>
@@ -1385,7 +1385,7 @@ Currently the following groups of functions are supported:
             <li>
                 <h3>dprel : DELETE_PERMORG_INHERITANCE</h3>
 
-                This command deletes an existing immediate inheritance relationship parent <<-- child.
+                This command deletes an existing immediate inheritance relationship parent &lt;&lt;-- child.
                 <p>
                     The command is valid if and only if:
                 </p>
@@ -1394,7 +1394,7 @@ Currently the following groups of functions are supported:
                     <li> The parent is an immediate ascendant of child.
                     <li> The new inheritance relation is computed as the reflexive-transitive closure of the immediate
                         inheritance
-                        relation resulted after deleting the relationship parent <<-- child.
+                        relation resulted after deleting the relationship parent &lt;&lt;-- child.
                 </ul>
 
                 <h4>required parameters</h4>
@@ -1417,7 +1417,7 @@ Currently the following groups of functions are supported:
                     exist before making this call.
                     A PermObj instance exists in a hierarchical, one-many relationship between itself and children as
                     stored in ldap
-                    tree: PermObj*->Permission.
+                    tree: PermObj*-&gt;Permission.
                 </p>
 
                 <h4>required parameters</h4>
@@ -1451,7 +1451,7 @@ Currently the following groups of functions are supported:
                     must exist before making this call.
                     A PermObj instance exists in a hierarchical, one-many relationship between itself and children as
                     stored in ldap
-                    tree: PermObj*->Permission.
+                    tree: PermObj*-&gt;Permission.
                 </p>
 
                 <h4>required parameters</h4>
@@ -1508,7 +1508,7 @@ Currently the following groups of functions are supported:
                     calling.
                     A Fortress Administrative Permission instance exists in a hierarchical, one-many relationship
                     between its parent
-                    and itself as stored in ldap tree: PermObj*->Permission.
+                    and itself as stored in ldap tree: PermObj*-&gt;Permission.
                 </p>
 
                 <h4>required parameters</h4>
@@ -1570,7 +1570,7 @@ Currently the following groups of functions are supported:
                 <p>
                     This method will remove an administrative permission operation entity from permission object. A
                     Fortress
-                    administrative permission is PermObj*->Permission.
+                    administrative permission is PermObj*-&gt;Permission.
                     The perm operation must exist before making this call.
                 </p>
 
