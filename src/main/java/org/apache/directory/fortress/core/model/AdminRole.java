@@ -39,17 +39,17 @@ import org.apache.commons.lang.StringUtils;
  * <h4>Fortress Processing Layers</h4>
  * <ol>
  * <li>Manager layer: {@link org.apache.directory.fortress.core.impl.DelAdminMgrImpl}, {@link org.apache.directory.fortress.core.impl.DelAccessMgrImpl}, {@link org.apache.directory.fortress.core.impl.DelReviewMgrImpl},...</li>
- * <li>Process layer: {@link org.apache.directory.fortress.core.impl.AdminRoleP}, {@link org.apache.directory.fortress.core.impl.OrgUnitP},...</li>
- * <li>DAO layer: {@link org.apache.directory.fortress.core.impl.AdminRoleDAO}, {@link org.apache.directory.fortress.core.impl.OrgUnitDAO},...</li>
+ * <li>Process layer: org.apache.directory.fortress.core.impl.AdminRoleP, org.apache.directory.fortress.core.impl.OrgUnitP,...</li>
+ * <li>DAO layer: org.apache.directory.fortress.core.impl.AdminRoleDAO, org.apache.directory.fortress.core.impl.OrgUnitDAO,...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br>
- * For example, this entity requires {@link #name} set before passing into {@link org.apache.directory.fortress.core.impl.DelAdminMgrImpl} or  {@link org.apache.directory.fortress.core.impl.DelReviewMgrImpl} APIs.
+ * For example, this entity requires AdminRole#name set before passing into {@link org.apache.directory.fortress.core.impl.DelAdminMgrImpl} or  {@link org.apache.directory.fortress.core.impl.DelReviewMgrImpl} APIs.
  * Create methods usually require more attributes (than Read) due to constraints enforced between entities.
  * <p>
  * This entity extends the {@link org.apache.directory.fortress.core.model.Role} entity and is used to store the ARBAC AdminRole assignments that comprise the many-to-many relationships between Users and Administrative Permissions.
  * In addition it is used to store the ARBAC {@link org.apache.directory.fortress.core.model.OrgUnit.Type#PERM} and {@link org.apache.directory.fortress.core.model.OrgUnit.Type#USER} OU information that adheres to the AdminRole entity in the ARBAC02 model.
- * <br>The unique key to locate AdminRole entity (which is subsequently assigned both to Users and administrative Permissions) is {@link AdminRole#name}.<br>
+ * <br>The unique key to locate AdminRole entity (which is subsequently assigned both to Users and administrative Permissions) is AdminRole#name.<br>
  * <p>
  * There is a many-to-many relationship between User's, Administrative Roles and Administrative Permissions.
  * <h3>{@link org.apache.directory.fortress.core.model.User}*<->*{@link AdminRole}*<->*{@link org.apache.directory.fortress.core.model.Permission}</h3>

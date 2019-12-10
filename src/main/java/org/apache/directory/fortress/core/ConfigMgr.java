@@ -48,17 +48,17 @@ public interface ConfigMgr
      * <h4>required parameters</h4>
      * @param cfg contains the name and optional attributes.
      * <ul>
-     *   <li>{@link Configuration#name} - contains the name of new object being added</li>
+     *   <li>Configuration#name - contains the name of new object being added</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link Configuration#props} - List of name / value pairs corresponding to fortress configuration entries.</li>
-     *   <li>{@link Configuration#uidNumber} - String containing valid integer value for sequence number</li>
-     *   <li>{@link Configuration#gidNumber} - String containing valid integer value for sequence number</li>
+     *   <li>Configuration#props - List of name / value pairs corresponding to fortress configuration entries.</li>
+     *   <li>Configuration#uidNumber - String containing valid integer value for sequence number</li>
+     *   <li>Configuration#gidNumber - String containing valid integer value for sequence number</li>
      *   <li>
      * </ul>
      *
-     * @return {@link Configuration} - contains the configuration entity that was added.
+     * @return Configuration - contains the configuration entity that was added.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry already present or other system error.
      */
     Configuration add(Configuration cfg) throws SecurityException;
@@ -66,22 +66,22 @@ public interface ConfigMgr
 
     /**
      * Update existing cfg node with additional properties, or, replace existing properties.  The name is required.
-     * If node does not exist, a {@link org.apache.directory.fortress.core.SecurityException} with error
-     * {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
+     * If node does not exist, a org.apache.directory.fortress.core.SecurityException with error
+     * org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND will be thrown.
      * <h4>required parameters</h4>
      * @param cfg contains the name and optional attributes.
      * <ul>
-     *   <li>{@link Configuration#name} - contains the name of new object being added</li>
+     *   <li>Configuration#name - contains the name of new object being added</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link Configuration#props} - List of name / value pairs corresponding to fortress configuration entries.</li>
-     *   <li>{@link Configuration#uidNumber} - String containing valid integer value for sequence number</li>
-     *   <li>{@link Configuration#gidNumber} - String containing valid integer value for sequence number</li>
+     *   <li>Configuration#props - List of name / value pairs corresponding to fortress configuration entries.</li>
+     *   <li>Configuration#uidNumber - String containing valid integer value for sequence number</li>
+     *   <li>Configuration#gidNumber - String containing valid integer value for sequence number</li>
      *   <li>
      * </ul>
      *
-     * @return {@link Configuration} - contains the configuration entity that was added.
+     * @return Configuration - contains the configuration entity that was added.
      * @throws org.apache.directory.fortress.core.SecurityException in the event entry not present or other system error.
      */
     Configuration update(Configuration cfg) throws SecurityException;
@@ -101,8 +101,8 @@ public interface ConfigMgr
 
     /**
      * Completely removes named cfg node from the directory.  The name is required.  If node does not exist,
-     * a {@link org.apache.directory.fortress.core.SecurityException} with error 
-     * {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
+     * a {@link org.apache.directory.fortress.core.SecurityException} with error
+     * {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND will be thrown.
      *
      * @param name is required and maps to 'cn' attribute on 'device' object class of node targeted for operation.
      * @throws org.apache.directory.fortress.core.SecurityException in the event of system error.
@@ -112,7 +112,7 @@ public interface ConfigMgr
 
     /**
      * Delete properties from existing cfg node.  The name is required.  If node does not exist,
-     * a {@link org.apache.directory.fortress.core.SecurityException} with error 
+     * a {@link org.apache.directory.fortress.core.SecurityException} with error
      * {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
      *
      * @param name attribute is required and maps to 'cn' attribute in 'device' object class.
@@ -124,7 +124,7 @@ public interface ConfigMgr
 
     /**
      * Read an existing cfg node with given name and return to caller.  The name is required.  If node doesn't exist,
-     * a {@link org.apache.directory.fortress.core.SecurityException} with error 
+     * a {@link org.apache.directory.fortress.core.SecurityException} with error
      * {@link org.apache.directory.fortress.core.GlobalErrIds#FT_CONFIG_NOT_FOUND} will be thrown.
      *
      * @param name attribute is required and maps to 'cn' attribute in 'device' object class.

@@ -81,48 +81,48 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link User#userId} - maps to INetOrgPerson uid</li>
-     *   <li>{@link User#password} - used to authenticate the User</li>
-     *   <li>{@link User#ou} - contains the name of an already existing User OU node</li>
+     *   <li>User#userId - maps to INetOrgPerson uid</li>
+     *   <li>User#password - used to authenticate the User</li>
+     *   <li>User#ou - contains the name of an already existing User OU node</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link User#pwPolicy} - contains the name of an already existing OpenLDAP password policy node</li>
-     *   <li>{@link User#cn} - maps to INetOrgPerson common name attribute</li>
-     *   <li>{@link User#sn} - maps to INetOrgPerson surname attribute</li>
-     *   <li>{@link User#description} - maps to INetOrgPerson description attribute</li>
-     *   <li>{@link User#title} - maps to INetOrgPerson title attribute</li>
-     *   <li>{@link User#employeeType} - maps to INetOrgPerson employeeType attribute</li>
-     *   <li>{@link User#phones} * - multivalued attribute maps to organizationalPerson telephoneNumber  attribute</li>
-     *   <li>{@link User#mobiles} * - multivalued attribute maps to INetOrgPerson mobile attribute</li>
-     *   <li>{@link User#emails} * - multivalued attribute maps to INetOrgPerson mail attribute</li>
+     *   <li>User#pwPolicy - contains the name of an already existing OpenLDAP password policy node</li>
+     *   <li>User#cn - maps to INetOrgPerson common name attribute</li>
+     *   <li>User#sn - maps to INetOrgPerson surname attribute</li>
+     *   <li>User#description - maps to INetOrgPerson description attribute</li>
+     *   <li>User#title - maps to INetOrgPerson title attribute</li>
+     *   <li>User#employeeType - maps to INetOrgPerson employeeType attribute</li>
+     *   <li>User#phones * - multivalued attribute maps to organizationalPerson telephoneNumber  attribute</li>
+     *   <li>User#mobiles * - multivalued attribute maps to INetOrgPerson mobile attribute</li>
+     *   <li>User#emails * - multivalued attribute maps to INetOrgPerson mail attribute</li>
      *   <li>
-     *     {@link User#address} * - multivalued attribute maps to organizationalPerson postalAddress, st,
+     *     User#address * - multivalued attribute maps to organizationalPerson postalAddress, st,
      *     l, postalCode, postOfficeBox attributes
      *   </li>
-     *   <li>{@link User#beginTime} - HHMM - determines begin hour user may activate session</li>
-     *   <li>{@link User#endTime} - HHMM - determines end hour user may activate session.</li>
-     *   <li>{@link User#beginDate} - YYYYMMDD - determines date when user may sign on</li>
-     *   <li>{@link User#endDate} - YYYYMMDD - indicates latest date user may sign on</li>
-     *   <li>{@link User#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
-     *   <li>{@link User#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
-     *   <li>{@link User#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
-     *   <li>{@link User#timeout} - number (in minutes) of session inactivity time allowed</li>
+     *   <li>User#beginTime - HHMM - determines begin hour user may activate session</li>
+     *   <li>User#endTime - HHMM - determines end hour user may activate session.</li>
+     *   <li>User#beginDate - YYYYMMDD - determines date when user may sign on</li>
+     *   <li>User#endDate - YYYYMMDD - indicates latest date user may sign on</li>
+     *   <li>User#beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
+     *   <li>User#endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
+     *   <li>User#dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
+     *   <li>User#timeout - number (in minutes) of session inactivity time allowed</li>
      *   <li>
-     *     {@link User#props} * - multivalued attribute contains property key and values are separated with a ':'.
+     *     User#props * - multivalued attribute contains property key and values are separated with a ':'.
      *     e.g. mykey1:myvalue1
      *   </li>
      *   <li>
-     *     {@link User#roles} * - multivalued attribute contains the name of already existing role to assign to user
+     *     User#roles * - multivalued attribute contains the name of already existing role to assign to user
      *   </li>
      *   <li>
-     *     {@link User#adminRoles} * - multivalued attribute contains the name of already existing adminRole to assign
+     *     User#adminRoles * - multivalued attribute contains the name of already existing adminRole to assign
      *     to user
      *   </li>
      * </ul>
      *
-     * @param user User entity must contain {@link User#userId} and {@link User#ou} (required) and optional 
-     * {@link User#description},{@link User#roles} and many others.
+     * @param user User entity must contain User#userId and User#ou (required) and optional
+     * User#description,User#roles and many others.
      * @return Returns entity containing user data that was added.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
@@ -144,10 +144,10 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link User#userId} - maps to INetOrgPerson uid</li>
+     *   <li>User#userId - maps to INetOrgPerson uid</li>
      * </ul>
      *
-     * @param user Contains the {@link User#userId} of the User targeted for deletion.
+     * @param user Contains the User#userId of the User targeted for deletion.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
     void disableUser( User user )
@@ -163,10 +163,10 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link User#userId} - maps to INetOrgPerson uid</li>
+     *   <li>User#userId - maps to INetOrgPerson uid</li>
      * </ul>
      *
-     * @param user Contains the {@link User#userId} of the User targeted for deletion.
+     * @param user Contains the User#userId of the User targeted for deletion.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
     void deleteUser( User user )
@@ -179,47 +179,47 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link User#userId} - maps to INetOrgPerson uid</li>
+     *   <li>User#userId - maps to INetOrgPerson uid</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link User#password} - used to authenticate the User</li>
-     *   <li>{@link User#ou} - contains the name of an already existing User OU node</li>
-     *   <li>{@link User#pwPolicy} - contains the name of an already existing OpenLDAP password policy node</li>
-     *   <li>{@link User#cn} - maps to INetOrgPerson common name attribute</li>
-     *   <li>{@link User#sn} - maps to INetOrgPerson surname attribute</li>
-     *   <li>{@link User#description} - maps to INetOrgPerson description attribute</li>
-     *   <li>{@link User#title} - maps to INetOrgPerson title attribute</li>
-     *   <li>{@link User#employeeType} - maps to INetOrgPerson employeeType attribute</li>
-     *   <li>{@link User#phones} * - multivalued attribute maps to organizationalPerson telephoneNumber  attribute</li>
-     *   <li>{@link User#mobiles} * - multivalued attribute maps to INetOrgPerson mobile attribute</li>
-     *   <li>{@link User#emails} * - multivalued attribute maps to INetOrgPerson mail attribute</li>
+     *   <li>User#password - used to authenticate the User</li>
+     *   <li>User#ou - contains the name of an already existing User OU node</li>
+     *   <li>User#pwPolicy - contains the name of an already existing OpenLDAP password policy node</li>
+     *   <li>User#cn - maps to INetOrgPerson common name attribute</li>
+     *   <li>User#sn - maps to INetOrgPerson surname attribute</li>
+     *   <li>User#description - maps to INetOrgPerson description attribute</li>
+     *   <li>User#title - maps to INetOrgPerson title attribute</li>
+     *   <li>User#employeeType - maps to INetOrgPerson employeeType attribute</li>
+     *   <li>User#phones * - multivalued attribute maps to organizationalPerson telephoneNumber  attribute</li>
+     *   <li>User#mobiles * - multivalued attribute maps to INetOrgPerson mobile attribute</li>
+     *   <li>User#emails * - multivalued attribute maps to INetOrgPerson mail attribute</li>
      *   <li>
-     *     {@link User#address} * - multivalued attribute maps to organizationalPerson postalAddress, st, l,
+     *     User#address * - multivalued attribute maps to organizationalPerson postalAddress, st, l,
      *     postalCode, postOfficeBox attributes
      *   </li>
-     *   <li>{@link User#beginTime} - HHMM - determines begin hour user may activate session</li>
-     *   <li>{@link User#endTime} - HHMM - determines end hour user may activate session.</li>
-     *   <li>{@link User#beginDate} - YYYYMMDD - determines date when user may sign on</li>
-     *   <li>{@link User#endDate} - YYYYMMDD - indicates latest date user may sign on</li>
-     *   <li>{@link User#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
-     *   <li>{@link User#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
-     *   <li>{@link User#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
-     *   <li>{@link User#timeout} - number (in minutes) of session inactivity time allowed</li>
+     *   <li>User#beginTime - HHMM - determines begin hour user may activate session</li>
+     *   <li>User#endTime - HHMM - determines end hour user may activate session.</li>
+     *   <li>User#beginDate - YYYYMMDD - determines date when user may sign on</li>
+     *   <li>User#endDate - YYYYMMDD - indicates latest date user may sign on</li>
+     *   <li>User#beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
+     *   <li>User#endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
+     *   <li>User#dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
+     *   <li>User#timeout - number (in minutes) of session inactivity time allowed</li>
      *   <li>
-     *     {@link User#props} * - multivalued attribute contains property key and values are separated with a ':'.
+     *     User#props * - multivalued attribute contains property key and values are separated with a ':'.
      *     e.g. mykey1:myvalue1
      *   </li>
      *   <li>
-     *     {@link User#roles} * - multivalued attribute contains the name of already existing role to assign to user
+     *     User#roles * - multivalued attribute contains the name of already existing role to assign to user
      *   </li>
      *   <li>
-     *     {@link User#adminRoles} * - multivalued attribute contains the name of already existing adminRole to assign
+     *     User#adminRoles * - multivalued attribute contains the name of already existing adminRole to assign
      *     to user
      *   </li>
      * </ul>
      *
-     * @param user must contain {@link User#userId} and optional entity data to update i.e. desc, ou, properties, all 
+     * @param user must contain User#userId and optional entity data to update i.e. desc, ou, properties, all
      * attributes that are not set will be ignored.
      * @return Updated user entity data.
      * @throws SecurityException thrown in the event of validation or system error.
@@ -233,12 +233,12 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link User#userId} - maps to INetOrgPerson uid</li>
-     *   <li>{@link User#password} - contains the User's old password</li>
+     *   <li>User#userId - maps to INetOrgPerson uid</li>
+     *   <li>User#password - contains the User's old password</li>
      *   <li>newPassword - contains the User's new password</li>
      * </ul>
      *
-     * @param user        contains {@link User#userId} and old user password {@link User#password}.
+     * @param user        contains User#userId and old user password User#password.
      * @param newPassword contains new user password.
      * @throws SecurityException will be thrown in the event of password policy violation or system error.
      */
@@ -251,10 +251,10 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link User#userId} - maps to INetOrgPerson uid</li>
+     *   <li>User#userId - maps to INetOrgPerson uid</li>
      * </ul>
      *
-     * @param user entity contains {@link User#userId} of User to be locked.
+     * @param user entity contains User#userId of User to be locked.
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
     void lockUserAccount( User user )
@@ -266,10 +266,10 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link User#userId} - maps to INetOrgPerson uid</li>
+     *   <li>User#userId - maps to INetOrgPerson uid</li>
      * </ul>
      *
-     * @param user entity contains {@link User#userId} of User to be unlocked.
+     * @param user entity contains User#userId of User to be unlocked.
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
     void unlockUserAccount( User user )
@@ -283,11 +283,11 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link User#userId} - maps to INetOrgPerson uid</li>
+     *   <li>User#userId - maps to INetOrgPerson uid</li>
      *   <li>newPassword - contains the User's new password</li>
      * </ul>
      *
-     * @param user entity contains {@link User#userId} of User to be reset.
+     * @param user entity contains User#userId of User to be reset.
      * @param newPassword The new password to set
      * @throws SecurityException will be thrown in the event of pw policy violation or system error.
      */
@@ -300,11 +300,11 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link User#userId} - maps to INetOrgPerson uid</li>
+     *   <li>User#userId - maps to INetOrgPerson uid</li>
      *   <li>newPassword - contains the User's new password</li>
      * </ul>
      *
-     * @param user  contains {@link User#userId}.
+     * @param user  contains User#userId.
      * @throws SecurityException will be thrown in the event of password policy violation or system error.
      */
     void deletePasswordPolicy( User user )
@@ -318,24 +318,24 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Role#name} - contains the name to use for the Role to be created.</li>
+     *   <li>Role#name - contains the name to use for the Role to be created.</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link Role#description} - maps to description attribute on organizationalRole object class</li>
-     *   <li>{@link Role#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC session</li>
-     *   <li>{@link Role#endTime} - HHMM - determines end hour role may be activated into user's RBAC session.</li>
-     *   <li>{@link Role#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
-     *   <li>{@link Role#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
-     *   <li>{@link Role#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
-     *   <li>{@link Role#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
+     *   <li>Role#description - maps to description attribute on organizationalRole object class</li>
+     *   <li>Role#beginTime - HHMM - determines begin hour role may be activated into user's RBAC session</li>
+     *   <li>Role#endTime - HHMM - determines end hour role may be activated into user's RBAC session.</li>
+     *   <li>Role#beginDate - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
+     *   <li>Role#endDate - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
+     *   <li>Role#beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
+     *   <li>Role#endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
      *   <li>
-     *     {@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into 
+     *     Role#dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into
      *     user's RBAC session
      *   </li>
      * </ul>
      *
-     * @param role must contains {@link Role#name} (required) and optional {@link Role#description}.
+     * @param role must contains Role#name (required) and optional Role#description.
      * @return copy of the added Role 
      * @throws SecurityException thrown in the event of data validation or system error.
      */
@@ -350,9 +350,9 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Role#name} - contains the name to use for the Role to be deleted.</li>
+     *   <li>Role#name - contains the name to use for the Role to be deleted.</li>
      * </ul>
-     * @param role Must contain {@link Role#name} for Role to delete.
+     * @param role Must contain Role#name for Role to delete.
      * @throws SecurityException thrown in the event of data validation or system error.
      */
     void deleteRole( Role role )
@@ -364,23 +364,23 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Role#name} - contains the name to use for the Role to be updated.</li>
+     *   <li>Role#name - contains the name to use for the Role to be updated.</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link Role#description} - maps to description attribute on organizationalRole object class</li>
-     *   <li>{@link Role#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC session</li>
-     *   <li>{@link Role#endTime} - HHMM - determines end hour role may be activated into user's RBAC session.</li>
-     *   <li>{@link Role#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
-     *   <li>{@link Role#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
-     *   <li>{@link Role#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
-     *   <li>{@link Role#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
+     *   <li>Role#description - maps to description attribute on organizationalRole object class</li>
+     *   <li>Role#beginTime - HHMM - determines begin hour role may be activated into user's RBAC session</li>
+     *   <li>Role#endTime - HHMM - determines end hour role may be activated into user's RBAC session.</li>
+     *   <li>Role#beginDate - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
+     *   <li>Role#endDate - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
+     *   <li>Role#beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
+     *   <li>Role#endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
      *   <li>
-     *     {@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into 
+     *     {Role#dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into
      *     user's RBAC session
      *   </li>
      * </ul>
-     * @param role Must contains {@link Role#name} and may contain new description or
+     * @param role Must contains Role#name and may contain new description or
      *  {@link org.apache.directory.fortress.core.model.Constraint}
      * @return Role contains reference to entity operated on.
      * @throws SecurityException in the event of validation or system error.
@@ -427,24 +427,24 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link UserRole#name} - contains the name for already existing Role to be assigned</li>
-     *   <li>{@link UserRole#userId} - contains the userId for existing User</li>
+     *   <li>UserRole#name - contains the name for already existing Role to be assigned</li>
+     *   <li>UserRole#userId - contains the userId for existing User</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link UserRole#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC session</li>
-     *   <li>{@link UserRole#endTime} - HHMM - determines end hour role may be activated into user's RBAC session.</li>
-     *   <li>{@link UserRole#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
-     *   <li>{@link UserRole#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
-     *   <li>{@link UserRole#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status</li>
-     *   <li>{@link UserRole#endLockDate} - YYYYMMDD - determines end of enforced inactive status</li>
+     *   <li>UserRole#beginTime - HHMM - determines begin hour role may be activated into user's RBAC session</li>
+     *   <li>UserRole#endTime - HHMM - determines end hour role may be activated into user's RBAC session.</li>
+     *   <li>UserRole#beginDate - YYYYMMDD - determines date when role may be activated into user's RBAC session</li>
+     *   <li>UserRole#endDate - YYYYMMDD - indicates latest date role may be activated into user's RBAC session</li>
+     *   <li>UserRole#beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
+     *   <li>UserRole#endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
      *   <li>
-     *     {@link UserRole#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into 
+     *     UserRole#dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into
      *     user's RBAC session
      *   </li>
      * </ul>
      *
-     * @param uRole must contain {@link UserRole#userId} and {@link UserRole#name} and optional {@code Constraints}.
+     * @param uRole must contain UserRole#userId and UserRole#name and optional {@code Constraints}.
      * @throws SecurityException in the event of validation or system error.
      */
     void assignUser( UserRole uRole )
@@ -454,12 +454,12 @@ public interface AdminMgr extends Manageable
      * This method enables a role to be constrainted by attributes.
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Role#name} - contains the name for already existing Role to be constrained</li>
-     *   <li>{@link RoleConstraint#key} - contains the name of the constraint, e.g. locale, organization, or accountnumber</li>
+     *   <li>Role#name - contains the name for already existing Role to be constrained</li>
+     *   <li>RoleConstraint#key - contains the name of the constraint, e.g. locale, organization, or accountnumber</li>
      * </ul>
      *
-     * @param role must contain {@link Role#name}
-     * @param roleConstraint must contain {@link RoleConstraint#key}
+     * @param role must contain Role#name
+     * @param roleConstraint must contain RoleConstraint#key
      * @throws SecurityException in the event of validation or system error.
      */
     public void enableRoleConstraint( Role role, RoleConstraint roleConstraint )
@@ -469,12 +469,12 @@ public interface AdminMgr extends Manageable
      * This method disables a role to be constrainted by attributes.
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Role#name} - contains the name for already existing Role to be unconstrained</li>
-     *   <li>{@link RoleConstraint#key} - contains the name of the constraint, e.g. locale, organization, or accountnumber</li>
+     *   <li>Role#name - contains the name for already existing Role to be unconstrained</li>
+     *   <li>RoleConstraint#key - contains the name of the constraint, e.g. locale, organization, or accountnumber</li>
      * </ul>
      *
-     * @param role must contain {@link Role#name}
-     * @param roleConstraint must contain {@link RoleConstraint#key}
+     * @param role must contain Role#name
+     * @param roleConstraint must contain RoleConstraint#key
      * @throws SecurityException in the event of validation or system error.
      */
     public void disableRoleConstraint( Role role, RoleConstraint roleConstraint )
@@ -484,15 +484,15 @@ public interface AdminMgr extends Manageable
      * This method adds a roleConstraint (ftRC) to the user ldap entry. (ftRC=ROLE_NAME$type$CONSTRAINT_TYPE$CONSTRAINT_PASETNAME$CONSTRAINT_VALUE)
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link UserRole#name} - contains the name for already existing Role to be assigned</li>
-     *   <li>{@link UserRole#userId} - contains the userId for existing User</li>
-     *   <li>{@link RoleConstraint#type} - contains the type of role constraint (filter, other)</li>
-     *   <li>{@link RoleConstraint#value} - contains the value of the role constraint which is currently not validated in any way</li>
-     *   <li>{@link RoleConstraint#key} - contains the name of the permission attribute set this constraint is applicable for</li>
+     *   <li>UserRole#name - contains the name for already existing Role to be assigned</li>
+     *   <li>UserRole#userId - contains the userId for existing User</li>
+     *   <li>RoleConstraint#type - contains the type of role constraint (filter, other)</li>
+     *   <li>RoleConstraint#value - contains the value of the role constraint which is currently not validated in any way</li>
+     *   <li>RoleConstraint#key - contains the name of the permission attribute set this constraint is applicable for</li>
      * </ul>
      * 
-     * @param uRole must contain {@link UserRole#userId} and {@link UserRole#name}
-     * @param roleConstraint must contain {@link RoleConstraint#type} and {@link RoleConstraint#value} and {@link RoleConstraint#paSetName}
+     * @param uRole must contain UserRole#userId and UserRole#name
+     * @param roleConstraint must contain RoleConstraint#type, RoleConstraint#value and RoleConstraint#paSetName
      * @return RoleConstraint that was added to user role assignment
      * @throws SecurityException in the event of validation or system error.
      */
@@ -503,15 +503,15 @@ public interface AdminMgr extends Manageable
      * Thie method removes a roleConstraint (ftRC) from the user ldap entry.
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link UserRole#name} - contains the name for already existing Role to be assigned</li>
-     *   <li>{@link UserRole#userId} - contains the userId for existing User</li>
-     *   <li>{@link RoleConstraint#type} - contains the type of role constraint (filter, other)</li>
-     *   <li>{@link RoleConstraint#value} - contains the value of the role constraint which is currently not validated in any way</li>
-     *   <li>{@link RoleConstraint#paSetName} - contains the name of the permission attribute set this constraint is applicable for</li>
+     *   <li>UserRole#name - contains the name for already existing Role to be assigned</li>
+     *   <li>UserRole#userId - contains the userId for existing User</li>
+     *   <li>RoleConstraint#type - contains the type of role constraint (filter, other)</li>
+     *   <li>RoleConstraint#value - contains the value of the role constraint which is currently not validated in any way</li>
+     *   <li>RoleConstraint#paSetName - contains the name of the permission attribute set this constraint is applicable for</li>
      * </ul>
      * 
-     * @param uRole must contain {@link UserRole#userId} and {@link UserRole#name}
-     * @param roleConstraint must contain {@link RoleConstraint#type} and {@link RoleConstraint#value} and {@link RoleConstraint#paSetName}   
+     * @param uRole must contain UserRole#userId and UserRole#name
+     * @param roleConstraint must contain RoleConstraint#type, RoleConstraint#value and RoleConstraint#paSetName
      * @throws SecurityException in the event of validation or system error.
      */
     void removeRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
@@ -521,14 +521,14 @@ public interface AdminMgr extends Manageable
      * Thie method removes a roleConstraint (ftRC) from the user ldap entry.
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link UserRole#name} - contains the name for already existing Role to be assigned</li>
-     *   <li>{@link UserRole#userId} - contains the userId for existing User</li>
-     *   <li>{@link RoleConstraint#type} - contains the type of role constraint (filter, other)</li>
-     *   <li>{@link RoleConstraint#value} - contains the value of the role constraint which is currently not validated in any way</li>
-     *   <li>{@link RoleConstraint#paSetName} - contains the userId for existing User, contains the name of the permission attribute set this constraint is applicable for</li>
+     *   <li>UserRole#name - contains the name for already existing Role to be assigned</li>
+     *   <li>UserRole#userId - contains the userId for existing User</li>
+     *   <li>RoleConstraint#type - contains the type of role constraint (filter, other)</li>
+     *   <li>RoleConstraint#value - contains the value of the role constraint which is currently not validated in any way</li>
+     *   <li>RoleConstraint#paSetName - contains the userId for existing User, contains the name of the permission attribute set this constraint is applicable for</li>
      * </ul>
      * 
-     * @param uRole must contain {@link UserRole#userId} and {@link UserRole#name}
+     * @param uRole must contain UserRole#userId} and UserRole#name}
      * @param roleConstraintId id of the role constraint to remove
      * @throws SecurityException in the event of validation or system error.
      */
@@ -549,10 +549,10 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link UserRole#name} - contains the name for already existing Role to be deassigned</li>
-     *   <li>{@link UserRole#userId} - contains the userId for existing User</li>
+     *   <li>UserRole#name - contains the name for already existing Role to be deassigned</li>
+     *   <li>UserRole#userId - contains the userId for existing User</li>
      * </ul>
-     * @param uRole must contain {@link org.apache.directory.fortress.core.model.UserRole#userId} and {@link UserRole#name}.
+     * @param uRole must contain org.apache.directory.fortress.core.model.UserRole#userId} and UserRole#name}.
      * @throws SecurityException - in the event data error in user or role objects or system error.
      */
     void deassignUser( UserRole uRole )
@@ -563,34 +563,34 @@ public interface AdminMgr extends Manageable
      * This method will add permission operation to an existing permission object which resides under 
      * {@code ou=Permissions,ou=RBAC,dc=yourHostName,dc=com} container in directory information tree.
      * The perm operation entity may have {@link org.apache.directory.fortress.core.model.Role} or 
-     * {@link org.apache.directory.fortress.core.model.User} associations.  The target {@link Permission} must not exist 
+     * {@link org.apache.directory.fortress.core.model.User} associations.  The target Permission} must not exist
      * prior to calling.
      * A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent and itself as 
      * stored in ldap tree: ({@link PermObj}*-&gt;{@link Permission}).
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Permission#objName} - contains the name of existing object being targeted for the permission add</li>
-     *   <li>{@link Permission#opName} - contains the name of new permission operation being added</li>
+     *   <li>Permission#objName - contains the name of existing object being targeted for the permission add</li>
+     *   <li>Permission#opName - contains the name of new permission operation being added</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
      *   <li>
-     *     {@link Permission#roles} * - multi occurring attribute contains RBAC Roles that permission operation is being 
+     *     Permission#roles} * - multi occurring attribute contains RBAC Roles that permission operation is being
      *     granted to
      *   </li>
      *   <li>
-     *     {@link Permission#users} * - multi occurring attribute contains Users that permission operation is being granted 
+     *     Permission#users} * - multi occurring attribute contains Users that permission operation is being granted
      *     to
      *   </li>
      *   <li>
-     *     {@link Permission#props} * - multi-occurring property key and values are separated with a ':'.  e.g. 
+     *     Permission#props} * - multi-occurring property key and values are separated with a ':'.  e.g.
      *     mykey1:myvalue1
      *   </li>
-     *   <li>{@link Permission#type} - any safe text</li>
+     *   <li>Permission#type - any safe text</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link org.apache.directory.fortress.core.model.Permission#objName}, and operation, {@link Permission#opName}, that identifies target along with optional other attributes..
+     * @param perm must contain the object, org.apache.directory.fortress.core.model.Permission#objName}, and operation, Permission#opName}, that identifies target along with optional other attributes..
      * @return copy of Permission entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
@@ -604,10 +604,10 @@ public interface AdminMgr extends Manageable
      * The attribute set may contain 0 to many {@link org.apache.directory.fortress.core.model.PermissionAttribute}
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link PermissionAttributeSet#name} - contains the name of the permission attribute set</li>
+     *   <li>PermissionAttributeSet#name - contains the name of the permission attribute set</li>
      * </ul>
      * 
-     * @param permAttributeSet must contain {@link PermissionAttributeSet#name}
+     * @param permAttributeSet must contain PermissionAttributeSet#name}
      * @return PermissionAttributeSet that was created
      * @throws SecurityException - thrown in the event of perm attribute set data or system error.
      */
@@ -618,10 +618,10 @@ public interface AdminMgr extends Manageable
      * This method will delete a permission attribute set object.
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link PermissionAttributeSet#name} - contains the name of the permission attribute set</li>
+     *   <li>PermissionAttributeSet#name - contains the name of the permission attribute set</li>
      * </ul>
      * 
-     * @param permAttributeSet must contain {@link PermissionAttributeSet#name}
+     * @param permAttributeSet must contain PermissionAttributeSet#name}
      * @throws SecurityException - thrown in the event of perm attribute set data or system error.
      */
     void deletePermissionAttributeSet( PermissionAttributeSet permAttributeSet )
@@ -632,19 +632,19 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link PermissionAttribute#attributeName} - contains the name of existing object being targeted for the permission update</li>
-     *   <li>{@link PermissionAttribute#dataType} - contains the data type of the permission attribute values (string,int,long,float)</li>   
+     *   <li>PermissionAttribute#attributeName - contains the name of existing object being targeted for the permission update</li>
+     *   <li>PermissionAttribute#dataType - contains the data type of the permission attribute values (string,int,long,float)</li>
      *   <li>attributeSetName - contains the name of existing permission attribute set being modified</li>
      * </ul>  
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link PermissionAttribute#required} - Flag to specify this attribute is required, defaults to false.</li>
-     *   <li>{@link PermissionAttribute#operator} - Can specify an operator this attribute must use.</li>
-     *   <li>{@link PermissionAttribute#validValues} - CSV of valid values. Currently up to interpreting application to understand these.</li>
-     *   <li>{@link PermissionAttribute#defaultValue} - A default value for the attribute value if none is specified.</li>
+     *   <li>PermissionAttribute#required - Flag to specify this attribute is required, defaults to false.</li>
+     *   <li>PermissionAttribute#operator - Can specify an operator this attribute must use.</li>
+     *   <li>PermissionAttribute#validValues - CSV of valid values. Currently up to interpreting application to understand these.</li>
+     *   <li>PermissionAttribute#defaultValue - A default value for the attribute value if none is specified.</li>
      * </ul>
      *   
-     * @param permAttribute must contain {@link PermissionAttribute#attributeName} and {@link PermissionAttribute#dataType}
+     * @param permAttribute must contain PermissionAttribute#attributeName} and PermissionAttribute#dataType}
      * @param attributeSetName The name of the permission attribute set this ftPA should be added.
      * @return PermissionAttribute entity created
      * @throws SecurityException - thrown in the event of data or system error
@@ -657,11 +657,11 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link PermissionAttribute#attributeName} - contains the name of existing object being targeted for the permission update</li>
+     *   <li>PermissionAttribute#attributeName - contains the name of existing object being targeted for the permission update</li>
      *   <li>attributeSetName - contains the name of existing permission attribute set being modified</li>
      * </ul>     
 	 *
-     * @param permAttribute must contain {@link PermissionAttribute#attributeName}
+     * @param permAttribute must contain PermissionAttribute#attributeName}
      * @param attributeSetName The name of the permission attribute set this pa should be removed from
      * @throws SecurityException - thrown in the event of data or system error
      */
@@ -673,19 +673,19 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link PermissionAttribute#attributeName} - contains the name of existing object being targeted for the permission update</li>
-     *   <li>{@link PermissionAttribute#dataType} - contains the data type of the permission attribute values (string,int,long,float)</li>
+     *   <li>PermissionAttribute#attributeName - contains the name of existing object being targeted for the permission update</li>
+     *   <li>PermissionAttribute#dataType - contains the data type of the permission attribute values (string,int,long,float)</li>
      *   <li>attributeSetName - contains the name of existing permission attribute set being modified</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link PermissionAttribute#required} - Flag to specify this attribute is required, defaults to false.</li>
-     *   <li>{@link PermissionAttribute#operator} - Can specify an operator this attribute must use.</li>
-     *   <li>{@link PermissionAttribute#validValues} - CSV of valid values. Currently up to interpreting application to understand these.</li>
-     *   <li>{@link PermissionAttribute#defaultValue} - A default value for the attribute value if none is specified.</li>
+     *   <li>PermissionAttribute#required - Flag to specify this attribute is required, defaults to false.</li>
+     *   <li>PermissionAttribute#operator - Can specify an operator this attribute must use.</li>
+     *   <li>PermissionAttribute#validValues - CSV of valid values. Currently up to interpreting application to understand these.</li>
+     *   <li>PermissionAttribute#defaultValue - A default value for the attribute value if none is specified.</li>
      * </ul>
      *
-     * @param permAttribute must contain {@link PermissionAttribute#attributeName} and {@link PermissionAttribute#dataType}
+     * @param permAttribute must contain PermissionAttribute#attributeName} and PermissionAttribute#dataType}
      * @param attributeSetName The name of the permission attribute set this ftPA should be updated.
      * @return PermissionAttribute entity created
      * @throws SecurityException - thrown in the event of data or system error
@@ -702,27 +702,27 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Permission#objName} - contains the name of existing object being targeted for the permission update</li>
-     *   <li>{@link Permission#opName} - contains the name of existing permission operation being updated</li>
+     *   <li>Permission#objName - contains the name of existing object being targeted for the permission update</li>
+     *   <li>Permission#opName - contains the name of existing permission operation being updated</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
      *   <li>
-     *     {@link Permission#roles} * - multi occurring attribute contains RBAC Roles that permission operation is being 
+     *     Permission#roles} * - multi occurring attribute contains RBAC Roles that permission operation is being
      *     granted to
      *   </li>
      *   <li>
-     *     {@link Permission#users} * - multi occurring attribute contains Users that permission operation is being granted 
+     *     Permission#users} * - multi occurring attribute contains Users that permission operation is being granted
      *     to
      *   </li>
      *   <li>
-     *     {@link Permission#props} * - multi-occurring property key and values are separated with a ':'.  e.g. 
+     *     Permission#props} * - multi-occurring property key and values are separated with a ':'.  e.g.
      *     mykey1:myvalue1
      *   </li>
-     *   <li>{@link Permission#type} - any safe text</li>
+     *   <li>Permission#type - any safe text</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, that 
+     * @param perm must contain the object, Permission#objName}, and operation, Permission#opName}, that
      * identifies target and any optional data to update.  Null or empty attributes will be ignored.
      * @return copy of Permission entity.
      * @throws SecurityException
@@ -739,11 +739,11 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Permission#objName} - contains the name of existing object being targeted for the permission delete</li>
-     *   <li>{@link Permission#opName} - contains the name of existing permission operation being removed</li>
+     *   <li>Permission#objName - contains the name of existing object being targeted for the permission delete</li>
+     *   <li>Permission#opName - contains the name of existing permission operation being removed</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, that 
+     * @param perm must contain the object, Permission#objName}, and operation, Permission#opName}, that
      * identifies target.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
@@ -755,23 +755,23 @@ public interface AdminMgr extends Manageable
      * This method will add permission object to perms container in directory. The perm object must not exist before making 
      * this call.
      * A {@link PermObj} instance exists in a hierarchical, one-many relationship between itself and children as stored in 
-     * ldap tree: ({@link PermObj}*-&gt;{@link Permission}).
+     * ldap tree: ({@link PermObj}*-&gt;Permission}).
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link PermObj#objName} - contains the name of new object being added</li>
-     *   <li>{@link PermObj#ou} - contains the name of an existing PERMS OrgUnit this object is associated with</li>
+     *   <li>PermObj#objName - contains the name of new object being added</li>
+     *   <li>PermObj#ou - contains the name of an existing PERMS OrgUnit this object is associated with</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link PermObj#description} - any safe text</li>
-     *   <li>{@link PermObj#type} - contains any safe text</li>
+     *   <li>PermObj#description - any safe text</li>
+     *   <li>PermObj#type - contains any safe text</li>
      *   <li>
-     *     {@link PermObj#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1
+     *     PermObj#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1
      *   </li>
      * </ul>
      *
-     * @param pObj must contain the {@link PermObj#objName} and {@link PermObj#ou}.  The other attributes are optional.
+     * @param pObj must contain the PermObj#objName} and PermObj#ou}.  The other attributes are optional.
      * @return copy of PermObj entity.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
@@ -787,19 +787,19 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link PermObj#objName} - contains the name of existing object being updated</li>
+     *   <li>PermObj#objName - contains the name of existing object being updated</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link PermObj#ou} - contains the name of an existing PERMS OrgUnit this object is associated with</li>
-     *   <li>{@link PermObj#description} - any safe text</li>
-     *   <li>{@link PermObj#type} - contains any safe text</li>
+     *   <li>PermObj#ou - contains the name of an existing PERMS OrgUnit this object is associated with</li>
+     *   <li>PermObj#description - any safe text</li>
+     *   <li>PermObj#type - contains any safe text</li>
      *   <li>
-     *     {@link PermObj#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1
+     *     PermObj#props} * - multi-occurring property key and values are separated with a ':'.  e.g. mykey1:myvalue1
      *   </li>
      * </ul>
      *
-     * @param pObj must contain the {@link PermObj#objName}. Only non-null attributes will be updated.
+     * @param pObj must contain the PermObj#objName}. Only non-null attributes will be updated.
      * @return copy of newly updated PermObj entity.
      * @throws SecurityException
      *          - thrown in the event of perm object data or system error.
@@ -814,10 +814,10 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link PermObj#objName} - contains the name of existing object targeted for removal</li>
+     *   <li>PermObj#objName - contains the name of existing object targeted for removal</li>
      * </ul>
      *
-     * @param pObj must contain the {@link PermObj#objName} of object targeted for removal.
+     * @param pObj must contain the PermObj#objName} of object targeted for removal.
      * @throws SecurityException - thrown in the event of perm object data or system error.
      */
     void deletePermObj( PermObj pObj )
@@ -833,14 +833,14 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Permission#objName} - contains the object name</li>
-     *   <li>{@link Permission#opName} - contains the operation name</li>
-     *   <li>{@link Role#name} - contains the role name</li>
+     *   <li>Permission#objName - contains the object name</li>
+     *   <li>Permission#opName - contains the operation name</li>
+     *   <li>Role#name - contains the role name</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, that 
+     * @param perm must contain the object, Permission#objName}, and operation, Permission#opName}, that
      * identifies target.
-     * @param role must contains {@link Role#name}.
+     * @param role must contains Role#name}.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
     void grantPermission( Permission perm, Role role )
@@ -856,14 +856,14 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Permission#objName} - contains the object name</li>
-     *   <li>{@link Permission#opName} - contains the operation name</li>
-     *   <li>{@link Role#name} - contains the role name</li>
+     *   <li>Permission#objName - contains the object name</li>
+     *   <li>Permission#opName - contains the operation name</li>
+     *   <li>Role#name - contains the role name</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, that 
+     * @param perm must contain the object, Permission#objName}, and operation, Permission#opName}, that
      * identifies target.
-     * @param role must contains {@link Role#name}.
+     * @param role must contains Role#name}.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
     void revokePermission( Permission perm, Role role )
@@ -879,14 +879,14 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Permission#objName} - contains the object name</li>
-     *   <li>{@link Permission#opName} - contains the operation name</li>
-     *   <li>{@link User#userId} - contains the userId</li>
+     *   <li>Permission#objName - contains the object name</li>
+     *   <li>Permission#opName - contains the operation name</li>
+     *   <li>User#userId - contains the userId</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, 
+     * @param perm must contain the object, Permission#objName}, and operation, Permission#opName},
      * that identifies target.
-     * @param user must contain {@link User#userId} of target User entity.
+     * @param user must contain User#userId} of target User entity.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
     void grantPermission( Permission perm, User user )
@@ -902,14 +902,14 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Permission#objName} - contains the object name</li>
-     *   <li>{@link Permission#opName} - contains the operation name</li>
-     *   <li>{@link User#userId} - contains the userId</li>
+     *   <li>Permission#objName - contains the object name</li>
+     *   <li>Permission#opName - contains the operation name</li>
+     *   <li>User#userId - contains the userId</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, that
+     * @param perm must contain the object, Permission#objName}, and operation, Permission#opName}, that
      * identifies target.
-     * @param user must contain {@link User#userId} of target User entity.
+     * @param user must contain User#userId} of target User entity.
      * @throws SecurityException Thrown in the event of data validation or system error.
      */
     void revokePermission( Permission perm, User user )
@@ -934,40 +934,40 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>parentRole - {@link Role#name} - contains the name of existing Role to be parent</li>
-     *   <li>childRole - {@link Role#name} - contains the name of new Role to be child</li>
+     *   <li>parentRole - Role#name - contains the name of existing Role to be parent</li>
+     *   <li>childRole - Role#name - contains the name of new Role to be child</li>
      * </ul>
      * <h4>optional parameters childRole</h4>
      * <ul>
      *   <li>
-     *     childRole - {@link Role#description} - maps to description attribute on organizationalRole object class for new 
+     *     childRole - Role#description - maps to description attribute on organizationalRole object class for new
      *     child
      *   </li>
      *   <li>
-     *     childRole - {@link Role#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC session 
+     *     childRole - Role#beginTime - HHMM - determines begin hour role may be activated into user's RBAC session
      *     for new child
      *   </li>
      *   <li>
-     *     childRole - {@link Role#endTime} - HHMM - determines end hour role may be activated into user's RBAC session for 
+     *     childRole - Role#endTime - HHMM - determines end hour role may be activated into user's RBAC session for
      *     new child
      *   </li>
      *   <li>
-     *     childRole - {@link Role#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC 
+     *     childRole - Role#beginDate - YYYYMMDD - determines date when role may be activated into user's RBAC
      *     session for new child
      *   </li>
      *   <li>
-     *     childRole - {@link Role#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC 
+     *     childRole - Role#endDate - YYYYMMDD - indicates latest date role may be activated into user's RBAC
      *     session for new child
      *   </li>
      *   <li>
-     *     childRole - {@link Role#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status for new 
+     *     childRole - Role#beginLockDate - YYYYMMDD - determines beginning of enforced inactive status for new
      *     child
      *   </li>
      *   <li>
-     *     childRole - {@link Role#endLockDate} - YYYYMMDD - determines end of enforced inactive status for new child
+     *     childRole - Role#endLockDate - YYYYMMDD - determines end of enforced inactive status for new child
      *   </li>
      *   <li>
-     *     childRole - {@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be 
+     *     childRole - Role#dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be
      *     activated into user's RBAC session for new child
      *   </li>
      * </ul>
@@ -1000,40 +1000,40 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>childRole - {@link Role#name} - contains the name of existing child Role</li>
-     *   <li>parentRole - {@link Role#name} - contains the name of new Role to be parent</li>
+     *   <li>childRole - Role#name - contains the name of existing child Role</li>
+     *   <li>parentRole - Role#name - contains the name of new Role to be parent</li>
      * </ul>
      * <h4>optional parameters parentRole</h4>
      * <ul>
      *   <li>
-     *     parentRole - {@link Role#description} - maps to description attribute on organizationalRole object class for 
+     *     parentRole - Role#description - maps to description attribute on organizationalRole object class for
      *     new parent
      *   </li>
      *   <li>
-     *     parentRole - {@link Role#beginTime} - HHMM - determines begin hour role may be activated into user's RBAC 
+     *     parentRole - Role#beginTime - HHMM - determines begin hour role may be activated into user's RBAC
      *     session for new parent
      *   </li>
      *   <li>
-     *     parentRole - {@link Role#endTime} - HHMM - determines end hour role may be activated into user's RBAC session 
+     *     parentRole - Role#endTime - HHMM - determines end hour role may be activated into user's RBAC session
      *     for new parent
      *   </li>
      *   <li>
-     *     parentRole - {@link Role#beginDate} - YYYYMMDD - determines date when role may be activated into user's RBAC 
+     *     parentRole - Role#beginDate - YYYYMMDD - determines date when role may be activated into user's RBAC
      *     session for new parent
      *   </li>
      *   <li>
-     *     parentRole - {@link Role#endDate} - YYYYMMDD - indicates latest date role may be activated into user's RBAC 
+     *     parentRole - Role#endDate - YYYYMMDD - indicates latest date role may be activated into user's RBAC
      *     session for new parent
      *   </li>
      *   <li>
-     *     parentRole - {@link Role#beginLockDate} - YYYYMMDD - determines beginning of enforced inactive status for new 
+     *     parentRole - Role#beginLockDate - YYYYMMDD - determines beginning of enforced inactive status for new
      *     parent
      *   </li>
      *   <li>
-     *     parentRole - {@link Role#endLockDate} - YYYYMMDD - determines end of enforced inactive status for new parent
+     *     parentRole - Role#endLockDate - YYYYMMDD - determines end of enforced inactive status for new parent
      *   </li>
      *   <li>
-     *     parentRole - {@link Role#dayMask} - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be 
+     *     parentRole - Role#dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be
      *     activated into user's RBAC session for new parent
      *   </li>
      * </ul>
@@ -1059,8 +1059,8 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>parentRole - {@link Role#name} - contains the name of existing Role to be parent</li>
-     *   <li>childRole - {@link Role#name} - contains the name of existing Role to be child</li>
+     *   <li>parentRole - Role#name - contains the name of existing Role to be parent</li>
+     *   <li>childRole - Role#name - contains the name of existing Role to be child</li>
      * </ul>
      *
      * @param parentRole completion of op deassigns child relationship with childRole.
@@ -1086,8 +1086,8 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>parentRole - {@link Role#name} - contains the name of existing Role to remove parent relationship</li>
-     *   <li>childRole - {@link Role#name} - contains the name of existing Role to remove child relationship</li>
+     *   <li>parentRole - Role#name - contains the name of existing Role to remove parent relationship</li>
+     *   <li>childRole - Role#name - contains the name of existing Role to remove child relationship</li>
      * </ul>
      *
      * @param parentRole completion of op removes child relationship with childRole.
@@ -1114,16 +1114,16 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of new SSD role set to be added</li>
+     *   <li>SDSet#name - contains the name of new SSD role set to be added</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#members} * - multivalued attribute contains the RBAC Role names to be added to this set</li>
+     *   <li>SDSet#members} * - multivalued attribute contains the RBAC Role names to be added to this set</li>
      *   <li>
-     *     {@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be assigned to
+     *     SDSet#cardinality - default is 2 which is one more than maximum number of Roles that may be assigned to
      *      User from a particular set
      *    </li>
-     *   <li>{@link SDSet#description} - contains any safe text</li>
+     *   <li>SDSet#description - contains any safe text</li>
      * </ul>
      *
      * @param ssdSet contains an instantiated reference to new SSD set containing, name, members, and cardinality (default 2)
@@ -1150,16 +1150,16 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of existing SSD role set to be updated</li>
+     *   <li>SDSet#name - contains the name of existing SSD role set to be updated</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#members} * - multivalued attribute contains the RBAC Role names to be added to this set</li>
+     *   <li>SDSet#members} * - multivalued attribute contains the RBAC Role names to be added to this set</li>
      *   <li>
-     *     {@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be assigned to 
+     *     SDSet#cardinality - default is 2 which is one more than maximum number of Roles that may be assigned to
      *     User from a particular set
      *   </li>
-     *   <li>{@link SDSet#description} - contains any safe text</li>
+     *   <li>SDSet#description - contains any safe text</li>
      * </ul>
      *
      * @param ssdSet contains an instantiated reference to existing SSD set containing, name, members, and cardinality 
@@ -1183,8 +1183,8 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of SSD role set to be modified</li>
-     *   <li>{@link Role#name} - contains the name of new {@link SDSet#members} to be added</li>
+     *   <li>SDSet#name - contains the name of SSD role set to be modified</li>
+     *   <li>Role#name - contains the name of new SDSet#members} to be added</li>
      * </ul>
      *
      * @param ssdSet contains an instantiated reference to new SSD set containing, name
@@ -1211,8 +1211,8 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of SSD role set to be modified</li>
-     *   <li>{@link Role#name} - contains the name of existing {@link SDSet#members} to be removed</li>
+     *   <li>SDSet#name - contains the name of SSD role set to be modified</li>
+     *   <li>Role#name - contains the name of existing SDSet#members} to be removed</li>
      * </ul>
      *
      * @param ssdSet contains an instantiated reference to new SSD set containing name.
@@ -1229,7 +1229,7 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of SSD role set to be removed</li>
+     *   <li>SDSet#name - contains the name of SSD role set to be removed</li>
      * </ul>
      *
      * @param ssdSet contains an instantiated reference to SSD set targeted for removal.
@@ -1255,7 +1255,7 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of SSD role set to be modified</li>
+     *   <li>SDSet#name - contains the name of SSD role set to be modified</li>
      *   <li>cardinality - contains new cardinality setting for SSD</li>
      * </ul>
      *
@@ -1286,16 +1286,16 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of new DSD role set to be added</li>
+     *   <li>SDSet#name - contains the name of new DSD role set to be added</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#members} * - multivalued attribute contains the RBAC Role names to be added to this set</li>
+     *   <li>SDSet#members} * - multivalued attribute contains the RBAC Role names to be added to this set</li>
      *   <li>
-     *     {@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be assigned to 
+     *     SDSet#cardinality - default is 2 which is one more than maximum number of Roles that may be assigned to
      *     User from a particular set
      *   </li>
-     *   <li>{@link SDSet#description} - contains any safe text</li>
+     *   <li>SDSet#description - contains any safe text</li>
      * </ul>
      *
      * @param dsdSet contains an instantiated reference to new DSD set containing, name, members, and cardinality 
@@ -1323,16 +1323,16 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of existing DSD role set to be updated</li>
+     *   <li>SDSet#name - contains the name of existing DSD role set to be updated</li>
      * </ul>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#members} * - multivalued attribute contains the RBAC Role names to be added to this set</li>
+     *   <li>SDSet#members} * - multivalued attribute contains the RBAC Role names to be added to this set</li>
      *   <li>
-     *     {@link SDSet#cardinality} - default is 2 which is one more than maximum number of Roles that may be assigned 
+     *     SDSet#cardinality - default is 2 which is one more than maximum number of Roles that may be assigned
      *     to User from a particular set
      *   </li>
-     *   <li>{@link SDSet#description} - contains any safe text</li>
+     *   <li>SDSet#description - contains any safe text</li>
      * </ul>
      *
      * @param dsdSet contains an instantiated reference to existing DSD set containing, name, members, and cardinality 
@@ -1357,8 +1357,8 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of DSD role set to be modified</li>
-     *   <li>{@link Role#name} - contains the name of new {@link SDSet#members} to be added</li>
+     *   <li>SDSet#name - contains the name of DSD role set to be modified</li>
+     *   <li>Role#name - contains the name of new SDSet#members} to be added</li>
      * </ul>
      * @param dsdSet contains an instantiated reference to new DSD set containing, name
      * @param role   contains instantiated Role object with role name field set.
@@ -1383,8 +1383,8 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of DSD role set to be modified</li>
-     *   <li>{@link Role#name} - contains the name of existing {@link SDSet#members} to be removed</li>
+     *   <li>SDSet#name - contains the name of DSD role set to be modified</li>
+     *   <li>Role#name - contains the name of existing SDSet#members} to be removed</li>
      * </ul>
      *
      * @param dsdSet contains an instantiated reference to new DSD set containing name.
@@ -1401,7 +1401,7 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of DSD role set to be removed</li>
+     *   <li>SDSet#name - contains the name of DSD role set to be removed</li>
      * </ul>
      *
      * @param dsdSet contains an instantiated reference to DSD set targeted for removal.
@@ -1427,7 +1427,7 @@ public interface AdminMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of DSD role set to be modified</li>
+     *   <li>SDSet#name - contains the name of DSD role set to be modified</li>
      *   <li>cardinality - contains new cardinality setting for SSD</li>
      * </ul>
      *

@@ -145,7 +145,6 @@ public class AuthZ extends FortEntity implements Serializable
     /**
      * Return the user dn containing the identity of log user who added the audit record.  This will be the system user that
      * is configured for performing slapd access log operations on behalf of Fortress.
-     * The config property name {@link org.apache.directory.fortress.core.ldap.LdapDataProvider#LDAP_LOG_POOL_UID} contains the audit log system user id.
      *
      * @return value that maps to 'creatorsName' attribute on 'auditSearch' object class.
      */
@@ -158,7 +157,6 @@ public class AuthZ extends FortEntity implements Serializable
     /**
      * Set the user dn containing the identity of log user who added the audit record.  This will be the system user that
      * is configured for performing slapd access log operations on behalf of Fortress.
-     * The config property name {@link org.apache.directory.fortress.core.ldap.LdapDataProvider#LDAP_LOG_POOL_UID} contains the audit log system user id.
      *
      * @param creatorsName maps to 'creatorsName' attribute on 'auditSearch' object class.
      */
@@ -259,7 +257,6 @@ public class AuthZ extends FortEntity implements Serializable
     /**
      * Return the user dn containing the identity of log user who last modified the audit record.  This will be the system user that
      * is configured for performing slapd access log operations on behalf of Fortress.
-     * The config property name {@link org.apache.directory.fortress.core.ldap.LdapDataProvider#LDAP_LOG_POOL_UID} contains the audit log system user id.
      *
      * @return value that maps to 'modifiersName' attribute on 'auditSearch' object class.
      */
@@ -272,7 +269,6 @@ public class AuthZ extends FortEntity implements Serializable
     /**
      * Set the user dn containing the identity of log user who modified the audit record.  This will be the system user that
      * is configured for performing slapd access log operations on behalf of Fortress.
-     * The config property name {@link org.apache.directory.fortress.core.ldap.LdapDataProvider#LDAP_LOG_POOL_UID} contains the audit log system user id.
      *
      * @param modifiersName maps to 'modifiersName' attribute on 'auditSearch' object class.
      */
@@ -333,7 +329,7 @@ public class AuthZ extends FortEntity implements Serializable
      * performed the operation.  This will usually be the  same  name  as  was
      * established  at  the  start of a session by a Bind request (if any) but
      * may be altered in various circumstances.
-     * For Fortress bind operations this will map to {@link User#userId}
+     * For Fortress bind operations this will map to User#userId
      *
      * @return value that maps to 'reqAuthzID' on 'auditSearch' object class.
      */
@@ -348,7 +344,7 @@ public class AuthZ extends FortEntity implements Serializable
      * performed the operation.  This will usually be the  same  name  as  was
      * established  at  the  start of a session by a Bind request (if any) but
      * may be altered in various circumstances.
-     * For Fortress bind operations this will map to {@link User#userId}
+     * For Fortress bind operations this will map to User#userId
      *
      */
     public void setReqAuthzID( String reqAuthzID )
@@ -662,10 +658,10 @@ public class AuthZ extends FortEntity implements Serializable
      * <p>
      * For Fortress authorization events this will contain the following:
      * <ul>
-     * <li>userId: {@link User#userId}
-     * <li>activated roles: {@link UserRole#name}
-     * <li>object name: {@link Permission#objName}
-     * <li>operation name: {@link Permission#opName}
+     * <li>userId: User#userId
+     * <li>activated roles: UserRole#name
+     * <li>object name: Permission#objName
+     * <li>operation name: Permission#opName
      * </ul>
      *
      * @return value that maps to 'reqFilter' attribute on 'auditSearch' object class.
@@ -681,10 +677,10 @@ public class AuthZ extends FortEntity implements Serializable
      * <p>
      * For Fortress authorization events this will contain the following:
      * <ul>
-     * <li>userId: {@link User#userId}
-     * <li>activated roles: {@link UserRole#name}
-     * <li>object name: {@link Permission#objName}
-     * <li>operation name: {@link Permission#opName}
+     * <li>userId: User#userId
+     * <li>activated roles: UserRole#name
+     * <li>object name: Permission#objName
+     * <li>operation name: Permission#opName
      * </ul>
      *
      * @param reqFilter maps to same name on 'auditSearch' object class.

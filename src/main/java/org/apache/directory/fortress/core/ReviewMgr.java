@@ -70,7 +70,7 @@ import org.apache.directory.fortress.core.model.UserRole;
  * <img src="./doc-files/RbacDSD.png" alt="">
  * <hr>
  * <p>
- * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)} 
+ * This interface's implementer will NOT be thread safe if parent instance variables ({@link Manageable#setContextId(String)
  * or {@link Manageable#setAdmin(org.apache.directory.fortress.core.model.Session)}) are set.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
@@ -83,11 +83,11 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Permission#objName} - contains the name of existing object being targeted</li>
-     *   <li>{@link Permission#opName} - contains the name of existing permission operation</li>
+     *   <li>Permission#objName - contains the name of existing object being targeted</li>
+     *   <li>Permission#opName - contains the name of existing permission operation</li>
      * </ul>
      *
-     * @param permission must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, and 
+     * @param permission must contain the object, Permission#objName}, and operation, Permission#opName}, and
      * optionally object id of targeted permission entity.
      * @return Permission entity that is loaded with data.
      * @throws SecurityException
@@ -102,10 +102,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link PermObj#objName} - contains the name of existing object being targeted</li>
+     *   <li>PermObj#objName - contains the name of existing object being targeted</li>
      * </ul>
      *
-     * @param permObj entity contains the {@link PermObj#objName} of target record.
+     * @param permObj entity contains the PermObj#objName of target record.
      * @return PermObj loaded with perm object data.
      * @throws SecurityException is thrown if object not found or system error.
      */
@@ -117,10 +117,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link PermissionAttributeSet#name} - contains the name of existing object being targeted</li>
+     *   <li>PermissionAttributeSet#name - contains the name of existing object being targeted</li>
      * </ul>
      * 
-     * @param permAttributeSet  entity contains the {@link PermissionAttributeSet#name} of target record.
+     * @param permAttributeSet  entity contains the PermissionAttributeSet#name of target record.
      * @return PermissionAttributeSet loaded with perm attribute set data.
      * @throws SecurityException is thrown if object not found or system error.
      */
@@ -133,8 +133,8 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link Permission#objName} - contains one or more characters of existing object being targeted</li>
-     *   <li>{@link Permission#opName} - contains one or more characters of existing permission operation</li>
+     *   <li>Permission#objName - contains one or more characters of existing object being targeted</li>
+     *   <li>Permission#opName - contains one or more characters of existing permission operation</li>
      * </ul>
      *
      * @param permission contains object and operation name search strings.  Each contains 1 or more leading chars that 
@@ -149,7 +149,7 @@ public interface ReviewMgr extends Manageable
     /**
      * Method returns Permission operations for the provided permission object
      * 
-     * @param permObj entity contains the {@link PermObj#objName} of target record.
+     * @param permObj entity contains the PermObj#objName of target record.
      * @return List of type Permission for provided permission object
      * @throws SecurityException
      *          thrown in the event of system error.
@@ -173,7 +173,7 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>optional parameters</h4>
      * <ul>
-     *   <li>{@link PermObj#objName} - contains one or more characters of existing object being targeted</li>
+     *   <li>PermObj#objName - contains one or more characters of existing object being targeted</li>
      * </ul>
      *
      * @param permObj contains object name search string.  The search val contains 1 or more leading chars that correspond 
@@ -191,11 +191,11 @@ public interface ReviewMgr extends Manageable
      * <h4>required parameters</h4>
      * <ul>
      *   <li>
-     *     {@link OrgUnit#name} - contains one or more characters of org unit associated with existing object being targeted
+     *     OrgUnit#name - contains one or more characters of org unit associated with existing object being targeted
      *   </li>
      * </ul>
      *
-     * @param ou contains org unit name {@link org.apache.directory.fortress.core.model.OrgUnit#name}.  The search val 
+     * @param ou contains org unit name org.apache.directory.fortress.core.model.OrgUnit#name}.  The search val
      * contains the full name of matching ou in OS-P data set.
      * @return List of type PermObj.  Fortress permissions are object-&gt;operation mappings.
      * @throws SecurityException thrown in the event of system error.
@@ -209,10 +209,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Role#name} - contains the name to use for the Role to read.</li>
+     *   <li>Role#name - contains the name to use for the Role to read.</li>
      * </ul>
      *
-     * @param role contains role name, {@link Role#name}, to be read.
+     * @param role contains role name, Role#name}, to be read.
      * @return Role entity that corresponds with role name.
      * @throws SecurityException will be thrown if role not found or system error occurs.
      */
@@ -221,7 +221,7 @@ public interface ReviewMgr extends Manageable
 
 
     /**
-     * Method will return a list of type Role matching all or part of Role name, {@link Role#name}.
+     * Method will return a list of type Role matching all or part of Role name, Role#name}.
      *
      * @param searchVal contains all or some of the chars corresponding to role entities stored in directory.
      * @return List of type Role containing role entities that match the search criteria.
@@ -251,10 +251,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link User#userId} - contains the userId associated with the User object targeted for read.</li>
+     *   <li>User#userId - contains the userId associated with the User object targeted for read.</li>
      * </ul>
      *
-     * @param user entity contains a value {@link User#userId} that matches record in the directory.  userId is globally 
+     * @param user entity contains a value User#userId that matches record in the directory.  userId is globally
      * unique in people container.
      * @return entity containing matching user data.
      * @throws SecurityException if record not found or system error occurs.
@@ -264,12 +264,12 @@ public interface ReviewMgr extends Manageable
 
 
     /**
-     * Return a list of type User of all users in the people container that match all or part of the {@link User#userId} 
+     * Return a list of type User of all users in the people container that match all or part of the User#userId
      * field passed in User entity.
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link User#userId} - contains all or some leading chars that match userId(s) stored in the directory.</li>
+     *   <li>User#userId - contains all or some leading chars that match userId(s) stored in the directory.</li>
      * </ul>
      *
      * @param user contains all or some leading chars that match userIds stored in the directory.
@@ -286,12 +286,12 @@ public interface ReviewMgr extends Manageable
      * <h4>required parameters</h4>
      * <ul>
      *   <li>
-     *     {@link OrgUnit#name} - contains one or more characters of org unit associated with existing object(s) being 
+     *     OrgUnit#name - contains one or more characters of org unit associated with existing object(s) being
      *     targeted
      *   </li>
      * </ul>
      *
-     * @param ou contains name of User OU, {@link OrgUnit#name} that match ou attribute associated with User entity in the 
+     * @param ou contains name of User OU, OrgUnit#name that match ou attribute associated with User entity in the
      * directory.
      * @return List of type User.
      * @throws SecurityException In the event of system error.
@@ -307,7 +307,7 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link User#userId} - contains the userId associated with the User object targeted for read.</li>
+     *   <li>User#userId - contains the userId associated with the User object targeted for read.</li>
      *   <li>limit - max number of objects to return.</li>
      * </ul>
      *
@@ -328,11 +328,11 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Role#name} - contains the name to use for the Role targeted for search.</li>
+     *   <li>Role#name - contains the name to use for the Role targeted for search.</li>
      *   <li>limit - max number of objects to return.</li>
      * </ul>
      *
-     * @param role  Contains {@link Role#name} of Role entity assigned to user.
+     * @param role  Contains Role#name of Role entity assigned to user.
      * @param limit integer value sets the max returned records.
      * @return List of type String containing userIds assigned to a particular role.
      * @throws SecurityException in the event of data validation or system error.
@@ -347,10 +347,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link User#userId} - contains the userId associated with the User object targeted for search.</li>
+     *   <li>User#userId - contains the userId associated with the User object targeted for search.</li>
      * </ul>
      *
-     * @param user contains {@link User#userId} matching User entity targeted in the directory.
+     * @param user contains User#userId matching User entity targeted in the directory.
      * @return List of type UserRole containing the Roles assigned to User.
      * @throws SecurityException If user not found or system error occurs.
      */
@@ -364,10 +364,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Role#name} - contains the name to use for the Role targeted for search.</li>
+     *   <li>Role#name - contains the name to use for the Role targeted for search.</li>
      * </ul>
      *
-     * @param role contains the role name, {@link Role#name} used to search the User data set.
+     * @param role contains the role name, Role#name used to search the User data set.
      * @return List of type User containing the users assigned data.
      * @throws SecurityException If system error occurs.
      */
@@ -380,10 +380,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Role#name} - contains the name to use for the Role targeted for search.</li>
+     *   <li>Role#name - contains the name to use for the Role targeted for search.</li>
      * </ul>
      *
-     * @param role contains the role name, {@link Role#name} used to search the User data set.
+     * @param role contains the role name, Role#name used to search the User data set.
      * @param roleConstraint constraint to filter the roles return
      * @return List of type User containing the users assigned data.
      * @throws SecurityException If system error occurs.
@@ -420,10 +420,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Role#name} - contains the name to use for the Role targeted for search.</li>
+     *   <li>Role#name - contains the name to use for the Role targeted for search.</li>
      * </ul>
      *
-     * @param role Contains role name, {@link Role#name} of Role entity assigned to User.
+     * @param role Contains role name, Role#name of Role entity assigned to User.
      * @return List of type User containing all user's that having matching role assignment.
      * @throws SecurityException In the event the role is not present in directory or system error occurs.
      */
@@ -437,10 +437,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link User#userId} - contains the userId associated with the User object targeted for search.</li>
+     *   <li>User#userId - contains the userId associated with the User object targeted for search.</li>
      * </ul>
      *
-     * @param user contains the {@link User#userId} matching User entity stored in the directory.
+     * @param user contains the User#userId matching User entity stored in the directory.
      * @return Set of type String containing the roles assigned and roles inherited.
      * @throws SecurityException If user not found or system error occurs.
      */
@@ -455,10 +455,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Role#name} - contains the name to use for the Role targeted for search.</li>
+     *   <li>Role#name - contains the name to use for the Role targeted for search.</li>
      * </ul>
      *
-     * @param role contains role name, {@link Role#name} of Role entity Permission is granted to.
+     * @param role contains role name, Role#name of Role entity Permission is granted to.
      * @return List of type Permission that contains all perms granted to a role.
      * @throws SecurityException In the event system error occurs.
      */
@@ -473,10 +473,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Role#name} - contains the name to use for the Role targeted for search.</li>
+     *   <li>Role#name - contains the name to use for the Role targeted for search.</li>
      * </ul>
      *
-     * @param role contains role name, {@link Role#name} of Role entity Permission is granted to.
+     * @param role contains role name, Role#name of Role entity Permission is granted to.
      * @param noInheritance if true will NOT include inherited roles in the search.
      * @return List of type Permission that contains all perms granted to a role.
      * @throws SecurityException In the event system error occurs.
@@ -491,15 +491,15 @@ public interface ReviewMgr extends Manageable
      *      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Role#name} - contains the name to use for the Role targeted for search.</li>
+     *   <li>Role#name - contains the name to use for the Role targeted for search.</li>
      * </ul>
      * 
-     * @param role contains role name, {@link Role#name} of Role entity Permission is granted to.
+     * @param role contains role name, Role#name of Role entity Permission is granted to.
      * @param noInheritance if true will NOT include inherited roles in the search.
      * @return List of type PermissionAttributeSet that contains all Permission Attribute valid for the role.
      * @throws SecurityException In the event system error occurs.
      */
-    List<PermissionAttributeSet> rolePermissionAttributeSets( Role role, boolean noInhertiance )
+    List<PermissionAttributeSet> rolePermissionAttributeSets( Role role, boolean noInheritance )
     	throws SecurityException;
     
     /**
@@ -508,10 +508,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link User#userId} - contains the userId associated with the User object targeted for search.</li>
+     *   <li>User#userId - contains the userId associated with the User object targeted for search.</li>
      * </ul>
      *
-     * @param user contains the {@link User#userId} of User targeted for search.
+     * @param user contains the User#userId of User targeted for search.
      * @return List of type Permission containing matching permission entities.
      * @throws SecurityException in the event of validation or system error.
      */
@@ -524,11 +524,11 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Permission#objName} - contains the name of existing object being targeted</li>
-     *   <li>{@link Permission#opName} - contains the name of existing permission operation</li>
+     *   <li>Permission#objName - contains the name of existing object being targeted</li>
+     *   <li>Permission#opName - contains the name of existing permission operation</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, and optionally object id of targeted permission entity.
+     * @param perm must contain the object, Permission#objName}, and operation, Permission#opName}, and optionally object id of targeted permission entity.
      * @return List of type string containing the Role names that have the matching perm granted.
      * @throws SecurityException in the event permission not found or system error occurs.
      */
@@ -541,11 +541,11 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Permission#objName} - contains the name of existing object being targeted</li>
-     *   <li>{@link Permission#opName} - contains the name of existing permission operation</li>
+     *   <li>Permission#objName - contains the name of existing object being targeted</li>
+     *   <li>Permission#opName - contains the name of existing permission operation</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, and optionally object id of targeted permission entity.
+     * @param perm must contain the object, Permission#objName}, and operation, Permission#opName}, and optionally object id of targeted permission entity.
      * @return Set of type String containing all roles names that have been granted a particular permission.
      * @throws SecurityException in the event of validation or system error.
      */
@@ -558,11 +558,11 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Permission#objName} - contains the name of existing object being targeted</li>
-     *   <li>{@link Permission#opName} - contains the name of existing permission operation</li>
+     *   <li>Permission#objName - contains the name of existing object being targeted</li>
+     *   <li>Permission#opName - contains the name of existing permission operation</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, and optionally object id of targeted permission entity.
+     * @param perm must contain the object, Permission#objName}, and operation, Permission#opName}, and optionally object id of targeted permission entity.
      * @return List of type String containing all userIds that have been granted a particular permission.
      * @throws SecurityException in the event of validation or system error.
      */
@@ -575,11 +575,11 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Permission#objName} - contains the name of existing object being targeted</li>
-     *   <li>{@link Permission#opName} - contains the name of existing permission operation</li>
+     *   <li>Permission#objName - contains the name of existing object being targeted</li>
+     *   <li>Permission#opName - contains the name of existing permission operation</li>
      * </ul>
      *
-     * @param perm must contain the object, {@link Permission#objName}, and operation, {@link Permission#opName}, and optionally object id of targeted permission entity.
+     * @param perm must contain the object, Permission#objName}, and operation, Permission#opName}, and optionally object id of targeted permission entity.
      * @return Set of type String containing all userIds that have been granted a particular permission.
      * @throws SecurityException in the event of validation or system error.
      */
@@ -593,10 +593,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Role#name} - contains the name to use for the Role targeted for search.</li>
+     *   <li>Role#name - contains the name to use for the Role targeted for search.</li>
      * </ul>
      *
-     * @param role Will contain the role name, {@link Role#name}, for targeted SSD set or null to return all
+     * @param role Will contain the role name, Role#name}, for targeted SSD set or null to return all
      * @return List containing all matching SSD's.
      * @throws SecurityException in the event of data or system error.
      */
@@ -609,10 +609,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of existing object being targeted</li>
+     *   <li>SDSet#name - contains the name of existing object being targeted</li>
      * </ul>
      *
-     * @param set Will contain the name for existing SSD data set, {@link SDSet#name}.
+     * @param set Will contain the name for existing SSD data set, SDSet#name}.
      * @return SDSet containing all attributes from matching SSD name.
      * @throws SecurityException in the event of data or system error.
      */
@@ -625,10 +625,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of existing object being targeted</li>
+     *   <li>SDSet#name - contains the name of existing object being targeted</li>
      * </ul>
      *
-     * @param ssd contains the name for the SSD set targeted, {@link SDSet#name}.
+     * @param ssd contains the name for the SSD set targeted, SDSet#name}.
      * @return List containing all SSDSets that match a given SSDSet name.
      * @throws SecurityException in the event of data or system error.
      */
@@ -642,10 +642,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of existing object being targeted</li>
+     *   <li>SDSet#name - contains the name of existing object being targeted</li>
      * </ul>
      *
-     * @param ssd contains the name for the SSD set targeted, {@link SDSet#name}.
+     * @param ssd contains the name for the SSD set targeted, SDSet#name}.
      * @return Set containing all Roles that are members of SSD data set.
      * @throws SecurityException in the event of data or system error.
      */
@@ -659,10 +659,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of existing object being targeted</li>
+     *   <li>SDSet#name - contains the name of existing object being targeted</li>
      * </ul>
      *
-     * @param ssd contains the name of the SSD set targeted, {@link SDSet#name}.
+     * @param ssd contains the name of the SSD set targeted, SDSet#name}.
      * @return int value containing cardinality of SSD set.
      * @throws SecurityException in the event of data or system error.
      */
@@ -676,10 +676,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link Role#name} - contains the name to use for the Role targeted for search.</li>
+     *   <li>Role#name - contains the name to use for the Role targeted for search.</li>
      * </ul>
      *
-     * @param role Will contain the role name, {@link Role#name}, for targeted dSD set or null to return all
+     * @param role Will contain the role name, Role#name}, for targeted dSD set or null to return all
      * @return List containing all matching dSD's.
      * @throws SecurityException in the event of data or system error.
      */
@@ -692,10 +692,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of existing object being targeted</li>
+     *   <li>SDSet#name - contains the name of existing object being targeted</li>
      * </ul>
      *
-     * @param set Will contain the name for existing DSD data set, {@link SDSet#name}.
+     * @param set Will contain the name for existing DSD data set, SDSet#name}.
      * @return SDSet containing all attributes from matching DSD name.
      * @throws SecurityException in the event of data or system error.
      */
@@ -708,10 +708,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of existing object being targeted</li>
+     *   <li>SDSet#name - contains the name of existing object being targeted</li>
      * </ul>
      *
-     * @param dsd contains the name for the DSD set targeted, {@link SDSet#name}.
+     * @param dsd contains the name for the DSD set targeted, SDSet#name}.
      * @return List containing all DSDSets that match a given DSDSet name.
      * @throws SecurityException in the event of data or system error.
      */
@@ -725,10 +725,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of existing object being targeted</li>
+     *   <li>SDSet#name - contains the name of existing object being targeted</li>
      * </ul>
      *
-     * @param dsd contains the name for the DSD set targeted, {@link SDSet#name}.
+     * @param dsd contains the name for the DSD set targeted, SDSet#name}.
      * @return Set containing all Roles that are members of DSD data set.
      * @throws SecurityException in the event of data or system error.
      */
@@ -742,10 +742,10 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link SDSet#name} - contains the name of existing object being targeted</li>
+     *   <li>SDSet#name - contains the name of existing object being targeted</li>
      * </ul>
      *
-     * @param dsd contains the name of the DSD set targeted, {@link SDSet#name}.
+     * @param dsd contains the name of the DSD set targeted, SDSet#name}.
      * @return int value containing cardinality of DSD set.
      * @throws SecurityException in the event of data or system error.
      */
@@ -757,8 +757,8 @@ public interface ReviewMgr extends Manageable
      * <h3></h3>
      * <h4>required parameters</h4>
      * <ul>
-     *   <li>{@link User#userId} - contains the name of existing user being targeted</li>
-     *   <li>{@link PermissionAttributeSet#name} - contains the name of permission attribute set</li>
+     *   <li>User#userId - contains the name of existing user being targeted</li>
+     *   <li>PermissionAttributeSet#name - contains the name of permission attribute set</li>
      * </ul>
      * 
      * @param user The user to filter role constraints
