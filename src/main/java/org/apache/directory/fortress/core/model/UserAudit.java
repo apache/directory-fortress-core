@@ -111,7 +111,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
      * <ul>
      * <li>{@link org.apache.directory.fortress.core.impl.AuditMgrImpl#searchInvalidUsers(UserAudit)} maps to (org.apache.directory.fortress.core.impl.AuditDAO#REQENTRIES} == 0)
      * <li>{@link org.apache.directory.fortress.core.impl.AuditMgrImpl#searchAuthZs(UserAudit)} maps to (org.apache.directory.fortress.core.impl.AuditDAO#REQENTRIES == 0)
-     * <li>{@link org.apache.directory.fortress.core.impl.AuditMgrImpl#searchBinds(UserAudit)} maps to (org.apache.directory.fortress.core.impl.AuditDAO#REQRESULT >= 1)
+     * <li>{@link org.apache.directory.fortress.core.impl.AuditMgrImpl#searchBinds(UserAudit)} maps to (org.apache.directory.fortress.core.impl.AuditDAO#REQRESULT gtr than 1)
      * </ul>
      *
      * @return boolean if true will limit search to failed events.
@@ -128,7 +128,7 @@ public class UserAudit extends FortEntity implements java.io.Serializable
      * <ul>
      * <li>{@link org.apache.directory.fortress.core.impl.AuditMgrImpl#searchInvalidUsers(UserAudit)} maps to (org.apache.directory.fortress.core.impl.AuditDAO#REQENTRIES == 0)
      * <li>{@link org.apache.directory.fortress.core.impl.AuditMgrImpl#searchAuthZs(UserAudit)} maps to (org.apache.directory.fortress.core.impl.AuditDAO#REQENTRIES == 0)
-     * <li>{@link org.apache.directory.fortress.core.impl.AuditMgrImpl#searchBinds(UserAudit)} maps to (org.apache.directory.fortress.core.impl.AuditDAO#REQRESULT >= 1)
+     * <li>{@link org.apache.directory.fortress.core.impl.AuditMgrImpl#searchBinds(UserAudit)} maps to (org.apache.directory.fortress.core.impl.AuditDAO#REQRESULT gtr than or equal 1)
      * </ul>
      *
      * @param failedOnly if boolean true search will limit to failed only.

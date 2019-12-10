@@ -67,10 +67,10 @@ import javax.xml.bind.annotation.XmlType;
  * </ol>
  * <p>
  * There is a Many-to-One relationship between a User and OrgUnit.
- * <h3>{@link User}*<->1 {@link OrgUnit}</h3>
+ * <h3>{@link User}*-1 {@link OrgUnit}</h3>
  * <p>
  * There is a Many-to-One relationship between a {@link PermObj} object and {@link OrgUnit}.
- * <h3>{@link PermObj}*<->1 {@link OrgUnit}</h3>
+ * <h3>{@link PermObj}*-1 {@link OrgUnit}</h3>
  * <p>
  * Example to create new ARBAC User OrgUnit:
  * <p>

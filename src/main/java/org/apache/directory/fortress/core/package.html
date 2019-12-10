@@ -22,11 +22,9 @@
     <title>Package Documentation for org.apache.directory.fortress</title>
 </head>
 <body>
-<p>
     This package contains public APIs that are used by Java programs to provide Access Management
     functionality. The APIs are organized into categories or 'Managers'. Each manager controls a
     specific area of functionality.
-
 <h3>Managers</h3>
 <ol>
     <li>{@link org.apache.directory.fortress.core.AccessMgr} is used for RBAC runtime security checking</li>
@@ -40,7 +38,6 @@
     </li>
     <li>{@link org.apache.directory.fortress.core.ReviewMgr} is used to interrogate RBAC policy</li>
 </ol>
-</p>
 <p>
     The <b>org.apache.directory.fortress</b> package provides managers, factories and exception classes that can be
     thrown when
@@ -80,10 +77,10 @@ The following sections provides more info on each.
     and maintenance of RBAC element sets and relations; administrative review functions for
     performing administrative queries; and system functions for creating and managing
     RBAC attributes on user sessions and making access control decisions.
-
 <p/>
 
 <h4>RBAC0 - Core</h4>
+<p>
 Many-to-many relationship between Users, Roles and Permissions. Selective role activation into sessions. API to add,
 update, delete identity data and perform identity and access control decisions during runtime operations.
 <p/>
@@ -91,10 +88,10 @@ update, delete identity data and perform identity and access control decisions d
 
 <h4>RBAC1 - General Hierarchical Roles</h4>
 Simplifies role engineering tasks using inheritance of one or more parent roles.
-<p/>
 <img src="./doc-files/RbacHier.png" alt="Hierarchical RBAC"/>
 
 <h4>RBAC2 - Static Separation of Duty (SSD) Relations</h4>
+<p>
 Enforce mutual membership exclusions across role assignments. Facilitate dual control policies by restricting which
 roles may be assigned to users in combination. SSD provide added granularity for authorization limits which help
 enterprises meet strict compliance regulations.
@@ -102,12 +99,11 @@ enterprises meet strict compliance regulations.
 <img src="./doc-files/RbacSSD.png" alt="RBAC Static Separpation of Duties"/>
 
 <h4>RBAC3 - Dynamic Separation of Duty (DSD) Relations</h4>
+<p>
 Control allowed role combinations to be activated within an RBAC session. DSD policies fine tune role policies that
 facilitate authorization dual control and two man policy restrictions during runtime security checks.
 <p/>
 <img src="./doc-files/RbacDSD.png" alt="RBAC Dynamic Separation of Duties"/>
-
-<p/>
 
 <hr>
 
@@ -120,8 +116,7 @@ and system functions for creating and managing ARBAC attributes on user sessions
 administrative access control decisions.
 <h4>ARBAC02 Diagram</h4>
 <img src="./doc-files/ARbac.png" alt="ARBAC02"/>
-
-<p/>
+<p>
 Fortress fully supports the Oh/Sandhu/Zhang ARBAC02 model for delegated administration.
 ARBAC provides large enterprises the capability to delegate administrative authority to
 users that reside outside of the security admin group.
@@ -160,12 +155,7 @@ Password enforcement options include:
 <h4>Password Policy diagram</h4>
 The following is an example of policies that can be configured. There is no limit to the number of different policies
 that can be created and enforced.
-<p/>
 <img src="./doc-files/PasswordPolicy.png" alt="Password Policies"/>
-
-<p/>
-
-<hr>
 
 <h3>4. History and Audit trail using OpenLDAP</h3>
 Provides an OpenLDAP access log retrieval mechanism that enables security event monitoring.
@@ -179,9 +169,7 @@ Provides an OpenLDAP access log retrieval mechanism that enables security event 
 <h4>Diagram of Audit Events</h4>
 <img src="./doc-files/Audit.png" alt="Auditing"/>
 
-<p/>
 All events include Fortress context, see {@code FortEntity}.
-<p/>
 <h4>The following APIs generate events subsequently stored in this access log:</h4>
 <ul>
     <li> {@link org.apache.directory.fortress.core.AccessMgr}</li>
@@ -191,7 +179,6 @@ All events include Fortress context, see {@code FortEntity}.
     <li> {@link org.apache.directory.fortress.core.ConfigMgr}</li>
     <li> {@link org.apache.directory.fortress.core.PwPolicyMgr}</li>
 </ul>
-</p>
 </body>
 </html>
 

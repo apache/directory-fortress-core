@@ -114,7 +114,7 @@ import org.apache.commons.lang.StringUtils;
  *     The object to operation pairings enable application resources to be mapped to Fortress permissions in a way that is 
  *     natural for object oriented programming.
  *   </li>
- *   <li>Permissions = Object {@link PermObj} 1<->* Operations {@link Permission}</li>
+ *   <li>Permissions = Object {@link PermObj} 1-* Operations {@link Permission}</li>
  *   <li>Permissions in Fortress may also be assigned directly to {@link #users}.</li>
  *   <li>
  *     Objects {@link #objName}, Operations {@link #opName}, Roles {@link #roles}, Users {@link #users} are not case 

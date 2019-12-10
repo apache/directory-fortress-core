@@ -26,7 +26,7 @@ import java.util.List;
 
 /**
  * The class is used by {@link FortressAntTask} to load {@link ConfigAnt}s used to drive 
- * {@link org.apache.directory.fortress.core.ConfigMgr#add(Configuration).
+ * {@link org.apache.directory.fortress.core.ConfigMgr#add(Configuration)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag 
  * used by load utility.
  * <p>
