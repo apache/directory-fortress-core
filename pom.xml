@@ -620,7 +620,7 @@
         <plugin>
           <groupId>org.owasp</groupId>
           <artifactId>dependency-check-maven</artifactId>
-          <version>5.0.0</version>
+          <version>5.2.4</version>
           <configuration>
             <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
               <suppressionFile>${project.basedir}/src/owasp/suppression.xml</suppressionFile>
