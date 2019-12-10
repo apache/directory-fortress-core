@@ -181,7 +181,7 @@ import org.slf4j.LoggerFactory;
  *   </li>
  *   <li>Add Suffix {@link SuffixP#add(Suffix)}}</li>
  *   <li>Add Containers {@link OrganizationalUnitP#add(OrganizationalUnit)}</li>
- *   <li>Add Configuration Parameters {@link ConfigMgr#add(String, java.util.Properties)}</li>
+ *   <li>Add Configuration Parameters {@link ConfigMgr#add(Configuration)}</li>
  *   <li>
  *     Add User and Perm OUs {@link org.apache.directory.fortress.core.DelAdminMgr#add(
  *     org.apache.directory.fortress.core.model.OrgUnit)} USER and PERM

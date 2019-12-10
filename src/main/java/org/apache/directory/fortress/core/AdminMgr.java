@@ -687,7 +687,6 @@ public interface AdminMgr extends Manageable
      *
      * @param permAttribute must contain PermissionAttribute#attributeName} and PermissionAttribute#dataType}
      * @param attributeSetName The name of the permission attribute set this ftPA should be updated.
-     * @return PermissionAttribute entity created
      * @throws SecurityException - thrown in the event of data or system error
      */
     void updatePermissionAttributeInSet( PermissionAttribute permAttribute, String attributeSetName, boolean replaceValidValues )

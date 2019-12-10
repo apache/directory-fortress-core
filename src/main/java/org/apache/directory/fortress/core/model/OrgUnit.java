@@ -39,9 +39,9 @@ import javax.xml.bind.annotation.XmlType;
  * (3) DAO layer where persistence with the LDAP server occurs.
  * <h4>Fortress Processing Layers</h4>
  * <ol>
- * <li>Manager layer:  {@link org.apache.directory.fortress.core.impl.DelAdminMgrImpl}, {@link org.apache.directory.fortress.core.impl.DelAccessMgrImpl}, {@link org.apache.directory.fortress.core.impl.DelReviewMgrImpl},...</li>
- * <li>Process layer:  {@link org.apache.directory.fortress.core.impl.AdminRoleP}, {@link org.apache.directory.fortress.core.impl.OrgUnitP},...</li>
- * <li>DAO layer: {@link org.apache.directory.fortress.core.impl.AdminRoleDAO}, {@link org.apache.directory.fortress.core.impl.OrgUnitDAO},...</li>
+ * <li>Manager layer:  org.apache.directory.fortress.core.impl.DelAdminMgrImpl, {@link org.apache.directory.fortress.core.impl.DelAccessMgrImpl}, {@link org.apache.directory.fortress.core.impl.DelReviewMgrImpl},...</li>
+ * <li>Process layer:  org.apache.directory.fortress.core.impl.AdminRoleP, org.apache.directory.fortress.core.impl.OrgUnitP,...</li>
+ * <li>DAO layer: org.apache.directory.fortress.core.impl.AdminRoleDAO, org.apache.directory.fortress.core.impl.OrgUnitDAO,...</li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must
  * provide enough information to uniquely identity the entity target within ldap.<br>

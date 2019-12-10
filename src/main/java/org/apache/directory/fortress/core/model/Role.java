@@ -748,8 +748,6 @@ public class Role extends FortEntity implements Constraint, Graphable, java.io.S
     /**
      * Set distinguished name associated with Role.  This attribute is used by DAO and is not allowed for outside classes.
      * This attribute cannot be set by external callers.
-     *
-     * @return value that is mapped to the dn of the entry in DIT.
      */
     public void setDn( String dn )
     {

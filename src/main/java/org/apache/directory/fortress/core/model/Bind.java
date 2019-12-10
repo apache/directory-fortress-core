@@ -130,7 +130,6 @@ public class Bind extends FortEntity implements Serializable
     /**
      * Return the user dn containing the identity of log user who added the audit record.  This will be the system user that
      * is configured for performing slapd access log operations on behalf of Fortress.
-     * The config property name {@link org.apache.directory.fortress.core.ldap.LdapDataProvider#LDAP_LOG_POOL_UID} contains the audit log system user id.
      *
      * @return value that maps to 'creatorsName' attribute on 'auditBind' object class.
      */
@@ -143,7 +142,6 @@ public class Bind extends FortEntity implements Serializable
     /**
      * Set the user dn containing the identity of log user who added the audit record.  This will be the system user that
      * is configured for performing slapd access log operations on behalf of Fortress.
-     * The config property name {@link org.apache.directory.fortress.core.ldap.LdapDataProvider#LDAP_LOG_POOL_UID} contains the audit log system user id.
      *
      * @param creatorsName maps to 'creatorsName' attribute on 'auditBind' object class.
      */
@@ -244,7 +242,6 @@ public class Bind extends FortEntity implements Serializable
     /**
      * Return the user dn containing the identity of log user who last modified the audit record.  This will be the system user that
      * is configured for performing slapd access log operations on behalf of Fortress.
-     * The config property name {@link org.apache.directory.fortress.core.ldap.LdapDataProvider#LDAP_LOG_POOL_UID} contains the audit log system user id.
      *
      * @return value that maps to 'modifiersName' attribute on 'auditBind' object class.
      */
@@ -257,7 +254,6 @@ public class Bind extends FortEntity implements Serializable
     /**
      * Set the user dn containing the identity of log user who modified the audit record.  This will be the system user that
      * is configured for performing slapd access log operations on behalf of Fortress.
-     * The config property name {@link org.apache.directory.fortress.core.ldap.LdapDataProvider#LDAP_LOG_POOL_UID} contains the audit log system user id.
      *
      * @param modifiersName maps to 'modifiersName' attribute on 'auditBind' object class.
      */
@@ -318,7 +314,7 @@ public class Bind extends FortEntity implements Serializable
      * performed the operation.  This will usually be the  same  name  as  was
      * established  at  the  start of a session by a Bind request (if any) but
      * may be altered in various circumstances.
-     * For Fortress bind operations this will map to {@link User#userId}
+     * For Fortress bind operations this will map to User#userId
      *
      * @return value that maps to 'reqAuthzID' on 'auditBind' object class.
      */
@@ -333,7 +329,7 @@ public class Bind extends FortEntity implements Serializable
      * performed the operation.  This will usually be the  same  name  as  was
      * established  at  the  start of a session by a Bind request (if any) but
      * may be altered in various circumstances.
-     * For Fortress bind operations this will map to {@link User#userId}
+     * For Fortress bind operations this will map to User#userId
      *
      */
     public void setReqAuthzID( String reqAuthzID )

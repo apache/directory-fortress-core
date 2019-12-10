@@ -19,12 +19,14 @@
  */
 package org.apache.directory.fortress.core.ant;
 
+import org.apache.directory.fortress.core.model.Configuration;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The class is used by {@link FortressAntTask} to update an existing config node.
- * It calls {@link org.apache.directory.fortress.core.ConfigMgr#update(String, java.util.Properties)}.
+ * It calls {@link org.apache.directory.fortress.core.ConfigMgr#update(Configuration)}.
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag
  * used by load utility.
  * <p>

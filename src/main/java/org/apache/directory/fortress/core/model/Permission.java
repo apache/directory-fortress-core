@@ -67,12 +67,12 @@ import org.apache.commons.lang.StringUtils;
  *     {@link org.apache.directory.fortress.core.impl.ReviewMgrImpl},...
  *   </li>
  *   <li>
- *     Process layer:  {@link org.apache.directory.fortress.core.impl.UserP}, 
- *     {@link org.apache.directory.fortress.core.impl.RoleP}, {@link org.apache.directory.fortress.core.impl.PermP},...
+ *     Process layer:  org.apache.directory.fortress.core.impl.UserP,
+ *     org.apache.directory.fortress.core.impl.RoleP, org.apache.directory.fortress.core.impl.PermP,...
  *   </li>
  *   <li>
- *     DAO layer: {@link org.apache.directory.fortress.core.impl.UserDAO}, 
- *     {@link org.apache.directory.fortress.core.impl.RoleDAO}, {@link org.apache.directory.fortress.core.impl.PermDAO},...
+ *     DAO layer: org.apache.directory.fortress.core.impl.UserDAO,
+ *     org.apache.directory.fortress.core.impl.RoleDAO, org.apache.directory.fortress.core.impl.PermDAO,...
  *   </li>
  * </ol>
  * Fortress clients first instantiate and populate a data entity before invoking any of the Manager APIs.  The caller must

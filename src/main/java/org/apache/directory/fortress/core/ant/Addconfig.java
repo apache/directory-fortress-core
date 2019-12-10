@@ -19,12 +19,14 @@
  */
 package org.apache.directory.fortress.core.ant;
 
+import org.apache.directory.fortress.core.model.Configuration;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * The class is used by {@link FortressAntTask} to load {@link ConfigAnt}s used to drive 
- * {@link org.apache.directory.fortress.core.ConfigMgr#add(String, java.util.Properties)}.
+ * {@link org.apache.directory.fortress.core.ConfigMgr#add(Configuration).
  * It is not intended to be callable by programs outside of the Ant load utility.  The class name itself maps to the xml tag 
  * used by load utility.
  * <p>

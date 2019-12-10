@@ -52,7 +52,7 @@ import org.apache.commons.lang.StringUtils;
  * <br>The unique key to locate AdminRole entity (which is subsequently assigned both to Users and administrative Permissions) is AdminRole#name.<br>
  * <p>
  * There is a many-to-many relationship between User's, Administrative Roles and Administrative Permissions.
- * <h3>{@link org.apache.directory.fortress.core.model.User}*<->*{@link AdminRole}*<->*{@link org.apache.directory.fortress.core.model.Permission}</h3>
+ * {@link org.apache.directory.fortress.core.model.User}*<->*{@link AdminRole}*<->*{@link org.apache.directory.fortress.core.model.Permission}
  * Example to create new ARBAC AdminRole:
  * <p>
  * <code>AdminRole myRole = new AdminRole("MyRoleName");</code><br>
