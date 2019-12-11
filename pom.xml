@@ -20,7 +20,7 @@
 <project xmlns="https://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>3.4
+  <parent>
     <groupId>org.apache.directory.project</groupId>
     <artifactId>project</artifactId>
     <version>44</version>
