@@ -35,7 +35,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * This document contains instructions to install Apache Fortress 2.0.4 Core, Web, Rest and OpenLDAP.
+ * This document contains instructions to install Apache Fortress 2.0.4 Core and related components.
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
