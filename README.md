@@ -58,7 +58,6 @@ ________________________________________________________________________________
 ## Document Overview
 
 This document contains instructions to download, install, test, and manage an LDAP server using the Apache Fortress Core.
-
 ___________________________________________________________________________________
 ##  Tips for first-time users
 
