@@ -91,7 +91,7 @@ access to dn.subtree="@LOG_SUFFIX@"
 database	@DB_TYPE@
 @DFLT_RDRS@
 @DFLT_SIZE@
-suffix		"@SUFFIX@"
+suffix      "@SUFFIX@"
 rootdn      "@ROOT_DN@"
 rootpw      "@ROOT_PW@"
 
@@ -191,10 +191,10 @@ ppolicy_hash_cleartext
 @IS_RBAC_ACCELERATOR@rbac-default-permissions-base-dn "@PERMS_DN@"
 @IS_RBAC_ACCELERATOR@rbac-default-sessions-base-dn "@SESSIONS_DN@"
 @IS_RBAC_ACCELERATOR@rbac-default-audit-base-dn "@AUDITS_DN@"
-@IS_RBAC_ACCELERATOR@rbac-admin "@SUFFIX@"
-@IS_RBAC_ACCELERATOR@rbac-pwd "secret"
+@IS_RBAC_ACCELERATOR@rbac-admin "@ROOT_DN@"
+@IS_RBAC_ACCELERATOR@rbac-pwd "@ROOT_PW@"
 @IS_RBAC_ACCELERATOR@rbac-session-admin "cn=manager,@SESSIONS_DN@"
-@IS_RBAC_ACCELERATOR@rbac-session-admin-pwd secret
+@IS_RBAC_ACCELERATOR@rbac-session-admin-pwd @LOG_ROOT_PW@
 
 #######################################################################
 # Monitor database

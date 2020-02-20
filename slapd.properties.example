@@ -55,9 +55,9 @@ ldap.max.batch.size=1000
 #suffix.dc2=com
 #suffix=dc=${suffix.name},dc=${suffix.dc},dc=${suffix.dc2}
 
-root.dn=cn=Manager,${suffix}
+root.dn=cn=manager,${suffix}
 # Used to load OpenLDAP admin root password in slapd.conf and was encrypted using 'slappasswd' command:
-#root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
+root.pw={SSHA}pSOV2TpCxj2NMACijkcMko4fGrFopctU
 cfg.root.pw=secret
 
 # This specifies the number of default LDAP connections to maintain in the pool:
@@ -74,7 +74,7 @@ max.log.conn=3
 
 #These are passwords used for LDAP audit log service accounts:
 # Audit Pool:
-log.admin.user=cn=Manager,${log.suffix}
+log.admin.user=cn=manager,${log.suffix}
 log.admin.pw=secret
 
 # Use if ldap.server.type=openldap.  (Default is false):
@@ -141,7 +141,7 @@ log.ops=logops bind writes compare
 ########################################################################
 # 4. RFC2307 OBJECT CLASS DEFINITIONS
 ########################################################################
-# Boolean value. If true, requires rfc2307bis schema because posixUser and posixGroup must be auxiliary object classes to work with ftRls which is structural..
+# Boolean value. Default is false.  If true, requires rfc2307bis schema because posixUser and posixGroup must be auxiliary object classes to work with ftRls which is structural..
 rfc2307=false
 
 ########################################################################
@@ -201,6 +201,7 @@ slapd.start=${openldap.root}/etc/solserver start -f ${openldap.root}/etc/openlda
 # 6. RBAC ACCELERATOR OVERLAY PROPS
 ########################################################################
 
+# Default is false, if set to 'true', the OpenLDAP RBAC Accelerator overlay will be enabled:
 rbac.accelerator=false
 rbac.module=moduleload slapo-rbac.la
 dds.module=moduleload  dds.la
