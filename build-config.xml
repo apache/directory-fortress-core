@@ -177,7 +177,7 @@
     <!-- =================================
           Enable the RBAC Accelerator Overlay
          ================================= -->
-    <target name="enable-rbac-accelerator" depends="init" if="rbac.accelerator">
+    <target name="enable-rbac-accelerator" depends="init" if="${rbac.accelerator}">
         <echo message="###############  Initialize the RBAC Accelerator Overlay"/>
         <replace file="${target.slapd.conf}" token="@RBAC_MODULE@" value="${rbac.module}"/>
         <replace file="${target.slapd.conf}" token="@DDS_MODULE@" value="${dds.module}"/>
@@ -216,7 +216,7 @@
     <!-- =================================
           Disable RBAC Accelerator Overlay
          ================================= -->
-    <target name="disable-rbac-accelerator" depends="init" unless="rbac.accelerator">
+    <target name="disable-rbac-accelerator" depends="init" unless="${rbac.accelerator}">
         <echo message="###############  Disable the RBAC Accelerator Overlay"/>
         <replace file="${target.slapd.conf}" token="@RBAC_MODULE@" value=""/>
         <replace file="${target.slapd.conf}" token="@DDS_MODULE@" value=""/>
@@ -235,7 +235,7 @@
     <!-- =================================
           Enable OpenLDAP SSL
          ================================= -->
-    <target name="enable-slapd-ssl" depends="init" if="enable.ldap.ssl">
+    <target name="enable-slapd-ssl" depends="init" if="${enable.ldap.ssl}">
         <echo message="###############  Enable OpenLDAP SSL"/>
         <antcall target="copy-ssl-keys"></antcall>
         <replace file="${target.slapd.conf}" token="@IS_SSL@" value=""/>
@@ -247,7 +247,7 @@
     <!-- =================================
           Disable OpenLDAP SSL
          ================================= -->
-    <target name="disable-slapd-ssl" depends="init" unless="enable.ldap.ssl">
+    <target name="disable-slapd-ssl" depends="init" unless="${enable.ldap.ssl}">
         <echo message="###############  Disable OpenLDAP SSL"/>
         <replace file="${target.slapd.conf}" token="@IS_SSL@" value="#"/>
     </target>
