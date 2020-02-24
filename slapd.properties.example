@@ -182,6 +182,7 @@ dflt.checkpoint=checkpoint    64 5
 
 #Debian 64-bit Silver:
 #platform=Debian-Silver-x86-64
+# Note: for Ubuntu installs, remove the file /opt/symas/etc/openldap/symas-openldap.conf before installing new package, to prevent automatic startup after the installation.
 #slapd.install=dpkg -i symas-openldap-silver.64_2.4.43-20151204_amd64.deb
 #slapd.uninstall=dpkg -r symas-openldap-silver
 #install.image.dir=/home/smckinn/archives/debian64
