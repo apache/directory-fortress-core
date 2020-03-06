@@ -185,7 +185,6 @@ ppolicy_hash_cleartext
 @IS_RBAC_ACCELERATOR@rootpw		@LOG_ROOT_PW@
 @IS_RBAC_ACCELERATOR@directory	"@RBACOVERLAY_DB_PATH@"
 @IS_RBAC_ACCELERATOR@overlay	rbac
-@IS_RBAC_ACCELERATOR@rbac-default-tenant-id "@SUFFIX_NAME@"
 @IS_RBAC_ACCELERATOR@rbac-default-users-base-dn "@USERS_DN@"
 @IS_RBAC_ACCELERATOR@rbac-default-roles-base-dn "@ROLES_DN@"
 @IS_RBAC_ACCELERATOR@rbac-default-permissions-base-dn "@PERMS_DN@"
@@ -195,6 +194,7 @@ ppolicy_hash_cleartext
 @IS_RBAC_ACCELERATOR@rbac-pwd "@ROOT_PW@"
 @IS_RBAC_ACCELERATOR@rbac-session-admin "cn=manager,@SESSIONS_DN@"
 @IS_RBAC_ACCELERATOR@rbac-session-admin-pwd @LOG_ROOT_PW@
+#@IS_RBAC_ACCELERATOR@rbac-default-tenant-id "@SUFFIX_NAME@"
 
 #######################################################################
 # Monitor database
