@@ -80,6 +80,7 @@ public final class RestUtils
     private static final int HTTP_403_FORBIDDEN = 403;
     private static final int HTTP_404_NOT_FOUND = 404;
     private static final int HTTP_500_INTERNAL_SERVER_ERROR = 500;
+    private static final String VALID_RESPONSE = "FortResponse";
     private static CachedJaxbContext cachedJaxbContext = new CachedJaxbContext();
 
     // static member contains this
@@ -315,7 +316,7 @@ public final class RestUtils
             {
                 case HTTP_OK :
                     szResponse = IOUtils.toString( response.getEntity().getContent(), "UTF-8" );
-                    if( StringUtils.isNotEmpty( szResponse ) )
+                    if( StringUtils.isNotEmpty( szResponse ) && szResponse.contains(VALID_RESPONSE) )
                     {
                         LOG.debug( "post uri=[{}], function=[{}], response=[{}]", uri, function, szResponse );
                     }
@@ -335,18 +336,45 @@ public final class RestUtils
                     LOG.error( error );
                     throw new RestException( GlobalErrIds.REST_FORBIDDEN_ERR, error );
                 case HTTP_404_NOT_FOUND:
-                case HTTP_500_INTERNAL_SERVER_ERROR:
-                case HTTP_400_VALIDATION_EXCEPTION:
                     szResponse = IOUtils.toString( response.getEntity().getContent(), "UTF-8" );
-                    if( StringUtils.isNotEmpty( szResponse ) )
+                    // Crack the response and see if it can be parsed as a valid Fortress Response object or generic HTTP:
+                    if( StringUtils.isNotEmpty( szResponse ) && szResponse.contains(VALID_RESPONSE) )
                     {
-                        LOG.debug( "post uri=[{}], function=[{}], response=[{}]", uri, function, szResponse );
+                        LOG.debug( "HTTP: 404: post uri=[{}], function=[{}], response=[{}]", uri, function, szResponse );
                     }
                     else
                     {
                         error = generateErrorMessage( uri, function, "HTTP Error:" + response.getStatusLine().getStatusCode());
                         LOG.error( error );
                         throw new RestException( GlobalErrIds.REST_NOT_FOUND_ERR, error );
+                    }
+                    break;
+                case HTTP_500_INTERNAL_SERVER_ERROR:
+                    szResponse = IOUtils.toString( response.getEntity().getContent(), "UTF-8" );
+                    // Crack the response and see if it can be parsed as a valid Fortress Response object or generic HTTP:
+                    if( StringUtils.isNotEmpty( szResponse ) && szResponse.contains(VALID_RESPONSE) )
+                    {
+                        LOG.debug( "HTTP 500: post uri=[{}], function=[{}], response=[{}]", uri, function, szResponse );
+                    }
+                    else
+                    {
+                        error = generateErrorMessage( uri, function, "HTTP 500 Internal Error:" + response.getStatusLine().getStatusCode());
+                        LOG.error( error );
+                        throw new RestException( GlobalErrIds.REST_INTERNAL_ERR, error );
+                    }
+                    break;
+                case HTTP_400_VALIDATION_EXCEPTION:
+                    szResponse = IOUtils.toString( response.getEntity().getContent(), "UTF-8" );
+                    // Crack the response and see if it can be parsed as a valid Fortress Response object or generic HTTP:
+                    if( StringUtils.isNotEmpty( szResponse ) && szResponse.contains(VALID_RESPONSE) )
+                    {
+                        LOG.debug( "HTTP 400: post uri=[{}], function=[{}], response=[{}]", uri, function, szResponse );
+                    }
+                    else
+                    {
+                        error = generateErrorMessage( uri, function, "HTTP 400 Validation Error:" + response.getStatusLine().getStatusCode());
+                        LOG.error( error );
+                        throw new RestException( GlobalErrIds.REST_VALIDATION_ERR, error );
                     }
                     break;
                 default :

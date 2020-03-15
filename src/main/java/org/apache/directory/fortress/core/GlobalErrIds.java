@@ -1648,6 +1648,18 @@ public final class GlobalErrIds
      * The REST function could not get handle to HTTP Request.
      */
     public static final int REST_NULL_HTTP_REQ_ERR = 10110;
+
+    /**
+     * The REST function failed with an HTTP 500 Internal error.
+     */
+    public static final int REST_INTERNAL_ERR = 10111;
+
+    /**
+     * The REST function failed with an HTTP 400 Validation Exception.
+     */
+    public static final int REST_VALIDATION_ERR = 10112;
+
+
     /**
      * 10200's - RBAC Accelerator Error Ids
      */

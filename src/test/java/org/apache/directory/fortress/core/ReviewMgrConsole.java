@@ -207,60 +207,64 @@ class ReviewMgrConsole
         String userVal;
 
         ReaderUtil.clearScreen();
-        try
-        {
-            System.out.println( "Enter User Search Value" );
+        try {
+            System.out.println("Enter User Search Value");
             userVal = ReaderUtil.readLn();
             User ue = new User();
-            ue.setUserId( userVal );
-            ArrayList list = ( ArrayList ) rm.findUsers( ue );
-            int size = list.size();
-
-            for ( int i = 0; i < size; i++ )
+            ue.setUserId(userVal);
+            ArrayList list = (ArrayList) rm.findUsers(ue);
+            if (list != null)
             {
-                ue = ( User ) list.get( i );
-                System.out.println( "USER[" + i + "]" );
-                System.out.println( "    userId      [" + ue.getUserId() + "]" );
-                System.out.println( "    internalId  [" + ue.getInternalId() + "]" );
-                System.out.println( "    description [" + ue.getDescription() + "]" );
-                System.out.println( "    common name [" + ue.getCn() + "]" );
-                System.out.println( "    surname     [" + ue.getSn() + "]" );
-                System.out.println( "    orgUnitId   [" + ue.getOu() + "]" );
-                System.out.println( "    pwpolicy    [" + ue.getPwPolicy() + "]" );
-                System.out.println( "    seqId       [" + ue.getSequenceId() + "]" );
-                printTemporal( ue, "USER" );
-                printPosixAccount( ue, "POSIX" );
-                printAddress( ue.getAddress(), "ADDRESS" );
-                printPhone( ue.getPhones(), "PHONES" );
-                printPhone( ue.getMobiles(), "MOBILES" );
-                if ( ue.getRoles() != null )
+                int size = list.size();
+                for (int i = 0; i < size; i++)
                 {
-                    for ( UserRole ur : ue.getRoles() )
+                    ue = (User) list.get(i);
+                    System.out.println("USER[" + i + "]");
+                    System.out.println("    userId      [" + ue.getUserId() + "]");
+                    System.out.println("    internalId  [" + ue.getInternalId() + "]");
+                    System.out.println("    description [" + ue.getDescription() + "]");
+                    System.out.println("    common name [" + ue.getCn() + "]");
+                    System.out.println("    surname     [" + ue.getSn() + "]");
+                    System.out.println("    orgUnitId   [" + ue.getOu() + "]");
+                    System.out.println("    pwpolicy    [" + ue.getPwPolicy() + "]");
+                    System.out.println("    seqId       [" + ue.getSequenceId() + "]");
+                    printTemporal(ue, "USER");
+                    printPosixAccount(ue, "POSIX");
+                    printAddress(ue.getAddress(), "ADDRESS");
+                    printPhone(ue.getPhones(), "PHONES");
+                    printPhone(ue.getMobiles(), "MOBILES");
+                    if (ue.getRoles() != null)
                     {
-                        printTemporal( ur, "RBACROLE" );
+                        for (UserRole ur : ue.getRoles())
+                        {
+                            printTemporal(ur, "RBACROLE");
+                        }
                     }
-                }
-                if ( ue.getAdminRoles() != null )
-                {
-                    for ( UserAdminRole ur : ue.getAdminRoles() )
+                    if (ue.getAdminRoles() != null)
                     {
-                        printAdminRole( ur );
-                        printTemporal( ur, "ADMINROLE" );
+                        for (UserAdminRole ur : ue.getAdminRoles()) {
+                            printAdminRole(ur);
+                            printTemporal(ur, "ADMINROLE");
+                        }
                     }
-                }
-                if ( ue.getProperties() != null && ue.getProperties().size() > 0 )
-                {
-                    int ctr = 0;
-                    for ( Enumeration e = ue.getProperties().propertyNames(); e.hasMoreElements(); )
+                    if (ue.getProperties() != null && ue.getProperties().size() > 0)
                     {
-                        String key = ( String ) e.nextElement();
-                        String val = ue.getProperty( key );
-                        System.out.println( "prop key[" + ctr + "]=" + key );
-                        System.out.println( "prop value[" + ctr++ + "]=" + val );
+                        int ctr = 0;
+                        for (Enumeration e = ue.getProperties().propertyNames(); e.hasMoreElements(); )
+                        {
+                            String key = (String) e.nextElement();
+                            String val = ue.getProperty(key);
+                            System.out.println("prop key[" + ctr + "]=" + key);
+                            System.out.println("prop value[" + ctr++ + "]=" + val);
+                        }
                     }
-                }
 
-                System.out.println();
+                    System.out.println();
+                }
+            }
+            else
+            {
+                System.out.println("User not found");
             }
             System.out.println( "ENTER to continue" );
         }
