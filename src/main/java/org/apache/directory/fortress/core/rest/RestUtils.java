@@ -136,10 +136,12 @@ public final class RestUtils
         serviceName = "fortress-rest-" + fortressRestVersion;
         uri = httpProtocol + "://" + httpHost + ":" + httpPort + "/" + serviceName + "/";
         LOG.info("HTTP Connect Properties: host:{}, port:{}, protocol:{}, version:{}, service:{}, uri:{}", httpHost, httpPort, httpProtocol, fortressRestVersion, serviceName, uri);
-        LOG.info( "Set JSSE truststore properties:" );
-        LOG.info( "javax.net.ssl.trustStore: {}", trustStore );
-        System.setProperty( "javax.net.ssl.trustStore", trustStore );
-        System.setProperty( "javax.net.ssl.trustStorePassword", trustStorePw );
+        if( StringUtils.isNotEmpty(trustStore ) && StringUtils.isNotEmpty(trustStorePw ) )
+        {
+            LOG.info( "javax.net.ssl.trustStore: {}", trustStore );
+            System.setProperty( "javax.net.ssl.trustStore", trustStore );
+            System.setProperty( "javax.net.ssl.trustStorePassword", trustStorePw );
+        }
         //System.setProperty( "http.maxConnections", "50" );
     }
 
