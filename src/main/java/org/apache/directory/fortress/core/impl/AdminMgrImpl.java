@@ -464,7 +464,6 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
 
         if ( roleConstraint.getType() == RoleConstraint.RCType.USER )
         {
-            // Validate the role constraint has been enabled:
             // This constraint type requires a global config parameter keyed by RC$tenant$role:constraint:
             String propKey = Config.getInstance().getConstraintKey( uRole.getName(), contextId );
             String propValue = Config.getInstance().getProperty( propKey );
