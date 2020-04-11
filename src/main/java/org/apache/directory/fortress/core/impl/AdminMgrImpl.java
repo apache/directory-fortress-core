@@ -367,6 +367,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     {
         String methodName = "assignUser";
         assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
+        VUtil.assertNotNull( uRole.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
         Role role = new Role( uRole.getName() );
         role.setContextId( contextId );
         User user = new User( uRole.getUserId() );
@@ -403,8 +404,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     {        
     	String methodName = "enableRoleConstraint";
         VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + methodName );
-        VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
         VUtil.assertNotNull( role.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
+        VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
         setEntitySession( CLS_NM, methodName, role );
         // This constraint type requires a global config parameter keyed by RC$tenant$role:constraint:
         String propKey = Config.getInstance().getConstraintKey( role.getName(), contextId );
@@ -430,10 +431,10 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     	   	throws SecurityException
     {
         String methodName = "disableRoleConstraint";
-        VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + methodName );
-        VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
-        VUtil.assertNotNull( role.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
         setEntitySession( CLS_NM, methodName, role );
+        VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + methodName );
+        VUtil.assertNotNull( role.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
+        VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
         // This constraint type requires a global config parameter keyed by RC$tenant$role:constraint:
         String propKey = Config.getInstance().getConstraintKey( role.getName(), contextId );
         String propValue = roleConstraint.getKey();
@@ -457,7 +458,18 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     {
     	String methodName = "addRoleConstraint";
         assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
+        VUtil.assertNotNull( uRole.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
+        VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
         setEntitySession( CLS_NM, methodName, uRole );
+
+        if ( roleConstraint.getType() == RoleConstraint.RCType.USER )
+        {
+            // Validate the user-role constraint has been enabled:
+            // This constraint type requires a global config parameter keyed by RC$tenant$role:constraint:
+            String propKey = Config.getInstance().getConstraintKey( uRole.getName(), contextId );
+            String propValue = Config.getInstance().getProperty( propKey );
+            VUtil.assertNotNull( propValue, GlobalErrIds.ROLE_CONSTRAINT_NOT_ENABLED, CLS_NM + methodName );
+        }
 
         // Validate the user-role assignment exists:
         User user = new User( uRole.getUserId());
@@ -473,7 +485,6 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         }
         AdminUtil.canAssign( uRole.getAdminSession(), new User( uRole.getUserId() ), new Role( uRole.getName() ),
             contextId );
-        // todo assert roleconstraint here
         userP.assign( uRole, roleConstraint );
         return roleConstraint;
     }
@@ -488,6 +499,8 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     {        
     	String methodName = "removeRoleConstraint";
         assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
+        VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
+        VUtil.assertNotNull( uRole.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
         setEntitySession( CLS_NM, methodName, uRole );
         userP.deassign( uRole, roleConstraint );
     }
@@ -500,8 +513,11 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     public void removeRoleConstraint( UserRole uRole, String roleConstraintId )
             throws SecurityException
     {        
-        String methodName = "deassignUser";
+        String methodName = "removeRoleConstraint";
         assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
+        VUtil.assertNotNull( uRole.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
+        VUtil.assertNotNull( roleConstraintId, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
+        VUtil.assertNotNull( uRole.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
         setEntitySession( CLS_NM, methodName, uRole );
         AdminUtil.canDeassign( uRole.getAdminSession(), new User( uRole.getUserId() ), new Role( uRole.getName() ), contextId );
         

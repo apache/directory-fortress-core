@@ -1121,6 +1121,10 @@ public final class GlobalErrIds
      * The validation for Role Constraint key is required.
      */
     public static final int ROLE_CONSTRAINT_KEY_NULL = 5103;
+    /**
+     * An attempt to add a user-role constraint when the role constraint has not been enabled (added).
+     */
+    public static final int ROLE_CONSTRAINT_NOT_ENABLED = 5104;
 
     
     /**
