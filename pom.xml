@@ -94,7 +94,7 @@
     <version.ant.launcher>1.9.1</version.ant.launcher>
     <version.antlr>2.7.7</version.antlr>
     <version.apache.jdbm1>2.0.0-M3</version.apache.jdbm1>
-    <version.apacheds>2.0.0.AM25</version.apacheds>
+    <version.apacheds>2.0.0.AM26</version.apacheds>
     <version.api.all>1.0.3</version.api.all>
     <version.commons.beanutils>1.7.0</version.commons.beanutils>
     <version.commons.beanutils-core>1.8.0</version.commons.beanutils-core>
@@ -117,7 +117,7 @@
     <version.jaxb.api>2.3.0</version.jaxb.api>
     <version.jaxb.core>2.3.0.1</version.jaxb.core>
     <version.jaxb.impl>2.3.2</version.jaxb.impl>
-    <version.jgrapht-core>1.3.1</version.jgrapht-core>
+    <version.jgrapht-core>1.4.0</version.jgrapht-core>
     <version.jmeter.core>2.11</version.jmeter.core>
     <version.jmeter.java>2.11</version.jmeter.java>
     <version.junit>4.12</version.junit>
