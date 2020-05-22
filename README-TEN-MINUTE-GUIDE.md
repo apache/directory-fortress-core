@@ -19,7 +19,7 @@
 -------------------------------------------------------------------------------
 # README for Apache Fortress Ten Minute Guide
 
- * Version 2.0.4
+ * Version 2.0.5
  * This document has been deprecated in favor of:
     * Follow these instructions: [README-QUICKSTART-APACHEDS](./README-QUICKSTART-APACHEDS.md)
     * Follow these instructions: [README-QUICKSTART-SLAPD](./README-QUICKSTART-SLAPD.md)

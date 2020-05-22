@@ -72,7 +72,6 @@
             <addconfig>
                 <!-- These values are mapped to a config node named 'DEFAULT' by the FortressAntTask: -->
                 <config props="config.realm:DEFAULT"/>
-                <!-- 2.0.4 schema change maps these to 'gidUnumber' and 'uidNumber' attrs on the associated ftConfig entity. -->
                 <config props="config.gid.number:10000"/>
                 <config props="config.uid.number:20000"/>
                 <!-- These values are stored as properties on the configuration node named 'DEFAULT': -->
@@ -105,9 +104,6 @@
                 <config props="group.properties:@GROUP_PROPERTIES@"/>
                 <config props="role.occupants:@ROLE_OCCUPANTS@"/>
                 <config props="rfc2307:@IS_RFC2307@"/>
-                <!-- Storing these values as props is deprecated since 2.0.4. -->
-                <config props="gidNumber:5000"/>
-                <config props="uidNumber:1000"/>
                 <!-- For encoding user input. . -->
                 <config props="attr.delimiter:$"/>
                 <config props="field.length:130"/>
