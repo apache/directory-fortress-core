@@ -35,10 +35,6 @@ ________________________________________________________________________________
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
 
-Minimum hardware requirements:
- * 2 Cores
- * 4GB RAM
-
 Minimum software requirements:
  * Centos or Debian Machine
  * Java SDK 8++
@@ -48,12 +44,19 @@ Minimum software requirements:
 ___________________________________________________________________________________
 ## SECTION 2. Apache Fortress Core Setup using ApacheDS Docker Image
 
-1. Download the apache directory fortress-core source from apache git repo:
+1. Download the package:
 
- a. from the command line:
+ a. from git:
  ```
- git clone  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
+ git clone --branch 2.0.5  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
  cd directory-fortress-core
+ ```
+
+ b. or download package:
+ ```
+ wget http://www.apache.org/dist/directory/fortress/dist/2.0.5/fortress-core-2.0.5-source-release.zip
+ unzip fortress-core-2.0.5-source-release.zip
+ cd fortress-core-2.0.5
  ```
 
 2. Now build the apache directory fortress docker image (trailing dot matters):
