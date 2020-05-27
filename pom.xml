@@ -770,9 +770,9 @@
 
     <!-- If JDK11++ pull in the JAXB API dependency. -->
     <profile>
-      <id>java-11</id>
+      <id>jdk-11+</id>
       <activation>
-        <jdk>11</jdk>
+        <jdk>[11,]</jdk>
       </activation>
       <dependencies>
         <dependency>
@@ -782,7 +782,6 @@
         </dependency>
       </dependencies>
     </profile>
-
 
     <!-- This profile starts the Fortress Console App -->
     <!-- To execute: mvn -Pconsole test -->
