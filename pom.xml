@@ -33,7 +33,7 @@
   <version>2.0.6-SNAPSHOT</version>
   <inceptionYear>2007</inceptionYear>
   <description>
-    Apache Fortress is a standards-based authorization platform that implements ANSI RBAC INCITS 359.
+    Apache Fortress is an authorization platform that implements ANSI INCITS 359 Role-Based Access Control (RBAC).
   </description>
   <url>https://directory.apache.org/fortress/</url>
 
