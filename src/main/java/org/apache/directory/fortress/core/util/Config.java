@@ -76,6 +76,7 @@ public final class Config
     private static final String EXT_TRUST_STORE_ONCLASSPATH = "fortress.trust.store.onclasspath";
     private static final String EXT_CONFIG_REALM = "fortress.config.realm";
     private static final String EXT_CONFIG_ROOT_DN = "fortress.config.root";
+    private static final String EXT_CONFIG_SUFFIX = "fortress.suffix";
     private static final String EXT_SERVER_TYPE = "fortress.ldap.server.type";
     private static final String EXT_IS_ARBAC02 = "fortress.is.arbac02";
 
@@ -677,6 +678,15 @@ public final class Config
             LOG.info( PREFIX, GlobalIds.TRUST_STORE_ON_CLASSPATH, szValue );
         }
 
+        // Check to see if the suffix has been overridden by a system property:
+        szValue = System.getProperty( EXT_CONFIG_SUFFIX );
+        if( StringUtils.isNotEmpty( szValue ))
+        {
+            config.setProperty( GlobalIds.SUFFIX, szValue );
+            LOG.info( PREFIX, GlobalIds.SUFFIX, szValue );
+
+        }
+
         // Check to see if the config realm name has been overridden by a system property:
         szValue = System.getProperty( EXT_CONFIG_REALM );
         if( StringUtils.isNotEmpty( szValue ))
@@ -685,12 +695,13 @@ public final class Config
             LOG.info( PREFIX, GlobalIds.CONFIG_REALM, szValue );
         }
 
-        // Check to see if the config realm name has been overridden by a system property:
+        // Check to see if the config node dn has been overridden by a system property:
         szValue = System.getProperty( EXT_CONFIG_ROOT_DN );
         if( StringUtils.isNotEmpty( szValue ))
         {
             config.setProperty( GlobalIds.CONFIG_ROOT_PARAM, szValue );
             LOG.info( PREFIX, GlobalIds.CONFIG_ROOT_PARAM, szValue );
+
         }
 
         // Check to see if the ldap server type has been overridden by a system property:
@@ -703,8 +714,6 @@ public final class Config
 
         // Check to see if ARBAC02 checking enforced in service layer:
         szValue = System.getProperty( EXT_IS_ARBAC02 );
-        LOG.info( PREFIX, GlobalIds.IS_ARBAC02, szValue );
-
         if( StringUtils.isNotEmpty( szValue ))
         {
             Boolean isArbac02 = new Boolean(szValue);

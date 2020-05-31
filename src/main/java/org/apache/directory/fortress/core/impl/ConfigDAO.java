@@ -331,7 +331,7 @@ final class ConfigDAO extends LdapDataProvider
         Configuration configuration = new Configuration();
         LdapConnection ld = null;
         String dn = getDn( name );
-        LOG.debug( "getConfig dn [{}]", dn );
+        LOG.info( "getConfig dn [{}]", dn );
         try
         {
             ld = getAdminConnection();

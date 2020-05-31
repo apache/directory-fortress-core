@@ -47,137 +47,127 @@ ________________________________________________________________________________
 1. Download the package:
 
  a. from git:
- ```
- git clone --branch 2.0.5  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
- cd directory-fortress-core
- ```
+```
+git clone --branch 2.0.5  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
+cd directory-fortress-core
+```
 
- b. or download package:
- ```
- wget http://www.apache.org/dist/directory/fortress/dist/2.0.5/fortress-core-2.0.5-source-release.zip
- unzip fortress-core-2.0.5-source-release.zip
- cd fortress-core-2.0.5
- ```
+b. or download package:
+```
+wget http://www.apache.org/dist/directory/fortress/dist/2.0.5/fortress-core-2.0.5-source-release.zip
+unzip fortress-core-2.0.5-source-release.zip
+cd fortress-core-2.0.5
+```
 
 2. Now build the apache directory fortress docker image (trailing dot matters):
 
- ```
- docker build -t apachedirectory/apacheds-for-apache-fortress-tests -f src/docker/apacheds-for-apache-fortress-tests/Dockerfile .
- ```
+```
+docker build -t apachedirectory/apacheds-for-apache-fortress-tests -f src/docker/apacheds-for-apache-fortress-tests/Dockerfile .
+```
 
  Or just pull the prebuilt image:
 
- ```
- docker pull apachedirectory/apacheds-for-apache-fortress-tests
- ```
+```
+docker pull apachedirectory/apacheds-for-apache-fortress-tests
+```
 
 3. Run the docker container:
 
- ```
- CONTAINER_ID=$(docker run -d -P apachedirectory/apacheds-for-apache-fortress-tests)
- CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "10389/tcp") 0).HostPort}}' $CONTAINER_ID)
- echo $CONTAINER_PORT
- ```
+```
+CONTAINER_ID=$(docker run -d -P apachedirectory/apacheds-for-apache-fortress-tests)
+CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "10389/tcp") 0).HostPort}}' $CONTAINER_ID)
+echo $CONTAINER_PORT
+```
 
  *note: make note of the port as it's needed later
  *depending on your docker setup may need to run as root or sudo priv's.
 
-4. Prepare fortress to use the apacheds running inside docker container:
+4. Prepare your terminal for execution of maven commands.
 
- ```
- cp build.properties.example build.properties
- ```
+```
+#!/bin/sh
+export M2_HOME=...
+export JAVA_HOME=...
+export PATH=$PATH:$M2_HOME/bin
+export MAVEN_OPTS="
+    -Dfortress.admin.user=uid=admin,ou=system 
+    -Dfortress.admin.pw=secret 
+    -Dfortress.suffix=dc=example,dc=com
+    -Dfortress.config.realm=default 
+    -Dfortress.ldap.server.type=apacheds
+    -Dfortress.port=32768"
+```
 
-5. Edit the *build.properties* file:
+ More about 'MAVEN_OPTS': 
+  * Provides the coordinates to the ldap server running inside Docker container.  
+  * replace the 'fortress.port' value with result from ```echo $CONTAINER_PORT```.
 
- ```
- vi build.properties
- ```
+5. Run the maven install to build fortress:
 
-6. Update the *ldap.port* prop:
-
- ```
- ldap.port= port from earlier step
- ```
-
-7. Save and exit
-
-8. Prepare your terminal for execution of maven commands.
-
- ```
- #!/bin/sh
- export M2_HOME=...
- export JAVA_HOME=...
- export PATH=$PATH:$M2_HOME/bin
- ```
-
-9. Run the maven install to build fortress lib and prepare its configuration (fortress.properties):
-
- ```
- mvn clean install
- ```
-
+```
+mvn clean install
+```
 ___________________________________________________________________________________
 ## SECTION 3. Apache Fortress Core Integration Test
 
 1. From fortress core base folder, enter the following commands:
 
- ```
- mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
- ```
+```
+mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
+```
 
  *These will build the Directory Information Tree (DIT), create the config and data policies needed for the integration test to follow.*
 
 2. Next, enter the following command:
 
- ```
- mvn -Dtest=FortressJUnitTest test
- ```
+```
+mvn -Dtest=FortressJUnitTest test
+```
 
  *Tests the APIs against your LDAP server.*
 
 3. Verify the tests worked:
 
- ```
- Tests run: Failures: 0, Errors: 0, Skipped: 0
- Results :
+```
+Tests run: Failures: 0, Errors: 0, Skipped: 0
+Results :
 
- Tests run: Failures: 0, Errors: 0, Skipped: 0
+Tests run: Failures: 0, Errors: 0, Skipped: 0
 
- [INFO]
- [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
- [INFO] Executing tasks
+[INFO]
+[INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
+[INFO] Executing tasks
 
- fortress-load:
- [INFO] Executed tasks
- [INFO] ------------------------------------------------------------------------
- [INFO] BUILD SUCCESS
- ```
+fortress-load:
+[INFO] Executed tasks
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+```
 
 4. Rerun the tests to verify teardown APIs work:
 
- ```
- mvn -Dtest=FortressJUnitTest test
- ```
+```
+mvn -Dtest=FortressJUnitTest test
+```
 
 5. Verify that worked also:
 
- ```
- Results :
+```
+Results :
 
- Tests run: Failures: 0, Errors: 0, Skipped: 0
+Tests run: Failures: 0, Errors: 0, Skipped: 0
 
- [INFO]
- [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
- [INFO] Executing tasks
+[INFO]
+[INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
+[INFO] Executing tasks
 
- fortress-load:
- [INFO] Executed tasks
- [INFO] ------------------------------------------------------------------------
- [INFO] BUILD SUCCESS
- [INFO] ------------------------------------------------------------------------
- ```
- Notice more tests ran this time vs the first time, due to teardown.
+fortress-load:
+[INFO] Executed tasks
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+```
+ * More tests ran this time vs the first time, due to teardown.
 
  Test Notes:
   * If tests complete without errors Apache Fortress works with your ApacheDS server (in Docker).
@@ -198,44 +188,44 @@ Here are some common commands needed to manage the Docker image.
 
 #### Build image
 
- ```
- docker build -t apachedirectory/apacheds-for-apache-fortress-tests -f src/docker/apacheds-for-apache-fortress-tests/Dockerfile .
- ```
+```
+docker build -t apachedirectory/apacheds-for-apache-fortress-tests -f src/docker/apacheds-for-apache-fortress-tests/Dockerfile .
+```
 
  * trailing dot matters
 
  Or just to be sure don't use cached layers:
 
- ```
- docker build   --no-cache=true -t apachedirectory/apacheds-for-apache-fortress-tests -f src/docker/apacheds-for-apache-fortress-tests/Dockerfile .
- ```
+```
+docker build   --no-cache=true -t apachedirectory/apacheds-for-apache-fortress-tests -f src/docker/apacheds-for-apache-fortress-tests/Dockerfile .
+```
 
 #### Run container
 
- ```
- CONTAINER_ID=$(docker run -d -P apachedirectory/apacheds-for-apache-fortress-tests)
- CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "10389/tcp") 0).HostPort}}' $CONTAINER_ID)
- echo $CONTAINER_PORT
- ```
+```
+CONTAINER_ID=$(docker run -d -P apachedirectory/apacheds-for-apache-fortress-tests)
+CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "10389/tcp") 0).HostPort}}' $CONTAINER_ID)
+echo $CONTAINER_PORT
+```
 
 #### Go into the container
 
- ```
- docker exec -it $CONTAINER_ID bash
- ```
+```
+docker exec -it $CONTAINER_ID bash
+```
 
 #### Restart container
 
- ```
- docker restart $CONTAINER_ID
- ```
+```
+docker restart $CONTAINER_ID
+```
 
 #### Stop and delete container
 
- ```
- docker stop $CONTAINER_ID
- docker rm $CONTAINER_ID
- ```
+```
+docker stop $CONTAINER_ID
+docker rm $CONTAINER_ID
+```
 
 ____________________________________________________________________________________
 #### END OF README-QUICKSTART-DOCKER-APACHEDS

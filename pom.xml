@@ -529,16 +529,12 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <configuration>
             <argLine>-Xmx1024m</argLine>
-            <systemProperties>
-              <systemProperty>
-                <key>version</key>
-                <value>${project.version}</value>
-              </systemProperty>
-              <systemProperty>
-                <key>tenant</key>
-                <value>${tenant}</value>
-              </systemProperty>
-            </systemProperties>
+
+            <systemPropertyVariables>
+              <version>${project.version}</version>
+              <tenant>${tenant}</tenant>
+            </systemPropertyVariables>
+
             <excludes>
               <exclude>${exclude.tests}</exclude>
             </excludes>
@@ -712,9 +708,10 @@
           <execution>
             <phase>test</phase>
             <configuration>
+              <!--<target name="stop-slapd-win-if-present" depends="slapd.dir.check" if="slapd.dir.exists">-->
               <target name="fortress-load" if="load.file" description="Loads fortress policy into ldap">
                 <echo message="############### Run Fortress Ant script to load policy ###############" />
-                <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
+                <java classname="org.apache.tools.ant.launch.Launcher" fork="true" clonevm="true" failonerror="true" dir="${basedir}" timeout="120000" taskname="startAnt">
                   <classpath>
                     <!-- use config/bootstrap folder for config because the config ldap node isn't (might not be) inserted: -->
                     <pathelement location="./config/bootstrap/" />
