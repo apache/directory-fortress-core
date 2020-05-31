@@ -79,8 +79,8 @@ CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports
 echo $CONTAINER_PORT
  ```
 
- *note: make note of the port as it's needed later
- *depending on your docker setup may need to run as root or sudo priv's.
+ * The '$CONTAINER_PORT' value required for next step.
+ * Depending on your Docker setup, may need to run this step as root or sudo priv's.
 
 4. Prepare your terminal for execution of maven commands.
 
