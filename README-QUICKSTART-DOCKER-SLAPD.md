@@ -94,7 +94,7 @@ export MAVEN_OPTS="
     -Dfortress.admin.pw=secret 
     -Dfortress.suffix=dc=example,dc=com
     -Dfortress.config.realm=default 
-    -Dfortress.ldap.server.type=apacheds
+    -Dfortress.ldap.server.type=openldap
     -Dfortress.port=32768"
 ```
 
