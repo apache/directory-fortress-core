@@ -90,7 +90,7 @@ export M2_HOME=...
 export JAVA_HOME=...
 export PATH=$PATH:$M2_HOME/bin
 export MAVEN_OPTS="
-    -Dfortress.admin.user=uid=admin,ou=system 
+    -Dfortress.admin.user=cn=manager,dc=example,dc=com 
     -Dfortress.admin.pw=secret 
     -Dfortress.suffix=dc=example,dc=com
     -Dfortress.config.realm=default 
