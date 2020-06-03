@@ -65,6 +65,7 @@ cd fortress-core-2.0.5
 cp build.properties.example build.properties
 ```
 
+ * Seeds the apacheds properties with defaults.
  * [build.properties.example](build.properties.example) contains the default config for the apacheds docker image.
  * Learn how the fortress config subsystem works: [README-CONFIG](README-CONFIG.md).
 
@@ -108,7 +109,7 @@ export MAVEN_OPTS="
   * Replace the 'fortress.port' value with result from ```echo $CONTAINER_PORT```.
   * if Docker image running on a different machine, replace fortress.host to point to it.
 
-6. Run the maven install to build fortress:
+6. Run the maven install to build fortress and initialize config settings:
 
 ```
 mvn clean install
