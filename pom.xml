@@ -711,7 +711,7 @@
               <!--<target name="stop-slapd-win-if-present" depends="slapd.dir.check" if="slapd.dir.exists">-->
               <target name="fortress-load" if="load.file" description="Loads fortress policy into ldap">
                 <echo message="############### Run Fortress Ant script to load policy ###############" />
-                <java classname="org.apache.tools.ant.launch.Launcher" fork="true" clonevm="true" failonerror="true" dir="${basedir}" timeout="120000" taskname="startAnt">
+                <java classname="org.apache.tools.ant.launch.Launcher" fork="true" clonevm="true" failonerror="true" dir="${basedir}" timeout="600000" taskname="startAnt">
                   <classpath>
                     <!-- use config/bootstrap folder for config because the config ldap node isn't (might not be) inserted: -->
                     <pathelement location="./config/bootstrap/" />

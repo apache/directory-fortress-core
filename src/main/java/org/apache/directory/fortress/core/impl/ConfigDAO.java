@@ -83,10 +83,8 @@ final class ConfigDAO extends LdapDataProvider
 {
     private static final String CLS_NM = ConfigDAO.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private String CONFIG_ROOT_DN;
     public static final String GID_NUMBER_SEQUENCE = "ftGidNumber";
     public static final String UID_NUMBER_SEQUENCE = "ftUidNumber";
-
 
     private final String[] CONFIG_OBJ_CLASS =
     {
@@ -101,14 +99,12 @@ final class ConfigDAO extends LdapDataProvider
         SchemaConstants.CN_AT, GlobalIds.PROPS, GID_NUMBER_SEQUENCE, UID_NUMBER_SEQUENCE
     };
 
-
     /**
      * Package private default constructor.
      */
     ConfigDAO()
     {
     	super();
-    	CONFIG_ROOT_DN = Config.getInstance().getProperty( GlobalIds.CONFIG_ROOT_PARAM );
     }
 
     /**
@@ -404,6 +400,6 @@ final class ConfigDAO extends LdapDataProvider
      */
     private String getDn( String name )
     {
-        return SchemaConstants.CN_AT + "=" + name + "," + CONFIG_ROOT_DN;
+        return SchemaConstants.CN_AT + "=" + name + "," + Config.getInstance().getProperty( GlobalIds.CONFIG_ROOT_PARAM );
     }
 }

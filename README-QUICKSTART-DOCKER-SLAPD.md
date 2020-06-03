@@ -47,42 +47,52 @@ ________________________________________________________________________________
 1. Download the package:
 
  a. from git:
- ```
- git clone --branch 2.0.5  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
- cd directory-fortress-core
- ```
+```
+git clone --branch 2.0.5  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
+cd directory-fortress-core
+```
 
- b. or download package:
- ```
- wget http://www.apache.org/dist/directory/fortress/dist/2.0.5/fortress-core-2.0.5-source-release.zip
- unzip fortress-core-2.0.5-source-release.zip
- cd fortress-core-2.0.5
- ```
+b. or from Apache:
+```
+wget http://www.apache.org/dist/directory/fortress/dist/2.0.5/fortress-core-2.0.5-source-release.zip
+unzip fortress-core-2.0.5-source-release.zip
+cd fortress-core-2.0.5
+```
 
-2. Now build the apache directory fortress docker image (trailing dot matters):
+2. Prepare the package:
 
- ```
- docker build -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .
- ```
+```
+cp build.properties.example build.properties
+cp slapd.properties.example slapd.properties
+```
+
+ * [slapd.properties.example](slapd.properties.example) contains the default config for openldap docker image.
+ * Learn how the fortress config subsystem works: [README-CONFIG](README-CONFIG.md).
+
+3. Now build the apachedirectory openldap docker image (trailing dot matters):
+
+```
+docker build -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .
+```
 
  Or just pull the prebuilt image:
 
- ```
- docker pull apachedirectory/openldap-for-apache-fortress-tests
- ```
+```
+docker pull apachedirectory/openldap-for-apache-fortress-tests
+```
 
-3. Run the docker container:
+4. Run the docker container:
 
- ```
+```
 CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
 CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
 echo $CONTAINER_PORT
- ```
+```
 
  * The '$CONTAINER_PORT' value required for next step.
  * Depending on your Docker setup, may need to run this step as root or sudo priv's.
 
-4. Prepare your terminal for execution of maven commands.
+5. Prepare your terminal for execution of maven commands.
 
 ```
 #!/bin/sh
@@ -90,19 +100,16 @@ export M2_HOME=...
 export JAVA_HOME=...
 export PATH=$PATH:$M2_HOME/bin
 export MAVEN_OPTS="
-    -Dfortress.admin.user=cn=manager,dc=example,dc=com 
-    -Dfortress.admin.pw=secret 
-    -Dfortress.suffix=dc=example,dc=com
-    -Dfortress.config.realm=default 
-    -Dfortress.ldap.server.type=openldap
+    -Dfortress.host=localhost  
     -Dfortress.port=32768"
 ```
 
  More about 'MAVEN_OPTS':  
   * Provides the coordinates to the ldap server running inside Docker container.  
   * replace the 'fortress.port' value with result from ```echo $CONTAINER_PORT```.
+  * if Docker image running on a different machine, replace fortress.host to point to it.  
 
-5. Run the maven install to build fortress:
+6. Run the maven install to build fortress:
 
 ```
 mvn clean install
@@ -121,10 +128,14 @@ mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
 2. Next, enter the following command:
 
 ```
-mvn -Dtest=FortressJUnitTest test
+mvn -Dtest=FortressJUnitTest test -Dfortress.host=localhost -Dfortress.port=32768
 ```
 
- *Tests the APIs against your LDAP server.*
+ More about this step: 
+  * Provides the coordinates to the ldap server running inside Docker container.  
+  * Replace the 'fortress.port' value with result from ```echo $CONTAINER_PORT```.
+  * if Docker image running on a different machine, replace fortress.host to point to it.
+  * Tests the APIs against your LDAP server.*
 
 3. Verify the tests worked:
 
@@ -153,8 +164,11 @@ fortress-load:
 4. Rerun the tests to verify teardown APIs work:
 
 ```
-mvn -Dtest=FortressJUnitTest test
+mvn -Dtest=FortressJUnitTest test -Dfortress.host=localhost -Dfortress.port=32768
 ```
+
+ More about this step: 
+  * Again verify fortress.host and fortress.port match your environment.  
 
 5. Verify that worked also:
 

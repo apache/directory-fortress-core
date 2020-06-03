@@ -701,7 +701,6 @@ public final class Config
         {
             config.setProperty( GlobalIds.CONFIG_ROOT_PARAM, szValue );
             LOG.info( PREFIX, GlobalIds.CONFIG_ROOT_PARAM, szValue );
-
         }
 
         // Check to see if the ldap server type has been overridden by a system property:
@@ -716,7 +715,7 @@ public final class Config
         szValue = System.getProperty( EXT_IS_ARBAC02 );
         if( StringUtils.isNotEmpty( szValue ))
         {
-            Boolean isArbac02 = new Boolean(szValue);
+            Boolean isArbac02 = Boolean. valueOf( szValue );
             config.setProperty( GlobalIds.IS_ARBAC02, isArbac02.booleanValue() );
             LOG.info( PREFIX, GlobalIds.IS_ARBAC02, isArbac02.booleanValue() );
         }
