@@ -17,24 +17,34 @@
  *   specific language governing permissions and limitations
  *   under the License.
 -->
-<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
-<log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">
+<Configuration>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d (%-5p) %m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.apache.directory.fortress.core" level="info"/>
+        <Root level="info">
+            <AppenderRef ref="console"/>
+        </Root>
+    </Loggers>
 
-    <appender name="console" class="org.apache.log4j.ConsoleAppender">
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%d (%-5p) %m%n"/>
-        </layout>
-    </appender>
+<!--    <appender name="console" class="org.apache.log4j.ConsoleAppender">-->
+<!--        <layout class="org.apache.log4j.PatternLayout">-->
+<!--            <param name="ConversionPattern" value="%d (%-5p) %m%n"/>-->
+<!--        </layout>-->
+<!--    </appender>-->
 
-    <category name="org.apache.directory.fortress.core" class="org.apache.log4j.Logger" additivity="false">
-        <priority value="INFO" class="org.apache.log4j.Level"/>
-        <appender-ref ref="console"/>
-    </category>
+<!--    <category name="org.apache.directory.fortress.core" class="org.apache.log4j.Logger" additivity="false">-->
+<!--        <priority value="INFO" class="org.apache.log4j.Level"/>-->
+<!--        <appender-ref ref="console"/>-->
+<!--    </category>-->
 
 
-    <root>
-        <priority value="INFO" class="org.apache.log4j.Level"/>
-        <appender-ref ref="console"/>
-    </root>
+<!--    <root>-->
+<!--        <priority value="INFO" class="org.apache.log4j.Level"/>-->
+<!--        <appender-ref ref="console"/>-->
+<!--    </root>-->
 
-</log4j:configuration>
+</Configuration>
