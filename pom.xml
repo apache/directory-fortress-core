@@ -726,7 +726,8 @@
                     <pathelement location="${org.apache.ant:ant:jar}" />
                     <pathelement location="${org.openldap:accelerator-api:jar}" />
                     <pathelement location="${org.openldap:accelerator-impl:jar}" />
-                    <pathelement location="${log4j:log4j:jar}" />
+                    <pathelement location="${org.apache.logging.log4j:log4j-api:jar}" />
+                    <pathelement location="${org.apache.logging.log4j:log4j-core:jar}" />
                     <pathelement location="${org.apache.directory.api:api-all:jar}" />
                     <pathelement location="${org.apache.mina:mina-core:jar}" />
                     <pathelement location="${org.jgrapht:jgrapht-core:jar}" />
