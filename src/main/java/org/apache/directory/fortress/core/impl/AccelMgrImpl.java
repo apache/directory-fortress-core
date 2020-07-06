@@ -85,7 +85,7 @@ public class AccelMgrImpl extends Manageable implements AccelMgr, Serializable
      */
     public AccelMgrImpl()
     {
-    	aDao = new org.apache.directory.fortress.core.impl.AcceleratorDAO();
+        aDao = new org.apache.directory.fortress.core.impl.AcceleratorDAO();
     }
 
 

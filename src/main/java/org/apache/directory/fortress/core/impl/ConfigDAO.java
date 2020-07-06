@@ -107,8 +107,8 @@ final class ConfigDAO extends LdapDataProvider
      */
     ConfigDAO()
     {
-    	super();
-    	CONFIG_ROOT_DN = Config.getInstance().getProperty( GlobalIds.CONFIG_ROOT_PARAM );
+        super();
+        CONFIG_ROOT_DN = Config.getInstance().getProperty( GlobalIds.CONFIG_ROOT_PARAM );
     }
 
     /**

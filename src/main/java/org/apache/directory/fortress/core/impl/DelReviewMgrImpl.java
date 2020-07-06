@@ -66,7 +66,7 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr, Serial
         ouP = new OrgUnitP();
         admRP = new AdminRoleP();
         permP = new PermP();
-	}
+    }
     
     /**
      * {@inheritDoc}
@@ -167,24 +167,26 @@ public class DelReviewMgrImpl extends Manageable implements DelReviewMgr, Serial
     /**
      * {@inheritDoc}
      */
-	@Override
-	public List<Permission> rolePermissions(AdminRole role)
-			throws SecurityException {
-		return rolePermissions( role, false );    
-	}
+    @Override
+    public List<Permission> rolePermissions(AdminRole role)
+        throws SecurityException 
+    {
+        return rolePermissions( role, false );    
+    }
 
-	
+    
     /**
      * {@inheritDoc}
      */
-	@Override
-	@AdminPermissionOperation
-	public List<Permission> rolePermissions(AdminRole role,
-			boolean noInheritance) throws SecurityException {
+    @Override
+    @AdminPermissionOperation
+    public List<Permission> rolePermissions(AdminRole role,
+        boolean noInheritance) throws SecurityException 
+    {
         String methodName = "rolePermissions";
         assertContext(CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL);
         checkAccess(CLS_NM, methodName);
         return permP.search( role, noInheritance );
-	}
+    }
 }
 

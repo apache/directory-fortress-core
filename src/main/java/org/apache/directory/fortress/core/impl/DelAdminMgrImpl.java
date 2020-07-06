@@ -74,7 +74,7 @@ public final class DelAdminMgrImpl extends Manageable implements DelAdminMgr, Se
         admRP = new AdminRoleP();
         permP = new PermP();
         userP = new UserP();
-	}
+    }
     
     /**
      * {@inheritDoc}

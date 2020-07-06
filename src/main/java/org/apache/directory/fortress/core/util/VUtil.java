@@ -97,7 +97,7 @@ public final class VUtil implements ConstraintValidator
             {
                 if(sINSTANCE == null)
                 {
-        	        sINSTANCE = new VUtil();
+                    sINSTANCE = new VUtil();
                 }
             }
         }
@@ -132,7 +132,7 @@ public final class VUtil implements ConstraintValidator
      */
     private VUtil()
     {
-    	init();
+        init();
     }
 
     /**

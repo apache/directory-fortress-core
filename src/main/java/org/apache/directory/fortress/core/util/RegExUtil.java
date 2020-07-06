@@ -52,8 +52,9 @@ final class RegExUtil
         {
             synchronized (RegExUtil.class)
             {
-                if(sINSTANCE == null){
-        	        sINSTANCE = new RegExUtil();
+                if(sINSTANCE == null)
+                {
+                    sINSTANCE = new RegExUtil();
                 }
             }
         }
@@ -62,8 +63,8 @@ final class RegExUtil
     
     private void init() 
     {
-    	SAFE_TEXT_PATTERN_STRING = Config.getInstance().getProperty( GlobalIds.REG_EX_SAFE_TEXT );
-    	
+        SAFE_TEXT_PATTERN_STRING = Config.getInstance().getProperty( GlobalIds.REG_EX_SAFE_TEXT );
+    
         if ( ( SAFE_TEXT_PATTERN_STRING != null ) && ( SAFE_TEXT_PATTERN_STRING.length() != 0 ) )
         {
             safeTextPattern = Pattern.compile( SAFE_TEXT_PATTERN_STRING );
@@ -76,7 +77,7 @@ final class RegExUtil
      */
     private RegExUtil()
     {
-    	init();
+        init();
     }
 
     /**

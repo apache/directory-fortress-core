@@ -104,7 +104,7 @@ public final class CacheMgr
      */
     private CacheMgr()
     {
-    	init();
+        init();
     }
 
     /**
@@ -114,15 +114,15 @@ public final class CacheMgr
      * @return reference to cache for specified object.
      */
     public Cache getCache( String cacheName )
-    {    	
+    {
         Ehcache cache = mEhCacheImpl.getEhcache( cacheName );
         if(cache != null)
         {
-    	    return new EhCacheImpl( cacheName, new BlockingCache(cache) );
+            return new EhCacheImpl( cacheName, new BlockingCache(cache) );
         }
         else
         {
-    	    return CacheFactory.createInstance( cacheName, mEhCacheImpl );
+            return CacheFactory.createInstance( cacheName, mEhCacheImpl );
         }
     }
 

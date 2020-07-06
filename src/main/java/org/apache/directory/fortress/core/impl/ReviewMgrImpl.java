@@ -30,7 +30,6 @@ import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.directory.fortress.annotation.AdminPermissionOperation;
 import org.apache.directory.fortress.core.GlobalErrIds;
-import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.OrgUnit;
@@ -130,14 +129,14 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
     @Override
     @AdminPermissionOperation
     public PermissionAttributeSet readPermAttributeSet( PermissionAttributeSet permAttributeSet )
-    		throws SecurityException
+            throws SecurityException
     {
-    	String methodName = "readPermAttributeSet";
-    	assertContext( CLS_NM, methodName, permAttributeSet, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL );
-    	VUtil.assertNotNull( permAttributeSet.getName(), GlobalErrIds.PERM_ATTRIBUTE_SET_NM_NULL, CLS_NM + "." + methodName );
-    	checkAccess(CLS_NM, methodName);
-    	
-    	return permP.read(permAttributeSet);
+        String methodName = "readPermAttributeSet";
+        assertContext( CLS_NM, methodName, permAttributeSet, GlobalErrIds.PERM_ATTRIBUTE_SET_NULL );
+        VUtil.assertNotNull( permAttributeSet.getName(), GlobalErrIds.PERM_ATTRIBUTE_SET_NM_NULL, CLS_NM + "." + methodName );
+        checkAccess(CLS_NM, methodName);
+        
+        return permP.read(permAttributeSet);
     }
 
 
@@ -158,16 +157,17 @@ public class ReviewMgrImpl extends Manageable implements ReviewMgr, Serializable
     /**
      * {@inheritDoc}
      */
-	@Override
-	@AdminPermissionOperation
-	public List<Permission> findPermsByObj(PermObj permObj)
-			throws SecurityException {
+    @Override
+    @AdminPermissionOperation
+    public List<Permission> findPermsByObj(PermObj permObj)
+        throws SecurityException 
+    {
         String methodName = "findPermsByObj";
         assertContext( CLS_NM, methodName, permObj, GlobalErrIds.PERM_OBJECT_NULL );
         VUtil.assertNotNullOrEmpty(permObj.getObjName(), GlobalErrIds.PERM_OBJECT_NM_NULL, CLS_NM + "." + methodName);
         checkAccess(CLS_NM, methodName);
         return permP.searchOperations( permObj );
-	}
+    }
 
     /**
      * {@inheritDoc}

@@ -79,7 +79,7 @@ final class RoleUtil implements ParentUtil
             {
                 if(sINSTANCE == null)
                 {
-        	        sINSTANCE = new RoleUtil();
+                    sINSTANCE = new RoleUtil();
                 }
             }
         }
@@ -96,8 +96,8 @@ final class RoleUtil implements ParentUtil
      */
     private void init()
     {
-    	roleP = new RoleP();
-    	
+        roleP = new RoleP();
+    
         CacheMgr cacheMgr = CacheMgr.getInstance();
         roleCache = cacheMgr.getCache( "fortress.roles" );
     }

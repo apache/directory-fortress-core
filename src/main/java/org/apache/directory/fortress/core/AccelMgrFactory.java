@@ -59,8 +59,8 @@ public final class AccelMgrFactory
     public static AccelMgr createInstance(String contextId)
         throws SecurityException
     {
-    	String accelClassName = Config.getInstance().getProperty(GlobalIds.ACCEL_IMPLEMENTATION);
-    	
+        String accelClassName = Config.getInstance().getProperty(GlobalIds.ACCEL_IMPLEMENTATION);
+    
         VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
         AccelMgr accelMgr;
         if ( StringUtils.isEmpty( accelClassName ) )

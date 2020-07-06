@@ -76,8 +76,9 @@ final class PsoUtil
         {
             synchronized (PsoUtil.class)
             {
-                if(sINSTANCE == null){
-        	        sINSTANCE = new PsoUtil();
+                if(sINSTANCE == null)
+                {
+                    sINSTANCE = new PsoUtil();
                 }
             }
         }
@@ -95,7 +96,7 @@ final class PsoUtil
     private void init()
     {
         orgUnitP = new OrgUnitP();
-    	
+    
         CacheMgr cacheMgr = CacheMgr.getInstance();
         psoCache = cacheMgr.getCache( "fortress.pso" );                
     }

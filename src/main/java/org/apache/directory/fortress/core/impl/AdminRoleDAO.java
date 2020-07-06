@@ -123,7 +123,7 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
             GlobalIds.PROPS_AUX_OBJECT_CLASS_NAME,
             POOLS_AUX_OBJECT_CLASS_NAME,
             GlobalIds.FT_MODIFIER_AUX_OBJECT_CLASS_NAME
-    };
+        };
     private static final String ROLE_NM = "ftRoleName";
     private static final String[] ROLE_NM_ATR =
         {

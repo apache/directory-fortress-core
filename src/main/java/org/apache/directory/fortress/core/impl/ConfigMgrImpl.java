@@ -47,8 +47,9 @@ public class ConfigMgrImpl  extends Manageable implements ConfigMgr, Serializabl
     private ConfigP cfgP;
     private static final String CLS_NM = ConfigMgrImpl.class.getName();
 
-    public ConfigMgrImpl() {
-    	cfgP = new ConfigP();
+    public ConfigMgrImpl() 
+    {
+        cfgP = new ConfigP();
     }
     
     /**
