@@ -497,7 +497,7 @@ public interface AdminMgr extends Manageable
      * @throws SecurityException in the event of validation or system error.
      */
     RoleConstraint addRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
-    	throws SecurityException;
+        throws SecurityException;
     
     /**
      * Thie method removes a roleConstraint (ftRC) from the user ldap entry.
@@ -515,7 +515,7 @@ public interface AdminMgr extends Manageable
      * @throws SecurityException in the event of validation or system error.
      */
     void removeRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
-    	throws SecurityException;
+        throws SecurityException;
     
     /**
      * Thie method removes a roleConstraint (ftRC) from the user ldap entry.
@@ -612,7 +612,7 @@ public interface AdminMgr extends Manageable
      * @throws SecurityException - thrown in the event of perm attribute set data or system error.
      */
     PermissionAttributeSet addPermissionAttributeSet( PermissionAttributeSet permAttributeSet )
-    	throws SecurityException;
+        throws SecurityException;
     
     /**
      * This method will delete a permission attribute set object.
@@ -650,7 +650,7 @@ public interface AdminMgr extends Manageable
      * @throws SecurityException - thrown in the event of data or system error
      */
     PermissionAttribute addPermissionAttributeToSet( PermissionAttribute permAttribute, String attributeSetName )
-    	throws SecurityException;
+        throws SecurityException;
     
     /**
      * This method removed a permission attribute (ftPA) from an existing permission attribute set.
@@ -660,13 +660,13 @@ public interface AdminMgr extends Manageable
      *   <li>PermissionAttribute#attributeName - contains the name of existing object being targeted for the permission update</li>
      *   <li>attributeSetName - contains the name of existing permission attribute set being modified</li>
      * </ul>     
-	 *
+     *
      * @param permAttribute must contain PermissionAttribute#attributeName}
      * @param attributeSetName The name of the permission attribute set this pa should be removed from
      * @throws SecurityException - thrown in the event of data or system error
      */
     void removePermissionAttributeFromSet( PermissionAttribute permAttribute, String attributeSetName )
-    	throws SecurityException;
+        throws SecurityException;
 
     /**
      * This method updates a permission attribute (ftPA) on a permission attribute set.

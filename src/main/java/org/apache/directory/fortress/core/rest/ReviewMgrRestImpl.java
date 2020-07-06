@@ -680,8 +680,8 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
     /**
      * {@inheritDoc}
      */
-	@Override
-	public List<PermissionAttributeSet> rolePermissionAttributeSets(Role role, boolean noInhertiance)
+    @Override
+    public List<PermissionAttributeSet> rolePermissionAttributeSets(Role role, boolean noInhertiance)
         throws SecurityException
     {
         VUtil.assertNotNull(role, GlobalErrIds.ROLE_NULL, CLS_NM + ".rolePermissionAttributeSets");
@@ -702,7 +702,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
         return retAttrSets;
-	}
+    }
     
     /**
      * {@inheritDoc}
@@ -1134,8 +1134,8 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
     /**
      * {@inheritDoc}
      */
-	@Override
-	public PermissionAttributeSet readPermAttributeSet(	PermissionAttributeSet permAttributeSet )
+    @Override
+    public PermissionAttributeSet readPermAttributeSet(    PermissionAttributeSet permAttributeSet )
         throws SecurityException
     {
         {
@@ -1157,15 +1157,15 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             }
             return retPermSet;
         }
-	}
+    }
 
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	public List<RoleConstraint> findRoleConstraints( User user, Permission permission, RoleConstraint.RCType rcType )
-			throws SecurityException
+    @Override
+    public List<RoleConstraint> findRoleConstraints( User user, Permission permission, RoleConstraint.RCType rcType )
+            throws SecurityException
     {
         VUtil.assertNotNull(user, GlobalErrIds.USER_NULL, CLS_NM + ".findRoleConstraints");
         VUtil.assertNotNull(user, GlobalErrIds.PERM_NULL, CLS_NM + ".findRoleConstraints");
@@ -1188,7 +1188,7 @@ public class ReviewMgrRestImpl extends Manageable implements ReviewMgr
             throw new SecurityException(response.getErrorCode(), response.getErrorMessage());
         }
         return retConstraints;
-	}
+    }
 
 
     @Override

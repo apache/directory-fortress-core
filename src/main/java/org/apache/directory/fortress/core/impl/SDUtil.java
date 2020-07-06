@@ -70,7 +70,7 @@ final class SDUtil
             {
                 if(sINSTANCE == null)
                 {
-        	        sINSTANCE = new SDUtil();
+                    sINSTANCE = new SDUtil();
                 }
             }
         }
@@ -80,7 +80,7 @@ final class SDUtil
     private void init()
     {
         sp = new SdP();
-    	
+    
         // Get a reference to the CacheManager Singleton object:
         CacheMgr cacheMgr = CacheMgr.getInstance();
         // This cache contains a wrapper entry for DSD and is searchable by both DSD and Role name:

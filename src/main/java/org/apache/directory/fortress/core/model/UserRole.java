@@ -185,56 +185,56 @@ public class UserRole extends FortEntity implements Serializable, Constraint
             
             //newer style constaint type
             if(tokens[1].equals(RoleConstraint.RC_TYPE_NAME)){
-            	RoleConstraint rc = new RoleConstraint(tokens[5], tokens[4], RoleConstraint.RCType.valueOf( tokens[2] ),
+                RoleConstraint rc = new RoleConstraint(tokens[5], tokens[4], RoleConstraint.RCType.valueOf( tokens[2] ),
                     tokens[3]);
-            	this.getRoleConstraints().add(rc);
+                this.getRoleConstraints().add(rc);
             }
             else{
-	            for ( int i = 0; i < tokens.length; i++ )
-	            {
-	                if ( StringUtils.isNotEmpty( tokens[i] ) )
-	                {
-	                    switch ( i )
-	                    {
-	                        case 0:
-	                            name = tokens[i];
-	                            parents = parentUtil.getParentsCB( name.toUpperCase(), contextId );
-	                            break;
-	
-	                        case 1:
-	                            timeout = Integer.parseInt( tokens[i] );
-	                            break;
-	
-	                        case 2:
-	                            beginTime = tokens[i];
-	                            break;
-	
-	                        case 3:
-	                            endTime = tokens[i];
-	                            break;
-	
-	                        case 4:
-	                            beginDate = tokens[i];
-	                            break;
-	
-	                        case 5:
-	                            endDate = tokens[i];
-	                            break;
-	
-	                        case 6:
-	                            beginLockDate = tokens[i];
-	                            break;
-	
-	                        case 7:
-	                            endLockDate = tokens[i];
-	                            break;
-	
-	                        case 8:
-	                            dayMask = tokens[i];
-	                            break;
-	                    }
-	                }
-	            }
+                for ( int i = 0; i < tokens.length; i++ )
+                {
+                    if ( StringUtils.isNotEmpty( tokens[i] ) )
+                    {
+                        switch ( i )
+                        {
+                            case 0:
+                                name = tokens[i];
+                                parents = parentUtil.getParentsCB( name.toUpperCase(), contextId );
+                                break;
+    
+                            case 1:
+                                timeout = Integer.parseInt( tokens[i] );
+                                break;
+    
+                            case 2:
+                                beginTime = tokens[i];
+                                break;
+    
+                            case 3:
+                                endTime = tokens[i];
+                                break;
+    
+                            case 4:
+                                beginDate = tokens[i];
+                                break;
+    
+                            case 5:
+                                endDate = tokens[i];
+                                break;
+    
+                            case 6:
+                                beginLockDate = tokens[i];
+                                break;
+    
+                            case 7:
+                                endLockDate = tokens[i];
+                                break;
+    
+                            case 8:
+                                dayMask = tokens[i];
+                                break;
+                        }
+                    }
+                }
             }
         }
     }
@@ -249,7 +249,7 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     @Override
     public String getRawData()
     {
-    	String delimeter = Config.getInstance().getDelimiter();
+        String delimeter = Config.getInstance().getDelimiter();
         StringBuilder sb = new StringBuilder();
 
         sb.append( name );
@@ -694,17 +694,17 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     }
 
 
-	public List<RoleConstraint> getRoleConstraints()
+    public List<RoleConstraint> getRoleConstraints()
     {
-		if(roleConstraints == null)
+        if(roleConstraints == null)
         {
-			roleConstraints = new ArrayList();
-		}
-		return roleConstraints;
-	}
+            roleConstraints = new ArrayList();
+        }
+        return roleConstraints;
+    }
 
 
-	public void setRoleConstraints(List<RoleConstraint> roleConstraints) {
-		this.roleConstraints = roleConstraints;
-	}
+    public void setRoleConstraints(List<RoleConstraint> roleConstraints) {
+        this.roleConstraints = roleConstraints;
+    }
 }

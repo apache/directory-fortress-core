@@ -32,7 +32,7 @@ ENV APACHEDS_SERVICE_NAME=apacheds-${APACHEDS_VERSION}-default
 
 # Install ApacheDS
 RUN \
-    wget http://www.apache.org/dist//directory/apacheds/dist/${APACHEDS_VERSION}/apacheds-${APACHEDS_VERSION}-amd64.deb -q -O /tmp/apacheds.deb && \
+    wget http://archive.apache.org/dist//directory/apacheds/dist/${APACHEDS_VERSION}/apacheds-${APACHEDS_VERSION}-amd64.deb -q -O /tmp/apacheds.deb && \
     dpkg -i /tmp/apacheds.deb && \
     rm /tmp/apacheds.deb
 

@@ -547,7 +547,7 @@ class PermDAO extends LdapDataProvider
         for(PermissionAttribute pa : entity.getAttributes())
         {
             pa.setContextId( entity.getContextId() );
-	        this.createPermissionAttribute(pa, entity.getName());
+            this.createPermissionAttribute(pa, entity.getName());
         }
 
         return entity;
@@ -608,7 +608,7 @@ class PermDAO extends LdapDataProvider
             
             //add one to many valid values
             for(String validValue : entity.getValidValues()){
-            	entry.add( GlobalIds.FT_PERMISSION_ATTRIBUTE_VALID_VALUES, validValue );
+                entry.add( GlobalIds.FT_PERMISSION_ATTRIBUTE_VALID_VALUES, validValue );
             }
             
             // organizational name requires CN attribute:
@@ -629,8 +629,8 @@ class PermDAO extends LdapDataProvider
         {
             closeAdminConnection( ld );
         }
-    	
-    	return entity;    	
+        
+        return entity;        
     }
        
     PermissionAttribute updatePermissionAttribute( PermissionAttribute entity, String paSetName, boolean replaceValidValues ) throws UpdateException
@@ -677,15 +677,15 @@ class PermDAO extends LdapDataProvider
             
             //if replace, then remove first
             if(replaceValidValues){
-            	mods.add( new DefaultModification(
+                mods.add( new DefaultModification(
                     ModificationOperation.REMOVE_ATTRIBUTE, GlobalIds.FT_PERMISSION_ATTRIBUTE_VALID_VALUES ) );
             }
                         
             for(String validValue : entity.getValidValues()){
                 mods.add( new DefaultModification(
-                    ModificationOperation.ADD_ATTRIBUTE, GlobalIds.FT_PERMISSION_ATTRIBUTE_VALID_VALUES, validValue ) );		
+                    ModificationOperation.ADD_ATTRIBUTE, GlobalIds.FT_PERMISSION_ATTRIBUTE_VALID_VALUES, validValue ) );        
             }
-            	           
+                           
             if ( mods.size() > 0 )
             {
                 ld = getAdminConnection();
@@ -828,13 +828,13 @@ class PermDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "deleteAttributeSet name [" + entity.getName() + "]"
-            		+ " caught LdapException=" + e;
+                    + " caught LdapException=" + e;
             throw new RemoveException( GlobalErrIds.PERM_ATTRIBUTE_SET_DELETE_FAILED, error, e );
         }
         catch ( CursorException e )
         {
             String error = "deleteAttributeSet name [" + entity.getName() + "] "
-            		+ " caught LdapException=" + e.getMessage();
+                    + " caught LdapException=" + e.getMessage();
             throw new RemoveException( GlobalErrIds.PERM_ATTRIBUTE_SET_DELETE_FAILED, error, e );
         }
         finally
@@ -860,7 +860,7 @@ class PermDAO extends LdapDataProvider
         catch ( LdapException e )
         {
             String error = "deletePermission name [" + entity.getAttributeName() + "] set ["
-            		+ attributeSetName + "] caught LdapException=" + e;
+                    + attributeSetName + "] caught LdapException=" + e;
             throw new RemoveException( GlobalErrIds.PERM_ATTRIBUTE_DELETE_FAILED, error, e );
         }     
         finally
@@ -1636,19 +1636,22 @@ class PermDAO extends LdapDataProvider
                 filterbuf.append( PERM_OP_OBJECT_CLASS_NAME );
                 filterbuf.append( ")(|" );
                 
-                if(permObjVal != null && permObjVal != ""){
-	                filterbuf.append("(");
-	                filterbuf.append( GlobalIds.POBJ_NAME );
-	                filterbuf.append( "=*" );
-	                filterbuf.append( permObjVal );
-	                filterbuf.append( "*)" );
+                if ( permObjVal != null && permObjVal != "" )
+                {
+                    filterbuf.append("(");
+                    filterbuf.append( GlobalIds.POBJ_NAME );
+                    filterbuf.append( "=*" );
+                    filterbuf.append( permObjVal );
+                    filterbuf.append( "*)" );
                 }
-                if(permOpVal != null && permOpVal != ""){
-	                filterbuf.append("(");
-	                filterbuf.append( GlobalIds.POP_NAME );
-	                filterbuf.append( "=*" );
-	                filterbuf.append( permOpVal );
-	                filterbuf.append(  "*)" );
+                
+                if ( permOpVal != null && permOpVal != "" )
+                {
+                    filterbuf.append("(");
+                    filterbuf.append( GlobalIds.POP_NAME );
+                    filterbuf.append( "=*" );
+                    filterbuf.append( permOpVal );
+                    filterbuf.append(  "*)" );
                 }
                 
                 filterbuf.append("))");

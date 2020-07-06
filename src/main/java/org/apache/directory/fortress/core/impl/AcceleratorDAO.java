@@ -70,8 +70,9 @@ final class AcceleratorDAO extends LdapDataProvider
 {
     private static final Logger LOG = LoggerFactory.getLogger( AcceleratorDAO.class.getName() );
 
-    public AcceleratorDAO(){
-    	super();
+    public AcceleratorDAO()
+    {
+        super();
     }
     
     /**

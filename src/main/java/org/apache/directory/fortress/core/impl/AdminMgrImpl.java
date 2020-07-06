@@ -400,9 +400,9 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     @Override
     @AdminPermissionOperation
     public void enableRoleConstraint( Role role, RoleConstraint roleConstraint )
-    	   	throws SecurityException
+        throws SecurityException
     {        
-    	String methodName = "enableRoleConstraint";
+        String methodName = "enableRoleConstraint";
         VUtil.assertNotNull( role, GlobalErrIds.ROLE_NULL, CLS_NM + methodName );
         VUtil.assertNotNull( role.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
         VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
@@ -428,7 +428,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     @Override
     @AdminPermissionOperation
     public void disableRoleConstraint( Role role, RoleConstraint roleConstraint )
-    	   	throws SecurityException
+    throws SecurityException
     {
         String methodName = "disableRoleConstraint";
         setEntitySession( CLS_NM, methodName, role );
@@ -454,9 +454,9 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     @Override
     @AdminPermissionOperation
     public RoleConstraint addRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
-    	   	throws SecurityException
+        throws SecurityException
     {
-    	String methodName = "addRoleConstraint";
+        String methodName = "addRoleConstraint";
         assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
         VUtil.assertNotNull( uRole.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
         VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
@@ -494,9 +494,9 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     @Override
     @AdminPermissionOperation
     public void removeRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
-        	throws SecurityException
+        throws SecurityException
     {        
-    	String methodName = "removeRoleConstraint";
+        String methodName = "removeRoleConstraint";
         assertContext( CLS_NM, methodName, uRole, GlobalErrIds.URLE_NULL );
         VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
         VUtil.assertNotNull( uRole.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
@@ -615,12 +615,12 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     @Override
     @AdminPermissionOperation
     public PermissionAttribute addPermissionAttributeToSet( PermissionAttribute permAttribute, String attributeSetName )
-    	throws SecurityException
+        throws SecurityException
     {
-    	String methodName = "addPermissionAttributeToSet";         
+        String methodName = "addPermissionAttributeToSet";         
         assertContext( CLS_NM, methodName, permAttribute, GlobalErrIds.PERM_ATTRIBUTE_NULL );
         setEntitySession( CLS_NM, methodName, permAttribute );
-        return permP.add( permAttribute, attributeSetName );    	
+        return permP.add( permAttribute, attributeSetName );
     }
     
     /**
@@ -629,12 +629,12 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     @Override
     @AdminPermissionOperation
     public void removePermissionAttributeFromSet( PermissionAttribute permAttribute, String attributeSetName )
-    	throws SecurityException
+        throws SecurityException
     {
-    	String methodName = "removePermissionAttributeFromSet";         
+        String methodName = "removePermissionAttributeFromSet";
         assertContext( CLS_NM, methodName, permAttribute, GlobalErrIds.PERM_ATTRIBUTE_NULL );
-        setEntitySession( CLS_NM, methodName, permAttribute );     
-        permP.delete( permAttribute, attributeSetName );       	
+        setEntitySession( CLS_NM, methodName, permAttribute );
+        permP.delete( permAttribute, attributeSetName );
     }
     
     /**
@@ -645,10 +645,10 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
     public void updatePermissionAttributeInSet(PermissionAttribute permAttribute, String attributeSetName, boolean replaceValidValues) 
         throws SecurityException 
     {
-    	String methodName = "updatePermissionAttributeInSet"; 
-    	assertContext( CLS_NM, methodName, permAttribute, GlobalErrIds.PERM_ATTRIBUTE_NULL );
-    	setEntitySession( CLS_NM, methodName, permAttribute );     
-        permP.update( permAttribute, attributeSetName, replaceValidValues );       	
+        String methodName = "updatePermissionAttributeInSet"; 
+        assertContext( CLS_NM, methodName, permAttribute, GlobalErrIds.PERM_ATTRIBUTE_NULL );
+        setEntitySession( CLS_NM, methodName, permAttribute );
+        permP.update( permAttribute, attributeSetName, replaceValidValues );
     }
     
     /**

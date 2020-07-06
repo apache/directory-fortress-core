@@ -75,7 +75,7 @@ final class OrganizationalUnitDAO extends LdapDataProvider
      */
     OrganizationalUnitDAO()
     {
-    	super();
+        super();
     }
 
     /**

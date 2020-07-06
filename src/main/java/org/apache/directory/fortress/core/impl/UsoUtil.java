@@ -77,7 +77,7 @@ final class UsoUtil
             {
                 if(sINSTANCE == null)
                 {
-        	        sINSTANCE = new UsoUtil();
+                    sINSTANCE = new UsoUtil();
                 }
             }
         }
@@ -92,7 +92,7 @@ final class UsoUtil
     private void init()
     {
         orgUnitP = new OrgUnitP();
-    	
+    
         CacheMgr cacheMgr = CacheMgr.getInstance();
         usoCache = cacheMgr.getCache( "fortress.uso" );
     }

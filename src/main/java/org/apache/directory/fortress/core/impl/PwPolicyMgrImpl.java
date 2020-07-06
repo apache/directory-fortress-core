@@ -71,9 +71,9 @@ public class PwPolicyMgrImpl  extends Manageable implements PwPolicyMgr
     private UserP userP;
 
     public PwPolicyMgrImpl() {
-    	policyP = new PolicyP();
-    	userP = new UserP();
-	}
+        policyP = new PolicyP();
+        userP = new UserP();
+    }
     
     /**
      * {@inheritDoc}

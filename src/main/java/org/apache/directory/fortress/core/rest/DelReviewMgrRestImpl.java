@@ -224,18 +224,20 @@ public class DelReviewMgrRestImpl extends Manageable implements DelReviewMgr
     }
 
 
-	@Override
-	public List<Permission> rolePermissions(AdminRole role)
-			throws SecurityException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<Permission> rolePermissions(AdminRole role)
+        throws SecurityException 
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 
-	@Override
-	public List<Permission> rolePermissions(AdminRole role,
-			boolean noInheritance) throws SecurityException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<Permission> rolePermissions(AdminRole role,
+        boolean noInheritance) throws SecurityException 
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

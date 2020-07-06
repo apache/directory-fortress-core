@@ -711,18 +711,18 @@ final class UserP
     
     //TODO: add documentation
     void assign( UserRole uRole, RoleConstraint roleConstraint ) throws SecurityException
-    {    	
-    	validate( roleConstraint, uRole.getContextId() );
-    	
-    	uDao.assign( uRole, roleConstraint );
+    {        
+        validate( roleConstraint, uRole.getContextId() );
+        
+        uDao.assign( uRole, roleConstraint );
     }
     
     //TODO: add documentation, maybe change method name?
     void deassign( UserRole uRole, RoleConstraint roleConstraint ) throws SecurityException
     {
-    	//TODO: validate?
-    	
-    	uDao.deassign( uRole, roleConstraint );
+        //TODO: validate?
+        
+        uDao.deassign( uRole, roleConstraint );
     }
 
 
@@ -851,7 +851,7 @@ final class UserP
         }
         if( StringUtils.isEmpty( rc.getValue() ))
         {
-        	throw new ValidationException( GlobalErrIds.ROLE_CONSTRAINT_VALUE_NULL, CLS_NM + ".validate value is NULL" );
+            throw new ValidationException( GlobalErrIds.ROLE_CONSTRAINT_VALUE_NULL, CLS_NM + ".validate value is NULL" );
         }
     }
 
@@ -984,19 +984,22 @@ final class UserP
     
     List<RoleConstraint> findRoleConstraints( Set<String> roles, User user, RoleConstraint.RCType rcType, Set<String> paSets ) throws SecurityException
     {
-    	List<RoleConstraint> matchingConstraints = new ArrayList<RoleConstraint>();
-    	
+        List<RoleConstraint> matchingConstraints = new ArrayList<RoleConstraint>();
+        
         //TODO: can we do this in a query?
         List<UserRole> userRoles = uDao.getUser(user, true).getRoles();
         for(UserRole ur : userRoles){
-        	//only get constraints for passed in roles
-        	if(roles.contains(ur.getName())){
-        		for(RoleConstraint rc : ur.getRoleConstraints()){
-        			if(rc.getType().equals(rcType) && paSets.contains(rc.getKey())){
-        				matchingConstraints.add(rc);
-        			}
-        		}
-        	}
+            //only get constraints for passed in roles
+            if(roles.contains(ur.getName()))
+            {
+                for(RoleConstraint rc : ur.getRoleConstraints())
+                {
+                    if(rc.getType().equals(rcType) && paSets.contains(rc.getKey()))
+                    {
+                        matchingConstraints.add(rc);
+                    }
+                }
+            }
         }
         
         return matchingConstraints;

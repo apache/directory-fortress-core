@@ -155,7 +155,7 @@ public interface ReviewMgr extends Manageable
      *          thrown in the event of system error.
      */
     List<Permission> findPermsByObj( PermObj permObj )
-    	throws SecurityException;
+        throws SecurityException;
     
     /**
      * Method returns a list of Permissions that match any part of the permission object or operation.
@@ -500,7 +500,7 @@ public interface ReviewMgr extends Manageable
      * @throws SecurityException In the event system error occurs.
      */
     List<PermissionAttributeSet> rolePermissionAttributeSets( Role role, boolean noInheritance )
-    	throws SecurityException;
+        throws SecurityException;
     
     /**
      * This function returns the set of permissions a given user gets through his/her authorized

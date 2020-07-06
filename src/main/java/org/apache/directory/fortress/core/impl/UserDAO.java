@@ -209,7 +209,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
     UserDAO()
     {
         initAttrArrays();
-	}
+    }
 
 
     /**
@@ -271,7 +271,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             }
             else if( !Config.getInstance().getBoolean( GlobalIds.USER_CREATION_PASSWORD_FIELD, false ) )
             {
-	            myEntry.add( SchemaConstants.USER_PASSWORD_AT, new String() );
+                myEntry.add( SchemaConstants.USER_PASSWORD_AT, new String() );
             }
             
             myEntry.add( SchemaConstants.DISPLAY_NAME_AT, entity.getCn() );
@@ -1350,7 +1350,6 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             ld = getAdminConnection();
             SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID_ATR, false,
                 Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
 
             while ( searchResults.next() )
             {
@@ -1861,8 +1860,8 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
      */
     void assign( UserRole uRole, RoleConstraint roleConstraint ) throws UpdateException, FinderException
     {
-    	LdapConnection ld = null;
-    	String szRoleConstraint = "";
+        LdapConnection ld = null;
+        String szRoleConstraint = "";
         String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
 
         try
@@ -1873,7 +1872,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             szRoleConstraint = roleConstraint.getRawData(uRole);
 
             mods.add( new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, GlobalIds.USER_ROLE_DATA,
-            		szRoleConstraint ) );
+                    szRoleConstraint ) );
 
             ld = getAdminConnection();
             modify( ld, userDn, mods, uRole );
@@ -1899,8 +1898,8 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
      */
     void deassign( UserRole uRole, RoleConstraint roleConstraint ) throws UpdateException, FinderException
     {
-    	LdapConnection ld = null;
-    	String szRoleConstraint = "";
+        LdapConnection ld = null;
+        String szRoleConstraint = "";
         String userDn = getDn( uRole.getUserId(), uRole.getContextId() );
 
         try
@@ -1909,7 +1908,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             szRoleConstraint = roleConstraint.getRawData(uRole);
 
             mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, GlobalIds.USER_ROLE_DATA,
-            		szRoleConstraint ) );
+                    szRoleConstraint ) );
 
             ld = getAdminConnection();
             modify( ld, userDn, mods, uRole );            
@@ -2658,8 +2657,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
      */
     private List<UserRole> unloadUserRoles( Entry entry, String userId, String contextId, String roleNameFilter )
     {
-    	//Map<String, UserRole> uRoles = new HashMap<String, UserRole>();
-    	Map<String, UserRole> uRoles = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        Map<String, UserRole> uRoles = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         List<String> roles = getAttributes( entry, GlobalIds.USER_ROLE_DATA );
 
         if ( roles != null )
@@ -2668,29 +2666,32 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
 
             for ( String raw : roles )
             {
-            	//get role name
-            	String roleName = raw.substring(0, raw.indexOf( Config.getInstance().getDelimiter() )).toUpperCase();
-            	
-            	//if role name filter provided, only unload role if it has that name
-            	if(roleNameFilter == null || roleNameFilter.toUpperCase().equals( roleName )){            	
-                	//if already found, add to user role
-                	if(uRoles.containsKey(roleName)){
-                		UserRole ure = uRoles.get(roleName);
-                		ure.load( raw, contextId, RoleUtil.getInstance() );
-                	}
-                	//else create new
-                	else{            	
-    	                UserRole ure = new ObjectFactory().createUserRole();
-    	                ure.load( raw, contextId, RoleUtil.getInstance() );
-    	                ure.setUserId( userId );
-    	                ure.setSequenceId( sequence++ );
-    	                uRoles.put(roleName, ure );
-                	}            	
-            	}
+                //get role name
+                String roleName = raw.substring( 0, raw.indexOf( Config.getInstance().getDelimiter() ) ).toUpperCase();
+                
+                //if role name filter provided, only unload role if it has that name
+                if ( ( roleNameFilter == null ) || roleNameFilter.toUpperCase().equals( roleName ) )
+                {
+                    //if already found, add to user role
+                    if(uRoles.containsKey(roleName))
+                    {
+                        UserRole userRole = uRoles.get(roleName);
+                        userRole.load( raw, contextId, RoleUtil.getInstance() );
+                    }
+                    //else create new
+                    else
+                    {
+                        UserRole userRole = new ObjectFactory().createUserRole();
+                        userRole.load( raw, contextId, RoleUtil.getInstance() );
+                        userRole.setUserId( userId );
+                        userRole.setSequenceId( sequence++ );
+                        uRoles.put(roleName, userRole );
+                    }
+                }
             }
         }
 
-        return new ArrayList<UserRole>(uRoles.values());
+        return new ArrayList<UserRole>( uRoles.values() );
     }
 
 
@@ -2729,13 +2730,8 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
     /**
      * Begin RF2307 properties...
      */
-
-    //private static final String USER_ROLE_ASSIGN = IS_RFC2307 && Config.getInstance().getProperty( "rfc2307.user.member" ) != null ? Config.getInstance().getProperty( "rfc2307.user.member" ) : "ftRA";
-    //private static final String USER_MEMBER = IS_RFC2307 && Config.getInstance().getProperty( "rfc2307.user.member" ) != null ? Config.getInstance().getProperty( "rfc2307.user.member" ) : USER_ROLE_ASSIGN;
-
     private void initAttrArrays()
     {
-
         if ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() )
         {
             // This default set of attributes contains all and is used for search operations.
@@ -2792,9 +2788,9 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
                     OPENLDAP_PW_LOCKED_TIME,
                     GlobalIds.PROPS };
         }
-
         else
         {
+            // Other LDAP servers
             defaultAtrs = new String[]
                 {
                     GlobalIds.FT_IID,

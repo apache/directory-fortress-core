@@ -947,9 +947,9 @@ public class URATestData extends TestCase
 
     public static final String[] URC_T1 =
     {
-    	"TPASET1", // CONSTRAINT_PASET_NM
-    	"FILTER", //CONSTAINT_TYPE
-    	"TPASET1AttributeName1=testattributevalue" //CONSTAIN_VALUE
+        "TPASET1", // CONSTRAINT_PASET_NM
+        "FILTER", //CONSTAINT_TYPE
+        "TPASET1AttributeName1=testattributevalue" //CONSTAIN_VALUE
     };
     
     public static final String[] URC_T2 =
@@ -968,9 +968,9 @@ public class URATestData extends TestCase
     
     public static final String[] URC_T1_INVALID =
     {
-    	"TPASETNAMENOTEXIST", // CONSTRAINT_PASET_NM
-    	"FILTER", //CONSTAINT_TYPE
-    	"TPASET1AttributeName1=testattributevalue" //CONSTAIN_VALUE
+        "TPASETNAMENOTEXIST", // CONSTRAINT_PASET_NM
+        "FILTER", //CONSTAINT_TYPE
+        "TPASET1AttributeName1=testattributevalue" //CONSTAIN_VALUE
     };
     
     /**
@@ -1066,10 +1066,10 @@ public class URATestData extends TestCase
     
     public static RoleConstraint getRC( String[] rc )
     {
-    	RoleConstraint urc = new RoleConstraint();
-    	urc.setKey( rc[0] );
-    	urc.setType( RoleConstraint.RCType.valueOf( rc[1] ) );
-    	urc.setValue(rc[2]);
+        RoleConstraint urc = new RoleConstraint();
+        urc.setKey( rc[0] );
+        urc.setType( RoleConstraint.RCType.valueOf( rc[1] ) );
+        urc.setValue(rc[2]);
         return urc;
     }
 }

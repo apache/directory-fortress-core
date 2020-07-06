@@ -403,7 +403,7 @@ final class PermP
      */     
     void delete( PermissionAttribute entity, String paSetName ) throws SecurityException
     {
-        validate( entity );            	
+        validate( entity );                
         pDao.deletePermissionAttribute( entity, paSetName );
     }
 
@@ -419,8 +419,8 @@ final class PermP
     {
         validate( entity );
         pDao.updatePermissionAttribute( entity, paSetName, replaceValidValues );
-    }	
-    	
+    }    
+        
     /**
      * Update existing Permission Object attributes with the input entity.  Null or empty attributes will be ignored.
      * The Permission Object entity input will be validated to ensure that:

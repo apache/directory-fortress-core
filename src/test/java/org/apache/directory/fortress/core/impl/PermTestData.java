@@ -3305,49 +3305,49 @@ public class PermTestData extends TestCase
     
     public static final String[][] PA_TPSASET1 =
     {
-    	{
-    		"TPASET1AttributeName1", /* NAME */
-    		"true", /* REQUIRED */
-    		"string", /* DATA_TYPE */
-    		"EQUALS", /* COMPARISON_OPERATOR */
-    		"literal:value" /* VALID_VALUE */
-    	}
+        {
+            "TPASET1AttributeName1", /* NAME */
+            "true", /* REQUIRED */
+            "string", /* DATA_TYPE */
+            "EQUALS", /* COMPARISON_OPERATOR */
+            "literal:value" /* VALID_VALUE */
+        }
     };
 
     public static final String[][] PA_TPSASET2 =
     {
-    	{
-    		"TPASET2AttributeName1", /* NAME */
-    		"true", /* REQUIRED */
-    		"string", /* DATA_TYPE */
-    		"EQUALS", /* COMPARISON_OPERATOR */
-    		"literal:value" /* VALID_VALUE */
-    	},
-    	{
-    		"TPASET2AttributeName2", /* NAME */
-    		"false", /* REQUIRED */
-    		"int", /* DATA_TYPE */
-    		"EQUALS", /* COMPARISON_OPERATOR */
-    		"literal:value" /* VALID_VALUE */
-    	}
+        {
+            "TPASET2AttributeName1", /* NAME */
+            "true", /* REQUIRED */
+            "string", /* DATA_TYPE */
+            "EQUALS", /* COMPARISON_OPERATOR */
+            "literal:value" /* VALID_VALUE */
+        },
+        {
+            "TPASET2AttributeName2", /* NAME */
+            "false", /* REQUIRED */
+            "int", /* DATA_TYPE */
+            "EQUALS", /* COMPARISON_OPERATOR */
+            "literal:value" /* VALID_VALUE */
+        }
     };
     
     public static final String[][] PA_TPSASET2_ADDITIONAL =
     {
-    	{
-    		"TPASET2AttributeName3", /* NAME */
-    		"true", /* REQUIRED */
-    		"string", /* DATA_TYPE */
-    		"EQUALS", /* COMPARISON_OPERATOR */
-    		"literal:value" /* VALID_VALUE */
-    	},
-    	{
-    		"TPASET2AttributeName4", /* NAME */
-    		"false", /* REQUIRED */
-    		"int", /* DATA_TYPE */
-    		"EQUALS", /* COMPARISON_OPERATOR */
-    		"literal:value" /* VALID_VALUE */
-    	}
+        {
+            "TPASET2AttributeName3", /* NAME */
+            "true", /* REQUIRED */
+            "string", /* DATA_TYPE */
+            "EQUALS", /* COMPARISON_OPERATOR */
+            "literal:value" /* VALID_VALUE */
+        },
+        {
+            "TPASET2AttributeName4", /* NAME */
+            "false", /* REQUIRED */
+            "int", /* DATA_TYPE */
+            "EQUALS", /* COMPARISON_OPERATOR */
+            "literal:value" /* VALID_VALUE */
+        }
     };
     
     public static PermissionAttribute getPA( String[] pa )
@@ -3499,15 +3499,15 @@ public class PermTestData extends TestCase
     }
     
     public static Set<PermissionAttribute> loadPermissionAttributes(String[][] objArray){
-    	Set<PermissionAttribute> permAttrs = new HashSet<PermissionAttribute>();
-    	
-    	for ( String[] obj : objArray )
+        Set<PermissionAttribute> permAttrs = new HashSet<PermissionAttribute>();
+        
+        for ( String[] obj : objArray )
         {
-    		PermissionAttribute pa = PermTestData.getPA(obj);
-    		permAttrs.add(pa);
+            PermissionAttribute pa = PermTestData.getPA(obj);
+            permAttrs.add(pa);
         }
-    	
-    	return permAttrs;
+        
+        return permAttrs;
     }
     
 }

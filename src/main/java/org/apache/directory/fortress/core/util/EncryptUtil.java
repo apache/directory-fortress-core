@@ -41,7 +41,7 @@ public final class EncryptUtil
             {
                 if(sINSTANCE == null)
                 {
-        	        sINSTANCE = new EncryptUtil();
+                    sINSTANCE = new EncryptUtil();
                 }
             }
         }

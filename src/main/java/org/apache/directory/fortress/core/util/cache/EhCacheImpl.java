@@ -41,7 +41,7 @@ public class EhCacheImpl implements Cache
 {
     private static final String CLS_NM = EhCacheImpl.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-	
+
     private BlockingCache cache;
     private final String name;
 

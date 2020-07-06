@@ -78,7 +78,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
         permP = new PermP();
         SUPER_ADMIN = Config.getInstance().getProperty("superadmin.role", "fortress-core-super-admin");
         REST_ADMIN = Config.getInstance().getProperty("serviceadmin.role", "fortress-rest-admin");
-	}
+    }
     
     /**
      * {@inheritDoc}
@@ -248,7 +248,7 @@ public class DelAccessMgrImpl extends AccessMgrImpl implements DelAccessMgr, Ser
     public List<UserAdminRole> sessionAdminRoles(Session session)
         throws SecurityException
     {
-    	String methodName = "sessionAdminRoles";
+        String methodName = "sessionAdminRoles";
         VUtil.assertNotNull(session, GlobalErrIds.USER_SESS_NULL, CLS_NM + ".sessionAdminRoles");
         setEntitySession(CLS_NM, methodName, session);
         return session.getAdminRoles();
