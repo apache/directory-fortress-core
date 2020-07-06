@@ -35,10 +35,6 @@ ________________________________________________________________________________
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
 
-Minimum hardware requirements:
- * 2 Cores
- * 4GB RAM
-
 Minimum software requirements:
  * Centos or Debian Machine
  * Java SDK 8++
@@ -48,145 +44,156 @@ Minimum software requirements:
 ___________________________________________________________________________________
 ## SECTION 2. Apache Fortress Core Setup using OpenLDAP Docker Image
 
-1. Download the apache directory fortress-core source from apache git repo:
+1. Download the package:
 
- a. from the command line:
- ```
- git clone  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
- cd directory-fortress-core
- ```
+ a. from git:
+```
+git clone --branch 2.0.5  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
+cd directory-fortress-core
+```
 
-2. Now build the apache directory fortress docker image (trailing dot matters):
+b. or from Apache:
+```
+wget http://www.apache.org/dist/directory/fortress/dist/2.0.5/fortress-core-2.0.5-source-release.zip
+unzip fortress-core-2.0.5-source-release.zip
+cd fortress-core-2.0.5
+```
 
- ```
- docker build -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .
- ```
+2. Prepare the package:
+
+```
+cp build.properties.example build.properties
+cp slapd.properties.example slapd.properties
+```
+
+ * Seeds the openldap properties with defaults.
+ * [slapd.properties.example](slapd.properties.example) contains the default config for openldap docker image.
+ * Learn how the fortress config subsystem works: [README-CONFIG](README-CONFIG.md).
+
+3. Now build the apachedirectory openldap docker image (trailing dot matters):
+
+```
+docker build -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .
+```
 
  Or just pull the prebuilt image:
 
- ```
- docker pull apachedirectory/openldap-for-apache-fortress-tests
- ```
+```
+docker pull apachedirectory/openldap-for-apache-fortress-tests
+```
 
-3. Run the docker container:
+4. Run the docker container:
 
- ```
- CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
- CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
- echo $CONTAINER_PORT
- ```
+```
+CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
+CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
+echo $CONTAINER_PORT
+```
 
- *note: make note of the port as it's needed later
- *depending on your docker setup may need to run as root or sudo priv's.
+ * The '$CONTAINER_PORT' value required for next step.
+ * Depending on your Docker setup, may need to run this step as root or sudo priv's.
 
-4. Prepare fortress to use the slapd running inside docker container:
+5. Prepare your terminal for execution of maven commands.
 
- ```
- cp build.properties.example build.properties
- cp slapd.properties.example slapd.properties
- ```
+```
+#!/bin/sh
+export M2_HOME=...
+export JAVA_HOME=...
+export PATH=$PATH:$M2_HOME/bin
+export MAVEN_OPTS="
+    -Dfortress.host=localhost  
+    -Dfortress.port=32768"
+```
 
-5. Edit the *slapd.properties* file:
+ More about 'MAVEN_OPTS':  
+  * Provides the coordinates to the ldap server running inside Docker container.  
+  * replace the 'fortress.port' value with result from ```echo $CONTAINER_PORT```.
+  * if Docker image running on a different machine, replace fortress.host to point to it.  
 
- ```
- vi slapd.properties
- ```
+6. Run the maven install to build fortress and initialize config settings:
 
-6. Update the *ldap.port* prop:
-
- ```
- ldap.port= port from earlier step
- ```
-
-7. Save and exit
-
-8. Prepare your terminal for execution of maven commands.
-
- ```
- #!/bin/sh
- export M2_HOME=...
- export JAVA_HOME=...
- export PATH=$PATH:$M2_HOME/bin
- ```
-
-9. Run the maven install to build fortress lib and prepare its configuration (fortress.properties):
-
- ```
- mvn clean install
- ```
+```
+mvn clean install
+```
 ___________________________________________________________________________________
 ## SECTION 3. Apache Fortress Core Integration Test
 
 1. From fortress core base folder, enter the following commands:
 
- ```
- mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
- mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml
- ```
+```
+mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
+```
 
  *These will build the Directory Information Tree (DIT), create the config and data policies needed for the integration test to follow.*
 
 2. Next, enter the following command:
 
- ```
- mvn -Dtest=FortressJUnitTest test
- ```
+```
+mvn -Dtest=FortressJUnitTest test -Dfortress.host=localhost -Dfortress.port=32768
+```
 
- *Tests the APIs against your LDAP server.*
+ More about this step: 
+  * Provides the coordinates to the ldap server running inside Docker container.  
+  * Replace the 'fortress.port' value with result from ```echo $CONTAINER_PORT```.
+  * if Docker image running on a different machine, replace fortress.host to point to it.
+  * Tests the APIs against your LDAP server.*
 
 3. Verify the tests worked:
 
- ```
- Tests run: Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 196 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
+```
+Tests run: Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 196 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
 
- Results :
+Results :
 
- Tests run: Failures: 0, Errors: 0, Skipped: 0
+Tests run: Failures: 0, Errors: 0, Skipped: 0
 
- [INFO]
- [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
- [INFO] Executing tasks
+[INFO]
+[INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
+[INFO] Executing tasks
 
- fortress-load:
- [INFO] Executed tasks
- [INFO] ------------------------------------------------------------------------
- [INFO] BUILD SUCCESS
- [INFO] ------------------------------------------------------------------------
- [INFO] Total time: 03:19 min
- [INFO] Finished at: 2016-01-07T09:28:18-06:00
- [INFO] Final Memory: 27M/532M
- [INFO] ------------------------------------------------------------------------
- ```
+fortress-load:
+[INFO] Executed tasks
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 03:19 min
+[INFO] Finished at: 2016-01-07T09:28:18-06:00
+[INFO] Final Memory: 27M/532M
+[INFO] ------------------------------------------------------------------------
+```
 
 4. Rerun the tests to verify teardown APIs work:
 
- ```
- mvn -Dtest=FortressJUnitTest test
- ```
+```
+mvn -Dtest=FortressJUnitTest test -Dfortress.host=localhost -Dfortress.port=32768
+```
+
+ More about this step: 
+  * Again verify fortress.host and fortress.port match your environment.  
 
 5. Verify that worked also:
 
- ```
- Tests run: Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 207.081 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
+```
+Tests run: Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 207.081 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
 
- Results :
+Results :
 
- Tests run: Failures: 0, Errors: 0, Skipped: 0
+Tests run: Failures: 0, Errors: 0, Skipped: 0
 
- [INFO]
- [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
- [INFO] Executing tasks
+[INFO]
+[INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
+[INFO] Executing tasks
 
- fortress-load:
- [INFO] Executed tasks
- [INFO] ------------------------------------------------------------------------
- [INFO] BUILD SUCCESS
- [INFO] ------------------------------------------------------------------------
- [INFO] Total time: 03:30 min
- [INFO] Finished at: 2016-01-07T09:33:11-06:00
- [INFO] Final Memory: 27M/531M
- [INFO] ------------------------------------------------------------------------
- ```
+fortress-load:
+[INFO] Executed tasks
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 03:30 min
+[INFO] Finished at: 2016-01-07T09:33:11-06:00
+[INFO] Final Memory: 27M/531M
+[INFO] ------------------------------------------------------------------------
+```
  Notice more tests ran this time vs the first time, due to teardown
 
  Test Notes:
@@ -206,44 +213,44 @@ ________________________________________________________________________________
 
 #### Build image
 
- ```
- docker build -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .
- ```
+```
+docker build -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .
+```
 
  * trailing dot matters
 
  Or just to be sure don't use cached layers:
 
- ```
- docker build  --no-cache=true -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .
- ```
+```
+docker build  --no-cache=true -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .
+```
 
 #### Run container
 
- ```
- CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
- CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
- echo $CONTAINER_PORT
- ```
+```
+CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
+CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
+echo $CONTAINER_PORT
+```
 
 #### Go into the container
 
- ```
- docker exec -it $CONTAINER_ID bash
- ```
+```
+docker exec -it $CONTAINER_ID bash
+```
 
 #### Restart container
 
- ```
- docker restart $CONTAINER_ID
- ```
+```
+docker restart $CONTAINER_ID
+```
 
 #### Stop and delete container
 
- ```
- docker stop $CONTAINER_ID
- docker rm $CONTAINER_ID
- ```
+```
+docker stop $CONTAINER_ID
+docker rm $CONTAINER_ID
+```
 
 ____________________________________________________________________________________
 #### END OF README-QUICKSTART-DOCKER-SLAPD

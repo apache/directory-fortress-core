@@ -110,34 +110,38 @@ The ant config task, **init-fortress-config**, uses the values found within the 
 ### Optional - Used to override fortress properties at runtime.
 
  These fortress properties may be overridden at runtime by setting as Java System Properties:
- * fortress.host
- * fortress.port
- * fortress.admin.user
- * fortress.admin.pw
- * fortress.min.admin.conn
- * fortress.max.admin.conn
- * fortress.enable.ldap.ssl
- * fortress.enable.ldap.ssl.debug
- * fortress.trust.store
- * fortress.trust.store.password
- * fortress.trust.store.onclasspath
- * fortress.config.realm
- * fortress.config.root
- * fortress.ldap.server.type
- * fortress.is.arbac02
-
+ 
+ | system property name              | description                                                             | default  values                                                       |
+ | --------------------------------- | ----------------------------------------------------------------------- | --------------------------------------------------------------------- |
+ | fortress.host                     | Hostname or ip address of ldap server                                   | localhost                                                             |
+ | fortress.port                     | Port for the ldap server                                                | openldap:389, apacheds: 1389                                          |
+ | fortress.admin.user               | Service account for access to ldap server                               | openldap: cn=manager,dc=example,dc=com, apacheds: uid=admin,ou=system |
+ | fortress.admin.pw                 | service account password                                                | secret                                                                |
+ | fortress.min.admin.conn           | minimum ldap a|min pool connections                                     | 1                                                                     |
+ | fortress.max.admin.conn           | maximum ldap admin pool connections                                     | 10                                                                    |
+ | fortress.enable.ldap.ssl          | true indicates LDAPS connectivity                                       | false                                                                 |
+ | fortress.enable.ldap.ssl.debug    | true will output additional info to log                                 | false                                                                 |
+ | fortress.trust.store              | Name of truststore (if on classpath) otherwise fully qualified name.    |                                                                       |
+ | fortress.trust.store.password     | The password for Java truststore containing server certificate.         | none                                                                  |    
+ | fortress.trust.store.onclasspath  | true indicates truststore is in Java classpath.                         | true                                                                  |
+ | fortress.suffix                   | The suffix is the toplevel LDAP node of the Directory Information Tree. | dc=example,dc=com                                                     |
+ | fortress.config.realm             | The name of the configuration node in LDAP.                             | Default                                                               |                                          
+ | fortress.config.root              | The DN that points to the base of the LDAP config node.                 | ou=Config,dc=example,dc=com                                           |
+ | fortress.is.arbac02               | Used in Apache Fortress Rest and Web to enforce administrative RBAC.    | false                                                                 |
+ | fortress.ldap.server.type         | Used for non-standard processing like password policies and audits.     | Valid values: apacheds, openldap or other                             |
+ 
  The minimum system.properties to enable fortress apis to work (without a config file):
   * fortress.admin.user
   * fortress.admin.pw=secret
   * fortress.config.root=ou=Config,dc=example,dc=com
 
- If the ldap host and port are not the default (localhost:389) set these two:
+ If the ldap host and/or port are not the default (openldap localhost:389) or (apacheds localhost:1389) set these:
  * fortress.host
  * fortress.port
 ___________________________________________________________________________________
 ## SECTION 5.  Order Artifacts found in the Fortress Configuration Subsystem
 
-This subsystem has been hard wired to the following order:
+This subsystem has been hard-wired to the following order:
  1. fortress.properties file - found on the classpath of that name.
  2. Java system properties - to override any of the 14 properties listed above.
  3. LDAP configuration node - found by config coordinates set in the fortress.properties file itself.
@@ -173,8 +177,8 @@ Or B:
  mvn install -Dload.file=./ldap/setup/ConfigNodeUpdate.xml
  ```
 
-A refreshes the entire LDAP server DIT, deletes of all entries under the suffix, recreating the DIT node structure, and re-adding of the config node.
-B just updates the config node with the new values, preserving the other data.
+A. refreshes the entire LDAP server DIT, deletes of all entries under the suffix, recreating the DIT node structure, and re-adding of the config node.
+B. just updates the config node with the new values, preserving the other data.
 
 ### More notes:
  * Use caution when running the **refreshLDAPData.xml** script.  It deletes all nodes below the suffix before readding.

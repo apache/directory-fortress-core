@@ -305,8 +305,8 @@
          <replace file="${dst.bootstrap.conf}" token="@ADM_MAX_CONN@" value="${admin.max.conn}"/>
          <replace file="${dst.bootstrap.conf}" token="@LOG_ROOT_DN@" value="${log.admin.user}"/>
          <replace file="${dst.bootstrap.conf}" token="@CFG_LOG_ROOT_PW@" value="${log.admin.pw}"/>
-         <replace file="${dst.bootstrap.conf}" token="@LOG_MIN_CONN@" value="${min.log.conn}"/>
-         <replace file="${dst.bootstrap.conf}" token="@LOG_MAX_CONN@" value="${max.log.conn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@LOG_MIN_CONN@" value="${log.min.conn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@LOG_MAX_CONN@" value="${log.max.conn}"/>
          <replace file="${dst.bootstrap.conf}" token="@USR_MIN_CONN@" value="${user.min.conn}"/>
          <replace file="${dst.bootstrap.conf}" token="@USR_MAX_CONN@" value="${user.max.conn}"/>
          <replace file="${dst.bootstrap.conf}" token="@CFG_CRYPTO_PROP@" value="${crypto.prop}"/>
@@ -343,8 +343,8 @@
          <replace file="${dst.remote.conf}" token="@LOG_ROOT_DN@" value="${log.admin.user}"/>
          <replace file="${dst.remote.conf}" token="@CFG_LOG_ROOT_PW@" value="${log.admin.pw}"/>
          <replace file="${dst.remote.conf}" token="@ROLE_OCCUPANTS@" value="${role.occupants}"/>
-         <replace file="${dst.remote.conf}" token="@LOG_MIN_CONN@" value="${min.log.conn}"/>
-         <replace file="${dst.remote.conf}" token="@LOG_MAX_CONN@" value="${max.log.conn}"/>
+         <replace file="${dst.remote.conf}" token="@LOG_MIN_CONN@" value="${log.min.conn}"/>
+         <replace file="${dst.remote.conf}" token="@LOG_MAX_CONN@" value="${log.max.conn}"/>
          <replace file="${dst.remote.conf}" token="@USR_MIN_CONN@" value="${user.min.conn}"/>
          <replace file="${dst.remote.conf}" token="@USR_MAX_CONN@" value="${user.max.conn}"/>
          <replace file="${dst.remote.conf}" token="@CFG_CRYPTO_PROP@" value="${crypto.prop}"/>

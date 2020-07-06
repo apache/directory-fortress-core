@@ -69,8 +69,8 @@ user.min.conn=1
 user.max.conn=10
 
 # Used for slapd logger connection pool.  Leave zeros when using apacheds:
-min.log.conn=1
-max.log.conn=3
+log.min.conn=1
+log.max.conn=3
 
 #These are passwords used for LDAP audit log service accounts:
 # Audit Pool:

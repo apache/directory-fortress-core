@@ -19,6 +19,6 @@ maven-eclipse.xml
 *.properties
 b.sh
 b.bat
-*.conf
+ldap/slapd.conf
 *.zip
 *.sav

@@ -33,7 +33,7 @@
   <version>2.0.6-SNAPSHOT</version>
   <inceptionYear>2007</inceptionYear>
   <description>
-    Apache Fortress is a standards-based Access Management SDK that implements ANSI RBAC INCITS 359.
+    Apache Fortress is an authorization platform that implements ANSI INCITS 359 Role-Based Access Control (RBAC).
   </description>
   <url>https://directory.apache.org/fortress/</url>
 
@@ -529,16 +529,12 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <configuration>
             <argLine>-Xmx1024m</argLine>
-            <systemProperties>
-              <systemProperty>
-                <key>version</key>
-                <value>${project.version}</value>
-              </systemProperty>
-              <systemProperty>
-                <key>tenant</key>
-                <value>${tenant}</value>
-              </systemProperty>
-            </systemProperties>
+
+            <systemPropertyVariables>
+              <version>${project.version}</version>
+              <tenant>${tenant}</tenant>
+            </systemPropertyVariables>
+
             <excludes>
               <exclude>${exclude.tests}</exclude>
             </excludes>
@@ -712,9 +708,10 @@
           <execution>
             <phase>test</phase>
             <configuration>
+              <!--<target name="stop-slapd-win-if-present" depends="slapd.dir.check" if="slapd.dir.exists">-->
               <target name="fortress-load" if="load.file" description="Loads fortress policy into ldap">
                 <echo message="############### Run Fortress Ant script to load policy ###############" />
-                <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="${basedir}" timeout="4000000" taskname="startAnt">
+                <java classname="org.apache.tools.ant.launch.Launcher" fork="true" clonevm="true" failonerror="true" dir="${basedir}" timeout="600000" taskname="startAnt">
                   <classpath>
                     <!-- use config/bootstrap folder for config because the config ldap node isn't (might not be) inserted: -->
                     <pathelement location="./config/bootstrap/" />
@@ -770,9 +767,9 @@
 
     <!-- If JDK11++ pull in the JAXB API dependency. -->
     <profile>
-      <id>java-11</id>
+      <id>jdk-11+</id>
       <activation>
-        <jdk>11</jdk>
+        <jdk>[11,]</jdk>
       </activation>
       <dependencies>
         <dependency>
@@ -782,7 +779,6 @@
         </dependency>
       </dependencies>
     </profile>
-
 
     <!-- This profile starts the Fortress Console App -->
     <!-- To execute: mvn -Pconsole test -->

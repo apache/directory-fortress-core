@@ -41,10 +41,6 @@ ________________________________________________________________________________
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
 
-Minimum hardware requirements:
- * 2 Cores
- * 4GB RAM
-
 Minimum software requirements:
  * Centos or Debian Machine
  * Java SDK 8++
