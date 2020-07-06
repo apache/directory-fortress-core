@@ -1334,7 +1334,7 @@ public abstract class LdapDataProvider
      * Closes all the ldap connection pools.
      */
     public static void closeAllConnectionPools(){
-        LdapConnectionProvider.getInstance().closeAllConnectionPools();
+        LdapConnectionProvider.closeAllConnectionPools();
     }
 
 }

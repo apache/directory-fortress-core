@@ -89,8 +89,8 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
         throws SecurityException
     {
         String methodName = "authenticate";
-        VUtil.getInstance().assertNotNullOrEmpty( userId, GlobalErrIds.USER_ID_NULL, getFullMethodName( CLS_NM, methodName ) );
-        VUtil.getInstance().assertNotNullOrEmpty( password, GlobalErrIds.USER_PW_NULL, getFullMethodName( CLS_NM, methodName ) );
+        VUtil.assertNotNullOrEmpty( userId, GlobalErrIds.USER_ID_NULL, getFullMethodName( CLS_NM, methodName ) );
+        VUtil.assertNotNullOrEmpty( password, GlobalErrIds.USER_PW_NULL, getFullMethodName( CLS_NM, methodName ) );
         User inUser = new User( userId );
         inUser.setContextId( contextId );
 
@@ -153,9 +153,9 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
         assertContext( CLS_NM, methodName, perm, GlobalErrIds.PERM_NULL );
         assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
         
-        VUtil.getInstance().assertNotNullOrEmpty( perm.getOpName(), GlobalErrIds.PERM_OPERATION_NULL,
+        VUtil.assertNotNullOrEmpty( perm.getOpName(), GlobalErrIds.PERM_OPERATION_NULL,
             getFullMethodName( CLS_NM, methodName ) );
-        VUtil.getInstance().assertNotNullOrEmpty( perm.getObjName(), GlobalErrIds.PERM_OBJECT_NULL,
+        VUtil.assertNotNullOrEmpty( perm.getObjName(), GlobalErrIds.PERM_OBJECT_NULL,
             getFullMethodName( CLS_NM, methodName ) );
         VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.USER, false );
         VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.ROLE, false );
@@ -185,7 +185,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
     {
         String methodName = "isUserInRole";
         assertContext( CLS_NM, methodName, role, GlobalErrIds.ROLE_NULL );
-        VUtil.getInstance().assertNotNullOrEmpty( role.getName(), GlobalErrIds.ROLE_NM_NULL,
+        VUtil.assertNotNullOrEmpty( role.getName(), GlobalErrIds.ROLE_NM_NULL,
             getFullMethodName( CLS_NM, methodName ) );
         boolean result = false;
         Session session = createSession( user, isTrusted );
@@ -246,11 +246,11 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
         assertContext( CLS_NM, methodName, session, GlobalErrIds.USER_SESS_NULL );
         if (session.isGroupSession())
         {
-            VUtil.getInstance().assertNotNull(session.getGroup(), GlobalErrIds.GROUP_NULL, CLS_NM + ".authorizedRoles");
+            VUtil.assertNotNull(session.getGroup(), GlobalErrIds.GROUP_NULL, CLS_NM + ".authorizedRoles");
         }
         else
         {
-            VUtil.getInstance().assertNotNull(session.getUser(), GlobalErrIds.USER_NULL, CLS_NM + ".authorizedRoles");
+            VUtil.assertNotNull(session.getUser(), GlobalErrIds.USER_NULL, CLS_NM + ".authorizedRoles");
         }
         VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.USER, false );
         VUtil.getInstance().validateConstraints( session, VUtil.ConstraintType.ROLE, false );
@@ -346,8 +346,7 @@ public class AccessMgrImpl extends Manageable implements AccessMgr, Serializable
         }
         role.setUserId(entityId);
         List<UserRole> activatedRoles = session.getRoles();
-        VUtil.getInstance()
-            .assertNotNull( activatedRoles, GlobalErrIds.URLE_DEACTIVE_FAILED, CLS_NM + getFullMethodName( CLS_NM, methodName ) );
+        VUtil.assertNotNull( activatedRoles, GlobalErrIds.URLE_DEACTIVE_FAILED, CLS_NM + getFullMethodName( CLS_NM, methodName ) );
         int indx = activatedRoles.indexOf( role );
         if ( indx != -1 )
         {

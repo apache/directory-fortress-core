@@ -38,6 +38,7 @@ import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.Group;
 import org.apache.directory.fortress.core.model.ObjectFactory;
+import org.apache.directory.fortress.core.model.RoleConstraint;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.model.Warning;
@@ -803,7 +804,7 @@ public final class VUtil implements ConstraintValidator
         }
 
         @Override
-        public List getConstraints()
+        public List<RoleConstraint> getConstraints()
         {
             throw new java.lang.UnsupportedOperationException();
         }

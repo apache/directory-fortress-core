@@ -98,20 +98,27 @@ public final class ResourceUtil {
             } else if (url.getProtocol().equals("jar")){
                 result = ResourceUtil.class.getClassLoader().getResourceAsStream(_reference);
                 if (null != result) {
-                    PushbackInputStream pushbackInputStream = new PushbackInputStream(result);
-                    int b = -1;
-                    try {
-                        b = pushbackInputStream.read();
-                    } catch (IOException e) {
-                        // Don't care
-                    }
-                    if (b != -1) {
-                        result = pushbackInputStream;
+                    try ( PushbackInputStream pushbackInputStream = new PushbackInputStream(result) )
+                    {
+                        int b = -1;
                         try {
-                            pushbackInputStream.unread(b);
+                            b = pushbackInputStream.read();
                         } catch (IOException e) {
-                            result = null;
+                            // Don't care
                         }
+                        if (b != -1) {
+                            result = pushbackInputStream;
+                            try {
+                                pushbackInputStream.unread(b);
+                            } catch (IOException e) {
+                                result = null;
+                            }
+                        }
+                    }
+                    catch ( IOException ioe )
+                    {
+                        // Problem while closing the input stream... Nothing we can do
+                        ioe.printStackTrace();
                     }
                 }
             }

@@ -29,7 +29,6 @@ import org.apache.directory.fortress.core.util.VUtil;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
-import java.util.TreeSet;
 
 /**
  * Do not use, is deprecated for {@link org.apache.directory.fortress.core.util.time.UserRoleConstraint}.
@@ -87,7 +86,7 @@ public class Discriminant
         return rc;
     }
 
-    public Set getValues( String members )
+    public Set<String> getValues( String members )
     {
         Set<String> values = new HashSet<>(  );
         if ( members != null )

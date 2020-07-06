@@ -86,7 +86,8 @@ final class RoleUtil implements ParentUtil
         return sINSTANCE;
     }
     
-    private RoleUtil(){
+    private RoleUtil()
+    {
         init();
     }
     
@@ -102,13 +103,6 @@ final class RoleUtil implements ParentUtil
         roleCache = cacheMgr.getCache( "fortress.roles" );
     }
 
-    /**
-     * Private constructor
-     *
-     */
-    private void RoleUtil()
-    {
-    }
 
     /**
      * Used to determine if one {@link org.apache.directory.fortress.core.model.Role} is the parent of another.  This method

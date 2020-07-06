@@ -24,7 +24,6 @@ import java.util.Properties;
 
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.PropertyMgr;
-import org.apache.directory.fortress.core.ReviewMgr;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.AdminRole;
 import org.apache.directory.fortress.core.model.FortEntity;

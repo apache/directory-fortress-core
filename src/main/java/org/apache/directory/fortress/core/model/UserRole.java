@@ -698,7 +698,7 @@ public class UserRole extends FortEntity implements Serializable, Constraint
     {
         if(roleConstraints == null)
         {
-            roleConstraints = new ArrayList();
+            roleConstraints = new ArrayList<>();
         }
         return roleConstraints;
     }
