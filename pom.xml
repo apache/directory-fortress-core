@@ -121,11 +121,11 @@
     <version.jmeter.core>2.11</version.jmeter.core>
     <version.jmeter.java>2.11</version.jmeter.java>
     <version.junit>4.12</version.junit>
-    <version.log4j>1.2.17</version.log4j>
+    <version.log4j>2.13.3</version.log4j>
     <version.mina.core>2.0.13</version.mina.core>
     <version.opencsv>2.3</version.opencsv>
     <version.slf4j.api>1.7.29</version.slf4j.api>
-    <version.slf4j.log4j12>1.7.21</version.slf4j.log4j12>
+    <version.slf4j.impl>2.13.3</version.slf4j.impl>
     <version.stax2.api>3.1.1</version.stax2.api>
     <version.woodstox.core.asl>4.2.0</version.woodstox.core.asl>
     <version.xml.apis>1.0b2</version.xml.apis>
@@ -254,9 +254,9 @@
     </dependency>
 
     <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-log4j12</artifactId>
-      <version>${version.slf4j.api}</version>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>${version.slf4j.impl}</version>
     </dependency>
 
     <dependency>
@@ -481,8 +481,14 @@
     </dependency>
 
     <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${version.log4j}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
       <version>${version.log4j}</version>
       <scope>test</scope>
     </dependency>
@@ -720,7 +726,8 @@
                     <pathelement location="${org.apache.ant:ant:jar}" />
                     <pathelement location="${org.openldap:accelerator-api:jar}" />
                     <pathelement location="${org.openldap:accelerator-impl:jar}" />
-                    <pathelement location="${log4j:log4j:jar}" />
+                    <pathelement location="${org.apache.logging.log4j:log4j-api:jar}" />
+                    <pathelement location="${org.apache.logging.log4j:log4j-core:jar}" />
                     <pathelement location="${org.apache.directory.api:api-all:jar}" />
                     <pathelement location="${org.apache.mina:mina-core:jar}" />
                     <pathelement location="${org.jgrapht:jgrapht-core:jar}" />
@@ -733,7 +740,7 @@
                     <pathelement location="${commons-pool:commons-pool:jar}" />
                     <pathelement location="${net.sf.ehcache:ehcache-core:jar}" />
                     <pathelement location="${org.slf4j:slf4j-api:jar}" />
-                    <pathelement location="${org.slf4j:slf4j-log4j12:jar}" />
+                    <pathelement location="${org.apache.logging.log4j:log4j-slf4j-impl:jar}" />
                     <pathelement location="${antlr:antlr:jar}" />
                     <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
                     <pathelement location="${org.apache.httpcomponents:httpclient:jar}" />
@@ -881,8 +888,13 @@
             </executions>
             <dependencies>
               <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${version.log4j}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
                 <version>${version.log4j}</version>
               </dependency>
               <dependency>
@@ -935,8 +947,13 @@
             </executions>
             <dependencies>
               <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${version.log4j}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
                 <version>${version.log4j}</version>
               </dependency>
               <dependency>
@@ -1047,8 +1064,13 @@
             </executions>
             <dependencies>
               <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${version.log4j}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
                 <version>${version.log4j}</version>
               </dependency>
               <dependency>
@@ -1103,8 +1125,13 @@
             </executions>
             <dependencies>
               <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${version.log4j}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
                 <version>${version.log4j}</version>
               </dependency>
               <dependency>
@@ -1157,8 +1184,13 @@
             </executions>
             <dependencies>
               <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${version.log4j}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
                 <version>${version.log4j}</version>
               </dependency>
               <dependency>
