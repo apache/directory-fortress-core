@@ -39,10 +39,7 @@ From Wikipedia:
  *Commentators regard multitenancy as an important feature of cloud computing.*
 
  https://en.wikipedia.org/wiki/Multitenancy
-
-More here:
- * http://symas.com/products/enforcement-foundry/multi-tenancy/
-
+ 
 -------------------------------------------------------------------------------
 ## SECTION 2.  About the Datastructures
 
