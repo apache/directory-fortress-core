@@ -30,6 +30,7 @@ import org.apache.directory.fortress.core.util.VUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.Console;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
@@ -166,8 +167,9 @@ class DelegatedAccessMgrConsole
             ReaderUtil.clearScreen();
             System.out.println( "Enter userId:" );
             String userId = ReaderUtil.readLn();
-            System.out.println( "Enter password:" );
-            String password = ReaderUtil.readLn();
+            System.out.println("Enter password:");
+            Console console = System.console();
+            String password = new String ( console.readPassword() );
             session = new Session();
             //((AccessMgr)dAmgr).createSession(session, userId, password);
             ( ( AccessMgr ) dAmgr ).createSession( new User( userId, password ), false );
