@@ -57,9 +57,9 @@
         <JavaSampler guiclass="JavaTestSamplerGui" testclass="JavaSampler" testname="Fortress CheckAccess" enabled="true">
           <elementProp name="arguments" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" enabled="true">
             <collectionProp name="Arguments.arguments">
-              <elementProp name="type" elementType="Argument">
-                <stringProp name="Argument.name">type</stringProp>
-                <stringProp name="Argument.value">2</stringProp>
+              <elementProp name="hostname" elementType="Argument">
+                <stringProp name="Argument.name">hostname</stringProp>
+                <stringProp name="Argument.value">uk03</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>

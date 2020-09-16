@@ -44,6 +44,7 @@ public class AddUser extends AbstractJavaSamplerClient
     private static int count = 0;
     private int key = 0;
     private int ctr = 0;
+    private String hostname;
     //private String userId = "";
 
     /**
@@ -63,10 +64,8 @@ public class AddUser extends AbstractJavaSamplerClient
             LOG.info( message );
             //System.out.println( message );
             assertNotNull( adminMgr );
-
             key = getKey();
-            userId = "loadtestuser" + key;
-
+            userId = hostname + '-' + key;
             Session session;
             User user = new User();
             // positive test case:
@@ -98,7 +97,8 @@ public class AddUser extends AbstractJavaSamplerClient
     public void setupTest( JavaSamplerContext samplerContext )
     {
         ctr = 0;
-        String message = "FT SETUP AdminMgr TID: " + getThreadId();
+        hostname = samplerContext.getParameter( "hostname" );
+        String message = "FT SETUP Add User TID: " + getThreadId() + ", hostname: " + hostname;
         LOG.info( message );
         System.out.println( message );
         try
