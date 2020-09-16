@@ -44,7 +44,7 @@ public class DelUser extends AbstractJavaSamplerClient
     private static int count = 0;
     private int key = 0;
     private int ctr = 0;
-    //private String userId = "";
+    private String hostname;
 
     /**
      * Description of the Method
@@ -65,7 +65,7 @@ public class DelUser extends AbstractJavaSamplerClient
             assertNotNull( adminMgr );
 
             key = getKey();
-            userId = "loadtestuser" + key;
+            userId = hostname + '-' + key;
 
             Session session;
             User user = new User();
@@ -95,7 +95,8 @@ public class DelUser extends AbstractJavaSamplerClient
     public void setupTest( JavaSamplerContext samplerContext )
     {
         ctr = 0;
-        String message = "FT SETUP AdminMgr TID: " + getThreadId();
+        hostname = samplerContext.getParameter( "hostname" );
+        String message = "FT SETUP Del User TID: " + getThreadId() + ", hostname: " + hostname;
         LOG.info( message );
         System.out.println( message );
         try
