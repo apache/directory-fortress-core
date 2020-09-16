@@ -1270,6 +1270,66 @@
       </build>
     </profile>
 
+    <!-- This profile starts Fortress core checkAccess loadTest -->
+    <!-- To execute: mvn -Ploadtest-fortress-deluser jmeter:jmeter -->
+    <profile>
+      <id>loadtest-fortress-deluser</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.lazerycode.jmeter</groupId>
+            <artifactId>jmeter-maven-plugin</artifactId>
+            <version>1.10.0</version>
+            <configuration>
+              <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
+              <suppressJMeterOutput>false</suppressJMeterOutput>
+              <testFilesIncluded>
+                <jMeterTestFile>ftDelUser.jmx</jMeterTestFile>
+              </testFilesIncluded>
+              <propertiesSystem>
+                <version>${project.version}</version>
+              </propertiesSystem>
+              <propertiesSystem>
+                <tenant>${tenant}</tenant>
+              </propertiesSystem>
+            </configuration>
+            <executions>
+              <execution>
+                <id>jmeter-tests</id>
+                <goals>
+                  <goal>jmeter</goal>
+                </goals>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${version.log4j}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${version.log4j}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.fortress</groupId>
+                <artifactId>fortress-core</artifactId>
+                <version>${project.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.fortress</groupId>
+                <artifactId>fortress-core</artifactId>
+                <type>test-jar</type>
+                <version>${project.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+
+        </plugins>
+      </build>
+    </profile>
+
     <!-- This profile calls ant target init-slapd in build-config.xml script. -->
     <!-- To execute: mvn -Pinit-slapd test -->
     <profile>

@@ -37,10 +37,10 @@ import static org.junit.Assert.*;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class AddUser extends AbstractJavaSamplerClient
+public class DelUser extends AbstractJavaSamplerClient
 {
     private AdminMgr adminMgr;
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( AddUser.class );
+    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( DelUser.class );
     private static int count = 0;
     private int key = 0;
     private int ctr = 0;
@@ -59,7 +59,7 @@ public class AddUser extends AbstractJavaSamplerClient
         try
         {
             sampleResult.sampleStart();
-            String message = "FT AddUser TID: " + getThreadId() + " UID:" + userId + " CTR:" + ctr++;
+            String message = "FT DelUser TID: " + getThreadId() + " UID:" + userId + " CTR:" + ctr++;
             LOG.info( message );
             //System.out.println( message );
             assertNotNull( adminMgr );
@@ -71,10 +71,7 @@ public class AddUser extends AbstractJavaSamplerClient
             User user = new User();
             // positive test case:
             user.setUserId( userId );
-            user.setPassword( "secret" );
-            user.setOu( "dev0");
-            User outUser = adminMgr.addUser( user );
-            assertNotNull( outUser );
+            adminMgr.deleteUser( user );
             sampleResult.sampleEnd();
             sampleResult.setBytes(1);
             sampleResult.setResponseMessage("test completed TID: " + getThreadId() + " UID: " + userId);
@@ -136,7 +133,7 @@ public class AddUser extends AbstractJavaSamplerClient
      */
     public void teardownTest( JavaSamplerContext samplerContext )
     {
-        String message = "FT SETUP AddUser TID: " + getThreadId();
+        String message = "FT SETUP DelUser TID: " + getThreadId();
         LOG.info( message );
         System.out.println( message );
     }
