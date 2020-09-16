@@ -830,6 +830,11 @@ ________________________________________________________________________________
   mvn -Ploadtest-accel-createsess jmeter:jmeter
   ```
 
+ F. Add Users:
+  ```
+  mvn -Ploadtest-fortress-adduser jmeter:jmeter
+  ```
+
  The tests will run and produce measurements for throughput and latency.
 
 ___________________________________________________________________________________

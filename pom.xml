@@ -862,7 +862,7 @@
     </profile>
 
     <!-- This profile starts Openldap accelerator checkAccess loadTest -->
-    <!-- To execute: ./m.sh -Ploadtest-accel jmeter:jmeter -->
+    <!-- To execute: mvn -Ploadtest-accel jmeter:jmeter -->
     <profile>
       <id>loadtest-accel</id>
       <build>
@@ -915,7 +915,7 @@
     </profile>
 
     <!-- This profile starts Fortress core checkAccess loadTest -->
-    <!-- To execute: ./m.sh -Ploadtest-fortress jmeter:jmeter -->
+    <!-- To execute: mvn -Ploadtest-fortress jmeter:jmeter -->
     <profile>
       <id>loadtest-fortress</id>
       <build>
@@ -975,7 +975,7 @@
     </profile>
 
     <!-- This profile starts Openldap accelerator createSession loadTest -->
-    <!-- To execute: ./m.sh -Ploadtest-accel-createsess jmeter:jmeter -->
+    <!-- To execute: mvn -Ploadtest-accel-createsess jmeter:jmeter -->
     <profile>
       <id>loadtest-accel-createsess</id>
       <build>
@@ -1031,7 +1031,7 @@
     </profile>
 
     <!-- This profile starts Fortress core checkAccess loadTest -->
-    <!-- To execute: ./m.sh -Ploadtest-fortress-createsess jmeter:jmeter -->
+    <!-- To execute: mvn -Ploadtest-fortress-createsess jmeter:jmeter -->
     <profile>
       <id>loadtest-fortress-createsess</id>
       <build>
@@ -1092,7 +1092,7 @@
     </profile>
 
     <!-- This profile starts Fortress core sessionPermissions loadTest -->
-    <!-- To execute: ./m.sh -Ploadtest-fortress-sessperms jmeter:jmeter -->
+    <!-- To execute: mvn -Ploadtest-fortress-sessperms jmeter:jmeter -->
     <profile>
       <id>loadtest-fortress-sessperms</id>
       <build>
@@ -1152,7 +1152,7 @@
     </profile>
 
     <!-- This profile starts Fortress accelerator sessionPermissions loadTest but function not implemented yet! -->
-    <!-- To execute: ./m.sh -Ploadtest-accel-sessperms jmeter:jmeter -->
+    <!-- To execute: mvn  -Ploadtest-accel-sessperms jmeter:jmeter -->
     <profile>
       <id>loadtest-accel-sessperms</id>
       <build>
@@ -1206,6 +1206,66 @@
               </dependency>
             </dependencies>
           </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- This profile starts Fortress core checkAccess loadTest -->
+    <!-- To execute: mvn -Ploadtest-fortress-adduser jmeter:jmeter -->
+    <profile>
+      <id>loadtest-fortress-adduser</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.lazerycode.jmeter</groupId>
+            <artifactId>jmeter-maven-plugin</artifactId>
+            <version>1.10.0</version>
+            <configuration>
+              <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
+              <suppressJMeterOutput>false</suppressJMeterOutput>
+              <testFilesIncluded>
+                <jMeterTestFile>ftAddUser.jmx</jMeterTestFile>
+              </testFilesIncluded>
+              <propertiesSystem>
+                <version>${project.version}</version>
+              </propertiesSystem>
+              <propertiesSystem>
+                <tenant>${tenant}</tenant>
+              </propertiesSystem>
+            </configuration>
+            <executions>
+              <execution>
+                <id>jmeter-tests</id>
+                <goals>
+                  <goal>jmeter</goal>
+                </goals>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${version.log4j}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${version.log4j}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.fortress</groupId>
+                <artifactId>fortress-core</artifactId>
+                <version>${project.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.fortress</groupId>
+                <artifactId>fortress-core</artifactId>
+                <type>test-jar</type>
+                <version>${project.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+
         </plugins>
       </build>
     </profile>
