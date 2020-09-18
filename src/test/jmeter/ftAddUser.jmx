@@ -62,6 +62,11 @@
                 <stringProp name="Argument.value">uk03</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
+              <elementProp name="qualifier" elementType="Argument">
+                <stringProp name="Argument.name">qualifier</stringProp>
+                <stringProp name="Argument.value">A</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
             </collectionProp>
           </elementProp>
           <stringProp name="classname">org.apache.directory.fortress.core.jmeter.AddUser</stringProp>

@@ -26,7 +26,6 @@ import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.AdminMgr;
-import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.impl.TestUtils;
 import org.apache.directory.fortress.core.model.User;
 
@@ -42,10 +41,9 @@ public class AddUser extends AbstractJavaSamplerClient
     private AdminMgr adminMgr;
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( AddUser.class );
     private static int count = 0;
-    private int key = 0;
     private int ctr = 0;
     private String hostname;
-    //private String userId = "";
+    private String qualifier;
 
     /**
      * Description of the Method
@@ -55,7 +53,7 @@ public class AddUser extends AbstractJavaSamplerClient
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
-        String userId = "";
+        String userId  = hostname + '-' + qualifier + '-' + getKey();
         SampleResult sampleResult = new SampleResult();
         try
         {
@@ -64,9 +62,8 @@ public class AddUser extends AbstractJavaSamplerClient
             LOG.info( message );
             //System.out.println( message );
             assertNotNull( adminMgr );
-            key = getKey();
-            userId = hostname + '-' + key;
-            Session session;
+            //key = getKey();
+            //userId = hostname + '-' + key;
             User user = new User();
             // positive test case:
             user.setUserId( userId );
@@ -98,7 +95,8 @@ public class AddUser extends AbstractJavaSamplerClient
     {
         ctr = 0;
         hostname = samplerContext.getParameter( "hostname" );
-        String message = "FT SETUP Add User TID: " + getThreadId() + ", hostname: " + hostname;
+        qualifier = samplerContext.getParameter( "qualifier" );
+        String message = "FT SETUP Add User TID: " + getThreadId() + ", hostname: " + hostname + ", qualifier: " + qualifier;
         LOG.info( message );
         System.out.println( message );
         try
