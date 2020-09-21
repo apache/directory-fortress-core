@@ -187,6 +187,6 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     protected synchronized void write( String message )
     {
         printWriter.printf("%s\n", message);
-        printWriter.close();
+        printWriter.flush();
     }
 }
