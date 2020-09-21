@@ -932,8 +932,6 @@
               </testFilesIncluded>
               <propertiesSystem>
                 <version>${project.version}</version>
-              </propertiesSystem>
-              <propertiesSystem>
                 <tenant>${tenant}</tenant>
               </propertiesSystem>
             </configuration>
@@ -993,8 +991,6 @@
               </testFilesIncluded>
               <propertiesSystem>
                 <version>${project.version}</version>
-              </propertiesSystem>
-              <propertiesSystem>
                 <tenant>${tenant}</tenant>
               </propertiesSystem>
             </configuration>
@@ -1049,8 +1045,6 @@
               </testFilesIncluded>
               <propertiesSystem>
                 <version>${project.version}</version>
-              </propertiesSystem>
-              <propertiesSystem>
                 <tenant>${tenant}</tenant>
               </propertiesSystem>
             </configuration>
@@ -1110,8 +1104,6 @@
               </testFilesIncluded>
               <propertiesSystem>
                 <version>${project.version}</version>
-              </propertiesSystem>
-              <propertiesSystem>
                 <tenant>${tenant}</tenant>
               </propertiesSystem>
             </configuration>
@@ -1169,8 +1161,6 @@
               </testFilesIncluded>
               <propertiesSystem>
                 <version>${project.version}</version>
-              </propertiesSystem>
-              <propertiesSystem>
                 <tenant>${tenant}</tenant>
               </propertiesSystem>
             </configuration>
@@ -1232,6 +1222,7 @@
                 <hostname>${hostname}</hostname>
                 <qualifier>${qualifier}</qualifier>
                 <verify>${verify}</verify>
+                <verify>${output}</verify>
               </propertiesSystem>
             </configuration>
             <executions>
@@ -1283,6 +1274,7 @@
                 <hostname>${hostname}</hostname>
                 <qualifier>${qualifier}</qualifier>
                 <verify>${verify}</verify>
+                <verify>${output}</verify>
               </propertiesSystem>
             </configuration>
             <executions>
