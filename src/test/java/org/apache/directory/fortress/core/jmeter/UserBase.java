@@ -32,6 +32,8 @@ import org.apache.directory.fortress.core.impl.TestUtils;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -177,7 +179,9 @@ public abstract class UserBase extends AbstractJavaSamplerClient
 
     protected void write( String message )
     {
-        printWriter.printf("%s\n", message);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        printWriter.printf("%s : %s\n", now, message);
         printWriter.flush();
     }
 }
