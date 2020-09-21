@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -47,7 +48,8 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     protected AdminMgr adminMgr;
     protected ReviewMgr reviewMgr;
     protected static final Logger LOG = LoggerFactory.getLogger( UserBase.class );
-    private static int count = 0;
+    //private static int count = 0;
+    private static AtomicInteger count = new AtomicInteger(0);
     protected String hostname;
     protected String qualifier;
     private String filename;
@@ -137,9 +139,10 @@ public abstract class UserBase extends AbstractJavaSamplerClient
      *
      * @return
      */
-    synchronized int getKey( )
+    protected int getKey( )
     {
-        return ++count;
+        //return ++count;
+        return count.incrementAndGet();
     }
 
     String getThreadId()
