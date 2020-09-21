@@ -53,7 +53,8 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     protected String hostname;
     protected String qualifier;
     private String filename;
-    protected boolean verify;
+    protected boolean verify = false;
+    protected boolean output = false;
     private PrintWriter printWriter;
 
     protected enum Op
@@ -88,6 +89,30 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         return found;
     }
 
+    /**
+     * Description of the Method
+     *
+     * @param samplerContext Description of the Parameter
+     */
+    public void setupTest( JavaSamplerContext samplerContext )
+    {
+        init( samplerContext );
+        String message = "FT SETUP User TID: " + getThreadId() + ", hostname: " + hostname + ", qualifier: " + qualifier + ", verify:" + verify;
+        info( message );
+        System.out.println( message );
+        try
+        {
+            adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );
+            reviewMgr = ReviewMgrFactory.createInstance( TestUtils.getContext() );
+        }
+        catch ( SecurityException se )
+        {
+            warn( "ThreadId: " + getThreadId() + ", error setting up test: " + se );
+            se.printStackTrace();
+        }
+        open();
+    }
+
     private void init( JavaSamplerContext samplerContext )
     {
         hostname = System.getProperty( "hostname" );
@@ -110,35 +135,20 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         {
             verify = szVerify.equalsIgnoreCase( "true" );
         }
+        String szLog = System.getProperty( "log" );
+        if (StringUtils.isEmpty( szLog ))
+        {
+            output = samplerContext.getParameter( "output" ).equalsIgnoreCase( "true" );
+        }
+        else
+        {
+            output = szLog.equalsIgnoreCase( "true" );
+        }
         filename = "operations" + '-' + "thread" + getThreadId() + '-' + hostname + '-' + qualifier + ".txt";
         open();
     }
 
-    /**
-     * Description of the Method
-     *
-     * @param samplerContext Description of the Parameter
-     */
-    public void setupTest( JavaSamplerContext samplerContext )
-    {
-        init( samplerContext );
-        String message = "FT SETUP User TID: " + getThreadId() + ", hostname: " + hostname + ", qualifier: " + qualifier + ", verify:" + verify;
-        log( message );
-        System.out.println( message );
-        try
-        {
-            adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );
-            reviewMgr = ReviewMgrFactory.createInstance( TestUtils.getContext() );
-        }
-        catch ( SecurityException se )
-        {
-            warn( "ThreadId: " + getThreadId() + ", error setting up test: " + se );
-            se.printStackTrace();
-        }
-        open();
-    }
-
-    protected void log( String message )
+    protected void info(String message )
     {
         LOG.info( message );
         System.out.println( message );
@@ -173,34 +183,43 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     public void teardownTest( JavaSamplerContext samplerContext )
     {
         String message = "FT SETUP User TID: " + getThreadId();
-        log( message );
+        info( message );
         close();
         System.exit(0);
     }
 
     private void open()
     {
-        try
+        if( output )
         {
-            FileWriter fileWriter = new FileWriter(filename);
-            printWriter = new PrintWriter(fileWriter);
-        }
-        catch ( IOException ie )
-        {
-            warn( ie.getMessage() );
+            try
+            {
+                FileWriter fileWriter = new FileWriter(filename);
+                printWriter = new PrintWriter(fileWriter);
+            }
+            catch ( IOException ie )
+            {
+                warn( ie.getMessage() );
+            }
         }
     }
 
     private void close()
     {
-        printWriter.close();
+        if( output )
+        {
+            printWriter.close();
+        }
     }
 
     protected void write( String message )
     {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        printWriter.printf("%s : %s\n", now, message);
-        printWriter.flush();
+        if( output )
+        {
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+            LocalDateTime now = LocalDateTime.now();
+            printWriter.printf("%s : %s\n", now, message);
+            printWriter.flush();
+        }
     }
 }

@@ -72,6 +72,11 @@
                 <stringProp name="Argument.value">true</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
+              <elementProp name="output" elementType="Argument">
+                <stringProp name="Argument.name">output</stringProp>
+                <stringProp name="Argument.value">false</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
             </collectionProp>
           </elementProp>
           <stringProp name="classname">org.apache.directory.fortress.core.jmeter.DelUser</stringProp>
