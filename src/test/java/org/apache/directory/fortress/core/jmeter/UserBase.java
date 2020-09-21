@@ -102,10 +102,10 @@ public abstract class UserBase extends AbstractJavaSamplerClient
      */
     public void setupTest( JavaSamplerContext samplerContext )
     {
+        init();
         String message = "FT SETUP User TID: " + getThreadId() + ", hostname: " + hostname + ", qualifier: " + qualifier + ", verify:" + verify;
         log( message );
         System.out.println( message );
-        init();
         try
         {
             adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );
