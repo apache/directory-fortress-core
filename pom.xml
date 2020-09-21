@@ -1228,9 +1228,10 @@
               </testFilesIncluded>
               <propertiesSystem>
                 <version>${project.version}</version>
-              </propertiesSystem>
-              <propertiesSystem>
                 <tenant>${tenant}</tenant>
+                <hostname>${hostname}</hostname>
+                <qualifier>${qualifier}</qualifier>
+                <verify>${verify}</verify>
               </propertiesSystem>
             </configuration>
             <executions>
@@ -1242,16 +1243,6 @@
               </execution>
             </executions>
             <dependencies>
-              <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-api</artifactId>
-                <version>${version.log4j}</version>
-              </dependency>
-              <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-core</artifactId>
-                <version>${version.log4j}</version>
-              </dependency>
               <dependency>
                 <groupId>org.apache.directory.fortress</groupId>
                 <artifactId>fortress-core</artifactId>
@@ -1288,9 +1279,10 @@
               </testFilesIncluded>
               <propertiesSystem>
                 <version>${project.version}</version>
-              </propertiesSystem>
-              <propertiesSystem>
                 <tenant>${tenant}</tenant>
+                <hostname>${hostname}</hostname>
+                <qualifier>${qualifier}</qualifier>
+                <verify>${verify}</verify>
               </propertiesSystem>
             </configuration>
             <executions>
@@ -1302,16 +1294,6 @@
               </execution>
             </executions>
             <dependencies>
-              <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-api</artifactId>
-                <version>${version.log4j}</version>
-              </dependency>
-              <dependency>
-                <groupId>org.apache.logging.log4j</groupId>
-                <artifactId>log4j-core</artifactId>
-                <version>${version.log4j}</version>
-              </dependency>
               <dependency>
                 <groupId>org.apache.directory.fortress</groupId>
                 <artifactId>fortress-core</artifactId>

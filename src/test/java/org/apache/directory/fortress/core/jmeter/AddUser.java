@@ -19,14 +19,8 @@
  */
 package org.apache.directory.fortress.core.jmeter;
 
-import org.apache.directory.fortress.core.*;
-import org.apache.directory.fortress.core.SecurityException;
-import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
-import org.slf4j.LoggerFactory;
-import org.apache.directory.fortress.core.AdminMgr;
-import org.apache.directory.fortress.core.impl.TestUtils;
 import org.apache.directory.fortress.core.model.User;
 
 import static org.junit.Assert.*;
@@ -36,14 +30,9 @@ import static org.junit.Assert.*;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class AddUser extends AbstractJavaSamplerClient
+public class AddUser extends UserBase
 {
-    private AdminMgr adminMgr;
-    private static final org.slf4j.Logger LOG = LoggerFactory.getLogger( AddUser.class );
-    private static int count = 0;
     private int ctr = 0;
-    private String hostname;
-    private String qualifier;
 
     /**
      * Description of the Method
@@ -58,19 +47,17 @@ public class AddUser extends AbstractJavaSamplerClient
         try
         {
             sampleResult.sampleStart();
-            String message = "FT AddUser TID: " + getThreadId() + " UID:" + userId + " CTR:" + ctr++;
-            LOG.info( message );
-            //System.out.println( message );
             assertNotNull( adminMgr );
-            //key = getKey();
-            //userId = hostname + '-' + key;
             User user = new User();
-            // positive test case:
             user.setUserId( userId );
             user.setPassword( "secret" );
             user.setOu( "dev0");
             User outUser = adminMgr.addUser( user );
             assertNotNull( outUser );
+            if ( verify )
+            {
+                assertTrue( verify( userId, Op.ADD ) );
+            }
             sampleResult.sampleEnd();
             sampleResult.setBytes(1);
             sampleResult.setResponseMessage("test completed TID: " + getThreadId() + " UID: " + userId);
@@ -78,64 +65,11 @@ public class AddUser extends AbstractJavaSamplerClient
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
-            System.out.println( "ThreadId:" + getThreadId() + "Error running test: " + se );
+            warn( "ThreadId: " + getThreadId() + ", error running test: " + se );
             se.printStackTrace();
             sampleResult.setSuccessful( false );
         }
 
         return sampleResult;
-    }
-
-    /**
-     * Description of the Method
-     *
-     * @param samplerContext Description of the Parameter
-     */
-    public void setupTest( JavaSamplerContext samplerContext )
-    {
-        ctr = 0;
-        hostname = samplerContext.getParameter( "hostname" );
-        qualifier = samplerContext.getParameter( "qualifier" );
-        String message = "FT SETUP Add User TID: " + getThreadId() + ", hostname: " + hostname + ", qualifier: " + qualifier;
-        LOG.info( message );
-        System.out.println( message );
-        try
-        {
-            adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );
-        }
-        catch ( SecurityException se )
-        {
-            System.out.println( "ThreadId:" + getThreadId() + "FT SETUP Error: " + se );
-            se.printStackTrace();
-        }
-    }
-
-    /**
-     *
-     * @return
-     */
-    synchronized private int getKey( )
-    {
-        return ++count;
-    }
-    synchronized private String getKey( long threadId )
-    {
-        return threadId + "-" + count++;
-    }
-    private String getThreadId()
-    {
-        return "" + Thread.currentThread().getId();
-    }
-
-    /**
-     * Description of the Method
-     *
-     * @param samplerContext Description of the Parameter
-     */
-    public void teardownTest( JavaSamplerContext samplerContext )
-    {
-        String message = "FT SETUP AddUser TID: " + getThreadId();
-        LOG.info( message );
-        System.out.println( message );
     }
 }

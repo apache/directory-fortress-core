@@ -64,7 +64,12 @@
               </elementProp>
               <elementProp name="qualifier" elementType="Argument">
                 <stringProp name="Argument.name">qualifier</stringProp>
-                <stringProp name="Argument.value">A</stringProp>
+                <stringProp name="Argument.value">Z</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="verify" elementType="Argument">
+                <stringProp name="Argument.name">verify</stringProp>
+                <stringProp name="Argument.value">true</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
