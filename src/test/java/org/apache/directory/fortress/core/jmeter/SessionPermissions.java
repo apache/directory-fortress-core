@@ -252,11 +252,6 @@ public class SessionPermissions extends AbstractJavaSamplerClient
             LOG.error( error );
             se.printStackTrace();
         }
-/*
-        catch ( InterruptedException ie )
-        {
-            // ignore
-        }
-*/
+        System.exit(0);
     }
 }
