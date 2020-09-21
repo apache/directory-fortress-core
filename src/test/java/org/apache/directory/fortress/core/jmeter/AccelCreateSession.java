@@ -127,6 +127,7 @@ public class AccelCreateSession extends AbstractJavaSamplerClient
         String message = "AC TEARDOWN CreateSession TID: " + getThreadId();
         LOG.info( message );
         System.out.println( message );
+        System.exit(0);
     }
 
     synchronized private int getKey( )

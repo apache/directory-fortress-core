@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.jmeter;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.User;
@@ -48,7 +49,6 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     protected AdminMgr adminMgr;
     protected ReviewMgr reviewMgr;
     protected static final Logger LOG = LoggerFactory.getLogger( UserBase.class );
-    //private static int count = 0;
     private static AtomicInteger count = new AtomicInteger(0);
     protected String hostname;
     protected String qualifier;
@@ -88,14 +88,29 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         return found;
     }
 
-    private void init()
+    private void init( JavaSamplerContext samplerContext )
     {
         hostname = System.getProperty( "hostname" );
+        if (StringUtils.isEmpty( hostname ))
+        {
+            hostname = samplerContext.getParameter( "hostname" );
+        }
         System.setProperty( "fortress.host", hostname );
         qualifier = System.getProperty( "qualifier" );
-        filename = "operations" + '-' + "thread" + getThreadId() + '-' + hostname + '-' + qualifier + ".txt";
+        if (StringUtils.isEmpty( qualifier ))
+        {
+            qualifier = samplerContext.getParameter( "qualifier" );
+        }
         String szVerify = System.getProperty( "verify" );
-        verify = szVerify.equalsIgnoreCase( "true" );
+        if (StringUtils.isEmpty( szVerify ))
+        {
+            verify = samplerContext.getParameter( "verify" ).equalsIgnoreCase( "true" );
+        }
+        else
+        {
+            verify = szVerify.equalsIgnoreCase( "true" );
+        }
+        filename = "operations" + '-' + "thread" + getThreadId() + '-' + hostname + '-' + qualifier + ".txt";
         open();
     }
 
@@ -106,7 +121,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
      */
     public void setupTest( JavaSamplerContext samplerContext )
     {
-        init();
+        init( samplerContext );
         String message = "FT SETUP User TID: " + getThreadId() + ", hostname: " + hostname + ", qualifier: " + qualifier + ", verify:" + verify;
         log( message );
         System.out.println( message );
@@ -160,6 +175,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         String message = "FT SETUP User TID: " + getThreadId();
         log( message );
         close();
+        System.exit(0);
     }
 
     private void open()

@@ -143,5 +143,6 @@ public class FortressCreateSession extends AbstractJavaSamplerClient
         String message = "FT SETUP CreateSession TID: " + getThreadId();
         LOG.info( message );
         System.out.println( message );
+        System.exit(0);
     }
 }
