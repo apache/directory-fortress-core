@@ -19,7 +19,6 @@
  */
 package org.apache.directory.fortress.core.jmeter;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.User;
@@ -85,6 +84,17 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         return found;
     }
 
+    private void init()
+    {
+        hostname = System.getProperty( "hostname" );
+        System.setProperty( "fortress.host", hostname );
+        qualifier = System.getProperty( "qualifier" );
+        filename = "operations" + '-' + "thread" + getThreadId() + '-' + hostname + '-' + qualifier + ".txt";
+        String szVerify = System.getProperty( "verify" );
+        verify = szVerify.equalsIgnoreCase( "true" );
+        open();
+    }
+
     /**
      * Description of the Method
      *
@@ -92,30 +102,10 @@ public abstract class UserBase extends AbstractJavaSamplerClient
      */
     public void setupTest( JavaSamplerContext samplerContext )
     {
-        hostname = System.getProperty( "hostname" );
-        if (StringUtils.isEmpty( hostname ))
-        {
-            hostname = samplerContext.getParameter( "hostname" );
-        }
-        System.setProperty( "fortress.host", hostname );
-        qualifier = System.getProperty( "qualifier" );
-        if (StringUtils.isEmpty( qualifier ))
-        {
-            qualifier = samplerContext.getParameter( "qualifier" );
-        }
-        filename = "operations" + '-' + hostname + '-' + qualifier + ".txt";
-        String szVerify = System.getProperty( "verify" );
-        if (StringUtils.isEmpty( szVerify ))
-        {
-            verify = samplerContext.getParameter( "verify" ).equalsIgnoreCase( "true" );
-        }
-        else
-        {
-            verify = szVerify.equalsIgnoreCase( "true" );
-        }
         String message = "FT SETUP User TID: " + getThreadId() + ", hostname: " + hostname + ", qualifier: " + qualifier + ", verify:" + verify;
         log( message );
         System.out.println( message );
+        init();
         try
         {
             adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );
@@ -149,6 +139,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     {
         return ++count;
     }
+
     String getThreadId()
     {
         return "" + Thread.currentThread().getId();
@@ -184,7 +175,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         printWriter.close();
     }
 
-    protected synchronized void write( String message )
+    protected void write( String message )
     {
         printWriter.printf("%s\n", message);
         printWriter.flush();
