@@ -52,6 +52,7 @@ public class AddUser extends UserBase
             user.setUserId( userId );
             user.setPassword( "secret" );
             user.setOu( "dev0");
+            write( "threadid: " + getThreadId() + ", userId: " + userId );
             User outUser = adminMgr.addUser( user );
             assertNotNull( outUser );
             if ( verify )

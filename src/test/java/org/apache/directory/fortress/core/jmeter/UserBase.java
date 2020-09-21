@@ -30,6 +30,10 @@ import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.impl.TestUtils;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import static org.junit.Assert.assertNotNull;
 
 /**
@@ -46,6 +50,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     protected String hostname;
     protected String qualifier;
     protected boolean verify;
+    private PrintWriter printWriter;
 
     protected enum Op
     {
@@ -119,6 +124,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
             warn( "ThreadId: " + getThreadId() + ", error setting up test: " + se );
             se.printStackTrace();
         }
+        open();
     }
 
     protected void log( String message )
@@ -155,5 +161,30 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     {
         String message = "FT SETUP User TID: " + getThreadId();
         log( message );
+        close();
+    }
+
+    private void open()
+    {
+        try
+        {
+            FileWriter fileWriter = new FileWriter("operations.txt");
+            printWriter = new PrintWriter(fileWriter);
+        }
+        catch ( IOException ie )
+        {
+            warn( ie.getMessage() );
+        }
+    }
+
+    private void close()
+    {
+        printWriter.close();
+    }
+
+    protected synchronized void write( String message )
+    {
+        printWriter.printf("%s\n", message);
+        printWriter.close();
     }
 }

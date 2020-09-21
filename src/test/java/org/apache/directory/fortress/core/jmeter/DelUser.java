@@ -50,6 +50,7 @@ public class DelUser extends UserBase
             assertNotNull( adminMgr );
             User user = new User();
             user.setUserId( userId );
+            write( "threadid: " + getThreadId() + ", userId: " + userId );
             adminMgr.deleteUser( user );
             if ( verify )
             {
