@@ -49,6 +49,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     private static int count = 0;
     protected String hostname;
     protected String qualifier;
+    private String filename;
     protected boolean verify;
     private PrintWriter printWriter;
 
@@ -102,6 +103,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         {
             qualifier = samplerContext.getParameter( "qualifier" );
         }
+        filename = "operations" + '-' + hostname + '-' + qualifier + ".txt";
         String szVerify = System.getProperty( "verify" );
         if (StringUtils.isEmpty( szVerify ))
         {
@@ -168,7 +170,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     {
         try
         {
-            FileWriter fileWriter = new FileWriter("operations.txt");
+            FileWriter fileWriter = new FileWriter(filename);
             printWriter = new PrintWriter(fileWriter);
         }
         catch ( IOException ie )
