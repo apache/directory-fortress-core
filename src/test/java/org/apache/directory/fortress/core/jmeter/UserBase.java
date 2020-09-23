@@ -55,6 +55,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     private String filename;
     protected boolean verify = false;
     protected boolean output = false;
+    protected int sleep = 0;
     private PrintWriter printWriter;
 
     protected enum Op
@@ -143,6 +144,15 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         else
         {
             output = szLog.equalsIgnoreCase( "true" );
+        }
+        String szSleep = System.getProperty( "sleep" );
+        if (StringUtils.isEmpty( szSleep ))
+        {
+            szSleep = samplerContext.getParameter( "sleep" );
+        }
+        if (!StringUtils.isEmpty( szSleep ))
+        {
+            sleep = Integer.valueOf(szSleep);
         }
         filename = "operations" + '-' + "thread" + getThreadId() + '-' + hostname + '-' + qualifier + ".txt";
         open();

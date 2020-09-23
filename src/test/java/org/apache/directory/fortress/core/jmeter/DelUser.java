@@ -56,6 +56,17 @@ public class DelUser extends UserBase
             {
                 assertFalse( verify( userId, Op.DEL ) );
             }
+            if( sleep > 0 )
+            {
+                try
+                {
+                    Thread.sleep( sleep );
+                }
+                catch (InterruptedException ie)
+                {
+                    Thread.currentThread().interrupt();
+                }
+            }
             sampleResult.sampleEnd();
             sampleResult.setBytes(1);
             sampleResult.setResponseMessage("test completed TID: " + getThreadId() + " UID: " + userId);
