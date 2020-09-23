@@ -1222,7 +1222,8 @@
                 <hostname>${hostname}</hostname>
                 <qualifier>${qualifier}</qualifier>
                 <verify>${verify}</verify>
-                <verify>${output}</verify>
+                <output>${output}</output>
+                <sleep>${sleep}</sleep>
               </propertiesSystem>
             </configuration>
             <executions>
@@ -1274,7 +1275,8 @@
                 <hostname>${hostname}</hostname>
                 <qualifier>${qualifier}</qualifier>
                 <verify>${verify}</verify>
-                <verify>${output}</verify>
+                <output>${output}</output>
+                <sleep>${sleep}</sleep>
               </propertiesSystem>
             </configuration>
             <executions>
