@@ -55,6 +55,12 @@ public class AddUser extends UserBase
             write( "threadid: " + getThreadId() + ", userId: " + userId );
             User outUser = adminMgr.addUser( user );
             assertNotNull( outUser );
+            if( update )
+            {
+                user.setDescription( "updated: " + user.getUserId() );
+                outUser = adminMgr.updateUser( user );
+            }
+            assertNotNull( outUser );
             if ( verify )
             {
                 assertTrue( verify( userId, Op.ADD ) );

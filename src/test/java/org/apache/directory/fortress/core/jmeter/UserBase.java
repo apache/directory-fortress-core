@@ -55,6 +55,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     private String filename;
     protected boolean verify = false;
     protected boolean output = false;
+    protected boolean update = false;
     protected int sleep = 0;
     private PrintWriter printWriter;
 
@@ -144,6 +145,15 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         else
         {
             output = szLog.equalsIgnoreCase( "true" );
+        }
+        String szUpdate = System.getProperty( "update" );
+        if (StringUtils.isEmpty( szUpdate ))
+        {
+            update = samplerContext.getParameter( "update" ).equalsIgnoreCase( "true" );
+        }
+        else
+        {
+            update = szVerify.equalsIgnoreCase( "true" );
         }
         String szSleep = System.getProperty( "sleep" );
         if (StringUtils.isEmpty( szSleep ))

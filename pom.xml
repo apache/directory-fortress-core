@@ -1224,6 +1224,7 @@
                 <qualifier>${qualifier}</qualifier>
                 <verify>${verify}</verify>
                 <output>${output}</output>
+                <update>${update}</update>
                 <sleep>${sleep}</sleep>
               </propertiesSystem>
             </configuration>

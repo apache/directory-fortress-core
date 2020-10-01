@@ -77,6 +77,11 @@
                 <stringProp name="Argument.value">false</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
+              <elementProp name="update" elementType="Argument">
+                <stringProp name="Argument.name">update</stringProp>
+                <stringProp name="Argument.value">true</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
               <elementProp name="sleep" elementType="Argument">
                 <stringProp name="Argument.name">sleep</stringProp>
                 <stringProp name="Argument.value">5</stringProp>
