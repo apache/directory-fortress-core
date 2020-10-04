@@ -51,7 +51,8 @@ public class AddUser extends UserBase
             User user = new User();
             user.setUserId( userId );
             user.setPassword( "secret" );
-            user.setOu( "jmeter");
+            // Use one from OrgUnitExample.xml:
+            user.setOu( "uou1");
             write( "threadid: " + getThreadId() + ", userId: " + userId );
             User outUser = adminMgr.addUser( user );
             assertNotNull( outUser );
