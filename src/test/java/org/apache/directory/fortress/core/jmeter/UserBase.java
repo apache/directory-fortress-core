@@ -117,12 +117,12 @@ public abstract class UserBase extends AbstractJavaSamplerClient
 
     private void init( JavaSamplerContext samplerContext )
     {
+        // Can override hostname via system property:
         hostname = System.getProperty( "hostname" );
-        if (StringUtils.isEmpty( hostname ))
+        if (! StringUtils.isEmpty( hostname ))
         {
-            hostname = samplerContext.getParameter( "hostname" );
+            System.setProperty( "fortress.host", hostname );
         }
-        System.setProperty( "fortress.host", hostname );
         qualifier = System.getProperty( "qualifier" );
         if (StringUtils.isEmpty( qualifier ))
         {

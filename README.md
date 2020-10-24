@@ -835,6 +835,11 @@ ________________________________________________________________________________
   mvn -Ploadtest-fortress-adduser jmeter:jmeter
   ```
 
+ G. Delete Users:
+  ```
+  mvn -Ploadtest-fortress-deluser jmeter:jmeter
+  ```
+
  The tests will run and produce measurements for throughput and latency.
 
 ___________________________________________________________________________________
