@@ -1303,7 +1303,59 @@
               </dependency>
             </dependencies>
           </plugin>
+        </plugins>
+      </build>
+    </profile>
 
+    <!-- This profile starts Fortress core checkAccess loadTest -->
+    <!-- To execute: mvn -Ploadtest-fortress-checkuser jmeter:jmeter -->
+    <profile>
+      <id>loadtest-fortress-checkuser</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.lazerycode.jmeter</groupId>
+            <artifactId>jmeter-maven-plugin</artifactId>
+            <version>1.10.0</version>
+            <configuration>
+              <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
+              <suppressJMeterOutput>false</suppressJMeterOutput>
+              <testFilesIncluded>
+                <jMeterTestFile>ftCheckUser.jmx</jMeterTestFile>
+              </testFilesIncluded>
+              <propertiesSystem>
+                <version>${project.version}</version>
+                <tenant>${tenant}</tenant>
+                <hostname>${hostname}</hostname>
+                <qualifier>${qualifier}</qualifier>
+                <verify>${verify}</verify>
+                <output>${output}</output>
+                <sleep>${sleep}</sleep>
+                <size>${size}</size>
+              </propertiesSystem>
+            </configuration>
+            <executions>
+              <execution>
+                <id>jmeter-tests</id>
+                <goals>
+                  <goal>jmeter</goal>
+                </goals>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>org.apache.directory.fortress</groupId>
+                <artifactId>fortress-core</artifactId>
+                <version>${project.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.directory.fortress</groupId>
+                <artifactId>fortress-core</artifactId>
+                <type>test-jar</type>
+                <version>${project.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
         </plugins>
       </build>
     </profile>

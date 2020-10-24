@@ -47,6 +47,7 @@ import static org.junit.Assert.assertNotNull;
  */
 public abstract class UserBase extends AbstractJavaSamplerClient
 {
+    protected AccessMgr accessMgr;
     protected AdminMgr adminMgr;
     protected ReviewMgr reviewMgr;
     protected static final Logger LOG = LoggerFactory.getLogger( UserBase.class );
@@ -59,12 +60,14 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     protected boolean update = false;
     protected String ou = null;
     protected int sleep = 0;
+    protected int size = 0;
     private PrintWriter printWriter;
 
     protected enum Op
     {
         ADD,
-        DEL
+        DEL,
+        CHECK
     }
 
     protected boolean verify( String userId, Op op )
@@ -84,7 +87,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
-            if( op == Op.ADD )
+            if( op == Op.ADD || op == Op.CHECK )
             {
                 warn( "Failed add check, threadId: " + getThreadId() + ", error reading user: " + se );
                 se.printStackTrace();
@@ -106,6 +109,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         System.out.println( message );
         try
         {
+            accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
             adminMgr = AdminMgrFactory.createInstance( TestUtils.getContext() );
             reviewMgr = ReviewMgrFactory.createInstance( TestUtils.getContext() );
         }
@@ -174,6 +178,15 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         if (!StringUtils.isEmpty( szSleep ))
         {
             sleep = Integer.valueOf(szSleep);
+        }
+        String szSize = System.getProperty( "size" );
+        if (StringUtils.isEmpty( szSize ))
+        {
+            szSize = samplerContext.getParameter( "size" );
+        }
+        if (!StringUtils.isEmpty( szSize ))
+        {
+            size = Integer.valueOf(szSize);
         }
         filename = "operations" + '-' + "thread" + getThreadId() + '-' + hostname + '-' + qualifier + ".txt";
         open();
@@ -252,5 +265,11 @@ public abstract class UserBase extends AbstractJavaSamplerClient
             printWriter.printf("%s : %s\n", now, message);
             printWriter.flush();
         }
+    }
+
+    protected int getRandomNumber()
+    {
+        int number = (int) ((Math.random() * (size - 1)) + 1);
+        return number;
     }
 }

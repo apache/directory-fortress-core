@@ -781,6 +781,9 @@ ________________________________________________________________________________
  G. Fortress Del User:
   [src/test/jmeter/ftDelUser.jmx](src/test/jmeter/ftDelUser.jmx)
 
+ H. Fortress Check User:
+  [src/test/jmeter/ftCheckUser.jmx](src/test/jmeter/ftCheckUser.jmx)
+
 3. Setting the jmeter parameters.
 
  These settings affect the length, duration, and the number of threads:
@@ -853,6 +856,16 @@ ________________________________________________________________________________
   ```
   mvn -Ploadtest-fortress-deluser jmeter:jmeter -Dqualifier=A1 -Dverify=true -Dsleep=30
   ```
+
+ H. Check Users:
+  ```
+  mvn -Ploadtest-fortress-checkuser jmeter:jmeter -Dqualifier=A1 -Dverify=true -Dsize=20
+  ```
+
+  This test performs createSession on users.  It uses runtime arguments to define behavior:
+   * size=20  <-- defines the number of users in the test set. 
+
+
 
   * Same properties as add except for 'ou', which is not used for delete ops
 
