@@ -857,6 +857,8 @@ ________________________________________________________________________________
   mvn -Ploadtest-fortress-deluser jmeter:jmeter -Dqualifier=A1 -Dverify=true -Dsleep=30
   ```
 
+  * Same properties as add except for 'ou', which is not used for delete ops
+
  H. Check Users:
   ```
   mvn -Ploadtest-fortress-checkuser jmeter:jmeter -Dqualifier=A1 -Dverify=true -Dsize=20
@@ -864,10 +866,6 @@ ________________________________________________________________________________
 
   This test performs createSession on users.  It uses runtime arguments to define behavior:
    * size=20  <-- defines the number of users in the test set. 
-
-
-
-  * Same properties as add except for 'ou', which is not used for delete ops
 
 ___________________________________________________________________________________
 ## SECTION 15. Instructions to encrypt LDAP passwords used in config files
