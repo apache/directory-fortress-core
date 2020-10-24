@@ -53,7 +53,6 @@ Role-Based Access Control (RBAC)
  * SECTION 12. Instructions to run the Apache Fortress Command Console.
  * SECTION 13. Instructions to build and test the Apache Fortress samples.
  * SECTION 14. Instructions to performance test.
- * SECTION 15. Instructions to encrypt LDAP passwords used in config files.
 ___________________________________________________________________________________
 ## Document Overview
 
@@ -866,30 +865,6 @@ ________________________________________________________________________________
 
   This test performs createSession on users.  It uses runtime arguments to define behavior:
    * size=20  <-- defines the number of users in the test set. 
-
-___________________________________________________________________________________
-## SECTION 15. Instructions to encrypt LDAP passwords used in config files
-
-If you need the passwords for LDAP service accounts to be encrypted before loading into Fortress properties files you can
-use the 'encrypt' ant target.
-
-1. From **FORTRESS_HOME** root folder, enter the following command from a system prompt:
-
- ```
- ant encrypt -Dparam1=secret
- encrypt:
-      [echo] Encrypt a value
-      [java] Encrypted value=wApnJUnuYZRBTF1zQNxX/Q==
- BUILD SUCCESSFUL
- Total time: 1 second
- ```
-
-2. Copy the hashed value and paste it into the corresponding build.properties setting, e.g.:
-
- ```
- # This OpenLDAP admin root pass is bound for fortress.properties and was hashed using 'encrypt' target in build.xml:
- cfg.log.root.pw=wApnJUnuYZRBTF1zQNxX/Q==
- ```
 
  ___________________________________________________________________________________
  #### END OF README
