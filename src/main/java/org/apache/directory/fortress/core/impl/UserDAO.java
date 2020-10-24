@@ -245,7 +245,6 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             Entry myEntry = new DefaultEntry( dn );
 
             myEntry.add( SchemaConstants.OBJECT_CLASS_AT, getUserObjectClass() );
-            //myEntry.add( SchemaConstants.OBJECT_CLASS_AT, USER_OBJ_CLASS );
             myEntry.add( GlobalIds.FT_IID, entity.getInternalId() );
             myEntry.add( SchemaConstants.UID_AT, entity.getUserId() );
 
@@ -628,9 +627,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
 
         try
         {
-            //ld = getAdminConnection();
             List<Modification> mods = new ArrayList<Modification>();
-
             mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, OPENLDAP_PW_LOCKED_TIME ) );
             ld = getAdminConnection();
             modify( ld, userDn, mods, user );
