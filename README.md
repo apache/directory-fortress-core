@@ -775,6 +775,11 @@ ________________________________________________________________________________
  E. Accelerator CreateSession:
   [src/test/jmeter/acCreateSession.jmx](src/test/jmeter/acCreateSession.jmx)
 
+ F. Fortress Add User:
+  [src/test/jmeter/ftAddUser.jmx](src/test/jmeter/ftAddUser.jmx)
+
+ G. Fortress Del User:
+  [src/test/jmeter/ftDelUser.jmx](src/test/jmeter/ftDelUser.jmx)
 
 3. Setting the jmeter parameters.
 
@@ -834,19 +839,21 @@ ________________________________________________________________________________
   ```
   mvn -Ploadtest-fortress-adduser jmeter:jmeter -Dqualifier=A1 -Dverify=true -Dsleep=30 -Dou=uou1
   ```
-    This test will add users.  It uses runtime arguments to define behavior like:
-     -Dhostname=foo  <-- optional field useful for distributing the load in a multi-master env, will override what's set in fortress.properties
+    * This test will add users.  It uses runtime arguments to define behavior like:
+     -Dhostname=foo  <-- optional field useful for distributing the load across servers in a multi-master env, it will override what's in fortress.properties
      -Dqualifier=A1  <-- this is used to construct userid: hostname + qualifier + counter
      -Dverify=true   <-- will read after operation to verify success
      -Dsleep=30      <-- sleep this many millisecones after each op
-     -Dou=uou1       <-- this is a required attribute on fortress user and must exist in user ou tree
+     -Dou=uou1       <-- this is a required attribute on user entry and must exist in user ou tree prior to test
+     
+    * All params but hostname can instead be set as properties in [add config](src/test/jmeter/ftAddUser.jmx) or [del config](src/test/jmeter/ftDelUser.jmx) files.
      
  G. Delete Users:
   ```
   mvn -Ploadtest-fortress-deluser jmeter:jmeter -Dqualifier=A1 -Dverify=true -Dsleep=30
   ```
 
- The tests will run and produce measurements for throughput and latency.
+    * Same properties as add except for 'ou', which is not used for delete ops
 
 ___________________________________________________________________________________
 ## SECTION 15. Instructions to encrypt LDAP passwords used in config files
