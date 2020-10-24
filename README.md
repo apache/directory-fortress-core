@@ -840,12 +840,12 @@ ________________________________________________________________________________
   mvn -Ploadtest-fortress-adduser jmeter:jmeter -Dqualifier=A1 -Dverify=true -Dsleep=30 -Dou=uou1
   ```
 
-  * This test adds users.  It uses runtime arguments to define behavior:
-   -Dhostname=foo  <-- optional field useful for distributing the load across servers in a multi-master env, it will override what's in fortress.properties
-   -Dqualifier=A1  <-- this is used to construct userid: hostname + qualifier + counter
-   -Dverify=true   <-- will read after operation to verify success
-   -Dsleep=30      <-- sleep this many millisecones after each op
-   -Dou=uou1       <-- this is a required attribute on user entry and must exist in user ou tree prior to test
+  This test adds users.  It uses runtime arguments to define behavior:
+   * hostname=foo  <-- optional field useful for distributing the load across servers in a multi-master env, it will override what's in fortress.properties 
+   * qualifier=A1  <-- this is used to construct userid: hostname + qualifier + counter 
+   * verify=true   <-- will read after operation to verify success 
+   * sleep=30      <-- sleep this many millisecones after each op 
+   * ou=uou1       <-- this is a required attribute on user entry and must exist in user ou tree prior to test 
      
   * All but hostname may also be set as properties in [add config](src/test/jmeter/ftAddUser.jmx) or [del config](src/test/jmeter/ftDelUser.jmx) files.
      
