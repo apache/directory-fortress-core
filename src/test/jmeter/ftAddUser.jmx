@@ -82,6 +82,12 @@
                 <stringProp name="Argument.value">5</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
+              <elementProp name="ou" elementType="Argument">
+                <stringProp name="Argument.name">ou</stringProp>
+                <!-- Use one from OrgUnitExample.xml -->
+                <stringProp name="Argument.value">uou1</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
             </collectionProp>
           </elementProp>
           <stringProp name="classname">org.apache.directory.fortress.core.jmeter.AddUser</stringProp>

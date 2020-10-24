@@ -832,12 +832,18 @@ ________________________________________________________________________________
 
  F. Add Users:
   ```
-  mvn -Ploadtest-fortress-adduser jmeter:jmeter
+  mvn -Ploadtest-fortress-adduser jmeter:jmeter -Dqualifier=A1 -Dverify=true -Dsleep=30 -Dou=uou1
   ```
-
+    This test will add users.  It uses runtime arguments to define behavior like:
+     -Dhostname=foo  <-- optional field useful for distributing the load in a multi-master env, will override what's set in fortress.properties
+     -Dqualifier=A1  <-- this is used to construct userid: hostname + qualifier + counter
+     -Dverify=true   <-- will read after operation to verify success
+     -Dsleep=30      <-- sleep this many millisecones after each op
+     -Dou=uou1       <-- this is a required attribute on fortress user and must exist in user ou tree
+     
  G. Delete Users:
   ```
-  mvn -Ploadtest-fortress-deluser jmeter:jmeter
+  mvn -Ploadtest-fortress-deluser jmeter:jmeter -Dqualifier=A1 -Dverify=true -Dsleep=30
   ```
 
  The tests will run and produce measurements for throughput and latency.

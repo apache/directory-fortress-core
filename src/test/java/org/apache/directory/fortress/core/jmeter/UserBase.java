@@ -23,6 +23,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.User;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.slf4j.Logger;
@@ -56,6 +57,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     protected boolean verify = false;
     protected boolean output = false;
     protected boolean update = false;
+    protected String ou = null;
     protected int sleep = 0;
     private PrintWriter printWriter;
 
@@ -123,10 +125,19 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         {
             System.setProperty( "fortress.host", hostname );
         }
+        else
+        {
+            hostname = Config.getInstance().getProperty( GlobalIds.LDAP_HOST );
+        }
         qualifier = System.getProperty( "qualifier" );
         if (StringUtils.isEmpty( qualifier ))
         {
             qualifier = samplerContext.getParameter( "qualifier" );
+        }
+        ou = System.getProperty( "ou" );
+        if (StringUtils.isEmpty( ou ))
+        {
+            ou = samplerContext.getParameter( "ou" );
         }
         String szVerify = System.getProperty( "verify" );
         if (StringUtils.isEmpty( szVerify ))
