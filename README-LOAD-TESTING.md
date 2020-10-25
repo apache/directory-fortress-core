@@ -23,17 +23,11 @@ Contains instructions to load test Apache Fortress using maven jmeter plugin.
 ___________________________________________________________________________________
 ## Table of Contents
 
- * Prerequisites
- * 1. Load the security policy
- * 2. Find the .jmx files
- * 3. Setting the jmeter parameters
- * 4. Run the tests
- * 5. Understanding the tests
-
-___________________________________________________________________________________
-## Prerequisites
-
-A working Apache Fortress test environment.  Follow the instructions in the README's located under package root folder.
+ 1. Load the security policy
+ 2. Find the .jmx files
+ 3. Setting the jmeter parameters
+ 4. Run the tests
+ 5. Understanding the tests
 
 ___________________________________________________________________________________
 ### 1. Load the security policy
