@@ -20,21 +20,29 @@
 
 Contains instructions to load test Apache Fortress using maven jmeter plugin.
 
+___________________________________________________________________________________
+## Table of Contents
+
+ * Prerequisites
+ * 1. Load the security policy
+ * 2. Find the .jmx files
+ * 3. Setting the jmeter parameters
+ * 4. Run the tests
+ * 5. Understanding the tests
+
+___________________________________________________________________________________
 ## Prerequisites
 
 A working Apache Fortress test environment.  Follow the instructions in the README's located under package root folder.
+
 ___________________________________________________________________________________
-## SECTION 1. Instructions to performance test
-
- This section describes the Apache Fortress jmeter test programs.
-
-1. Load the security policy and users required by the jmeter test routines:
+### 1. Load the security policy
 
  ```
  mvn install -Dload.file=./ldap/setup/JmeterTestPolicy.xml
  ```
 
-2. The .jmx files located in [.src/test/jmeter](.src/test/jmeter) folder correspond to each test type:
+### 2. Find the .jmx files
 
  A. Add User:
   [src/test/jmeter/ftAddUser.jmx](src/test/jmeter/ftAddUser.jmx)
@@ -45,7 +53,7 @@ ________________________________________________________________________________
  C. Check User:
   [src/test/jmeter/ftCheckUser.jmx](src/test/jmeter/ftCheckUser.jmx)
 
-3. Setting the jmeter parameters.
+### 3. Setting the jmeter parameters
 
  These settings affect the length, duration, and the number of threads:
 
@@ -70,7 +78,7 @@ ________________________________________________________________________________
 
  This test will start ten threads in ten seconds.  Each thread executes the *createSession* function 1000 times before terminating.
 
-4.  Run the tests.
+### 4. Run the tests
 
  From **FORTRESS_HOME** folder, enter the following command from a system prompt:
 
@@ -113,7 +121,7 @@ ________________________________________________________________________________
    * size=20                  <-- defines the number of users in the test set
    * Dperm=jmeterobject.oper  <-- this is an optional property, will perform permission checks if set
 
-5. Understanding the tests.
+### 5. Understanding the tests
 
 A. Qualifier property.
 
