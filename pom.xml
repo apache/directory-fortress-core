@@ -1226,6 +1226,8 @@
                 <output>${output}</output>
                 <update>${update}</update>
                 <sleep>${sleep}</sleep>
+                <role>${role}</role>
+                <ou>${ou}</ou>
               </propertiesSystem>
             </configuration>
             <executions>
@@ -1332,6 +1334,7 @@
                 <output>${output}</output>
                 <sleep>${sleep}</sleep>
                 <size>${size}</size>
+                <perm>${perm}</perm>
               </propertiesSystem>
             </configuration>
             <executions>

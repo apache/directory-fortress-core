@@ -45,7 +45,7 @@
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
 
-          <stringProp name="LoopController.loops">100000</stringProp>
+          <stringProp name="LoopController.loops">1000</stringProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">10</stringProp>
         <stringProp name="ThreadGroup.ramp_time">10</stringProp>
@@ -85,6 +85,12 @@
               <elementProp name="size" elementType="Argument">
                 <stringProp name="Argument.name">size</stringProp>
                 <stringProp name="Argument.value">20</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="perm" elementType="Argument">
+                <stringProp name="Argument.name">perm</stringProp>
+                <!-- Use one from JmeterTestPolicy.xml -->
+                <stringProp name="Argument.value">jmeterobject.oper</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>

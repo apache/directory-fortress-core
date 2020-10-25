@@ -774,15 +774,6 @@ ________________________________________________________________________________
  E. Accelerator CreateSession:
   [src/test/jmeter/acCreateSession.jmx](src/test/jmeter/acCreateSession.jmx)
 
- F. Fortress Add User:
-  [src/test/jmeter/ftAddUser.jmx](src/test/jmeter/ftAddUser.jmx)
-
- G. Fortress Del User:
-  [src/test/jmeter/ftDelUser.jmx](src/test/jmeter/ftDelUser.jmx)
-
- H. Fortress Check User:
-  [src/test/jmeter/ftCheckUser.jmx](src/test/jmeter/ftCheckUser.jmx)
-
 3. Setting the jmeter parameters.
 
  These settings affect the length, duration, and the number of threads:
@@ -836,35 +827,5 @@ ________________________________________________________________________________
   ```
   mvn -Ploadtest-accel-createsess jmeter:jmeter
   ```
-
- F. Add Users:
-  ```
-  mvn -Ploadtest-fortress-adduser jmeter:jmeter -Dqualifier=A1 -Dverify=true -Dsleep=30 -Dou=uou1
-  ```
-
-  This test adds users.  It uses runtime arguments to define behavior:
-   * hostname=foo  <-- optional field useful for distributing the load across servers in a multi-master env, it will override what's in fortress.properties 
-   * qualifier=A1  <-- this is used to construct userid: hostname + qualifier + counter 
-   * verify=true   <-- will read after operation to verify success 
-   * sleep=30      <-- sleep this many millisecones after each op 
-   * ou=uou1       <-- this is a required attribute on user entry and must exist in user ou tree prior to test 
-     
-  * All but hostname may also be set as properties in [add config](src/test/jmeter/ftAddUser.jmx) or [del config](src/test/jmeter/ftDelUser.jmx) files.
-     
- G. Delete Users:
-  ```
-  mvn -Ploadtest-fortress-deluser jmeter:jmeter -Dqualifier=A1 -Dverify=true -Dsleep=30
-  ```
-
-  * Same properties as add except for 'ou', which is not used for delete ops
-
- H. Check Users:
-  ```
-  mvn -Ploadtest-fortress-checkuser jmeter:jmeter -Dqualifier=A1 -Dverify=true -Dsize=20
-  ```
-
-  This test performs createSession on users.  It uses runtime arguments to define behavior:
-   * size=20  <-- defines the number of users in the test set. 
-
- ___________________________________________________________________________________
- #### END OF README
+___________________________________________________________________________________
+#### END OF README

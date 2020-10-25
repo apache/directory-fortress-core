@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one
+   or more contributor license agreements.  See the NOTICE file
+   distributed with this work for additional information
+   regarding copyright ownership.  The ASF licenses this file
+   to you under the Apache License, Version 2.0 (the
+   "License"); you may not use this file except in compliance
+   with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing,
+   software distributed under the License is distributed on an
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+   KIND, either express or implied.  See the License for the
+   specific language governing permissions and limitations
+   under the License.
+-->
+<project basedir="." default="all" name="Sample Data for Jmeter tests">
+    <taskdef classname="org.apache.directory.fortress.core.ant.FortressAntTask" name="FortressAdmin" >
+        <classpath path="${java.class.path}"/>
+    </taskdef>
+
+    <target name="all">
+        <FortressAdmin>
+            <delorgunit>
+                <orgunit name="loadtestu" typeName="USER" description="Test User Org for Load Tests"/>
+                <orgunit name="loadtestp" typeName="PERM" description="Test Perm Org for Load Tests"/>
+            </delorgunit>
+
+            <addorgunit>
+                <orgunit name="loadtestu" typeName="USER" description="Test User Org for Load Tests"/>
+                <orgunit name="loadtestp" typeName="PERM" description="Test Perm Org for Load Tests"/>
+            </addorgunit>
+
+            <delrole>
+                <role name="jmeterrole"/>
+            </delrole>
+
+            <addrole>
+                <role name="jmeterrole" description="Used for Access Management Load Testing"/>
+            </addrole>
+
+            <delpermobj>
+                <permobj objName="jmeterobject"/>
+            </delpermobj>
+
+            <addpermobj>
+                <permobj objName="jmeterobject" description="This object is used for load testing" ou="loadtestp" type="test"/>
+            </addpermobj>
+
+            <delpermop>
+                <permop opName="oper1"  objName="jmeterobject"/>
+                <permop opName="oper2"  objName="jmeterobject"/>
+                <permop opName="oper3"  objName="jmeterobject"/>
+                <permop opName="oper4"  objName="jmeterobject"/>
+                <permop opName="oper5"  objName="jmeterobject"/>
+                <permop opName="oper6"  objName="jmeterobject"/>
+                <permop opName="oper7"  objName="jmeterobject"/>
+                <permop opName="oper8"  objName="jmeterobject"/>
+                <permop opName="oper9"  objName="jmeterobject"/>
+                <permop opName="oper10" objName="jmeterobject"/>
+            </delpermop>
+
+            <addpermop>
+                <permop opName="oper1"  objName="jmeterobject" type="test"/>
+                <permop opName="oper2"  objName="jmeterobject" type="test"/>
+                <permop opName="oper3"  objName="jmeterobject" type="test"/>
+                <permop opName="oper4"  objName="jmeterobject" type="test"/>
+                <permop opName="oper5"  objName="jmeterobject" type="test"/>
+                <permop opName="oper6"  objName="jmeterobject" type="test"/>
+                <permop opName="oper7"  objName="jmeterobject" type="test"/>
+                <permop opName="oper8"  objName="jmeterobject" type="test"/>
+                <permop opName="oper9"  objName="jmeterobject" type="test"/>
+                <permop opName="oper10" objName="jmeterobject" type="test"/>
+            </addpermop>
+
+            <delpermgrant>
+                <permgrant objName="jmeterobject" opName="oper1"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper2"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper3"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper4"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper5"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper6"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper7"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper8"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper9"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper10" roleNm="jmeterrole"/>
+            </delpermgrant>
+
+            <addpermgrant>
+                <permgrant objName="jmeterobject" opName="oper1"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper2"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper3"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper4"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper5"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper6"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper7"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper8"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper9"  roleNm="jmeterrole"/>
+                <permgrant objName="jmeterobject" opName="oper10" roleNm="jmeterrole"/>
+            </addpermgrant>
+        </FortressAdmin>
+    </target>
+</project>

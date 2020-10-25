@@ -58,6 +58,8 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     protected boolean verify = false;
     protected boolean output = false;
     protected boolean update = false;
+    protected String role = null;
+    protected String perm = null;
     protected String ou = null;
     protected int sleep = 0;
     protected int size = 0;
@@ -142,6 +144,16 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         if (StringUtils.isEmpty( ou ))
         {
             ou = samplerContext.getParameter( "ou" );
+        }
+        role = System.getProperty( "role" );
+        if (StringUtils.isEmpty( role ))
+        {
+            role = samplerContext.getParameter( "role" );
+        }
+        perm = System.getProperty( "perm" );
+        if (StringUtils.isEmpty( perm ))
+        {
+            perm = samplerContext.getParameter( "perm" );
         }
         String szVerify = System.getProperty( "verify" );
         if (StringUtils.isEmpty( szVerify ))

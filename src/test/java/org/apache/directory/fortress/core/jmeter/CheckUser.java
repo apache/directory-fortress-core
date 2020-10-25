@@ -19,7 +19,10 @@
  */
 package org.apache.directory.fortress.core.jmeter;
 
+import jodd.util.StringUtil;
+import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.directory.fortress.core.model.User;
@@ -43,6 +46,7 @@ public class CheckUser extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
+        int opCtr = 0;
         String userId  = hostname + '-' + qualifier + '-' + getRandomNumber();
         SampleResult sampleResult = new SampleResult();
         try
@@ -54,12 +58,34 @@ public class CheckUser extends UserBase
             user.setPassword( "secret" );
             write( "threadid: " + getThreadId() + ", userId: " + userId );
             LOG.warn( "CheckUser: " + userId );
+            // This method performs both an ldap bind and a search:
             Session session = accessMgr.createSession( user, false );
+            opCtr++;
             assertNotNull( session );
             if ( verify )
             {
+                // perform an ldap 'read':
                 assertTrue( verify( userId, Op.CHECK ) );
+                opCtr++;
             }
+            if(StringUtil.isNotEmpty( perm ) )
+            {
+                // The perm property format is: object.operation
+                int indx = perm.indexOf('.');
+                if (indx != -1)
+                {
+                    Permission p = new Permission( );
+                    p.setObjName( perm.substring(0, indx) );
+                    for( int i = 1; i < 11; i++ )
+                    {
+                        p.setOpName( perm.substring( indx + 1 ) + i );
+                        // This method performs an ldap 'read':
+                        accessMgr.checkAccess( session, p );
+                        opCtr++;
+                    }
+                }
+            }
+
             if( sleep > 0 )
             {
                 try
@@ -71,6 +97,7 @@ public class CheckUser extends UserBase
                     Thread.currentThread().interrupt();
                 }
             }
+            sampleResult.setSampleCount( opCtr );
             sampleResult.sampleEnd();
             sampleResult.setBytes(1);
             sampleResult.setResponseMessage("test completed TID: " + getThreadId() + " UID: " + userId);

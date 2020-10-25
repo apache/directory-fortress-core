@@ -84,8 +84,14 @@
               </elementProp>
               <elementProp name="ou" elementType="Argument">
                 <stringProp name="Argument.name">ou</stringProp>
-                <!-- Use one from OrgUnitExample.xml -->
-                <stringProp name="Argument.value">uou1</stringProp>
+                <!-- Use one from JmeterTestPolicy.xml -->
+                <stringProp name="Argument.value">loadtestu</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="role" elementType="Argument">
+                <stringProp name="Argument.name">role</stringProp>
+                <!-- Use one from JmeterTestPolicy.xml -->
+                <stringProp name="Argument.value">jmeterrole</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>

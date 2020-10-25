@@ -19,6 +19,8 @@
  */
 package org.apache.directory.fortress.core.jmeter;
 
+import jodd.util.StringUtil;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.directory.fortress.core.model.User;
@@ -42,6 +44,7 @@ public class AddUser extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
+        int opCtr = 0;
         String userId  = hostname + '-' + qualifier + '-' + getKey();
         SampleResult sampleResult = new SampleResult();
         try
@@ -54,16 +57,24 @@ public class AddUser extends UserBase
             user.setOu( ou );
             write( "threadid: " + getThreadId() + ", userId: " + userId );
             User outUser = adminMgr.addUser( user );
+            opCtr++;
             assertNotNull( outUser );
             if( update )
             {
                 user.setDescription( "updated: " + user.getUserId() );
                 outUser = adminMgr.updateUser( user );
+                opCtr++;
+            }
+            if(StringUtil.isNotEmpty( role ) )
+            {
+                adminMgr.assignUser( new UserRole( user.getUserId(), role ));
+                opCtr++;
             }
             assertNotNull( outUser );
             if ( verify )
             {
                 assertTrue( verify( userId, Op.ADD ) );
+                opCtr++;
             }
             if( sleep > 0 )
             {
@@ -76,6 +87,7 @@ public class AddUser extends UserBase
                     Thread.currentThread().interrupt();
                 }
             }
+            sampleResult.setSampleCount( opCtr );
             sampleResult.sampleEnd();
             sampleResult.setBytes(1);
             sampleResult.setResponseMessage("test completed TID: " + getThreadId() + " UID: " + userId);
