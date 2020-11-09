@@ -713,42 +713,13 @@
           </execution>
 
           <execution>
+            <id>fortress-load</id>
             <phase>test</phase>
             <configuration>
-              <!--<target name="stop-slapd-win-if-present" depends="slapd.dir.check" if="slapd.dir.exists">-->
               <target name="fortress-load" if="load.file" description="Loads fortress policy into ldap">
                 <echo message="############### Run Fortress Ant script to load policy ###############" />
                 <java classname="org.apache.tools.ant.launch.Launcher" fork="true" clonevm="true" failonerror="true" dir="${basedir}" timeout="600000" taskname="startAnt">
-                  <classpath>
-                    <!-- use config/bootstrap folder for config because the config ldap node isn't (might not be) inserted: -->
-                    <pathelement location="./config/bootstrap/" />
-                    <pathelement location="./target/classes/" />
-                    <pathelement location="${org.apache.ant:ant-launcher:jar}" />
-                    <pathelement location="${org.apache.ant:ant:jar}" />
-                    <pathelement location="${org.openldap:accelerator-api:jar}" />
-                    <pathelement location="${org.openldap:accelerator-impl:jar}" />
-                    <pathelement location="${org.apache.logging.log4j:log4j-api:jar}" />
-                    <pathelement location="${org.apache.logging.log4j:log4j-core:jar}" />
-                    <pathelement location="${org.apache.directory.api:api-all:jar}" />
-                    <pathelement location="${org.apache.mina:mina-core:jar}" />
-                    <pathelement location="${org.jgrapht:jgrapht-core:jar}" />
-                    <pathelement location="${org.jasypt:jasypt:jar}" />
-                    <pathelement location="${commons-configuration:commons-configuration:jar}" />
-                    <pathelement location="${commons-lang:commons-lang:jar}" />
-                    <pathelement location="${commons-collections:commons-collections:jar}" />
-                    <pathelement location="${commons-logging:commons-logging:jar}" />
-                    <pathelement location="${commons-io:commons-io:jar}" />
-                    <pathelement location="${commons-pool:commons-pool:jar}" />
-                    <pathelement location="${net.sf.ehcache:ehcache-core:jar}" />
-                    <pathelement location="${org.slf4j:slf4j-api:jar}" />
-                    <pathelement location="${org.apache.logging.log4j:log4j-slf4j-impl:jar}" />
-                    <pathelement location="${antlr:antlr:jar}" />
-                    <pathelement location="${javax.ws.rs:javax.ws.rs-api:jar}" />
-                    <pathelement location="${org.apache.httpcomponents:httpclient:jar}" />
-                    <pathelement location="${org.apache.httpcomponents:httpcore:jar}" />
-                    <pathelement location="${com.sun.xml.bind:jaxb-impl:jar}" />
-                    <pathelement location="${commons-codec:commons-codec:jar}" />
-                  </classpath>
+                  <classpath refid="maven.test.classpath"/>
                   <sysproperty key="version" value="${project.version}" />
                   <sysproperty key="tenant" value="${tenant}" />
                   <arg value="-buildfile" />
@@ -760,6 +731,29 @@
               <goal>run</goal>
             </goals>
           </execution>
+
+          <execution>
+            <id>fortress-load-debug</id>
+            <phase>test</phase>
+            <configuration>
+              <target name="fortress-load-debug" if="debug" description="Loads fortress policy into ldap">
+                <echo message="############### Run Fortress Ant script to load policy ###############" />
+                <java classname="org.apache.tools.ant.launch.Launcher" fork="true" clonevm="true" failonerror="true" dir="${basedir}" timeout="600000" taskname="startAnt">
+                  <classpath refid="maven.test.classpath"/>
+                  <jvmarg value="-Xdebug" />
+                  <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5432" />
+                  <sysproperty key="version" value="${project.version}" />
+                  <sysproperty key="tenant" value="${tenant}" />
+                  <arg value="-buildfile" />
+                  <arg file="./${load.file}" />
+                </java>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+
         </executions>
       </plugin>
     </plugins>
