@@ -738,7 +738,7 @@
             <id>fortress-load-debug</id>
             <phase>test</phase>
             <configuration>
-              <target name="fortress-load-debug" if="debug" description="Loads fortress policy into ldap">
+              <target name="fortress-load-debug" if="debug" description="Startup load using runfdwp mode">
                 <echo message="############### Run Fortress Ant script to load policy in debug mode ###############" />
                 <java classname="org.apache.tools.ant.launch.Launcher" fork="true" clonevm="true" failonerror="true" dir="${basedir}" timeout="600000" taskname="startAnt">
                   <classpath location="./config/bootstrap/"/>
