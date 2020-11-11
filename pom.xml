@@ -720,6 +720,8 @@
                 <echo message="############### Run Fortress Ant script to load policy ###############" />
                 <java classname="org.apache.tools.ant.launch.Launcher" fork="true" clonevm="true" failonerror="true" dir="${basedir}" timeout="600000" taskname="startAnt">
                   <classpath refid="maven.test.classpath"/>
+                  <!-- add config/bootstrap folder because the config ldap node might not be inserted yet: -->
+                  <classpath location="./config/bootstrap/"/>
                   <sysproperty key="version" value="${project.version}" />
                   <sysproperty key="tenant" value="${tenant}" />
                   <arg value="-buildfile" />
@@ -740,6 +742,7 @@
                 <echo message="############### Run Fortress Ant script to load policy ###############" />
                 <java classname="org.apache.tools.ant.launch.Launcher" fork="true" clonevm="true" failonerror="true" dir="${basedir}" timeout="600000" taskname="startAnt">
                   <classpath refid="maven.test.classpath"/>
+                  <classpath location="./config/bootstrap/"/>
                   <jvmarg value="-Xdebug" />
                   <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5432" />
                   <sysproperty key="version" value="${project.version}" />
