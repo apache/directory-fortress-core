@@ -716,7 +716,7 @@
             <id>fortress-load</id>
             <phase>test</phase>
             <configuration>
-              <target name="fortress-load" if="load.file" description="Loads fortress policy into ldap">
+              <target name="fortress-load" if="load.file" unless="debug" description="Loads fortress policy into ldap">
                 <echo message="############### Run Fortress Ant script to load policy ###############" />
                 <java classname="org.apache.tools.ant.launch.Launcher" fork="true" clonevm="true" failonerror="true" dir="${basedir}" timeout="600000" taskname="startAnt">
                   <!-- add config/bootstrap folder first because the config ldap node might not be inserted yet: -->
@@ -739,12 +739,13 @@
             <phase>test</phase>
             <configuration>
               <target name="fortress-load-debug" if="debug" description="Loads fortress policy into ldap">
-                <echo message="############### Run Fortress Ant script to load policy ###############" />
+                <echo message="############### Run Fortress Ant script to load policy in debug mode ###############" />
                 <java classname="org.apache.tools.ant.launch.Launcher" fork="true" clonevm="true" failonerror="true" dir="${basedir}" timeout="600000" taskname="startAnt">
                   <classpath location="./config/bootstrap/"/>
                   <classpath refid="maven.test.classpath"/>
                   <jvmarg value="-Xdebug" />
-                  <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5432" />
+                  <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=${debug}" />
+<!--                  <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5432" />-->
                   <sysproperty key="version" value="${project.version}" />
                   <sysproperty key="tenant" value="${tenant}" />
                   <arg value="-buildfile" />

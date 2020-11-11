@@ -53,6 +53,7 @@ Role-Based Access Control (RBAC)
  * SECTION 12. Instructions to run the Apache Fortress Command Console.
  * SECTION 13. Instructions to build and test the Apache Fortress samples.
  * SECTION 14. Instructions to performance test.
+ * SECTION 15. Howto Debug a load script.
 ___________________________________________________________________________________
 ## Document Overview
 
@@ -828,4 +829,24 @@ ________________________________________________________________________________
   mvn -Ploadtest-accel-createsess jmeter:jmeter
   ```
 ___________________________________________________________________________________
+## SECTION 14. Howto Debug a load script
+
+1. Add -Ddebug to runtime args
+
+```
+mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml -Ddebug=5432
+```
+
+ Which suspends the started process waiting for connection on port specified with -Ddebug flag.
+ 
+```
+fortress-load-debug:
+     [echo] ############### Run Fortress Ant script to load policy ###############
+ [startAnt] Listening for transport dt_socket at address: 5432
+```
+
+2. Set breakpoints in [FortressAntTask](src/main/java/org/apache/directory/fortress/core/ant/FortressAntTask.java)
+
+3. Connect with the JDB on the specified port.
+
 #### END OF README
