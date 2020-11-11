@@ -745,7 +745,6 @@
                   <classpath refid="maven.test.classpath"/>
                   <jvmarg value="-Xdebug" />
                   <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=${debug}" />
-<!--                  <jvmarg value="-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5432" />-->
                   <sysproperty key="version" value="${project.version}" />
                   <sysproperty key="tenant" value="${tenant}" />
                   <arg value="-buildfile" />
