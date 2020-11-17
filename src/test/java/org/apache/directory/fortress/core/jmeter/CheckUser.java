@@ -22,7 +22,6 @@ package org.apache.directory.fortress.core.jmeter;
 import jodd.util.StringUtil;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.directory.fortress.core.model.User;
@@ -36,8 +35,6 @@ import static org.junit.Assert.*;
  */
 public class CheckUser extends UserBase
 {
-    private int ctr = 0;
-
     /**
      * Description of the Method
      *
