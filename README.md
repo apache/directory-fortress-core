@@ -829,15 +829,15 @@ ________________________________________________________________________________
   mvn -Ploadtest-accel-createsess jmeter:jmeter
   ```
 ___________________________________________________________________________________
-## SECTION 14. Howto Debug a load script
+## SECTION 15. Howto Debug a load script
 
-1. Add -Ddebug to runtime args
+1. Add -Ddebug=port to runtime args:
 
 ```
 mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml -Ddebug=5432
 ```
 
- Which suspends the started process waiting for connection on port specified with -Ddebug flag.
+ Which suspends the process waiting for connection on port specified, e.g. 5432.
  
 ```
 fortress-load-debug:
