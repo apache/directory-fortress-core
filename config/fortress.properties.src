@@ -81,7 +81,7 @@ crypto.prop=@CFG_CRYPTO_PROP@
 
 ehcache.config.file=ehcache.xml
 
-# If for any reason echcache must be DISABLED for DSD, make sure this parameter is set to 'true' which is the default.  Otherwise performance penalty will be incurred during multi-role activations.
+# Default is false. Set to true to turn off caching of Dynamic Separation of Duty constraints.
 disable.dsd.cache=false
 
 # This will override default LDAP manager implementations for the RESTful ones:

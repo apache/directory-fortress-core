@@ -55,7 +55,7 @@ final class SDUtil
     private Cache m_ssdCache;
     private static final String FORTRESS_SSDS = "fortress.ssd";
     private SdP sp;
-    private static final String IS_DSD_CACHE_DISABLED_PARM = "enable.dsd.cache";
+    private static final String IS_DSD_CACHE_DISABLED_PARM = "disable.dsd.cache";
     private static final String DSD_NAME = "name";
     private static final String EMPTY_ELEMENT = "empty";
     private static final String CONTEXT_ID = "contextId";
