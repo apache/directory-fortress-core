@@ -152,7 +152,7 @@ public class LdapConnectionProvider
         {
             // validate certificates but allow self-signed certs if within this truststore:
             config.setTrustManagers( new LdapClientTrustStoreManager( Config.getInstance().getProperty( GlobalIds
-                .TRUST_STORE ), Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW ).toCharArray(), null,
+                .TRUST_STORE ), Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW, true ).toCharArray(), null,
                 true ) );
         }
 
