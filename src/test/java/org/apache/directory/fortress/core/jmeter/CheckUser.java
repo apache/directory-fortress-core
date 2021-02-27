@@ -44,7 +44,7 @@ public class CheckUser extends UserBase
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
         int opCtr = 0;
-        String userId  = hostname + '-' + qualifier + '-' + getRandomNumber();
+        String userId  = hostname + '-' + qualifier + '-' + getKey();
         SampleResult sampleResult = new SampleResult();
         try
         {
