@@ -118,8 +118,13 @@
     <version.jaxb.core>2.3.0.1</version.jaxb.core>
     <version.jaxb.impl>2.3.2</version.jaxb.impl>
     <version.jgrapht-core>1.4.0</version.jgrapht-core>
+<!--
     <version.jmeter.core>2.11</version.jmeter.core>
     <version.jmeter.java>2.11</version.jmeter.java>
+-->
+    <version.jmeter.core>3.0</version.jmeter.core>
+    <version.jmeter.java>3.0</version.jmeter.java>
+
     <version.junit>4.12</version.junit>
     <version.log4j>2.13.3</version.log4j>
     <version.mina.core>2.0.13</version.mina.core>
@@ -132,8 +137,9 @@
     <version.xmlschema.core>2.0.3</version.xmlschema.core>
     <version.xpp3>1.1.4c</version.xpp3>
     <version.jackson-annotations>2.10.1</version.jackson-annotations>
-    <version.jmeter.plugin>1.10.0</version.jmeter.plugin>
-    
+    <version.jmeter.plugin>1.10.1</version.jmeter.plugin>
+<!--    <version.jmeter.plugin>1.10.0</version.jmeter.plugin>-->
+
     <!-- ===================================================== -->
     <!-- This is a hack to allow someone to release            -->
     <!-- without having to run the tests. In order to          -->
