@@ -921,7 +921,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>1.10.0</version>
+            <version>1.10.1</version>
             <configuration>
               <overrideRootLogLevel>INFO</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
@@ -980,7 +980,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>1.10.0</version>
+            <version>1.10.1</version>
             <configuration>
               <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
@@ -1034,7 +1034,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>1.10.0</version>
+            <version>1.10.1</version>
             <configuration>
               <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
@@ -1093,7 +1093,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>1.10.0</version>
+            <version>1.10.1</version>
             <configuration>
               <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
@@ -1207,7 +1207,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>1.10.0</version>
+            <version>1.10.1</version>
             <configuration>
               <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
@@ -1263,7 +1263,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>1.10.0</version>
+            <version>1.10.1</version>
             <configuration>
               <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
@@ -1315,7 +1315,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>1.10.0</version>
+            <version>1.10.1</version>
             <configuration>
               <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
