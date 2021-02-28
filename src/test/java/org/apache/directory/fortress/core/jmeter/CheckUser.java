@@ -43,7 +43,6 @@ public class CheckUser extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
-        int opCtr = 0;
         String userId  = hostname + '-' + qualifier + '-' + getKey();
         SampleResult sampleResult = new SampleResult();
         try
@@ -60,13 +59,11 @@ public class CheckUser extends UserBase
             }
             // This method performs both an ldap bind and a search:
             Session session = accessMgr.createSession( user, false );
-            opCtr+=2;
             assertNotNull( session );
             if ( verify )
             {
                 // perform an ldap 'read':
                 assertTrue( verify( userId, Op.CHECK ) );
-                opCtr++;
             }
             if(StringUtil.isNotEmpty( perm ) )
             {
@@ -81,7 +78,6 @@ public class CheckUser extends UserBase
                         p.setOpName( perm.substring( indx + 1 ) + i );
                         // This method performs an ldap 'read':
                         accessMgr.checkAccess( session, p );
-                        opCtr++;
                     }
                 }
             }
@@ -97,7 +93,7 @@ public class CheckUser extends UserBase
                     Thread.currentThread().interrupt();
                 }
             }
-            sampleResult.setSampleCount( opCtr );
+            sampleResult.setSampleCount( 1 );
             sampleResult.sampleEnd();
             sampleResult.setBytes(1);
             sampleResult.setResponseMessage("test completed TID: " + getThreadId() + " UID: " + userId);
