@@ -132,6 +132,7 @@
     <version.xmlschema.core>2.0.3</version.xmlschema.core>
     <version.xpp3>1.1.4c</version.xpp3>
     <version.jackson-annotations>2.10.1</version.jackson-annotations>
+    <version.jmeter.plugin>1.10.0</version.jmeter.plugin>
     
     <!-- ===================================================== -->
     <!-- This is a hack to allow someone to release            -->
@@ -868,7 +869,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>1.10.1</version>
+            <version>${version.jmeter.plugin}</version>
             <configuration>
               <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
@@ -881,12 +882,6 @@
                 <id>jmeter-tests</id>
                 <goals>
                   <goal>jmeter</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>configuration</id>
-                <goals>
-                  <goal>configure</goal>
                 </goals>
               </execution>
             </executions>
@@ -927,7 +922,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>1.10.1</version>
+            <version>${version.jmeter.plugin}</version>
             <configuration>
               <overrideRootLogLevel>INFO</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
@@ -944,12 +939,6 @@
                 <id>jmeter-tests</id>
                 <goals>
                   <goal>jmeter</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>configuration</id>
-                <goals>
-                  <goal>configure</goal>
                 </goals>
               </execution>
             </executions>
@@ -992,7 +981,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>1.10.1</version>
+            <version>${version.jmeter.plugin}</version>
             <configuration>
               <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
@@ -1009,12 +998,6 @@
                 <id>jmeter-tests</id>
                 <goals>
                   <goal>jmeter</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>configuration</id>
-                <goals>
-                  <goal>configure</goal>
                 </goals>
               </execution>
             </executions>
@@ -1052,7 +1035,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>1.10.1</version>
+            <version>${version.jmeter.plugin}</version>
             <configuration>
               <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
@@ -1069,12 +1052,6 @@
                 <id>jmeter-tests</id>
                 <goals>
                   <goal>jmeter</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>configuration</id>
-                <goals>
-                  <goal>configure</goal>
                 </goals>
               </execution>
             </executions>
@@ -1117,7 +1094,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>1.10.1</version>
+            <version>${version.jmeter.plugin}</version>
             <configuration>
               <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
@@ -1134,12 +1111,6 @@
                 <id>jmeter-tests</id>
                 <goals>
                   <goal>jmeter</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>configuration</id>
-                <goals>
-                  <goal>configure</goal>
                 </goals>
               </execution>
             </executions>
@@ -1180,7 +1151,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>1.10.1</version>
+            <version>${version.jmeter.plugin}</version>
             <configuration>
               <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
@@ -1197,12 +1168,6 @@
                 <id>jmeter-tests</id>
                 <goals>
                   <goal>jmeter</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>configuration</id>
-                <goals>
-                  <goal>configure</goal>
                 </goals>
               </execution>
             </executions>
@@ -1243,7 +1208,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>1.10.1</version>
+            <version>${version.jmeter.plugin}</version>
             <configuration>
               <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
@@ -1270,12 +1235,6 @@
                   <goal>jmeter</goal>
                 </goals>
                 </execution>
-              <execution>
-                <id>configuration</id>
-                <goals>
-                  <goal>configure</goal>
-                </goals>
-              </execution>
             </executions>
             <dependencies>
               <dependency>
@@ -1305,7 +1264,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>1.10.1</version>
+            <version>${version.jmeter.plugin}</version>
             <configuration>
               <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
@@ -1327,12 +1286,6 @@
                 <id>jmeter-tests</id>
                 <goals>
                   <goal>jmeter</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>configuration</id>
-                <goals>
-                  <goal>configure</goal>
                 </goals>
               </execution>
             </executions>
@@ -1363,7 +1316,7 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>1.10.1</version>
+            <version>${version.jmeter.plugin}</version>
             <configuration>
               <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
@@ -1387,12 +1340,6 @@
                 <id>jmeter-tests</id>
                 <goals>
                   <goal>jmeter</goal>
-                </goals>
-              </execution>
-              <execution>
-                <id>configuration</id>
-                <goals>
-                  <goal>configure</goal>
                 </goals>
               </execution>
             </executions>
