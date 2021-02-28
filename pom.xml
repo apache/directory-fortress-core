@@ -882,12 +882,12 @@
                 <goals>
                   <goal>jmeter</goal>
                 </goals>
-                <execution>
-                  <id>configuration</id>
-                  <goals>
-                    <goal>configure</goal>
-                  </goals>
-                </execution>
+              </execution>
+              <execution>
+                <id>configuration</id>
+                <goals>
+                  <goal>configure</goal>
+                </goals>
               </execution>
             </executions>
             <dependencies>
@@ -1142,12 +1142,6 @@
                   <goal>configure</goal>
                 </goals>
               </execution>
-              <execution>
-                <id>configuration</id>
-                <goals>
-                  <goal>configure</goal>
-                </goals>
-              </execution>
             </executions>
             <dependencies>
               <dependency>
@@ -1275,12 +1269,12 @@
                 <goals>
                   <goal>jmeter</goal>
                 </goals>
-                <execution>
-                  <id>configuration</id>
-                  <goals>
-                    <goal>configure</goal>
-                  </goals>
                 </execution>
+              <execution>
+                <id>configuration</id>
+                <goals>
+                  <goal>configure</goal>
+                </goals>
               </execution>
             </executions>
             <dependencies>
@@ -1394,12 +1388,12 @@
                 <goals>
                   <goal>jmeter</goal>
                 </goals>
-                <execution>
-                  <id>configuration</id>
-                  <goals>
-                    <goal>configure</goal>
-                  </goals>
-                </execution>
+              </execution>
+              <execution>
+                <id>configuration</id>
+                <goals>
+                  <goal>configure</goal>
+                </goals>
               </execution>
             </executions>
             <dependencies>
