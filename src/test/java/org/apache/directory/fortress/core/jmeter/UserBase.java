@@ -238,7 +238,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
      */
     public void teardownTest( JavaSamplerContext samplerContext )
     {
-        String message = "FT SETUP User TID: " + getThreadId();
+        String message = "FT TEARDOWN User TID: " + getThreadId();
         info( message );
         close();
         System.exit(0);
