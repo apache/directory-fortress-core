@@ -108,7 +108,6 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         init( samplerContext );
         String message = "FT SETUP User TID: " + getThreadId() + ", hostname: " + hostname + ", qualifier: " + qualifier + ", verify: " + verify + ", sleep: " + sleep;
         info( message );
-        System.out.println( message );
         try
         {
             accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
