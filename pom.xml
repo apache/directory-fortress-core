@@ -882,6 +882,12 @@
                 <goals>
                   <goal>jmeter</goal>
                 </goals>
+                <execution>
+                  <id>configuration</id>
+                  <goals>
+                    <goal>configure</goal>
+                  </goals>
+                </execution>
               </execution>
             </executions>
             <dependencies>
@@ -938,6 +944,12 @@
                 <id>jmeter-tests</id>
                 <goals>
                   <goal>jmeter</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>configuration</id>
+                <goals>
+                  <goal>configure</goal>
                 </goals>
               </execution>
             </executions>
@@ -999,6 +1011,12 @@
                   <goal>jmeter</goal>
                 </goals>
               </execution>
+              <execution>
+                <id>configuration</id>
+                <goals>
+                  <goal>configure</goal>
+                </goals>
+              </execution>
             </executions>
             <dependencies>
               <dependency>
@@ -1051,6 +1069,12 @@
                 <id>jmeter-tests</id>
                 <goals>
                   <goal>jmeter</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>configuration</id>
+                <goals>
+                  <goal>configure</goal>
                 </goals>
               </execution>
             </executions>
@@ -1112,6 +1136,18 @@
                   <goal>jmeter</goal>
                 </goals>
               </execution>
+              <execution>
+                <id>configuration</id>
+                <goals>
+                  <goal>configure</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>configuration</id>
+                <goals>
+                  <goal>configure</goal>
+                </goals>
+              </execution>
             </executions>
             <dependencies>
               <dependency>
@@ -1167,6 +1203,12 @@
                 <id>jmeter-tests</id>
                 <goals>
                   <goal>jmeter</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>configuration</id>
+                <goals>
+                  <goal>configure</goal>
                 </goals>
               </execution>
             </executions>
@@ -1233,6 +1275,12 @@
                 <goals>
                   <goal>jmeter</goal>
                 </goals>
+                <execution>
+                  <id>configuration</id>
+                  <goals>
+                    <goal>configure</goal>
+                  </goals>
+                </execution>
               </execution>
             </executions>
             <dependencies>
@@ -1285,6 +1333,12 @@
                 <id>jmeter-tests</id>
                 <goals>
                   <goal>jmeter</goal>
+                </goals>
+              </execution>
+              <execution>
+                <id>configuration</id>
+                <goals>
+                  <goal>configure</goal>
                 </goals>
               </execution>
             </executions>
@@ -1340,6 +1394,12 @@
                 <goals>
                   <goal>jmeter</goal>
                 </goals>
+                <execution>
+                  <id>configuration</id>
+                  <goals>
+                    <goal>configure</goal>
+                  </goals>
+                </execution>
               </execution>
             </executions>
             <dependencies>
