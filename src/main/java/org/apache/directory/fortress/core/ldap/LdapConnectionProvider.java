@@ -273,7 +273,8 @@ public class LdapConnectionProvider
         }
         catch ( Exception e )
         {
-            throw new RuntimeException( e );
+            LOG.warn( "Error closing admin connection: " + e );
+            //throw new RuntimeException( e );
         }
     }
 
@@ -291,7 +292,8 @@ public class LdapConnectionProvider
         }
         catch ( Exception e )
         {
-            throw new RuntimeException( e );
+            LOG.warn( "Error closing log connection: " + e );
+            //throw new RuntimeException( e );
         }
     }
 
@@ -309,7 +311,8 @@ public class LdapConnectionProvider
         }
         catch ( Exception e )
         {
-            throw new RuntimeException( e );
+            LOG.warn( "Error closing user connection: " + e );
+            //throw new RuntimeException( e );
         }
     }
 
