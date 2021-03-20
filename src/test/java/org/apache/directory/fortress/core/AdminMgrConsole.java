@@ -19,7 +19,6 @@
  */
 package org.apache.directory.fortress.core;
 
-import java.io.Console;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.Enumeration;
@@ -437,37 +436,36 @@ class AdminMgrConsole
         try
         {
             ReaderUtil.clearScreen();
-            Console console = System.console();
-            console.printf("Enter userId:" + "\n" );
-            ue.setUserId ( console.readLine() );
-            console.printf( ue.getUserId() + "\n" );
-            console.printf( "Enter user's common name (cn):" + "\n" );
+            System.out.println("Enter userId:" );
+            ue.setUserId ( ReaderUtil.readLn() );
+            System.out.println( ue.getUserId() );
+            System.out.println( "Enter user's common name (cn):" );
             ue.setCn( ReaderUtil.readLn() );
-            console.printf( "Enter user's surname (sn):" + "\n" );
+            System.out.println( "Enter user's surname (sn):" );
             String sn = ReaderUtil.readLn();
             ue.setSn(sn);
-            console.printf( "Enter pw" + "\n" );
-            ue.setPassword(new String ( console.readPassword() ) );
-            console.printf( "Enter User's description field" + "\n" );
+            System.out.println( "Enter pw" );
+            ue.setPassword( ReaderUtil.readLn() );
+            System.out.println( "Enter User's description field" );
             ue.setDescription(ReaderUtil.readLn());
-            console.printf( "Enter organization unit, blank for default" + "\n" );
+            System.out.println( "Enter organization unit, blank for default" );
             ue.setOu(ReaderUtil.readLn());
 
-            console.printf( "Do you want to set temporal constraints on User - Y or NULL to skip" + "\n" );
+            System.out.println( "Do you want to set temporal constraints on User - Y or NULL to skip" );
             String choice = ReaderUtil.readLn();
             if ( choice != null && choice.equalsIgnoreCase("Y" ) )
             {
                 enterTemporal(ue);
             }
 
-            console.printf( "Do you want to set posix account attributes on User - Y or NULL to skip" + "\n" );
+            System.out.println( "Do you want to set posix account attributes on User - Y or NULL to skip" );
             choice = ReaderUtil.readLn();
             if (choice != null && choice.equalsIgnoreCase("Y") )
             {
                 enterPosixAccount( ue );
             }
 
-            console.printf( "Enter Role name (or NULL to skip):" + "\n" );
+            System.out.println( "Enter Role name (or NULL to skip):" );
             String val = ReaderUtil.readLn();
             for (int i = 0; val != null && val.length() > 0; i++)
             {
@@ -475,29 +473,29 @@ class AdminMgrConsole
                 userRole.setName(val);
                 userRole.setUserId( ue.getUserId() );
                 ue.setRole(userRole);
-                console.printf( "Do you want to set temporal constraints on User - Y or NULL to skip" + "\n");
+                System.out.println( "Do you want to set temporal constraints on User - Y or NULL to skip");
                 choice = ReaderUtil.readLn();
                 if (choice != null && choice.equalsIgnoreCase("Y"))
                 {
                     enterTemporal(userRole);
                 }
 
-                console.printf( "Enter next name (or NULL if done entering roles):" + "\n");
+                System.out.println( "Enter next name (or NULL if done entering roles):");
                 val = ReaderUtil.readLn();
             }
 
-            console.printf( "Enter prop key (or NULL to skip):" + "\n");
+            System.out.println( "Enter prop key (or NULL to skip):");
             String key = ReaderUtil.readLn();
             for (int i = 0; key != null && key.length() > 0; i++)
             {
-                console.printf( "Enter prop val:" + "\n");
+                System.out.println( "Enter prop val:");
                 val = ReaderUtil.readLn();
                 ue.addProperty(key, val);
-                console.printf( "Enter next prop key (or NULL if done entering properties)" + "\n");
+                System.out.println( "Enter next prop key (or NULL if done entering properties)");
                 key = ReaderUtil.readLn();
             }
 
-            console.printf( "Enter password policy (or NULL to skip):" + "\n");
+            System.out.println( "Enter password policy (or NULL to skip):");
             String policy = ReaderUtil.readLn();
             if( StringUtils.isNotEmpty( policy ))
             {
@@ -512,14 +510,14 @@ class AdminMgrConsole
                     am.assignUser(uRole);
                 }
             }
-            console.printf("userId [" + ue2.getUserId() + "]" + "\n");
-            console.printf("internalId [" + ue2.getInternalId() + "]" + "\n");
-            console.printf("user description [" + ue2.getDescription() + "]" + "\n");
-            console.printf("user common name [" + ue2.getCn() + "]" + "\n");
-            console.printf("user surname [" + ue2.getSn() + "]" + "\n");
-            console.printf("organizational unit [" + ue2.getOu() + "]" + "\n");
-            console.printf("has been added" + "\n");
-            console.printf("ENTER to continue" + "\n");
+            System.out.println("userId [" + ue2.getUserId() + "]");
+            System.out.println("internalId [" + ue2.getInternalId() + "]");
+            System.out.println("user description [" + ue2.getDescription() + "]");
+            System.out.println("user common name [" + ue2.getCn() + "]");
+            System.out.println("user surname [" + ue2.getSn() + "]");
+            System.out.println("organizational unit [" + ue2.getOu() + "]");
+            System.out.println("has been added");
+            System.out.println("ENTER to continue");
         }
         catch (SecurityException e)
         {
@@ -546,9 +544,9 @@ class AdminMgrConsole
             ReaderUtil.clearScreen();
             System.out.println("Enter userId");
             ue.setUserId(ReaderUtil.readLn());
-            Console console = System.console();
-            console.printf("Enter pw" + "\n" );
-            ue.setPassword(new String ( console.readPassword() ) );
+            System.out.println( "The following fields are optional, blank keeps current value" );
+            System.out.println( "Enter pw" );
+            ue.setPassword( ReaderUtil.readLn() );
             System.out.println("Do you want to test Admin User update - Y or N");
             String choice = ReaderUtil.readLn();
             if (choice != null && choice.equalsIgnoreCase("Y"))
