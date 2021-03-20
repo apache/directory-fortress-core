@@ -1227,6 +1227,10 @@
                 <role>${role}</role>
                 <ou>${ou}</ou>
               </propertiesSystem>
+              <jMeterProcessJVMSettings>
+                <xms>1024</xms>
+                <xmx>1024</xmx>
+              </jMeterProcessJVMSettings>
             </configuration>
             <executions>
               <execution>
