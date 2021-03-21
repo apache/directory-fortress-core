@@ -115,10 +115,6 @@ admin.max.conn=10
 user.min.conn=1
 user.max.conn=10
 
-# Used for slapd logger connection pool.
-min.log.conn=1
-max.log.conn=3
-
 # Applies to all pools, connection validated on retrieval with dummy ldapsearch. (default is false)
 all.validate.conn=false
 

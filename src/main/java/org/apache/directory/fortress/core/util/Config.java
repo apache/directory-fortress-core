@@ -274,18 +274,10 @@ public final class Config
         int value = defaultValue;
         try
         {
-
             if ( config != null )
             {
-                try
-                {
-                    value = config.getInt( key, defaultValue );
-                    LOG.debug( "getInt name [{}] value [{}]", key, value );
-                }
-                catch (org.apache.commons.configuration.ConversionException e )
-                {
-                    LOG.debug( "getInt name [{}], conversion exception using default  [{}]", key, defaultValue );
-                }
+                value = config.getInt( key, defaultValue );
+                LOG.debug( "getInt name [{}] value [{}]", key, value );
             }
             else
             {
@@ -294,7 +286,7 @@ public final class Config
         }
         catch (org.apache.commons.configuration.ConversionException e)
         {
-            LOG.debug( "getInt can't read prop [{}], using default [{}], exception [{}]", key, defaultValue, e );
+            LOG.debug( "getInt name [{}], conversion exception using default  [{}]", key, defaultValue );
         }
         return value;
     }
@@ -318,7 +310,6 @@ public final class Config
             else
             {
                 LOG.warn( "getBoolean invalid config, can't read prop [{}], using default [{}]", key, false );
-
             }
         }
         catch (java.util.NoSuchElementException e )
