@@ -125,7 +125,7 @@ public class LdapConnectionProvider
         int max = Config.getInstance().getInt( GlobalIds.LDAP_ADMIN_POOL_MAX, 10 );
         int logmin = Config.getInstance().getInt( GlobalIds.LDAP_LOG_POOL_MIN, 1 );
         int logmax = Config.getInstance().getInt( GlobalIds.LDAP_LOG_POOL_MAX, 10 );
-        boolean validate = Config.getInstance().getBoolean( GlobalIds.LDAP_VALIDATE_CONN, true );
+        boolean validate = Config.getInstance().getBoolean( GlobalIds.LDAP_VALIDATE_CONN, false );
         boolean testWhileIdle = Config.getInstance().getBoolean( GlobalIds.LDAP_ADMIN_POOL_TEST_IDLE, true );
         boolean logTestWhileIdle = Config.getInstance().getBoolean( GlobalIds.LDAP_LOG_POOL_TEST_IDLE, true );
 

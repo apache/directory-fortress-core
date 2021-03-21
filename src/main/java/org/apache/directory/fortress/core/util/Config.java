@@ -274,15 +274,22 @@ public final class Config
         int value = defaultValue;
         try
         {
+
             if ( config != null )
             {
-                value = config.getInt( key, defaultValue );
-                LOG.debug( "getInt name [{}] value [{}]", key, value );
+                try
+                {
+                    value = config.getInt( key, defaultValue );
+                    LOG.debug( "getInt name [{}] value [{}]", key, value );
+                }
+                catch (org.apache.commons.configuration.ConversionException e )
+                {
+                    LOG.debug( "getInt name [{}], conversion exception using default  [{}]", key, defaultValue );
+                }
             }
             else
             {
                 LOG.warn( "getInt invalid config, can't read prop [{}], using default [{}]", key, defaultValue );
-
             }
         }
         catch (org.apache.commons.configuration.ConversionException e)
@@ -335,15 +342,22 @@ public final class Config
         {
             if ( config != null )
             {
-                value = config.getBoolean( key, defaultValue );
-                LOG.debug( "getBoolean name [{}] value [{}]", key, value );
+                try
+                {
+                    value = config.getBoolean( key, defaultValue );
+                    LOG.debug( "getBoolean name [{}] value [{}]", key, value );
+                }
+                catch (org.apache.commons.configuration.ConversionException e )
+                {
+                    LOG.debug( "getBoolean name [{}], conversion exception using default  [{}]", key, defaultValue );
+                }
             }
             else
             {
                 LOG.warn( "getBoolean - invalid config, can't read prop [{}], using default [{}]", key, defaultValue );
             }
         }
-        catch (java.util.NoSuchElementException e )
+        catch (java.util.NoSuchElementException nse )
         {
             LOG.debug( "getBoolean - no such element [{}], using default [{}]", key, defaultValue );
         }

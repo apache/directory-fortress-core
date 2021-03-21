@@ -82,7 +82,7 @@ cfg.root.pw=secret
 # This is the default:
 ldap.client.type=apache
 
-# A value of 'false' disables storing user membership on role object, default is 'true':
+# A value of 'false' disables storing user membership on role object, default is 'false':
 #role.occupants=false
 
 # These are used to construct suffix for DIT, i.e. dc=example,dc=com.
@@ -115,12 +115,12 @@ admin.max.conn=10
 user.min.conn=1
 user.max.conn=10
 
-# Used for slapd logger connection pool.  Leave zeros when using apacheds:
+# Used for slapd logger connection pool.
 min.log.conn=1
 max.log.conn=3
 
-# Applies to all pools, connection validated on retrieval with dummy ldapsearch. (default is true)
-validate.conn=true
+# Applies to all pools, connection validated on retrieval with dummy ldapsearch. (default is false)
+all.validate.conn=false
 
 ########################################################################
 # 3. GROUP OBJECT CLASS DEFINITIONS

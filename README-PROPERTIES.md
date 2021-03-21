@@ -84,6 +84,18 @@ This section describes the properties needed to control fortress core.
  # This is min/max settings for LDAP connections.  For testing and low-volume instances this will work:
  min.admin.conn=1
  max.admin.conn=10
+
+ # This speicifes the number of user LDAP connections (used for user authentication operations only) to maintain in the pool:
+ # User Pool:
+ user.min.conn=1
+ user.max.conn=10
+ 
+ # Used for slapd logger connection pool (OpenLDAP with access log enabled only)
+ min.log.conn=1
+ max.log.conn=3
+
+ # Applies to all pools, connection validated on retrieval with dummy ldapsearch. (default is false)
+ all.validate.conn=false
  ```
 
 5. Give coordinates to the Config node that contains all of the other Fortress properties.  This will match your LDAP's server's config node per Fortress Core setup.
