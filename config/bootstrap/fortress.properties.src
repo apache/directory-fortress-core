@@ -52,6 +52,8 @@ log.admin.pw=@CFG_LOG_ROOT_PW@
 min.log.conn=@LOG_MIN_CONN@
 max.log.conn=@LOG_MAX_CONN@
 
+validate.conn=@VALIDATE_CONN@
+
 # Disable storing user membership on role object, default is true:
 role.occupants=@ROLE_OCCUPANTS@
 

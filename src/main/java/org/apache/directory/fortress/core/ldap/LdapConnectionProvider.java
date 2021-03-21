@@ -125,7 +125,7 @@ public class LdapConnectionProvider
         int max = Config.getInstance().getInt( GlobalIds.LDAP_ADMIN_POOL_MAX, 10 );
         int logmin = Config.getInstance().getInt( GlobalIds.LDAP_LOG_POOL_MIN, 1 );
         int logmax = Config.getInstance().getInt( GlobalIds.LDAP_LOG_POOL_MAX, 10 );
-        
+        boolean validate = Config.getInstance().getBoolean( GlobalIds.LDAP_VALIDATE_CONN, true );
         boolean testWhileIdle = Config.getInstance().getBoolean( GlobalIds.LDAP_ADMIN_POOL_TEST_IDLE, true );
         boolean logTestWhileIdle = Config.getInstance().getBoolean( GlobalIds.LDAP_LOG_POOL_TEST_IDLE, true );
 
@@ -195,7 +195,7 @@ public class LdapConnectionProvider
 
         // Create the Admin pool
         adminPool = new LdapConnectionPool( poolFactory );
-        adminPool.setTestOnBorrow( true );
+        adminPool.setTestOnBorrow( validate );
         adminPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
         adminPool.setMaxActive( max );
         adminPool.setMinIdle( min );
@@ -206,7 +206,7 @@ public class LdapConnectionProvider
 
         // Create the User pool
         userPool = new LdapConnectionPool( poolFactory );
-        userPool.setTestOnBorrow( true );
+        userPool.setTestOnBorrow( validate );
         userPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
         userPool.setMaxActive( max );
         userPool.setMinIdle( min );
@@ -250,7 +250,7 @@ public class LdapConnectionProvider
             logConfig.setCredentials( logPw );
             poolFactory = new ValidatingPoolableLdapConnectionFactory( logConfig );
             logPool = new LdapConnectionPool( poolFactory );
-            logPool.setTestOnBorrow( true );
+            logPool.setTestOnBorrow( validate );
             logPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
             logPool.setMaxActive( logmax );
             logPool.setMinIdle( logmin );

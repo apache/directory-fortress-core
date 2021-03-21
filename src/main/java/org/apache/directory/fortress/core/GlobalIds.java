@@ -455,6 +455,10 @@ public final class GlobalIds
     public static final String LDAP_LOG_POOL_TEST_IDLE = "log.conn.test.idle";
     public static final String LDAP_LOG_POOL_EVICT_RUN_MILLIS = "log.conn.evict.run.millis";
 
+    /**
+     * Applies to all pools, connection validated on retrieval with dummy ldapsearch.
+     */
+    public static final String LDAP_VALIDATE_CONN = "validate.conn";
 
     // Used for TLS/SSL client-side configs:
     public static final String ENABLE_LDAP_SSL = "enable.ldap.ssl";

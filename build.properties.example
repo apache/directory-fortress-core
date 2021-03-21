@@ -119,6 +119,9 @@ user.max.conn=10
 min.log.conn=1
 max.log.conn=3
 
+# Applies to all pools, connection validated on retrieval with dummy ldapsearch. (default is true)
+validate.conn=true
+
 ########################################################################
 # 3. GROUP OBJECT CLASS DEFINITIONS
 ########################################################################

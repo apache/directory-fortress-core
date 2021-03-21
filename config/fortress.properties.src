@@ -58,6 +58,8 @@ max.admin.conn=@ADM_MAX_CONN@
 min.user.conn=@USR_MIN_CONN@
 max.user.conn=@USR_MAX_CONN@
 
+validate.conn=@VALIDATE_CONN@
+
 # These credentials are used for read/write access to all nodes under slapd access log suffix:
 log.admin.user=@LOG_ROOT_DN@
 # For corresponding log user:

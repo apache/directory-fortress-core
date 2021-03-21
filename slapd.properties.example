@@ -72,6 +72,9 @@ user.max.conn=10
 log.min.conn=1
 log.max.conn=3
 
+# Applies to all pools, connection validated on retrieval with dummy ldapsearch. (default is true)
+validate.conn=true
+
 #These are passwords used for LDAP audit log service accounts:
 # Audit Pool:
 log.admin.user=cn=manager,${log.suffix}
