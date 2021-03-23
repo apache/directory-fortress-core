@@ -309,7 +309,8 @@
          <replace file="${dst.bootstrap.conf}" token="@LOG_MAX_CONN@" value="${log.max.conn}"/>
          <replace file="${dst.bootstrap.conf}" token="@USR_MIN_CONN@" value="${user.min.conn}"/>
          <replace file="${dst.bootstrap.conf}" token="@USR_MAX_CONN@" value="${user.max.conn}"/>
-         <replace file="${dst.bootstrap.conf}" token="@VALIDATE_CONN@" value="${all.validate.conn}"/>
+         <replace file="${dst.bootstrap.conf}" token="@VALIDATE_CONN_IDLE@" value="${all.validate.conn.idle}"/>
+         <replace file="${dst.bootstrap.conf}" token="@VALIDATE_CONN_BORROW@" value="${all.validate.conn.borrow}"/>
          <replace file="${dst.bootstrap.conf}" token="@CFG_CRYPTO_PROP@" value="${crypto.prop}"/>
          <replace file="${dst.bootstrap.conf}" token="@SERVER_TYPE@" value="${ldap.server.type}"/>
          <replace file="${dst.bootstrap.conf}" token="@ROLE_OCCUPANTS@" value="${role.occupants}"/>
@@ -347,7 +348,8 @@
          <replace file="${dst.remote.conf}" token="@LOG_MIN_CONN@" value="${log.min.conn}"/>
          <replace file="${dst.remote.conf}" token="@LOG_MAX_CONN@" value="${log.max.conn}"/>
          <replace file="${dst.remote.conf}" token="@USR_MIN_CONN@" value="${user.min.conn}"/>
-         <replace file="${dst.remote.conf}" token="@VALIDATE_CONN@" value="${all.validate.conn}"/>
+         <replace file="${dst.remote.conf}" token="@VALIDATE_CONN_IDLE@" value="${all.validate.conn.idle}"/>
+         <replace file="${dst.remote.conf}" token="@VALIDATE_CONN_BORROW@" value="${all.validate.conn.borrow}"/>
          <replace file="${dst.remote.conf}" token="@USR_MAX_CONN@" value="${user.max.conn}"/>
          <replace file="${dst.remote.conf}" token="@CFG_CRYPTO_PROP@" value="${crypto.prop}"/>
          <replace file="${dst.remote.conf}" token="@ENABLE_REST@" value="${enable.mgr.impl.rest}"/>

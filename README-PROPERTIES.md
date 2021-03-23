@@ -95,7 +95,10 @@ This section describes the properties needed to control fortress core.
  max.log.conn=3
 
  # Applies to all pools, connection validated on retrieval with dummy ldapsearch. (default is false)
- all.validate.conn=false
+ all.validate.conn.borrow=false
+
+ # Applies to all pools, connection validated when idle with dummy ldapsearch. (default is false)
+ all.validate.conn.idle=false
  ```
 
 5. Give coordinates to the Config node that contains all of the other Fortress properties.  This will match your LDAP's server's config node per Fortress Core setup.

@@ -73,7 +73,6 @@ ldap.max.batch.size=1000
 #trust.store.onclasspath=false
 #trust.store=/fully/qualified/path/to/mytruststore
 
-
 # These are the connection parameters used for LDAP service account:
 root.dn=uid=admin,ou=system
 # This admin pass is bound for fortress.properties used by 'admin' pooled connections:
@@ -116,7 +115,9 @@ user.min.conn=1
 user.max.conn=10
 
 # Applies to all pools, connection validated on retrieval with dummy ldapsearch. (default is false)
-all.validate.conn=false
+all.validate.conn.borrow=false
+# Applies to all pools, connection validated when idle with dummy ldapsearch. (default is false)
+all.validate.conn.idle=false
 
 ########################################################################
 # 3. GROUP OBJECT CLASS DEFINITIONS

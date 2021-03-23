@@ -58,7 +58,10 @@ max.admin.conn=@ADM_MAX_CONN@
 min.user.conn=@USR_MIN_CONN@
 max.user.conn=@USR_MAX_CONN@
 
-validate.conn=@VALIDATE_CONN@
+# Applies to all pools, connection validated on retrieval with dummy ldapsearch. (default is false)
+validate.conn.borrow=@VALIDATE_CONN_BORROW@
+# Applies to all pools, connection validated when idle with dummy ldapsearch. (default is false)
+validate.conn.idle=@VALIDATE_CONN_IDLE@
 
 # These credentials are used for read/write access to all nodes under slapd access log suffix:
 log.admin.user=@LOG_ROOT_DN@

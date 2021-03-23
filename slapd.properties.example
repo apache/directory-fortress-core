@@ -73,7 +73,9 @@ log.min.conn=1
 log.max.conn=3
 
 # Applies to all pools, connection validated on retrieval with dummy ldapsearch. (default is false)
-all.validate.conn=false
+all.validate.conn.borrow=false
+# Applies to all pools, connection validated when idle with dummy ldapsearch. (default is false)
+all.validate.conn.idle=false
 
 #These are passwords used for LDAP audit log service accounts:
 # Audit Pool:

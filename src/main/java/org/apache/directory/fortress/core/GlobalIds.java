@@ -458,7 +458,11 @@ public final class GlobalIds
     /**
      * Applies to all pools, connection validated on retrieval with dummy ldapsearch.
      */
-    public static final String LDAP_VALIDATE_CONN = "validate.conn";
+    public static final String TEST_ON_BORROW = "validate.conn.borrow";
+    /**
+     * Applies to all pools, connection validated when idle with dummy ldapsearch.
+     */
+    public static final String TEST_ON_IDLE = "validate.conn.idle";
 
     // Used for TLS/SSL client-side configs:
     public static final String ENABLE_LDAP_SSL = "enable.ldap.ssl";

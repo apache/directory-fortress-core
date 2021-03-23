@@ -125,10 +125,8 @@ public class LdapConnectionProvider
         int max = Config.getInstance().getInt( GlobalIds.LDAP_ADMIN_POOL_MAX, 10 );
         int logmin = Config.getInstance().getInt( GlobalIds.LDAP_LOG_POOL_MIN, 1 );
         int logmax = Config.getInstance().getInt( GlobalIds.LDAP_LOG_POOL_MAX, 10 );
-        boolean validate = Config.getInstance().getBoolean( GlobalIds.LDAP_VALIDATE_CONN, false );
-        boolean testWhileIdle = Config.getInstance().getBoolean( GlobalIds.LDAP_ADMIN_POOL_TEST_IDLE, true );
-        boolean logTestWhileIdle = Config.getInstance().getBoolean( GlobalIds.LDAP_LOG_POOL_TEST_IDLE, true );
-
+        boolean testOnBorrow = Config.getInstance().getBoolean( GlobalIds.TEST_ON_BORROW, false );
+        boolean testWhileIdle = Config.getInstance().getBoolean( GlobalIds.TEST_ON_IDLE, false );
         int timeBetweenEvictionRunMillis = Config.getInstance().getInt( GlobalIds.LDAP_ADMIN_POOL_EVICT_RUN_MILLIS, 1000 * 60 * 30 );
         int logTimeBetweenEvictionRunMillis = Config.getInstance().getInt( GlobalIds.LDAP_LOG_POOL_EVICT_RUN_MILLIS, 1000 * 60 * 30 );
 
@@ -195,7 +193,7 @@ public class LdapConnectionProvider
 
         // Create the Admin pool
         adminPool = new LdapConnectionPool( poolFactory );
-        adminPool.setTestOnBorrow( validate );
+        adminPool.setTestOnBorrow( testOnBorrow );
         adminPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
         adminPool.setMaxActive( max );
         adminPool.setMinIdle( min );
@@ -206,7 +204,7 @@ public class LdapConnectionProvider
 
         // Create the User pool
         userPool = new LdapConnectionPool( poolFactory );
-        userPool.setTestOnBorrow( validate );
+        userPool.setTestOnBorrow( testOnBorrow );
         userPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
         userPool.setMaxActive( max );
         userPool.setMinIdle( min );
@@ -250,11 +248,11 @@ public class LdapConnectionProvider
             logConfig.setCredentials( logPw );
             poolFactory = new ValidatingPoolableLdapConnectionFactory( logConfig );
             logPool = new LdapConnectionPool( poolFactory );
-            logPool.setTestOnBorrow( validate );
+            logPool.setTestOnBorrow( testOnBorrow );
             logPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
             logPool.setMaxActive( logmax );
             logPool.setMinIdle( logmin );
-            logPool.setTestWhileIdle( logTestWhileIdle );
+            logPool.setTestWhileIdle( testWhileIdle );
             logPool.setTimeBetweenEvictionRunsMillis( logTimeBetweenEvictionRunMillis );
         }
     }
