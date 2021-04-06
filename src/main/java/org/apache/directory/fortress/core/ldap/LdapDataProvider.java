@@ -229,10 +229,10 @@ public abstract class LdapDataProvider
      * @param connection handle to ldap connection.
      * @param entry      contains data to add..
      * @param entity     contains audit context.
-     * @param setRelaxedControl   when true adds managed dsa control to request
+     * @param setRelaxControl   when true attaches relax control to request
      * @throws LdapException in the event system error occurs.
      */
-    protected void add( LdapConnection connection, Entry entry, FortEntity entity, boolean setRelaxedControl ) throws LdapException
+    protected void add( LdapConnection connection, Entry entry, FortEntity entity, boolean setRelaxControl ) throws LdapException
     {
         COUNTERS.incrementAdd();
 
@@ -255,12 +255,12 @@ public abstract class LdapDataProvider
         }
         AddRequest addRequest = new AddRequestImpl();
         addRequest.setEntry( entry );
-        if ( setRelaxedControl )
+        if ( setRelaxControl )
         {
             addRequest.addControl( new RelaxControlImpl() );
         }
-        // TODO: verify response has no errors:
         AddResponse response = connection.add( addRequest );
+        ResultCodeEnum.processResponse(response);
     }
 
 
@@ -318,11 +318,11 @@ public abstract class LdapDataProvider
      * @param dn         contains distinguished node of entry.
      * @param mods       contains data to modify.
      * @param entity     contains audit context.
-     * @param setRelaxedControl   when true adds managed dsa control to request
+     * @param setRelaxControl   when true attaches relax control to request
      * @throws LdapException in the event system error occurs.
      */
     protected void modify( LdapConnection connection, String dn, List<Modification> mods,
-        FortEntity entity, boolean setRelaxedControl ) throws LdapException
+        FortEntity entity, boolean setRelaxControl ) throws LdapException
     {
         COUNTERS.incrementMod();
         audit( mods, entity );
@@ -332,13 +332,13 @@ public abstract class LdapDataProvider
         {
             modRequest.addModification( mod );
         }
-        if ( setRelaxedControl )
+        if ( setRelaxControl )
         {
             modRequest.addControl( new RelaxControlImpl() );
         }
         modRequest.setName( new Dn( dn ) );
-        // TODO: verify response has no errors:
         ModifyResponse response = connection.modify( modRequest );
+        ResultCodeEnum.processResponse(response);
     }
 
 

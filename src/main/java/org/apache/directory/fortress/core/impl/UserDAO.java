@@ -239,7 +239,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
     User create( User entity ) throws CreateException
     {
         LdapConnection ld = null;
-        boolean setRelaxedControl = false;
+        boolean setRelaxControl = false;
         try
         {
             entity.setInternalId();
@@ -305,7 +305,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             if ( ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() ) && StringUtils.isNotEmpty( entity.getPwPolicy() ) )
             {
                 myEntry.add( OPENLDAP_POLICY_SUBENTRY, PolicyDAO.getPolicyDn( entity ) );
-                setRelaxedControl = true;
+                setRelaxControl = true;
             }
 
             if ( StringUtils.isNotEmpty( entity.getOu() ) )
@@ -352,7 +352,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             }
 
             ld = getAdminConnection();
-            add( ld, myEntry, entity, setRelaxedControl );
+            add( ld, myEntry, entity, setRelaxControl );
             entity.setDn( dn );
         }
         catch ( LdapEntryAlreadyExistsException e )
@@ -383,7 +383,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
     {
         LdapConnection ld = null;
         String userDn = getDn( entity.getUserId(), entity.getContextId() );
-        boolean setRelaxedControl = false;
+        boolean setRelaxControl = false;
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
@@ -435,7 +435,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, OPENLDAP_POLICY_SUBENTRY,
                     PolicyDAO.getPolicyDn( entity ) ) );
-                setRelaxedControl = true;
+                setRelaxControl = true;
             }
 
             if ( entity.isSystem() != null )
@@ -501,7 +501,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             if ( mods.size() > 0 )
             {
                 ld = getAdminConnection();
-                modify( ld, userDn, mods, entity, setRelaxedControl );
+                modify( ld, userDn, mods, entity, setRelaxControl );
                 entity.setDn( userDn );
             }
 
