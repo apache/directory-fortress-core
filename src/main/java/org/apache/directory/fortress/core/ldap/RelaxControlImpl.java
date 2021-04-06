@@ -23,17 +23,19 @@ import org.apache.directory.api.ldap.model.message.controls.AbstractControl;
 
 /**
  * The LDAP Relax Rules Control. It's defined in https://tools.ietf.org/html/draft-zeilenga-ldap-relax-03.
- * This control is sent with every update of pwdPolicySubEntry on user.
+ * This control is sent with every update of pwdPolicySubEntry, pwdAccountLockedTime and pwdReset on user entry.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class RelaxControlImpl extends AbstractControl implements RelaxControl {
+public class RelaxControlImpl extends AbstractControl implements RelaxControl
+{
     public RelaxControlImpl() {
-        super("1.3.6.1.4.1.4203.666.5.12");
+        super( OID );
     }
 
-    public RelaxControlImpl(boolean isCritical) {
-        super("1.3.6.1.4.1.4203.666.5.12");
+    public RelaxControlImpl(boolean isCritical)
+    {
+        super( OID );
         this.setCritical(isCritical);
     }
 }

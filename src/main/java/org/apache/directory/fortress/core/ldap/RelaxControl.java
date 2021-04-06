@@ -24,7 +24,7 @@ import org.apache.directory.api.ldap.model.message.Control;
 
 /**
  * The LDAP Relax Rules Control. It's defined in https://tools.ietf.org/html/draft-zeilenga-ldap-relax-03.
- * This control is sent with every update of pwdPolicySubEntry on user.
+ * This control is sent with every update of pwdPolicySubEntry, pwdAccountLockedTime and pwdReset on user entry.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
