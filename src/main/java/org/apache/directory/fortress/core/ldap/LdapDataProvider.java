@@ -47,18 +47,7 @@ import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException;
 import org.apache.directory.api.ldap.model.exception.LdapInvalidDnException;
 import org.apache.directory.api.ldap.model.exception.LdapOperationErrorException;
-import org.apache.directory.api.ldap.model.message.BindRequest;
-import org.apache.directory.api.ldap.model.message.BindRequestImpl;
-import org.apache.directory.api.ldap.model.message.BindResponse;
-import org.apache.directory.api.ldap.model.message.CompareRequest;
-import org.apache.directory.api.ldap.model.message.CompareRequestImpl;
-import org.apache.directory.api.ldap.model.message.CompareResponse;
-import org.apache.directory.api.ldap.model.message.Control;
-import org.apache.directory.api.ldap.model.message.Response;
-import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
-import org.apache.directory.api.ldap.model.message.SearchRequest;
-import org.apache.directory.api.ldap.model.message.SearchRequestImpl;
-import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.api.ldap.model.message.*;
 import org.apache.directory.api.ldap.model.message.controls.ProxiedAuthz;
 import org.apache.directory.api.ldap.model.message.controls.ProxiedAuthzImpl;
 import org.apache.directory.api.ldap.model.name.Dn;
@@ -230,6 +219,21 @@ public abstract class LdapDataProvider
      */
     protected void add( LdapConnection connection, Entry entry, FortEntity entity ) throws LdapException
     {
+        add( connection, entry, entity, false );
+    }
+
+
+    /**
+     * Add a new ldap entry to the directory.  Add audit context.
+     *
+     * @param connection handle to ldap connection.
+     * @param entry      contains data to add..
+     * @param entity     contains audit context.
+     * @param setRelaxedControl   when true adds managed dsa control to request
+     * @throws LdapException in the event system error occurs.
+     */
+    protected void add( LdapConnection connection, Entry entry, FortEntity entity, boolean setRelaxedControl ) throws LdapException
+    {
         COUNTERS.incrementAdd();
 
         if ( !Config.getInstance().isAuditDisabled() && ( entity != null ) && ( entity.getAdminSession() != null ) )
@@ -249,8 +253,13 @@ public abstract class LdapDataProvider
                 entry.add( GlobalIds.FT_MODIFIER_ID, entity.getModId() );
             }
         }
-
-        connection.add( entry );
+        AddRequest addRequest = new AddRequestImpl();
+        addRequest.setEntry( entry );
+        if ( setRelaxedControl )
+        {
+            addRequest.addControl( new RelaxControlImpl() );
+        }
+        AddResponse response = connection.add( addRequest );
     }
 
 
@@ -297,10 +306,36 @@ public abstract class LdapDataProvider
     protected void modify( LdapConnection connection, String dn, List<Modification> mods,
         FortEntity entity ) throws LdapException
     {
+        modify( connection, dn, mods, entity, false );
+    }
+
+
+    /**
+     * Update exiting ldap entry to the directory.  Add audit context.
+     *
+     * @param connection handle to ldap connection.
+     * @param dn         contains distinguished node of entry.
+     * @param mods       contains data to modify.
+     * @param entity     contains audit context.
+     * @param setRelaxedControl   when true adds managed dsa control to request
+     * @throws LdapException in the event system error occurs.
+     */
+    protected void modify( LdapConnection connection, String dn, List<Modification> mods,
+        FortEntity entity, boolean setRelaxedControl ) throws LdapException
+    {
         COUNTERS.incrementMod();
         audit( mods, entity );
-        connection.modify( dn, mods.toArray( new Modification[]
-            {} ) );
+        ModifyRequest modRequest = new ModifyRequestImpl();
+        for( Modification mod : mods )
+        {
+            modRequest.addModification( mod );
+        }
+        if ( setRelaxedControl )
+        {
+            modRequest.addControl( new RelaxControlImpl() );
+        }
+        modRequest.setName( new Dn( dn ) );
+        ModifyResponse response = connection.modify( modRequest );
     }
 
 
@@ -318,8 +353,7 @@ public abstract class LdapDataProvider
     {
         COUNTERS.incrementMod();
         audit( mods, entity );
-        connection.modify( dn, mods.toArray( new Modification[]
-            {} ) );
+        connection.modify( dn, mods.toArray( new Modification[] {} ) );
     }
 
 

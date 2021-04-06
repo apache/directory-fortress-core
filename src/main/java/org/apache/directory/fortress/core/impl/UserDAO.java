@@ -52,6 +52,10 @@ import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.BindResponse;
 import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
 import org.apache.directory.api.ldap.model.message.SearchScope;
+import org.apache.directory.api.ldap.model.message.controls.ManageDsaIT;
+import org.apache.directory.api.ldap.model.message.controls.ManageDsaITImpl;
+import org.apache.directory.api.ldap.model.message.controls.ProxiedAuthz;
+import org.apache.directory.api.ldap.model.message.controls.ProxiedAuthzImpl;
 import org.apache.directory.fortress.core.CfgException;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
@@ -235,7 +239,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
     User create( User entity ) throws CreateException
     {
         LdapConnection ld = null;
-
+        boolean setRelaxedControl = false;
         try
         {
             entity.setInternalId();
@@ -301,6 +305,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             if ( ( Config.getInstance().isOpenldap() || Config.getInstance().isApacheds() ) && StringUtils.isNotEmpty( entity.getPwPolicy() ) )
             {
                 myEntry.add( OPENLDAP_POLICY_SUBENTRY, PolicyDAO.getPolicyDn( entity ) );
+                setRelaxedControl = true;
             }
 
             if ( StringUtils.isNotEmpty( entity.getOu() ) )
@@ -347,7 +352,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             }
 
             ld = getAdminConnection();
-            add( ld, myEntry, entity );
+            add( ld, myEntry, entity, setRelaxedControl );
             entity.setDn( dn );
         }
         catch ( LdapEntryAlreadyExistsException e )
@@ -378,7 +383,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
     {
         LdapConnection ld = null;
         String userDn = getDn( entity.getUserId(), entity.getContextId() );
-
+        boolean setRelaxedControl = false;
         try
         {
             List<Modification> mods = new ArrayList<Modification>();
@@ -430,6 +435,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, OPENLDAP_POLICY_SUBENTRY,
                     PolicyDAO.getPolicyDn( entity ) ) );
+                setRelaxedControl = true;
             }
 
             if ( entity.isSystem() != null )
@@ -495,7 +501,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             if ( mods.size() > 0 )
             {
                 ld = getAdminConnection();
-                modify( ld, userDn, mods, entity );
+                modify( ld, userDn, mods, entity, setRelaxedControl );
                 entity.setDn( userDn );
             }
 
@@ -602,7 +608,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, OPENLDAP_PW_LOCKED_TIME,
                 LOCK_VALUE ) );
             ld = getAdminConnection();
-            modify( ld, userDn, mods, user );
+            modify( ld, userDn, mods, user, true );
         }
         catch ( LdapException e )
         {
@@ -630,7 +636,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             List<Modification> mods = new ArrayList<Modification>();
             mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, OPENLDAP_PW_LOCKED_TIME ) );
             ld = getAdminConnection();
-            modify( ld, userDn, mods, user );
+            modify( ld, userDn, mods, user, true );
         }
         catch ( LdapNoSuchAttributeException e )
         {
