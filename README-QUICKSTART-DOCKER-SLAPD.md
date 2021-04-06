@@ -85,12 +85,9 @@ docker pull apachedirectory/openldap-for-apache-fortress-tests
 4. Run the docker container:
 
 ```
-CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
-CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
-echo $CONTAINER_PORT
+docker run -d -p 32768:389 -P apachedirectory/openldap-for-apache-fortress-tests
 ```
 
- * The '$CONTAINER_PORT' value required for next step.
  * Depending on your Docker setup, may need to run this step as root or sudo priv's.
 
 5. Prepare your terminal for execution of maven commands.
@@ -121,7 +118,7 @@ ________________________________________________________________________________
 1. From fortress core base folder, enter the following commands:
 
 ```
-mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
+mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml -Dfortress.host=localhost -Dfortress.port=32768
 ```
 
  *These will build the Directory Information Tree (DIT), create the config and data policies needed for the integration test to follow.*
@@ -231,6 +228,11 @@ docker build  --no-cache=true -t apachedirectory/openldap-for-apache-fortress-te
 CONTAINER_ID=$(docker run -d -P apachedirectory/openldap-for-apache-fortress-tests)
 CONTAINER_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "389/tcp") 0).HostPort}}' $CONTAINER_ID)
 echo $CONTAINER_PORT
+```
+#### Or Run container with specified id and port mapping
+
+```
+docker run --name=openldap-fortress -d -p 32768:389 -P apachedirectory/openldap-for-apache-fortress-tests
 ```
 
 #### Go into the container
