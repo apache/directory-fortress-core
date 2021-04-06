@@ -1759,7 +1759,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, OPENLDAP_PW_RESET, "TRUE" ) );
 
             ld = getAdminConnection();
-            modify( ld, userDn, mods, user );
+            modify( ld, userDn, mods, user, true );
         }
         catch ( LdapException e )
         {
@@ -1788,7 +1788,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             List<Modification> mods = new ArrayList<Modification>();
             mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, OPENLDAP_PW_RESET ) );
             ld = getAdminConnection();
-            modify( ld, userDn, mods, user );
+            modify( ld, userDn, mods, user, true );
         }
         catch ( LdapNoSuchAttributeException e )
         {
