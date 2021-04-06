@@ -259,6 +259,7 @@ public abstract class LdapDataProvider
         {
             addRequest.addControl( new RelaxControlImpl() );
         }
+        // TODO: verify response has no errors:
         AddResponse response = connection.add( addRequest );
     }
 
@@ -326,6 +327,7 @@ public abstract class LdapDataProvider
         COUNTERS.incrementMod();
         audit( mods, entity );
         ModifyRequest modRequest = new ModifyRequestImpl();
+        // TODO: find a better way:
         for( Modification mod : mods )
         {
             modRequest.addModification( mod );
@@ -335,6 +337,7 @@ public abstract class LdapDataProvider
             modRequest.addControl( new RelaxControlImpl() );
         }
         modRequest.setName( new Dn( dn ) );
+        // TODO: verify response has no errors:
         ModifyResponse response = connection.modify( modRequest );
     }
 

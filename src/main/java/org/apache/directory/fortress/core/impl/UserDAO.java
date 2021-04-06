@@ -2133,7 +2133,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
 
             mods.add( new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, OPENLDAP_POLICY_SUBENTRY ) );
             ld = getAdminConnection();
-            modify( ld, userDn, mods, user );
+            modify( ld, userDn, mods, user, true );
         }
         catch ( LdapException e )
         {
