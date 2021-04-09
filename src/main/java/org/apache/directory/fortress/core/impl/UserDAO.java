@@ -52,10 +52,6 @@ import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.BindResponse;
 import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
 import org.apache.directory.api.ldap.model.message.SearchScope;
-import org.apache.directory.api.ldap.model.message.controls.ManageDsaIT;
-import org.apache.directory.api.ldap.model.message.controls.ManageDsaITImpl;
-import org.apache.directory.api.ldap.model.message.controls.ProxiedAuthz;
-import org.apache.directory.api.ldap.model.message.controls.ProxiedAuthzImpl;
 import org.apache.directory.fortress.core.CfgException;
 import org.apache.directory.fortress.core.CreateException;
 import org.apache.directory.fortress.core.FinderException;
@@ -180,22 +176,22 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
      * Constant contains the employeeType attribute within iNetOrgPerson ldap object classes.
      */
     private static final String EMPLOYEE_TYPE = "employeeType";
+    /**
+     * PW Policy operational attributes:
+     */
     private static final String OPENLDAP_POLICY_SUBENTRY = "pwdPolicySubentry";
     private static final String OPENLDAP_PW_RESET = "pwdReset";
     private static final String OPENLDAP_PW_LOCKED_TIME = "pwdAccountLockedTime";
-    private static final String OPENLDAP_ACCOUNT_LOCKED_TIME = "pwdAccountLockedTime";
     private static final String LOCK_VALUE = "000001010000Z";
-
-    // RFC2307bis decls:
+    /**
+     * RFC2307bis decls
+     */
     private static final String POSIX_ACCOUNT = "posixAccount";
     private static final String HOME_DIRECTORY =  "homeDirectory";
-    //private static final boolean IS_RFC2307 = Config.getInstance().getProperty( GlobalIds.RFC2307_PROP ) != null && Config.getInstance().getProperty( GlobalIds.RFC2307_PROP ).equalsIgnoreCase( "true" ) ? true : false;
     /**
      * RF2307bis uses groupOfNames instead of ftRA:
      */
     private static final String USER_ROLE_ASSIGN =  "ftRA";
-    //private static final String USER_ROLE_ASSIGN = IS_RFC2307 && Config.getInstance().getProperty( "rfc2307.user.member" ) != null ? Config.getInstance().getProperty( "rfc2307.user.member" ) : "ftRA";
-
     private static final String[] USERID = { SchemaConstants.UID_AT };
     private static final String[] ROLES = { USER_ROLE_ASSIGN };
     private static final String[] USERID_ATRS = { SchemaConstants.UID_AT };
@@ -640,7 +636,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         }
         catch ( LdapNoSuchAttributeException e )
         {
-            LOG.info( "unlock user [" + user.getUserId() + "] no such attribute:" + OPENLDAP_ACCOUNT_LOCKED_TIME );
+            LOG.info( "unlock user [" + user.getUserId() + "] no such attribute:" + OPENLDAP_PW_LOCKED_TIME );
         }
         catch ( LdapException e )
         {
