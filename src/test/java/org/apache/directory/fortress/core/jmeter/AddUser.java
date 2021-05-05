@@ -34,7 +34,6 @@ import static org.junit.Assert.*;
  */
 public class AddUser extends UserBase
 {
-    private int ctr = 0;
 
     /**
      * Description of the Method
@@ -44,7 +43,8 @@ public class AddUser extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
-        String userId  = hostname + '-' + qualifier + '-' + getKey();
+        int count = getKey();
+        String userId  = hostname + '-' + qualifier + '-' + count;
         SampleResult sampleResult = new SampleResult();
         try
         {
@@ -52,11 +52,18 @@ public class AddUser extends UserBase
             assertNotNull( adminMgr );
             User user = new User();
             user.setUserId( userId );
+            user.setDescription( "add one: " + user.getUserId() );
             user.setPassword( "secret" );
             user.setOu( ou );
             write( "threadid: " + getThreadId() + ", userId: " + userId );
             User outUser = adminMgr.addUser( user );
             assertNotNull( outUser );
+            // This tests replication, ability to handle conflicts:
+            if ( duplicate > 0 && duplicate % count == 0 )
+            {
+                user.setDescription( "add two: " + user.getUserId() );
+                outUser = adminMgr.addUser( user );
+            }
             if( update )
             {
                 user.setDescription( "updated: " + user.getUserId() );

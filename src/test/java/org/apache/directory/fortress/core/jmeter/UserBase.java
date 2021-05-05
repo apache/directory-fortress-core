@@ -63,6 +63,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     protected String ou = null;
     protected int sleep = 0;
     protected int size = 0;
+    protected int duplicate = 0;
     private PrintWriter printWriter;
 
     protected enum Op
@@ -106,7 +107,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     public void setupTest( JavaSamplerContext samplerContext )
     {
         init( samplerContext );
-        String message = "FT SETUP User TID: " + getThreadId() + ", hostname: " + hostname + ", qualifier: " + qualifier + ", verify: " + verify + ", sleep: " + sleep;
+        String message = "FT SETUP User TID: " + getThreadId() + ", hostname: " + hostname + ", qualifier: " + qualifier + ", verify: " + verify + ", sleep: " + sleep + ", duplicate: " + duplicate;
         info( message );
         try
         {
@@ -188,7 +189,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         }
         if (!StringUtils.isEmpty( szSleep ))
         {
-            sleep = Integer.valueOf(szSleep);
+            sleep = Integer.valueOf( szSleep );
         }
         String szSize = System.getProperty( "size" );
         if (StringUtils.isEmpty( szSize ))
@@ -199,6 +200,16 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         {
             size = Integer.valueOf(szSize);
         }
+        String szDuplicate = System.getProperty( "duplicate" );
+        if (StringUtils.isEmpty( szDuplicate ))
+        {
+            szDuplicate = samplerContext.getParameter( "duplicate" );
+        }
+        if (!StringUtils.isEmpty( szDuplicate ))
+        {
+            duplicate = Integer.valueOf(szDuplicate);
+        }
+
         filename = "operations" + '-' + "thread" + getThreadId() + '-' + hostname + '-' + qualifier + ".txt";
         open();
     }
