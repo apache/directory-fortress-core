@@ -56,6 +56,7 @@ public class DelUser extends UserBase
             // This tests replication, ability to handle conflicts:
             if ( duplicate > 0 && count > duplicate && ( count % duplicate ) == 0 )
             {
+                warn( "DUPLICATE DEL[" + count + "]: " + user.getUserId() );
                 adminMgr.deleteUser( user );
             }
             if ( verify )

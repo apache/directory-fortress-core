@@ -61,6 +61,7 @@ public class AddUser extends UserBase
             // This tests replication, ability to handle conflicts:
             if ( duplicate > 0 && count > duplicate && ( count % duplicate ) == 0 )
             {
+                warn( "DUPLICATE ADD[" + count + "]: " + user.getUserId() );
                 user.setDescription( "add two: " + user.getUserId() );
                 outUser = adminMgr.addUser( user );
             }
