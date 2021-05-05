@@ -59,7 +59,7 @@ public class AddUser extends UserBase
             User outUser = adminMgr.addUser( user );
             assertNotNull( outUser );
             // This tests replication, ability to handle conflicts:
-            if ( duplicate > 0 && count > 1000 && duplicate % count == 0 )
+            if ( duplicate > 0 && count > duplicate && ( count % duplicate ) == 0 )
             {
                 user.setDescription( "add two: " + user.getUserId() );
                 outUser = adminMgr.addUser( user );

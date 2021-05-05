@@ -54,7 +54,7 @@ public class DelUser extends UserBase
             write( "threadid: " + getThreadId() + ", userId: " + userId );
             adminMgr.deleteUser( user );
             // This tests replication, ability to handle conflicts:
-            if ( duplicate > 0 && count > 1000 && duplicate % count == 0 )
+            if ( duplicate > 0 && count > duplicate && ( count % duplicate ) == 0 )
             {
                 adminMgr.deleteUser( user );
             }
