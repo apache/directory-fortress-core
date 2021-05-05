@@ -201,10 +201,6 @@ public abstract class UserBase extends AbstractJavaSamplerClient
             size = Integer.valueOf(szSize);
         }
         String szDuplicate = System.getProperty( "duplicate" );
-        if (StringUtils.isEmpty( szDuplicate ))
-        {
-            szDuplicate = samplerContext.getParameter( "duplicate" );
-        }
         if (!StringUtils.isEmpty( szDuplicate ))
         {
             duplicate = Integer.valueOf(szDuplicate);
