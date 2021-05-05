@@ -1226,6 +1226,7 @@
                 <sleep>${sleep}</sleep>
                 <role>${role}</role>
                 <ou>${ou}</ou>
+                <duplicate>${duplicate}</duplicate>
               </propertiesSystem>
               <jMeterProcessJVMSettings>
                 <xms>1024</xms>
@@ -1283,6 +1284,7 @@
                 <verify>${verify}</verify>
                 <output>${output}</output>
                 <sleep>${sleep}</sleep>
+                <duplicate>${duplicate}</duplicate>
               </propertiesSystem>
             </configuration>
             <executions>

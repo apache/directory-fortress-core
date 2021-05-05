@@ -42,7 +42,8 @@ public class DelUser extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
-        String userId  = hostname + '-' + qualifier + '-' + getKey();
+        int count = getKey();
+        String userId  = hostname + '-' + qualifier + '-' + count;
         SampleResult sampleResult = new SampleResult();
         try
         {
@@ -52,6 +53,11 @@ public class DelUser extends UserBase
             user.setUserId( userId );
             write( "threadid: " + getThreadId() + ", userId: " + userId );
             adminMgr.deleteUser( user );
+            // This tests replication, ability to handle conflicts:
+            if ( duplicate > 0 && duplicate % count == 0 )
+            {
+                adminMgr.deleteUser( user );
+            }
             if ( verify )
             {
                 assertFalse( verify( userId, Op.DEL ) );
