@@ -272,8 +272,8 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             {
                 myEntry.add( SchemaConstants.USER_PASSWORD_AT, new String() );
             }
-            
-            myEntry.add( SchemaConstants.DISPLAY_NAME_AT, entity.getCn() );
+
+            myEntry.add( SchemaConstants.DISPLAY_NAME_AT, StringUtils.isNotEmpty( entity.getDisplayName() ) ? entity.getDisplayName() : entity.getCn() );
 
             if ( StringUtils.isNotEmpty( entity.getTitle() ) )
             {
@@ -418,6 +418,11 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             {
                 mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, EMPLOYEE_TYPE, entity
                     .getEmployeeType() ) );
+            }
+
+            if ( StringUtils.isNotEmpty( entity.getDisplayName() ) )
+            {
+                mods.add( new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, SchemaConstants.DISPLAY_NAME_AT, entity.getDisplayName() ) );
             }
 
             if ( StringUtils.isNotEmpty( entity.getTitle() ) )
@@ -2176,6 +2181,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         entity.setSn( getAttribute( entry, SchemaConstants.SN_AT ) );
         entity.setOu( getAttribute( entry, SchemaConstants.OU_AT ) );
         entity.setDn( entry.getDn().getName() );
+        entity.setDisplayName( getAttribute( entry, SchemaConstants.DISPLAY_NAME_AT ) );
         entity.setTitle( getAttribute( entry, SchemaConstants.TITLE_AT ) );
         entity.setEmployeeType( getAttribute( entry, EMPLOYEE_TYPE ) );
         unloadTemporal( entry, entity );
