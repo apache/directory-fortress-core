@@ -7,7 +7,7 @@
    "License"); you may not use this file except in compliance
    with the License.  You may obtain a copy of the License at
 
-     http://www.apache.org/licenses/LICENSE-2.0
+     https://www.apache.org/licenses/LICENSE-2.0
 
    Unless required by applicable law or agreed to in writing,
    software distributed under the License is distributed on an
@@ -54,7 +54,7 @@ cd directory-fortress-core
 
 b. or from Apache:
 ```
-wget http://www.apache.org/dist/directory/fortress/dist/2.0.5/fortress-core-2.0.5-source-release.zip
+wget https://www.apache.org/dist/directory/fortress/dist/2.0.5/fortress-core-2.0.5-source-release.zip
 unzip fortress-core-2.0.5-source-release.zip
 cd fortress-core-2.0.5
 ```

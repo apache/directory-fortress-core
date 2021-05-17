@@ -7,7 +7,7 @@
    "License"); you may not use this file except in compliance
    with the License.  You may obtain a copy of the License at
 
-     http://www.apache.org/licenses/LICENSE-2.0
+     https://www.apache.org/licenses/LICENSE-2.0
 
    Unless required by applicable law or agreed to in writing,
    software distributed under the License is distributed on an
@@ -53,7 +53,7 @@ ________________________________________________________________________________
 
 1. Download and install Apache Directory Server
 
- a. [Download either the 32 or 64-bit linux binary](http://directory.apache.org/apacheds/download/download-linux-bin.html)
+ a. [Download either the 32 or 64-bit linux binary](https://directory.apache.org/apacheds/download/download-linux-bin.html)
 
  b. For 32-bit (as sudo or root):
 
@@ -111,7 +111,7 @@ ________________________________________________________________________________
 
  b. or download package:
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/2.0.5/fortress-core-2.0.5-source-release.zip
+ wget https://www.apache.org/dist/directory/fortress/dist/2.0.5/fortress-core-2.0.5-source-release.zip
  unzip fortress-core-2.0.5-source-release.zip
  cd fortress-core-2.0.5
  ```
@@ -270,7 +270,7 @@ During this section, you will be asked to setup Apache Tomcat 8 and prepare for 
 1. Download and prepare the package:
 
  ```
- wget http://archive.apache.org/dist/tomcat/tomcat-8/v8.0.30/bin/apache-tomcat-8.0.30.tar.gz
+ wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.0.30/bin/apache-tomcat-8.0.30.tar.gz
  tar -xvf apache-tomcat-8.0.30.tar.gz
  sudo mv apache-tomcat-8.0.30 /usr/local/tomcat8
  ```
@@ -280,7 +280,7 @@ During this section, you will be asked to setup Apache Tomcat 8 and prepare for 
 2. Download the fortress realm proxy jar into tomcat/lib folder:
 
   ```
-  sudo wget http://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.5/fortress-realm-proxy-2.0.5.jar -P /usr/local/tomcat8/lib
+  sudo wget https://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.5/fortress-realm-proxy-2.0.5.jar -P /usr/local/tomcat8/lib
   ```
 
 3. Prepare tomcat fortress usage:
@@ -380,7 +380,7 @@ During this section, you will be asked to setup Apache Fortress Rest Application
 
  b. or download package:
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/2.0.5/fortress-rest-2.0.5-source-release.zip
+ wget https://www.apache.org/dist/directory/fortress/dist/2.0.5/fortress-rest-2.0.5-source-release.zip
  unzip fortress-rest-2.0.5-source-release.zip
  cd fortress-rest-2.0.5
  ```
@@ -426,7 +426,7 @@ During this section, you will be asked to setup Apache Fortress Web Application
 
  b. or download package:
  ```
- wget http://www.apache.org/dist/directory/fortress/dist/2.0.5/fortress-web-2.0.5-source-release.zip
+ wget https://www.apache.org/dist/directory/fortress/dist/2.0.5/fortress-web-2.0.5-source-release.zip
  unzip fortress-web-2.0.5-source-release.zip
  cd fortress-web-2.0.5
  ```

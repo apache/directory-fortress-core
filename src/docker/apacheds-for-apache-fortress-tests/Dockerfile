@@ -7,7 +7,7 @@
 #   "License"); you may not use this file except in compliance
 #   with the License.  You may obtain a copy of the License at
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
+#     https://www.apache.org/licenses/LICENSE-2.0
 #
 #   Unless required by applicable law or agreed to in writing,
 #   software distributed under the License is distributed on an
@@ -32,7 +32,7 @@ ENV APACHEDS_SERVICE_NAME=apacheds-${APACHEDS_VERSION}-default
 
 # Install ApacheDS
 RUN \
-    wget http://archive.apache.org/dist/directory/apacheds/dist/${APACHEDS_VERSION}/apacheds-${APACHEDS_VERSION}-amd64.deb -q -O /tmp/apacheds.deb && \
+    wget https://archive.apache.org/dist/directory/apacheds/dist/${APACHEDS_VERSION}/apacheds-${APACHEDS_VERSION}-amd64.deb -q -O /tmp/apacheds.deb && \
     dpkg -i /tmp/apacheds.deb && \
     rm /tmp/apacheds.deb
 

@@ -7,7 +7,7 @@
  *   "License"); you may not use this file except in compliance
  *   with the License.  You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  *   Unless required by applicable law or agreed to in writing,
  *   software distributed under the License is distributed on an
@@ -41,6 +41,8 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.directory.fortress.core.AccessMgr;
 import org.apache.directory.fortress.core.AccessMgrFactory;
+import org.apache.directory.fortress.core.AdminMgr;
+import org.apache.directory.fortress.core.AdminMgrFactory;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.PwPolicyMgr;
 import org.apache.directory.fortress.core.SecurityException;
@@ -99,6 +101,7 @@ public class AccessMgrImplTest extends TestCase
     public void testGetSession() throws Exception
     {
         //TODO: Test goes here...
+        
     }
 
 
@@ -345,6 +348,21 @@ public class AccessMgrImplTest extends TestCase
     public void testCreateSession()
     {
         // public Session createSession(User user, boolean isTrusted)
+        try
+        {
+            // Instantiate the AdminMgr first
+            AdminMgr adminMgr = AdminMgrFactory.createInstance();
+            
+            User myUser = new User( "myUserId", "myPassword", "Test", "People" );
+            
+            adminMgr.addUser( myUser );
+        }
+        catch (SecurityException ex)
+        {
+         // log or throw
+        }
+        
+        
         createSessions( "CREATE-SESS TU1_UPD TR1", UserTestData.USERS_TU1_UPD, RoleTestData.ROLES_TR1 );
         createSessions( "CREATE-SESS TU3 TR3", UserTestData.USERS_TU3, RoleTestData.ROLES_TR3 );
         createSessions( "CREATE-SESS TU4 TR2", UserTestData.USERS_TU4, RoleTestData.ROLES_TR2 );
@@ -737,9 +755,11 @@ public class AccessMgrImplTest extends TestCase
         String[][] oArrayBad, String[][] opArrayBad )
     {
         LogUtil.logIt( msg );
+        
         try
         {
             AccessMgr accessMgr = AccessMgrFactory.createInstance( TestUtils.getContext() );
+            
             for ( String[] usr : uArray )
             {
                 User user = UserTestData.getUser( usr );

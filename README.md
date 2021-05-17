@@ -12,7 +12,7 @@ Role-Based Access Control (RBAC)
    "License"); you may not use this file except in compliance
    with the License.  You may obtain a copy of the License at
 
-     http://www.apache.org/licenses/LICENSE-2.0
+     https://www.apache.org/licenses/LICENSE-2.0
 
    Unless required by applicable law or agreed to in writing,
    software distributed under the License is distributed on an
@@ -32,7 +32,7 @@ Role-Based Access Control (RBAC)
    - [Realm for Apache Tomcat](https://github.com/apache/directory-fortress-realm)
    - [Rest/JSON APIs](https://github.com/apache/directory-fortress-enmasse)
    - [Web Admin Pages](https://github.com/apache/directory-fortress-commander)
- * For more information, visit http://directory.apache.org/fortress/
+ * For more information, visit https://directory.apache.org/fortress/
 
 -------------------------------------------------------------------------------
 ## Table of Contents
@@ -67,7 +67,7 @@ ________________________________________________________________________________
  * The configuration subsystem manages coordinates to the targeted ldap server and more.  Here's how it works [README-CONFIG](./README-CONFIG.md).
  * This system runs within a multitenant context.  To learn how [README-MULTITENANCY](./README-MULTITENANCY.md).
  * Questions about usage may be directed to the mailing list:
-   * http://mail-archives.apache.org/mod_mbox/directory-fortress/
+   * https://mail-archives.apache.org/mod_mbox/directory-fortress/
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites

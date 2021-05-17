@@ -7,7 +7,7 @@
  *   "License"); you may not use this file except in compliance
  *   with the License.  You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  *   Unless required by applicable law or agreed to in writing,
  *   software distributed under the License is distributed on an
@@ -61,14 +61,15 @@ public final class AccessMgrFactory
      */
     public static AccessMgr createInstance( String contextId) throws SecurityException
     {
-        VUtil.assertNotNull(contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance");
+        VUtil.assertNotNull( contextId, GlobalErrIds.CONTEXT_NULL, CLS_NM + ".createInstance" );
 
         String accessClassName = Config.getInstance().getProperty(GlobalIds.ACCESS_IMPLEMENTATION);
         
         AccessMgr accessMgr;
+        
         if ( StringUtils.isEmpty( accessClassName ) )
         {
-            if(Config.getInstance().isRestEnabled())
+            if ( Config.getInstance().isRestEnabled() )
             {
                 accessMgr = new AccessMgrRestImpl();
             }
@@ -83,6 +84,7 @@ public final class AccessMgrFactory
         }
 
         accessMgr.setContextId(contextId);
+        
         return accessMgr;
     }
 }

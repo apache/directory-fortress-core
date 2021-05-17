@@ -7,7 +7,7 @@ cs *   Licensed to the Apache Software Foundation (ASF) under one
  *   "License"); you may not use this file except in compliance
  *   with the License.  You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *     https://www.apache.org/licenses/LICENSE-2.0
  *
  *   Unless required by applicable law or agreed to in writing,
  *   software distributed under the License is distributed on an
@@ -39,7 +39,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class wraps <a href="http://commons.apache.org/cfg/">Apache Commons Config</a> utility and is used by internal components to retrieve name-value
+ * This class wraps <a href="https://commons.apache.org/cfg/">Apache Commons Config</a> utility and is used by internal components to retrieve name-value
  * pair properties from its cfg context.  The class will combine properties that it finds in its local property
  * file along with data that is retrieved by name from the ldap server if name is specified within
  * the {@link org.apache.directory.fortress.core.GlobalIds#CONFIG_REALM} switch.
