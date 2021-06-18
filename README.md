@@ -806,28 +806,29 @@ ________________________________________________________________________________
 
  A. Fortress CheckAccess:
   ```
-  mvn -Ploadtest-fortress jmeter:jmeter
+  mvn -Ploadtest jmeter:jmeter -Dtype=ftCheckAccess
   ```
 
  B. Fortress CreateSession:
   ```
-  mvn -Ploadtest-fortress-createsess jmeter:jmeter
+  mvn -Ploadtest jmeter:jmeter -Dtype=ftCreateSession
   ```
 
  C. Fortress SessionPermissions:
   ```
-  mvn -Ploadtest-fortress-sessperms jmeter:jmeter
+  mvn -Ploadtest jmeter:jmeter -Dtype=ftSessionPerms
   ```
 
  D. Accelerator CheckAccess:
   ```
-  mvn -Ploadtest-accel jmeter:jmeter
+  mvn -Ploadtest jmeter:jmeter -Dtype=acCheckAccess
   ```
 
  E. Accelerator CreateSession:
   ```
-  mvn -Ploadtest-accel-createsess jmeter:jmeter
+  mvn -Ploadtest jmeter:jmeter -Dtype=acCreateSession
   ```
+
 ___________________________________________________________________________________
 ## SECTION 15. Howto Debug a load script
 
