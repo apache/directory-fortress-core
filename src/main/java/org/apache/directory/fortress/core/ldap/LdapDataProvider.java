@@ -30,9 +30,26 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicy;
-import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyImpl;
-import org.apache.directory.api.ldap.extras.controls.ppolicy_impl.PasswordPolicyDecorator;
+import org.apache.directory.api.ldap.codec.api.LdapApiService;
+import org.apache.directory.api.ldap.codec.api.LdapApiServiceFactory;
+import org.apache.directory.api.ldap.codec.osgi.DefaultLdapCodecService;
+import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyRequest;
+import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyRequestImpl;
+
+//import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyImpl;
+//import org.apache.directory.api.ldap.extras.controls.ppolicy_impl.PasswordPolicyDecorator;
+
+
+//import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicy;
+//import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyImpl;
+//import org.apache.directory.api.ldap.extras.controls.ppolicy_impl.PasswordPolicyDecorator;
+//import org.apache.directory.api.ldap.extras.controls.ppolicy.*;
+//import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyRequest;
+//import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyRequestImpl;
+
+
+import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyResponse;
+import org.apache.directory.api.ldap.extras.controls.ppolicy_impl.PasswordPolicyResponseFactory;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
@@ -78,7 +95,7 @@ public abstract class LdapDataProvider
     private static final String CLS_NM = LdapDataProvider.class.getName();
     private static final int MAX_DEPTH = 100;
     private static final LdapCounters COUNTERS = new LdapCounters();
-    private static final PasswordPolicy PP_REQ_CTRL = new PasswordPolicyImpl();
+    private static final PasswordPolicyRequest PP_REQ_CTRL = new PasswordPolicyRequestImpl();
 
     /**
      * Given a contextId and a fortress param name return the LDAP dn.
@@ -255,6 +272,7 @@ public abstract class LdapDataProvider
         }
         AddRequest addRequest = new AddRequestImpl();
         addRequest.setEntry( entry );
+        // TODO: FIXME #2
         if ( setRelaxControl )
         {
             addRequest.addControl( new RelaxControlImpl() );
@@ -332,6 +350,7 @@ public abstract class LdapDataProvider
         {
             modRequest.addModification( mod );
         }
+        // TODO: FIXME #2
         if ( setRelaxControl )
         {
             modRequest.addControl( new RelaxControlImpl() );
@@ -750,7 +769,7 @@ public abstract class LdapDataProvider
             Attribute attr = entry.get( attributeName );
             if ( attr != null )
             {
-                for ( Value<?> value : attr )
+                for ( Value value : attr )
                 {
                     attrValues.add( value.getString() );
                 }
@@ -802,7 +821,7 @@ public abstract class LdapDataProvider
 
         if ( entry != null && entry.containsAttribute( attributeName ) )
         {
-            for ( Value<?> value : entry.get( attributeName ) )
+            for ( Value value : entry.get( attributeName ) )
             {
                 attrValues.add( value.getString() );
             }
@@ -861,6 +880,7 @@ public abstract class LdapDataProvider
     }
 
 
+/*
     protected String getRdnValue( String dn )
     {
         try
@@ -872,6 +892,7 @@ public abstract class LdapDataProvider
             return null;
         }
     }
+*/
 
 
     /**
@@ -1208,7 +1229,18 @@ public abstract class LdapDataProvider
      * @param resp contains reference to LDAP pw policy response.
      * @return PasswordPolicy response control.
      */
-    protected PasswordPolicy getPwdRespCtrl( Response resp )
+    protected PasswordPolicyResponse getPwdRespCtrl(Response resp )
+    {
+        // TODO: FIXME #3
+        LdapApiService codec = new DefaultLdapCodecService();
+        PasswordPolicyResponseFactory factory = ( PasswordPolicyResponseFactory ) codec.getResponseControlFactories().
+                get( PasswordPolicyResponse.OID );
+        PasswordPolicyResponse passwordPolicyResponse = factory.newControl();
+        return passwordPolicyResponse;
+    }
+
+/*
+    protected PasswordPolicy getPwdRespCtrl(Response resp )
     {
         Control control = resp.getControls().get( PP_REQ_CTRL.getOid() );
         if ( control == null )
@@ -1220,6 +1252,7 @@ public abstract class LdapDataProvider
     }
 
 
+*/
     /**
      * Calls the PoolMgr to perform an LDAP bind for a user/password combination.  This function is valid
      * if and only if the user entity is a member of the USERS data set.
@@ -1237,6 +1270,7 @@ public abstract class LdapDataProvider
         BindRequest bindReq = new BindRequestImpl();
         bindReq.setDn( userDn );
         bindReq.setCredentials( password );
+        // TODO: FIX ME
         bindReq.addControl( PP_REQ_CTRL );
         return connection.bind( bindReq );
     }

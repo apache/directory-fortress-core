@@ -215,6 +215,19 @@
     <dependency>
       <groupId>org.apache.directory.api</groupId>
       <artifactId>api-all</artifactId>
+      <version>2.0.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+      <version>4.4</version>
+    </dependency>
+
+<!--
+    <dependency>
+      <groupId>org.apache.directory.api</groupId>
+      <artifactId>api-all</artifactId>
       <version>${version.api.all}</version>
       <type>jar</type>
       <exclusions>
@@ -222,13 +235,14 @@
           <groupId>xml-apis</groupId>
           <artifactId>xml-apis</artifactId>
         </exclusion>
-        <!-- CVE-2018-1000632 -->
+        &lt;!&ndash; CVE-2018-1000632 &ndash;&gt;
         <exclusion>
           <groupId>org.apache.servicemix.bundles</groupId>
           <artifactId>org.apache.servicemix.bundles.dom4j</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
+-->
 
     <dependency>
       <groupId>org.apache.ant</groupId>
@@ -492,6 +506,18 @@
       <artifactId>log4j-core</artifactId>
       <version>${version.log4j}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+      <version>4.4</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>3.2.2</version>
+      <scope>compile</scope>
     </dependency>
 
   </dependencies>

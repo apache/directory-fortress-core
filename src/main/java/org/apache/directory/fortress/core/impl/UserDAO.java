@@ -27,10 +27,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicy;
+import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyResponse;
+//import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicy;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
@@ -50,6 +51,7 @@ import org.apache.directory.api.ldap.model.exception.LdapNoPermissionException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchAttributeException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.BindResponse;
+import org.apache.directory.api.ldap.model.message.Control;
 import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.fortress.core.CfgException;
@@ -71,6 +73,7 @@ import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyErrorEnum.*;
 import static org.apache.directory.fortress.core.impl.RoleDAO.IS_RFC2307;
 
 
@@ -834,13 +837,16 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
                 session.setErrorId( GlobalErrIds.USER_PW_INVLD );
             }
 
-            PasswordPolicy respCtrl = getPwdRespCtrl( bindResponse );
+            //PasswordPolicy respCtrl = getPwdRespCtrl( bindResponse );
+/*
+            PasswordPolicyResponse respCtrl = getPwdRespCtrl( bindResponse );
 
             if ( respCtrl != null )
             {
                 // check IETF password policies here
                 checkPwPolicies( session, respCtrl );
             }
+*/
 
             if ( session.getErrorId() == 0 )
             {
@@ -871,7 +877,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
     }
 
 
-    private void checkPwPolicies( PwMessage pwMsg, PasswordPolicy respCtrl )
+    private void checkPwPolicies( PwMessage pwMsg, PasswordPolicyResponse respCtrl )
     {
         int rc = 0;
         boolean result = false;
@@ -879,28 +885,30 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         if ( respCtrl != null )
         {
             // LDAP has notified of password violation:
-            if ( respCtrl.hasResponse() )
+//            if ( respCtrl.hasResponse() )
+            if ( true )
             {
                 String errMsg = null;
-                if ( respCtrl.getResponse() != null )
+/*                if ( respCtrl.getResponse() != null )*/
+                if ( true )
                 {
-                    if ( respCtrl.getResponse().getTimeBeforeExpiration() > 0 )
+                    if ( respCtrl.getTimeBeforeExpiration() > 0 )
                     {
-                        pwMsg.setExpirationSeconds( respCtrl.getResponse().getTimeBeforeExpiration() );
+                        pwMsg.setExpirationSeconds( respCtrl.getTimeBeforeExpiration() );
                         pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds
                             .PASSWORD_EXPIRATION_WARNING, "PASSWORD WILL EXPIRE", Warning.Type.PASSWORD ) );
                     }
-                    if ( respCtrl.getResponse().getGraceAuthNRemaining() > 0 )
+                    if ( respCtrl.getGraceAuthNRemaining() > 0 )
                     {
-                        pwMsg.setGraceLogins( respCtrl.getResponse().getGraceAuthNRemaining() );
+                        pwMsg.setGraceLogins( respCtrl.getGraceAuthNRemaining() );
                         pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds.PASSWORD_GRACE_WARNING,
                             "PASSWORD IN GRACE", Warning.Type.PASSWORD ) );
                     }
 
-                    if ( respCtrl.getResponse().getPasswordPolicyError() != null )
+                    if ( respCtrl.getPasswordPolicyError() != null )
                     {
 
-                        switch ( respCtrl.getResponse().getPasswordPolicyError() )
+                        switch ( respCtrl.getPasswordPolicyError() )
                         {
 
                             case CHANGE_AFTER_RESET:
