@@ -30,8 +30,11 @@ import java.util.TreeMap;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.directory.api.ldap.codec.api.LdapApiService;
+import org.apache.directory.api.ldap.codec.osgi.DefaultLdapCodecService;
 import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyResponse;
 //import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicy;
+import org.apache.directory.api.ldap.extras.controls.ppolicy_impl.PasswordPolicyResponseFactory;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
@@ -838,15 +841,12 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             }
 
             //PasswordPolicy respCtrl = getPwdRespCtrl( bindResponse );
-/*
             PasswordPolicyResponse respCtrl = getPwdRespCtrl( bindResponse );
-
             if ( respCtrl != null )
             {
                 // check IETF password policies here
                 checkPwPolicies( session, respCtrl );
             }
-*/
 
             if ( session.getErrorId() == 0 )
             {
@@ -884,106 +884,93 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
         String msgHdr = "checkPwPolicies for userId [" + pwMsg.getUserId() + "] ";
         if ( respCtrl != null )
         {
-            // LDAP has notified of password violation:
-//            if ( respCtrl.hasResponse() )
-            if ( true )
+            String errMsg = null;
+            if ( respCtrl.getTimeBeforeExpiration() > 0 )
             {
-                String errMsg = null;
-/*                if ( respCtrl.getResponse() != null )*/
-                if ( true )
+                pwMsg.setExpirationSeconds( respCtrl.getTimeBeforeExpiration() );
+                pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds
+                    .PASSWORD_EXPIRATION_WARNING, "PASSWORD WILL EXPIRE", Warning.Type.PASSWORD ) );
+            }
+            if ( respCtrl.getGraceAuthNRemaining() > 0 )
+            {
+                pwMsg.setGraceLogins( respCtrl.getGraceAuthNRemaining() );
+                pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds.PASSWORD_GRACE_WARNING,
+                    "PASSWORD IN GRACE", Warning.Type.PASSWORD ) );
+            }
+            if ( respCtrl.getPasswordPolicyError() != null )
+            {
+                switch ( respCtrl.getPasswordPolicyError() )
                 {
-                    if ( respCtrl.getTimeBeforeExpiration() > 0 )
-                    {
-                        pwMsg.setExpirationSeconds( respCtrl.getTimeBeforeExpiration() );
-                        pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds
-                            .PASSWORD_EXPIRATION_WARNING, "PASSWORD WILL EXPIRE", Warning.Type.PASSWORD ) );
-                    }
-                    if ( respCtrl.getGraceAuthNRemaining() > 0 )
-                    {
-                        pwMsg.setGraceLogins( respCtrl.getGraceAuthNRemaining() );
-                        pwMsg.setWarning( new ObjectFactory().createWarning( GlobalPwMsgIds.PASSWORD_GRACE_WARNING,
-                            "PASSWORD IN GRACE", Warning.Type.PASSWORD ) );
-                    }
-
-                    if ( respCtrl.getPasswordPolicyError() != null )
-                    {
-
-                        switch ( respCtrl.getPasswordPolicyError() )
+                    case CHANGE_AFTER_RESET:
+                        // Don't throw exception if authenticating in J2EE Realm - The Web application must
+                        // give user a chance to modify their password.
+                        if ( !Config.getInstance().isRealm() )
                         {
-
-                            case CHANGE_AFTER_RESET:
-                                // Don't throw exception if authenticating in J2EE Realm - The Web application must
-                                // give user a chance to modify their password.
-                                if ( !Config.getInstance().isRealm() )
-                                {
-                                    errMsg = msgHdr + "PASSWORD HAS BEEN RESET BY LDAP_ADMIN_POOL_UID";
-                                    rc = GlobalErrIds.USER_PW_RESET;
-                                }
-                                else
-                                {
-                                    errMsg = msgHdr + "PASSWORD HAS BEEN RESET BY LDAP_ADMIN_POOL_UID BUT ALLOWING TO" +
-                                        " CONTINUE DUE TO REALM";
-                                    result = true;
-                                    pwMsg.setWarning( new ObjectFactory().createWarning( GlobalErrIds.USER_PW_RESET,
-                                        errMsg, Warning.Type.PASSWORD ) );
-                                }
-                                break;
-
-                            case ACCOUNT_LOCKED:
-                                errMsg = msgHdr + "ACCOUNT HAS BEEN LOCKED";
-                                rc = GlobalErrIds.USER_PW_LOCKED;
-                                break;
-
-                            case PASSWORD_EXPIRED:
-                                errMsg = msgHdr + "PASSWORD HAS EXPIRED";
-                                rc = GlobalErrIds.USER_PW_EXPIRED;
-                                break;
-
-                            case PASSWORD_MOD_NOT_ALLOWED:
-                                errMsg = msgHdr + "PASSWORD MOD NOT ALLOWED";
-                                rc = GlobalErrIds.USER_PW_MOD_NOT_ALLOWED;
-                                break;
-
-                            case MUST_SUPPLY_OLD_PASSWORD:
-                                errMsg = msgHdr + "MUST SUPPLY OLD PASSWORD";
-                                rc = GlobalErrIds.USER_PW_MUST_SUPPLY_OLD;
-                                break;
-
-                            case INSUFFICIENT_PASSWORD_QUALITY:
-                                errMsg = msgHdr + "PASSWORD QUALITY VIOLATION";
-                                rc = GlobalErrIds.USER_PW_NSF_QUALITY;
-                                break;
-
-                            case PASSWORD_TOO_SHORT:
-                                errMsg = msgHdr + "PASSWORD TOO SHORT";
-                                rc = GlobalErrIds.USER_PW_TOO_SHORT;
-                                break;
-
-                            case PASSWORD_TOO_YOUNG:
-                                errMsg = msgHdr + "PASSWORD TOO YOUNG";
-                                rc = GlobalErrIds.USER_PW_TOO_YOUNG;
-                                break;
-
-                            case PASSWORD_IN_HISTORY:
-                                errMsg = msgHdr + "PASSWORD IN HISTORY VIOLATION";
-                                rc = GlobalErrIds.USER_PW_IN_HISTORY;
-                                break;
-
-                            default:
-                                errMsg = msgHdr + "PASSWORD CHECK FAILED";
-                                rc = GlobalErrIds.USER_PW_CHK_FAILED;
-                                break;
+                            errMsg = msgHdr + "PASSWORD HAS BEEN RESET BY LDAP_ADMIN_POOL_UID";
+                            rc = GlobalErrIds.USER_PW_RESET;
                         }
+                        else
+                        {
+                            errMsg = msgHdr + "PASSWORD HAS BEEN RESET BY LDAP_ADMIN_POOL_UID BUT ALLOWING TO" +
+                                " CONTINUE DUE TO REALM";
+                            result = true;
+                            pwMsg.setWarning( new ObjectFactory().createWarning( GlobalErrIds.USER_PW_RESET,
+                                errMsg, Warning.Type.PASSWORD ) );
+                        }
+                        break;
 
-                    }
+                    case ACCOUNT_LOCKED:
+                        errMsg = msgHdr + "ACCOUNT HAS BEEN LOCKED";
+                        rc = GlobalErrIds.USER_PW_LOCKED;
+                        break;
+
+                    case PASSWORD_EXPIRED:
+                        errMsg = msgHdr + "PASSWORD HAS EXPIRED";
+                        rc = GlobalErrIds.USER_PW_EXPIRED;
+                        break;
+
+                    case PASSWORD_MOD_NOT_ALLOWED:
+                        errMsg = msgHdr + "PASSWORD MOD NOT ALLOWED";
+                        rc = GlobalErrIds.USER_PW_MOD_NOT_ALLOWED;
+                        break;
+
+                    case MUST_SUPPLY_OLD_PASSWORD:
+                        errMsg = msgHdr + "MUST SUPPLY OLD PASSWORD";
+                        rc = GlobalErrIds.USER_PW_MUST_SUPPLY_OLD;
+                        break;
+
+                    case INSUFFICIENT_PASSWORD_QUALITY:
+                        errMsg = msgHdr + "PASSWORD QUALITY VIOLATION";
+                        rc = GlobalErrIds.USER_PW_NSF_QUALITY;
+                        break;
+
+                    case PASSWORD_TOO_SHORT:
+                        errMsg = msgHdr + "PASSWORD TOO SHORT";
+                        rc = GlobalErrIds.USER_PW_TOO_SHORT;
+                        break;
+
+                    case PASSWORD_TOO_YOUNG:
+                        errMsg = msgHdr + "PASSWORD TOO YOUNG";
+                        rc = GlobalErrIds.USER_PW_TOO_YOUNG;
+                        break;
+
+                    case PASSWORD_IN_HISTORY:
+                        errMsg = msgHdr + "PASSWORD IN HISTORY VIOLATION";
+                        rc = GlobalErrIds.USER_PW_IN_HISTORY;
+                        break;
+
+                    default:
+                        errMsg = msgHdr + "PASSWORD CHECK FAILED";
+                        rc = GlobalErrIds.USER_PW_CHK_FAILED;
+                        break;
                 }
-                if ( rc != 0 )
-                {
-                    pwMsg.setMsg( errMsg );
-                    pwMsg.setErrorId( rc );
-                    pwMsg.setAuthenticated( result );
-                    LOG.debug( errMsg );
-                }
+            }
+            if ( rc != 0 )
+            {
+                pwMsg.setMsg( errMsg );
+                pwMsg.setErrorId( rc );
+                pwMsg.setAuthenticated( result );
+                LOG.debug( errMsg );
             }
         }
     }

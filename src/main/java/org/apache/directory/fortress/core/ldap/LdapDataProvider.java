@@ -275,7 +275,7 @@ public abstract class LdapDataProvider
         // TODO: FIXME #2
         if ( setRelaxControl )
         {
-            addRequest.addControl( new RelaxControlImpl() );
+            //addRequest.addControl( new RelaxControlImpl() );
         }
         AddResponse response = connection.add( addRequest );
         ResultCodeEnum.processResponse(response);
@@ -353,7 +353,7 @@ public abstract class LdapDataProvider
         // TODO: FIXME #2
         if ( setRelaxControl )
         {
-            modRequest.addControl( new RelaxControlImpl() );
+            //modRequest.addControl( new RelaxControlImpl() );
         }
         modRequest.setName( new Dn( dn ) );
         ModifyResponse response = connection.modify( modRequest );
@@ -880,21 +880,6 @@ public abstract class LdapDataProvider
     }
 
 
-/*
-    protected String getRdnValue( String dn )
-    {
-        try
-        {
-            return new Dn( dn ).getRdn().getNormValue();
-        }
-        catch ( LdapInvalidDnException lide )
-        {
-            return null;
-        }
-    }
-*/
-
-
     /**
      * Create multi-occurring ldap attribute given array of strings and attribute name.
      *
@@ -1227,32 +1212,15 @@ public abstract class LdapDataProvider
      * Get Password Policy Response Control from LDAP client.
      *
      * @param resp contains reference to LDAP pw policy response.
-     * @return PasswordPolicy response control.
+     * @return PasswordPolicyResponse control.
      */
-    protected PasswordPolicyResponse getPwdRespCtrl(Response resp )
+    protected PasswordPolicyResponse getPwdRespCtrl(BindResponse resp )
     {
-        // TODO: FIXME #3
-        LdapApiService codec = new DefaultLdapCodecService();
-        PasswordPolicyResponseFactory factory = ( PasswordPolicyResponseFactory ) codec.getResponseControlFactories().
-                get( PasswordPolicyResponse.OID );
-        PasswordPolicyResponse passwordPolicyResponse = factory.newControl();
-        return passwordPolicyResponse;
-    }
-
-/*
-    protected PasswordPolicy getPwdRespCtrl(Response resp )
-    {
-        Control control = resp.getControls().get( PP_REQ_CTRL.getOid() );
-        if ( control == null )
-        {
-            return null;
-        }
-
-        return ( ( PasswordPolicyDecorator ) control ).getDecorated();
+        Control control = resp.getControls().get( PasswordPolicyResponse.OID );
+        return ( PasswordPolicyResponse ) control;
     }
 
 
-*/
     /**
      * Calls the PoolMgr to perform an LDAP bind for a user/password combination.  This function is valid
      * if and only if the user entity is a member of the USERS data set.
