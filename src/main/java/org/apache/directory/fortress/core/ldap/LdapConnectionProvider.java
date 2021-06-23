@@ -193,26 +193,25 @@ public class LdapConnectionProvider
         }
 */
 
-        // TODO: FIXME #1
         PooledObjectFactory<LdapConnection> poolFactory = new ValidatingPoolableLdapConnectionFactory( config );
-        //PoolableObjectFactory<LdapConnection> poolFactory = new ValidatingPoolableLdapConnectionFactory( config );
 
         // Create the Admin pool
         adminPool = new LdapConnectionPool( poolFactory );
         adminPool.setTestOnBorrow( testOnBorrow );
-        //adminPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
-        //adminPool.setMaxActive( max );
+        adminPool.setMaxTotal( max );
+        adminPool.setBlockWhenExhausted( true );
+        adminPool.setMaxWaitMillis( 5000 );
         adminPool.setMinIdle( min );
         adminPool.setMaxIdle( -1 );
         adminPool.setTestWhileIdle( testWhileIdle );
         adminPool.setTimeBetweenEvictionRunsMillis( timeBetweenEvictionRunMillis );
-        //adminPool.setMaxWait( 0 );
 
         // Create the User pool
         userPool = new LdapConnectionPool( poolFactory );
         userPool.setTestOnBorrow( testOnBorrow );
-        //userPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
-        //userPool.setMaxActive( max );
+        userPool.setMaxTotal( max );
+        userPool.setBlockWhenExhausted( true );
+        userPool.setMaxWaitMillis( 5000 );
         userPool.setMinIdle( min );
         userPool.setMaxIdle( -1 );
         userPool.setTestWhileIdle( testWhileIdle );
@@ -255,8 +254,9 @@ public class LdapConnectionProvider
             poolFactory = new ValidatingPoolableLdapConnectionFactory( logConfig );
             logPool = new LdapConnectionPool( poolFactory );
             logPool.setTestOnBorrow( testOnBorrow );
-            //logPool.setWhenExhaustedAction( GenericObjectPool.WHEN_EXHAUSTED_GROW );
-            //logPool.setMaxActive( logmax );
+            logPool.setMaxTotal( max );
+            logPool.setBlockWhenExhausted( true );
+            logPool.setMaxWaitMillis( 5000 );
             logPool.setMinIdle( logmin );
             logPool.setTestWhileIdle( testWhileIdle );
             logPool.setTimeBetweenEvictionRunsMillis( logTimeBetweenEvictionRunMillis );
