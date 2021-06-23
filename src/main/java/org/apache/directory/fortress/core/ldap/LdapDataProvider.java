@@ -275,7 +275,7 @@ public abstract class LdapDataProvider
         // TODO: FIXME #2
         if ( setRelaxControl )
         {
-            //addRequest.addControl( new RelaxControlImpl() );
+            addRequest.addControl( new RelaxControlImpl() );
         }
         AddResponse response = connection.add( addRequest );
         ResultCodeEnum.processResponse(response);
@@ -353,7 +353,7 @@ public abstract class LdapDataProvider
         // TODO: FIXME #2
         if ( setRelaxControl )
         {
-            //modRequest.addControl( new RelaxControlImpl() );
+            modRequest.addControl( new RelaxControlImpl() );
         }
         modRequest.setName( new Dn( dn ) );
         ModifyResponse response = connection.modify( modRequest );

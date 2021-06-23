@@ -902,51 +902,7 @@ class ProcessMenuCommand
                         policyConsole.add();
                         break;
                     case '2':
-                        //policyConsole.updatePolicy();
-                        break;
-                    case '3':
-                        //policyConsole.deletePolicy();
-                        break;
-                    case '4':
-                        //policyConsole.readPolicy();
-                        break;
-                    case '5':
-                        //policyConsole.findPolicies();
-                        break;
-                    case '6':
-                        //policyConsole.updateUserPolicy();
-                        break;
-                    case '7':
-                        //policyConsole.deleteUserPasswordPolicy();
-                        break;
-                    case '8':
-                        //policyConsole.readOperationalAttributes();
-                        break;
-                    case '9':
-                        //policyConsole.resetUserPassword();
-                        break;
-                    case '0':
-                        //adminConsole.unlockAccount();
-                        break;
-                    case 'a':
-                    case 'A':
-                        //policyConsole.lockUserAccount();
-                        break;
-                    case 'b':
-                    case 'B':
-                        //policyConsole.clearResetFlag();
-                        break;
-                    case 'c':
-                    case 'C':
-                        //policyConsole.checkPasswordPolicy();
-                        break;
-                    case 'd':
-                    case 'D':
-                        //policyConsole.getLockedUsers();
-                        break;
-                    case 'e':
-                    case 'E':
-                        //policyConsole.isLockedUser();
+                        policyConsole.assignPolicy();
                         break;
                     case 'q':
                     case 'Q':
@@ -972,6 +928,7 @@ class ProcessMenuCommand
         ReaderUtil.clearScreen();
         System.out.println( "CHOOSE PASSWORD POLICY FUNCTION:" );
         System.out.println( "1. Create Password Policy" );
+        System.out.println( "2. Assign Password Policy to User" );
         System.out.println( "Enter q or Q to return to previous menu" );
     }
 

@@ -22,6 +22,8 @@ package org.apache.directory.fortress.core;
 
 import org.apache.directory.fortress.core.model.PwPolicy;
 import org.apache.directory.fortress.core.impl.TestUtils;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -160,6 +162,29 @@ class PolicyMgrConsole
         catch ( SecurityException e )
         {
             LOG.error( "add caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e );
+        }
+        ReaderUtil.readChar();
+    }
+
+
+    void assignPolicy()
+    {
+        try
+        {
+            ReaderUtil.clearScreen();
+            System.out.println("Enter userId");
+            String userId = ReaderUtil.readLn();
+            System.out.println("Enter password policy name or NULL to skip");
+            String plcyNm = ReaderUtil.readLn();
+            pm.updateUserPolicy( userId, plcyNm );
+            System.out.println("userId [" + userId + "]");
+            System.out.println("policy name [" + plcyNm + "]");
+            System.out.println("has been updated");
+            System.out.println("ENTER to continue");
+        }
+        catch (SecurityException e)
+        {
+            LOG.error("assignPolicy caught SecurityException rc=" + e.getErrorId() + ", msg=" + e.getMessage(), e);
         }
         ReaderUtil.readChar();
     }
