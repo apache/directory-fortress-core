@@ -19,7 +19,6 @@
  */
 package org.apache.directory.fortress.core;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -150,9 +149,8 @@ class AccessMgrConsole
             ReaderUtil.clearScreen();
             System.out.println("Enter userId:");
             String userId = ReaderUtil.readLn();
-            Console console = System.console();
             System.out.println("Enter password:");
-            String password = new String ( console.readPassword() );
+            String password = ReaderUtil.readLn();
             session = am.authenticate(userId, password);
             System.out.println("Authentication successful for userId [" + userId + "]");
             System.out.println("session [" + session + "]");
@@ -174,9 +172,7 @@ class AccessMgrConsole
             System.out.println("Enter userId:");
             String userId = ReaderUtil.readLn();
             System.out.println("Enter password:");
-            Console console = System.console();
-            String password = new String ( console.readPassword() );
-
+            String password = ReaderUtil.readLn();
             User inUser = new User(userId, password);
             List<RoleConstraint> constraints = new ArrayList();
             RoleConstraint constraint = getRuntimeConstraint( inUser );
