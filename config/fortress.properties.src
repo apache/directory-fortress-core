@@ -62,6 +62,12 @@ max.user.conn=@USR_MAX_CONN@
 validate.conn.borrow=@VALIDATE_CONN_BORROW@
 # Applies to all pools, connection validated when idle with dummy ldapsearch. (default is false)
 validate.conn.idle=@VALIDATE_CONN_IDLE@
+# Applies to all pools, when all connections are exhausted will block. (default is true)
+max.conn.block=@MAX_CONN_BLOCK@
+# Applies to all pools, when all connections are exhausted will block for this many milliseconds. (default is 5000)
+max.conn.block.time=@MAX_CONN_BLOCK_TIME@
+# Set to true if using API 2.0.2 and need relax control (default is false):
+enable.relax.control.registration=@REGISTER_RELAX_CONTROL@
 
 # These credentials are used for read/write access to all nodes under slapd access log suffix:
 log.admin.user=@LOG_ROOT_DN@

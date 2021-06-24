@@ -118,6 +118,12 @@ user.max.conn=10
 all.validate.conn.borrow=false
 # Applies to all pools, connection validated when idle with dummy ldapsearch. (default is false)
 all.validate.conn.idle=false
+# Applies to all pools, when all connections are exhausted will block. (default is true)
+all.max.conn.block=true
+# Applies to all pools, when all connections are exhausted will block for this many milliseconds. (default is 5000)
+all.max.conn.block.time=5000
+# Set to true if using API 2.0.2 and need relax control (default is false):
+temp.enable.relax.control=false
 
 ########################################################################
 # 3. GROUP OBJECT CLASS DEFINITIONS

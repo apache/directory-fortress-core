@@ -463,7 +463,14 @@ public final class GlobalIds
      * Applies to all pools, connection validated when idle with dummy ldapsearch.
      */
     public static final String TEST_ON_IDLE = "validate.conn.idle";
-
+    /**
+     * Applies to all pools, when all connections are exhausted will block. (default is true)
+     */
+    public static final String IS_MAX_CONN_BLOCK = "max.conn.block";
+    /**
+     * Applies to all pools, when all connections are exhausted will block for this many milliseconds. (default is 5000)
+     */
+    public static final String MAX_CONN_BLOCK_TIME = "max.conn.block.time";
     // Used for TLS/SSL client-side configs:
     public static final String ENABLE_LDAP_SSL = "enable.ldap.ssl";
     public static final String ENABLE_LDAP_STARTTLS = "enable.ldap.starttls";

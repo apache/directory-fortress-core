@@ -272,7 +272,6 @@ public abstract class LdapDataProvider
         }
         AddRequest addRequest = new AddRequestImpl();
         addRequest.setEntry( entry );
-        // TODO: FIXME #2
         if ( setRelaxControl )
         {
             addRequest.addControl( new RelaxControlImpl() );
@@ -350,7 +349,6 @@ public abstract class LdapDataProvider
         {
             modRequest.addModification( mod );
         }
-        // TODO: FIXME #2
         if ( setRelaxControl )
         {
             modRequest.addControl( new RelaxControlImpl() );

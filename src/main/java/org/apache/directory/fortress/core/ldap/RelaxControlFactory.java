@@ -1,34 +1,38 @@
+/*
+ *   Licensed to the Apache Software Foundation (ASF) under one
+ *   or more contributor license agreements.  See the NOTICE file
+ *   distributed with this work for additional information
+ *   regarding copyright ownership.  The ASF licenses this file
+ *   to you under the Apache License, Version 2.0 (the
+ *   "License"); you may not use this file except in compliance
+ *   with the License.  You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ *   Unless required by applicable law or agreed to in writing,
+ *   software distributed under the License is distributed on an
+ *   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ *   KIND, either express or implied.  See the License for the
+ *   specific language governing permissions and limitations
+ *   under the License.
+ *
+ */
 package org.apache.directory.fortress.core.ldap;
 
 
-import org.apache.directory.api.asn1.DecoderException;
-import org.apache.directory.api.asn1.util.Asn1Buffer;
-import org.apache.directory.api.ldap.codec.api.CodecControl;
-import org.apache.directory.api.ldap.codec.api.ControlContainer;
-import org.apache.directory.api.ldap.codec.api.ControlFactory;
+import org.apache.directory.api.ldap.codec.api.AbstractControlFactory;
 import org.apache.directory.api.ldap.codec.api.LdapApiService;
-import org.apache.directory.api.ldap.model.message.Control;
 
-
-/**
- * A codec {@link ControlFactory} implementation for {@link RelaxControl} controls.
- *
- * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
- */
-public class RelaxControlFactory implements ControlFactory<RelaxControl>
+public class RelaxControlFactory extends AbstractControlFactory<RelaxControl>
 {
-    /** The LDAP codec responsible for encoding and decoding Cascade Controls */
-    private LdapApiService codec;
-
-
     /**
-     * Creates a new instance of TransactionSpecificationFactory.
+     * Creates a new instance of ManageDsaITFactory.
      *
      * @param codec The LDAP codec
      */
     public RelaxControlFactory( LdapApiService codec )
     {
-        this.codec = codec;
+        super( codec, RelaxControl.OID );
     }
 
 
@@ -36,35 +40,8 @@ public class RelaxControlFactory implements ControlFactory<RelaxControl>
      * {@inheritDoc}
      */
     @Override
-    public String getOid()
+    public RelaxControl newControl()
     {
-        return RelaxControl.OID;
+        return new RelaxControlImpl();
     }
-
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public CodecControl<RelaxControl> newControl()
-    {
-        return new RelaxControlDecorator( codec, new RelaxControlImpl() );
-    }
-
-
-    public void encodeValue(Asn1Buffer var1, Control var2)
-    {
-
-    }
-
-    public void decodeValue(ControlContainer var1, Control var2, byte[] var3) throws DecoderException
-    {
-
-    }
-
-    public void decodeValue(Control var1, byte[] var2) throws DecoderException
-    {
-
-    }
-
 }

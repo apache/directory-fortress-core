@@ -23,11 +23,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.pool.PoolableObjectFactory;
-import org.apache.commons.pool.impl.GenericObjectPool;
 import org.apache.commons.pool2.PooledObjectFactory;
+import org.apache.directory.api.ldap.codec.api.ControlFactory;
 import org.apache.directory.api.ldap.codec.api.LdapApiService;
 import org.apache.directory.api.ldap.codec.api.LdapApiServiceFactory;
+import org.apache.directory.api.ldap.codec.osgi.DefaultLdapCodecService;
 import org.apache.directory.api.ldap.codec.standalone.StandaloneLdapApiService;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.fortress.core.CfgRuntimeException;
@@ -35,10 +35,7 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.EncryptUtil;
-import org.apache.directory.ldap.client.api.LdapConnection;
-import org.apache.directory.ldap.client.api.LdapConnectionConfig;
-import org.apache.directory.ldap.client.api.LdapConnectionPool;
-import org.apache.directory.ldap.client.api.ValidatingPoolableLdapConnectionFactory;
+import org.apache.directory.ldap.client.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -128,6 +125,8 @@ public class LdapConnectionProvider
         int logmax = Config.getInstance().getInt( GlobalIds.LDAP_LOG_POOL_MAX, 10 );
         boolean testOnBorrow = Config.getInstance().getBoolean( GlobalIds.TEST_ON_BORROW, false );
         boolean testWhileIdle = Config.getInstance().getBoolean( GlobalIds.TEST_ON_IDLE, false );
+        boolean isBlockOnMaxConnection = Config.getInstance().getBoolean( GlobalIds.IS_MAX_CONN_BLOCK, true );
+        int maxConnBlockTime = Config.getInstance().getInt( GlobalIds.MAX_CONN_BLOCK_TIME, 5000 );
         int timeBetweenEvictionRunMillis = Config.getInstance().getInt( GlobalIds.LDAP_ADMIN_POOL_EVICT_RUN_MILLIS, 1000 * 60 * 30 );
         int logTimeBetweenEvictionRunMillis = Config.getInstance().getInt( GlobalIds.LDAP_LOG_POOL_EVICT_RUN_MILLIS, 1000 * 60 * 30 );
 
@@ -165,8 +164,16 @@ public class LdapConnectionProvider
         {
             adminPw = Config.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_PW, true );
         }
-
         config.setCredentials( adminPw );
+
+        // Register Relax Control:
+        if ( Config.getInstance().getBoolean( "enable.relax.control.registration", false ) )
+        {
+            ControlFactory<RelaxControl> relaxControlFactory = new RelaxControlFactory( new DefaultLdapCodecService() );
+            (new LdapNetworkConnection()).getCodecService().registerRequestControl(relaxControlFactory);
+            LOG.info( "Register RelaxControl" );
+        }
+
         // TODO: FIXME #4
 /*
         try
@@ -199,8 +206,8 @@ public class LdapConnectionProvider
         adminPool = new LdapConnectionPool( poolFactory );
         adminPool.setTestOnBorrow( testOnBorrow );
         adminPool.setMaxTotal( max );
-        adminPool.setBlockWhenExhausted( true );
-        adminPool.setMaxWaitMillis( 5000 );
+        adminPool.setBlockWhenExhausted( isBlockOnMaxConnection );
+        adminPool.setMaxWaitMillis( maxConnBlockTime );
         adminPool.setMinIdle( min );
         adminPool.setMaxIdle( -1 );
         adminPool.setTestWhileIdle( testWhileIdle );
@@ -210,8 +217,8 @@ public class LdapConnectionProvider
         userPool = new LdapConnectionPool( poolFactory );
         userPool.setTestOnBorrow( testOnBorrow );
         userPool.setMaxTotal( max );
-        userPool.setBlockWhenExhausted( true );
-        userPool.setMaxWaitMillis( 5000 );
+        userPool.setBlockWhenExhausted( isBlockOnMaxConnection );
+        userPool.setMaxWaitMillis( maxConnBlockTime );
         userPool.setMinIdle( min );
         userPool.setMaxIdle( -1 );
         userPool.setTestWhileIdle( testWhileIdle );
@@ -254,9 +261,9 @@ public class LdapConnectionProvider
             poolFactory = new ValidatingPoolableLdapConnectionFactory( logConfig );
             logPool = new LdapConnectionPool( poolFactory );
             logPool.setTestOnBorrow( testOnBorrow );
-            logPool.setMaxTotal( max );
-            logPool.setBlockWhenExhausted( true );
-            logPool.setMaxWaitMillis( 5000 );
+            logPool.setMaxTotal( logmax );
+            logPool.setBlockWhenExhausted( isBlockOnMaxConnection );
+            logPool.setMaxWaitMillis( maxConnBlockTime );
             logPool.setMinIdle( logmin );
             logPool.setTestWhileIdle( testWhileIdle );
             logPool.setTimeBetweenEvictionRunsMillis( logTimeBetweenEvictionRunMillis );
