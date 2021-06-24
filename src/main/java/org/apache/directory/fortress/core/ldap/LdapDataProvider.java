@@ -1218,7 +1218,6 @@ public abstract class LdapDataProvider
         BindRequest bindReq = new BindRequestImpl();
         bindReq.setDn( userDn );
         bindReq.setCredentials( password );
-        // TODO: FIX ME
         bindReq.addControl( PP_REQ_CTRL );
         return connection.bind( bindReq );
     }
