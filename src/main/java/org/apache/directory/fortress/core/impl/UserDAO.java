@@ -30,11 +30,7 @@ import java.util.TreeMap;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.api.ldap.codec.api.LdapApiService;
-import org.apache.directory.api.ldap.codec.osgi.DefaultLdapCodecService;
 import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyResponse;
-//import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicy;
-import org.apache.directory.api.ldap.extras.controls.ppolicy_impl.PasswordPolicyResponseFactory;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
@@ -54,7 +50,6 @@ import org.apache.directory.api.ldap.model.exception.LdapNoPermissionException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchAttributeException;
 import org.apache.directory.api.ldap.model.exception.LdapNoSuchObjectException;
 import org.apache.directory.api.ldap.model.message.BindResponse;
-import org.apache.directory.api.ldap.model.message.Control;
 import org.apache.directory.api.ldap.model.message.ResultCodeEnum;
 import org.apache.directory.api.ldap.model.message.SearchScope;
 import org.apache.directory.fortress.core.CfgException;
@@ -76,7 +71,6 @@ import org.apache.directory.ldap.client.api.LdapConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyErrorEnum.*;
 import static org.apache.directory.fortress.core.impl.RoleDAO.IS_RFC2307;
 
 
@@ -840,13 +834,8 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
                 session.setErrorId( GlobalErrIds.USER_PW_INVLD );
             }
 
-            //PasswordPolicy respCtrl = getPwdRespCtrl( bindResponse );
-            PasswordPolicyResponse respCtrl = getPwdRespCtrl( bindResponse );
-            if ( respCtrl != null )
-            {
-                // check IETF password policies here
-                checkPwPolicies( session, respCtrl );
-            }
+            // check IETF password policies here
+            checkPwPolicies( session, bindResponse );
 
             if ( session.getErrorId() == 0 )
             {
@@ -877,11 +866,12 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
     }
 
 
-    private void checkPwPolicies( PwMessage pwMsg, PasswordPolicyResponse respCtrl )
+    private void checkPwPolicies( PwMessage pwMsg, BindResponse bindResponse )
     {
         int rc = 0;
         boolean result = false;
         String msgHdr = "checkPwPolicies for userId [" + pwMsg.getUserId() + "] ";
+        PasswordPolicyResponse respCtrl = getPwdRespCtrl( bindResponse );
         if ( respCtrl != null )
         {
             String errMsg = null;

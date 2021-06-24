@@ -30,26 +30,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.directory.api.ldap.codec.api.LdapApiService;
-import org.apache.directory.api.ldap.codec.api.LdapApiServiceFactory;
-import org.apache.directory.api.ldap.codec.osgi.DefaultLdapCodecService;
 import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyRequest;
 import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyRequestImpl;
-
-//import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyImpl;
-//import org.apache.directory.api.ldap.extras.controls.ppolicy_impl.PasswordPolicyDecorator;
-
-
-//import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicy;
-//import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyImpl;
-//import org.apache.directory.api.ldap.extras.controls.ppolicy_impl.PasswordPolicyDecorator;
-//import org.apache.directory.api.ldap.extras.controls.ppolicy.*;
-//import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyRequest;
-//import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyRequestImpl;
-
-
 import org.apache.directory.api.ldap.extras.controls.ppolicy.PasswordPolicyResponse;
-import org.apache.directory.api.ldap.extras.controls.ppolicy_impl.PasswordPolicyResponseFactory;
 import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.api.ldap.model.cursor.CursorException;
 import org.apache.directory.api.ldap.model.cursor.SearchCursor;
@@ -1214,8 +1197,7 @@ public abstract class LdapDataProvider
      */
     protected PasswordPolicyResponse getPwdRespCtrl(BindResponse resp )
     {
-        Control control = resp.getControls().get( PasswordPolicyResponse.OID );
-        return ( PasswordPolicyResponse ) control;
+        return ( PasswordPolicyResponse ) resp.getControls().get( PasswordPolicyRequest.OID );
     }
 
 
