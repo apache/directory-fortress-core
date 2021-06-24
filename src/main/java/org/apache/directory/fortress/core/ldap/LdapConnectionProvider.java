@@ -175,7 +175,6 @@ public class LdapConnectionProvider
         }
 
         // TODO: FIXME #4
-/*
         try
         {
             List<String> listExOps = new ArrayList<>();
@@ -185,8 +184,7 @@ public class LdapConnectionProvider
             listExOps.add( "org.openldap.accelerator.impl.dropRole.RbacDropRoleFactory" );
             listExOps.add( "org.openldap.accelerator.impl.deleteSession.RbacDeleteSessionFactory" );
             listExOps.add( "org.openldap.accelerator.impl.sessionRoles.RbacSessionRolesFactory" );
-            LdapApiService ldapApiService = new StandaloneLdapApiService( new ArrayList<String>(), listExOps );
-
+            LdapApiService ldapApiService = new StandaloneLdapApiService( new ArrayList<String>(), new ArrayList<String>(), listExOps, new ArrayList<String>() );
             if ( !LdapApiServiceFactory.isInitialized() )
             {
                 LdapApiServiceFactory.initialize( ldapApiService );
@@ -198,7 +196,6 @@ public class LdapConnectionProvider
             String error = "Exception caught initializing Admin Pool: " + ex;
             throw new CfgRuntimeException( GlobalErrIds.FT_APACHE_LDAP_POOL_INIT_FAILED, error, ex );
         }
-*/
 
         PooledObjectFactory<LdapConnection> poolFactory = new ValidatingPoolableLdapConnectionFactory( config );
 
