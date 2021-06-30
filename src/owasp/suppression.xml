@@ -34,4 +34,11 @@
         <gav regex="true">^org\.openldap:accelerator-impl:.*$</gav>
         <cpe>cpe:/a:openldap:openldap</cpe>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: api-i18n-2.0.0.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.apache\.directory\.api/api\-i18n@.*$</packageUrl>
+        <cpe>cpe:/a:i18n_project:i18n</cpe>
+    </suppress>
 </suppressions>
