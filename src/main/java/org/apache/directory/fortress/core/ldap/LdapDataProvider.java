@@ -51,6 +51,8 @@ import org.apache.directory.api.ldap.model.message.*;
 import org.apache.directory.api.ldap.model.message.controls.ProxiedAuthz;
 import org.apache.directory.api.ldap.model.message.controls.ProxiedAuthzImpl;
 import org.apache.directory.api.ldap.model.name.Dn;
+import org.apache.directory.api.ldap.extras.controls.relax.RelaxControlImpl;
+
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.Constraint;
 import org.apache.directory.fortress.core.model.ConstraintUtil;

@@ -313,7 +313,6 @@
          <replace file="${dst.bootstrap.conf}" token="@VALIDATE_CONN_BORROW@" value="${all.validate.conn.borrow}"/>
          <replace file="${dst.bootstrap.conf}" token="@MAX_CONN_BLOCK@" value="${all.max.conn.block}"/>
          <replace file="${dst.bootstrap.conf}" token="@MAX_CONN_BLOCK_TIME@" value="${all.max.conn.block.time}"/>
-         <replace file="${dst.bootstrap.conf}" token="@REGISTER_RELAX_CONTROL@" value="${temp.enable.relax.control}"/>
          <replace file="${dst.bootstrap.conf}" token="@CFG_CRYPTO_PROP@" value="${crypto.prop}"/>
          <replace file="${dst.bootstrap.conf}" token="@SERVER_TYPE@" value="${ldap.server.type}"/>
          <replace file="${dst.bootstrap.conf}" token="@ROLE_OCCUPANTS@" value="${role.occupants}"/>
@@ -355,7 +354,6 @@
          <replace file="${dst.remote.conf}" token="@VALIDATE_CONN_BORROW@" value="${all.validate.conn.borrow}"/>
          <replace file="${dst.remote.conf}" token="@MAX_CONN_BLOCK@" value="${all.max.conn.block}"/>
          <replace file="${dst.remote.conf}" token="@MAX_CONN_BLOCK_TIME@" value="${all.max.conn.block.time}"/>
-         <replace file="${dst.remote.conf}" token="@REGISTER_RELAX_CONTROL@" value="${temp.enable.relax.control}"/>
          <replace file="${dst.remote.conf}" token="@USR_MAX_CONN@" value="${user.max.conn}"/>
          <replace file="${dst.remote.conf}" token="@CFG_CRYPTO_PROP@" value="${crypto.prop}"/>
          <replace file="${dst.remote.conf}" token="@ENABLE_REST@" value="${enable.mgr.impl.rest}"/>

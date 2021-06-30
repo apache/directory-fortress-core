@@ -24,10 +24,8 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.pool2.PooledObjectFactory;
-import org.apache.directory.api.ldap.codec.api.ControlFactory;
 import org.apache.directory.api.ldap.codec.api.LdapApiService;
 import org.apache.directory.api.ldap.codec.api.LdapApiServiceFactory;
-import org.apache.directory.api.ldap.codec.osgi.DefaultLdapCodecService;
 import org.apache.directory.api.ldap.codec.standalone.StandaloneLdapApiService;
 import org.apache.directory.api.ldap.model.exception.LdapException;
 import org.apache.directory.fortress.core.CfgRuntimeException;
@@ -166,15 +164,7 @@ public class LdapConnectionProvider
         }
         config.setCredentials( adminPw );
 
-        // Register Relax Control:
-        if ( Config.getInstance().getBoolean( "enable.relax.control.registration", false ) )
-        {
-            ControlFactory<RelaxControl> relaxControlFactory = new RelaxControlFactory( new DefaultLdapCodecService() );
-            (new LdapNetworkConnection()).getCodecService().registerRequestControl(relaxControlFactory);
-            LOG.info( "Register RelaxControl" );
-        }
-
-        // TODO: FIXME #4
+        // TODO: FC-295 - Move/Improve RBAC Accelerator Client
         try
         {
             List<String> listExOps = new ArrayList<>();

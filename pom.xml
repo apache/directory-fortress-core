@@ -88,7 +88,7 @@
     <java.version>1.8</java.version>
     <additionalparam>-Xdoclint:none</additionalparam>
     <!-- Jars -->
-    <version.api.all>2.0.2</version.api.all>
+    <version.ldap.api>2.1.0</version.ldap.api>
     <version.apacheds>2.0.0.AM26</version.apacheds>
     <version.accelerator.api>1.0-RC41</version.accelerator.api>
     <version.accelerator.impl>1.0-RC41</version.accelerator.impl>
@@ -135,8 +135,15 @@
     <dependency>
       <groupId>org.apache.directory.api</groupId>
       <artifactId>api-all</artifactId>
-      <version>${version.api.all}</version>
+      <version>${version.ldap.api}</version>
     </dependency>
+
+    <dependency>
+      <groupId>org.apache.directory.api</groupId>
+      <artifactId>api-ldap-extras-codec</artifactId>
+      <version>${version.ldap.api}</version>
+    </dependency>
+
 
     <dependency>
       <groupId>commons-configuration</groupId>
