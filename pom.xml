@@ -30,7 +30,7 @@
   <artifactId>fortress-core</artifactId>
   <packaging>jar</packaging>
   <name>Apache Fortress Core</name>
-  <version>2.0.6-SNAPSHOT</version>
+  <version>2.0.6</version>
   <inceptionYear>2007</inceptionYear>
   <description>
     Apache Fortress is an authorization platform that implements ANSI INCITS 359 Role-Based Access Control (RBAC).
@@ -48,7 +48,7 @@
     <connection>scm:git:https://gitbox.apache.org/repos/asf/directory-fortress-core.git</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/directory-fortress-core.git</developerConnection>
     <url>https://github.com/apache/directory-fortress-core/tree/{project.scm.tag}</url>
-    <tag>master</tag>
+    <tag>2.0.6</tag>
   </scm>
 
   <issueManagement>
