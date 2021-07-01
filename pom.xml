@@ -110,7 +110,7 @@
     <version.junit>4.13.2</version.junit>
     <version.log4j>2.14.1</version.log4j>
     <version.opencsv>2.3</version.opencsv>
-    <version.jackson-annotations>2.10.1</version.jackson-annotations>
+    <version.jackson-annotations>2.12.3</version.jackson-annotations>
     <version.jmeter.plugin>1.10.1</version.jmeter.plugin>
 
     <!-- ===================================================== -->
