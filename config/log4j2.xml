@@ -28,43 +28,16 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Logger name="org.apache.directory.fortress.core" level="info"/>
-        <Root level="info">
+        <Root level="INFO">
             <AppenderRef ref="console"/>
         </Root>
+        <logger name="org.apache.directory.fortress.core" level="INFO">
+            <AppenderRef ref="console"/>
+        </logger>
+<!--
+        <logger name="org.apache.directory.api" level="INFO">
+            <AppenderRef ref="console"/>
+        </logger>
+-->
     </Loggers>
 </Configuration>
-
-<!--    <appender name="console" class="org.apache.log4j.ConsoleAppender">-->
-<!--        <layout class="org.apache.log4j.PatternLayout">-->
-<!--            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:sss} %-5p %c{1}:%L - %m%n"/>-->
-<!--        </layout>-->
-<!--    </appender>-->
-
-<!--    <appender name="file" class="org.apache.log4j.RollingFileAppender">-->
-<!--        <param name="append" value="true"/>-->
-<!--        <param name="maxFileSize" value="10MB"/>-->
-<!--        <param name="maxBackupIndex" value="10"/>-->
-<!--        <param name="file" value="fortress.log"/>-->
-<!--        <layout class="org.apache.log4j.PatternLayout">-->
-<!--            <param name="ConversionPattern"-->
-<!--                   value="%d{yyyy-MM-dd HH:mm:sss} %-5p %c{1}:%L - %m%n"/>-->
-<!--        </layout>-->
-<!--    </appender>-->
-
-<!--    <category name="org.apache.directory.fortress.core" class="org.apache.log4j.Logger" additivity="false">-->
-<!--        <priority value="INFO" class="org.apache.log4j.Level"/>-->
-<!--        <appender-ref ref="console"/>-->
-<!--    </category>-->
-
-    <!--category name="org.apache.directory.api" class="org.apache.log4j.Logger" additivity="false">
-        <priority value="DEBUG" class="org.apache.log4j.Level"/>
-        <appender-ref ref="console"/>
-    </category-->
-
-<!--    <root>-->
-<!--        <priority value="INFO" class="org.apache.log4j.Level"/>-->
-<!--        <appender-ref ref="console"/>-->
-<!--        &lt;!&ndash;<appender-ref ref="file"/>&ndash;&gt;-->
-<!--    </root>-->
-
