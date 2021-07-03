@@ -28,16 +28,10 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Root level="INFO">
+        <Logger name="org.apache.directory.api" level="info"/>
+        <Logger name="org.apache.directory.fortress.core" level="info"/>
+        <Root level="warn">
             <AppenderRef ref="console"/>
         </Root>
-        <logger name="org.apache.directory.fortress.core" level="INFO">
-            <AppenderRef ref="console"/>
-        </logger>
-<!--
-        <logger name="org.apache.directory.api" level="INFO">
-            <AppenderRef ref="console"/>
-        </logger>
--->
     </Loggers>
 </Configuration>
