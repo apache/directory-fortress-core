@@ -188,6 +188,28 @@ public final class Config
     }
 
     /**
+     * Get the property value from the apache commons config but specify a default value if not found.
+     *
+     * @param name         contains the name of the list.
+     * @return contains the list.
+     */
+    public List<Object> getList( String name )
+    {
+        List<Object> values = null;
+        if ( config != null )
+        {
+            values = config.getList( name );
+            LOG.debug( "getList name [{}]", name );
+        }
+        else
+        {
+            String warn = "getList invalid config, can't read prop [" + name + "]";
+            LOG.warn( warn );
+        }
+        return values;
+    }
+
+    /**
      * Gets the prop attribute as char value from the apache commons cfg component.
      *
      * @param name contains the name of the property.

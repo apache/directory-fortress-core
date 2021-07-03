@@ -60,6 +60,10 @@ validate.conn.idle=@VALIDATE_CONN_IDLE@
 max.conn.block=@MAX_CONN_BLOCK@
 # Applies to all pools, when all connections are exhausted will block for this many milliseconds. (default is 5000)
 max.conn.block.time=@MAX_CONN_BLOCK_TIME@
+# The default TLS protocols support can be overridden here.  Default is TLSv1, TLSv1.1, TLSv1.2:
+#tls.enabled.protocols=TLSv1
+#tls.enabled.protocols=TLSv1.1
+#tls.enabled.protocols=TLSv1.2
 
 validate.conn.borrow=@VALIDATE_CONN_BORROW@
 validate.conn.idle=@VALIDATE_CONN_IDLE@

@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.ldap;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -134,7 +135,7 @@ public class LdapConnectionProvider
         config.setLdapHost( host );
         config.setLdapPort( port );
         config.setName( Config.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_UID, "" ) );
-
+        config.setEnabledProtocols( getDefaultProtocols() );
         config.setUseSsl( IS_SSL );
         //config.setTrustManagers( new NoVerificationTrustManager() );
 
@@ -142,7 +143,6 @@ public class LdapConnectionProvider
         {
             config.setUseTls( true );
         }
-
         if ( IS_SSL && StringUtils.isNotEmpty( Config.getInstance().getProperty( GlobalIds.TRUST_STORE ) ) &&
             StringUtils.isNotEmpty( Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW, true ) ) )
         {
@@ -256,7 +256,6 @@ public class LdapConnectionProvider
             logPool.setTimeBetweenEvictionRunsMillis( logTimeBetweenEvictionRunMillis );
         }
     }
-
 
     /**
      * Calls the PoolMgr to close the Admin LDAP connection.
@@ -405,5 +404,26 @@ public class LdapConnectionProvider
         {
             LOG.warn( "Error closing log pool: " + e );
         }
+    }
+
+    private String[] getDefaultProtocols()
+    {
+        String[] protocols = { "TLSv1", "TLSv1.1", "TLSv1.2" };
+        List<Object> props = Config.getInstance().getList( "tls.enabled.protocols" );
+        if ( props != null && props.size() > 0)
+        {
+            protocols = new String[props.size()];
+            int i = 0;
+            for ( Object val : props )
+            {
+                protocols[i++] = val.toString();
+            }
+            LOG.info( "Override Default TLS protocols:" + Arrays.toString(protocols) );
+        }
+        else
+        {
+            LOG.info( "Use Default TLS protocols:" + Arrays.toString(protocols) );
+        }
+        return protocols;
     }
 }
