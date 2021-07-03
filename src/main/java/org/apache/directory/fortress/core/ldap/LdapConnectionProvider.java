@@ -222,7 +222,7 @@ public class LdapConnectionProvider
             logConfig.setLdapHost( host );
             logConfig.setLdapPort( port );
             logConfig.setName( Config.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_UID, "" ) );
-
+            logConfig.setEnabledProtocols( getDefaultProtocols() );
             logConfig.setUseSsl( IS_SSL );
 
             if ( IS_SSL && StringUtils.isNotEmpty( Config.getInstance().getProperty( GlobalIds.TRUST_STORE ) ) &&
