@@ -30,7 +30,7 @@
     <Loggers>
         <Logger name="org.apache.directory.api" level="info"/>
         <Logger name="org.apache.directory.fortress.core" level="info"/>
-        <Root level="info">
+        <Root level="warn">
             <AppenderRef ref="console"/>
         </Root>
     </Loggers>
