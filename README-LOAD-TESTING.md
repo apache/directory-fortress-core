@@ -193,8 +193,8 @@ These assignments must already exist before running this test.
 A. View the results
 
 * target/jmeter/results/[DATE]-ftAddUser.jtl
-* target/jmeter/logs/[DATE]ftDelUser.jmx.jtl
-* target/jmeter/logs/[DATE]ftCheckUser.jtl
+* target/jmeter/results/[DATE]ftDelUser.jmx.jtl
+* target/jmeter/results/[DATE]ftCheckUser.jtl
 
 B. View the logs
 
