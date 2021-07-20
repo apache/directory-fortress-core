@@ -112,6 +112,7 @@
     <version.opencsv>2.3</version.opencsv>
     <version.jackson-annotations>2.12.3</version.jackson-annotations>
     <version.jmeter.plugin>1.10.1</version.jmeter.plugin>
+    <commons-pool2.version>2.9.0</commons-pool2.version>
 
     <!-- ===================================================== -->
     <!-- This is a hack to allow someone to release            -->
@@ -851,6 +852,11 @@
                 <artifactId>fortress-core</artifactId>
                 <type>test-jar</type>
                 <version>${project.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons-pool2.version}</version>
               </dependency>
             </dependencies>
           </plugin>
