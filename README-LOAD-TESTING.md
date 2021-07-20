@@ -192,15 +192,15 @@ These assignments must already exist before running this test.
 
 A. View the results
 
-* Located [ftAddUser](target/jmeter/results/[DATE]-ftAddUser.jtl)
-* Located [ftDelUser](target/jmeter/logs/[DATE]ftDelUser.jmx.log)
-* Located [ftCheckUser](target/jmeter/logs/[DATE]ftCheckUser.jmx.log)
+* target/jmeter/results/[DATE]-ftAddUser.jtl
+* target/jmeter/logs/[DATE]ftDelUser.jmx.jtl
+* target/jmeter/logs/[DATE]ftCheckUser.jtl
 
 B. View the logs
 
-* Located [ftAddUser](target/jmeter/logs/ftAddUser.jmx.log)
-* Located [ftDelUser](target/jmeter/logs/ftDelUser.jmx.log)
-* Located [ftCheckUser](target/jmeter/logs/ftCheckUser.jmx.log)
+* target/jmeter/logs/ftAddUser.jmx.log
+* target/jmeter/logs/ftDelUser.jmx.log
+* target/jmeter/logs/ftCheckUser.jmx.log
 
 ____________________________________________________________________________________
  
