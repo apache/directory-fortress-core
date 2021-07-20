@@ -28,6 +28,7 @@ ________________________________________________________________________________
  3. Setting the jmeter parameters
  4. Run the tests
  5. Understanding the tests
+ 6. Troubleshooting
 
 ___________________________________________________________________________________
 ### 1. Load the security policy
@@ -186,6 +187,20 @@ This applies only to the CheckUser test.  If set, it will be used as permission 
   obj: jmeterobject op oper10
   
 These assignments must already exist before running this test.  
+
+### 6. Troubleshooting
+
+A. View the results
+
+* Located [ftAddUser](target/jmeter/results/[DATE]-ftAddUser.jtl)
+* Located [ftDelUser](target/jmeter/logs/[DATE]ftDelUser.jmx.log)
+* Located [ftCheckUser](target/jmeter/logs/[DATE]ftCheckUser.jmx.log)
+
+B. View the logs
+
+* Located [ftAddUser](target/jmeter/logs/ftAddUser.jmx.log)
+* Located [ftDelUser](target/jmeter/logs/ftDelUser.jmx.log)
+* Located [ftCheckUser](target/jmeter/logs/ftCheckUser.jmx.log)
 
 ____________________________________________________________________________________
  
