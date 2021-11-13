@@ -30,7 +30,7 @@ import junit.framework.TestSuite;
 /**
  * This JUnit test class drives all of the Fortress Administration APIs contained within {@link AdminMgrImplTest},
  * {@link DelegatedMgrImplTest}, {@link org.apache.directory.fortress.core.impl.PwPolicyMgrImpl} and {@link org.apache.directory.fortress.core.impl.AuditMgrImpl}.
- * There are more than 125 distinct test cases that kicked off from within this JUnit test wrapper.
+ * There are more than 150 distinct test cases that kicked off from within this JUnit test wrapper.
  * Fortress JUnit test phases in this file include:
  * 1. Tear-down data (optional) - during this phase previously loaded test data is removed from directory.
  * 2. Buildup data - add it back.
@@ -38,15 +38,8 @@ import junit.framework.TestSuite;
  * 4. Check data - runtime security rule evaluations.
  * 4. Audit data - validate audit log coverage.
  * <p>
- * Note 1: Data is retained in LDAP directory after these tests run (assuming the client was able to connect
+ * Note: Data is retained in LDAP directory after these tests run (assuming the client was able to connect
  * to the LDAP server).
- * Note 2: To delete old test data, run the "FortressJUnitDeleteTest" test cases after success on main (if repeatable
- * runs of this class are not desired).
- * Note 3: On test first run, assertions will fail on the teardown phase (#1) as (presumably) prior test data does
- * not exist.  The tests
- * are designed to recover on repeated runs if/when ldap data falls out of synch - BUT - if/when errors do occur
- * during repeat of buildup phase,
- * delete the old test data manually in directory before trying again.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
