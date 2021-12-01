@@ -1147,10 +1147,7 @@ public abstract class LdapDataProvider
                 {
                     attr = new DefaultAttribute( attrName );
                 }
-                else
-                {
-                    attr.add( prop );
-                }
+                attr.add( prop );
             }
 
             if ( attr != null )
