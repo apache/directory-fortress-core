@@ -20,5 +20,6 @@ maven-eclipse.xml
 b.sh
 b.bat
 ldap/slapd.conf
+ldap/symas-openldap.conf
 *.zip
 *.sav
