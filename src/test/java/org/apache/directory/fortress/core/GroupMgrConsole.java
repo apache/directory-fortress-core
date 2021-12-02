@@ -88,6 +88,17 @@ class GroupMgrConsole
             System.out.println("Enter member name:");
             String mname = ReaderUtil.readLn();
             group.setMember( mname );
+
+            System.out.println( "Enter prop key (or NULL to skip):");
+            String key = ReaderUtil.readLn();
+            for (int i = 0; key != null && key.length() > 0; i++)
+            {
+                System.out.println( "Enter prop val:");
+                group.addProperty(key, ReaderUtil.readLn());
+                System.out.println( "Enter next prop key (or NULL if done entering properties)");
+                key = ReaderUtil.readLn();
+            }
+
             groupMgr.add( group );
             System.out.println("Group successfully added");
             System.out.println("ENTER to continue");
