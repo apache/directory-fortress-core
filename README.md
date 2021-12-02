@@ -74,12 +74,12 @@ ________________________________________________________________________________
 
 Minimum hardware requirements to run Apache Fortress and LDAP server:
  * 2 Cores
- * 4GB RAM
+ * 2GB RAM
 
 Minimum software requirements:
  * git
- * Java SDK 8++
- * Apache Maven3++
+ * Java SDK >= 8
+ * Apache Maven >= 3
 
 ___________________________________________________________________________________
 ## SECTION 2. Download & Install
