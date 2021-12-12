@@ -216,12 +216,6 @@
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-core</artifactId>
       <version>${version.apacheds}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.directory.api</groupId>
-          <artifactId>api-ldap-net-mina</artifactId>
-        </exclusion>
-      </exclusions>
       <scope>test</scope>
     </dependency>
 
