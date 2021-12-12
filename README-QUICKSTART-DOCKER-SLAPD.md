@@ -48,15 +48,15 @@ ________________________________________________________________________________
 
  a. from git:
 ```
-git clone --branch 2.0.6  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
+git clone --branch 2.0.7  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
 cd directory-fortress-core
 ```
 
 b. or from Apache:
 ```
-wget https://www.apache.org/dist/directory/fortress/dist/2.0.6/fortress-core-2.0.6-source-release.zip
-unzip fortress-core-2.0.6-source-release.zip
-cd fortress-core-2.0.6
+wget https://www.apache.org/dist/directory/fortress/dist/2.0.7/fortress-core-2.0.7-source-release.zip
+unzip fortress-core-2.0.7-source-release.zip
+cd fortress-core-2.0.7
 ```
 
 2. Prepare the package:
