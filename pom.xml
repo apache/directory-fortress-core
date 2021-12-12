@@ -92,7 +92,7 @@
     <version.apacheds>2.0.0.AM26</version.apacheds>
     <version.accelerator.api>1.0-RC41</version.accelerator.api>
     <version.accelerator.impl>1.0-RC41</version.accelerator.impl>
-    <version.ant>1.10.10</version.ant>
+    <version.ant>1.10.12</version.ant>
     <version.antlr>2.7.7</version.antlr>
     <version.apache.jdbm1>2.0.0-M3</version.apache.jdbm1>
     <version.commons.configuration>1.10</version.commons.configuration>
@@ -216,6 +216,12 @@
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-core</artifactId>
       <version>${version.apacheds}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-net-mina</artifactId>
+        </exclusion>
+      </exclusions>
       <scope>test</scope>
     </dependency>
 
