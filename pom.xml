@@ -108,7 +108,7 @@
     <version.jmeter.core>5.4.1</version.jmeter.core>
     <version.jmeter.java>5.4.1</version.jmeter.java>
     <version.junit>4.13.2</version.junit>
-    <version.log4j>2.15.0</version.log4j>
+    <version.log4j>2.17.0</version.log4j>
     <version.opencsv>2.3</version.opencsv>
     <version.jackson-annotations>2.12.3</version.jackson-annotations>
     <version.jmeter.plugin>1.10.1</version.jmeter.plugin>
