@@ -97,7 +97,7 @@
     <version.apache.jdbm1>2.0.0-M3</version.apache.jdbm1>
     <version.commons.configuration>1.10</version.commons.configuration>
     <version.commons.io>2.10.0</version.commons.io>
-    <version.ehcache.core>2.6.11</version.ehcache.core>
+    <version.ehcache>2.10.9.2</version.ehcache>
     <version.httpcomponent.httpclient>4.5.13</version.httpcomponent.httpclient>
     <version.jasypt>1.9.3</version.jasypt>
     <version.javaee.api>8.0.1</version.javaee.api>
@@ -165,8 +165,8 @@
 
     <dependency>
       <groupId>net.sf.ehcache</groupId>
-      <artifactId>ehcache-core</artifactId>
-      <version>${version.ehcache.core}</version>
+      <artifactId>ehcache</artifactId>
+      <version>${version.ehcache}</version>
     </dependency>
 
     <dependency>
