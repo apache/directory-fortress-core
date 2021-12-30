@@ -20,7 +20,7 @@
  -->
 <Configuration>
     <Appenders>
-        <File name="file" fileName="fortress.log" append="true" maxFileSize="10MB" maxBackupIndex="10">
+        <File name="file" fileName="fortress.log" append="true">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:sss} %-5p %c{1}:%L - %m%n"/>
         </File>
         <Console name="console" target="SYSTEM_OUT">
