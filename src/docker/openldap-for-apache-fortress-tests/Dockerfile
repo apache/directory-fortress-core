@@ -1,5 +1,5 @@
 #
-#   Licensed to the Apache Software Foundation (ASF) under one 
+#   Licensed to the Apache Software Foundation (ASF) under one
 #   or more contributor license agreements.  See the NOTICE file
 #   distributed with this work for additional information
 #   regarding copyright ownership.  The ASF licenses this file
@@ -11,35 +11,35 @@
 #
 #   Unless required by applicable law or agreed to in writing,
 #   software distributed under the License is distributed on an
-#   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY 
-#   KIND, either express or implied.  See the License for the 
+#   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+#   KIND, either express or implied.  See the License for the
 #   specific language governing permissions and limitations
 #   under the License.
 #
-
-FROM debian:8
-
+FROM centos:8
 # Install openldap
-ENV DEBIAN_FRONTEND=noninteractive
-RUN apt-get update
-RUN apt-get install -y -qq slapd ldap-utils
-
+RUN dnf install 'dnf-command(copr)' -y
+RUN dnf install epel-release -y
+ADD https://repo.symas.com/configs/SOLDAP/rhel8/release25.repo /etc/yum.repos.d/soldap-release25.repo
+RUN yum install symas-openldap-clients symas-openldap-servers -y
 # Add fortress schema and slapd config
-ADD ldap/schema/fortress.schema /etc/ldap/schema/
-ADD ldap/schema/rbac.schema /etc/ldap/schema/
-ADD src/docker/openldap-for-apache-fortress-tests/slapd.conf /etc/ldap/
-
+ADD ldap/schema/fortress.schema /opt/symas/etc/openldap/schema/
+ADD ldap/schema/rbac.schema /opt/symas/etc/openldap/schema/
+ADD src/docker/openldap-for-apache-fortress-tests/slapd.conf /opt/symas/etc/openldap/
+# Create run directory
+RUN mkdir -p /var/run/openldap
 # Create database directories
-RUN mkdir -p /var/lib/ldap/dflt
-RUN mkdir -p /var/lib/ldap/hist
-RUN chown -R openldap:openldap /var/lib/ldap
-
-# Delete slapd-config which was created during installation
-# and create new one by converting from old slapd.conf
-RUN rm -rf /etc/ldap/slapd.d/*
-RUN slaptest -u -f /etc/ldap/slapd.conf -F /etc/ldap/slapd.d
-
+RUN mkdir -p "/var/symas/openldap-data/dc=example,dc=com"
+RUN mkdir -p "/var/symas/openldap-data/cn=log"
+# create slapd user and group
+RUN groupadd openldap
+RUN useradd openldap -g openldap
+# Prepare the runtime env
+RUN chown -R openldap:openldap /opt/symas/lib/
+RUN chown -R openldap:openldap /var/run/openldap/
+RUN chown -R openldap:openldap /opt/symas/etc/openldap/
+RUN chown -R openldap:openldap /var/symas/openldap-data/
+RUN /opt/symas/sbin/slaptest -u -f /opt/symas/etc/openldap/slapd.conf -u
 EXPOSE 389
-
-CMD ["/usr/sbin/slapd", "-d", "32768", "-u", "root", "-g", "root"]
-
+# Start daemon
+CMD ["/opt/symas/lib/slapd", "-d", "stats", "-u", "openldap", "-g", "openldap"]
