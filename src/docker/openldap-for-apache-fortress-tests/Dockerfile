@@ -19,15 +19,19 @@
 FROM centos:8
 # Install openldap
 ADD https://repo.symas.com/configs/SOLDAP/rhel8/release25.repo /etc/yum.repos.d/soldap-release25.repo
-RUN yum install symas-openldap-clients symas-openldap-servers -y && yum clean all
+RUN yum install symas-openldap-clients symas-openldap-servers -y\
+ && yum clean all
 # Add fortress schema and slapd config
 ADD ldap/schema/*.schema /opt/symas/etc/openldap/schema/
 ADD src/docker/openldap-for-apache-fortress-tests/slapd.conf /opt/symas/etc/openldap/
 # Create run and db directories, create slapd user and group, prepare runtime env:
 RUN mkdir -p /var/run/openldap && mkdir -p "/var/symas/openldap-data/dc=example,dc=com" && mkdir -p "/var/symas/openldap-data/cn=log"\
- && groupadd openldap && useradd openldap -g openldap\
- && chown -R openldap:openldap /opt/symas/lib/ && chown -R openldap:openldap /var/run/openldap/\
- && chown -R openldap:openldap /opt/symas/etc/openldap/ && chown -R openldap:openldap /var/symas/openldap-data/\
+ && groupadd openldap\
+ && useradd openldap -g openldap\
+ && chown -R openldap:openldap /opt/symas/lib/\
+ && chown -R openldap:openldap /var/run/openldap/\
+ && chown -R openldap:openldap /opt/symas/etc/openldap/\
+ && chown -R openldap:openldap /var/symas/openldap-data/\
  && /opt/symas/sbin/slaptest -u -f /opt/symas/etc/openldap/slapd.conf -u
 EXPOSE 389
 # Start daemon
