@@ -85,8 +85,6 @@ docker pull apachedirectory/openldap-for-apache-fortress-tests
 4. Run the docker container:
 
 ```
-docker run -d -p 32768:389 -P apachedirectory/openldap-for-apache-fortress-tests
-
 docker run --name=openldap -d -p 32768:389 -P apachedirectory/openldap-for-apache-fortress-tests
 ```
 

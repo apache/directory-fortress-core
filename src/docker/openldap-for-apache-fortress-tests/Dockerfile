@@ -16,11 +16,18 @@
 #   specific language governing permissions and limitations
 #   under the License.
 #
-FROM centos:8
-# Install openldap
-ADD https://repo.symas.com/configs/SOLDAP/rhel8/release25.repo /etc/yum.repos.d/soldap-release25.repo
-RUN yum install symas-openldap-clients symas-openldap-servers -y\
- && yum clean all
+FROM debian:11
+# Setup openldap package:
+RUN apt-get update && apt-get install -y --no-install-recommends\
+         gnupg \
+         ca-certificates \
+   && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DA26A148887DCBEB \
+   && echo 'deb https://repo.symas.com/repo/deb/main/release25 bullseye main' > /etc/apt/sources.list.d/soldap-release25.list \
+   # Install openldap
+   && apt-get update && apt-get install -y --no-install-recommends\
+               symas-openldap-clients symas-openldap-server \
+  && rm -rf /var/lib/apt/lists/*
+
 # Add fortress schema and slapd config
 ADD ldap/schema/*.schema /opt/symas/etc/openldap/schema/
 ADD src/docker/openldap-for-apache-fortress-tests/slapd.conf /opt/symas/etc/openldap/
@@ -34,5 +41,5 @@ RUN mkdir -p /var/run/openldap && mkdir -p "/var/symas/openldap-data/dc=example,
  && chown -R openldap:openldap /var/symas/openldap-data/\
  && /opt/symas/sbin/slaptest -u -f /opt/symas/etc/openldap/slapd.conf -u
 EXPOSE 389
-# Start daemon
+# Start daemon as non-root user:
 CMD ["/opt/symas/lib/slapd", "-d", "stats", "-u", "openldap", "-g", "openldap"]

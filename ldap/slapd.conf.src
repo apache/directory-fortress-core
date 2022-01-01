@@ -199,4 +199,4 @@ ppolicy_hash_cleartext
 #######################################################################
 # Monitor database
 #######################################################################
-@IS_RBAC_ACCELERATOR@database monitor
+database monitor
