@@ -16,7 +16,7 @@
 #   specific language governing permissions and limitations
 #   under the License.
 #
-FROM debian:11
+FROM debian:bullseye-slim
 # Setup openldap package:
 RUN apt-get update && apt-get install -y --no-install-recommends\
          gnupg \
