@@ -17,17 +17,17 @@
 #   under the License.
 #
 
-FROM openjdk:8
+FROM openjdk:11-jre-slim-buster
 
 # Install LDAP tools
 ENV DEBIAN_FRONTEND=noninteractive
 RUN \
     apt-get update && \
-    apt-get install -y -qq ldap-utils netcat && \
+    apt-get install -y -qq ldap-utils netcat wget procps && \
     rm -rf /var/lib/apt/lists/*
 
 # Define ApacheDS version
-ENV APACHEDS_VERSION=2.0.0-M24
+ENV APACHEDS_VERSION=2.0.0.AM25
 ENV APACHEDS_SERVICE_NAME=apacheds-${APACHEDS_VERSION}-default
 
 # Install ApacheDS
