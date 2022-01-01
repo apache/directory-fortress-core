@@ -27,7 +27,7 @@ RUN \
     rm -rf /var/lib/apt/lists/*
 
 # Define ApacheDS version
-ENV APACHEDS_VERSION=2.0.0.AM25
+ENV APACHEDS_VERSION=2.0.0.AM26
 ENV APACHEDS_SERVICE_NAME=apacheds-${APACHEDS_VERSION}-default
 
 # Install ApacheDS
