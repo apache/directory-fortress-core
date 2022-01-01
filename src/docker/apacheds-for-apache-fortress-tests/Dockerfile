@@ -17,13 +17,14 @@
 #   under the License.
 #
 
-FROM openjdk:11-jre-slim-buster
+FROM openjdk:11-jre-slim-bullseye
 
 # Install LDAP tools
 ENV DEBIAN_FRONTEND=noninteractive
 RUN \
     apt-get update && \
-    apt-get install -y -qq ldap-utils netcat wget procps && \
+    apt-get install -y -qq --no-install-recommends \
+         ldap-utils netcat wget procps && \
     rm -rf /var/lib/apt/lists/*
 
 # Define ApacheDS version
