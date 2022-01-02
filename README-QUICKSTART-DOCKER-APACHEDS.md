@@ -37,9 +37,9 @@ ________________________________________________________________________________
 ## SECTION 1. Prerequisites
 
 Minimum software requirements:
- * Centos or Debian Machine
- * Java SDK 8++
- * Apache Maven3++
+ * RHEL or Debian Machine
+ * Java SDK >= 8
+ * Apache Maven >= 3
  * docker-engine
 
 ___________________________________________________________________________________
