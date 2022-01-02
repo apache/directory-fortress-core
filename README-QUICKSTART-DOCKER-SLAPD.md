@@ -46,19 +46,22 @@ ________________________________________________________________________________
 
 1. Get the Apache Fortress Core package:
 
-   a. clone git latest:
+a. clone git latest: 
+
 ```bash
 git clone https://gitbox.apache.org/repos/asf/directory-fortress-core.git
 cd directory-fortress-core
 ```
 
-   b. or clone git release:
+b. or clone git release: 
+
 ```bash
 git clone --branch 2.0.7  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
 cd directory-fortress-core
 ```
 
-   c. or download source package from Apache:
+c. or download source package from Apache:  
+
 ```bash
 wget https://www.apache.org/dist/directory/fortress/dist/2.0.7/fortress-core-2.0.7-source-release.zip
 unzip fortress-core-2.0.7-source-release.zip
@@ -67,12 +70,14 @@ cd fortress-core-2.0.7
 
 2. Prepare the OpenLDAP docker image
 
-   a. build the OpenLDAP docker image (trailing dot matters):
+a. build the OpenLDAP docker image (trailing dot matters):
+
 ```bash
 docker build -t apachedirectory/openldap-for-apache-fortress-tests -f src/docker/openldap-for-apache-fortress-tests/Dockerfile .
 ```
 
-   b. or pull the prebuilt image:
+b. or pull the prebuilt image:
+
 ```bash
 docker pull apachedirectory/openldap-for-apache-fortress-tests
 ```
@@ -96,32 +101,38 @@ CONTAINER ID   IMAGE                                                COMMAND     
 
 5. Manage OpenLDAP Image:
 
-   a. start
+a. start 
+
 ```bash
 docker run --name=openldap -d -p 389:389 -P apachedirectory/openldap-for-apache-fortress-tests
 ```
 
-   b. stop
+b. stop 
+
 ```bash
 docker stop openldap
 ```
 
-   c. remove
+c. remove 
+
 ```bash
 docker rm openldap
 ```
 
-   d. view the logs:
+d. view the logs 
+
 ```bash
 docker logs openldap
 ```
 
-   e. inspect:
+e. inspect 
+
 ```bash
 docker inspect openldap
 ```
 
-   f. connect via bash:
+f. connect via bash 
+
 ```bash
 docker exec -it openldap bash
 ```
