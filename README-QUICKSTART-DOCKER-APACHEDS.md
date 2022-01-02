@@ -16,7 +16,7 @@
    specific language governing permissions and limitations
    under the License.
 
-# APACHEDS & Fortress QUICKSTART on DOCKER
+# APACHEDS & Apache Fortress QUICKSTART on DOCKER
 
 -------------------------------------------------------------------------------
 ## Table of Contents
@@ -25,8 +25,8 @@
  * SECTION 1. Prerequisites
  * SECTION 2. APACHEDS Docker Image
  * SECTION 3. Apache Fortress Setup
- * SECTION 3. Apache Fortress Core Integration Test
- * SECTION 4. Docker Commands
+ * SECTION 4. Apache Fortress Core Integration Test
+ * SECTION 5. Docker Command Reference
 ___________________________________________________________________________________
 ## Document Overview
 
@@ -37,36 +37,35 @@ ________________________________________________________________________________
 ## SECTION 1. Prerequisites
 
 Minimum software requirements:
- * RHEL or Debian Machine
+ * Linux Machine with docker-engine
  * Java SDK >= 8
  * Apache Maven >= 3
- * docker-engine
 
 ___________________________________________________________________________________
 ## SECTION 2. ApacheDS Docker Image
 
-1. Download the package:
+1. Get the Apache Fortress Core package:
 
-a. from git latest:
+a. clone git latest:
 ```bash
 git clone https://gitbox.apache.org/repos/asf/directory-fortress-core.git
 cd directory-fortress-core
 ```
 
-b. from git latest release:
+b. clone git release:
 ```bash
 git clone --branch 2.0.7  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
 cd directory-fortress-core
 ```
 
-c. or from Apache:
+c. or download source package from Apache:
 ```bash
 wget https://www.apache.org/dist/directory/fortress/dist/2.0.7/fortress-core-2.0.7-source-release.zip
 unzip fortress-core-2.0.7-source-release.zip
 cd fortress-core-2.0.7
 ```
 
-2. To build the apachedirectory apacheds docker image (trailing dot matters):
+2. Build the ApacheDS docker image (trailing dot matters):
 
 ```bash
 docker build -t apachedirectory/apacheds-for-apache-fortress-tests -f src/docker/apacheds-for-apache-fortress-tests/Dockerfile .
@@ -78,7 +77,7 @@ docker build -t apachedirectory/apacheds-for-apache-fortress-tests -f src/docker
 docker pull apachedirectory/apacheds-for-apache-fortress-tests
 ```
 
-3. Run the docker container:
+3. Run the ApacheDS docker image:
 
 ```bash
 docker run --name=apacheds -d -p 10389:10389 -P apachedirectory/apacheds-for-apache-fortress-tests
@@ -87,7 +86,7 @@ docker run --name=apacheds -d -p 10389:10389 -P apachedirectory/apacheds-for-apa
  * Here we're mapping the internal port for running image to what the host machine uses, w/ apacheds' default of 10389
  * Setting name=apacheds for managing image.
  
-4. Verify it's running:
+4. Verify the image started successfully:
 
 ```bash
 root@localhost:/opt/fortress/directory-fortress-core# docker ps
@@ -150,9 +149,9 @@ export PATH=$PATH:$M2_HOME/bin
 cp build.properties.example build.properties
 ```
 
-* Seeds the fortress properties with defaults for apacheds.
-* [build.properties.example](build.properties.example) contains the default config for the apacheds docker image.
-* Learn how the fortress config subsystem works: [README-CONFIG](README-CONFIG.md).
+ * Seeds the fortress properties with defaults for ApacheDS usage.
+ * [build.properties.example](build.properties.example) contains the default config for the apacheds docker image.
+ * Learn how the fortress config subsystem works: [README-CONFIG](README-CONFIG.md).
 
 3. Run the maven install to build fortress and initialize config settings:
 
@@ -177,7 +176,7 @@ mvn -Dtest=FortressJUnitTest test
 ```
 
  More about this step: 
-  * Tests the APIs against your LDAP server.*
+  * Tests the APIs against your LDAP server.
 
 3. Verify the tests worked:
 
@@ -269,7 +268,7 @@ fortress-load-debug:
  * SECTION 14. Instructions to performance test.
 
 ___________________________________________________________________________________
-## SECTION 5. Docker Commands
+## SECTION 5. Docker Command Reference
 
 Here are some common commands needed to manage the Docker image.
 
