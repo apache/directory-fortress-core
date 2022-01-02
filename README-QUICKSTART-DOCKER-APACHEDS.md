@@ -46,33 +46,33 @@ ________________________________________________________________________________
 
 1. Get the Apache Fortress Core package:
 
-a. clone git latest:
+   a. clone git latest:
 ```bash
 git clone https://gitbox.apache.org/repos/asf/directory-fortress-core.git
 cd directory-fortress-core
 ```
 
-b. clone git release:
+   b. or clone git release:
 ```bash
 git clone --branch 2.0.7  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
 cd directory-fortress-core
 ```
 
-c. or download source package from Apache:
+   c. or download source package from Apache:
 ```bash
 wget https://www.apache.org/dist/directory/fortress/dist/2.0.7/fortress-core-2.0.7-source-release.zip
 unzip fortress-core-2.0.7-source-release.zip
 cd fortress-core-2.0.7
 ```
 
-2. Build the ApacheDS docker image (trailing dot matters):
+2. Prepare the ApacheDS docker image
 
+   a. build the ApacheDS docker image (trailing dot matters):
 ```bash
 docker build -t apachedirectory/apacheds-for-apache-fortress-tests -f src/docker/apacheds-for-apache-fortress-tests/Dockerfile .
 ```
 
- Or, just pull the latest prebuilt image from Dockerhub:
-
+   b. or pull the latest prebuilt image from Dockerhub:
 ```bash
 docker pull apachedirectory/apacheds-for-apache-fortress-tests
 ```
@@ -96,37 +96,32 @@ CONTAINER ID   IMAGE                                                COMMAND     
 
 5. Manage ApacheDS Image:
 
-a. start
+   a. start
 ```bash
 docker run --name=apacheds -d -p 10389:10389 -P apachedirectory/apacheds-for-apache-fortress-tests
 ```
 
-b. stop
-
+   b. stop
 ```bash
 docker stop apacheds
 ```
 
-c. remove
-
+   c. remove
 ```bash
 docker rm apacheds
 ```
 
-d. view the logs:
-
+   d. view the logs:
 ```bash
 docker logs apacheds
 ```
 
-e. inspect:
-
+   e. inspect:
 ```bash
 docker inspect apacheds
 ```
 
-f. connect via bash:
-
+   f. connect via bash:
 ```bash
 docker exec -it apacheds bash
 ```
@@ -163,8 +158,7 @@ ________________________________________________________________________________
 
 1. From fortress core base folder, enter the following commands:
 
-a. To use the config from earlier:
-
+   a. To use the config from earlier:
 ```bash
 mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
 ```
