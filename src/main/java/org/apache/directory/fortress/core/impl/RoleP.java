@@ -76,6 +76,20 @@ final class RoleP
 
 
     /**
+     * Return a fully populated Role entity for a given RBAC role name.  If matching record not found a
+     * SecurityException will be thrown.
+     *
+     * @param role contains full role name for RBAC role in directory.
+     * @return Role entity containing consraint attributes associated with Role in directory.
+     * @throws SecurityException in the event Role not found or DAO search error.
+     */
+    Role readConstraints( Role role ) throws SecurityException
+    {
+        return rDao.getConstraints( role );
+    }
+
+
+    /**
      * Takes a search string that contains full or partial RBAC Role name in directory.
      *
      * @param role contains full or partial RBAC role name.

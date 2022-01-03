@@ -204,7 +204,7 @@ final class SdP
                     // Ensure the name exists:
                     Role role = new Role( key );
                     role.setContextId( entity.getContextId() );
-                    rp.read( role );
+                    rp.readConstraints( role );
                 }
             }
         }

@@ -697,7 +697,7 @@ final class PermP
                 {
                     Role role = new Role( roleNm );
                     role.setContextId( pOp.getContextId() );
-                    rp.read( role );
+                    rp.readConstraints( role );
                 }
             }
         }

@@ -117,7 +117,7 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
     static final boolean IS_RFC2307 = Config.getInstance().getProperty( GlobalIds.RFC2307_PROP ) != null && Config.getInstance().getProperty( GlobalIds.RFC2307_PROP ).equalsIgnoreCase( "true" ) ? true : false;
 
     private static final String[] ROLE_ATRS =
-        {
+    {
             GlobalIds.FT_IID,
             ROLE_NM,
             SchemaConstants.DESCRIPTION_AT,
@@ -126,6 +126,13 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
             GlobalIds.PARENT_NODES,
             GlobalIds.PROPS,
             IS_RFC2307 ? GlobalIds.GID_NUMBER : null
+    };
+
+    private static final String[] ROLE_CONSTRAINTS =
+    {
+            ROLE_NM,
+            GlobalIds.CONSTRAINT,
+            GlobalIds.PARENT_NODES
     };
 
     /**
@@ -445,6 +452,46 @@ final class RoleDAO extends LdapDataProvider implements PropertyProvider<Role>, 
         catch ( LdapException e )
         {
             String error = "getRole dn [" + dn + "] LEXCD=" + e;
+            throw new FinderException( GlobalErrIds.ROLE_READ_FAILED, error, e );
+        }
+        finally
+        {
+            closeAdminConnection( ld );
+        }
+
+        return entity;
+    }
+
+
+    Role getConstraints( Role role )
+        throws FinderException
+    {
+        Role entity = null;
+        LdapConnection ld = null;
+        String dn = getDn( role.getName(), role.getContextId() );
+
+        try
+        {
+            ld = getAdminConnection();
+            Entry findEntry = read( ld, dn, ROLE_CONSTRAINTS );
+            if ( findEntry != null )
+            {
+                entity = unloadLdapEntry( findEntry, 0, role.getContextId() );
+            }
+            if ( entity == null )
+            {
+                String warning = "getConstraints no entry found dn [" + dn + "]";
+                throw new FinderException( GlobalErrIds.ROLE_NOT_FOUND, warning );
+            }
+        }
+        catch ( LdapNoSuchObjectException e )
+        {
+            String warning = "getConstraints Obj COULD NOT FIND ENTRY for dn [" + dn + "]";
+            throw new FinderException( GlobalErrIds.ROLE_NOT_FOUND, warning );
+        }
+        catch ( LdapException e )
+        {
+            String error = "getConstraints dn [" + dn + "] LEXCD=" + e;
             throw new FinderException( GlobalErrIds.ROLE_READ_FAILED, error, e );
         }
         finally

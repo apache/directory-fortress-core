@@ -378,7 +378,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
 
         // Get the default constraints from role:
         role.setContextId( this.contextId );
-        Role validRole = roleP.read( role );
+        Role validRole = roleP.readConstraints( role );
         // if the input role entity attribute doesn't have temporal constraints set, copy from the role declaration:
         ConstraintUtil.validateOrCopy( validRole, uRole );
         // Assign the Role data to User:
@@ -412,7 +412,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         String propValue = roleConstraint.getKey();
         VUtil.assertNotNull( propValue, GlobalErrIds.ROLE_CONSTRAINT_KEY_NULL, CLS_NM + methodName );
         // Verify the role exists:
-        roleP.read( role );
+        roleP.readConstraints( role );
         Properties props = new Properties();
         props.setProperty( propKey, propValue );
         // Retrieve parameters from the config node stored in target LDAP DIT:
@@ -743,7 +743,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         else
         {
             AdminUtil.canGrant( perm.getAdminSession(), role, perm, contextId );
-            roleP.read( role );
+            roleP.readConstraints( role );
         }
         permP.grant( perm, role );
     }
@@ -814,7 +814,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         // make sure the parent role is already there:
         Role role = new Role( parentRole.getName() );
         role.setContextId( this.contextId );
-        roleP.read( role );
+        roleP.readConstraints( role );
         RoleUtil.getInstance().validateRelationship( childRole, parentRole, false );
         childRole.setParent( parentRole.getName() );
         roleP.add( childRole );
@@ -837,7 +837,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         // make sure the child role is already there:
         Role role = new Role( childRole.getName() );
         role.setContextId( this.contextId );
-        role = roleP.read( role );
+        role = roleP.readConstraints( role );
         role.setContextId( this.contextId );
         RoleUtil.getInstance().validateRelationship( childRole, parentRole, false );
         roleP.add( parentRole );
@@ -867,11 +867,11 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         // make sure the parent role is already there:
         Role pRole = new Role( parentRole.getName() );
         pRole.setContextId( this.contextId );
-        roleP.read( pRole );
+        roleP.readConstraints( pRole );
         // make sure the child role is already there:
         Role cRole = new Role( childRole.getName() );
         cRole.setContextId( this.contextId );
-        cRole = roleP.read( cRole );
+        cRole = roleP.readConstraints( cRole );
         RoleUtil.getInstance().validateRelationship( childRole, parentRole, false );
         RoleUtil.getInstance().updateHier( this.contextId, new Relationship( childRole.getName().toUpperCase(),
             parentRole.getName().toUpperCase() ), Hier.Op.ADD );
