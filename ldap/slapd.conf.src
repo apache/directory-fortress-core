@@ -71,11 +71,11 @@ database	 @DB_TYPE@
 suffix		"@LOG_SUFFIX@"
 rootdn      "@LOG_ROOT_DN@"
 rootpw      "@LOG_ROOT_PW@"
-index       objectClass,reqDN,reqAuthzID,reqStart,reqAttr eq
-index       reqMod,reqResult eq
+
+index objectClass,entryCSN,entryUUID,reqEnd,reqStart eq
+index reqDN,reqAuthzID,reqAttr,reqMod,reqResult eq
+
 directory	"@HISTORY_DB_PATH@"
-access to *
-    by dn.base="@LOG_ROOT_DN@" write
 @LOG_DBNOSYNCH@
 @LOG_CHECKPOINT@
 @LOG_BDB_CACHE_SIZE@
@@ -201,4 +201,4 @@ ppolicy_hash_cleartext
 #######################################################################
 # Monitor database
 #######################################################################
-database monitor
+@IS_RBAC_ACCELERATOR@database monitor
