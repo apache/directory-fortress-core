@@ -46,4 +46,4 @@ RUN mkdir -p /var/run/openldap \
  && /opt/symas/sbin/slaptest -u -f /opt/symas/etc/openldap/slapd.conf -u
 EXPOSE 389
 # Start daemon as non-root user:
-CMD ["/opt/symas/lib/slapd", "-d", "stats", "-u", "openldap", "-g", "openldap"]
+CMD ["/opt/symas/lib/slapd", "-u", "openldap", "-g", "openldap", "-h", "ldap:/// ldaps:///"]
