@@ -85,6 +85,7 @@ class ReviewMgrConsole
                 System.out.println( "    internalId  [" + re.getId() + "]" );
                 System.out.println( "    description [" + re.getDescription() + "]" );
                 System.out.println( "    parents [" + re.getParents() + "]" );
+                System.out.println( "    occupants [" + re.getOccupants() + "]" );
                 printTemporal( re, "RBACROLE" );
             }
             else
@@ -120,6 +121,7 @@ class ReviewMgrConsole
                     System.out.println( "    internalId  [" + re.getId() + "]" );
                     System.out.println( "    description [" + re.getDescription() + "]" );
                     System.out.println( "    parents [" + re.getParents() + "]" );
+                    System.out.println( "    occupants [" + re.getOccupants() + "]" );
                     printTemporal( re, "RBACROLE" );
                 }
             }
