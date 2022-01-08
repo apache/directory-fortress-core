@@ -831,7 +831,7 @@
                 <sleep>${sleep}</sleep>
                 <size>${size}</size>
                 <perm>${perm}</perm>
-                <perm>${ou}</perm>
+                <ou>${ou}</ou>
               </propertiesSystem>
             </configuration>
             <executions>
