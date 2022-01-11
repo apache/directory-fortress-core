@@ -814,9 +814,9 @@
           <plugin>
             <groupId>com.lazerycode.jmeter</groupId>
             <artifactId>jmeter-maven-plugin</artifactId>
-            <version>${version.jmeter.plugin}</version>
+            <!--            <version>${version.jmeter.plugin}</version>-->
+            <version>3.5.0</version>
             <configuration>
-              <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
               <testFilesIncluded>
                 <jMeterTestFile>${type}.jmx</jMeterTestFile>
@@ -833,34 +833,35 @@
                 <perm>${perm}</perm>
                 <ou>${ou}</ou>
               </propertiesSystem>
+              <testPlanLibraries>
+                <artifact>org.apache.directory.fortress:fortress-core:${project.version}</artifact>
+                <artifact>org.apache.directory.fortress:fortress-core:jar:tests:${project.version}</artifact>
+                <artifact>org.apache.commons:commons-pool2:${commons-pool2.version}</artifact>
+              </testPlanLibraries>
             </configuration>
             <executions>
+              <execution>
+                <id>configuration</id>
+                <goals>
+                  <goal>configure</goal>
+                </goals>
+              </execution>
               <execution>
                 <id>jmeter-tests</id>
                 <goals>
                   <goal>jmeter</goal>
                 </goals>
               </execution>
+              <!-- Fail build on errors in test -->
+              <execution>
+                <id>jmeter-check-results</id>
+                <goals>
+                  <goal>results</goal>
+                </goals>
+              </execution>
             </executions>
-            <dependencies>
-              <dependency>
-                <groupId>org.apache.directory.fortress</groupId>
-                <artifactId>fortress-core</artifactId>
-                <version>${project.version}</version>
-              </dependency>
-              <dependency>
-                <groupId>org.apache.directory.fortress</groupId>
-                <artifactId>fortress-core</artifactId>
-                <type>test-jar</type>
-                <version>${project.version}</version>
-              </dependency>
-              <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-pool2</artifactId>
-                <version>${commons-pool2.version}</version>
-              </dependency>
-            </dependencies>
           </plugin>
+
         </plugins>
       </build>
     </profile>
