@@ -816,7 +816,6 @@
             <artifactId>jmeter-maven-plugin</artifactId>
             <version>${version.jmeter.plugin}</version>
             <configuration>
-              <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
               <suppressJMeterOutput>false</suppressJMeterOutput>
               <testFilesIncluded>
                 <jMeterTestFile>${type}.jmx</jMeterTestFile>
@@ -832,6 +831,7 @@
                 <size>${size}</size>
                 <perm>${perm}</perm>
                 <ou>${ou}</ou>
+                <role>${role}</role>
               </propertiesSystem>
             </configuration>
             <executions>
