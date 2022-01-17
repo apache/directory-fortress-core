@@ -111,7 +111,7 @@
     <version.log4j>2.17.1</version.log4j>
     <version.opencsv>2.3</version.opencsv>
     <version.jackson-annotations>2.12.3</version.jackson-annotations>
-    <version.jmeter.plugin>1.10.1</version.jmeter.plugin>
+    <version.jmeter.plugin>3.5.0</version.jmeter.plugin>
     <commons-pool2.version>2.9.0</commons-pool2.version>
 
     <!-- ===================================================== -->
@@ -574,7 +574,6 @@
               <suppressionFile>${project.basedir}/src/owasp/suppression.xml</suppressionFile>
           </configuration>
         </plugin>
-
       </plugins>
     </pluginManagement>
 
@@ -706,6 +705,63 @@
 
         </executions>
       </plugin>
+
+      <!-- To execute: mvn verify jmeter:jmeter -Dtype=testname [-Dmore=args] -->
+      <plugin>
+        <groupId>com.lazerycode.jmeter</groupId>
+        <artifactId>jmeter-maven-plugin</artifactId>
+        <version>${version.jmeter.plugin}</version>
+        <configuration>
+          <testPlanLibraries>
+            <artifact>org.apache.directory.fortress:fortress-core:${project.version}</artifact>
+            <artifact>org.apache.directory.fortress:fortress-core:jar:tests:${project.version}</artifact>
+            <artifact>org.apache.commons:commons-pool2:${commons-pool2.version}</artifact>
+          </testPlanLibraries>
+          <suppressJMeterOutput>false</suppressJMeterOutput>
+          <testFilesIncluded>
+            <jMeterTestFile>${type}.jmx</jMeterTestFile>
+          </testFilesIncluded>
+          <propertiesSystem>
+            <version>${project.version}</version>
+            <tenant>${tenant}</tenant>
+            <hostname>${hostname}</hostname>
+            <qualifier>${qualifier}</qualifier>
+            <verify>${verify}</verify>
+            <output>${output}</output>
+            <sleep>${sleep}</sleep>
+            <size>${size}</size>
+            <perm>${perm}</perm>
+            <ou>${ou}</ou>
+          </propertiesSystem>
+          <jMeterProcessJVMSettings>
+            <xms>1024</xms>
+            <xmx>1024</xmx>
+          </jMeterProcessJVMSettings>
+        </configuration>
+        <executions>
+          <execution>
+            <id>configuration</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>configure</goal>
+            </goals>
+          </execution>
+          <!-- Run JMeter tests -->
+          <execution>
+            <id>jmeter-tests</id>
+            <goals>
+              <goal>jmeter</goal>
+            </goals>
+          </execution>
+          <!-- Fail build on errors in test -->
+          <execution>
+            <id>jmeter-check-results</id>
+            <goals>
+              <goal>results</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
 
     <testResources>
@@ -801,65 +857,6 @@
                 </configuration>
               </execution>
             </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <!-- To execute: mvn -Ploadtest jmeter:jmeter -Dtype=testname -->
-    <profile>
-      <id>loadtest</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>com.lazerycode.jmeter</groupId>
-            <artifactId>jmeter-maven-plugin</artifactId>
-            <version>${version.jmeter.plugin}</version>
-            <configuration>
-              <suppressJMeterOutput>false</suppressJMeterOutput>
-              <testFilesIncluded>
-                <jMeterTestFile>${type}.jmx</jMeterTestFile>
-              </testFilesIncluded>
-              <propertiesSystem>
-                <version>${project.version}</version>
-                <tenant>${tenant}</tenant>
-                <hostname>${hostname}</hostname>
-                <qualifier>${qualifier}</qualifier>
-                <verify>${verify}</verify>
-                <output>${output}</output>
-                <sleep>${sleep}</sleep>
-                <size>${size}</size>
-                <perm>${perm}</perm>
-                <ou>${ou}</ou>
-                <role>${role}</role>
-              </propertiesSystem>
-            </configuration>
-            <executions>
-              <execution>
-                <id>jmeter-tests</id>
-                <goals>
-                  <goal>jmeter</goal>
-                </goals>
-              </execution>
-            </executions>
-            <dependencies>
-              <dependency>
-                <groupId>org.apache.directory.fortress</groupId>
-                <artifactId>fortress-core</artifactId>
-                <version>${project.version}</version>
-              </dependency>
-              <dependency>
-                <groupId>org.apache.directory.fortress</groupId>
-                <artifactId>fortress-core</artifactId>
-                <type>test-jar</type>
-                <version>${project.version}</version>
-              </dependency>
-              <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-pool2</artifactId>
-                <version>${commons-pool2.version}</version>
-              </dependency>
-            </dependencies>
           </plugin>
         </plugins>
       </build>
