@@ -82,7 +82,7 @@ ________________________________________________________________________________
  Will add user entry.  Optionally will perform an update and/or role assignment.
  
   ```
-  mvn -Ploadtest jmeter:jmeter -Dtype=ftAddUser -Dqualifier=A1 -Dverify=true -Dsleep=30 -Dupdate=true -Dou=loadtestu -Drole=jmeterrole
+  mvn verify -Dtype=ftAddUser -Dqualifier=A1 -Dverify=true -Dsleep=30 -Dupdate=true -Dou=loadtestu -Drole=jmeterrole
   ```
 
   This test adds users.  It uses runtime arguments to define behavior:
@@ -99,7 +99,7 @@ ________________________________________________________________________________
  B. Delete Users:
  
   ```
-  mvn -Ploadtest jmeter:jmeter -Dtype=ftDelUser -Dqualifier=A1 -Dverify=true -Dsleep=30
+  mvn verify -Dtype=ftDelUser -Dqualifier=A1 -Dverify=true -Dsleep=30
   ```
 
   * Same properties as add except for 'ou', which is not used for delete ops
@@ -109,7 +109,7 @@ ________________________________________________________________________________
  Will perform a createSession.  Optionally reads the entry and/or permission checks.
  
   ```
-  mvn -Ploadtest jmeter:jmeter -Dtype=ftCheckUser -Dqualifier=A1 -Dverify=true -Dsize=20 -Dperm=jmeterobject.oper
+  mvn verify -Dtype=ftCheckUser -Dqualifier=A1 -Dverify=true -Dsize=20 -Dperm=jmeterobject.oper
   ```
 
   This test performs createSession on users.  It uses runtime arguments to define behavior:
@@ -123,7 +123,7 @@ A. Qualifier property.
 The add test generates userids based on: hostname + qualifier + counter.  The counter is global across all threads, so if you enable 20 threads * 100 loops, with a qualifier = 'A1', 2,000 users will be added:
 
   ```
-  mvn -Ploadtest jmeter:jmeter -Dtype=ftAddUser -Dqualifier=A1
+  mvn verify -Dtype=ftAddUser -Dqualifier=A1
   ```
 
 hostname-A1-1
@@ -135,13 +135,13 @@ hostname-A1-1000
 If you run the test a second time (before a delete run) there will be duplicates because it tries to add users with same userids again.  This is the idea of the 'qualifier'.  Change its value to ensure the uids remain unique across test runs.
 
   ```
-  mvn -Ploadtest jmeter:jmeter -Dtype=ftAddUser -Dqualifier=A2
+  mvn verify -Dtype=ftAddUser -Dqualifier=A2
   ```
 
 Or, you can run a delete before the next add:
 
   ```
-  mvn -Ploadtest jmeter:jmeter -Dtype=ftDelUser -Dqualifier=A1
+  mvn verify -Dtype=ftDelUser -Dqualifier=A1
   ```
 
 Just make sure the thread and loop counts in ftDelUser.jmx are the same as ftAddUser.jmx
@@ -151,7 +151,7 @@ B. Verify
 If set to true, after every operation, a read of the entry will be performed.
 
   ```
-  mvn -Ploadtest jmeter:jmeter -Dtype=ftAddUser -Dqualifier=A1 -Dverify=true
+  mvn verify -Dtype=ftAddUser -Dqualifier=A1 -Dverify=true
   ```
 
 C. Update
@@ -159,7 +159,7 @@ C. Update
 If set to true, after every add, an update will be performed on user's description field.
 
   ```
-  mvn -Ploadtest jmeter:jmeter -Dtype=ftAddUser -Dqualifier=A1 -Dupdate=true
+  mvn verify -Dtype=ftAddUser -Dqualifier=A1 -Dupdate=true
   ```
 
 D. Role
@@ -167,7 +167,7 @@ D. Role
 If 'role' set as property, it will be assigned after the user has been added.  The role itself must already exist before being used in assignment to user.
 
   ```
-  mvn -Ploadtest jmeter:jmeter -Dtype=ftAddUser -Dqualifier=A1 -Drole=jmeterrole
+  mvn verify -Dtype=ftAddUser -Dqualifier=A1 -Drole=jmeterrole
   ```
 
 E. Perm
@@ -175,7 +175,7 @@ E. Perm
 This applies only to the CheckUser test.  If set, it will be used as permission in checkAccess call 10 times.  For example:
 
   ```
-  mvn -Ploadtest jmeter:jmeter -Dtype=ftCheckUser -Dperm=jmeterobject.oper
+  mvn verify -Dtype=ftCheckUser -Dperm=jmeterobject.oper
   ```
 
   Will call checkAccess:
