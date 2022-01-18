@@ -574,6 +574,7 @@
               <suppressionFile>${project.basedir}/src/owasp/suppression.xml</suppressionFile>
           </configuration>
         </plugin>
+
       </plugins>
     </pluginManagement>
 
@@ -705,63 +706,6 @@
 
         </executions>
       </plugin>
-
-      <!-- To execute: mvn verify jmeter:jmeter -Dtype=testname [-Dmore=args] -->
-      <plugin>
-        <groupId>com.lazerycode.jmeter</groupId>
-        <artifactId>jmeter-maven-plugin</artifactId>
-        <version>${version.jmeter.plugin}</version>
-        <configuration>
-          <testPlanLibraries>
-            <artifact>org.apache.directory.fortress:fortress-core:${project.version}</artifact>
-            <artifact>org.apache.directory.fortress:fortress-core:jar:tests:${project.version}</artifact>
-            <artifact>org.apache.commons:commons-pool2:${commons-pool2.version}</artifact>
-          </testPlanLibraries>
-          <suppressJMeterOutput>false</suppressJMeterOutput>
-          <testFilesIncluded>
-            <jMeterTestFile>${type}.jmx</jMeterTestFile>
-          </testFilesIncluded>
-          <propertiesSystem>
-            <version>${project.version}</version>
-            <tenant>${tenant}</tenant>
-            <hostname>${hostname}</hostname>
-            <qualifier>${qualifier}</qualifier>
-            <verify>${verify}</verify>
-            <output>${output}</output>
-            <sleep>${sleep}</sleep>
-            <size>${size}</size>
-            <perm>${perm}</perm>
-            <ou>${ou}</ou>
-          </propertiesSystem>
-          <jMeterProcessJVMSettings>
-            <xms>1024</xms>
-            <xmx>1024</xmx>
-          </jMeterProcessJVMSettings>
-        </configuration>
-        <executions>
-          <execution>
-            <id>configuration</id>
-            <phase>pre-integration-test</phase>
-            <goals>
-              <goal>configure</goal>
-            </goals>
-          </execution>
-          <!-- Run JMeter tests -->
-          <execution>
-            <id>jmeter-tests</id>
-            <goals>
-              <goal>jmeter</goal>
-            </goals>
-          </execution>
-          <!-- Fail build on errors in test -->
-          <execution>
-            <id>jmeter-check-results</id>
-            <goals>
-              <goal>results</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
 
     <testResources>
@@ -855,6 +799,70 @@
                     </systemProperty>
                   </systemProperties>
                 </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- To execute: mvn verify -Ploadtest -Dtype=testname [-Dmore=args] -->
+    <profile>
+      <id>loadtest</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.lazerycode.jmeter</groupId>
+            <artifactId>jmeter-maven-plugin</artifactId>
+            <version>${version.jmeter.plugin}</version>
+            <configuration>
+              <testPlanLibraries>
+                <artifact>org.apache.directory.fortress:fortress-core:${project.version}</artifact>
+                <artifact>org.apache.directory.fortress:fortress-core:jar:tests:${project.version}</artifact>
+                <artifact>org.apache.commons:commons-pool2:${commons-pool2.version}</artifact>
+              </testPlanLibraries>
+              <suppressJMeterOutput>false</suppressJMeterOutput>
+              <testFilesIncluded>
+                <jMeterTestFile>${type}.jmx</jMeterTestFile>
+              </testFilesIncluded>
+              <propertiesSystem>
+                <version>${project.version}</version>
+                <tenant>${tenant}</tenant>
+                <hostname>${hostname}</hostname>
+                <qualifier>${qualifier}</qualifier>
+                <verify>${verify}</verify>
+                <output>${output}</output>
+                <sleep>${sleep}</sleep>
+                <size>${size}</size>
+                <perm>${perm}</perm>
+                <ou>${ou}</ou>
+              </propertiesSystem>
+              <jMeterProcessJVMSettings>
+                <xms>1024</xms>
+                <xmx>1024</xmx>
+              </jMeterProcessJVMSettings>
+            </configuration>
+            <executions>
+              <execution>
+                <id>configuration</id>
+                <phase>pre-integration-test</phase>
+                <goals>
+                  <goal>configure</goal>
+                </goals>
+              </execution>
+              <!-- Run JMeter tests -->
+              <execution>
+                <id>jmeter-tests</id>
+                <goals>
+                  <goal>jmeter</goal>
+                </goals>
+              </execution>
+              <!-- Fail build on errors in test -->
+              <execution>
+                <id>jmeter-check-results</id>
+                <goals>
+                  <goal>results</goal>
+                </goals>
               </execution>
             </executions>
           </plugin>
