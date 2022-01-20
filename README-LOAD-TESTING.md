@@ -192,17 +192,15 @@ These assignments must already exist before running this test.
 
 A. View the results
 
-* target/[guid]/jmeter/results/[DATE]-ftAddUser.jtl
-* target/[guid]/jmeter/results/[DATE]ftDelUser.jmx.jtl
-* target/[guid]/jmeter/results/[DATE]ftCheckUser.jtl
+* target/jmeter/results/[DATE]-ftAddUser.jtl
+* target/jmeter/results/[DATE]ftDelUser.jmx.jtl
+* target/jmeter/results/[DATE]ftCheckUser.jtl
 
 B. View the logs
 
-* target/[guid]/jmeter/logs/ftAddUser.jmx.log
-* target/[guid]/jmeter/logs/ftDelUser.jmx.log
-* target/[guid]/jmeter/logs/ftCheckUser.jmx.log
-
-* Where [guid] == a generated tag, e.g. '66dce123-75d1-49ac-80fd-c33147872daa'
+* target/jmeter/logs/ftAddUser.jmx.log
+* target/jmeter/logs/ftDelUser.jmx.log
+* target/jmeter/logs/ftCheckUser.jmx.log
 ____________________________________________________________________________________
  
  #### END OF README
