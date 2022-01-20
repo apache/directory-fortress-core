@@ -819,7 +819,6 @@
               <testPlanLibraries>
                 <artifact>org.apache.directory.fortress:fortress-core:${project.version}</artifact>
                 <artifact>org.apache.directory.fortress:fortress-core:jar:tests:${project.version}</artifact>
-                <artifact>org.apache.commons:commons-pool2:${commons-pool2.version}</artifact>
               </testPlanLibraries>
               <suppressJMeterOutput>false</suppressJMeterOutput>
               <testFilesIncluded>
