@@ -326,6 +326,28 @@ public abstract class LdapDataProvider
     protected void modify( LdapConnection connection, String dn, List<Modification> mods,
         FortEntity entity, boolean setRelaxControl ) throws LdapException
     {
+        Control setControl = null;
+        if ( setRelaxControl )
+        {
+            setControl = new RelaxControlImpl();
+        }
+        modify( connection, dn, mods, entity, setControl );
+    }
+
+
+    /**
+     * Update exiting ldap entry to the directory.  Add audit context.
+     *
+     * @param connection handle to ldap connection.
+     * @param dn         contains distinguished node of entry.
+     * @param mods       contains data to modify.
+     * @param entity     contains audit context.
+     * @param setControl add specified control to the request
+     * @throws LdapException in the event system error occurs.
+     */
+    protected void modify( LdapConnection connection, String dn, List<Modification> mods,
+        FortEntity entity, Control setControl ) throws LdapException
+    {
         COUNTERS.incrementMod();
         audit( mods, entity );
         ModifyRequest modRequest = new ModifyRequestImpl();
@@ -334,9 +356,9 @@ public abstract class LdapDataProvider
         {
             modRequest.addModification( mod );
         }
-        if ( setRelaxControl )
+        if ( setControl != null )
         {
-            modRequest.addControl( new RelaxControlImpl() );
+            modRequest.addControl( setControl );
         }
         modRequest.setName( new Dn( dn ) );
         ModifyResponse response = connection.modify( modRequest );
