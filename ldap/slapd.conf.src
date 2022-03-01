@@ -21,7 +21,7 @@
 # Note: Directives that begin with '@' are substitution parms that get automatically replaced.
 
 include		@SCHEMA_PATH@/core.schema
-include		@SCHEMA_PATH@/ppolicy.schema
+#include	@SCHEMA_PATH@/ppolicy.schema
 include		@SCHEMA_PATH@/cosine.schema
 include		@SCHEMA_PATH@/inetorgperson.schema
 include		@SCHEMA_PATH@/rfc2307bis.schema
@@ -66,7 +66,6 @@ password-hash {SSHA}
 # Access Log DB Settings
 #######################################################################
 database	 @DB_TYPE@
-@LOG_RDRS@
 @LOG_SIZE@
 suffix		"@LOG_SUFFIX@"
 rootdn      "@LOG_ROOT_DN@"
@@ -78,7 +77,6 @@ index reqDN,reqAuthzID,reqAttr,reqMod,reqResult eq
 directory	"@HISTORY_DB_PATH@"
 @LOG_DBNOSYNCH@
 @LOG_CHECKPOINT@
-@LOG_BDB_CACHE_SIZE@
 
 # Accesslog is readable by replicator and fortress:
 access to dn.subtree="@LOG_SUFFIX@"
@@ -90,7 +88,6 @@ access to dn.subtree="@LOG_SUFFIX@"
 # Default DB Settings
 #######################################################################
 database	@DB_TYPE@
-@DFLT_RDRS@
 @DFLT_SIZE@
 suffix      "@SUFFIX@"
 rootdn      "@ROOT_DN@"
@@ -107,8 +104,6 @@ overlay accesslog
 logdb   "@LOG_SUFFIX@"
 @DFLT_DBNOSYNCH@
 @DFLT_CHECKPOINT@
-@DFLT_BDB_CACHE_SIZE@
-@DFLT_BDB_CACHE_IDLE_SIZE@
 
 # The fortress admin needs write access to the whole DIT
 access to dn.subtree="@SUFFIX@"

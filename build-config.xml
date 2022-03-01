@@ -149,7 +149,6 @@
          <replace file="${target.slapd.conf}" token="@LOG_RDRS@" value="${log.rdrs}"/>
          <replace file="${target.slapd.conf}" token="@LOG_SIZE@" value="${log.size}"/>
          <replace file="${target.slapd.conf}" token="@LOG_BDB_CACHE_SIZE@" value="${log.bdb.cache.size}"/>
-         <replace file="${target.slapd.conf}" token="@DFLT_RDRS@" value="${dflt.rdrs}"/>
          <replace file="${target.slapd.conf}" token="@DFLT_SIZE@" value="${dflt.size}"/>
          <replace file="${target.slapd.conf}" token="@DFLT_BDB_CACHE_SIZE@" value="${dflt.bdb.cache.size}"/>
          <replace file="${target.slapd.conf}" token="@DFLT_BDB_CACHE_IDLE_SIZE@" value="${dflt.bdb.cache.idle.size}"/>

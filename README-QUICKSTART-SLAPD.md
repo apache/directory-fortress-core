@@ -44,12 +44,18 @@ Minimum software requirements:
  * RHEL or Debian Machine
  * Java SDK >= 8
  * Apache Maven >= 3
-
- *Everything else covered in steps that follow.*
+ 
 ___________________________________________________________________________________
 ## SECTION 2. Apache Fortress Core and OpenLDAP Setup
 
-1. Download the package:
+1. Setup your Debian or Rehat Symas OpenLDAP 2.5 package repo: [Symas OpenLDAP 2.5](https://repo.symas.com/soldap2.5/)
+   setup notes
+   - Select your distro
+   - Debian systems must install the gpg key
+   - Follow steps 1 and 2 (only) to update your repo
+   - Everything else (install, configure) is covered in the steps that follow
+   
+2. Get the Apache Fortress Core source package:
 
  a. from git:
  ```
@@ -64,7 +70,7 @@ ________________________________________________________________________________
  cd fortress-core-2.0.7
  ```
 
-2. Prepare the package:
+3. Prepare the Apache Fortress package:
 
  ```
  cp build.properties.example build.properties
@@ -75,44 +81,27 @@ ________________________________________________________________________________
  * Learn more about how the config works: [README-CONFIG](README-CONFIG.md).
  * Learn more about what properties there are: [README-PROPERTIES](README-PROPERTIES.md).
 
-3. Download the latest OpenLDAP binaries for your platform:
- [Symas OpenLDAP Silver Edition](https://downloads.symas.com/products/symas-openldap-directory-silver-edition/)
-
-4. Place either a centos or debian package under the folder named *ldap* : [fortress-core-[VERSION]/ldap](./ldap)
-
-5. Edit the *slapd.properties* file:
+4. Edit the *slapd.properties* file:
 
  ```
  vi slapd.properties
  ```
 
-6. Update the *slapd.properties* file *slapd.install* statement with a reference to the openldap file install downloaded earlier.
+5. Choose which package to install Debian or Redhat:
 
- a. For Debian installs:
-  ```
-  slapd.install=dpkg -i symas-openldap-silver.version.platform.deb
-  ```
+```
+#Debian:
+slapd.install=apt install symas-openldap-clients symas-openldap-server -y
+slapd.uninstall=apt remove symas-openldap-clients symas-openldap-server -y
 
- b. For Centos:
-  ```
-  slapd.install=rpm -i symas-openldap-silver.version.platform.rpm
-  ```
+# Or:
 
-7. Specify whether you want to enable the slapo-rbac overlay:
+# Redhat:
+slapd.install=yum install symas-openldap-servers symas-openldap-clients -y
+slapd.uninstall=yum remove symas-openldap-servers symas-openldap-clients -y
+```
 
- a. Yes, I want to enable slapo-rbac:
-  ```
-  rbac.accelerator=true
-  ```
-
- *To use this option, symas-openldap version 2.4.43++ is required.*
-
- b. No, I don't want to enable slapo-rbac:
-  ```
-  rbac.accelerator=false
-  ```
-
-8. (optional) Specify whether you want to communicate over SSL using LDAPS:
+6. (optional) Specify whether you want to communicate over SSL using LDAPS:
 
  a. Place .pem files for ca-certificate, server certificate and private key in folder named *certs* : [fortress-core-[VERSION]/src/test/resources/certs](./src/test/resources/certs)
 
@@ -147,14 +136,14 @@ ________________________________________________________________________________
   tls.key.file=server-key.pem
   ```
 
-  more notes
+  more ldaps notes
   - whatever used for LDAP host name must match the common name element of the server's certificate
   - the truststore may be found on the classpath or as a fully qualified file name determined by trust.store.onclasspath.
   - The LDAP URIs are used by the server listener during startup.
 
-9. Save and exit
+7. Save and exit
 
-10. Prepare your terminal for execution of maven commands.
+8. Prepare your terminal for execution of maven commands.
 
  ```
  #!/bin/sh
@@ -163,7 +152,7 @@ ________________________________________________________________________________
  export PATH=$PATH:$M2_HOME/bin
  ```
 
-11. Run the maven install:
+9. Run the maven install:
 
 a. Java 8 target
 
@@ -173,25 +162,27 @@ a. Java 8 target
 
 -- OR --
 
-b. Java 11 target
+b. Java 11++ target
 
  ```
  mvn clean install -Djava.version=11
  ```
 
-12. Install, configure and load the slapd server:
+Where -Djava.version matches the version of Java
+
+10. Install, configure and load the slapd server:
 
   ```
   mvn test -Pinit-slapd
   ```
 
-13. To start the slapd process:
+11. To start the slapd process:
 
   ```
   mvn test -Pstart-slapd
   ```
 
-14. To stop the slapd process:
+12. To stop the slapd process:
 
   ```
   mvn test -Pstop-slapd

@@ -159,23 +159,18 @@ rfc2307=false
 
 # OpenLDAP MDB Backend config is default setting for Fortress::
 db.type=mdb
-dflt.rdrs=maxreaders 64
 dflt.size=maxsize 1000000000
-log.rdrs=maxreaders 64
 log.size=maxsize 1000000000
-dflt.bdb.cache.size=
-dflt.bdb.cache.idle.size=
-log.bdb.cache.size=
 
 # These next params used by 'init-slapd' target to install OpenLDAP to target machine.  Do not change any params below this line unless you know what you are doing:
 
 ## Symas OpenLDAP on NIX section:
 openldap.install.artifact.dir=./ldap
-db.root=/var/openldap
+db.root=/var/symas/openldap-data
 openldap.root=/opt/symas
 slapd.dir=${openldap.root}/etc/openldap
 # to start:
-pid.dir=/var/openldap
+pid.dir=/var/symas/run
 db.dir=${db.root}/dflt
 db.hist.dir=${db.root}/hist
 db.bak.dir=${db.root}/backup/dflt
@@ -187,25 +182,18 @@ dflt.dbnosynch=dbnosync
 log.checkpoint=checkpoint   64 5
 dflt.checkpoint=checkpoint    64 5
 
-# Each of the options are used for a particular Symas-OpenLDAP platform.Debian 64-bit Silver:
+# Symas-OpenLDAP Configurations:
+platform=symas-openldap
+slapd.module.dir=${openldap.root}/lib/openldap
+slapd.start=${openldap.root}/lib/slapd -h ldap://${ldap.host}:${ldap.port} -f ${openldap.root}/etc/openldap/slapd.conf
 
-#Debian 64-bit Silver:
-#platform=Debian-Silver-x86-64
-# Note: for Ubuntu installs, remove the file /opt/symas/etc/openldap/symas-openldap.conf before installing new package, to prevent automatic startup after the installation.
-#slapd.install=dpkg -i symas-openldap-silver.64_2.4.43-20151204_amd64.deb
-#slapd.uninstall=dpkg -r symas-openldap-silver
-#install.image.dir=/home/smckinn/archives/debian64
-#slapd.module.dir=${openldap.root}/lib64/openldap
-#slapd.start=${openldap.root}/lib64/slapd -h ldap://${ldap.host}:${ldap.port} -f ${openldap.root}/etc/openldap/slapd.conf -F ${openldap.root}/etc/openldap
+#Debian:
+#slapd.install=apt install symas-openldap-clients symas-openldap-server -y
+#slapd.uninstall=apt remove symas-openldap-clients symas-openldap-server -y
 
-# Redhat 64-bit Silver:
-platform=Redhat-Silver-x86-64
-slapd.install=rpm -i symas-openldap-silver.x86_64-2.4.43-1.rpm
-slapd.uninstall=rpm -e symas-openldap-silver
-slapd.module.dir=${openldap.root}/lib64/openldap
-# use the symas openldap startup script:
-slapd.start=${openldap.root}/etc/solserver start -f ${openldap.root}/etc/openldap/slapd.conf -F ${openldap.root}/etc/openldap
-#slapd.start=${openldap.root}/lib64/slapd -h ldap://${ldap.host}:${ldap.port} -f ${openldap.root}/etc/openldap/slapd.conf -F ${openldap.root}/etc/openldap
+# Redhat:
+#slapd.install=yum install symas-openldap-servers symas-openldap-clients -y
+#slapd.uninstall=yum remove symas-openldap-servers symas-openldap-clients -y
 
 ########################################################################
 # 6. RBAC ACCELERATOR OVERLAY PROPS
