@@ -49,7 +49,6 @@ ________________________________________________________________________________
 ## SECTION 2. Apache Fortress Core and OpenLDAP Setup
 
 1. Setup your Debian or Rehat Symas OpenLDAP 2.5 package repo: [Symas OpenLDAP 2.5](https://repo.symas.com/soldap2.5/)
-   setup notes
    - Select your distro
    - Debian systems must install the gpg key
    - Follow steps 1 and 2 (only) to update your repo
