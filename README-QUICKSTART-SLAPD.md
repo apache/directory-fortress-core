@@ -56,7 +56,6 @@ ________________________________________________________________________________
    
 2. Get the Apache Fortress Core source package:
 
- a. from git:
  ```
  git clone https://gitbox.apache.org/repos/asf/directory-fortress-core.git
  cd directory-fortress-core
