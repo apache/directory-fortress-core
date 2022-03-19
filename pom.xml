@@ -101,7 +101,6 @@
     <version.httpcomponent.httpclient>4.5.13</version.httpcomponent.httpclient>
     <version.jasypt>1.9.3</version.jasypt>
     <version.javaee.api>8.0.1</version.javaee.api>
-    <version.jaxb.api>2.4.0-b180830.0359</version.jaxb.api>
     <version.jaxb.core>3.0.1</version.jaxb.core>
     <version.jaxb.impl>3.0.2</version.jaxb.impl>
     <version.jgrapht-core>1.4.0</version.jgrapht-core>
@@ -715,31 +714,6 @@
   </build>
 
   <profiles>
-
-    <!-- If JDK11++ pull in the JAXB dependencies. -->
-<!--
-    <profile>
-      <id>jdk-11+</id>
-      <activation>
-        <jdk>[11,]</jdk>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>jakarta.xml.bind</groupId>
-          <artifactId>jakarta.xml.bind-api</artifactId>
-          <version>${version.jaxb.core}</version>
-        </dependency>
-
-        <dependency>
-          <groupId>com.sun.xml.bind</groupId>
-          <artifactId>jaxb-impl</artifactId>
-          <version>${version.jaxb.impl}</version>
-          <scope>runtime</scope>
-        </dependency>
-      </dependencies>
-    </profile>
--->
-
     <!-- This profile starts the Fortress Console App -->
     <!-- To execute: mvn -Pconsole test -->
     <profile>
