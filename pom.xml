@@ -211,6 +211,12 @@
       <version>${version.javaee.api}</version>
     </dependency>
 
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>${version.jaxb.core}</version>
+    </dependency>
+
     <!-- Begin Test Dependencies -->
     <dependency>
       <groupId>org.apache.directory.server</groupId>
@@ -398,13 +404,6 @@
       <groupId>com.sun.xml.bind</groupId>
       <artifactId>jaxb-impl</artifactId>
       <version>${version.jaxb.impl}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.glassfish.jaxb</groupId>
-      <artifactId>jaxb-core</artifactId>
-      <version>${version.jaxb.core}</version>
       <scope>test</scope>
     </dependency>
 
@@ -717,7 +716,8 @@
 
   <profiles>
 
-    <!-- If JDK11++ pull in the JAXB API dependency. -->
+    <!-- If JDK11++ pull in the JAXB dependencies. -->
+<!--
     <profile>
       <id>jdk-11+</id>
       <activation>
@@ -738,6 +738,7 @@
         </dependency>
       </dependencies>
     </profile>
+-->
 
     <!-- This profile starts the Fortress Console App -->
     <!-- To execute: mvn -Pconsole test -->
