@@ -408,22 +408,12 @@
       <scope>test</scope>
     </dependency>
 
-<!--
-    <dependency>
-      <groupId>antlr</groupId>
-      <artifactId>antlr</artifactId>
-      <version>${version.antlr}</version>
-      <scope>test</scope>
-    </dependency>
--->
-
     <dependency>
       <groupId>org.antlr</groupId>
       <artifactId>antlr</artifactId>
       <version>${version.antlr}</version>
       <scope>test</scope>
     </dependency>
-
 
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
