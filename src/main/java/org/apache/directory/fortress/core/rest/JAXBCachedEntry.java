@@ -19,8 +19,8 @@
  */
 package org.apache.directory.fortress.core.rest;
 
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 
 /**
  * This class wraps JAXBContext and is used for simple caching mechanism during Fortress XML processing.

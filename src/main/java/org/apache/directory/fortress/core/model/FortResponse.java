@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.core.model;
 
-import jakarta.xml.bind.annotation.*;
+import javax.xml.bind.annotation.*;
 
 import org.apache.directory.fortress.core.GlobalErrIds;
 
