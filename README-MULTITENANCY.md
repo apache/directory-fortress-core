@@ -43,33 +43,49 @@ From Wikipedia:
 -------------------------------------------------------------------------------
 ## SECTION 2.  About the Datastructures
 
-1. Each tenant gets its own copy of the data.  For example if a tenant's id is acme123, there will be a container underneath the suffix:
+1. Each tenant gets its own copy of the data.  For example if a tenant's id is acme, there will be a container underneath the suffix:
 
  ```
- ou=acme123, dc=example, dc=com.
+ ou=acme, dc=example, dc=com.
  ```
 
-2. Beneath the acme123 *container* node will be that tenant's copy of data.  For example:
+2. Beneath the acme *container* node will be that tenant's copy of data.  For example:
 
  ```
- ou=People,  ou=acme123, dc=example, dc=com
- ou=Roles,   ou=acme123, dc=example, dc=com
- ou=Perms,   ou=acme123, dc=example, dc=com
- ou=Groups,  ou=acme123, dc=example, dc=com
+ ou=People,  ou=acme, dc=example, dc=com
+ ou=Roles,   ou=acme, dc=example, dc=com
+ ou=Perms,   ou=acme, dc=example, dc=com
+ ou=Groups,  ou=acme, dc=example, dc=com
  ...
  ```
 
-3. Screenshot with Apache Directory Studio.
+3. A multitenant Directory Information Tree containing tenants acme, foo and bar:
 
- ![Multitenant Tree](images/screenshot-acme123-dit.png "ACME123 Tenant Subtree")
-
+```
+   dc=example,dc=com
+   ├─ou=people
+   ├─ou=roles
+   ├─ou=perms
+   ├─ou=acme
+   │  ├─ou=people
+   │  ├─ou=roles
+   │  └─ou=perms
+   ├─ou=foo
+   │  ├─ou=people
+   │  ├─ou=roles
+   │  └─ou=perms
+   ├─ou=bar
+   │  ├─ou=people
+   │  ├─ou=roles
+   │  └─ou=perms
+```
 -------------------------------------------------------------------------------
 ## SECTION 3.  How the APIs work
 
 The tenant id is passed during object instantiation.
 
  ```
- AdminMgr adminMgr = AdminMgrFactory.createInstance( "acme123" );
+ AdminMgr adminMgr = AdminMgrFactory.createInstance( "acme" );
  ```
 
  The lifecycle of that particular object will be on behalf of that tenant id.
@@ -82,17 +98,17 @@ The tenant id is passed during object instantiation.
  ```
  ...
  <addcontainer>
-     <container name="acme123" description="ACME 123 tenant context"/>
+     <container name="acme" description="ACME tenant context"/>
  </addcontainer>
  ...
  ```
 
 2. Or, simply use ldif format to create the new tenant containers.  Import with any LDAP client:
  ```
- dn: ou=acme123, dc=example,dc=com
- ou: acme123
+ dn: ou=acme, dc=example,dc=com
+ ou: acme
  objectClass: organizationalUnit
- description: ACME 123 tenant context
+ description: ACME tenant context
  ```
 
 3. After the new container has been added, you may use again the fortress ant load utility to initialize the new tenant Directory Information Tree (DIT).  For example:
@@ -117,7 +133,7 @@ The tenant id is passed during object instantiation.
 
 4. When running the fortress ant load, pass the tenant id as a -D parameter on the command line:
  ```
- mvn install -Dload.file=./ldap/setup/MyLoadFile.xml -Dtenant=acme123
+ mvn install -Dload.file=./ldap/setup/MyLoadFile.xml -Dtenant=acme
  ```
 
  Passing the tenant system property scopes all subsequent load operations to that particular tenant's container inside the DIT.
@@ -128,7 +144,7 @@ ________________________________________________________________________________
 Pass the tenant id as system property when running the tests:
 
  ```
- mvn test -Dtest=FortressJUnitTest -Dtenant=acme123
+ mvn test -Dtest=FortressJUnitTest -Dtenant=acme
  ```
 
  Passing tenant system properties scopes all subsequent test operations to that particular tenant.
@@ -141,13 +157,13 @@ Other tools like Fortress console and CLI may be run pointing to a tenant's data
 1. Fortress Console:
 
  ```
- mvn -Pconsole test -Dtenant=acme123
+ mvn -Pconsole test -Dtenant=acme
  ```
 
 2. Fortress CLI:
 
  ```
- mvn -Pcli test -Dtenant=acme123
+ mvn -Pcli test -Dtenant=acme
  ```
 
 ___________________________________________________________________________________
