@@ -95,12 +95,13 @@ group.root=@GROUPS_DN@
 example.root=ou=Examples,@SUFFIX@
 
 
-# these properties will enable temporal constraint checks on role activations:
+# these properties will enable temporal and dynamic user-role constraint checks on role activations:
 temporal.validator.0=org.apache.directory.fortress.core.util.time.Date
 temporal.validator.1=org.apache.directory.fortress.core.util.time.LockDate
 temporal.validator.2=org.apache.directory.fortress.core.util.time.Timeout
 temporal.validator.3=org.apache.directory.fortress.core.util.time.ClockTime
 temporal.validator.4=org.apache.directory.fortress.core.util.time.Day
+temporal.validator.5:org.apache.directory.fortress.core.util.time.UserRoleConstraint
 
 # enabling this property will enable Dynamic Separation of Duty constraint checks on role activations:
 temporal.validator.dsd=org.apache.directory.fortress.core.impl.DSDChecker
