@@ -204,10 +204,33 @@
       <version>${version.accelerator.impl}</version>
     </dependency>
 
+<!--
     <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>
       <version>${version.javaee.api}</version>
+    </dependency>
+-->
+
+    <dependency>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-api</artifactId>
+      <version>9.0.0</version>
+    </dependency>
+
+<!--
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>4.0.0</version>
+    </dependency>
+-->
+
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-impl</artifactId>
+      <version>3.0.2</version>
+      <scope>test</scope>
     </dependency>
 
     <!-- Begin Test Dependencies -->
@@ -709,8 +732,28 @@
         <jdk>[11,]</jdk>
       </activation>
       <dependencies>
+
+        <!--<version>${version.jaxb.core}</version>-->
+
+
+<!--
         <dependency>
-          <groupId>javax.xml.bind</groupId>
+          <groupId>jakarta.xml.bind</groupId>
+          <artifactId>jakarta.xml.bind-api</artifactId>
+          <version>4.0.0</version>
+        </dependency>
+
+        <dependency>
+          <groupId>com.sun.xml.bind</groupId>
+          <artifactId>jaxb-impl</artifactId>
+          <version>3.0.2</version>
+          <scope>test</scope>
+        </dependency>
+-->
+
+<!--
+        <dependency>
+          <groupId>jakarta.xml.bind</groupId>
           <artifactId>jaxb-api</artifactId>
           <version>${version.jaxb.api}</version>
         </dependency>
@@ -721,6 +764,7 @@
           <version>${version.jaxb.impl}</version>
           <scope>test</scope>
         </dependency>
+-->
 
       </dependencies>
     </profile>
