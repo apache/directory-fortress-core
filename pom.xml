@@ -93,7 +93,7 @@
     <version.accelerator.api>1.0-RC41</version.accelerator.api>
     <version.accelerator.impl>1.0-RC41</version.accelerator.impl>
     <version.ant>1.10.12</version.ant>
-    <version.antlr>3.5.2</version.antlr>
+    <version.antlr>3.5.3</version.antlr>
     <version.apache.jdbm1>2.0.0-M3</version.apache.jdbm1>
     <version.commons.configuration>1.10</version.commons.configuration>
     <version.commons.io>2.11.0</version.commons.io>
@@ -104,12 +104,12 @@
     <version.jaxb.api>2.4.0-b180830.0359</version.jaxb.api>
     <version.jaxb.impl>2.3.6</version.jaxb.impl>
     <version.jgrapht-core>1.4.0</version.jgrapht-core>
-    <version.jmeter.core>5.4.3</version.jmeter.core>
-    <version.jmeter.java>5.4.3</version.jmeter.java>
+    <version.jmeter.core>5.5</version.jmeter.core>
+    <version.jmeter.java>5.5</version.jmeter.java>
     <version.junit>4.13.2</version.junit>
-    <version.log4j>2.17.2</version.log4j>
+    <version.log4j>2.18.0</version.log4j>
     <version.opencsv>2.3</version.opencsv>
-    <version.jackson-annotations>2.13.2</version.jackson-annotations>
+    <version.jackson-annotations>2.13.3</version.jackson-annotations>
     <version.jmeter.plugin>3.5.0</version.jmeter.plugin>
     <commons-pool2.version>2.9.0</commons-pool2.version>
 
