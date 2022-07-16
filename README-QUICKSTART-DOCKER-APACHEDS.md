@@ -56,16 +56,16 @@ cd directory-fortress-core
 b. or clone git release: 
 
 ```bash
-git clone --branch 2.0.7  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
+git clone --branch 2.0.8  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
 cd directory-fortress-core
 ```
 
 c. or download source package from Apache: 
 
 ```bash
-wget https://www.apache.org/dist/directory/fortress/dist/2.0.7/fortress-core-2.0.7-source-release.zip
-unzip fortress-core-2.0.7-source-release.zip
-cd fortress-core-2.0.7
+wget https://www.apache.org/dist/directory/fortress/dist/2.0.8/fortress-core-2.0.8-source-release.zip
+unzip fortress-core-2.0.8-source-release.zip
+cd fortress-core-2.0.8
 ```
 
 2. Prepare the ApacheDS docker image

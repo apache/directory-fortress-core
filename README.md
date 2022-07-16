@@ -88,10 +88,10 @@ From Apache GIT Fortress-Core Software Repo:
  git clone  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
  ```
 
- * or by specific version, e.g. 2.0.7
+ * or by specific version, e.g. 2.0.8
 
  ```
-  git clone --branch 2.0.7  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
+  git clone --branch 2.0.8  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
  ```
 
 2. Set Java and Maven home on machines.
