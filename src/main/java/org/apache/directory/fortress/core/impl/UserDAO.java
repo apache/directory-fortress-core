@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.impl;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -1015,23 +1016,29 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             }
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
-                    Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
+                    Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) ) )
             {
-                userList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, user.getContextId() ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    userList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, user.getContextId() ) );
+                }
+            }
+            catch ( IOException e )
+            {
+                String warning = "findUsers userRoot [" + userRoot + "] caught IOException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
+            }
+            catch ( CursorException e )
+            {
+                String warning = "findUsers userRoot [" + userRoot + "] caught CursorException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
             }
         }
         catch ( LdapException e )
         {
             String warning = "findUsers userRoot [" + userRoot + "] caught LDAPException=" + e;
-            throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
-        }
-        catch ( CursorException e )
-        {
-            String warning = "findUsers userRoot [" + userRoot + "] caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
         finally
@@ -1068,23 +1075,29 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             filterbuf.append( "*))" );
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID,
-                false, limit );
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID,
+                false, limit ) )
             {
-                Entry entry = searchResults.getEntry();
-                userList.add( getAttribute( entry, SchemaConstants.UID_AT ) );
+                while ( searchResults.next() )
+                {
+                    Entry entry = searchResults.getEntry();
+                    userList.add( getAttribute( entry, SchemaConstants.UID_AT ) );
+                }
+            }
+            catch ( IOException e )
+            {
+                String warning = "findUsers caught IOException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
+            }
+            catch ( CursorException e )
+            {
+                String warning = "findUsers caught CursorException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
             }
         }
         catch ( LdapException e )
         {
             String warning = "findUsers caught LdapException=" + e;
-            throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
-        }
-        catch ( CursorException e )
-        {
-            String warning = "findUsers caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
         finally
@@ -1146,22 +1159,29 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
 
             filterbuf.append( ")" );
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
-                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
+                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                userList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, role.getContextId() ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    userList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, role.getContextId() ) );
+                }
+            }
+            catch ( IOException e )
+            {
+                String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught IOException=" + e
+                        .getMessage();
+                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+            }
+            catch ( CursorException e )
+            {
+                String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught LDAPException=" + e
+                        .getMessage();
+                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
             }
         }
         catch ( LdapException e )
-        {
-            String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught LDAPException=" + e
-                .getMessage();
-            throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
-        }
-        catch ( CursorException e )
         {
             String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught LDAPException=" + e
                 .getMessage();
@@ -1211,22 +1231,29 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             filterbuf.append( ")" );
             
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
-                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
+                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                userList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, role.getContextId() ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    userList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, role.getContextId() ) );
+                }
+            }
+            catch ( IOException e )
+            {
+                String warning = "getAssignedUsers role name [" + role.getName() + "] caught IOException=" + e
+                        .getMessage();
+                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+            }
+            catch ( CursorException e )
+            {
+                String warning = "getAssignedUsers role name [" + role.getName() + "] caught CursorException=" + e
+                        .getMessage();
+                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
             }
         }
         catch ( LdapException e )
-        {
-            String warning = "getAssignedUsers role name [" + role.getName() + "] caught LDAPException=" + e
-                .getMessage();
-            throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
-        }
-        catch ( CursorException e )
         {
             String warning = "getAssignedUsers role name [" + role.getName() + "] caught LDAPException=" + e
                 .getMessage();
@@ -1267,21 +1294,28 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             filterbuf.append( ")" );
             
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
-                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
+                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                userRoleList.addAll( this.unloadUserRoles( searchResults.getEntry(), getAttribute( searchResults.getEntry(), SchemaConstants.UID_AT ), role.getContextId(), role.getName() ) );
+                while ( searchResults.next() )
+                {
+                    userRoleList.addAll( this.unloadUserRoles( searchResults.getEntry(), getAttribute( searchResults.getEntry(), SchemaConstants.UID_AT ), role.getContextId(), role.getName() ) );
+                }
+            }
+            catch ( IOException e )
+            {
+                String warning = "getAssignedUsers role name [" + role.getName() + "] caught IOException=" + e
+                        .getMessage();
+                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+            }
+            catch ( CursorException e )
+            {
+                String warning = "getAssignedUsers role name [" + role.getName() + "] caught CursorException=" + e
+                        .getMessage();
+                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
             }
         }
         catch ( LdapException e )
-        {
-            String warning = "getAssignedUsers role name [" + role.getName() + "] caught LDAPException=" + e
-                .getMessage();
-            throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
-        }
-        catch ( CursorException e )
         {
             String warning = "getAssignedUsers role name [" + role.getName() + "] caught LDAPException=" + e
                 .getMessage();
@@ -1337,21 +1371,28 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             filterbuf.append( "))" );
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID_ATR, false,
-                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID_ATR, false,
+                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                userList.add( unloadUser( searchResults.getEntry() ) );
+                while ( searchResults.next() )
+                {
+                    userList.add( unloadUser( searchResults.getEntry() ) );
+                }
+            }
+            catch ( IOException e )
+            {
+                String warning = "getAssignedUserIds role name [" + role.getName() + "] caught IOException=" + e
+                        .getMessage();
+                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+            }
+            catch ( CursorException e )
+            {
+                String warning = "getAssignedUserIds role name [" + role.getName() + "] caught CursorException=" + e
+                        .getMessage();
+                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
             }
         }
         catch ( LdapException e )
-        {
-            String warning = "getAssignedUserIds role name [" + role.getName() + "] caught LDAPException=" + e
-                .getMessage();
-            throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
-        }
-        catch ( CursorException e )
         {
             String warning = "getAssignedUserIds role name [" + role.getName() + "] caught LDAPException=" + e
                 .getMessage();
@@ -1403,23 +1444,28 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
 
             filterbuf.append( "))" );
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID_ATRS,
-                false,
-                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID_ATRS,
+                false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                userSet.add( getAttribute( searchResults.getEntry(), SchemaConstants.UID_AT ) );
+                while ( searchResults.next() )
+                {
+                    userSet.add( getAttribute( searchResults.getEntry(), SchemaConstants.UID_AT ) );
+                }
+            }
+            catch ( IOException e )
+            {
+                String warning = "getAssignedUsers caught IOException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+            }
+            catch ( CursorException e )
+            {
+                String warning = "getAssignedUsers caught CursorException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
             }
         }
         catch ( LdapException e )
         {
             String warning = "getAssignedUsers caught LDAPException=" + e;
-            throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
-        }
-        catch ( CursorException e )
-        {
-            String warning = "getAssignedUsers caught LDAPException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
         }
         finally
@@ -1455,22 +1501,29 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             filterbuf.append( "))" );
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
-                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
+                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                userList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, role.getContextId() ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    userList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, role.getContextId() ) );
+                }
+            }
+            catch ( IOException e )
+            {
+                String warning = "getAssignedUsers admin role name [" + role.getName() + "] caught IOException=" + e
+                        .getMessage();
+                throw new FinderException( GlobalErrIds.ARLE_USER_SEARCH_FAILED, warning, e );
+            }
+            catch ( CursorException e )
+            {
+                String warning = "getAssignedUsers admin role name [" + role.getName() + "] caught CursorException=" + e
+                        .getMessage();
+                throw new FinderException( GlobalErrIds.ARLE_USER_SEARCH_FAILED, warning, e );
             }
         }
         catch ( LdapException e )
-        {
-            String warning = "getAssignedUsers admin role name [" + role.getName() + "] caught LDAPException=" + e
-                .getMessage();
-            throw new FinderException( GlobalErrIds.ARLE_USER_SEARCH_FAILED, warning, e );
-        }
-        catch ( CursorException e )
         {
             String warning = "getAssignedUsers admin role name [" + role.getName() + "] caught LDAPException=" + e
                 .getMessage();
@@ -1510,22 +1563,29 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             filterbuf.append( "))" );
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID,
-                false, limit );
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), USERID,
+                false, limit ) )
             {
-                Entry entry = searchResults.getEntry();
-                userList.add( getAttribute( entry, SchemaConstants.UID_AT ) );
+                while ( searchResults.next() )
+                {
+                    Entry entry = searchResults.getEntry();
+                    userList.add( getAttribute( entry, SchemaConstants.UID_AT ) );
+                }
+            }
+            catch ( IOException e )
+            {
+                String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught IOException=" + e
+                        .getMessage();
+                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
+            }
+            catch ( CursorException e )
+            {
+                String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught CursorException=" + e
+                        .getMessage();
+                throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
             }
         }
         catch ( LdapException e )
-        {
-            String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught LDAPException=" + e
-                .getMessage();
-            throw new FinderException( GlobalErrIds.URLE_SEARCH_FAILED, warning, e );
-        }
-        catch ( CursorException e )
         {
             String warning = "getAuthorizedUsers role name [" + role.getName() + "] caught LDAPException=" + e
                 .getMessage();
@@ -1564,23 +1624,29 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             filterbuf.append( "*))" );
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
-                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
+                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                userList.add( ( unloadLdapEntry( searchResults.getEntry(), sequence++, contextId ) ).getUserId() );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    userList.add( ( unloadLdapEntry( searchResults.getEntry(), sequence++, contextId ) ).getUserId() );
+                }
+            }
+            catch ( IOException e )
+            {
+                String warning = "findUsersList caught IOException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
+            }
+            catch ( CursorException e )
+            {
+                String warning = "findUsersList caught CursorException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
             }
         }
         catch ( LdapException e )
         {
             String warning = "findUsersList caught LDAPException=" + e;
-            throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
-        }
-        catch ( CursorException e )
-        {
-            String warning = "findUsersList caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
         finally
@@ -1626,23 +1692,28 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             }
 
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false,
-                maxLimit );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, userRoot, SearchScope.ONELEVEL, filterbuf.toString(), defaultAtrs, false, maxLimit ) )
             {
-                userList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, ou.getContextId() ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    userList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, ou.getContextId() ) );
+                }
+            }
+            catch ( IOException e )
+            {
+                String warning = "findUsers caught IOException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
+            }
+            catch ( CursorException e )
+            {
+                String warning = "findUsers caught CursorException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
             }
         }
         catch ( LdapException e )
         {
             String warning = "findUsers caught LDAPException=" + e;
-            throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
-        }
-        catch ( CursorException e )
-        {
-            String warning = "findUsers caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.USER_SEARCH_FAILED, warning, e );
         }
         finally

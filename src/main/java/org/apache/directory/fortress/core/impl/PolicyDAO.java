@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.impl;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -602,23 +603,29 @@ final class PolicyDAO extends LdapDataProvider
             searchVal = encodeSafeText( policy.getName(), GlobalIds.PWPOLICY_NAME_LEN );
             String szFilter = GlobalIds.FILTER_PREFIX + PW_POLICY_CLASS + ")(" + PW_PWD_ID + "=" + searchVal + "*))";
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, policyRoot,
-                SearchScope.ONELEVEL, szFilter, PASSWORD_POLICY_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, policyRoot,
+                SearchScope.ONELEVEL, szFilter, PASSWORD_POLICY_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                policyArrayList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    policyArrayList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
+                }
+            }
+            catch ( IOException e )
+            {
+                String error = "findPolicy name [" + searchVal + "] caught IOException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.PSWD_SEARCH_FAILED, error, e );
+            }
+            catch ( CursorException e )
+            {
+                String error = "findPolicy name [" + searchVal + "] caught CursorException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.PSWD_SEARCH_FAILED, error, e );
             }
         }
         catch ( LdapException e )
         {
             String error = "findPolicy name [" + searchVal + "] caught LdapException=" + e;
-            throw new FinderException( GlobalErrIds.PSWD_SEARCH_FAILED, error, e );
-        }
-        catch ( CursorException e )
-        {
-            String error = "findPolicy name [" + searchVal + "] caught CursorException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PSWD_SEARCH_FAILED, error, e );
         }
         finally
@@ -645,23 +652,29 @@ final class PolicyDAO extends LdapDataProvider
         {
             String szFilter = "(objectclass=" + PW_POLICY_CLASS + ")";
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, policyRoot,
-                SearchScope.ONELEVEL, szFilter, PASSWORD_POLICY_NAME_ATR, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, policyRoot,
+                SearchScope.ONELEVEL, szFilter, PASSWORD_POLICY_NAME_ATR, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                Entry entry = searchResults.getEntry();
-                policySet.add( getAttribute( entry, PW_PWD_ID ) );
+                while ( searchResults.next() )
+                {
+                    Entry entry = searchResults.getEntry();
+                    policySet.add( getAttribute( entry, PW_PWD_ID ) );
+                }
+            }
+            catch ( IOException e )
+            {
+                String error = "getPolicies caught IOException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.PSWD_SEARCH_FAILED, error, e );
+            }
+            catch ( CursorException e )
+            {
+                String error = "getPolicies caught CursorException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.PSWD_SEARCH_FAILED, error, e );
             }
         }
         catch ( LdapException e )
         {
             String error = "getPolicies caught LdapException=" + e;
-            throw new FinderException( GlobalErrIds.PSWD_SEARCH_FAILED, error, e );
-        }
-        catch ( CursorException e )
-        {
-            String error = "getPolicies caught LdapException=" + e.getMessage();
             throw new FinderException( GlobalErrIds.PSWD_SEARCH_FAILED, error, e );
         }
         finally

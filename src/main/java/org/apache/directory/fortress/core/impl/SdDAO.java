@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.impl;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -367,42 +368,55 @@ final class SdDAO extends LdapDataProvider
         {
             objectClass = DSD_OBJECT_CLASS_NM;
         }
-
         try
         {
             String searchVal = encodeSafeText( sdset.getName(), GlobalIds.ROLE_LEN );
             String filter = GlobalIds.FILTER_PREFIX + objectClass + ")(" + SD_SET_NM + "=" + searchVal + "*))";
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, ssdRoot,
-                SearchScope.SUBTREE, filter, SD_SET_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, ssdRoot,
+                SearchScope.SUBTREE, filter, SD_SET_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                sdList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    sdList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
+                }
+            }
+            catch ( IOException e )
+            {
+                String error = "search sdset name [" + sdset.getName() + "] type [" + sdset.getType()
+                        + "] caught IOException=" + e.getMessage();
+                int errCode;
+                if ( sdset.getType() == SDSet.SDType.DYNAMIC )
+                {
+                    errCode = GlobalErrIds.DSD_SEARCH_FAILED;
+                }
+                else
+                {
+                    errCode = GlobalErrIds.SSD_SEARCH_FAILED;
+                }
+                throw new FinderException( errCode, error, e );
+            }
+            catch ( CursorException e )
+            {
+                String error = "search sdset name [" + sdset.getName() + "] type [" + sdset.getType()
+                        + "] caught CursorException=" + e.getMessage();
+                int errCode;
+                if ( sdset.getType() == SDSet.SDType.DYNAMIC )
+                {
+                    errCode = GlobalErrIds.DSD_SEARCH_FAILED;
+                }
+                else
+                {
+                    errCode = GlobalErrIds.SSD_SEARCH_FAILED;
+                }
+                throw new FinderException( errCode, error, e );
             }
         }
         catch ( LdapException e )
         {
             String error = "search sdset name [" + sdset.getName() + "] type [" + sdset.getType()
                 + "] caught LdapException=" + e;
-            int errCode;
-
-            if ( sdset.getType() == SDSet.SDType.DYNAMIC )
-            {
-                errCode = GlobalErrIds.DSD_SEARCH_FAILED;
-            }
-            else
-            {
-                errCode = GlobalErrIds.SSD_SEARCH_FAILED;
-            }
-
-            throw new FinderException( errCode, error, e );
-        }
-        catch ( CursorException e )
-        {
-            String error = "search sdset name [" + sdset.getName() + "] type [" + sdset.getType()
-                + "] caught CursorException=" + e.getMessage();
             int errCode;
 
             if ( sdset.getType() == SDSet.SDType.DYNAMIC )
@@ -480,13 +494,44 @@ final class SdDAO extends LdapDataProvider
 
             filterbuf.append( ")" );
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, ssdRoot,
-                SearchScope.SUBTREE, filterbuf.toString(), SD_SET_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-
-            long sequence = 0;
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, ssdRoot,
+                SearchScope.SUBTREE, filterbuf.toString(), SD_SET_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                sdList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    sdList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
+                }
+            }
+            catch ( IOException e )
+            {
+                String error = "search role [" + role.getName() + "] type [" + type + "] caught IOException="
+                        + e.getMessage();
+                int errCode;
+                if ( type == SDSet.SDType.DYNAMIC )
+                {
+                    errCode = GlobalErrIds.DSD_SEARCH_FAILED;
+                }
+                else
+                {
+                    errCode = GlobalErrIds.SSD_SEARCH_FAILED;
+                }
+                throw new FinderException( errCode, error, e );
+            }
+            catch ( CursorException e )
+            {
+                String error = "search role [" + role.getName() + "] type [" + type + "] caught CursorException="
+                        + e.getMessage();
+                int errCode;
+                if ( type == SDSet.SDType.DYNAMIC )
+                {
+                    errCode = GlobalErrIds.DSD_SEARCH_FAILED;
+                }
+                else
+                {
+                    errCode = GlobalErrIds.SSD_SEARCH_FAILED;
+                }
+                throw new FinderException( errCode, error, e );
             }
         }
         catch ( LdapException e )
@@ -494,7 +539,6 @@ final class SdDAO extends LdapDataProvider
             String error = "search role [" + role.getName() + "] type [" + type + "] caught LdapException="
                 + e;
             int errCode;
-
             if ( type == SDSet.SDType.DYNAMIC )
             {
                 errCode = GlobalErrIds.DSD_SEARCH_FAILED;
@@ -503,24 +547,6 @@ final class SdDAO extends LdapDataProvider
             {
                 errCode = GlobalErrIds.SSD_SEARCH_FAILED;
             }
-
-            throw new FinderException( errCode, error, e );
-        }
-        catch ( CursorException e )
-        {
-            String error = "search role [" + role.getName() + "] type [" + type + "] caught CursorException="
-                + e.getMessage();
-            int errCode;
-
-            if ( type == SDSet.SDType.DYNAMIC )
-            {
-                errCode = GlobalErrIds.DSD_SEARCH_FAILED;
-            }
-            else
-            {
-                errCode = GlobalErrIds.SSD_SEARCH_FAILED;
-            }
-
             throw new FinderException( errCode, error, e );
         }
         finally
@@ -569,13 +595,42 @@ final class SdDAO extends LdapDataProvider
                 }
                 filterbuf.append( "))" );
                 ld = getAdminConnection();
-                SearchCursor searchResults = search( ld, ssdRoot,
-                    SearchScope.SUBTREE, filterbuf.toString(), SD_SET_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-                long sequence = 0;
-
-                while ( searchResults.next() )
+                try ( SearchCursor searchResults = search( ld, ssdRoot,
+                    SearchScope.SUBTREE, filterbuf.toString(), SD_SET_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
                 {
-                    sdList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
+                    long sequence = 0;
+                    while ( searchResults.next() )
+                    {
+                        sdList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
+                    }
+                }
+                catch ( IOException e )
+                {
+                    String error = "search type [" + sdSet.getType() + "] caught IOException=" + e.getMessage();
+                    int errCode;
+                    if ( sdSet.getType() == SDSet.SDType.DYNAMIC )
+                    {
+                        errCode = GlobalErrIds.DSD_SEARCH_FAILED;
+                    }
+                    else
+                    {
+                        errCode = GlobalErrIds.SSD_SEARCH_FAILED;
+                    }
+                    throw new FinderException( errCode, error, e );
+                }
+                catch ( CursorException e )
+                {
+                    String error = "search type [" + sdSet.getType() + "] caught CursorException=" + e.getMessage();
+                    int errCode;
+                    if ( sdSet.getType() == SDSet.SDType.DYNAMIC )
+                    {
+                        errCode = GlobalErrIds.DSD_SEARCH_FAILED;
+                    }
+                    else
+                    {
+                        errCode = GlobalErrIds.SSD_SEARCH_FAILED;
+                    }
+                    throw new FinderException( errCode, error, e );
                 }
             }
         }
@@ -583,22 +638,6 @@ final class SdDAO extends LdapDataProvider
         {
             String error = "search type [" + sdSet.getType() + "] caught LdapException=" + e;
             int errCode;
-
-            if ( sdSet.getType() == SDSet.SDType.DYNAMIC )
-            {
-                errCode = GlobalErrIds.DSD_SEARCH_FAILED;
-            }
-            else
-            {
-                errCode = GlobalErrIds.SSD_SEARCH_FAILED;
-            }
-            throw new FinderException( errCode, error, e );
-        }
-        catch ( CursorException e )
-        {
-            String error = "search type [" + sdSet.getType() + "] caught CursorException=" + e.getMessage();
-            int errCode;
-
             if ( sdSet.getType() == SDSet.SDType.DYNAMIC )
             {
                 errCode = GlobalErrIds.DSD_SEARCH_FAILED;

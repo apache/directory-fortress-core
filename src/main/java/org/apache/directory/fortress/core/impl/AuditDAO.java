@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.impl;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -273,29 +274,35 @@ final class AuditDAO extends LdapDataProvider
 
             //log.warn("filter=" + filter);
             ld = getLogConnection();
-            SearchCursor searchResults = search( ld, auditRoot,
-                SearchScope.ONELEVEL, filter, AUDIT_AUTHZ_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, auditRoot,
+                SearchScope.ONELEVEL, filter, AUDIT_AUTHZ_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                AuthZ authZ = getAuthzEntityFromLdapEntry( searchResults.getEntry(), sequence++ );
-                // todo: fix this workaround. This search will return failed role assign searches as well.  
-                // Work around is to remove the ou=People failed searches from user failed searches on authN.
-                if ( !AuditUtil.getAuthZId( authZ.getReqDN() ).equalsIgnoreCase( "People" ) )
+                long sequence = 0;
+                while ( searchResults.next() )
                 {
-                    auditList.add( authZ );
+                    AuthZ authZ = getAuthzEntityFromLdapEntry( searchResults.getEntry(), sequence++ );
+                    // todo: fix this workaround. This search will return failed role assign searches as well.
+                    // Work around is to remove the ou=People failed searches from user failed searches on authN.
+                    if ( !AuditUtil.getAuthZId( authZ.getReqDN() ).equalsIgnoreCase( "People" ) )
+                    {
+                        auditList.add( authZ );
+                    }
                 }
+            }
+            catch ( IOException i )
+            {
+                String error = "IOException in AuditDAO.searchAuthZs id=" + i.getMessage();
+                throw new FinderException( GlobalErrIds.AUDT_AUTHN_INVALID_FAILED, error, i );
+            }
+            catch ( CursorException e )
+            {
+                String error = "CursorException in AuditDAO.searchAuthZs id=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.AUDT_AUTHN_INVALID_FAILED, error, e );
             }
         }
         catch ( LdapException e )
         {
             String error = "LdapException in AuditDAO.searchAuthZs id=" + e;
-            throw new FinderException( GlobalErrIds.AUDT_AUTHN_INVALID_FAILED, error, e );
-        }
-        catch ( CursorException e )
-        {
-            String error = "CursorException in AuditDAO.searchAuthZs id=" + e.getMessage();
             throw new FinderException( GlobalErrIds.AUDT_AUTHN_INVALID_FAILED, error, e );
         }
         finally
@@ -341,26 +348,31 @@ final class AuditDAO extends LdapDataProvider
             }
 
             filter += ")";
-
             //System.out.println("filter=" + filter);
             ld = getLogConnection();
-            SearchCursor searchResults = search( ld, auditRoot,
-                SearchScope.ONELEVEL, filter, AUDIT_AUTHZ_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, auditRoot,
+                SearchScope.ONELEVEL, filter, AUDIT_AUTHZ_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                auditList.add( getAuthzEntityFromLdapEntry( searchResults.getEntry(), sequence++ ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    auditList.add( getAuthzEntityFromLdapEntry( searchResults.getEntry(), sequence++ ) );
+                }
+            }
+            catch ( IOException i )
+            {
+                String error = "IOException in AuditDAO.searchAuthZs id=" + i.getMessage();
+                throw new FinderException( GlobalErrIds.AUDT_AUTHZ_SEARCH_FAILED, error, i );
+            }
+            catch ( CursorException e )
+            {
+                String error = "CursorException in AuditDAO.searchAuthZs id=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.AUDT_AUTHZ_SEARCH_FAILED, error, e );
             }
         }
         catch ( LdapException e )
         {
             String error = "LdapException in AuditDAO.searchAuthZs id=" + e;
-            throw new FinderException( GlobalErrIds.AUDT_AUTHZ_SEARCH_FAILED, error, e );
-        }
-        catch ( CursorException e )
-        {
-            String error = "CursorException in AuditDAO.searchAuthZs id=" + e.getMessage();
             throw new FinderException( GlobalErrIds.AUDT_AUTHZ_SEARCH_FAILED, error, e );
         }
         finally
@@ -429,28 +441,32 @@ final class AuditDAO extends LdapDataProvider
                 String szTime = TUtil.encodeGeneralizedTime( audit.getBeginDate() );
                 filter += "(" + REQEND + ">=" + szTime + ")";
             }
-
             filter += ")";
-
             //log.warn("filter=" + filter);
             ld = getLogConnection();
-            SearchCursor searchResults = search( ld, auditRoot,
-                SearchScope.ONELEVEL, filter, AUDIT_AUTHZ_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, auditRoot,
+                SearchScope.ONELEVEL, filter, AUDIT_AUTHZ_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                auditList.add( getAuthzEntityFromLdapEntry( searchResults.getEntry(), sequence++ ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    auditList.add( getAuthzEntityFromLdapEntry( searchResults.getEntry(), sequence++ ) );
+                }
+            }
+            catch ( IOException i )
+            {
+                String error = "IOException in AuditDAO.getAllAuthZs id=" + i.getMessage();
+                throw new FinderException( GlobalErrIds.AUDT_AUTHZ_SEARCH_FAILED, error, i );
+            }
+            catch ( CursorException e )
+            {
+                String error = "CursorException in AuditDAO.getAllAuthZs id=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.AUDT_AUTHZ_SEARCH_FAILED, error, e );
             }
         }
         catch ( LdapException e )
         {
             String error = "LdapException in AuditDAO.getAllAuthZs id=" + e;
-            throw new FinderException( GlobalErrIds.AUDT_AUTHZ_SEARCH_FAILED, error, e );
-        }
-        catch ( CursorException e )
-        {
-            String error = "CursorException in AuditDAO.getAllAuthZs id=" + e.getMessage();
             throw new FinderException( GlobalErrIds.AUDT_AUTHZ_SEARCH_FAILED, error, e );
         }
         finally
@@ -517,23 +533,29 @@ final class AuditDAO extends LdapDataProvider
 
             //log.warn("filter=" + filter);
             ld = getLogConnection();
-            SearchCursor searchResults = search( ld, auditRoot,
-                SearchScope.ONELEVEL, filter, AUDIT_BIND_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, auditRoot,
+                SearchScope.ONELEVEL, filter, AUDIT_BIND_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                auditList.add( getBindEntityFromLdapEntry( searchResults.getEntry(), sequence++ ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    auditList.add( getBindEntityFromLdapEntry( searchResults.getEntry(), sequence++ ) );
+                }
+            }
+            catch ( IOException i )
+            {
+                String error = "IOException in AuditDAO.searchBinds id=" + i.getMessage();
+                throw new FinderException( GlobalErrIds.AUDT_BIND_SEARCH_FAILED, error, i );
+            }
+            catch ( CursorException e )
+            {
+                String error = "CursorException in AuditDAO.searchBinds id=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.AUDT_BIND_SEARCH_FAILED, error, e );
             }
         }
         catch ( LdapException e )
         {
             String error = "LdapException in AuditDAO.searchBinds id=" + e;
-            throw new FinderException( GlobalErrIds.AUDT_BIND_SEARCH_FAILED, error, e );
-        }
-        catch ( CursorException e )
-        {
-            String error = "CursorException in AuditDAO.searchBinds id=" + e.getMessage();
             throw new FinderException( GlobalErrIds.AUDT_BIND_SEARCH_FAILED, error, e );
         }
         finally
@@ -569,27 +591,32 @@ final class AuditDAO extends LdapDataProvider
                 String szTime = TUtil.encodeGeneralizedTime( audit.getBeginDate() );
                 filter += "(" + REQEND + ">=" + szTime + ")";
             }
-
             filter += ")";
             //log.warn("filter=" + filter);
             ld = getLogConnection();
-            SearchCursor searchResults = search( ld, auditRoot,
-                SearchScope.ONELEVEL, filter, AUDIT_MOD_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, auditRoot,
+                SearchScope.ONELEVEL, filter, AUDIT_MOD_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                modList.add( getModEntityFromLdapEntry( searchResults.getEntry(), sequence++ ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    modList.add( getModEntityFromLdapEntry( searchResults.getEntry(), sequence++ ) );
+                }
+            }
+            catch ( IOException i )
+            {
+                String error = "searchUserMods caught IOException id=" + i.getMessage();
+                throw new FinderException( GlobalErrIds.AUDT_MOD_SEARCH_FAILED, error, i );
+            }
+            catch ( CursorException e )
+            {
+                String error = "searchUserMods caught CursorException id=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.AUDT_MOD_SEARCH_FAILED, error, e );
             }
         }
         catch ( LdapException e )
         {
             String error = "searchUserMods caught LdapException id=" + e;
-            throw new FinderException( GlobalErrIds.AUDT_MOD_SEARCH_FAILED, error, e );
-        }
-        catch ( CursorException e )
-        {
-            String error = "searchUserMods caught CursorException id=" + e.getMessage();
             throw new FinderException( GlobalErrIds.AUDT_MOD_SEARCH_FAILED, error, e );
         }
         finally
@@ -663,23 +690,29 @@ final class AuditDAO extends LdapDataProvider
             filter += ")";
             //log.warn("filter=" + filter);
             ld = getLogConnection();
-            SearchCursor searchResults = search( ld, auditRoot,
-                SearchScope.ONELEVEL, filter, AUDIT_MOD_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, auditRoot,
+                SearchScope.ONELEVEL, filter, AUDIT_MOD_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                modList.add( getModEntityFromLdapEntry( searchResults.getEntry(), sequence++ ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    modList.add( getModEntityFromLdapEntry( searchResults.getEntry(), sequence++ ) );
+                }
+            }
+            catch ( IOException i )
+            {
+                String error = "searchAdminMods caught IOException id=" + i.getMessage();
+                throw new FinderException( GlobalErrIds.AUDT_MOD_ADMIN_SEARCH_FAILED, error, i );
+            }
+            catch ( CursorException e )
+            {
+                String error = "searchAdminMods caught CursorException id=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.AUDT_MOD_ADMIN_SEARCH_FAILED, error, e );
             }
         }
         catch ( LdapException e )
         {
             String error = "searchAdminMods caught LdapException id=" + e;
-            throw new FinderException( GlobalErrIds.AUDT_MOD_ADMIN_SEARCH_FAILED, error, e );
-        }
-        catch ( CursorException e )
-        {
-            String error = "searchAdminMods caught CursorException id=" + e.getMessage();
             throw new FinderException( GlobalErrIds.AUDT_MOD_ADMIN_SEARCH_FAILED, error, e );
         }
         finally

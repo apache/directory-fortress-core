@@ -20,6 +20,7 @@
 package org.apache.directory.fortress.core.impl;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -469,20 +470,30 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
         LdapConnection ld = null;
         String roleRoot = getRootDn( adminRole.getContextId(), GlobalIds.ADMIN_ROLE_ROOT );
         String filter;
-
         try
         {
             String searchVal = encodeSafeText( adminRole.getName(), GlobalIds.ROLE_LEN );
             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, roleRoot,
-                SearchScope.ONELEVEL, filter, ROLE_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, roleRoot, SearchScope.ONELEVEL, filter, ROLE_ATRS, false,
+                    Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                roleList.add( unloadLdapEntry( searchResults.getEntry(), sequence++, adminRole.getContextId() ) );
+                long sequence = 0;
+                while (searchResults.next())
+                {
+                    roleList.add(unloadLdapEntry(searchResults.getEntry(), sequence++, adminRole.getContextId()));
+                }
+            }
+            catch ( IOException i )
+            {
+                String error = "findRoles name [" + adminRole.getName() + "] caught IOException=" + i;
+                throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, i );
+            }
+            catch ( CursorException e )
+            {
+                String error = "findRoles name [" + adminRole.getName() + "] caught CursorException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
             }
         }
         catch ( LdapException e )
@@ -490,16 +501,10 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
             String error = "findRoles name [" + adminRole.getName() + "] caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
         }
-        catch ( CursorException e )
-        {
-            String error = "findRoles name [" + adminRole.getName() + "] caught CursorException=" + e.getMessage();
-            throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
-        }
         finally
         {
             closeAdminConnection( ld );
         }
-
         return roleList;
     }
 
@@ -518,20 +523,30 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
         String roleRoot = getRootDn( adminRole.getContextId(), GlobalIds.ADMIN_ROLE_ROOT );
         String filter;
         String searchVal = null;
-
         try
         {
             searchVal = encodeSafeText( adminRole.getName(), GlobalIds.ROLE_LEN );
             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + ROLE_NM + "=" + searchVal + "*))";
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, roleRoot,
-                SearchScope.ONELEVEL, filter, ROLE_NM_ATR, false, limit );
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, roleRoot,
+                    SearchScope.ONELEVEL, filter, ROLE_NM_ATR, false, limit ) )
             {
-                Entry entry = searchResults.getEntry();
-                roleList.add( getAttribute( entry, ROLE_NM ) );
+                while ( searchResults.next() )
+                {
+                    Entry entry = searchResults.getEntry();
+                    roleList.add( getAttribute( entry, ROLE_NM ) );
+                }
+            }
+            catch ( IOException i )
+            {
+                String error = "findRoles name [" + adminRole.getName() + "] caught IOException=" + i;
+                throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, i );
+            }
+            catch ( CursorException e )
+            {
+                String error = "findRoles name [" + searchVal + "] caught CursorException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
             }
         }
         catch ( LdapException e )
@@ -539,16 +554,10 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
             String error = "findRoles name [" + searchVal + "] caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
         }
-        catch ( CursorException e )
-        {
-            String error = "findRoles name [" + searchVal + "] caught CursorException=" + e.getMessage();
-            throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
-        }
         finally
         {
             closeAdminConnection( ld );
         }
-
         return roleList;
     }
 
@@ -563,18 +572,28 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
         List<String> roleNameList = new ArrayList<>();
         LdapConnection ld = null;
         String roleRoot = getRootDn( contextId, GlobalIds.ADMIN_ROLE_ROOT );
-
         try
         {
             String filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")";
             filter += "(" + ROLE_OCCUPANT + "=" + userDn + "))";
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, roleRoot,
-                SearchScope.ONELEVEL, filter, ROLE_NM_ATR, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, roleRoot,
+                SearchScope.ONELEVEL, filter, ROLE_NM_ATR, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                roleNameList.add( getAttribute( searchResults.getEntry(), ROLE_NM ) );
+                while ( searchResults.next() )
+                {
+                    roleNameList.add( getAttribute( searchResults.getEntry(), ROLE_NM ) );
+                }
+            }
+            catch ( IOException i )
+            {
+                String error = "findAssignedRoles userDn [" + userDn + "] caught IOException=" + i;
+                throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, i );
+            }
+            catch ( CursorException e )
+            {
+                String error = "findAssignedRoles userDn [" + userDn + "] caught CursorException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.ARLE_OCCUPANT_SEARCH_FAILED, error, e );
             }
         }
         catch ( LdapException e )
@@ -582,16 +601,10 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
             String error = "findAssignedRoles userDn [" + userDn + "] caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.ARLE_OCCUPANT_SEARCH_FAILED, error, e );
         }
-        catch ( CursorException e )
-        {
-            String error = "findAssignedRoles userDn [" + userDn + "] caught CursorException=" + e.getMessage();
-            throw new FinderException( GlobalErrIds.ARLE_OCCUPANT_SEARCH_FAILED, error, e );
-        }
         finally
         {
             closeAdminConnection( ld );
         }
-
         return roleNameList;
     }
 
@@ -611,19 +624,29 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
         LdapConnection ld = null;
         String roleRoot = getRootDn( contextId, GlobalIds.ADMIN_ROLE_ROOT );
         String filter = null;
-
         try
         {
             filter = GlobalIds.FILTER_PREFIX + GlobalIds.ROLE_OBJECT_CLASS_NM + ")("
                 + GlobalIds.PARENT_NODES + "=*))";
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, roleRoot,
-                SearchScope.ONELEVEL, filter, DESC_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, roleRoot,
+                SearchScope.ONELEVEL, filter, DESC_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                descendants.add( unloadDescendants( searchResults.getEntry(), sequence++ ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    descendants.add( unloadDescendants( searchResults.getEntry(), sequence++ ) );
+                }
+            }
+            catch ( IOException i )
+            {
+                String error = "getAllDescendants filter [" + filter + "] caught IOException=" + i.getMessage();
+                throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, i );
+            }
+            catch ( CursorException e )
+            {
+                String error = "getAllDescendants filter [" + filter + "] caught CursorException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
             }
         }
         catch ( LdapException e )
@@ -631,16 +654,10 @@ final class AdminRoleDAO extends LdapDataProvider implements PropertyProvider<Ad
             String error = "getAllDescendants filter [" + filter + "] caught LdapException=" + e;
             throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
         }
-        catch ( CursorException e )
-        {
-            String error = "getAllDescendants filter [" + filter + "] caught CursorException=" + e.getMessage();
-            throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
-        }
         finally
         {
             closeAdminConnection( ld );
         }
-
         return descendants;
     }
 

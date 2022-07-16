@@ -21,6 +21,7 @@
 package org.apache.directory.fortress.core.impl;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -397,28 +398,33 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
     {
         List<Group> groupList = new ArrayList<>();
         LdapConnection ld = null;
-        SearchCursor searchResults;
         String groupRoot = getRootDn( group.getContextId(), GlobalIds.GROUP_ROOT );
         String filter = null;
-
         try
         {
             String searchVal = encodeSafeText( group.getName(), GlobalIds.ROLE_LEN );
             filter = GlobalIds.FILTER_PREFIX + GROUP_OBJECT_CLASS_IMPL + ")(" + SchemaConstants.CN_AT + "=" + searchVal
                 + "*))";
             ld = getAdminConnection();
-            searchResults = search( ld, groupRoot, SearchScope.ONELEVEL, filter, GROUP_ATRS, false,
-                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-            while ( searchResults.next() )
+            try( SearchCursor searchResults = search( ld, groupRoot, SearchScope.ONELEVEL, filter, GROUP_ATRS, false,
+                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                groupList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    groupList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
+                }
             }
-        }
-        catch ( CursorException e )
-        {
-            String error = "find filter [" + filter + "] caught CursorException=" + e.getMessage();
-            throw new FinderException( GlobalErrIds.GROUP_SEARCH_FAILED, error, e );
+            catch ( IOException i )
+            {
+                String error = "find filter [" + filter + "] caught IOException=" + i.getMessage();
+                throw new FinderException( GlobalErrIds.GROUP_SEARCH_FAILED, error, i );
+            }
+            catch ( CursorException e )
+            {
+                String error = "find filter [" + filter + "] caught CursorException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.GROUP_SEARCH_FAILED, error, e );
+            }
         }
         catch ( LdapException e )
         {
@@ -444,7 +450,6 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
     {
         List<Group> groupList = new ArrayList<>();
         LdapConnection ld = null;
-        SearchCursor searchResults;
         String groupRoot = getRootDn( user.getContextId(), GlobalIds.GROUP_ROOT );
         String filter = null;
 
@@ -454,19 +459,25 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
             filter = GlobalIds.FILTER_PREFIX + GROUP_OBJECT_CLASS_IMPL + ")(" + SchemaConstants.MEMBER_AT + "="
                 + user.getDn() + "))";
             ld = getAdminConnection();
-            searchResults = search( ld, groupRoot, SearchScope.ONELEVEL, filter, GROUP_ATRS, false,
-                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, groupRoot, SearchScope.ONELEVEL, filter, GROUP_ATRS, false,
+                Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                groupList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    groupList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
+                }
             }
-        }
-        catch ( CursorException e )
-        {
-            String error = "find filter [" + filter + "] caught CursorException=" + e.getMessage();
-            throw new FinderException( GlobalErrIds.GROUP_SEARCH_FAILED, error, e );
+            catch ( IOException i )
+            {
+                String error = "find filter [" + filter + "] caught IOException=" + i.getMessage();
+                throw new FinderException( GlobalErrIds.GROUP_SEARCH_FAILED, error, i );
+            }
+            catch ( CursorException e )
+            {
+                String error = "find filter [" + filter + "] caught CursorException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.GROUP_SEARCH_FAILED, error, e );
+            }
         }
         catch ( LdapException e )
         {
@@ -492,29 +503,33 @@ final class GroupDAO extends LdapDataProvider implements PropertyProvider<Group>
     {
         List<Group> groupList = new ArrayList<>();
         LdapConnection ld = null;
-        SearchCursor searchResults;
         String groupRoot = getRootDn( role.getContextId(), GlobalIds.GROUP_ROOT );
         String filter = null;
-
         try
         {
             encodeSafeText( role.getName(), GlobalIds.ROLE_LEN );
             filter = GlobalIds.FILTER_PREFIX + GROUP_OBJECT_CLASS_IMPL + ")(" + SchemaConstants.MEMBER_AT + "="
                     + role.getDn() + "))";
             ld = getAdminConnection();
-            searchResults = search( ld, groupRoot, SearchScope.ONELEVEL, filter, GROUP_ATRS, false,
-                    Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, groupRoot, SearchScope.ONELEVEL, filter, GROUP_ATRS, false,
+                    Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                groupList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    groupList.add( unloadLdapEntry( searchResults.getEntry(), sequence++ ) );
+                }
             }
-        }
-        catch ( CursorException e )
-        {
-            String error = "find filter [" + filter + "] caught CursorException=" + e.getMessage();
-            throw new FinderException( GlobalErrIds.GROUP_SEARCH_FAILED, error, e );
+            catch ( IOException i )
+            {
+                String error = "find filter [" + filter + "] caught IOException=" + i.getMessage();
+                throw new FinderException( GlobalErrIds.GROUP_SEARCH_FAILED, error, i );
+            }
+            catch ( CursorException e )
+            {
+                String error = "find filter [" + filter + "] caught CursorException=" + e.getMessage();
+                throw new FinderException( GlobalErrIds.GROUP_SEARCH_FAILED, error, e );
+            }
         }
         catch ( LdapException e )
         {

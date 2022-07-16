@@ -335,12 +335,10 @@ final class OrgUnitDAO extends LdapDataProvider
         OrgUnit oe = null;
         LdapConnection ld = null;
         Dn dn = getDn( entity );
-
         try
         {
             ld = getAdminConnection();
             Entry findEntry = read( ld, dn, ORGUNIT_ATRS );
-
             if ( findEntry == null )
             {
                 String warning = "findByKey orgUnit name [" + entity.getName() + "] type ["
@@ -358,7 +356,6 @@ final class OrgUnitDAO extends LdapDataProvider
 
                 throw new FinderException( errCode, warning );
             }
-
             oe = getEntityFromLdapEntry( findEntry, 0, entity.getContextId() );
         }
         catch ( LdapNoSuchObjectException e )
@@ -366,7 +363,6 @@ final class OrgUnitDAO extends LdapDataProvider
             String warning = "findByKey orgUnit name [" + entity.getName() + "] type ["
                 + entity.getType() + "] COULD NOT FIND ENTRY for dn [" + dn + "]";
             int errCode;
-
             if ( entity.getType() == OrgUnit.Type.PERM )
             {
                 errCode = GlobalErrIds.ORG_NOT_FOUND_PERM;
@@ -391,7 +387,6 @@ final class OrgUnitDAO extends LdapDataProvider
             {
                 errCode = GlobalErrIds.ORG_READ_FAILED_USER;
             }
-
             throw new FinderException( errCode, error, e );
         }
         finally
@@ -421,14 +416,45 @@ final class OrgUnitDAO extends LdapDataProvider
             String filter = GlobalIds.FILTER_PREFIX + ORGUNIT_OBJECT_CLASS_NM + ")("
                 + SchemaConstants.OU_AT + "=" + searchVal + "*))";
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, orgUnitRoot,
-                SearchScope.ONELEVEL, filter, ORGUNIT_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, orgUnitRoot,
+                SearchScope.ONELEVEL, filter, ORGUNIT_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                orgUnitList
-                    .add( getEntityFromLdapEntry( searchResults.getEntry(), sequence++, orgUnit.getContextId() ) );
+                long sequence = 0;
+                while ( searchResults.next() )
+                {
+                    orgUnitList
+                            .add( getEntityFromLdapEntry( searchResults.getEntry(), sequence++, orgUnit.getContextId() ) );
+                }
+            }
+            catch ( IOException i )
+            {
+                String error = "findOrgs search val [" + orgUnit.getName() + "] type [" + orgUnit.getType()
+                        + "] root [" + orgUnitRoot + "] caught IOException=" + i;
+                int errCode;
+                if ( orgUnit.getType() == OrgUnit.Type.PERM )
+                {
+                    errCode = GlobalErrIds.ORG_SEARCH_FAILED_PERM;
+                }
+                else
+                {
+                    errCode = GlobalErrIds.ORG_SEARCH_FAILED_USER;
+                }
+                throw new FinderException( errCode, error, i );
+            }
+            catch ( CursorException e )
+            {
+                String error = "findOrgs search val [" + orgUnit.getName() + "] type [" + orgUnit.getType()
+                        + "] root [" + orgUnitRoot + "] caught CursorException=" + e;
+                int errCode;
+                if ( orgUnit.getType() == OrgUnit.Type.PERM )
+                {
+                    errCode = GlobalErrIds.ORG_SEARCH_FAILED_PERM;
+                }
+                else
+                {
+                    errCode = GlobalErrIds.ORG_SEARCH_FAILED_USER;
+                }
+                throw new FinderException( errCode, error, e );
             }
         }
         catch ( LdapException e )
@@ -436,7 +462,6 @@ final class OrgUnitDAO extends LdapDataProvider
             String error = "findOrgs search val [" + orgUnit.getName() + "] type [" + orgUnit.getType()
                 + "] root [" + orgUnitRoot + "] caught LdapException=" + e;
             int errCode;
-
             if ( orgUnit.getType() == OrgUnit.Type.PERM )
             {
                 errCode = GlobalErrIds.ORG_SEARCH_FAILED_PERM;
@@ -445,31 +470,12 @@ final class OrgUnitDAO extends LdapDataProvider
             {
                 errCode = GlobalErrIds.ORG_SEARCH_FAILED_USER;
             }
-
-            throw new FinderException( errCode, error, e );
-        }
-        catch ( CursorException e )
-        {
-            String error = "findOrgs search val [" + orgUnit.getName() + "] type [" + orgUnit.getType()
-                + "] root [" + orgUnitRoot + "] caught CursorException=" + e;
-            int errCode;
-
-            if ( orgUnit.getType() == OrgUnit.Type.PERM )
-            {
-                errCode = GlobalErrIds.ORG_SEARCH_FAILED_PERM;
-            }
-            else
-            {
-                errCode = GlobalErrIds.ORG_SEARCH_FAILED_USER;
-            }
-
             throw new FinderException( errCode, error, e );
         }
         finally
         {
             closeAdminConnection( ld );
         }
-
         return orgUnitList;
     }
 
@@ -490,54 +496,53 @@ final class OrgUnitDAO extends LdapDataProvider
         {
             String filter = "(objectclass=" + ORGUNIT_OBJECT_CLASS_NM + ")";
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, orgUnitRoot,
-                SearchScope.ONELEVEL, filter, ORGUNIT_ATR, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, orgUnitRoot,
+                SearchScope.ONELEVEL, filter, ORGUNIT_ATR, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                ouSet.add( getAttribute( searchResults.getEntry(), SchemaConstants.OU_AT ) );
+                while ( searchResults.next() )
+                {
+                    ouSet.add( getAttribute( searchResults.getEntry(), SchemaConstants.OU_AT ) );
+                }
             }
+            catch ( CursorException e )
+            {
+                String error = "getOrgs type [" + orgUnit.getType() + "] root [" + orgUnitRoot
+                        + "] caught CursorException=" + e;
+                int errCode;
 
-            searchResults.close();
+                if ( orgUnit.getType() == OrgUnit.Type.PERM )
+                {
+                    errCode = GlobalErrIds.ORG_GET_FAILED_PERM;
+                }
+                else
+                {
+                    errCode = GlobalErrIds.ORG_GET_FAILED_USER;
+                }
+
+                throw new FinderException( errCode, error, e );
+            }
+            catch ( IOException e )
+            {
+                String error = "getOrgs type [" + orgUnit.getType() + "] root [" + orgUnitRoot
+                        + "] caught IOException=" + e;
+                int errCode;
+
+                if ( orgUnit.getType() == OrgUnit.Type.PERM )
+                {
+                    errCode = GlobalErrIds.ORG_GET_FAILED_PERM;
+                }
+                else
+                {
+                    errCode = GlobalErrIds.ORG_GET_FAILED_USER;
+                }
+
+                throw new FinderException( errCode, error, e );
+            }
         }
         catch ( LdapException e )
         {
             String error = "getOrgs type [" + orgUnit.getType() + "] root [" + orgUnitRoot
                 + "] caught LdapException=" + e;
-            int errCode;
-
-            if ( orgUnit.getType() == OrgUnit.Type.PERM )
-            {
-                errCode = GlobalErrIds.ORG_GET_FAILED_PERM;
-            }
-            else
-            {
-                errCode = GlobalErrIds.ORG_GET_FAILED_USER;
-            }
-
-            throw new FinderException( errCode, error, e );
-        }
-        catch ( CursorException e )
-        {
-            String error = "getOrgs type [" + orgUnit.getType() + "] root [" + orgUnitRoot
-                + "] caught CursorException=" + e;
-            int errCode;
-
-            if ( orgUnit.getType() == OrgUnit.Type.PERM )
-            {
-                errCode = GlobalErrIds.ORG_GET_FAILED_PERM;
-            }
-            else
-            {
-                errCode = GlobalErrIds.ORG_GET_FAILED_USER;
-            }
-
-            throw new FinderException( errCode, error, e );
-        }
-        catch ( IOException e )
-        {
-            String error = "getOrgs type [" + orgUnit.getType() + "] root [" + orgUnitRoot
-                + "] caught IOException=" + e;
             int errCode;
 
             if ( orgUnit.getType() == OrgUnit.Type.PERM )
@@ -580,25 +585,33 @@ final class OrgUnitDAO extends LdapDataProvider
             filter = GlobalIds.FILTER_PREFIX + ORGUNIT_OBJECT_CLASS_NM + ")("
                 + GlobalIds.PARENT_NODES + "=*))";
             ld = getAdminConnection();
-            SearchCursor searchResults = search( ld, orgUnitRoot,
-                SearchScope.ONELEVEL, filter, DESC_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) );
-            long sequence = 0;
-
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, orgUnitRoot,
+                SearchScope.ONELEVEL, filter, DESC_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) )
             {
-                descendants.add( unloadDescendants( searchResults.getEntry(), sequence++, orgUnit.getContextId() ) );
+                long sequence = 0;
+
+                while ( searchResults.next() )
+                {
+                    descendants.add( unloadDescendants( searchResults.getEntry(), sequence++, orgUnit.getContextId() ) );
+                }
+            }
+            catch ( IOException i )
+            {
+                String error = "getAllDescendants filter [" + filter + "] caught IOException="
+                        + i.getMessage();
+                throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, i );
+            }
+            catch ( CursorException e )
+            {
+                String error = "getAllDescendants filter [" + filter + "] caught CursorException="
+                        + e.getMessage();
+                throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
             }
         }
         catch ( LdapException e )
         {
             String error = "getAllDescendants filter [" + filter + "] caught LdapException="
                 + e;
-            throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
-        }
-        catch ( CursorException e )
-        {
-            String error = "getAllDescendants filter [" + filter + "] caught CursorException="
-                + e.getMessage();
             throw new FinderException( GlobalErrIds.ARLE_SEARCH_FAILED, error, e );
         }
         finally

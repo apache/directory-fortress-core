@@ -19,6 +19,7 @@
  */
 package org.apache.directory.fortress.core.example;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -279,11 +280,23 @@ public class ExampleDAO extends LdapDataProvider
             ld = getAdminConnection();
             String filter = GlobalIds.FILTER_PREFIX + Arrays.toString(EIds.EXAMPLE_OBJ_CLASS) + ")("
                 + EIds.EXAMPLE_NM + "=" + searchVal + "*))";
-            SearchCursor searchResults = search( ld, exampleRoot,
-                SearchScope.SUBTREE, filter, EXAMPLE_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ));
-            while ( searchResults.next() )
+            try ( SearchCursor searchResults = search( ld, exampleRoot,
+                SearchScope.SUBTREE, filter, EXAMPLE_ATRS, false, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, Config.getInstance().getInt(GlobalIds.CONFIG_LDAP_MAX_BATCH_SIZE, GlobalIds.BATCH_SIZE ) ) ) )
             {
-                exampleList.add(getEntityFromLdapEntry(searchResults.getEntry()));
+                while ( searchResults.next() )
+                {
+                    exampleList.add(getEntityFromLdapEntry(searchResults.getEntry()));
+                }
+            }
+            catch ( IOException e )
+            {
+                String error = "findExamples caught IOException=" + e;
+                throw new FinderException( EErrIds.EXAMPLE_SEARCH_FAILED, error, e );
+            }
+            catch ( CursorException e )
+            {
+                String error = "findExamples caught CursorException=" + e;
+                throw new FinderException( EErrIds.EXAMPLE_SEARCH_FAILED, error, e );
             }
         }
         catch (LdapException e)
@@ -291,11 +304,6 @@ public class ExampleDAO extends LdapDataProvider
             String error = "findExamples caught LDAPException=" + e;
             LOG.warn(error);
             throw new FinderException(EErrIds.EXAMPLE_SEARCH_FAILED, error);
-        }
-        catch ( CursorException e )
-        {
-            String error = "findExamples caught CursorException=" + e;
-            throw new FinderException( EErrIds.EXAMPLE_SEARCH_FAILED, error, e );
         }
         finally
         {
