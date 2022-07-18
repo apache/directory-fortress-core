@@ -65,13 +65,13 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 @XmlRootElement(name = "fortEntity")
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "fortEntity", propOrder =
-    {
+{
         "modId",
         "modCode",
         "sequenceId"
 })
 @XmlSeeAlso(
-    {
+{
         Role.class,
         SDSet.class,
         OrgUnit.class,
@@ -130,8 +130,7 @@ public abstract class FortEntity
     
     /**
      * This attribute is required but is set automatically by Fortress DAO class before object is persisted to ldap.
-     * This generated internal id is associated with PermObj.  This method is used by DAO class and
-     * is not available to outside classes.   The generated attribute maps to 'ftId' in 'ftObject' object class.
+     * This generated internal id maps to 'ftId' which is then stored on the entry.
      */
     private void setInternalId()
     {
@@ -199,7 +198,7 @@ public abstract class FortEntity
     
     
     /**
-     * Return the contextId for this record.  The contextId is used for multi-tenancy to isolate data sets within a particular sub-tree within DIT
+     * Return the contextId for this record.  The contextId is used for multitenancy to isolate data sets within a particular subtree within DIT
      *
      * @return value maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
      */
@@ -210,7 +209,7 @@ public abstract class FortEntity
     
     
     /**
-     * Set the contextId associated with this record.  The contextId is used for multi-tenancy to isolate data sets within a particular sub-tree within DIT.
+     * Set the contextId associated with this record.  The contextId is used for multitenancy to isolate data sets within a particular subtree within DIT.
      * Package private to prevent outside classes from setting.
      *
      * @param contextId maps to sub-tree in DIT, e.g. ou=contextId, dc=example, dc=com.
