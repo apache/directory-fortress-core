@@ -347,7 +347,7 @@ public final class GlobalErrIds
     public static final int USER_SESS_CREATE_FAILED = 1029;
 
     /**
-     * The required User Session was not supplied and is required.
+     * The required User Session was not supplied.
      */
     public static final int USER_SESS_NULL = 1030;
 
@@ -401,7 +401,7 @@ public final class GlobalErrIds
      */
     public static final int USER_ADMIN_CANNOT_CHANGE = 1040;
     /**
-     * The User ou name supplied for User was not found on server.
+     * The User ou name was not supplied and is required.
      */
     public static final int USER_OU_NULL = 1041;
 
@@ -445,7 +445,7 @@ public final class GlobalErrIds
     public static final int URLE_ASSIGN_NOT_EXIST = 2009;
 
     /**
-     * The RBAC Role search could failed on server.
+     * The RBAC Role search failed on server.
      */
     public static final int URLE_SEARCH_FAILED = 2010;
 
@@ -524,7 +524,7 @@ public final class GlobalErrIds
     public static final int ACTV_FAILED_DISCRIMINANT = 2057;
 
     /**
-     * Entity activation failed during dynamic discriminator test on Role.
+     * Entity activation failed during ABAC test on Role.
      */
     public static final int ACTV_FAILED_ABAC = 2058;
     /**
@@ -536,42 +536,42 @@ public final class GlobalErrIds
      */
 
     /**
-     * The supplied Permission could not be searched due to server failure.
+     * The supplied Permission could not be searched due to error returned from server.
      */
     public static final int PERM_SEARCH_FAILED = 3000;
 
     /**
-     * The supplied Permission operation could not be read due to server failure.
+     * The supplied Permission operation could not be read from server.
      */
     public static final int PERM_READ_OP_FAILED = 3001;
 
     /**
-     * The supplied Permission object could not be read due to server failure.
+     * The supplied Permission object could not be read from server.
      */
     public static final int PERM_READ_OBJ_FAILED = 3002;
 
     /**
-     * The supplied Permission could not be added to ldap server.
+     * The supplied Permission could not be added to server.
      */
     public static final int PERM_ADD_FAILED = 3003;
 
     /**
-     * The supplied Permission could not be updated on ldap server.
+     * The supplied Permission could not be updated on server.
      */
     public static final int PERM_UPDATE_FAILED = 3004;
 
     /**
-     * The supplied Permission could not be removed from ldap server.
+     * The supplied Permission could not be removed from server.
      */
     public static final int PERM_DELETE_FAILED = 3005;
 
     /**
-     * The supplied Permission operation could not be found on ldap server.
+     * The supplied Permission operation could not be found on server.
      */
     public static final int PERM_OP_NOT_FOUND = 3006;
 
     /**
-     * The supplied Permission object could not be found on ldap server.
+     * The supplied Permission object could not be found on server.
      */
     public static final int PERM_OBJ_NOT_FOUND = 3007;
 
@@ -608,7 +608,7 @@ public final class GlobalErrIds
     /**
      * The Permission could not be revoked from Role.
      */
-    public static final int PERM_REVOKE_FAILED = 3024;
+    public static final int PERM_REVOKE_FAILED = 3014;
 
     /**
      * The Permission has already been granted.
@@ -661,7 +661,7 @@ public final class GlobalErrIds
     public static final int PERM_BULK_ADMINROLE_REVOKE_FAILED = 3024;
 
     /**
-     * The supplied Perm OU was not found on ldap server.
+     * The supplied Perm OU was not found on server.
      */
     public static final int PERM_OU_INVALID = 3025;
 
@@ -675,11 +675,11 @@ public final class GlobalErrIds
      */
     public static final int PERM_OBJECT_NM_NULL = 3027;
     /**
-     * The supplied Permission operation could not be read due to server failure.
+     * The supplied Permission operation could not be read due to error on server.
      */
     public static final int PERM_COMPARE_OP_FAILED = 3028;
     /**
-     * The supplied Permission does not exist in LDAP DIT.
+     * The supplied Permission does not exist on server.
      */
     public static final int PERM_NOT_EXIST = 3029;
     /**
@@ -687,7 +687,7 @@ public final class GlobalErrIds
      */
     public static final int PERM_ATTRIBUTE_SET_NULL = 3030;
     /**
-     * The supplied Permission Attribute Set could not be removed from ldap server.
+     * The supplied Permission Attribute Set could not be removed from server.
      */
     public static final int PERM_ATTRIBUTE_SET_DELETE_FAILED = 3031;
     /**
@@ -695,15 +695,15 @@ public final class GlobalErrIds
      */
     public static final int PERM_ATTRIBUTE_NULL = 3032;
     /**
-     * The supplied Permission Attribute could not be removed from ldap server.
+     * The supplied Permission Attribute could not be removed from server.
      */
     public static final int PERM_ATTRIBUTE_DELETE_FAILED = 3033;
     /**
-     * The supplied Permission Attribute could not be added to ldap server.
+     * The supplied Permission Attribute could not be added to server.
      */
     public static final int PERM_ATTR_ADD_FAILED = 3034;
     /**
-     * The supplied Permission Attribute Set could not be found on ldap server.
+     * The supplied Permission Attribute Set could not be found on server.
      */
     public static final int PERM_ATTRIBUTE_SET_NOT_FOUND = 3035;
     /**
@@ -724,32 +724,32 @@ public final class GlobalErrIds
      */
 
     /**
-     * The Password policy could not be read from ldap server.
+     * The Password policy could not be read from server.
      */
     public static final int PSWD_READ_FAILED = 4000;
 
     /**
-     * The supplied Password policy could not be added to ldap server.
+     * The supplied Password policy could not be added to server.
      */
     public static final int PSWD_CREATE_FAILED = 4001;
 
     /**
-     * The supplied Password policy could not be updated on ldap server.
+     * The supplied Password policy could not be updated on server.
      */
     public static final int PSWD_UPDATE_FAILED = 4002;
 
     /**
-     * The supplied Password policy could not be removed from ldap server.
+     * The supplied Password policy could not be removed from server.
      */
     public static final int PSWD_DELETE_FAILED = 4003;
 
     /**
-     * The supplied Password policy could not be searched on ldap server.
+     * The supplied Password policy search failed on server.
      */
     public static final int PSWD_SEARCH_FAILED = 4004;
 
     /**
-     * The supplied Password policy was not found on ldap server.
+     * The supplied Password policy was not found on server.
      */
     public static final int PSWD_NOT_FOUND = 4005;
 
@@ -859,27 +859,27 @@ public final class GlobalErrIds
      */
 
     /**
-     * The RBAC Role search failed on ldap server.
+     * The RBAC Role search failed on server.
      */
     public static final int ROLE_SEARCH_FAILED = 5000;
 
     /**
-     * The RBAC Role read failed on ldap server.
+     * The RBAC Role read failed on server.
      */
     public static final int ROLE_READ_FAILED = 5001;
 
     /**
-     * The supplied RBAC Role could not be added to ldap server.
+     * The supplied RBAC Role could not be added to server.
      */
     public static final int ROLE_ADD_FAILED = 5002;
 
     /**
-     * The supplied RBAC Role could not be updated on ldap server.
+     * The supplied RBAC Role could not be updated on server.
      */
     public static final int ROLE_UPDATE_FAILED = 5003;
 
     /**
-     * The supplied RBAC Role could not be removed from ldap server.
+     * The supplied RBAC Role could not be removed from server.
      */
     public static final int ROLE_DELETE_FAILED = 5004;
 
@@ -889,7 +889,7 @@ public final class GlobalErrIds
     public static final int ROLE_NM_NULL = 5005;
 
     /**
-     * The RBAC Role was not found on ldap server.
+     * The RBAC Role was not found on server.
      */
     public static final int ROLE_NOT_FOUND = 5006;
 
@@ -899,12 +899,12 @@ public final class GlobalErrIds
     public static final int ROLE_NULL = 5007;
 
     /**
-     * The RBAC Role assignment failed on the ldap server.
+     * The RBAC Role assignment failed on the server.
      */
     public static final int ROLE_USER_ASSIGN_FAILED = 5008;
 
     /**
-     * The RBAC Role deassignment operation failed on the ldap server.
+     * The RBAC Role deassignment operation failed on the server.
      */
     public static final int ROLE_USER_DEASSIGN_FAILED = 5009;
 
@@ -942,27 +942,27 @@ public final class GlobalErrIds
      */
 
     /**
-     * The Hierarchical node could not be read from the ldap server.
+     * The Hierarchical node could not be read from the server.
      */
     public static final int HIER_READ_FAILED = 5051;
 
     /**
-     * The supplied Hierarchical data could not be added to the ldap server.
+     * The supplied Hierarchical data could not be added to the server.
      */
     public static final int HIER_ADD_FAILED = 5052;
 
     /**
-     * The supplied Hierarchical data could not be updated on the ldap server.
+     * The supplied Hierarchical data could not be updated on the server.
      */
     public static final int HIER_UPDATE_FAILED = 5053;
 
     /**
-     * The supplied Hierarchical data could not be removed from the ldap server.
+     * The supplied Hierarchical data could not be removed from the server.
      */
     public static final int HIER_DELETE_FAILED = 5054;
 
     /**
-     * The requested Hierarchical data could not be found on the ldap server.
+     * The requested Hierarchical data could not be found on the server.
      */
     public static final int HIER_NOT_FOUND = 5056;
 
@@ -972,7 +972,7 @@ public final class GlobalErrIds
     public static final int HIER_REL_INVLD = 5057;
 
     /**
-     * The parent cannot be removed from ldap server because it has child.  Must remove child first.
+     * The parent cannot be removed from server because it has child. Must remove child first.
      */
     public static final int HIER_DEL_FAILED_HAS_CHILD = 5058;
 
@@ -1012,27 +1012,27 @@ public final class GlobalErrIds
      */
 
     /**
-     * The Static Separation of Duty constraint search failed on the ldap server.
+     * The Static Separation of Duty constraint search failed on the server.
      */
     public static final int SSD_SEARCH_FAILED = 5080;
 
     /**
-     * The Static Separation of Duty constraint read failed on the ldap server.
+     * The Static Separation of Duty constraint read failed on the server.
      */
     public static final int SSD_READ_FAILED = 5081;
 
     /**
-     * The Static Separation of Duty constraint cannot be added to the ldap server.
+     * The Static Separation of Duty constraint cannot be added to the server.
      */
     public static final int SSD_ADD_FAILED = 5082;
 
     /**
-     * The Static Separation of Duty constraint cannot be updated on the ldap server.
+     * The Static Separation of Duty constraint cannot be updated on the server.
      */
     public static final int SSD_UPDATE_FAILED = 5083;
 
     /**
-     * The Static Separation of Duty constraint cannot be removed from the ldap server.
+     * The Static Separation of Duty constraint cannot be removed from the server.
      */
     public static final int SSD_DELETE_FAILED = 5084;
 
@@ -1042,7 +1042,7 @@ public final class GlobalErrIds
     public static final int SSD_NM_NULL = 5085;
 
     /**
-     * The Static Separation of Duty constraint could not be found on the ldap server.
+     * The Static Separation of Duty constraint could not be found on the server.
      */
     public static final int SSD_NOT_FOUND = 5086;
 
@@ -1057,27 +1057,27 @@ public final class GlobalErrIds
     public static final int SSD_VALIDATION_FAILED = 5088;
 
     /**
-     * The Dynamic Separation of Duty constraint search failed on the ldap server.
+     * The Dynamic Separation of Duty constraint search failed on the server.
      */
     public static final int DSD_SEARCH_FAILED = 5089;
 
     /**
-     * The Dynamic Separation of Duty constraint read failed on the ldap server.
+     * The Dynamic Separation of Duty constraint read failed on the server.
      */
     public static final int DSD_READ_FAILED = 5090;
 
     /**
-     * The Dynamic Separation of Duty constraint cannot be added to the ldap server.
+     * The Dynamic Separation of Duty constraint cannot be added to the server.
      */
     public static final int DSD_ADD_FAILED = 5091;
 
     /**
-     * The Dynamic Separation of Duty constraint cannot be updated on the ldap server.
+     * The Dynamic Separation of Duty constraint cannot be updated on the server.
      */
     public static final int DSD_UPDATE_FAILED = 5092;
 
     /**
-     * The Dynamic Separation of Duty constraint cannot be removed from the ldap server.
+     * The Dynamic Separation of Duty constraint cannot be removed from the server.
      */
     public static final int DSD_DELETE_FAILED = 5093;
 
@@ -1087,7 +1087,7 @@ public final class GlobalErrIds
     public static final int DSD_NM_NULL = 5094;
 
     /**
-     * The Dynamic Separation of Duty constraint could not be found on the ldap server.
+     * The Dynamic Separation of Duty constraint could not be found on the server.
      */
     public static final int DSD_NOT_FOUND = 5095;
 
@@ -1110,7 +1110,7 @@ public final class GlobalErrIds
      */
     public static final int ROLE_CONSTRAINT_TYPE_NULL = 5100;
     /**
-     * The validation for Role Constraint value failed.
+     * The validation for Role Constraint failed value is null.
      */
     public static final int ROLE_CONSTRAINT_VALUE_NULL = 5101;
     /**
@@ -1118,7 +1118,7 @@ public final class GlobalErrIds
      */
     public static final int ROLE_CONSTRAINT_NULL = 5102;
     /**
-     * The validation for Role Constraint key is required.
+     * The validation for Role Constraint failed key is required.
      */
     public static final int ROLE_CONSTRAINT_KEY_NULL = 5103;
     /**
@@ -1132,42 +1132,42 @@ public final class GlobalErrIds
      */
 
     /**
-     * The supplied ldap subdirectory node could not be created on ldap server.
+     * The supplied directory could not be created on server.
      */
     public static final int CNTR_CREATE_FAILED = 6001;
 
     /**
-     * The supplied ldap subdirectory node could not be removed from the ldap server.
+     * The supplied directory could not be removed from the server.
      */
     public static final int CNTR_DELETE_FAILED = 6002;
 
     /**
-     * The subdirectory node name is required and cannot be null.
+     * The directory name is required and cannot be null.
      */
     public static final int CNTR_NAME_NULL = 6003;
 
     /**
-     * The subdirectory node name failed length check.
+     * The directory name failed length check.
      */
     public static final int CNTR_NAME_INVLD = 6004;
 
     /**
-     * The supplied parent node name is required and cannot be null.
+     * The supplied parent directory name is required and cannot be null.
      */
     public static final int CNTR_PARENT_NULL = 6005;
 
     /**
-     * The supplied parent node name is invalid.
+     * The supplied parent directory name is invalid.
      */
     public static final int CNTR_PARENT_INVLD = 6006;
 
     /**
-     * The ldap suffix could not be created on the ldap server.
+     * The suffix could not be created on the server.
      */
     public static final int SUFX_CREATE_FAILED = 6010;
 
     /**
-     * The ldap suffix node could not be removed from the ldap server.
+     * The suffix could not be removed from the server.
      */
     public static final int SUFX_DELETE_FAILED = 6011;
 
@@ -1197,7 +1197,7 @@ public final class GlobalErrIds
      */
 
     /**
-     * The audit bind search failed on the ldap server.
+     * The audit bind search failed on the server.
      */
     public static final int AUDT_BIND_SEARCH_FAILED = 7000;
 
@@ -1207,22 +1207,22 @@ public final class GlobalErrIds
     public static final int AUDT_INPUT_NULL = 7001;
 
     /**
-     * The Audit search for Fortress authorization records failed on the ldap server.
+     * The Audit search for authorization records failed on the server.
      */
     public static final int AUDT_AUTHZ_SEARCH_FAILED = 7002;
 
     /**
-     * The Audit search for modifications failed on the ldap server.
+     * The Audit search for modifications failed on the server.
      */
     public static final int AUDT_MOD_SEARCH_FAILED = 7003;
 
     /**
-     * The Audit mod search by administrator internal id failed on ldap server.
+     * The Audit mod search by administrator internal id failed on server.
      */
     public static final int AUDT_MOD_ADMIN_SEARCH_FAILED = 7004;
 
     /**
-     * The Audit search for authentication events failed on the ldap server.
+     * The Audit search for authentication events failed on the server.
      */
     public static final int AUDT_AUTHN_INVALID_FAILED = 7005;
 
@@ -1237,42 +1237,42 @@ public final class GlobalErrIds
     public static final int ORG_NULL = 8001;
 
     /**
-     * The supplied {@link org.apache.directory.fortress.core.model.OrgUnit#type} is required and cannot be null.
+     * The supplied {@link org.apache.directory.fortress.core.model.OrgUnit#type} cannot be null.
      */
     public static final int ORG_TYPE_NULL = 8002;
 
     /**
-     * The supplied User OU entity could not be read due to ldap error.
+     * The supplied User OU entity could not be read due to error on server.
      */
     public static final int ORG_READ_FAILED_USER = 8011;
 
     /**
-     * The supplied User OU entity could not be added due to ldap error.
+     * The supplied User OU entity could not be added due to error.
      */
     public static final int ORG_ADD_FAILED_USER = 8012;
 
     /**
-     * The supplied User OU entity could not be updated due to ldap error.
+     * The supplied User OU entity could not be updated due to error on server..
      */
     public static final int ORG_UPDATE_FAILED_USER = 8013;
 
     /**
-     * The supplied User OU entity could not be removed due to ldap error.
+     * The supplied User OU entity could not be removed due to error on server..
      */
     public static final int ORG_DELETE_FAILED_USER = 8014;
 
     /**
-     * The OU User search failed due to ldap error.
+     * The OU User search failed due to error on server..
      */
     public static final int ORG_SEARCH_FAILED_USER = 8015;
 
     /**
-     * The search for User OU's failed on ldap server.
+     * The search for User OU's failed due to error on server..
      */
     public static final int ORG_GET_FAILED_USER = 8016;
 
     /**
-     * The supplied User OU not found on ldap server.
+     * The supplied User OU not found due to error on server..
      */
     public static final int ORG_NOT_FOUND_USER = 8017;
 
@@ -1292,42 +1292,42 @@ public final class GlobalErrIds
     public static final int ORG_DEL_FAILED_USER = 8020;
 
     /**
-     * The supplied Perm OU entity parent attribute could not be updated due to ldap error.
+     * The supplied Perm OU entity parent attribute could not be updated due to error on server.
      */
     public static final int ORG_REMOVE_PARENT_FAILED_USER = 8021;
 
     /**
-     * The supplied Perm OU entity could not be read due to ldap error.
+     * The supplied Perm OU entity could not be read due to error on server.
      */
     public static final int ORG_READ_FAILED_PERM = 8061;
 
     /**
-     * The supplied Perm OU entity could not be added due to ldap error.
+     * The supplied Perm OU entity could not be added due to error on server.
      */
     public static final int ORG_ADD_FAILED_PERM = 8062;
 
     /**
-     * The supplied Perm OU entity could not be updated due to ldap error.
+     * The supplied Perm OU entity could not be updated due to error on server.
      */
     public static final int ORG_UPDATE_FAILED_PERM = 8063;
 
     /**
-     * The supplied Perm OU entity could not be removed due to ldap error.
+     * The supplied Perm OU entity could not be removed due to error on server.
      */
     public static final int ORG_DELETE_FAILED_PERM = 8064;
 
     /**
-     * The OU Perm search failed due to ldap error.
+     * The OU Perm search failed due to error on server.
      */
     public static final int ORG_SEARCH_FAILED_PERM = 8065;
 
     /**
-     * The search for Perm OU's failed on ldap server.
+     * The search for Perm OU's failed due to error on server.
      */
     public static final int ORG_GET_FAILED_PERM = 8066;
 
     /**
-     * The supplied Perm OU not found on ldap server.
+     * The supplied Perm OU not found on server.
      */
     public static final int ORG_NOT_FOUND_PERM = 8067;
 
@@ -1347,7 +1347,7 @@ public final class GlobalErrIds
     public static final int ORG_DEL_FAILED_PERM = 8070;
 
     /**
-     * The supplied OU name exceed maximum allowed {@link GlobalIds#OU_LEN}.
+     * The supplied OU name exceeded maximum allowed {@link GlobalIds#OU_LEN}.
      */
     public static final int ORG_LEN_INVLD = 8071;
 
@@ -1362,7 +1362,7 @@ public final class GlobalErrIds
     public static final int ORG_CHILD_NULL = 8073;
 
     /**
-     * The supplied Perm OU parent attribute could not be removed due to ldap error.
+     * The supplied Perm OU parent attribute could not be removed due to error on server.
      */
     public static final int ORG_REMOVE_PARENT_FAILED_PERM = 8074;
 
@@ -1371,27 +1371,27 @@ public final class GlobalErrIds
      */
 
     /**
-     * The Administrative Role search failed on ldap server.
+     * The Administrative Role search failed on server.
      */
     public static final int ARLE_SEARCH_FAILED = 9000;
 
     /**
-     * The Administrative Role read failed on ldap server.
+     * The Administrative Role read failed on server.
      */
     public static final int ARLE_READ_FAILED = 9001;
 
     /**
-     * The supplied Administrative Role could not be added to ldap server.
+     * The supplied Administrative Role could not be added to server.
      */
     public static final int ARLE_ADD_FAILED = 9002;
 
     /**
-     * The supplied Administrative Role could not be updated on ldap server.
+     * The supplied Administrative Role could not be updated on server.
      */
     public static final int ARLE_UPDATE_FAILED = 9003;
 
     /**
-     * The supplied Administrative Role could not be removed from ldap server.
+     * The supplied Administrative Role could not be removed from server.
      */
     public static final int ARLE_DELETE_FAILED = 9004;
 
@@ -1401,7 +1401,7 @@ public final class GlobalErrIds
     public static final int ARLE_NM_NULL = 9005;
 
     /**
-     * The Administrative Role was not found on ldap server.
+     * The Administrative Role was not found on server.
      */
     public static final int ARLE_NOT_FOUND = 9006;
 
@@ -1433,7 +1433,7 @@ public final class GlobalErrIds
     /**
      * The supplied end range for Administrative Role is required and cannot be null.
      */
-    public static final int ARLE_END_RANGE_NULL = 9011;
+    public static final int ARLE_END_RANGE_NULL = 9029;
 
     /**
      * The supplied range for Administrative Role is invalid.
@@ -1701,42 +1701,42 @@ public final class GlobalErrIds
      * 10300's - Group Error Ids
      */
     /**
-     * The Group search failed on ldap server.
+     * The Group search failed on server.
      */
     public static final int GROUP_SEARCH_FAILED = 10300;
 
     /**
-     * The Group read failed on ldap server.
+     * The Group read failed on server.
      */
     public static final int GROUP_READ_FAILED = 10301;
 
     /**
-     * The supplied Group could not be added to ldap server.
+     * The supplied Group could not be added to server.
      */
     public static final int GROUP_ADD_FAILED = 10302;
 
     /**
-     * The supplied Group could not be updated on ldap server.
+     * The supplied Group could not be updated on server.
      */
     public static final int GROUP_UPDATE_FAILED = 10303;
 
     /**
-     * The supplied Group could not be removed from ldap server.
+     * The supplied Group could not be removed from server.
      */
     public static final int GROUP_DELETE_FAILED = 10304;
 
     /**
-     * The supplied Group could not be updated on ldap server.
+     * The supplied Group could not be updated on server.
      */
     public static final int GROUP_ADD_PROPERTY_FAILED = 10305;
 
     /**
-     * The supplied Group could not be removed from ldap server.
+     * The supplied Group could not be removed from server.
      */
     public static final int GROUP_DELETE_PROPERTY_FAILED = 10306;
 
     /**
-     * The Group was not found on ldap server.
+     * The Group was not found on server.
      */
     public static final int GROUP_NOT_FOUND = 10307;
 
@@ -1746,12 +1746,12 @@ public final class GlobalErrIds
     public static final int GROUP_NULL = 10308;
 
     /**
-     * The Group assignment failed on the ldap server.
+     * The Group assignment failed on the server.
      */
     public static final int GROUP_USER_ASSIGN_FAILED = 10309;
 
     /**
-     * The Group deassignment operation failed on the ldap server.
+     * The Group deassignment operation failed on the server.
      */
     public static final int GROUP_USER_DEASSIGN_FAILED = 10310;
 
