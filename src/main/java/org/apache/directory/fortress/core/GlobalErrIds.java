@@ -82,7 +82,7 @@ public final class GlobalErrIds
     public static final int FT_MGR_CLASS_NAME_NULL = 106;
 
     /**
-     * The remote cfg instance could not be found on the ldap server.
+     * The remote cfg instance could not be found on the server.
      */
     public static final int FT_CONFIG_NOT_FOUND = 107;
 
@@ -107,27 +107,27 @@ public final class GlobalErrIds
     public static final int FT_CONFIG_NULL = 111;
 
     /**
-     * The config node could not be created on ldap server.
+     * The config node could not be created on server.
      */
     public static final int FT_CONFIG_CREATE_FAILED = 120;
 
     /**
-     * The config node could not be updated on ldap server.
+     * The config node could not be updated on server.
      */
     public static final int FT_CONFIG_UPDATE_FAILED = 121;
 
     /**
-     * The config node could not be removed from ldap.
+     * The config node could not be removed from server.
      */
     public static final int FT_CONFIG_DELETE_FAILED = 122;
 
     /**
-     * The config parameters could not be removed from ldap.
+     * The config parameters could not be removed from server.
      */
     public static final int FT_CONFIG_DELETE_PROPS_FAILED = 123;
 
     /**
-     * The config node could not be read from ldap.
+     * The config node could not be read from server.
      */
     public static final int FT_CONFIG_READ_FAILED = 124;
 
@@ -137,12 +137,12 @@ public final class GlobalErrIds
     public static final int FT_CONFIG_ALREADY_EXISTS = 125;
 
     /**
-     * The config node could not be read from ldap.
+     * The config node could not be read from server.
      */
     public static final int FT_CONFIG_BOOTSTRAP_FAILED = 126;
 
     /**
-     * The config node could not be read from ldap.
+     * The config node could not be read from server.
      */
     public static final int FT_CONFIG_INITIALIZE_FAILED = 127;
 
@@ -196,32 +196,32 @@ public final class GlobalErrIds
      */
 
     /**
-     * The User node could not be searched in ldap.
+     * The User node could not be searched due to error on server.
      */
     public static final int USER_SEARCH_FAILED = 1000;
 
     /**
-     * The User node could not be read from ldap.
+     * The User node could not be read from server.
      */
     public static final int USER_READ_FAILED = 1001;
 
     /**
-     * The User node could not be added to ldap.
+     * The User node could not be added to server.
      */
     public static final int USER_ADD_FAILED = 1002;
 
     /**
-     * The User node could not be updated in ldap.
+     * The User node could not be updated on server.
      */
     public static final int USER_UPDATE_FAILED = 1003;
 
     /**
-     * The User node could not be deleted from ldap.
+     * The User node could not be deleted from server.
      */
     public static final int USER_DELETE_FAILED = 1004;
 
     /**
-     * The User node was not found in ldap.
+     * The User node was not found on server.
      */
     public static final int USER_NOT_FOUND = 1005;
 
@@ -231,7 +231,7 @@ public final class GlobalErrIds
     public static final int USER_ID_NULL = 1006;
 
     /**
-     * The User could not be added because it already exists in ldap.
+     * The User could not be added because it already exists.
      */
     public static final int USER_ID_DUPLICATE = 1007;
 
@@ -257,7 +257,7 @@ public final class GlobalErrIds
     public static final int USER_PLCY_VIOLATION = 1011;
 
     /**
-     * The PW Policy node could not be removed from ldap.
+     * The PW Policy node could not be removed from server.
      */
     public static final int USER_PW_PLCY_DEL_FAILED = 1012;
 
@@ -267,7 +267,7 @@ public final class GlobalErrIds
     public static final int USER_PW_INVLD = 1013;
 
     /**
-     * The User password check failed in ldap.
+     * The User password check failed on server.
      */
     public static final int USER_PW_CHK_FAILED = 1014;
 
@@ -387,7 +387,7 @@ public final class GlobalErrIds
     public static final int USER_BIND_FAILED = 1037;
 
     /**
-     * The User node could not be added to ldap.
+     * The User node could not be added to server.
      */
     public static final int USER_ADD_FAILED_ALREADY_EXISTS = 1038;
 
@@ -591,7 +591,7 @@ public final class GlobalErrIds
     public static final int PERM_OBJECT_NULL = 3010;
 
     /**
-     * The Permission could not be added because it already exists on ldap server.
+     * The Permission could not be added because it already exists on server.
      */
     public static final int PERM_DUPLICATE = 3011;
 
@@ -636,7 +636,7 @@ public final class GlobalErrIds
     public static final int PERM_ROLE_SEARCH_FAILED = 3019;
 
     /**
-     * The User-Permission search failed on ldap server.
+     * The User-Permission search failed on server.
      */
     public static final int PERM_USER_SEARCH_FAILED = 3020;
 
@@ -1516,7 +1516,7 @@ public final class GlobalErrIds
     public static final int ARLE_REMOVE_OCCUPANT_FAILED = 9027;
 
     /**
-     * The supplied Administrative Role parent attribute could not be removed on ldap server.
+     * The supplied Administrative Role parent attribute could not be removed on the server.
      */
     public static final int ARLE_REMOVE_PARENT_FAILED = 9028;
 
