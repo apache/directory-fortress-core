@@ -353,8 +353,7 @@ public class AccessMgrImplTest extends TestCase
             // Instantiate the AdminMgr first
             AdminMgr adminMgr = AdminMgrFactory.createInstance();
             
-            User myUser = new User( "myUserId", "myPassword", "Test", "People" );
-            
+            User myUser = new User( "myUserId", "myPassword", "People" );
             adminMgr.addUser( myUser );
         }
         catch (SecurityException ex)

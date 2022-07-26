@@ -188,7 +188,8 @@ public class CreateSessionSample extends TestCase
             AccessMgr accessMgr = AccessMgrFactory.createInstance(TestUtils.getContext());
 
             // The User entity is used to pass data into the createSession API.
-            User user = new User(userId, password, role);
+            User user = new User(userId, password);
+            user.setRoleName(role);
 
             // The API will authenticate the User password, evaluate password policies and perform Role activations.
             Session session = accessMgr.createSession(user, false);

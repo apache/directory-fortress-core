@@ -112,13 +112,6 @@ public interface AdminMgr extends Manageable
      *     User#props * - multivalued attribute contains property key and values are separated with a ':'.
      *     e.g. mykey1:myvalue1
      *   </li>
-     *   <li>
-     *     User#roles * - multivalued attribute contains the name of already existing role to assign to user
-     *   </li>
-     *   <li>
-     *     User#adminRoles * - multivalued attribute contains the name of already existing adminRole to assign
-     *     to user
-     *   </li>
      * </ul>
      *
      * @param user User entity must contain User#userId and User#ou (required) and optional
@@ -209,13 +202,6 @@ public interface AdminMgr extends Manageable
      *   <li>
      *     User#props * - multivalued attribute contains property key and values are separated with a ':'.
      *     e.g. mykey1:myvalue1
-     *   </li>
-     *   <li>
-     *     User#roles * - multivalued attribute contains the name of already existing role to assign to user
-     *   </li>
-     *   <li>
-     *     User#adminRoles * - multivalued attribute contains the name of already existing adminRole to assign
-     *     to user
      *   </li>
      * </ul>
      *

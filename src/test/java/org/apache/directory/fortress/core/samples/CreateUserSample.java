@@ -173,8 +173,7 @@ public class CreateUserSample extends TestCase
              */
             //User inUser = new User(TEST_USERID, TEST_PASSWORD, CreateRoleSample.TEST_SIMPLE_ROLE, CreateUserOrgSample.TEST_USER_OU_NM);
             //User inUser = new User(TEST_USERID, TEST_PASSWORD, CreateRoleSample.TEST_SIMPLE_ROLE, CreateUserOrgSample.TEST_USER_OU_NM);
-            User inUser = new User(TEST_USERID, TEST_PASSWORD);
-            inUser.setOu(CreateUserOrgSample.TEST_USER_OU_NM);
+            User inUser = new User(TEST_USERID, TEST_PASSWORD, CreateUserOrgSample.TEST_USER_OU_NM);
             // Now call the add API.  The API will return User entity with associated LDAP dn if creation was successful.
 
             User outUser = adminMgr.addUser(inUser);

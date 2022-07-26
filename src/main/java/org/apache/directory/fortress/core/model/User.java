@@ -411,21 +411,6 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param userId   String validated using simple length test and optional regular expression, i.e. safe text.
      * @param password validated using simple length test and OpenLDAP password policies.
-     * @param roleName contains role that caller is requesting activation.
-     */
-    public User( String userId, String password, String roleName )
-    {
-        this.userId = userId;
-        this.password = password;
-        setRole( new UserRole( roleName ) );
-    }
-
-
-    /**
-     * Construct User given userId and password.  Once loaded this entity can be passed to AccessMgr.createSession.
-     *
-     * @param userId   String validated using simple length test and optional regular expression, i.e. safe text.
-     * @param password validated using simple length test and OpenLDAP password policies.
      * @param roleNames contains array of roleNames that caller is requesting activation.
      */
     public User( String userId, String password, String[] roleNames )
@@ -448,14 +433,12 @@ public class User extends FortEntity implements Constraint, Serializable
      *
      * @param userId   String validated using simple length test and optional regular expression, i.e. safe text.
      * @param password validated using simple length test and OpenLDAP password policies.
-     * @param roleName contains role that caller is requesting activation (see {@link org.apache.directory.fortress.core.AccessMgr#createSession(User, boolean)}) or assignment (see {@link org.apache.directory.fortress.core.AdminMgr#addUser(User)}).
      * @param ou org unit name that caller is requesting assigned to newly created User (see {@link org.apache.directory.fortress.core.AdminMgr#addUser(User)}).
      */
-    public User( String userId, String password, String roleName, String ou )
+    public User( String userId, String password, String ou )
     {
         this.userId = userId;
         this.password = password;
-        setRole( new UserRole( roleName ) );
         this.ou = ou;
     }
 
