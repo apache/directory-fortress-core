@@ -150,7 +150,7 @@ public class CreatePermSample extends TestCase
             // Instantiate the AdminMgr implementation which is used to provision RBAC policies.
             AdminMgr adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
             // this will remove the object along with any operations associated with it:
-            adminMgr.deletePermObj(new PermObj(TEST_PERM_OBJECT, CreatePermOrgSample.TEST_PERM_OU_NM));
+            adminMgr.deletePermObj(new PermObj(TEST_PERM_OBJECT));
 
             // Instantiate the ReviewMgr implementation which is used to interrogate policy information.
             ReviewMgr reviewMgr = ReviewMgrFactory.createInstance(TestUtils.getContext());

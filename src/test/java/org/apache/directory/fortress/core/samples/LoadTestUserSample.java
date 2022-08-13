@@ -214,22 +214,12 @@ public class LoadTestUserSample extends TestCase
      */
     public static void testAssignUser()
     {
-        String szLocation = ".testCreateUser";
+        String szLocation = ".testAssignUser";
         try
         {
             // Instantiate the AdminMgr implementation.  All AdminMgr APIs can throw a SecurityException in the event
             // of rule violation or system error.
             AdminMgr adminMgr = AdminMgrFactory.createInstance(TestUtils.getContext());
-            // You do not have to assign a Role to User when calling 'addUser'.  Role assignment may be done using the 'assignUser' API.
-            /**
-             * Create new User entity:
-             *   {@link org.apache.directory.fortress.core.model.User#userId}="sampleUser1"
-             *   {@link User#password}="password1"
-             *   {@link User#setRole(String)}="sampleRole1"
-             *   {@link User#ou}="sampleUserOU1"
-             */
-            //User inUser = new User(TEST_USERID, TEST_PASSWORD, CreateRoleSample.TEST_SIMPLE_ROLE, CreateUserOrgSample.TEST_USER_OU_NM);
-            //User inUser = new User(TEST_USERID, TEST_PASSWORD, CreateRoleSample.TEST_SIMPLE_ROLE, CreateUserOrgSample.TEST_USER_OU_NM);
             LOG.info(szLocation + "ASSIGNING [" + NUMBER_TEST_USERS + "] users to [" + NUMBER_TEST_ROLES + "] roles (every '@' is 1000 users)");
             for( int i = 1; i <= NUMBER_TEST_USERS; i++)
             {
