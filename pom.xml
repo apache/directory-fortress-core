@@ -204,11 +204,31 @@
       <version>${version.accelerator.impl}</version>
     </dependency>
 
+<!--
     <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>
       <version>${version.javaee.api}</version>
     </dependency>
+-->
+
+    <dependency>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-api</artifactId>
+      <version>8.0.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-api</artifactId>
+      <version>9.0.0</version>
+    </dependency>
+     <dependency>
+       <groupId>jakarta.xml.bind</groupId>
+       <artifactId>jakarta.xml.bind-api</artifactId>
+       <version>4.0.0</version>
+     </dependency>
+
 
     <!-- Begin Test Dependencies -->
     <dependency>
@@ -703,6 +723,7 @@
   <profiles>
 
     <!-- If JDK11++ pull in the JAXB API dependency. -->
+<!--
     <profile>
       <id>jdk-11+</id>
       <activation>
@@ -724,6 +745,7 @@
 
       </dependencies>
     </profile>
+-->
 
     <!-- This profile starts the Fortress Console App -->
     <!-- To execute: mvn -Pconsole test -->

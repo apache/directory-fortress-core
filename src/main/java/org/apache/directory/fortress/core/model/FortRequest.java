@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.core.model;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
 
 /**
  * This class is used to pass request data to Fortress Rest server.
