@@ -755,6 +755,11 @@ public final class Config
     {
         try
         {
+            if ( Config.getInstance().getProperty( GlobalIds.CONFIG_REALM ) == null )
+            {
+                LOG.warn( "Config realm not enabled" );
+                return;
+            }
             // Retrieve parameters from the config node stored in target LDAP DIT:
             String realmName = config.getString( GlobalIds.CONFIG_REALM, "DEFAULT" );
             if ( realmName != null && realmName.length() > 0 )
