@@ -306,6 +306,10 @@ public final class Config
                 LOG.warn( "getInt invalid config, can't read prop [{}], using default [{}]", key, defaultValue );
             }
         }
+        catch (java.lang.IllegalStateException e )
+        {
+            LOG.debug( "getInt - illegal state exception [{}], using default [{}]", key, defaultValue );
+        }
         catch (org.apache.commons.configuration.ConversionException e)
         {
             LOG.debug( "getInt name [{}], conversion exception using default  [{}]", key, defaultValue );
@@ -369,6 +373,10 @@ public final class Config
             {
                 LOG.warn( "getBoolean - invalid config, can't read prop [{}], using default [{}]", key, defaultValue );
             }
+        }
+        catch (java.lang.IllegalStateException e )
+        {
+            LOG.debug( "getBoolean - illegal state exception [{}], using default [{}]", key, defaultValue );
         }
         catch (java.util.NoSuchElementException nse )
         {
