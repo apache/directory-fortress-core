@@ -165,7 +165,7 @@ public final class LdapClientTrustStoreManager implements X509TrustManager, Seri
     private synchronized X509TrustManager[] getTrustManagers( final X509Certificate[] x509Chain ) throws
         CertificateException
     {
-        if( Config.getInstance().getBoolean( GlobalIds.TRUST_STORE_ON_CLASSPATH, false ) )
+        if( Config.getInstance().getBoolean( GlobalIds.TRUST_STORE_ON_CLASSPATH, true ) == false )
         {
             LOG.debug( CLS_NM + ".getTrustManager on filepath" );
             return getTrustManagersOnFilepath( x509Chain );
