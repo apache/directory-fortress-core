@@ -57,8 +57,6 @@ public class LdapConnectionProvider
 
     private static final String CLS_NM = LdapConnectionProvider.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-    private static final String ENABLE_LDAP_STARTTLS = "enable.ldap.starttls";
-    private boolean IS_SSL;
 
     /**
      * The Admin connection pool
@@ -111,11 +109,8 @@ public class LdapConnectionProvider
      */
     private void init()
     {
-        IS_SSL = ( Config.getInstance().getProperty( GlobalIds.ENABLE_LDAP_SSL ) != null &&
-            Config.getInstance().getProperty( GlobalIds.ENABLE_LDAP_SSL ).equalsIgnoreCase( "true" ) &&
-            Config.getInstance().getProperty( GlobalIds.TRUST_STORE ) != null &&
-            Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW, true ) != null );
-
+        boolean IS_TLS = Config.getInstance().getBoolean( GlobalIds.ENABLE_LDAP_STARTTLS, false );
+        boolean IS_SSL = Config.getInstance().getBoolean( GlobalIds.ENABLE_LDAP_SSL, false );
         String host = Config.getInstance().getProperty( GlobalIds.LDAP_HOST, "localhost" );
         int port = Config.getInstance().getInt( GlobalIds.LDAP_PORT, 389 );
         int min = Config.getInstance().getInt( GlobalIds.LDAP_ADMIN_POOL_MIN, 1 );
@@ -136,17 +131,22 @@ public class LdapConnectionProvider
         config.setLdapPort( port );
         config.setName( Config.getInstance().getProperty( GlobalIds.LDAP_ADMIN_POOL_UID, "" ) );
         config.setEnabledProtocols( getDefaultProtocols() );
-        config.setUseSsl( IS_SSL );
         //config.setTrustManagers( new NoVerificationTrustManager() );
 
-        if ( Config.getInstance().getBoolean( ENABLE_LDAP_STARTTLS, false ) )
-        {
-            config.setUseTls( true );
-        }
-        if ( IS_SSL && StringUtils.isNotEmpty( Config.getInstance().getProperty( GlobalIds.TRUST_STORE ) ) &&
+        if ( ( IS_TLS || IS_SSL ) && StringUtils.isNotEmpty( Config.getInstance().getProperty( GlobalIds.TRUST_STORE ) ) &&
             StringUtils.isNotEmpty( Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW, true ) ) )
         {
-            // validate certificates but allow self-signed certs if within this truststore:
+            // Can't use both!
+            if ( IS_SSL && IS_TLS )
+            {
+                throw new CfgRuntimeException( GlobalErrIds.FT_APACHE_LDAP_POOL_INIT_FAILED, " enable.ldap.starttls and enable.ldap.ssl cannot be used simultaneously" );
+            }
+
+            // One will be set here:
+            config.setUseTls( IS_TLS );
+            config.setUseSsl( IS_SSL );
+
+            // Always validate certificate but allow self-signed from this truststore:
             config.setTrustManagers( new LdapClientTrustStoreManager( Config.getInstance().getProperty( GlobalIds
                 .TRUST_STORE ), Config.getInstance().getProperty( GlobalIds.TRUST_STORE_PW, true ).toCharArray(), null,
                 true ) );
