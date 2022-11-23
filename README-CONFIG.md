@@ -91,10 +91,28 @@ ldap.server.type=openldap
 -------------------------------------------------------------------------------
 ## SECTION 2.  Fortress Ant Property Files
 
+```
+    _______________                
+   ╱               ╲          ┌───────────────────┐
+  ╱                 ╲_________│Use user.properties│
+  ╲ user.properties ╱yes      └───────────────────┘
+   ╲_______________╱               
+           │no                     
+    _______▽________               
+   ╱                ╲         ┌────────────────────┐     
+  ╱                  ╲________│Use slapd.properties│     
+  ╲ slapd.properties ╱yes     └────────────────────┘     
+   ╲________________╱              
+           │no                     
+  ┌────────▽───────────┐             
+  │Use build.properties│             
+  └────────────────────┘
+```
+
 Fortress configuration artifacts are seeded using Ant property files.
- * user.properties  - optional, when found, located in user's home directory.  Properties found here take precedence over those following.
- * slapd.properties - optional, when found, located in root folder of the package.  These props override those found in the build.properties file.
- * build.properties - this file is required and must be located in the root folder of the package.
+ - user.properties  - optional, when found, located in user's home directory.  Properties found here take precedence over those following.
+ - slapd.properties - optional, when found, located in root folder of the package.  These props override those found in the build.properties file.
+ - build.properties - this file is required and must be located in the root folder of the package.
 
 -------------------------------------------------------------------------------
 ## SECTION 3.  Fortress Configuration Artifacts
