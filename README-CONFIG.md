@@ -95,15 +95,17 @@ ldap.server.type=openldap
     _______________                
    ╱               ╲          ┌───────────────────┐
   ╱                 ╲_________│Use user.properties│
-  ╲ user.properties ╱yes      └───────────────────┘
-   ╲_______________╱               
-           │no                     
+  ╲ user.properties ╱yes      └─────────▽─────────┘
+   ╲_______________╱                    │               
+           │no                          │                     
+           │____________________________▽                       
     _______▽________               
    ╱                ╲         ┌────────────────────┐     
   ╱                  ╲________│Use slapd.properties│     
-  ╲ slapd.properties ╱yes     └────────────────────┘     
-   ╲________________╱              
-           │no                     
+  ╲ slapd.properties ╱yes     └─────────▽──────────┘     
+   ╲________________╱                   │
+           │no                          │
+           │____________________________▽                     
   ┌────────▽───────────┐             
   │Use build.properties│             
   └────────────────────┘
@@ -159,10 +161,30 @@ The ant config task, **init-fortress-config**, uses the values found within the 
 ___________________________________________________________________________________
 ## SECTION 5.  Order Artifacts found in the Fortress Configuration Subsystem
 
+```
+    ___________                
+   ╱           ╲          ┌────┐
+  ╱             ╲_________│Use │
+  ╲ config node ╱yes      └──▽─┘
+   ╲___________╱             │   
+           │no               │      
+           │_________________▽     
+    _______▽_________               
+   ╱                 ╲      ┌────┐     
+  ╱                   ╲_____│Use │     
+  ╲ system properties ╱yes  └──▽─┘     
+   ╲________________╱          │   
+           │no                 │    
+           │___________________▽ 
+  ┌────────▽──────────────┐             
+  │Use fortress.properties│             
+  └───────────────────────┘
+```
+
 This subsystem has been hard-wired to the following order:
  1. fortress.properties file - found on the classpath of that name.
  2. Java system properties - to override any of the 14 properties listed above.
- 3. LDAP configuration node - found by config coordinates set in the fortress.properties file itself.
+ 3. LDAP configuration node - found by config coordinates set in the fortress.properties or system properties.
 
 Properties found in LDAP config node will override Java system properties which will override fortress.properties.
 __________________________________________________________________________________
