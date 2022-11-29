@@ -159,7 +159,7 @@ The ant config task, **init-fortress-config**, uses the values found within the 
  * fortress.host
  * fortress.port
 ___________________________________________________________________________________
-## SECTION 5.  Order Artifacts found in the Fortress Configuration Subsystem
+## SECTION 5.  Order of precedence of params in the Fortress Configuration Subsystem
 
 ```
     ___________                
@@ -181,7 +181,7 @@ ________________________________________________________________________________
   └───────────────────────┘
 ```
 
-This subsystem has been hard-wired to the following order:
+This subsystem has been hard-wired to the following order of precedence:
  1. fortress.properties file - found on the classpath of that name.
  2. Java system properties - to override any of the 14 properties listed above.
  3. LDAP configuration node - found by config coordinates set in the fortress.properties or system properties.
@@ -190,9 +190,10 @@ Properties found in LDAP config node will override Java system properties which 
 __________________________________________________________________________________
 ## SECTION 6.  Configuration Subsystem Usage
 
-The general flow is the fortress.properties provide the coordinates to locate an ldap entry on a remote server.
-That file is found on the runtime classpath during startup.  Some of its props may be overridden as Java system properties.
-The combination of Fortress and Java system properties are used to connect to remote ldap server and read its configuration entry where the remainder of Fortress' properties are stored.
+### How it works:
+ - The general flow is the fortress.properties provide the coordinates to locate an ldap entry on a remote server.
+ - That file is found on the runtime classpath during startup.  Some of its props may be overridden as Java system properties.
+ - The combination of Fortress and Java system properties are used to connect to remote ldap server and read its configuration entry where the remainder of Fortress' properties are stored.
 
 The remote server node's dn is constructed from fortress.property values:
 ```
@@ -221,12 +222,22 @@ A. refreshes the entire LDAP server DIT, deletes of all entries under the suffix
 B. just updates the config node with the new values, preserving the other data.
 
 ### More notes:
- * Use caution when running the **refreshLDAPData.xml** script.  It deletes all nodes below the suffix before readding.
- * To change values in a config node, use a general purpose ldapbrowser.  Fortress has config apis for this (ConfigMgr) to perform CRUD on config data.
- * Another option is to use a script like **ConfigNodeUpdate.xml** to perform the CRUD ops.
- * You can also *simply* place the properties inside the fortress.properties file (only).  The idea is to minimize the number of locations
- where the same data must be stored.  Imagine a network with hundreds, even thousands of fortress agents running.  We don't need to replicate the same data everywhere which is where remote config nodes help.
- * For more info on which parameters are used where, look at the **init-fortress-config** target located inside the [build-config.xml](build-config.xml) file.
+ - Use caution when running the **refreshLDAPData.xml** script.  It deletes all nodes below the suffix before readding.
+ - To change values in a config node, use a general purpose ldapbrowser.  Fortress has config apis for this (ConfigMgr) to perform CRUD on config data.
+ - Another option is to use a script like **ConfigNodeUpdate.xml** to perform the CRUD ops.
+ - For more info on which parameters are used where, look at the **init-fortress-config** target located inside the [build-config.xml](build-config.xml) file.
 
- ___________________________________________________________________________________
-  #### END OF README-CONFIG
+### Config Node Rationale:
+ - The idea is to minimize the number of locations  where the same data must be stored.  
+ - Imagine a network with hundreds, even thousands of fortress agents running.  We don't need to replicate the same data everywhere which is where remote config nodes help.
+
+### A final note about Config Node:
+ - You can also *simply* place the properties inside the fortress.properties file (only).
+ - To disable config node completely, remove the config.realm property, or set its value to empty.:
+
+```
+# Setting this to empty will disable the remote Config Node
+config.realm=
+```
+___________________________________________________________________________________
+#### END OF README-CONFIG
