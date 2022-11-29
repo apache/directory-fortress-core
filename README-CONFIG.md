@@ -165,26 +165,26 @@ ________________________________________________________________________________
     ___________                
    ╱           ╲          ┌────┐
   ╱             ╲_________│Use │
-  ╲ config node ╱yes      └──▽─┘
-   ╲___________╱             │   
-           │no               │      
-           │_________________▽     
+  ╲ config node ╱yes      └────┘
+   ╲___________╱                
+           │no                     
+           │     
     _______▽_________               
    ╱                 ╲      ┌────┐     
   ╱                   ╲_____│Use │     
-  ╲ system properties ╱yes  └──▽─┘     
-   ╲________________╱          │   
-           │no                 │    
-           │___________________▽ 
+  ╲ system properties ╱yes  └────┘     
+   ╲________________╱             
+           │no                     
+           │ 
   ┌────────▽──────────────┐             
   │Use fortress.properties│             
   └───────────────────────┘
 ```
 
 This subsystem has been hard-wired to the following order of precedence:
- 1. fortress.properties file - found on the classpath of that name.
+ 1. LDAP configuration node - found by config coordinates set in the fortress.properties or system properties.
  2. Java system properties - to override any of the 14 properties listed above.
- 3. LDAP configuration node - found by config coordinates set in the fortress.properties or system properties.
+ 3. fortress.properties file - found on the classpath of that name.
 
 Properties found in LDAP config node will override Java system properties which will override fortress.properties.
 __________________________________________________________________________________
