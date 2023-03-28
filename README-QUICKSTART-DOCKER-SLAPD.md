@@ -137,6 +137,12 @@ f. connect via bash
 docker exec -it openldap bash
 ```
 
+g. version of slapd running in container
+
+```bash
+root@c88f854e2e73:/# /opt/symas/lib/slapd -VV
+```
+
 ## SECTION 3. Apache Fortress Core Setup
 
 1. Prepare your terminal for execution of maven commands.
