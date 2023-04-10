@@ -88,7 +88,7 @@
     <java.version>1.8</java.version>
     <additionalparam>-Xdoclint:none</additionalparam>
     <!-- Jars -->
-    <version.ldap.api>2.1.0</version.ldap.api>
+    <version.ldap.api>2.1.3</version.ldap.api>
     <version.apacheds>2.0.0.AM26</version.apacheds>
     <version.accelerator.api>1.0-RC41</version.accelerator.api>
     <version.accelerator.impl>1.0-RC41</version.accelerator.impl>
