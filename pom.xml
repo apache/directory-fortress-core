@@ -204,11 +204,46 @@
       <version>${version.accelerator.impl}</version>
     </dependency>
 
+<!--
     <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>
       <version>${version.javaee.api}</version>
     </dependency>
+-->
+<!--
+    <dependency>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-api</artifactId>
+      <version>8.0.0</version>
+    </dependency>
+-->
+
+<!--
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>4.0.0</version>
+    </dependency>
+-->
+
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+      <version>4.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jaxb</groupId>
+      <artifactId>jaxb-runtime</artifactId>
+      <version>4.0.2</version>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-api</artifactId>
+      <version>9.0.0</version>
+    </dependency>
+
 
     <!-- Begin Test Dependencies -->
     <dependency>
@@ -709,11 +744,8 @@
         <jdk>[11,]</jdk>
       </activation>
       <dependencies>
-        <dependency>
-          <groupId>javax.xml.bind</groupId>
-          <artifactId>jaxb-api</artifactId>
-          <version>${version.jaxb.api}</version>
-        </dependency>
+
+<!--
 
         <dependency>
           <groupId>com.sun.xml.bind</groupId>
@@ -721,6 +753,7 @@
           <version>${version.jaxb.impl}</version>
           <scope>test</scope>
         </dependency>
+-->
 
       </dependencies>
     </profile>

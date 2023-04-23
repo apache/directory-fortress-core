@@ -21,10 +21,10 @@ package org.apache.directory.fortress.core.rest;
 
 import java.util.Hashtable;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 
 /**
  * This class contains a very simple caching mechanism for storing JAXBContext objects associated with Fortress XML

@@ -40,8 +40,6 @@ import org.slf4j.LoggerFactory;
 
 import org.apache.directory.fortress.core.model.Constraint;
 
-import javax.crypto.spec.RC2ParameterSpec;
-
 
 /**
  * Description of the Class

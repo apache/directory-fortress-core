@@ -27,12 +27,12 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import jakarta.ws.rs.WebApplicationException;
+import jakarta.ws.rs.core.Response;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
@@ -139,9 +139,9 @@ public final class RestUtils
         LOG.info("HTTP Connect Properties: host:{}, port:{}, protocol:{}, version:{}, service:{}, uri:{}", httpHost, httpPort, httpProtocol, fortressRestVersion, serviceName, uri);
         if( StringUtils.isNotEmpty(trustStore ) && StringUtils.isNotEmpty(trustStorePw ) )
         {
-            LOG.info( "javax.net.ssl.trustStore: {}", trustStore );
-            System.setProperty( "javax.net.ssl.trustStore", trustStore );
-            System.setProperty( "javax.net.ssl.trustStorePassword", trustStorePw );
+            LOG.info( "jakarta.net.ssl.trustStore: {}", trustStore );
+            System.setProperty( "jakarta.net.ssl.trustStore", trustStore );
+            System.setProperty( "jakarta.net.ssl.trustStorePassword", trustStorePw );
         }
         //System.setProperty( "http.maxConnections", "50" );
     }
