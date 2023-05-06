@@ -101,8 +101,8 @@
     <version.httpcomponent.httpclient>4.5.13</version.httpcomponent.httpclient>
     <version.jasypt>1.9.3</version.jasypt>
     <version.javaee.api>8.0.1</version.javaee.api>
-    <version.jaxb.api>2.4.0-b180830.0359</version.jaxb.api>
-    <version.jaxb.impl>2.3.6</version.jaxb.impl>
+    <version.jaxb.api>4.0.0</version.jaxb.api>
+    <version.jaxb.impl>4.0.2</version.jaxb.impl>
     <version.jgrapht-core>1.4.0</version.jgrapht-core>
     <version.jmeter.core>5.5</version.jmeter.core>
     <version.jmeter.java>5.5</version.jmeter.java>
@@ -204,38 +204,10 @@
       <version>${version.accelerator.impl}</version>
     </dependency>
 
-<!--
-    <dependency>
-      <groupId>javax</groupId>
-      <artifactId>javaee-api</artifactId>
-      <version>${version.javaee.api}</version>
-    </dependency>
--->
-<!--
-    <dependency>
-      <groupId>jakarta.platform</groupId>
-      <artifactId>jakarta.jakartaee-api</artifactId>
-      <version>8.0.0</version>
-    </dependency>
--->
-
-<!--
     <dependency>
       <groupId>jakarta.xml.bind</groupId>
       <artifactId>jakarta.xml.bind-api</artifactId>
-      <version>4.0.0</version>
-    </dependency>
--->
-
-    <dependency>
-      <groupId>jakarta.xml.bind</groupId>
-      <artifactId>jakarta.xml.bind-api</artifactId>
-      <version>4.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.jaxb</groupId>
-      <artifactId>jaxb-runtime</artifactId>
-      <version>4.0.2</version>
+      <version>${version.jaxb.api}</version>
     </dependency>
 
     <dependency>
@@ -243,7 +215,6 @@
       <artifactId>jakarta.jakartaee-api</artifactId>
       <version>9.0.0</version>
     </dependency>
-
 
     <!-- Begin Test Dependencies -->
     <dependency>
@@ -446,6 +417,13 @@
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
       <version>${version.log4j}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-impl</artifactId>
+      <version>${version.jaxb.impl}</version>
       <scope>test</scope>
     </dependency>
 
@@ -736,28 +714,6 @@
   </build>
 
   <profiles>
-
-    <!-- If JDK11++ pull in the JAXB API dependency. -->
-    <profile>
-      <id>jdk-11+</id>
-      <activation>
-        <jdk>[11,]</jdk>
-      </activation>
-      <dependencies>
-
-<!--
-
-        <dependency>
-          <groupId>com.sun.xml.bind</groupId>
-          <artifactId>jaxb-impl</artifactId>
-          <version>${version.jaxb.impl}</version>
-          <scope>test</scope>
-        </dependency>
--->
-
-      </dependencies>
-    </profile>
-
     <!-- This profile starts the Fortress Console App -->
     <!-- To execute: mvn -Pconsole test -->
     <profile>
