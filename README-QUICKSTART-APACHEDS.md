@@ -43,7 +43,7 @@ ________________________________________________________________________________
 
 Minimum software requirements:
  * RHEL or Debian Machine
- * Java SDK >= 8
+ * Java SDK >= 11
  * Apache Maven >= 3
 
 Everything else covered in steps that follow.  Tested on Debian & Centos systems.
@@ -134,18 +134,8 @@ ________________________________________________________________________________
 
 4. Build fortress core. This step will generate config artifacts using settings from build.properties.
 
-a. Java 8 target
-
  ```
  mvn clean install
- ```
-
--- OR --
-
-b. Java 11 target
-
- ```
- mvn clean install -Djava.version=11
  ```
 
 5. Import Fortress ldap schema into ApacheDS server.

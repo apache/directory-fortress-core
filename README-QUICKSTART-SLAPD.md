@@ -42,7 +42,7 @@ ________________________________________________________________________________
 
 Minimum software requirements:
  * RHEL or Debian Machine
- * Java SDK >= 8
+ * Java SDK >= 11
  * Apache Maven >= 3
  
 ___________________________________________________________________________________
@@ -145,21 +145,9 @@ slapd.uninstall=yum remove symas-openldap-servers symas-openldap-clients -y
 
 9. Run the maven install:
 
-a. Java 8 target
-
  ```
  mvn clean install
  ```
-
--- OR --
-
-b. Java 11++ target
-
- ```
- mvn clean install -Djava.version=11
- ```
-
-Where -Djava.version matches the version of Java
 
 10. Install, configure and load the slapd server:
 

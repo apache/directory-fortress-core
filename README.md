@@ -73,7 +73,7 @@ ________________________________________________________________________________
 
 Minimum software requirements:
  * git
- * Java SDK >= 8
+ * Java SDK >= 11
  * Apache Maven >= 3
 
 ___________________________________________________________________________________
@@ -87,28 +87,12 @@ From Apache GIT Fortress-Core Software Repo:
 git clone  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
 ```
 
- * or by specific version, e.g. 2.0.8
-
-```
-git clone --branch 2.0.8  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
-```
-
 2. Set Java and Maven home on machines.
 
 3. From the FORTRESS_HOME root folder, enter the following command:
 
-a. Java 8 target
-
 ```
 mvn clean install
-```
-
--- OR --
-
-b. Java 11 target
-
-```
-mvn clean install -Djava.version=11
 ```
 
 4. From the FORTRESS_HOME root folder, enter the following command:
