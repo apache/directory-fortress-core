@@ -106,7 +106,7 @@
     <version.jmeter.core>5.6</version.jmeter.core>
     <version.jmeter.java>5.6</version.jmeter.java>
     <version.junit>4.13.2</version.junit>
-    <version.log4j>2.20.0</version.log4j>
+    <slf4j.api.version>2.0.7</slf4j.api.version>
     <version.opencsv>2.3</version.opencsv>
     <version.jackson-annotations>2.15.2</version.jackson-annotations>
     <version.jmeter.plugin>3.5.0</version.jmeter.plugin>
@@ -213,6 +213,12 @@
       <groupId>jakarta.platform</groupId>
       <artifactId>jakarta.jakartaee-api</artifactId>
       <version>9.0.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.api.version}</version>
     </dependency>
 
     <!-- Begin Test Dependencies -->
@@ -402,20 +408,6 @@
       <groupId>org.antlr</groupId>
       <artifactId>antlr</artifactId>
       <version>${version.antlr}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-api</artifactId>
-      <version>${version.log4j}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>${version.log4j}</version>
       <scope>test</scope>
     </dependency>
 
