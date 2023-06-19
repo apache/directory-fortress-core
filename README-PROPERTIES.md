@@ -85,7 +85,7 @@ This section describes the properties needed to control fortress core.
  min.admin.conn=1
  max.admin.conn=10
 
- # This speicifes the number of user LDAP connections (used for user authentication operations only) to maintain in the pool:
+ # This specifies the number of user LDAP connections (used for user authentication operations only) to maintain in the pool:
  # User Pool:
  user.min.conn=1
  user.max.conn=10
