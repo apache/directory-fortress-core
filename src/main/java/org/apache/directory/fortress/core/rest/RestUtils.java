@@ -139,9 +139,9 @@ public final class RestUtils
         LOG.info("HTTP Connect Properties: host:{}, port:{}, protocol:{}, version:{}, service:{}, uri:{}", httpHost, httpPort, httpProtocol, fortressRestVersion, serviceName, uri);
         if( StringUtils.isNotEmpty(trustStore ) && StringUtils.isNotEmpty(trustStorePw ) )
         {
-            LOG.info( "jakarta.net.ssl.trustStore: {}", trustStore );
-            System.setProperty( "jakarta.net.ssl.trustStore", trustStore );
-            System.setProperty( "jakarta.net.ssl.trustStorePassword", trustStorePw );
+            LOG.info( "javax.net.ssl.trustStore: {}", trustStore );
+            System.setProperty( "javax.net.ssl.trustStore", trustStore );
+            System.setProperty( "javax.net.ssl.trustStorePassword", trustStorePw );
         }
         //System.setProperty( "http.maxConnections", "50" );
     }
