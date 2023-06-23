@@ -56,16 +56,16 @@ cd directory-fortress-core
 b. or clone git release: 
 
 ```bash
-git clone --branch 2.0.8  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
+git clone --branch [version]  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
 cd directory-fortress-core
 ```
 
 c. or download source package from Apache:  
 
 ```bash
-wget https://www.apache.org/dist/directory/fortress/dist/2.0.8/fortress-core-2.0.8-source-release.zip
-unzip fortress-core-2.0.8-source-release.zip
-cd fortress-core-2.0.8
+wget https://www.apache.org/dist/directory/fortress/dist/[version]/fortress-core-[version]-source-release.zip
+unzip fortress-core-[version]-source-release.zip
+cd fortress-core-[version]
 ```
 
 2. Prepare the OpenLDAP docker image
@@ -200,21 +200,16 @@ NUMBER OF MODS: 4247
 NUMBER OF READS: 22885
 NUMBER OF SEARCHES: 9684
 Tests run: 133, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 323.006 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
-
 Results :
-
 Tests run: 133, Failures: 0, Errors: 0, Skipped: 0
-
 [INFO] 
 [INFO] --- maven-antrun-plugin:1.8:run (fortress-load) @ fortress-core ---
 [INFO] Executing tasks
-
 fortress-load:
 [INFO] Executed tasks
 [INFO] 
 [INFO] --- maven-antrun-plugin:1.8:run (fortress-load-debug) @ fortress-core ---
 [INFO] Executing tasks
-
 fortress-load-debug:
 [INFO] Executed tasks
 [INFO] ------------------------------------------------------------------------
@@ -241,21 +236,16 @@ NUMBER OF MODS: 8389
 NUMBER OF READS: 30040
 NUMBER OF SEARCHES: 12221
 Tests run: 167, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 369.396 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
-
 Results :
-
 Tests run: 167, Failures: 0, Errors: 0, Skipped: 0
-
 [INFO] 
 [INFO] --- maven-antrun-plugin:1.8:run (fortress-load) @ fortress-core ---
 [INFO] Executing tasks
-
 fortress-load:
 [INFO] Executed tasks
 [INFO] 
 [INFO] --- maven-antrun-plugin:1.8:run (fortress-load-debug) @ fortress-core ---
 [INFO] Executing tasks
-
 fortress-load-debug:
 [INFO] Executed tasks
 [INFO] ------------------------------------------------------------------------

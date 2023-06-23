@@ -196,7 +196,7 @@ ________________________________________________________________________________
  - The combination of Fortress and Java system properties are used to connect to remote ldap server and read its configuration entry where the remainder of Fortress' properties are stored.
 
 The remote server node's dn is constructed from fortress.property values:
-```
+```properties
 config.realm=DEFAULT
 config.root=ou=Config,@SUFFIX@
 ```
@@ -204,17 +204,17 @@ config.root=ou=Config,@SUFFIX@
 The above would be combined to create the dn: cn=Default, ou=Config, [whatever the @SUFFIX@ is]
 
 When reinitialization of properties is needed, to the ldap config node or the DIT itself, re-run this command:
-```
+```bash
 # mvn install
 ```
 
 Followed by A:
- ```
+ ```bash
  mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
  ```
 
 Or B:
- ```
+ ```bash
  mvn install -Dload.file=./ldap/setup/ConfigNodeUpdate.xml
  ```
 
@@ -235,7 +235,7 @@ B. just updates the config node with the new values, preserving the other data.
  - You can also *simply* place the properties inside the fortress.properties file (only).
  - To disable config node completely, remove the config.realm property, or set its value to empty.:
 
-```
+```properties
 # Setting this to empty will disable the remote Config Node
 config.realm=
 ```

@@ -18,7 +18,7 @@
 
 # ApacheDS & Fortress QUICKSTART
 
- Apache Fortress 2.0.8 and ApacheDS Quickstart System Architecture
+ Apache Fortress 3.0.0 and ApacheDS Quickstart System Architecture
  ![ApacheDS & Fortress System Architecture](images/fortress-apacheds-system-arch.png "ApacheDS & Fortress System Architecture")
 
 -------------------------------------------------------------------------------
@@ -45,9 +45,6 @@ Minimum software requirements:
  * RHEL or Debian Machine
  * Java SDK >= 11
  * Apache Maven >= 3
-
-Everything else covered in steps that follow.  Tested on Debian & Centos systems.
-
 ___________________________________________________________________________________
 ## SECTION 2. ApacheDS Installation
 
@@ -57,31 +54,31 @@ ________________________________________________________________________________
 
  b. For 32-bit (as sudo or root):
 
- ```
- chmod a+x *.bin
- ./apacheds-[version]-32bit.bin
- ```
+```bash
+chmod a+x *.bin
+./apacheds-[version]-32bit.bin
+```
 
  b. For 64-bit (as sudo or root):
 
- ```
- chmod a+x *.bin
- ./apacheds-[version]-64bit.bin
- ```
+```bash
+chmod a+x *.bin
+./apacheds-[version]-64bit.bin
+```
 
  *Accept the defaults.*
 
 2. Edit ApacheDS conf file
 
- ```
- sudo vi /opt/apacheds-[version]/conf/wrapper.conf
- ```
+```bash
+vi /opt/apacheds-[version]/conf/wrapper.conf
+```
 
 3. Add location of java:
 
- ```
- wrapper.java.command=/usr/bin/java
- ```
+```
+wrapper.java.command=/usr/bin/java
+```
 
  *contains fully qualified location of target machine's java.*
 
@@ -89,54 +86,54 @@ ________________________________________________________________________________
 
 6. After installation start the directory server process. From system command prompt (as sudo or root):
 
- ```
- /etc/init.d/apacheds-[version]-default start
- ```
+```bash
+/etc/init.d/apacheds-[version]-default start
+```
 7. Check the status of server process. From system command prompt (as sudo or root):
 
- ```
- /etc/init.d/apacheds-[version]-default status
- ApacheDS - default is running (70041).
- ```
+```
+/etc/init.d/apacheds-[version]-default status
+ApacheDS - default is running (70041).
+```
 
 ___________________________________________________________________________________
 ## SECTION 3. Apache Fortress Core Setup
 
 1. Download the package:
  a. from git:
- ```
- git clone --branch 2.0.8  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
- cd directory-fortress-core
- ```
+```bash
+git clone --branch [version] https://gitbox.apache.org/repos/asf/directory-fortress-core.git
+cd directory-fortress-core
+```
 
  b. or download package:
- ```
- wget https://www.apache.org/dist/directory/fortress/dist/2.0.8/fortress-core-2.0.8-source-release.zip
- unzip fortress-core-2.0.8-source-release.zip
- cd fortress-core-2.0.8
- ```
+```bash
+wget https://www.apache.org/dist/directory/fortress/dist/[version]/fortress-core-[version]-source-release.zip
+unzip fortress-core-[version]-source-release.zip
+cd fortress-core-[version]
+```
 
 2. Prepare the package:
 
- ```
- cp build.properties.example build.properties
- ```
+```bash
+cp build.properties.example build.properties
+```
 
  *[build.properties.example](build.properties.example) contains the apacheds default config. Learn more about the config here: [README-CONFIG](README-CONFIG.md)*
 
 3. Prepare your terminal for execution of maven commands.
 
- ```
- export JAVA_HOME=...
- export M2_HOME=...
- export PATH=$PATH:$M2_HOME/bin
- ```
+```bash
+export JAVA_HOME=...
+export M2_HOME=...
+export PATH=$PATH:$M2_HOME/bin
+```
 
 4. Build fortress core. This step will generate config artifacts using settings from build.properties.
 
- ```
- mvn clean install
- ```
+```bash
+mvn clean install
+```
 
 5. Import Fortress ldap schema into ApacheDS server.
 
@@ -144,31 +141,31 @@ ________________________________________________________________________________
 
  a. Test to see if it is already installed.  From the command prompt enter:
 
- ```
- ldapmodify
- ```
+```bash
+ldapmodify
+```
 
  b. If the command was not found we need to install the OpenLDAP client:
 
-  i. For Redhat / Centos based systems:
+  i. For Redhat based systems:
 
-  ```
-  yum install -y openldap-clients
-  ```
+```bash
+yum install -y openldap-clients
+```
 
   ii. Else for Debian based systems:
 
-  ```
-  sudo apt-get install ldap-utils
-  ```
+```bash
+apt-get install ldap-utils
+```
 
 6. Load the Apache Fortress schema into ApacheDS server.
 
  Load the [fortress schema](ldap/schema/apacheds-fortress.ldif) to ApacheDS instance using ldapmodify command.
 
- ```
- ldapmodify -h localhost -p 10389 -D uid=admin,ou=system -w secret -a -f ./ldap/schema/apacheds-fortress.ldif
- ```
+```bash
+ldapmodify -h localhost -p 10389 -D uid=admin,ou=system -w secret -a -f ./ldap/schema/apacheds-fortress.ldif
+```
 
 ___________________________________________________________________________________
 ## SECTION 4. Apache Fortress Core Integration Test
@@ -177,9 +174,9 @@ ________________________________________________________________________________
 
  From fortress core base folder, enter the following command:
 
- ```
- mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
- ```
+```bash
+mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
+```
 
  *These will build the Directory Information Tree (DIT), create the config and data policies needed for the integration test to follow.*
 
@@ -187,57 +184,49 @@ ________________________________________________________________________________
 
  Enter the following command:
 
- ```
- mvn -Dtest=FortressJUnitTest test
- ```
+```bash
+mvn -Dtest=FortressJUnitTest test
+```
 
  *Tests the APIs against your LDAP server.*
 
 3. Verify the tests worked:
 
- ```
- Tests run: Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 372.708 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
-
- Results:
-
- Tests run: Failures: 0, Errors: 0, Skipped: 0
-
- [INFO]
- [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
- [INFO] Executing tasks
-
- fortress-load:
- [INFO] Executed tasks
- [INFO] ------------------------------------------------------------------------
- [INFO] BUILD SUCCESS
- [INFO] ------------------------------------------------------------------------
- ```
+```bash
+Tests run: Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 372.708 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
+Results:
+Tests run: Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
+[INFO] Executing tasks
+fortress-load:
+[INFO] Executed tasks
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+```
 
 4. Rerun the tests to verify teardown APIs work:
 
- ```
- mvn -Dtest=FortressJUnitTest test
- ```
+```bash
+mvn -Dtest=FortressJUnitTest test
+```
 
 5. Verify that worked also:
 
- ```
- Tests Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 778.501 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
-
- Results :
-
- Tests run: Failures: 0, Errors: 0, Skipped: 0
-
- [INFO]
- [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
- [INFO] Executing tasks
-
- fortress-load:
- [INFO] Executed tasks
- [INFO] ------------------------------------------------------------------------
- [INFO] BUILD SUCCESS
- [INFO] ------------------------------------------------------------------------
- ```
+```bash
+Tests Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 778.501 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
+Results :
+Tests run: Failures: 0, Errors: 0, Skipped: 0
+[INFO]
+[INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
+[INFO] Executing tasks
+fortress-load:
+[INFO] Executed tasks
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+```
  Notice more tests ran this time vs the first time, due to teardown.
 
  Test Notes:
@@ -253,153 +242,109 @@ ________________________________________________________________________________
  * SECTION 14. Instructions to performance test.
 
 ___________________________________________________________________________________
-## SECTION 5. Apache Tomcat Setup
+## SECTION 4. Apache Tomcat Setup
 
-During this section, you will be asked to setup Apache Tomcat 8 and prepare for usage with Apache Fortress
+During this section, you will be asked to setup Apache Tomcat 10 and prepare for usage with Apache Fortress
 
 1. Download and prepare the package:
 
- ```
- wget https://archive.apache.org/dist/tomcat/tomcat-8/v8.0.30/bin/apache-tomcat-8.0.30.tar.gz
- tar -xvf apache-tomcat-8.0.30.tar.gz
- sudo mv apache-tomcat-8.0.30 /usr/local/tomcat8
- ```
- *Change the tomcat version as neeeded - v7 and beyond are ok.*
- *For BSD variants (i.e. Mac) append /* to the folder name above on mv command.*
+```bash
+# Requires >= Tomcat 10:
+wget https://archive.apache.org/dist/tomcat/tomcat-10/v[version]/bin/apache-tomcat-[version].tar.gz
+tar -xvf apache-tomcat-[version].tar.gz
+mv apache-tomcat-[version] /usr/local/tomcat10
+```
+*Change the tomcat version as neeeded.*
+*For BSD variants (i.e. Mac) append /* to the folder name above on mv command.*
 
 2. Download the fortress realm proxy jar into tomcat/lib folder:
 
-  ```
-  sudo wget https://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/2.0.8/fortress-realm-proxy-2.0.8.jar -P /usr/local/tomcat8/lib
-  ```
+```bash
+wget https://repo.maven.apache.org/maven2/org/apache/directory/fortress/fortress-realm-proxy/[version]/fortress-realm-proxy-[version].jar -P /usr/local/tomcat10/lib
+```
 
-3. Prepare tomcat fortress usage:
+3. Prepare tomcat fortress deployments (optional):
 
- ```
- sudo vi /usr/local/tomcat8/conf/tomcat-users.xml
- ```
+```bash
+vi /usr/local/tomcat10/conf/tomcat-users.xml
+```
 
-4. Add tomcat user to deploy fortress:
+4. Add tomcat user to deploy fortress (optional):
 
- ```
- <role rolename="manager-script"/>
- <role rolename="manager-gui"/>
- <user username="tcmanager" password="m@nager123" roles="manager-script"/>
- <user username="tcmanagergui" password="m@nager123" roles="manager-gui"/>
- ```
+```xml
+<role rolename="manager-script"/>
+<role rolename="manager-gui"/>
+<user username="tcmanager" password="m@nager123" roles="manager-script"/>
+<user username="tcmanagergui" password="m@nager123" roles="manager-gui"/>
+```
 
 5. Save and exit tomcat-users.xml file
 
 6. Configure Tomcat as a service (optional)
 
- a. Edit the config file:
+a. Edit the config file:
 
- ```
- vi /etc/init.d/tomcat
- ```
+```bash
+vi /etc/init.d/tomcat
+```
 
- b. Add the following:
+b. Add the following:
 
- ```
- #!/bin/bash
- # description: Tomcat Start Stop Restart
- # processname: tomcat
- # chkconfig: 234 20 80
- CATALINA_HOME=/usr/local/tomcat8
- case $1 in
- start)
- sh $CATALINA_HOME/bin/startup.sh
- ;;
- stop)
- sh $CATALINA_HOME/bin/shutdown.sh
- ;;
- restart)
- sh $CATALINA_HOME/bin/shutdown.sh
- sh $CATALINA_HOME/bin/startup.sh
- ;;
- esac
- exit 0
- ```
+```
+#!/bin/bash
+# description: Tomcat Start Stop Restart
+# processname: tomcat
+# chkconfig: 234 20 80
+CATALINA_HOME=/usr/local/tomcat10
+case $1 in
+start)
+sh $CATALINA_HOME/bin/startup.sh
+;;
+stop)
+sh $CATALINA_HOME/bin/shutdown.sh
+;;
+restart)
+sh $CATALINA_HOME/bin/shutdown.sh
+sh $CATALINA_HOME/bin/startup.sh
+;;
+esac
+exit 0
+```
 
- c. Add the init script to startup for run level 2, 3 and 4:
+c. Add the init script to startup for run level 2, 3 and 4:
 
- ```
- cd /etc/init.d
- chmod 755 tomcat
- chkconfig --add tomcat
- chkconfig --level 234 tomcat on
- ```
+```bash
+cd /etc/init.d
+chmod 755 tomcat
+chkconfig --add tomcat
+chkconfig --level 234 tomcat on
+```
 
 7. Start tomcat server:
 
- a. If running Tomcat as a service:
+a. If running Tomcat as a service:
 
- ```
- service tomcat start
- ```
+```bash
+service tomcat start
+```
 
- b. Else
+b. Else
 
- ```
- sudo /usr/local/tomcat8/bin/startup.sh
- ```
+```
+/usr/local/tomcat10/bin/startup.sh
+```
 
 8.  Verify clean logs after startup:
 
- ```
- tail -f -n10000 /usr/local/tomcat8/logs/catalina.out
- ```
+```bash
+tail -f -n10000 /usr/local/tomcat10/logs/catalina.out
+```
 
 9.  Verify setup by signing onto the Tomcat Manager app with credentials userId: tcmanagergui, password: m@nager123
 
- ```
- http://hostname:8080/manager
- ```
-___________________________________________________________________________________
-## SECTION 6. Apache Fortress Rest Setup
-
-During this section, you will be asked to setup Apache Fortress Rest Application
-
-1. Download the package:
-
- a. from git:
- ```
- git clone --branch 2.0.8  https://gitbox.apache.org/repos/asf/directory-fortress-enmasse.git
- cd directory-fortress-enmasse
- ```
-
- b. or download package:
- ```
- wget https://www.apache.org/dist/directory/fortress/dist/2.0.8/fortress-rest-2.0.8-source-release.zip
- unzip fortress-rest-2.0.8-source-release.zip
- cd fortress-rest-2.0.8
- ```
-
-2. Prepare:
-
- ```
- cp ../[FORTRESS-CORE-HOME]/config/fortress.properties src/main/resources
- ```
-
- *where FORTRESS-CORE-HOME is package location on your machine*
-
-3. Build, perform fortress rest test policy load and deploy to Tomcat:
-
- ```
- mvn clean install -Dload.file=./src/main/resources/FortressRestServerPolicy.xml tomcat:deploy
- ```
-
-4. Redeploy (if need be):
-
- ```
- mvn tomcat:redeploy
- ```
-
-5. Smoke test:
-
- ```
- mvn test -Dtest=EmTest
- ```
+```
+http://hostname:8080/manager
+```
 
 ___________________________________________________________________________________
 ## SECTION 7. Apache Fortress Web Setup
@@ -408,63 +353,63 @@ During this section, you will be asked to setup Apache Fortress Web Application
 
 1. Download the package:
 
- a. from git:
- ```
- git clone --branch 2.0.8  https://gitbox.apache.org/repos/asf/directory-fortress-commander.git
- cd directory-fortress-commander
+a. from git:
+```bash
+git clone --branch [version] https://gitbox.apache.org/repos/asf/directory-fortress-commander.git
+cd directory-fortress-commander
  ```
 
- b. or download package:
- ```
- wget https://www.apache.org/dist/directory/fortress/dist/2.0.8/fortress-web-2.0.8-source-release.zip
- unzip fortress-web-2.0.8-source-release.zip
- cd fortress-web-2.0.8
- ```
+b. or download package:
+```bash
+wget https://www.apache.org/dist/directory/fortress/dist/[version]/fortress-web-[version]-source-release.zip
+unzip fortress-web-[version]-source-release.zip
+cd fortress-web-[version]
+```
 
 2. Prepare:
 
- ```
- cp ../[FORTRESS-CORE-HOME]/config/fortress.properties src/main/resources
- ```
+```bash
+cp ../[FORTRESS-CORE-HOME]/config/fortress.properties src/main/resources
+```
 
- *where FORTRESS-CORE-HOME is package location on your machine*
+*where FORTRESS-CORE-HOME is package location on your machine*
 
 3. Build, perform fortress web test policy load and deploy to Tomcat:
 
- ```
- mvn clean install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml tomcat:deploy
- ```
+```bash
+mvn clean install -Dload.file=./src/main/resources/FortressWebDemoUsers.xml tomcat:deploy
+```
 
 4. Redeploy (if need be):
 
- ```
- mvn tomcat:redeploy
- ```
+```bash
+mvn tomcat:redeploy
+```
 
 5. Open browser and test (creds: test/password):
 
- ```
- http://hostname:8080/fortress-web
- ```
+```
+http://hostname:8080/fortress-web
+```
 
 6. Click on the links, to pull up various views on the data stored in the directory.
 
 7. Run the Selenium Web driver integration tests with Firefox (default):
 
- ```
- mvn test -Dtest=FortressWebSeleniumITCase
- ```
+```bash
+mvn test -Dtest=FortressWebSeleniumITCase
+```
 
 8. Run the tests using Chrome:
 
- ```
- mvn test -Dtest=FortressWebSeleniumITCase -Dweb.driver=chrome
- ```
+```bash
+mvn test -Dtest=FortressWebSeleniumITCase -Dweb.driver=chrome
+```
 
- Note: The Selenium tests require that:
- * Either Firefox or Chrome installed to target machine.
- * **FORTRESS_CORE_HOME**/*FortressJUnitTest* successfully run.  This will load some test data to grind on.
- * [FortressWebDemoUsers](./src/main/resources/FortressWebDemoUsers.xml) policy loaded into target LDAP server.
+Note: The Selenium tests require that:
+* Either Firefox or Chrome installed to target machine.
+* **FORTRESS_CORE_HOME**/*FortressJUnitTest* successfully run.  This will load some test data to grind on.
+* [FortressWebDemoUsers](./src/main/resources/FortressWebDemoUsers.xml) policy loaded into target LDAP server.
 
 ___________________________________________________________________________________
 #### END OF README-QUICKSTART-APACHEDS

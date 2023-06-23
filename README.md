@@ -83,7 +83,7 @@ From Apache GIT Fortress-Core Software Repo:
  https://gitbox.apache.org/repos/asf?p=directory-fortress-core.git
 
 1. Clone the SNAPSHOT:
-```
+```bash
 git clone  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
 ```
 
@@ -91,13 +91,13 @@ git clone  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
 
 3. From the FORTRESS_HOME root folder, enter the following command:
 
-```
+```bash
 mvn clean install
 ```
 
 4. From the FORTRESS_HOME root folder, enter the following command:
 
-```
+```bash
 mvn javadoc:javadoc
 ```
 
@@ -155,13 +155,13 @@ ________________________________________________________________________________
 
 2. Copy fortress schema to openldap schema folder:
 
-```
+```bash
 cp FORTRESS_HOME/ldap/schema/fortress.schema OPENLDAP_HOME/etc/openldap/schema
 ```
 
 3. Edit slapd.conf:
 
-```
+```bash
 vi OPENLDAP_HOME/etc/openldap/slapd.conf
 ```
 
@@ -289,7 +289,7 @@ loglevel 32768
 
 13. Create the dirs needed by the new slapd databases:
 
-```
+```bash
 mkdir /var/openldap/dflt
 mkdir /var/openldap/hist
 ```
@@ -305,40 +305,40 @@ ________________________________________________________________________________
 
 1. Copy FORTRESS_HOME/build.properties.example to build.properties and FORTRESS_HOME/slapd.properties.example to slapd.properties:
 
-```
+```bash
 cp build.properties.example build.properties
 cp slapd.properties.example slapd.properties
 ```
 
 2. Edit the **slapd.properties** file.
 
-```
+```bash
 vi slapd.properties
 ```
 
 3. Tell the runtime using OpenLDAP:
 
-```
+```properties
 ldap.server.type=openldap
 ```
 
 4. Set the LDAP Host and port properties.  Either a valid host name or IP address can be used.  If you are running on the same platform as your LDAP server, localhost will do.
 
-```
+```properties
 host=localhost
 port=389
 ```
 
 5. Set the suffix name and domain component.  These may be set according to your requirements.  For example **suffix.name=example** and **suffix.dc=com** turns into **dc=example,dc=com**.
 
-```
+```properties
 suffix.name=example
 suffix.dc=com
 ```
 
  * Optional - if a multi-level suffix needed, e.g. dc=foo, dc=example, dc=com.
 
-```
+```properties
 suffix.name=foo
 suffix.dc=example
 suffix.dc2=com
@@ -347,7 +347,7 @@ suffix=dc=${suffix.name},dc=${suffix.dc},dc=${suffix.dc2}
 
 6. Add to the file to enable LDAP connection pool parameters.
 
-```
+```properties
 # Here we are testing with slapd's root user.  Never do this in prod envs.
 # This value contains dn of service account that has read/write access to fortress LDAP DIT:
 root.dn=cn=Manager,${suffix}
@@ -372,7 +372,7 @@ user.max.conn=10
 
  *This step is optional.*
 
-```
+```properties
 # If you don't have slapo-access log overlay enabled, disable the Fortress audit with this param.
 # 'true' turns it off.  The default is 'false'.
 disable.audit=false
@@ -398,13 +398,13 @@ log.ops=logops search bind writes
 
 8. Rebuild the configuration artifacts:
 
-```
+```bash
 mvn clean install
 ```
 
 9. Perform an initial load to the target LDAP server:
 
-```
+```bash
 mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
 ```
 
@@ -423,7 +423,7 @@ ________________________________________________________________________________
 
 1. From **FORTRESS_HOME** enter the following commands:
 
-```
+```bash
 mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
 mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml
 ```
@@ -433,7 +433,7 @@ mvn install -Dload.file=./ldap/setup/DelegatedAdminManagerLoad.xml
 
 2. Next, from **FORTRESS_HOME** enter the following command:
 
-```
+```bash
 mvn -Dtest=FortressJUnitTest test
 ```
 
@@ -441,17 +441,13 @@ mvn -Dtest=FortressJUnitTest test
 
 3. Verify the tests worked:
 
-```
+```bash
 Tests run: Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 196 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
-
 Results :
-
 Tests run: Failures: 0, Errors: 0, Skipped: 0
-
 [INFO]
 [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
 [INFO] Executing tasks
-
 fortress-load:
 [INFO] Executed tasks
 [INFO] ------------------------------------------------------------------------
@@ -465,23 +461,19 @@ fortress-load:
 
 4. Rerun the tests to verify teardown APIs work:
 
-```
+```bash
 mvn -Dtest=FortressJUnitTest test
 ```
 
 5. Verify that worked also:
 
-```
+```bash
 Tests run: Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 207.081 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
-
 Results :
-
 Tests run: Failures: 0, Errors: 0, Skipped: 0
-
 [INFO]
 [INFO] --- maven-antrun-plugin:1.8:run (default) @ fortress-core ---
 [INFO] Executing tasks
-
 fortress-load:
 [INFO] Executed tasks
 [INFO] ------------------------------------------------------------------------
@@ -496,7 +488,7 @@ fortress-load:
 
 6. You can now clear out the test data and policies by rerunning this command:
 
-```
+```bash
 mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml
 ```
 
@@ -517,7 +509,7 @@ ________________________________________________________________________________
 
 2. From **FORTRESS_HOME** folder, enter the following command:
 
- ```
+ ```bash
  mvn install -Dload.file=./ldap/setup/myLoadFile.xml
  ```
 
@@ -533,13 +525,13 @@ ________________________________________________________________________________
 
 1. From **FORTRESS_HOME** enter the following command:
 
-```
+```bash
 mvn -Pcli test
 ```
 
 2. Which starts the Fortress command line interpreter:
 
-```
+```bash
 CommandLineInterpreter:176 - Startup to interactive mode success...
 CommandLineInterpreter:183 - CLI function groups include admin, review, system, dadmin, group
 CommandLineInterpreter:185 - Enter one from above or 'q' to quit
@@ -547,7 +539,7 @@ CommandLineInterpreter:185 - Enter one from above or 'q' to quit
 
 3. Where subsequent commands can be performed.  For example to add a new user:
 
-```
+```bash
 admin auser -u testuser1 -p mypasword123 -o dev1
 2016-01-07 09:17:030 INFO  CommandLineInterpreter:1078 - arg:admin
 2016-01-07 09:17:030 INFO  CommandLineInterpreter:1078 - arg:auser
@@ -564,7 +556,7 @@ admin auser -u testuser1 -p mypasword123 -o dev1
 
 4. Or to interrogate users:
 
-```
+```bash
 review fuser -u testuser1
 2016-01-07 09:18:042 INFO  CommandLineInterpreter:1078 - arg:review
 2016-01-07 09:18:042 INFO  CommandLineInterpreter:1078 - arg:fuser
@@ -590,13 +582,13 @@ ________________________________________________________________________________
 
 1. From **FORTRESS_HOME** enter the following command:
 
-```
+```bash
 mvn -Pconsole test
 ```
 
 2. Is a menu-driven program.  Select option:
 
-```
+```bash
 CHOOSE FUNCTION:
 1. RBAC ADMIN MANAGER
 2. RBAC REVIEW MANAGER
@@ -615,7 +607,7 @@ Enter q or Q to quit
 
 3. Option 1 performs Administrative operations:
 
-```
+```bash
 CHOOSE ADMIN MANAGER FUNCTION:
 1.  Add User
 2.  Update User
@@ -647,7 +639,7 @@ Enter q or Q to return to previous menu
 
 4. Option 2 performs Review operations:
 
-```
+```bash
 CHOOSE REVIEW MANAGER FUNCTION:
 0. Search Users
 1. Search Users by OU
@@ -667,7 +659,7 @@ Enter q or Q to return to previous menu
 
 5. Option 3 performs Access operations (for testing):
 
-```
+```bash
 CHOOSE ACCESS MANAGER FUNCTION:
 1. Authenticate
 2. Create Session
@@ -691,7 +683,7 @@ ________________________________________________________________________________
 
 1. From **FORTRESS_HOME** enter the following command:
 
-```
+```bash
 mvn -Dtest=AllSamplesJUnitTest test
 ```
 
@@ -700,7 +692,7 @@ mvn -Dtest=AllSamplesJUnitTest test
 
 3. Compile and re-run samples to test your changes using:
 
-```
+```bash
 mvn -Dtest=AllSamplesJUnitTest test
 ```
 
@@ -731,13 +723,13 @@ ________________________________________________________________________________
 
 1. Add -Ddebug=port to runtime args:
 
-```
+```bash
 mvn install -Dload.file=./ldap/setup/refreshLDAPData.xml -Ddebug=5432
 ```
 
  Which suspends the process waiting for connection on port specified, e.g. 5432.
  
-```
+```bash
 fortress-load-debug:
      [echo] ############### Run Fortress Ant script to load policy ###############
  [startAnt] Listening for transport dt_socket at address: 5432

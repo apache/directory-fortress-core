@@ -56,16 +56,16 @@ cd directory-fortress-core
 b. or clone git release: 
 
 ```bash
-git clone --branch 2.0.8  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
+git clone --branch [version]  https://gitbox.apache.org/repos/asf/directory-fortress-core.git
 cd directory-fortress-core
 ```
 
 c. or download source package from Apache: 
 
 ```bash
-wget https://www.apache.org/dist/directory/fortress/dist/2.0.8/fortress-core-2.0.8-source-release.zip
-unzip fortress-core-2.0.8-source-release.zip
-cd fortress-core-2.0.8
+wget https://www.apache.org/dist/directory/fortress/dist/[version]/fortress-core-[version]-source-release.zip
+unzip fortress-core-[version]-source-release.zip
+cd fortress-core-[version]
 ```
 
 2. Prepare the ApacheDS docker image
@@ -193,21 +193,16 @@ NUMBER OF MODS: 4247
 NUMBER OF READS: 20176
 NUMBER OF SEARCHES: 7045
 Tests run: 128, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 335.906 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
-
 Results :
-
 Tests run: 128, Failures: 0, Errors: 0, Skipped: 0
-
 [INFO] 
 [INFO] --- maven-antrun-plugin:1.8:run (fortress-load) @ fortress-core ---
 [INFO] Executing tasks
-
 fortress-load:
 [INFO] Executed tasks
 [INFO] 
 [INFO] --- maven-antrun-plugin:1.8:run (fortress-load-debug) @ fortress-core ---
 [INFO] Executing tasks
-
 fortress-load-debug:
 [INFO] Executed tasks
 [INFO] ------------------------------------------------------------------------
@@ -234,21 +229,16 @@ NUMBER OF MODS: 8389
 NUMBER OF READS: 27331
 NUMBER OF SEARCHES: 9582
 Tests run: 162, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 378.525 sec - in org.apache.directory.fortress.core.impl.FortressJUnitTest
-
 Results :
-
 Tests run: 162, Failures: 0, Errors: 0, Skipped: 0
-
 [INFO] 
 [INFO] --- maven-antrun-plugin:1.8:run (fortress-load) @ fortress-core ---
 [INFO] Executing tasks
-
 fortress-load:
 [INFO] Executed tasks
 [INFO] 
 [INFO] --- maven-antrun-plugin:1.8:run (fortress-load-debug) @ fortress-core ---
 [INFO] Executing tasks
-
 fortress-load-debug:
 [INFO] Executed tasks
 [INFO] ------------------------------------------------------------------------
