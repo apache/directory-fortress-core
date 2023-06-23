@@ -104,7 +104,7 @@ mvn javadoc:javadoc
 5. View the generated document here: [./target/site/apidocs/overview-summary.html](./target/site/apidocs/overview-summary.html).
 
 Install Notes:
- * The Apache Fortress [pom.xml](./pom.xml) may run without connection to Internet iff its dependencies are already present in local or intermediate maven repo.
+ * The Apache Fortress [pom.xml](./pom.xml) may run without connection to Internet if its dependencies are already present in local or intermediate maven repo.
  * Running ```mvn install``` calls out to maven-ant **init-fortress-config** task in [build.xml](./build.xml) to regenerate configuration artifacts (more info here: [README-CONFIG](./README-CONFIG.md)).
 
 ___________________________________________________________________________________
