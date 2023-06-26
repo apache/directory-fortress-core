@@ -27,11 +27,13 @@ import java.net.URL;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public final class ResourceUtil {
+public final class ResourceUtil
+{
     /**
      * Private constructor
      */
-    private ResourceUtil() {
+    private ResourceUtil()
+    {
     }
 
 
@@ -41,11 +43,14 @@ public final class ResourceUtil {
      * @param _reference
      * @return An InputStream to a file, or null if no file was found.
      */
-    public static InputStream getInputStream(String _reference) {
+    public static InputStream getInputStream(String _reference)
+    {
         InputStream result = null;
-        if (null != _reference) {
+        if (null != _reference)
+        {
             result = getInputStreamForFileAbsolutePath(_reference);
-            if (null == result) {
+            if (null == result)
+            {
                 // When getting here, it's not a file and not a directory, but it might still translate into a directory within resources
                 result = getInputStreamForFileInClassLoaderResources(_reference);
             }
@@ -59,14 +64,20 @@ public final class ResourceUtil {
      * @param _path absolute path to a file
      * @return An InputStream if the path is absolute and is pointing to a file, or null if no file was found.
      */
-    public static InputStream getInputStreamForFileAbsolutePath(String _path) {
+    public static InputStream getInputStreamForFileAbsolutePath(String _path)
+    {
         InputStream result = null;
-        if (null != _path) {
+        if (null != _path)
+        {
             File file = new File(_path);
-            if (file.exists() && file.isAbsolute() && !file.isDirectory()) {
-                try {
+            if (file.exists() && file.isAbsolute() && !file.isDirectory())
+            {
+                try
+                {
                     result = new FileInputStream(file);
-                } catch (FileNotFoundException e) {
+                }
+                catch (FileNotFoundException e)
+                {
                     // Don't care
                 }
             }
@@ -80,37 +91,55 @@ public final class ResourceUtil {
      * @param _reference the relative path of a file to find within class loader resources.
      * @return An InputStream if the reference resolves to a file within the reach of class loader resources, or null if no file was found.
      */
-    private static InputStream getInputStreamForFileInClassLoaderResources(String _reference) {
+    private static InputStream getInputStreamForFileInClassLoaderResources(String _reference)
+    {
         InputStream result = null;
         URL url = ResourceUtil.class.getClassLoader().getResource(_reference);
-        if (null != url) {
-            if (url.getProtocol().equals("file")) {
+        if (null != url)
+        {
+            if (url.getProtocol().equals("file"))
+            {
                 File file = new File(url.getPath());
-                if (file.exists()) {
-                    if (!file.isDirectory()) {
-                        try {
+                if (file.exists())
+                {
+                    if (!file.isDirectory())
+                    {
+                        try
+                        {
                             result = new FileInputStream(file);
-                        } catch (FileNotFoundException e) {
+                        }
+                        catch (FileNotFoundException e)
+                        {
                             // Don't care
                         }
                     }
                 }
-            } else if (url.getProtocol().equals("jar")){
+            }
+            else if (url.getProtocol().equals("jar"))
+            {
                 result = ResourceUtil.class.getClassLoader().getResourceAsStream(_reference);
-                if (null != result) {
+                if (null != result)
+                {
                     try ( PushbackInputStream pushbackInputStream = new PushbackInputStream(result) )
                     {
                         int b = -1;
-                        try {
+                        try
+                        {
                             b = pushbackInputStream.read();
-                        } catch (IOException e) {
+                        }
+                        catch (IOException e)
+                        {
                             // Don't care
                         }
-                        if (b != -1) {
+                        if (b != -1)
+                        {
                             result = pushbackInputStream;
-                            try {
+                            try
+                            {
                                 pushbackInputStream.unread(b);
-                            } catch (IOException e) {
+                            }
+                            catch (IOException e)
+                            {
                                 result = null;
                             }
                         }
@@ -126,4 +155,3 @@ public final class ResourceUtil {
         return result;
     }
 }
-
