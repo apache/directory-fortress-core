@@ -466,7 +466,6 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <configuration>
             <argLine>-Xmx1024m</argLine>
-
             <systemPropertyVariables>
               <version>${project.version}</version>
               <tenant>${tenant}</tenant>
@@ -490,7 +489,6 @@
           <configuration>
             <source>${java.version}</source>
             <target>${java.version}</target>
-            <optimize>true</optimize>
             <encoding>ISO-8859-1</encoding>
           </configuration>
         </plugin>
@@ -648,9 +646,9 @@
               <goal>run</goal>
             </goals>
             <configuration>
-              <tasks>
+              <target>
                 <ant antfile="${basedir}/build-config.xml" target="init-fortress-config" />
-              </tasks>
+              </target>
             </configuration>
           </execution>
 
