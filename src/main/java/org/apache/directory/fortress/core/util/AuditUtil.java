@@ -48,7 +48,6 @@ public final class AuditUtil
      */
     public static String getAuthZId(String inputString)
     {
-        //reqAuthzID               <uid=fttu3user4,ou=people,dc=jts,dc=com>
         String userId = null;
         if (inputString != null && inputString.length() > 0)
         {
