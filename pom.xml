@@ -561,9 +561,9 @@
         <plugin>
           <groupId>org.owasp</groupId>
           <artifactId>dependency-check-maven</artifactId>
-          <version>6.2.2</version>
+          <version>8.3.1</version>
           <configuration>
-            <failBuildOnAnyVulnerability>true</failBuildOnAnyVulnerability>
+            <failBuildOnCVSS>0</failBuildOnCVSS>
               <suppressionFile>${project.basedir}/src/owasp/suppression.xml</suppressionFile>
           </configuration>
         </plugin>
@@ -933,7 +933,7 @@
       </build>
     </profile>
 
-      <!-- OWASP Dependency Vulnerability Scanner Profile -->
+    <!-- OWASP Dependency Vulnerability Scanner Profile -->
     <profile>
       <id>owasp</id>
       <build>
