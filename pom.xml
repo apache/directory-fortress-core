@@ -625,7 +625,7 @@
           <source>8</source>
           <additionalparam>-Xdoclint:none</additionalparam>
           <stylesheet>java</stylesheet>
-          <bottom>&lt;small&gt;Copyright &amp;copy; 2003-2018, The Apache Software Foundation. All Rights Reserved. Generated ${maven.build.timestamp}&lt;/small&gt;</bottom>
+          <bottom>&lt;small&gt;Copyright &amp;copy; 2003-2023, The Apache Software Foundation. All Rights Reserved. Generated ${maven.build.timestamp}&lt;/small&gt;</bottom>
           <overview>src/main/java/org/apache/directory/fortress/core/overview.html</overview>
           <docfilessubdirs>true</docfilessubdirs>
           <includes />
