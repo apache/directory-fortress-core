@@ -286,7 +286,7 @@ Otherwise the log4j outputs to console
 
 ##### A. jmeter tests fail java.lang.NoSuchMethodError
 
-Happens when jmeter test instance can't load all of the classes. Check the runtime classpath ensure all of the appropriate libs have been loaded.
+Happens when jmeter test instance can't load all of its classes. Ensure the required libs have been loaded.
 
 ```bash
 [INFO] Executing test: ftAddUser.jmx

@@ -38,6 +38,7 @@ import static org.junit.Assert.*;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
+@Deprecated
 public class FortressCreateSession extends AbstractJavaSamplerClient
 {
     private AccessMgr accessMgr;
