@@ -38,6 +38,7 @@ import static org.junit.Assert.*;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
+@Deprecated
 public class AccelCreateSession extends AbstractJavaSamplerClient
 {
     private AccelMgr accelMgr;
