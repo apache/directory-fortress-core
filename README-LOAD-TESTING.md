@@ -137,7 +137,6 @@ Usage Tips:
 
 For more info on testing with the jmeter-maven-plugin: 
 - [Basic Configuration](https://github.com/jmeter-maven-plugin/jmeter-maven-plugin/wiki/Basic-Configuration)
-- [Advanced Configuration](https://github.com/jmeter-maven-plugin/jmeter-maven-plugin/wiki/Advanced-Configuration) 
 ___________________________________________________________________________________
 ### 6. Run the tests
 

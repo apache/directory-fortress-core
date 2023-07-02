@@ -56,9 +56,6 @@
     <url>https://issues.apache.org/jira/browse/DIRFORTRESS</url>
   </issueManagement>
 
-  <!-- ====================================================== -->
-  <!-- The list of current developers                         -->
-  <!-- ====================================================== -->
   <developers>
     <developer>
       <id>smckinney</id>
@@ -80,9 +77,6 @@
 
   </developers>
 
-  <!-- ====================================================== -->
-  <!-- The used properties for this project                   -->
-  <!-- ====================================================== -->
   <properties>
 
     <java.version>11</java.version>
@@ -108,9 +102,10 @@
     <slf4j.api.version>2.0.7</slf4j.api.version>
     <version.opencsv>2.3</version.opencsv>
     <version.jackson-annotations>2.15.2</version.jackson-annotations>
-    <version.jmeter.plugin>3.5.0</version.jmeter.plugin>
+    <version.jmeter.plugin>3.7.0</version.jmeter.plugin>
     <commons-pool2.version>2.9.0</commons-pool2.version>
 
+    <!-- TODO: FIX OR REMOVE -->
     <!-- ===================================================== -->
     <!-- This is a hack to allow someone to release            -->
     <!-- without having to run the tests. In order to          -->
@@ -121,13 +116,6 @@
     <release.arguments />
   </properties>
 
-  <!-- ====================================================== -->
-  <!-- The dependencies for all the projects                  -->
-  <!-- ====================================================== -->
-
-  <!-- ====================================================== -->
-  <!-- The dependencies                                       -->
-  <!-- ====================================================== -->
   <dependencies>
 
     <dependency>
@@ -396,6 +384,14 @@
       <scope>test</scope>
     </dependency>
 
+    <!-- Required for jmeter runtime scope. Fixes: Error in NonGUIDriver java.lang.NullPointerException -->
+    <dependency>
+      <groupId>org.apache.jmeter</groupId>
+      <artifactId>jorphan</artifactId>
+      <version>5.6</version>
+      <scope>runtime</scope>
+    </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -423,7 +419,6 @@
       <version>${version.jaxb.impl}</version>
       <scope>test</scope>
     </dependency>
-
   </dependencies>
 
   <build>

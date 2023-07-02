@@ -162,14 +162,6 @@ public abstract class UserBase extends AbstractJavaSamplerClient
             verify = szVerify.equalsIgnoreCase( "true" );
         }
         String szLog = System.getProperty( "log" );
-        if (StringUtils.isEmpty( szLog ))
-        {
-            output = samplerContext.getParameter( "output" ).equalsIgnoreCase( "true" );
-        }
-        else
-        {
-            output = szLog.equalsIgnoreCase( "true" );
-        }
         String szUpdate = System.getProperty( "update" );
         if (StringUtils.isEmpty( szUpdate ))
         {
