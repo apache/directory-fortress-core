@@ -282,6 +282,74 @@ if file logging enabled in log4j2.xml:
 
 Otherwise the log4j outputs to console
 
+#### Common Errors
+
+##### A. jmeter tests fail java.lang.NoSuchMethodError
+
+Happens when jmeter test instance can't load all of the classes. Check the runtime classpath ensure all of the appropriate libs have been loaded.
+
+```bash
+[INFO] Executing test: ftAddUser.jmx
+[INFO] Arguments for forked JMeter JVM: [java, -Xms1024M, -Xmx1024M, -Djava.awt.headless=true, -jar, ApacheJMeter-5.5.jar, -d, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/b8ccc8a0-8845-4d34-aa10-b4ec7f50f4f5/jmeter, -j, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/logs/ftAddUser.jmx.log, -l, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/results/20230702-ftAddUser.csv, -n, -t, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/testFiles/ftAddUser.jmx, -Dsun.net.http.allowRestrictedHeaders, true, -Dqualifier, A10, -Dversion, 3.0.0-SNAPSHOT]
+[INFO]  
+[INFO] java.lang.NoSuchMethodError: 'void org.apache.logging.slf4j.Log4jLoggerFactory.<init>(org.apache.logging.slf4j.Log4jMarkerFactory)'
+[INFO]  at org.apache.logging.slf4j.SLF4JServiceProvider.initialize(SLF4JServiceProvider.java:54)
+[INFO]  at org.slf4j.LoggerFactory.bind(LoggerFactory.java:183)
+[INFO]  at org.slf4j.LoggerFactory.performInitialization(LoggerFactory.java:170)
+[INFO]  at org.slf4j.LoggerFactory.getProvider(LoggerFactory.java:455)
+[INFO]  at org.slf4j.LoggerFactory.getILoggerFactory(LoggerFactory.java:441)
+[INFO]  at org.slf4j.LoggerFactory.getLogger(LoggerFactory.java:390)
+[INFO]  at org.slf4j.LoggerFactory.getLogger(LoggerFactory.java:416)
+[INFO]  at org.apache.jmeter.JMeter.<clinit>(JMeter.java:113)
+[INFO]  at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+[INFO]  at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+[INFO]  at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+[INFO]  at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
+[INFO]  at org.apache.jmeter.NewDriver.main(NewDriver.java:257)
+[INFO] JMeter home directory was detected as: /home/smckinn/GIT/fortressDev/directory-fortress-core/target/b8ccc8a0-8845-4d34-aa10-b4ec7f50f4f5/jmeter
+[INFO] Completed Test: /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/testFiles/ftAddUser.jmx
+[INFO]  
+[INFO] 
+[INFO] --- tools:1.4:verify-legal-files (verify-legal-files) @ fortress-core ---
+```
+
+##### B. jmeter error: Error in NonGUIDriver null
+
+The current version of jmeter v5.6 requires 
+
+```xml
+    <!-- Required for jmeter runtime. Fixes: Error in NonGUIDriver java.lang.NullPointerException -->
+    <dependency>
+      <groupId>org.apache.jmeter</groupId>
+      <artifactId>jorphan</artifactId>
+      <version>${version.jmeter.java}</version>
+      <scope>test</scope>
+    </dependency>
+```
+
+Sample error
+
+```bash
+[INFO] Executing test: ftAddUser.jmx
+[INFO] Arguments for forked JMeter JVM: [java, -Xms1024M, -Xmx1024M, -Djava.awt.headless=true, -jar, ApacheJMeter-5.5.jar, -d, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/dceff4c0-ff24-4e9c-ad4a-7db38b276b52/jmeter, -j, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/logs/ftAddUser.jmx.log, -l, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/results/20230702-ftAddUser.csv, -n, -t, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/testFiles/ftAddUser.jmx, -Dsun.net.http.allowRestrictedHeaders, true, -Dqualifier, A10, -Dversion, 3.0.0-SNAPSHOT]
+[INFO]  
+[INFO] Error in NonGUIDriver java.lang.NullPointerException
+[INFO] An error occurred: Error in NonGUIDriver null
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  12.799 s
+[INFO] Finished at: 2023-07-02T14:04:09-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.lazerycode.jmeter:jmeter-maven-plugin:3.7.0:jmeter (jmeter-tests) on project fortress-core: Test failed with exit code:1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+[INFO] Shutdown detected, destroying JMeter process...
+```
 ____________________________________________________________________________________
  
 #### END OF README
