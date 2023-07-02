@@ -51,17 +51,28 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     protected AdminMgr adminMgr;
     protected ReviewMgr reviewMgr;
     protected static final Logger LOG = LoggerFactory.getLogger( UserBase.class );
+
+    // global counter
     private static AtomicInteger count = new AtomicInteger(0);
+    // ldap host
     protected String hostname;
+    // used to differentiate data sets
     protected String qualifier;
+    // enabled will perform further checks
     protected boolean verify = false;
-    protected boolean output = false;
+    // will perform an update after an add
     protected boolean update = false;
+    // used for user assignment
     protected String role = null;
+    // used for check access test
     protected String perm = null;
+    // required for user
     protected String ou = null;
+    // between tests
     protected int sleep = 0;
+    // size of test set
     protected int size = 0;
+    // used for replication tests
     protected int duplicate = 0;
 
     protected enum Op
@@ -71,6 +82,12 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         CHECK
     }
 
+    /**
+     * Does the user exist?
+     * @param userId
+     * @param op
+     * @return
+     */
     protected boolean verify( String userId, Op op )
     {
         boolean found = false;
@@ -98,7 +115,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     }
 
     /**
-     * Description of the Method
+     * Prepare the thread, initialize variables, instantiate managers.
      *
      * @param samplerContext Description of the Parameter
      */
@@ -161,7 +178,6 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         {
             verify = szVerify.equalsIgnoreCase( "true" );
         }
-        String szLog = System.getProperty( "log" );
         String szUpdate = System.getProperty( "update" );
         if (StringUtils.isEmpty( szUpdate ))
         {
@@ -214,7 +230,6 @@ public abstract class UserBase extends AbstractJavaSamplerClient
      */
     protected int getKey( )
     {
-        //return ++count;
         return count.incrementAndGet();
     }
 

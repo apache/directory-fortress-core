@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.core.jmeter;
 
-import jodd.util.StringUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
@@ -28,7 +28,7 @@ import org.apache.directory.fortress.core.model.User;
 import static org.junit.Assert.*;
 
 /**
- * Description of the Class
+ * Add user entry tests.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -36,7 +36,7 @@ public class AddUser extends UserBase
 {
 
     /**
-     * Description of the Method
+     * This test case performs add user entry. It optionally also can update, assign role and verify.
      *
      * @param samplerContext Description of the Parameter
      * @return Description of the Return Value
@@ -70,7 +70,7 @@ public class AddUser extends UserBase
                 user.setDescription( "updated: " + user.getUserId() );
                 outUser = adminMgr.updateUser( user );
             }
-            if(StringUtil.isNotEmpty( role ) )
+            if(StringUtils.isNotEmpty( role ) )
             {
                 adminMgr.assignUser( new UserRole( user.getUserId(), role ));
             }

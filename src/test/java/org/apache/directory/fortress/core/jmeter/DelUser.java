@@ -26,7 +26,7 @@ import org.apache.directory.fortress.core.model.User;
 import static org.junit.Assert.*;
 
 /**
- * Description of the Class
+ * Delete user entry tests.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -35,7 +35,7 @@ public class DelUser extends UserBase
     private int ctr = 0;
 
     /**
-     * Description of the Method
+     * This test case deletes a user. It also can perform a duplicate delete (for replication testing) and verifies.
      *
      * @param samplerContext Description of the Parameter
      * @return Description of the Return Value

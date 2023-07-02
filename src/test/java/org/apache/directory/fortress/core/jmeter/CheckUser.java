@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.core.jmeter;
 
-import jodd.util.StringUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
@@ -29,14 +29,14 @@ import org.apache.directory.fortress.core.model.User;
 import static org.junit.Assert.*;
 
 /**
- * Description of the Class
+ * Authentication and authorization tests.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
 public class CheckUser extends UserBase
 {
     /**
-     * Description of the Method
+     * This test can perform authentication and multiple authorization checks.
      *
      * @param samplerContext Description of the Parameter
      * @return Description of the Return Value
@@ -65,7 +65,7 @@ public class CheckUser extends UserBase
                 // perform an ldap 'read':
                 assertTrue( verify( userId, Op.CHECK ) );
             }
-            if(StringUtil.isNotEmpty( perm ) )
+            if(StringUtils.isNotEmpty( perm ) )
             {
                 // The perm property format is: object.operation
                 int indx = perm.indexOf('.');
