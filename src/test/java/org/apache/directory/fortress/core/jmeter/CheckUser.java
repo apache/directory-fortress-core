@@ -43,7 +43,7 @@ public class CheckUser extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
-        String userId  = hostname + '-' + qualifier + '-' + getKey();
+        String userId  = hostname + '-' + qualifier + '-' + getRandomNumber();
         SampleResult sampleResult = new SampleResult();
         try
         {
