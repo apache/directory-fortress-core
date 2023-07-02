@@ -102,8 +102,37 @@ For example:
 
 - This test will start ten threads in ten seconds.  Each thread executes the *createSession* function 1000 times before terminating.
 
+### 5. Set the logging config
+
+For log4j to work in maven jmeter plugin, its config file must be present under src/test/conf.
+
+```bash
+vi src/test/conf/log4j2.xml
+
+# change log levels as needed:
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <File name="file" fileName="fortress-jmeter.log" append="true">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:sss} %-5p %c{1}:%L - %m%n"/>
+        </File>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:sss} %-5p %c{1}:%L - %m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Logger name="org.apache.directory.api" level="info"/>
+        <Logger name="org.apache.directory.fortress.core" level="info"/>
+        <!--<Logger name="rg.apache.directory.fortress.core.jmeter.CheckUser" level="debug"/>-->
+        <Root level="warn">
+            <AppenderRef ref="file"/>
+        </Root>
+    </Loggers>
+</Configuration>
+```
+
 ___________________________________________________________________________________
-### 5. Run the tests
+### 6. Run the tests
 
 From **FORTRESS_HOME** folder, enter the following command from a system prompt:
 
@@ -147,7 +176,7 @@ This test performs createSession on users.  It uses runtime arguments to define 
  - perm=jmeterobject.oper   <-- this is an optional property, will perform permission checks if set
 
 ___________________________________________________________________________________
-### 6. Understanding the tests
+### 7. Understanding the tests
 
 A. Qualifier property.
 
@@ -226,7 +255,7 @@ obj: jmeterobject op oper10
 - These assignments must already exist (loaded via security policy) before running this test.  
 
 ___________________________________________________________________________________
-### 7. Troubleshooting
+### 8. Troubleshooting
 
 - The first place to look is the standard out.
 - The files listed below contain additional info.
@@ -236,10 +265,17 @@ A. View the results
  - target/jmeter/results/[DATE]ftDelUser.jmx.jtl
  - target/jmeter/results/[DATE]ftCheckUser.jtl
 
-B. View the logs
+B. View the jmeter logs
  - target/jmeter/logs/ftAddUser.jmx.log
  - target/jmeter/logs/ftDelUser.jmx.log
  - target/jmeter/logs/ftCheckUser.jmx.log
+   C. View the Log4j logs
+
+if file logging enabled in log4j2.xml:
+* ./target/.../jmeter/bin/fortress-jmeter.log
+
+Otherwise the log4j outputs to console
+
 ____________________________________________________________________________________
  
 #### END OF README

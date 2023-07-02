@@ -55,7 +55,7 @@ public class AddUser extends UserBase
             user.setDescription( "add one: " + user.getUserId() );
             user.setPassword( "secret" );
             user.setOu( ou );
-            write( "threadid: " + getThreadId() + ", userId: " + userId );
+            LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
             User outUser = adminMgr.addUser( user );
             assertNotNull( outUser );
             // This tests replication, ability to handle conflicts:

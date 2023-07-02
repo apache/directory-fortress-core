@@ -807,7 +807,6 @@
                 <hostname>${hostname}</hostname>
                 <qualifier>${qualifier}</qualifier>
                 <verify>${verify}</verify>
-                <output>${output}</output>
                 <sleep>${sleep}</sleep>
                 <size>${size}</size>
                 <perm>${perm}</perm>

@@ -52,7 +52,7 @@ public class CheckUser extends UserBase
             User user = new User();
             user.setUserId( userId );
             user.setPassword( "secret" );
-            write( "threadid: " + getThreadId() + ", userId: " + userId );
+            LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
             if( LOG.isDebugEnabled() )
             {
                 LOG.debug( "CheckUser: " + userId );

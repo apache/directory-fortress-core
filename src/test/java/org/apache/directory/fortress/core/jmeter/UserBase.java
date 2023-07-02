@@ -54,7 +54,6 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     private static AtomicInteger count = new AtomicInteger(0);
     protected String hostname;
     protected String qualifier;
-    private String filename;
     protected boolean verify = false;
     protected boolean output = false;
     protected boolean update = false;
@@ -64,7 +63,6 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     protected int sleep = 0;
     protected int size = 0;
     protected int duplicate = 0;
-    private PrintWriter printWriter;
 
     protected enum Op
     {
@@ -120,7 +118,6 @@ public abstract class UserBase extends AbstractJavaSamplerClient
             warn( "ThreadId: " + getThreadId() + ", error setting up test: " + se );
             se.printStackTrace();
         }
-        open();
     }
 
     private void init( JavaSamplerContext samplerContext )
@@ -205,9 +202,6 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         {
             duplicate = Integer.valueOf(szDuplicate);
         }
-
-        filename = "operations" + '-' + "thread" + getThreadId() + '-' + hostname + '-' + qualifier + ".txt";
-        open();
     }
 
     protected void info(String message )
@@ -246,43 +240,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     {
         String message = "FT TEARDOWN User TID: " + getThreadId();
         info( message );
-        close();
         System.exit(0);
-    }
-
-    private void open()
-    {
-        if( output )
-        {
-            try
-            {
-                FileWriter fileWriter = new FileWriter(filename);
-                printWriter = new PrintWriter(fileWriter);
-            }
-            catch ( IOException ie )
-            {
-                warn( ie.getMessage() );
-            }
-        }
-    }
-
-    private void close()
-    {
-        if( output )
-        {
-            printWriter.close();
-        }
-    }
-
-    protected void write( String message )
-    {
-        if( output )
-        {
-            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-            LocalDateTime now = LocalDateTime.now();
-            printWriter.printf("%s : %s\n", now, message);
-            printWriter.flush();
-        }
     }
 
     protected int getRandomNumber()
