@@ -31,17 +31,12 @@ import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.impl.TestUtils;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Description of the Class
+ * Fortress jmeter base class for common utilities and parameters.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
