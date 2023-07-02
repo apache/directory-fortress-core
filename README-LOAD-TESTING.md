@@ -102,9 +102,9 @@ For example:
 
 - This test will start ten threads in ten seconds.  Each thread executes the *createSession* function 1000 times before terminating.
 
-### 5. Set the logging config
+### 5. Configure Log4j2
 
-For log4j to work in maven jmeter plugin, its config file must be present under src/test/conf.
+For log4j2 to work inside jmeter-maven-plugin, the [log4j2.xml](src/test/conf/log4j2.xml) config file must be present.
 
 ```bash
 vi src/test/conf/log4j2.xml
@@ -123,7 +123,6 @@ vi src/test/conf/log4j2.xml
     <Loggers>
         <Logger name="org.apache.directory.api" level="info"/>
         <Logger name="org.apache.directory.fortress.core" level="info"/>
-        <!--<Logger name="rg.apache.directory.fortress.core.jmeter.CheckUser" level="debug"/>-->
         <Root level="warn">
             <AppenderRef ref="file"/>
         </Root>
@@ -131,6 +130,14 @@ vi src/test/conf/log4j2.xml
 </Configuration>
 ```
 
+Usage Tips:
+- Use course-grained logging and a file appender for application logging.
+- Use the console output for viewing the jmeter test progress. 
+- Use the log files (more later) when the troubleshooting and reporting.
+
+For more info on testing with the jmeter-maven-plugin: 
+- [Basic Configuration](https://github.com/jmeter-maven-plugin/jmeter-maven-plugin/wiki/Basic-Configuration)
+- [Advanced Configuration](https://github.com/jmeter-maven-plugin/jmeter-maven-plugin/wiki/Advanced-Configuration) 
 ___________________________________________________________________________________
 ### 6. Run the tests
 
