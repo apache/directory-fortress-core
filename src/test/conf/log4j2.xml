@@ -30,7 +30,7 @@
     <Loggers>
         <Logger name="org.apache.directory.api" level="info"/>
         <Logger name="org.apache.directory.fortress.core" level="info"/>
-        <!--<Logger name="rg.apache.directory.fortress.core.jmeter.CheckUser" level="debug"/>-->
+        <!--Logger name="org.apache.directory.fortress.core.jmeter" level="debug"/-->
         <Root level="warn">
             <AppenderRef ref="file"/>
         </Root>
