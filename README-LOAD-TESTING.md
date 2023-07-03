@@ -89,7 +89,7 @@ These settings affect the length, duration, and the number of threads:
 
 For example:
 ```xml
-<ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Fortress CreateSession" enabled="true">
+<ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Fortress AddUser" enabled="true">
     ...
     <elementProp name="ThreadGroup.main_controller" ...>
         <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -101,16 +101,13 @@ For example:
 </ThreadGroup>
 ```
 
-- This test will start ten threads in ten seconds.  Each thread executes the *createSession* function 1000 times before terminating.
+- This test starts ten threads in ten seconds. Each thread executes the test case 1000 times before terminating.
 
 ### 5. Configure Log4j2
 
-For log4j2 to work inside jmeter-maven-plugin, the [log4j2.xml](src/test/conf/log4j2.xml) config file must be present.
+The jmeter-maven-plugin log4j config file, [log4j2.xml](src/test/conf/log4j2.xml) must be present in the src/test/conf folder.
 
-```bash
-vi src/test/conf/log4j2.xml
-
-# change log levels as needed:
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
     <Appenders>
@@ -131,12 +128,12 @@ vi src/test/conf/log4j2.xml
 </Configuration>
 ```
 
-Usage Tips:
+Tips:
 - Use course-grained logging and a file appender for application logging.
-- Use the console output for viewing the jmeter test progress. 
-- Use the log files (more later) when the troubleshooting and reporting.
+- Use console output for viewing the jmeter test progress. 
+- Use the jmeter and log4j log files (more later) when troubleshooting and reporting.
 
-For more info on testing with the jmeter-maven-plugin: 
+More info on testing with the jmeter-maven-plugin: 
 - [Basic Configuration](https://github.com/jmeter-maven-plugin/jmeter-maven-plugin/wiki/Basic-Configuration)
 ___________________________________________________________________________________
 ### 6. Run the tests
@@ -147,9 +144,9 @@ The tests run from the command line as a maven profile.
 
 | Name             | Usage                                                 |
 |------------------|-------------------------------------------------------|
-| add users        | mvn verify -Ploadtest -Dtype=ftAddUser [args]               |
-| del users        | mvn verify -Ploadtest -Dtype=ftDelUser [args]               |
-| user check       | mvn verify -Ploadtest -Dtype=ftCheckUser [args]             |
+| add users        | mvn verify -Ploadtest -Dtype=ftAddUser [args]         |
+| del users        | mvn verify -Ploadtest -Dtype=ftDelUser [args]         |
+| user check       | mvn verify -Ploadtest -Dtype=ftCheckUser [args]       |
 
 #### Description of runtime arguments
 
@@ -174,7 +171,7 @@ From **FORTRESS_HOME** folder, enter the following command from a system prompt:
 
 A. Add Users:
  
-- Will add users.  Optionally performs updates and/or role assignments.
+- Adds a batch of users.  Optionally performs updates and/or role assignments on each entry.
  
 ```bash
 mvn verify -Ploadtest -Dtype=ftAddUser -Dqualifier=A1 -Dverify=true -Dsleep=30 -Dupdate=true -Dou=loadtestu -Drole=jmeterrole
@@ -207,7 +204,7 @@ Will perform a createSession.  Optionally reads the entry and/or permission chec
 mvn verify -Ploadtest -Dtype=ftCheckUser -Dqualifier=A1 -Dverify=true -Dsize=20 -Dperm=jmeterobject.oper
 ```
 
-This test performs createSession on users.  It uses runtime arguments to define behavior:
+This test performs createSession and optionally checkAccess on users.  It uses runtime arguments to define behavior:
  - size=20                  <-- defines the number of users in the test set
  - perm=jmeterobject.oper   <-- this is an optional property, will perform permission checks if set
 
