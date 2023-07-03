@@ -154,16 +154,16 @@ The tests run from the command line as a maven profile.
 
 The following may be injected into the runtime either as Java system (-D) command-line arguments and/or jmeter params:
 
-| Name      | Type    | Test                | Jmeter param | Java system prop | Description                                                                                          | Example                   | Default                |
-|-----------| ------- |---------------------|--------------| ---------------- |------------------------------------------------------------------------------------------------------|---------------------------|------------------------|
-| qualifier | String  | all                 | True         | True             | Part of the userid: hostname + qualifier + counter.                                                  | qualifier=A1              | none                   |
-| verify    | Boolean | all                 | True         | True             | e.g. Read after op to verify success.                                                                | verify=true               | false                  |
-| update    | Boolean | ftAddUser           | True         | True             | Edit user's description if set to true.                                                              | update=true               | false                  |
-| sleep     | Integer | all                 | True         | True             | Sleep this many milliseconds after each op.                                                          | sleep=30                  | none (no sleep)        |
-| hostname  | String  | all                 | False        | True             | Useful for distributing the load in a multi-master env. Will override what's in fortress.properties. | hostname=foo              | none                   |
-| duplicate | Integer | ftAddUser/ftDelUser | False        | True             | Duplicate operation after specified interval.                                                        | duplicate=1000            | none (don't duplicate) |
-| size      | Integer | ftCheckUser         | True         | True             | Specifies the number of members in a particular group during checkUser                               | size=1000                 | none                   |
-| ou        | String  | ftAddUser           | True         | True             | The group name used                                                                                  | name=localhost-A1-1       | none                   |
+| Name      | Type    | Test                | Jmeter param | Java system prop | Description                                                                                | Example                   | Default                |
+|-----------| ------- |---------------------|--------------| ---------------- |--------------------------------------------------------------------------------------------|---------------------------|------------------------|
+| qualifier | String  | all                 | True         | True             | Part of the userid: hostname + qualifier + counter.                                        | qualifier=A1              | none                   |
+| verify    | Boolean | all                 | True         | True             | e.g. Read after op to verify success.                                                      | verify=true               | false                  |
+| update    | Boolean | ftAddUser           | True         | True             | Edit user's description if set to true.                                                    | update=true               | false                  |
+| sleep     | Integer | all                 | True         | True             | Sleep this many milliseconds after op.                                                     | sleep=30                  | none (no sleep)        |
+| hostname  | String  | all                 | False        | True             | Useful for distributing the load in a multi-master env. Will override fortress.properties. | hostname=foo              | none                   |
+| duplicate | Integer | ftAddUser/ftDelUser | False        | True             | Duplicate operation after specified interval.                                              | duplicate=1000            | none (don't duplicate) |
+| size      | Integer | ftCheckUser         | True         | True             | Specifies batch size of users. e.g. 1000                                                   | size=1000                 | none                   |
+| ou        | String  | ftAddUser           | True         | True             | The group name used                                                                        | name=localhost-A1-1       | none                   |
 
 * The Java system properties take precedence over jmeter params.
 
