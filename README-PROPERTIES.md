@@ -258,10 +258,10 @@ group.properties=ftProps
 rfc2307=true
 ```
 
-19. Disable OpenLDAP audit operations.  If server type is OpenLDAP *ldap.server.type-slapd*, setting this value to true will disable all auditing operations.  Default is false.
+19. Enable OpenLDAP audit operations.  If server type is OpenLDAP *ldap.server.type-slapd*, true enableds auditing. Default is true.
 
 ```properties
-disable.audit=true
+enable.audit=true
 ```
 
 20. Define delimiter to use for storage of fortress temporal constraints in LDAP.  It is used to delimit fields that are combined into a single attribute, i.e. ftConstraint.

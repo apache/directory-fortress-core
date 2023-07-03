@@ -1754,7 +1754,7 @@ final class UserDAO extends LdapDataProvider implements PropUpdater
             modify( ld, userDn, mods );
 
             // This modify update audit attributes on the User entry (if enabled):
-            if ( entity.getAdminSession() != null && Config.getInstance().isOpenldap() && ! Config.getInstance().isAuditDisabled() )
+            if ( entity.getAdminSession() != null && Config.getInstance().isOpenldap() && Config.getInstance().isAuditEnabled() )
             {
                 mods = new ArrayList<>();
                 modify( ld, userDn, mods, entity );

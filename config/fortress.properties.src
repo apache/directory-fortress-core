@@ -29,7 +29,7 @@ ldap.server.type=@SERVER_TYPE@
 apacheds.pwpolicy.root=ou=passwordPolicies,ads-interceptorId=authenticationInterceptor,ou=interceptors,ads-directoryServiceId=default,ou=config
 
 # Audit only works if ldap.server.type == openldap:
-disable.audit=@IS_AUDIT@
+enable.audit=@IS_AUDIT@
 
 # Used for SSL Connection to LDAP Server:
 enable.ldap.ssl=@ENABLE_LDAP_SSL@

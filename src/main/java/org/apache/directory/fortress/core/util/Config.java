@@ -464,9 +464,9 @@ public final class Config
     {
         return getProperty( "attr.delimiter", "$" );
     }
-    public boolean isAuditDisabled()
+    public boolean isAuditEnabled()
     {
-        return ( ( getProperty( GlobalIds.DISABLE_AUDIT ) != null ) && ( getProperty( GlobalIds.DISABLE_AUDIT ).equalsIgnoreCase( "true" ) ) );
+        return ( ( getProperty( GlobalIds.ENABLE_AUDIT ) == null ) || ( getProperty( GlobalIds.ENABLE_AUDIT ).equalsIgnoreCase( "true" ) ) );
     }
     public boolean isOpenldap()
     {

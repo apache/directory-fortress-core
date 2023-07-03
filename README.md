@@ -371,9 +371,8 @@ user.max.conn=10
  *This step is optional.*
 
 ```properties
-# If you don't have slapo-access log overlay enabled, disable the Fortress audit with this param.
-# 'true' turns it off.  The default is 'false'.
-disable.audit=false
+# If you have openldap accesslog overlay enabled, enable the Fortress audit with this param (default is true).
+enable.audit=true
 
 # This value contains dn of user that has read access to slapd access log database:
 log.root.dn=cn=Manager,${log.suffix}

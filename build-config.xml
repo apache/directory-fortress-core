@@ -370,7 +370,7 @@
          <replace file="${dst.remote.conf}" token="@KEY_STORE@" value="${key.store}"/>
          <replace file="${dst.remote.conf}" token="@KEY_STORE_PW@" value="${key.store.password}"/>
          <replace file="${dst.remote.conf}" token="@SERVER_TYPE@" value="${ldap.server.type}"/>
-         <replace file="${dst.remote.conf}" token="@IS_AUDIT@" value="${disable.audit}"/>
+         <replace file="${dst.remote.conf}" token="@IS_AUDIT@" value="${enable.audit}"/>
          <replace file="${dst.remote.conf}" token="@LDAP_MAX_BATCH_SIZE@" value="${ldap.max.batch.size}"/>
 
          <echo message="###############  Modify fortress load scripts per user settings  ###############"/>

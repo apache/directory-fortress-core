@@ -336,7 +336,7 @@ public class FortressJUnitTest extends TestCase
         /* 5. Audit Checks                                         */
         /***********************************************************/
         //suite.addTest(new AuditMgrImplTest("testSearchAuthNInvalid"));
-        if ( Config.getInstance().isOpenldap() && ! Config.getInstance().isAuditDisabled() )
+        if ( Config.getInstance().isOpenldap() && Config.getInstance().isAuditEnabled() )
         {
             // These tests reliant on OpenLDAP's slapo access log overlay:
             suite.addTest( new AuditMgrImplTest( "testSearchBinds" ) );

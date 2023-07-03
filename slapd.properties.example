@@ -86,8 +86,8 @@ log.max.conn=3
 log.admin.user=cn=manager,${log.suffix}
 log.admin.pw=secret
 
-# Use if ldap.server.type=openldap.  (Default is false):
-disable.audit=false
+# Use if ldap.server.type=openldap and accesslog enabled.  (Default is true):
+enable.audit=true
 audits.dn=cn=log
 
 ########################################################################
