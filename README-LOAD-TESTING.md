@@ -26,9 +26,10 @@ ________________________________________________________________________________
  2. Load the security policy
  3. Find the .jmx files
  4. Setting the jmeter parameters
- 5. Run the tests
- 6. Understanding the tests
- 7. Troubleshooting
+ 5. Configure Log4j2
+ 6. Run the tests
+ 7. Understanding the tests
+ 8. Troubleshooting
 
 ___________________________________________________________________________________
 ### 1. Typical deployment
@@ -87,7 +88,7 @@ These settings affect the length, duration, and the number of threads:
  - **ThreadGroup.ramp_time**: integer value, number of seconds for starting threads.  A rule of thumb, set to same as num_threads.
 
 For example:
-```jmx
+```xml
 <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Fortress CreateSession" enabled="true">
     ...
     <elementProp name="ThreadGroup.main_controller" ...>
