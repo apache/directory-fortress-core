@@ -806,6 +806,8 @@
                 <size>${size}</size>
                 <perm>${perm}</perm>
                 <ou>${ou}</ou>
+                <update>${update}</update>
+                <duplicate>${duplicate}</duplicate>
               </propertiesSystem>
               <jMeterProcessJVMSettings>
                 <xms>1024</xms>
