@@ -258,7 +258,7 @@ group.properties=ftProps
 rfc2307=true
 ```
 
-19. Enable OpenLDAP audit operations.  If server type is OpenLDAP *ldap.server.type-slapd*, true enableds auditing. Default is true.
+19. Enable OpenLDAP audit operations.  If server type is OpenLDAP *ldap.server.type-slapd*, true enables auditing. Default is true.
 
 ```properties
 enable.audit=true
