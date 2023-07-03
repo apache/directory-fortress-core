@@ -94,8 +94,8 @@ crypto.prop=@CFG_CRYPTO_PROP@
 
 ehcache.config.file=ehcache.xml
 
-# Default is false. Set to true to turn off caching of Dynamic Separation of Duty constraints.
-disable.dsd.cache=false
+# False disables caching of Dynamic Separation of Duty constraints (default is true)
+enable.dsd.cache=true
 
 # This will override default LDAP manager implementations for the RESTful ones:
 enable.mgr.impl.rest=@ENABLE_REST@

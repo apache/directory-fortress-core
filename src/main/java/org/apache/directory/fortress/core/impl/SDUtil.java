@@ -55,7 +55,7 @@ final class SDUtil
     private Cache m_ssdCache;
     private static final String FORTRESS_SSDS = "fortress.ssd";
     private SdP sp;
-    private static final String IS_DSD_CACHE_DISABLED_PARM = "disable.dsd.cache";
+    private static final String IS_DSD_CACHE_ENABLED_PARM = "enable.dsd.cache";
     private static final String DSD_NAME = "name";
     private static final String EMPTY_ELEMENT = "empty";
     private static final String CONTEXT_ID = "contextId";
@@ -344,17 +344,14 @@ final class SDUtil
         {
             return dsdRetSets;
         }
-        // Was the DSD Cache switched off?
-        boolean isCacheDisabled = Config.getInstance().getBoolean(IS_DSD_CACHE_DISABLED_PARM, false);
-        // If so, get DSD's from LDAP:
-        if (isCacheDisabled)
+        boolean isCacheEnabled = Config.getInstance().getBoolean(IS_DSD_CACHE_ENABLED_PARM, true);
+        if ( ! isCacheEnabled )
         {
             SDSet sdSet = new SDSet();
             sdSet.setType(SDSet.SDType.DYNAMIC);
             sdSet.setContextId(contextId);
             dsdRetSets = sp.search(authorizedRoleSet, sdSet);
         }
-        // Search the DSD cache for matching Role members:
         else
         {
             // Search on roleName attribute which maps to 'member' attr on the cache record:
