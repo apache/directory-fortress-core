@@ -77,10 +77,13 @@ B. Del User:
 C. Check User:
  - [src/test/jmeter/ftCheckUser.jmx](src/test/jmeter/ftCheckUser.jmx)
 
-D. Bind User:
+D. Create Session:
+- [src/test/jmeter/ftCreateSession.jmx](src/test/jmeter/ftCreateSession.jmx)
+
+E. Bind User:
  - [src/test/jmeter/ftBindUser.jmx](src/test/jmeter/ftBindUser.jmx)
 
-E. Check Access:
+F. Check Access:
  - [src/test/jmeter/ftCheckAccess.jmx](src/test/jmeter/ftCheckAccess.jmx)
 
 ___________________________________________________________________________________
@@ -148,13 +151,14 @@ ________________________________________________________________________________
 
 The tests run from the command line as a maven profile.
 
-| Name          | Usage                                              |
-|---------------|----------------------------------------------------|
-| add users     | mvn verify -Ploadtest -Dtype=ftAddUser [args]      |
-| del users     | mvn verify -Ploadtest -Dtype=ftDelUser [args]      |
-| user check    | mvn verify -Ploadtest -Dtype=ftCheckUser [args]    |
-| bind user     | mvn verify -Ploadtest -Dtype=ftBindUser [args]     |
-| check access  | mvn verify -Ploadtest -Dtype=ftCheckAccess  [args] |
+| Name           | Usage                                               |
+|----------------|-----------------------------------------------------|
+| add users      | mvn verify -Ploadtest -Dtype=ftAddUser [args]       |
+| del users      | mvn verify -Ploadtest -Dtype=ftDelUser [args]       |
+| user check     | mvn verify -Ploadtest -Dtype=ftCheckUser [args]     |
+| create session | mvn verify -Ploadtest -Dtype=ftCreateSession [args] |
+| bind user      | mvn verify -Ploadtest -Dtype=ftBindUser [args]      |
+| check access   | mvn verify -Ploadtest -Dtype=ftCheckAccess  [args]  |
 
 #### Description of runtime arguments
 
@@ -216,7 +220,15 @@ This test performs createSession and optionally checkAccess on users.  It uses r
  - perm=jmeterobject.oper   <-- this is an optional property, will perform permission checks if set
  - batchsize=10000          <-- we have 10000 users in our batch
 
-D. Check Permissions:
+D. Create Session:
+ 
+Only createSession.
+
+```bash
+mvn verify -Ploadtest -Dtype=ftCreateSession -Dqualifier=A1 -Dbatchsize=10000
+```
+
+E. Check Permissions:
  
 Will perform a createSession and one permission check.
 
@@ -224,7 +236,15 @@ Will perform a createSession and one permission check.
 mvn verify -Ploadtest -Dtype=ftCreateSessionCheckPerm -Dqualifier=A1 -Dperm=jmeterobject.oper -Dbatchsize=10000
 ```
 
-This test performs createSession and one permission check. 
+This test performs one createSession and one permission check. 
+
+F. Bind User:
+
+Only bindUser.
+
+```bash
+mvn verify -Ploadtest -Dtype=ftBindUser -Dqualifier=A1 -Dbatchsize=10000
+```
 
 ___________________________________________________________________________________
 ### 7. Understanding the tests
