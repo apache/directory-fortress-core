@@ -22,6 +22,7 @@ package org.apache.directory.fortress.core.jmeter;
 import org.apache.commons.lang.StringUtils;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
+import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
@@ -279,5 +280,23 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     {
         int number = (int) ((Math.random() * (size - 1)) + 1);
         return number;
+    }
+
+    protected Permission getPermission( )
+    {
+        return getPermission( getRandomNumber( TOTAL_NUMBER_OF_PERMISSIONS ) );
+    }
+    protected Permission getPermission( int number )
+    {
+        Permission p = null;
+        // The perm property format is: object.operation
+        int indx = perm.indexOf('.');
+        if (indx != -1)
+        {
+            p = new Permission( );
+            p.setObjName( perm.substring(0, indx) );
+            p.setOpName( perm.substring( indx + 1 ) + number );
+        }
+        return p;
     }
 }

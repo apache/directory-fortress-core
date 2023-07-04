@@ -49,6 +49,7 @@ public class AddUser extends UserBase
         {
             sampleResult.sampleStart();
             assertNotNull( adminMgr );
+            assertNotNull( "ou operand not setup", ou );
             User user = new User();
             user.setUserId( userId );
             user.setDescription( "add one: " + user.getUserId() );

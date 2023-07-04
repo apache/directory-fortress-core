@@ -63,18 +63,12 @@ public class CheckUser extends UserBase
             }
             if(StringUtils.isNotEmpty( perm ) )
             {
-                // The perm property format is: object.operation
-                int indx = perm.indexOf('.');
-                if (indx != -1)
+                for( int i = 1; i <= TOTAL_NUMBER_OF_PERMISSIONS; i++ )
                 {
-                    Permission p = new Permission( );
-                    p.setObjName( perm.substring(0, indx) );
-                    for( int i = 1; i <= TOTAL_NUMBER_OF_PERMISSIONS; i++ )
-                    {
-                        p.setOpName( perm.substring( indx + 1 ) + i );
-                        // This method performs an ldap 'read':
-                        assertTrue( "failed test uid: " + userId + ", perm obj: "+ p.getObjName() + ", op: " + p.getOpName(), accessMgr.checkAccess( session, p ) );
-                    }
+                    Permission p = getPermission( i );
+                    assertNotNull("perm operand not setup", p);
+                    // This method performs an ldap 'read':
+                    assertTrue( "failed test uid: " + userId + ", perm obj: "+ p.getObjName() + ", op: " + p.getOpName(), accessMgr.checkAccess( session, p ) );
                 }
             }
             sleep();

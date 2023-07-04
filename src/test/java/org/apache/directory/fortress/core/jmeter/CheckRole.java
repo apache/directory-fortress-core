@@ -47,6 +47,7 @@ public class CheckRole extends UserBase
         {
             sampleResult.sampleStart();
             assertNotNull( accessMgr );
+            assertNotNull( "role operand not setup", role );
             User user = new User();
             user.setUserId( userId );
             user.setPassword( "secret" );

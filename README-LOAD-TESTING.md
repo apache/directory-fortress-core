@@ -168,16 +168,18 @@ The tests run from the command line as a maven profile.
 
 The following may be injected into the runtime either as Java system (-D) command-line arguments and/or jmeter params:
 
-| Name      | Type    | Test                      | Jmeter param | Java system prop | Description                                                                                | Example                   | Default                |
-|-----------| ------- |---------------------------|--------------| ---------------- |--------------------------------------------------------------------------------------------|---------------------------|------------------------|
-| qualifier | String  | all                       | True         | True             | Part of the userid: hostname + qualifier + counter.                                        | qualifier=A1              | none                   |
-| verify    | Boolean | all                       | True         | True             | e.g. Read after op to verify success.                                                      | verify=true               | false                  |
-| update    | Boolean | ftAddUser                 | True         | True             | Edit user's description if set to true.                                                    | update=true               | false                  |
-| sleep     | Integer | all                       | True         | True             | Sleep this many milliseconds after op.                                                     | sleep=30                  | none (no sleep)        |
-| hostname  | String  | all                       | False        | True             | Useful for distributing the load in a multi-master env. Will override fortress.properties. | hostname=foo              | none                   |
-| duplicate | Integer | ftAddUser,ftDelUser       | False        | True             | Duplicate operation after specified interval.                                              | duplicate=1000            | none (don't duplicate) |
-| batchsize | Integer | ftCheckuser,ftCheckAccess | True         | True             | Set the number of users in sample size to iterate over.                                    | batchsize=1000            | 10                     |
-| ou        | String  | ftAddUser                 | True         | True             | The group name used                                                                        | name=localhost-A1-1       | none                   |
+| Name      | Type    | Test                       | Jmeter param | Java system prop | Description                                                                                | Example                | Default                |
+|-----------| ------- |----------------------------|--------------| ---------------- |--------------------------------------------------------------------------------------------|------------------------|------------------------|
+| qualifier | String  | all                        | True         | True             | Part of the userid: hostname + qualifier + counter.                                        | qualifier=A1           | none                   |
+| verify    | Boolean | all                        | True         | True             | e.g. Read after op to verify success.                                                      | verify=true            | false                  |
+| update    | Boolean | ftAddUser                  | True         | True             | Edit user's description if set to true.                                                    | update=true            | false                  |
+| sleep     | Integer | all                        | True         | True             | Sleep this many milliseconds after op.                                                     | sleep=30               | none (no sleep)        |
+| hostname  | String  | all                        | False        | True             | Useful for distributing the load in a multi-master env. Will override fortress.properties. | hostname=foo           | none                   |
+| duplicate | Integer | ftAddUser,ftDelUser        | False        | True             | Duplicate operation after specified interval.                                              | duplicate=1000         | none (don't duplicate) |
+| batchsize | Integer | ftCheckuser,ftCheckAccess  | True         | True             | Set the number of users in sample size to iterate over.                                    | batchsize=1000         | 10                     |
+| ou        | String  | ftAddUser                  | True         | True             | The group name used                                                                        | name=localhost-A1-1    | none                   |
+| role      | String  | ftAddUser,ftCheckRole      | True         | True             | The role name used                                                                         | role=jmeterrole        | none                   |
+| perm      | String  | ftCheckUser,ftCheckAccess  | True         | True             | Required format is objectName.operationName                                                | perm=jmeterobject.oper | none                   |
 
 * The Java system properties take precedence over jmeter params.
 
@@ -200,7 +202,7 @@ This test adds users.  It uses runtime arguments to define behavior:
  - sleep=30         <-- sleep this many milliseconds between ops 
  - ou=loadtestu     <-- required attribute on user and must exist in user ou tree prior to test 
  - role=jmeterrole  <-- optional attribute on user 
-- hostname=foo     <-- optional override to fortress.properties. For distributing load across servers in a multi-provider env.
+ - hostname=foo     <-- optional override to fortress.properties. For distributing load across servers in a multi-provider env.
 
 - All but hostname may also be set as properties in [add config](src/test/jmeter/ftAddUser.jmx) or [del config](src/test/jmeter/ftDelUser.jmx) files.
 
@@ -221,7 +223,7 @@ mvn verify -Ploadtest -Dtype=ftCheckUser -Dqualifier=A1 -Dverify=true -Dperm=jme
 ```
 
 This test performs createSession and optionally checkAccess on users.  It uses runtime arguments to define behavior:
- - perm=jmeterobject.oper   <-- this is an optional property, will perform permission checks if set
+ - perm=jmeterobject.oper   <-- optional, performs permission checks if set. Format is objectName.operationName.
  - batchsize=10000          <-- we have 10000 users in our batch
 
 D. Create Session:
@@ -239,6 +241,8 @@ Will perform a createSession and one permission check.
 ```bash
 mvn verify -Ploadtest -Dtype=ftCheckAccess -Dqualifier=A1 -Dperm=jmeterobject.oper -Dbatchsize=10000
 ```
+This test performs createSession and checkAccess on users.  It uses runtime arguments to define behavior:
+- perm=jmeterobject.oper   <-- This is required. Format: objectName.operationName.
 
 F. Bind User:
 
@@ -315,16 +319,23 @@ D. Role
 mvn verify -Ploadtest -Dtype=ftAddUser -Dqualifier=A1 -Drole=jmeterrole
 ```
 
+- Tests that call checkAccess method (CheckUser, CheckAccess) will fail if role has not been assigned.
+- Tests that call isUserInRole method (CheckRole) will fail if not assigned.
+
 E. Perm
 
-- This applies only to the CheckUser test.  If set, it will be used as permission in checkAccess call 10 times.  For example:
+- This param is optional in CheckUser and required in CheckAccess.  
 
 ```bash
+# will call checkAccess 10 times (if set) per test iteration:
+mvn verify -Ploadtest -Dtype=ftCheckUser -Dperm=jmeterobject.oper -Dbatchsize=10000
+# calls checkAccess once per test:
 mvn verify -Ploadtest -Dtype=ftCheckAccess -Dperm=jmeterobject.oper -Dbatchsize=10000
 ```
 
-- Calls checkAccess repeatedly with a set of 10K users:
-- These permissions must already exist (loaded via security policy) before running this test.  
+- These permissions must already exist (loaded via security policy) before running this test.
+- CheckUser will iterate over 10 perms, e.g. jmeter.oper1, jmeter.oper2, jmeter.oper3, ... jmeter.oper10
+- CheckUser picks a random number between 1 and 10 and uses that.
 
 ___________________________________________________________________________________
 ### 8. Troubleshooting

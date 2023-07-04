@@ -67,18 +67,4 @@ public class CheckAccess extends UserBase
 
         return sampleResult;
     }
-
-    private Permission getPermission()
-    {
-        Permission p = null;
-        // The perm property format is: object.operation
-        int indx = perm.indexOf('.');
-        if (indx != -1)
-        {
-            p = new Permission( );
-            p.setObjName( perm.substring(0, indx) );
-            p.setOpName( perm.substring( indx + 1 ) + getRandomNumber( TOTAL_NUMBER_OF_PERMISSIONS ) );
-        }
-        return p;
-    }
 }
