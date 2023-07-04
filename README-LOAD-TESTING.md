@@ -378,5 +378,30 @@ Sample error
 [INFO] Shutdown detected, destroying JMeter process...
 ```
 ____________________________________________________________________________________
+
+##### C. jmeter tests hang
+
+Observation: 
+When running tests that consume lots of memory, e.g. using many threads and/or enabling REST, the process hangs.
+Jmeter and log4j logs stop outputing. The machine's otherwise unaffected. LDAP and/or HTTP servers are responsive.
+Root Cause:
+Most likely jmeter has run out of memory. Unfortunately, when this happens, 
+an error is not reported. The process hangs and stops responding.
+
+Remedy:
+Edit the project's pom.mxl. Goto the loadtest profile. Increase the memory allocation, e.g. 2048 (2GB):
+```xml
+<profile>
+   <id>loadtest</id>
+   <build>
+    ...
+      <jMeterProcessJVMSettings>
+         <xms>2048</xms>
+         <xmx>2048</xmx>
+      </jMeterProcessJVMSettings>
+    ...
+   </build>
+</profile>
+```
  
 #### END OF README
