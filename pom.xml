@@ -803,7 +803,7 @@
                 <qualifier>${qualifier}</qualifier>
                 <verify>${verify}</verify>
                 <sleep>${sleep}</sleep>
-                <size>${size}</size>
+                <batchsize>${batchsize}</batchsize>
                 <perm>${perm}</perm>
                 <ou>${ou}</ou>
                 <update>${update}</update>

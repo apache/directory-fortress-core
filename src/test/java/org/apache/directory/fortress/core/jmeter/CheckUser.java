@@ -43,9 +43,7 @@ public class CheckUser extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
-        int count = getKey();
-        String userId  = hostname + '-' + qualifier + '-' + count;
-
+        String userId  = hostname + '-' + qualifier + '-' + getKey( Op.CHECK );
         SampleResult sampleResult = new SampleResult();
         try
         {
@@ -75,11 +73,11 @@ public class CheckUser extends UserBase
                 {
                     Permission p = new Permission( );
                     p.setObjName( perm.substring(0, indx) );
-                    for( int i = 1; i < 11; i++ )
+                    for( int i = 1; i <= TOTAL_NUMBER_OF_PERMISSIONS; i++ )
                     {
                         p.setOpName( perm.substring( indx + 1 ) + i );
                         // This method performs an ldap 'read':
-                        accessMgr.checkAccess( session, p );
+                        assertTrue( accessMgr.checkAccess( session, p ) );
                     }
                 }
             }

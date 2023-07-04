@@ -42,7 +42,7 @@ public class AddUser extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
-        int count = getKey();
+        int count = getKey( Op.ADD );
         String userId  = hostname + '-' + qualifier + '-' + count;
         SampleResult sampleResult = new SampleResult();
         try

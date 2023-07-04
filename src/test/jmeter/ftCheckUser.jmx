@@ -44,8 +44,7 @@
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
-
-          <stringProp name="LoopController.loops">1000</stringProp>
+          <stringProp name="LoopController.loops">10000</stringProp>
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">10</stringProp>
         <stringProp name="ThreadGroup.ramp_time">10</stringProp>
@@ -67,30 +66,20 @@
                 <stringProp name="Argument.value">true</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
-              <elementProp name="output" elementType="Argument">
-                <stringProp name="Argument.name">output</stringProp>
-                <stringProp name="Argument.value">false</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-              <elementProp name="update" elementType="Argument">
-                <stringProp name="Argument.name">update</stringProp>
-                <stringProp name="Argument.value">true</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-              <elementProp name="sleep" elementType="Argument">
-                <stringProp name="Argument.name">sleep</stringProp>
-                <stringProp name="Argument.value">0</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
-              <elementProp name="size" elementType="Argument">
-                <stringProp name="Argument.name">size</stringProp>
-                <stringProp name="Argument.value">20</stringProp>
+              <elementProp name="batchsize" elementType="Argument">
+                <stringProp name="Argument.name">batchsize</stringProp>
+                <stringProp name="Argument.value">10000</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
               <elementProp name="perm" elementType="Argument">
                 <stringProp name="Argument.name">perm</stringProp>
                 <!-- Use one from JmeterTestPolicy.xml -->
                 <stringProp name="Argument.value">jmeterobject.oper</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="sleep" elementType="Argument">
+                <stringProp name="Argument.name">sleep</stringProp>
+                <stringProp name="Argument.value">0</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>

@@ -19,6 +19,8 @@
  */
 package org.apache.directory.fortress.core.jmeter;
 
+import org.apache.directory.fortress.core.model.Permission;
+import org.apache.directory.fortress.core.model.Session;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.directory.fortress.core.model.User;
@@ -26,41 +28,29 @@ import org.apache.directory.fortress.core.model.User;
 import static org.junit.Assert.*;
 
 /**
- * Delete user entry tests.
+ * Authentication test.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class DelUser extends UserBase
+public class BindUser extends UserBase
 {
     /**
-     * This test case deletes a user. It also can perform a duplicate delete (for replication testing) and verifies.
+     * This performs bindUser API
      *
      * @param samplerContext Description of the Parameter
      * @return Description of the Return Value
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
-        int count = getKey( Op.ADD );
-        String userId  = hostname + '-' + qualifier + '-' + count;
+        String userId  = hostname + '-' + qualifier + '-' + getKey( Op.CHECK );
         SampleResult sampleResult = new SampleResult();
         try
         {
             sampleResult.sampleStart();
-            assertNotNull( adminMgr );
-            User user = new User();
-            user.setUserId( userId );
+            assertNotNull( accessMgr );
             LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
-            adminMgr.deleteUser( user );
-            // This tests replication, ability to handle conflicts:
-            if ( duplicate > 0 && count > duplicate && ( count % duplicate ) == 0 )
-            {
-                warn( "DUPLICATE DEL[" + count + "]: " + user.getUserId() );
-                adminMgr.deleteUser( user );
-            }
-            if ( verify )
-            {
-                assertFalse( verify( userId, Op.DEL ) );
-            }
+            Session session = accessMgr.authenticate( userId, "secret" );
+            assertNotNull( session );
             if( sleep > 0 )
             {
                 try
@@ -83,6 +73,7 @@ public class DelUser extends UserBase
             se.printStackTrace();
             sampleResult.setSuccessful( false );
         }
+
         return sampleResult;
     }
 }

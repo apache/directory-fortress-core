@@ -77,6 +77,12 @@ B. Del User:
 C. Check User:
  - [src/test/jmeter/ftCheckUser.jmx](src/test/jmeter/ftCheckUser.jmx)
 
+D. Bind User:
+ - [src/test/jmeter/ftBindUser.jmx](src/test/jmeter/ftBindUser.jmx)
+
+E. Check Access:
+ - [src/test/jmeter/ftCheckAccess.jmx](src/test/jmeter/ftCheckAccess.jmx)
+
 ___________________________________________________________________________________
 ### 4. Setting the jmeter parameters
 
@@ -142,25 +148,28 @@ ________________________________________________________________________________
 
 The tests run from the command line as a maven profile.
 
-| Name             | Usage                                                 |
-|------------------|-------------------------------------------------------|
-| add users        | mvn verify -Ploadtest -Dtype=ftAddUser [args]         |
-| del users        | mvn verify -Ploadtest -Dtype=ftDelUser [args]         |
-| user check       | mvn verify -Ploadtest -Dtype=ftCheckUser [args]       |
+| Name          | Usage                                              |
+|---------------|----------------------------------------------------|
+| add users     | mvn verify -Ploadtest -Dtype=ftAddUser [args]      |
+| del users     | mvn verify -Ploadtest -Dtype=ftDelUser [args]      |
+| user check    | mvn verify -Ploadtest -Dtype=ftCheckUser [args]    |
+| bind user     | mvn verify -Ploadtest -Dtype=ftBindUser [args]     |
+| check access  | mvn verify -Ploadtest -Dtype=ftCheckAccess  [args] |
 
 #### Description of runtime arguments
 
 The following may be injected into the runtime either as Java system (-D) command-line arguments and/or jmeter params:
 
-| Name      | Type    | Test                | Jmeter param | Java system prop | Description                                                                                | Example                   | Default                |
-|-----------| ------- |---------------------|--------------| ---------------- |--------------------------------------------------------------------------------------------|---------------------------|------------------------|
-| qualifier | String  | all                 | True         | True             | Part of the userid: hostname + qualifier + counter.                                        | qualifier=A1              | none                   |
-| verify    | Boolean | all                 | True         | True             | e.g. Read after op to verify success.                                                      | verify=true               | false                  |
-| update    | Boolean | ftAddUser           | True         | True             | Edit user's description if set to true.                                                    | update=true               | false                  |
-| sleep     | Integer | all                 | True         | True             | Sleep this many milliseconds after op.                                                     | sleep=30                  | none (no sleep)        |
-| hostname  | String  | all                 | False        | True             | Useful for distributing the load in a multi-master env. Will override fortress.properties. | hostname=foo              | none                   |
-| duplicate | Integer | ftAddUser/ftDelUser | False        | True             | Duplicate operation after specified interval.                                              | duplicate=1000            | none (don't duplicate) |
-| ou        | String  | ftAddUser           | True         | True             | The group name used                                                                        | name=localhost-A1-1       | none                   |
+| Name      | Type    | Test                      | Jmeter param | Java system prop | Description                                                                                | Example                   | Default                |
+|-----------| ------- |---------------------------|--------------| ---------------- |--------------------------------------------------------------------------------------------|---------------------------|------------------------|
+| qualifier | String  | all                       | True         | True             | Part of the userid: hostname + qualifier + counter.                                        | qualifier=A1              | none                   |
+| verify    | Boolean | all                       | True         | True             | e.g. Read after op to verify success.                                                      | verify=true               | false                  |
+| update    | Boolean | ftAddUser                 | True         | True             | Edit user's description if set to true.                                                    | update=true               | false                  |
+| sleep     | Integer | all                       | True         | True             | Sleep this many milliseconds after op.                                                     | sleep=30                  | none (no sleep)        |
+| hostname  | String  | all                       | False        | True             | Useful for distributing the load in a multi-master env. Will override fortress.properties. | hostname=foo              | none                   |
+| duplicate | Integer | ftAddUser/ftDelUser       | False        | True             | Duplicate operation after specified interval.                                              | duplicate=1000            | none (don't duplicate) |
+| batchsize | Integer | ftCheckuser/ftCheckAccess | True         | True             | Set the number of users in sample size to iterate over.                                    | batchsize=1000            | 10                     |
+| ou        | String  | ftAddUser                 | True         | True             | The group name used                                                                        | name=localhost-A1-1       | none                   |
 
 * The Java system properties take precedence over jmeter params.
 
@@ -205,6 +214,16 @@ mvn verify -Ploadtest -Dtype=ftCheckUser -Dqualifier=A1 -Dverify=true -Dperm=jme
 
 This test performs createSession and optionally checkAccess on users.  It uses runtime arguments to define behavior:
  - perm=jmeterobject.oper   <-- this is an optional property, will perform permission checks if set
+
+D. Check Permissions:
+ 
+Will perform a createSession and one permission check.
+
+```bash
+mvn verify -Ploadtest -Dtype=ftCreateSessionCheckPerm -Dqualifier=A1 -Dperm=jmeterobject.oper
+```
+
+This test performs createSession and one permission check. 
 
 ___________________________________________________________________________________
 ### 7. Understanding the tests

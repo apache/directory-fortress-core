@@ -66,7 +66,10 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     // between tests
     protected int sleep = 0;
     // used for replication tests
+    // size of test user set
+    protected int batchsize = 10;
     protected int duplicate = 0;
+    protected static int TOTAL_NUMBER_OF_PERMISSIONS = 10;
 
     protected enum Op
     {
@@ -115,7 +118,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     public void setupTest( JavaSamplerContext samplerContext )
     {
         init( samplerContext );
-        String message = "FT SETUP User TID: " + getThreadId() + ", hostname: " + hostname + ", qualifier: " + qualifier + ", verify: " + verify + ", sleep: " + sleep + ", duplicate: " + duplicate + ", role: " + role;
+        String message = "FT SETUP User TID: " + getThreadId() + ", hostname: " + hostname + ", qualifier: " + qualifier + ", verify: " + verify + ", sleep: " + sleep + ", duplicate: " + duplicate + ", role: " + role + ", batchsize: " + batchsize;
         info( message );
         try
         {
@@ -165,20 +168,20 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         String szVerify = System.getProperty( "verify" );
         if (StringUtils.isEmpty( szVerify ))
         {
-            verify = samplerContext.getParameter( "verify" ).equalsIgnoreCase( "true" );
+            szVerify = samplerContext.getParameter( "verify" );
         }
-        else
+        if ( szVerify != null && szVerify.equalsIgnoreCase( "true" ))
         {
-            verify = szVerify.equalsIgnoreCase( "true" );
+            verify = true;
         }
         String szUpdate = System.getProperty( "update" );
         if (StringUtils.isEmpty( szUpdate ))
         {
-            update = samplerContext.getParameter( "update" ).equalsIgnoreCase( "true" );
+            szUpdate = samplerContext.getParameter("update");
         }
-        else
+        if ( szUpdate != null && szUpdate.equalsIgnoreCase( "true" ))
         {
-            update = szVerify.equalsIgnoreCase( "true" );
+            update = true;
         }
         String szSleep = System.getProperty( "sleep" );
         if (StringUtils.isEmpty( szSleep ))
@@ -188,6 +191,15 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         if (!StringUtils.isEmpty( szSleep ))
         {
             sleep = Integer.valueOf( szSleep );
+        }
+        String szSize = System.getProperty( "batchsize" );
+        if (StringUtils.isEmpty( szSize ))
+        {
+            szSize = samplerContext.getParameter( "batchsize" );
+        }
+        if (!StringUtils.isEmpty( szSize ))
+        {
+            batchsize = Integer.valueOf(szSize);
         }
         String szDuplicate = System.getProperty( "duplicate" );
         if (!StringUtils.isEmpty( szDuplicate ))
@@ -209,11 +221,16 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     }
 
     /**
+     * This counter is used to gen userId. The check operation max size is constrained by the batchsize.
      *
      * @return
      */
-    protected int getKey( )
+    protected int getKey( Op op )
     {
+        if( op == Op.CHECK )
+        {
+            count.compareAndSet( batchsize, 0);
+        }
         return count.incrementAndGet();
     }
 
@@ -232,5 +249,11 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         String message = "FT TEARDOWN User TID: " + getThreadId();
         info( message );
         System.exit(0);
+    }
+
+    protected int getRandomNumber( int size )
+    {
+        int number = (int) ((Math.random() * (size - 1)) + 1);
+        return number;
     }
 }
