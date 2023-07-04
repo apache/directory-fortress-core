@@ -66,9 +66,9 @@ public class CheckUser extends UserBase
                 for( int i = 1; i <= TOTAL_NUMBER_OF_PERMISSIONS; i++ )
                 {
                     Permission p = getPermission( i );
-                    assertNotNull("perm operand not setup", p);
-                    // This method performs an ldap 'read':
-                    assertTrue( "failed test uid: " + userId + ", perm obj: "+ p.getObjName() + ", op: " + p.getOpName(), accessMgr.checkAccess( session, p ) );
+                    assertTrue(
+                            "failed test uid: " + userId + ", perm obj: "+ p.getObjName() + ", op: " + p.getOpName(),
+                            accessMgr.checkAccess( session, p ) );
                 }
             }
             sleep();

@@ -34,7 +34,7 @@ import static org.junit.Assert.*;
 public class CheckAccess extends UserBase
 {
     /**
-     * This performs createSession and checkAccess API
+     * This performs createSession and checkAccess in one API call
      *
      * @param samplerContext Description of the Parameter
      * @return Description of the Return Value
@@ -52,9 +52,9 @@ public class CheckAccess extends UserBase
             user.setPassword( "secret" );
             LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
             Permission p = getPermission();
-            assertNotNull("perm operand not setup", p);
-            // This does both createSession and checkAccess:
-            assertTrue( "failed test uid: " + userId + ", perm obj: " + p.getObjName() + ", op: " + p.getOpName(), accessMgr.checkAccess( user, p, false ) );
+            assertTrue(
+                    "failed test uid: " + userId + ", perm obj: " + p.getObjName() + ", op: " + p.getOpName(),
+                    accessMgr.checkAccess( user, p, false ) );
             sleep();
             wrapup( sampleResult, userId );
         }

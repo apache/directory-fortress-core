@@ -34,7 +34,7 @@ import static org.junit.Assert.*;
 public class CheckRole extends UserBase
 {
     /**
-     * This performs createSession and checkAccess API
+     * This performs createSession and isUserInRole in one API call
      *
      * @param samplerContext Description of the Parameter
      * @return Description of the Return Value
@@ -52,7 +52,9 @@ public class CheckRole extends UserBase
             user.setUserId( userId );
             user.setPassword( "secret" );
             LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
-            assertTrue( "failed uid:" + userId + ", role: " + role, accessMgr.isUserInRole( user, new Role( role ), false ) );
+            assertTrue(
+                    "failed uid:" + userId + ", role: " + role,
+                    accessMgr.isUserInRole( user, new Role( role ), false ) );
             sleep();
             wrapup( sampleResult, userId );
         }

@@ -36,6 +36,7 @@ import org.apache.directory.fortress.core.impl.TestUtils;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 /**
  * Fortress jmeter base class for common utilities and parameters.
@@ -288,6 +289,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     }
     protected Permission getPermission( int number )
     {
+        assertNotNull("perm operand not setup", perm );
         Permission p = null;
         // The perm property format is: object.operation
         int indx = perm.indexOf('.');
@@ -296,6 +298,10 @@ public abstract class UserBase extends AbstractJavaSamplerClient
             p = new Permission( );
             p.setObjName( perm.substring(0, indx) );
             p.setOpName( perm.substring( indx + 1 ) + number );
+        }
+        else
+        {
+            fail( "perm operand must be objectName.operationName: " + perm );
         }
         return p;
     }
