@@ -65,8 +65,6 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     protected String ou = null;
     // between tests
     protected int sleep = 0;
-    // size of test set
-    protected int size = 0;
     // used for replication tests
     protected int duplicate = 0;
 
@@ -191,15 +189,6 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         {
             sleep = Integer.valueOf( szSleep );
         }
-        String szSize = System.getProperty( "size" );
-        if (StringUtils.isEmpty( szSize ))
-        {
-            szSize = samplerContext.getParameter( "size" );
-        }
-        if (!StringUtils.isEmpty( szSize ))
-        {
-            size = Integer.valueOf(szSize);
-        }
         String szDuplicate = System.getProperty( "duplicate" );
         if (!StringUtils.isEmpty( szDuplicate ))
         {
@@ -243,11 +232,5 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         String message = "FT TEARDOWN User TID: " + getThreadId();
         info( message );
         System.exit(0);
-    }
-
-    protected int getRandomNumber()
-    {
-        int number = (int) ((Math.random() * (size - 1)) + 1);
-        return number;
     }
 }
