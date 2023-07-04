@@ -24,7 +24,7 @@ ________________________________________________________________________________
 
  1. Typical deployment
  2. Load the security policy
- 3. Find the .jmx files
+ 3. Find the Jmeter config files
  4. Setting the jmeter parameters
  5. Configure Log4j2
  6. Run the tests
@@ -64,7 +64,7 @@ mvn install -Dload.file=./ldap/setup/JmeterTestPolicy.xml
 - Loads a test security policy used in the subsequent jmeter test cases. For example, the test users may be assigned a particular role that's provisioned here.
 
 ___________________________________________________________________________________
-### 3. Find the .jmx files
+### 3. Find the Jmeter config files
 
 - These metadata files contain parameters that correspond with each test case.
 
@@ -168,21 +168,21 @@ The tests run from the command line as a maven profile.
 
 The following may be injected into the runtime either as Java system (-D) command-line arguments and/or jmeter params:
 
-| Name      | Type    | Test                      | Jmeter param | Java system prop | Description                                                                                | Example                | Default                |
-|-----------| ------- |---------------------------|--------------| ---------------- |--------------------------------------------------------------------------------------------|------------------------|------------------------|
-| qualifier | String  | all                       | True         | True             | Part of the userid: hostname + qualifier + counter.                                        | qualifier=A1           | none                   |
-| verify    | Boolean | all                       | True         | True             | e.g. Read after op to verify success.                                                      | verify=true            | false                  |
-| update    | Boolean | ftAddUser                 | True         | True             | Edit user's description if set to true.                                                    | update=true            | false                  |
-| sleep     | Integer | all                       | True         | True             | Sleep this many milliseconds after op.                                                     | sleep=30               | none (no sleep)        |
-| hostname  | String  | all                       | False        | True             | Useful for distributing the load in a multi-master env. Will override fortress.properties. | hostname=foo           | none                   |
-| duplicate | Integer | ftAddUser,ftDelUser       | False        | True             | Duplicate operation after specified interval.                                              | duplicate=1000         | none (don't duplicate) |
-| batchsize | Integer | ftCheckuser,ftCheckAccess | True         | True             | Set the number of users in sample size to iterate over.                                    | batchsize=1000         | 10                     |
-| ou        | String  | ftAddUser                 | True         | True             | The group name used                                                                        | name=localhost-A1-1    | none                   |
-| role      | String  | ftAddUser,ftCheckRole     | True         | True             | The role name used                                                                         | role=jmeterrole        | none                   |
+| Name      | Type    | Test                    | Jmeter param | Java system prop | Description                                                                                | Example                | Default                |
+|-----------| ------- |-------------------------|--------------| ---------------- |--------------------------------------------------------------------------------------------|------------------------|------------------------|
+| qualifier | String  | all                     | True         | True             | Part of the userid: hostname + qualifier + counter.                                        | qualifier=A1           | none                   |
+| verify    | Boolean | ftAddUser,ftDelUser     | True         | True             | e.g. Read after op to verify success.                                                      | verify=true            | false                  |
+| update    | Boolean | ftAddUser               | True         | True             | Edit user's description if set to true.                                                    | update=true            | false                  |
+| sleep     | Integer | all                     | True         | True             | Sleep this many milliseconds after op.                                                     | sleep=30               | none (no sleep)        |
+| hostname  | String  | all                     | False        | True             | Useful for distributing the load in a multi-master env. Will override fortress.properties. | hostname=foo           | none                   |
+| duplicate | Integer | ftAddUser,ftDelUser     | False        | True             | Duplicate operation after specified interval.                                              | duplicate=1000         | none (don't duplicate) |
+| batchsize | Integer | not ftAddUser,ftDelUser | True         | True             | Set the number of users in sample size to iterate over when checking authN and authZ.      | batchsize=1000         | 10                     |
+| ou        | String  | ftAddUser               | True         | True             | The group name used                                                                        | name=localhost-A1-1    | none                   |
+| role      | String  | ftAddUser,ftCheckRole   | True         | True             | The role name used                                                                         | role=jmeterrole        | none                   |
 | perm      | String  | ftCheckUser,ftCheckAccess | True         | True             | Required format is objectName.operationName                                                | perm=jmeterobject.oper | none                   |
-| password  | String  | all                       | True         | True             | Set the password for test users                                                            | password=newsecret     | secret                 |
+| password  | String  | not ftDelUser           | True         | True             | Set the password for test users                                                            | password=newsecret     | secret                 |
 
-* The Java system properties take precedence over jmeter params.
+- The Java system properties take precedence over jmeter params.
 
 #### Examples of jmeter tests
 
@@ -190,13 +190,13 @@ From **FORTRESS_HOME** folder, enter the following command from a system prompt:
 
 A. Add Users:
  
-- Optionally performs updates and/or role assignments on each entry.
+- Update and/or role assignments are optional operations.
  
 ```bash
 mvn verify -Ploadtest -Dtype=ftAddUser -Dqualifier=A1 -Dverify=true -Dsleep=30 -Dupdate=true -Dou=loadtestu -Drole=jmeterrole -Dpassword=secret
 ```
 
-This test adds users.  It uses runtime arguments to define behavior:
+This test adds users.  It uses these system properties to define behavior:
  - qualifier=A1     <-- construct userid: hostname + qualifier + counter 
  - verify=true      <-- read after operation to verify success 
  - update=true      <-- edit user's description if set to true 
@@ -204,33 +204,31 @@ This test adds users.  It uses runtime arguments to define behavior:
  - ou=loadtestu     <-- required attribute on user and must exist in user ou tree prior to test 
  - role=jmeterrole  <-- optional attribute on user 
  - hostname=foo     <-- optional override to fortress.properties. For distributing load across servers in a multi-provider env.
- - password=secret  <-- optional override to default. Can be set as jmeter property.
+ - password=secret  <-- optional override to default.
 
-- All but hostname may also be set as properties in [add config](src/test/jmeter/ftAddUser.jmx) or [del config](src/test/jmeter/ftDelUser.jmx) files.
+- These props (except hostname) may also be set as jmeter properties.
 
 B. Delete Users:
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftDelUser -Dqualifier=A1 -Dverify=true -Dsleep=30
+mvn verify -Ploadtest -Dtype=ftDelUser -Dqualifier=A1
 ```
-
-  * Same properties as add except for 'ou', which is not used for delete ops
 
 C. Check Users:
  
-Will perform a createSession.  Optionally verification and permission checks.
+Performs createSession followed by optional calling checkAccess.
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftCheckUser -Dqualifier=A1 -Dverify=true -Dperm=jmeterobject.oper -Dbatchsize=10000
+mvn verify -Ploadtest -Dtype=ftCheckUser -Dqualifier=A1 -Dperm=jmeterobject.oper -Dbatchsize=10000
 ```
 
-This test performs createSession and optionally checkAccess on users.  It uses runtime arguments to define behavior:
+Arguments:
  - perm=jmeterobject.oper   <-- optional, performs permission checks if set. Format is objectName.operationName.
  - batchsize=10000          <-- we have 10000 users in our batch
 
 D. Create Session:
  
-Only createSession.
+Performs createSession only.
 
 ```bash
 mvn verify -Ploadtest -Dtype=ftCreateSession -Dqualifier=A1 -Dbatchsize=10000
@@ -238,17 +236,17 @@ mvn verify -Ploadtest -Dtype=ftCreateSession -Dqualifier=A1 -Dbatchsize=10000
 
 E. Check Access:
  
-Will perform a createSession and one permission check.
+Perform createSession and one checkAccess.
 
 ```bash
 mvn verify -Ploadtest -Dtype=ftCheckAccess -Dqualifier=A1 -Dperm=jmeterobject.oper -Dbatchsize=10000
 ```
-This test performs createSession and checkAccess on users.  It uses runtime arguments to define behavior:
+Arguments:
 - perm=jmeterobject.oper   <-- This is required. Format: objectName.operationName.
 
 F. Bind User:
 
-Only bindUser.
+Performs authentication.
 
 ```bash
 mvn verify -Ploadtest -Dtype=ftBindUser -Dqualifier=A1 -Dbatchsize=10000
@@ -256,7 +254,7 @@ mvn verify -Ploadtest -Dtype=ftBindUser -Dqualifier=A1 -Dbatchsize=10000
 
 G. Check Role:
 
-Will perform a createSession and one role check.
+Perform createSession and one isUserInRole.
 
 ```bash
 mvn verify -Ploadtest -Dtype=ftCheckRole -Dqualifier=A1 -Drole=jmeterrole -Dbatchsize=10000

@@ -56,11 +56,6 @@ public class CheckUser extends UserBase
             // This method performs both an ldap bind and a search:
             Session session = accessMgr.createSession( user, false );
             assertNotNull( "failed createSession", session );
-            if ( verify )
-            {
-                // perform an ldap 'read':
-                assertTrue( verify( userId, Op.CHECK ) );
-            }
             if(StringUtils.isNotEmpty( perm ) )
             {
                 for( int i = 1; i <= TOTAL_NUMBER_OF_PERMISSIONS; i++ )

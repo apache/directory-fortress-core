@@ -61,11 +61,6 @@
                 <stringProp name="Argument.value">Z</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
-              <elementProp name="verify" elementType="Argument">
-                <stringProp name="Argument.name">verify</stringProp>
-                <stringProp name="Argument.value">true</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
               <elementProp name="batchsize" elementType="Argument">
                 <stringProp name="Argument.name">batchsize</stringProp>
                 <stringProp name="Argument.value">10000</stringProp>
