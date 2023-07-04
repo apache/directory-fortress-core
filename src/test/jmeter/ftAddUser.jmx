@@ -71,11 +71,6 @@
                 <stringProp name="Argument.value">false</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
-              <elementProp name="sleep" elementType="Argument">
-                <stringProp name="Argument.name">sleep</stringProp>
-                <stringProp name="Argument.value">0</stringProp>
-                <stringProp name="Argument.metadata">=</stringProp>
-              </elementProp>
               <elementProp name="ou" elementType="Argument">
                 <stringProp name="Argument.name">ou</stringProp>
                 <!-- Use one from JmeterTestPolicy.xml -->
@@ -86,6 +81,16 @@
                 <stringProp name="Argument.name">role</stringProp>
                 <!-- Use one from JmeterTestPolicy.xml -->
                 <stringProp name="Argument.value">jmeterrole</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="password" elementType="Argument">
+                <stringProp name="Argument.name">password</stringProp>
+                <stringProp name="Argument.value">secret</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+              <elementProp name="sleep" elementType="Argument">
+                <stringProp name="Argument.name">sleep</stringProp>
+                <stringProp name="Argument.value">0</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>

@@ -50,7 +50,7 @@ public class CheckRole extends UserBase
             assertNotNull( "role operand not setup", role );
             User user = new User();
             user.setUserId( userId );
-            user.setPassword( "secret" );
+            user.setPassword( password );
             LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
             assertTrue(
                     "failed uid:" + userId + ", role: " + role,

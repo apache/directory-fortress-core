@@ -66,6 +66,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     protected String perm = null;
     // required for user
     protected String ou = null;
+    protected String password = "secret";
     // between tests
     protected int sleep = 0;
     // used for replication tests
@@ -208,6 +209,16 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         if (!StringUtils.isEmpty( szDuplicate ))
         {
             duplicate = Integer.valueOf(szDuplicate);
+        }
+        String szPassword = System.getProperty( "password" );
+        if (StringUtils.isEmpty( szPassword ))
+        {
+            szPassword = samplerContext.getParameter( "password" );
+        }
+        if (!StringUtils.isEmpty( szPassword ))
+        {
+            // override the default:
+            password = szPassword;
         }
     }
 

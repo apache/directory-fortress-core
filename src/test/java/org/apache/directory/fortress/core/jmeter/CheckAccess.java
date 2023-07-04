@@ -49,7 +49,7 @@ public class CheckAccess extends UserBase
             assertNotNull( accessMgr );
             User user = new User();
             user.setUserId( userId );
-            user.setPassword( "secret" );
+            user.setPassword( password );
             LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
             Permission p = getPermission();
             assertTrue(

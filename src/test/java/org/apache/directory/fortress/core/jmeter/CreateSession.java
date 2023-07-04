@@ -49,7 +49,7 @@ public class CreateSession extends UserBase
             assertNotNull( accessMgr );
             User user = new User();
             user.setUserId( userId );
-            user.setPassword( "secret" );
+            user.setPassword( password );
             LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
             Session session = accessMgr.createSession( user, false );
             assertNotNull("createSession failed", session);

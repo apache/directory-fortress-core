@@ -808,6 +808,7 @@
                 <ou>${ou}</ou>
                 <update>${update}</update>
                 <duplicate>${duplicate}</duplicate>
+                <password>${password}</password>
               </propertiesSystem>
               <jMeterProcessJVMSettings>
                 <xms>1024</xms>
