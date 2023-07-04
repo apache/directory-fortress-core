@@ -55,21 +55,8 @@ public class CheckAccess extends UserBase
             assertNotNull("perm operand not setup", p);
             // This does both createSession and checkAccess:
             assertTrue( accessMgr.checkAccess( user, p, false ) );
-            if( sleep > 0 )
-            {
-                try
-                {
-                    Thread.sleep( sleep );
-                }
-                catch (InterruptedException ie)
-                {
-                    Thread.currentThread().interrupt();
-                }
-            }
-            sampleResult.setSampleCount( 1 );
-            sampleResult.sampleEnd();
-            sampleResult.setResponseMessage("test completed TID: " + getThreadId() + " UID: " + userId);
-            sampleResult.setSuccessful(true);
+            sleep();
+            wrapup( sampleResult, userId );
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {

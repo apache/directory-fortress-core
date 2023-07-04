@@ -26,6 +26,7 @@ import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
+import org.apache.jmeter.samplers.SampleResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.AdminMgr;
@@ -218,6 +219,29 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     {
         LOG.warn( message );
         System.out.println( message );
+    }
+
+    protected void sleep( )
+    {
+        if( sleep > 0 )
+        {
+            try
+            {
+                Thread.sleep( sleep );
+            }
+            catch (InterruptedException ie)
+            {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    protected void wrapup(SampleResult sampleResult, String userId )
+    {
+        sampleResult.setSampleCount( 1 );
+        sampleResult.sampleEnd();
+        sampleResult.setResponseMessage("test completed TID: " + getThreadId() + " UID: " + userId);
+        sampleResult.setSuccessful(true);
     }
 
     /**

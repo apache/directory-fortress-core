@@ -51,21 +51,8 @@ public class BindUser extends UserBase
             LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
             Session session = accessMgr.authenticate( userId, "secret" );
             assertNotNull( session );
-            if( sleep > 0 )
-            {
-                try
-                {
-                    Thread.sleep( sleep );
-                }
-                catch (InterruptedException ie)
-                {
-                    Thread.currentThread().interrupt();
-                }
-            }
-            sampleResult.setSampleCount( 1 );
-            sampleResult.sampleEnd();
-            sampleResult.setResponseMessage("test completed TID: " + getThreadId() + " UID: " + userId);
-            sampleResult.setSuccessful(true);
+            sleep();
+            wrapup( sampleResult, userId );
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {

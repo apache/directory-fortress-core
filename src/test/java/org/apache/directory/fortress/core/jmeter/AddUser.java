@@ -78,21 +78,8 @@ public class AddUser extends UserBase
             {
                 assertTrue( verify( userId, Op.ADD ) );
             }
-            if( sleep > 0 )
-            {
-                try
-                {
-                    Thread.sleep( sleep );
-                }
-                catch (InterruptedException ie)
-                {
-                    Thread.currentThread().interrupt();
-                }
-            }
-            sampleResult.setSampleCount( 1 );
-            sampleResult.sampleEnd();
-            sampleResult.setResponseMessage("test completed TID: " + getThreadId() + " UID: " + userId);
-            sampleResult.setSuccessful(true);
+            sleep();
+            wrapup( sampleResult, userId );
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
