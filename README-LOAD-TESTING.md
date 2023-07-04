@@ -171,8 +171,8 @@ The following may be injected into the runtime either as Java system (-D) comman
 | update    | Boolean | ftAddUser                 | True         | True             | Edit user's description if set to true.                                                    | update=true               | false                  |
 | sleep     | Integer | all                       | True         | True             | Sleep this many milliseconds after op.                                                     | sleep=30                  | none (no sleep)        |
 | hostname  | String  | all                       | False        | True             | Useful for distributing the load in a multi-master env. Will override fortress.properties. | hostname=foo              | none                   |
-| duplicate | Integer | ftAddUser/ftDelUser       | False        | True             | Duplicate operation after specified interval.                                              | duplicate=1000            | none (don't duplicate) |
-| batchsize | Integer | ftCheckuser/ftCheckAccess | True         | True             | Set the number of users in sample size to iterate over.                                    | batchsize=1000            | 10                     |
+| duplicate | Integer | ftAddUser,ftDelUser       | False        | True             | Duplicate operation after specified interval.                                              | duplicate=1000            | none (don't duplicate) |
+| batchsize | Integer | ftCheckuser,ftCheckAccess | True         | True             | Set the number of users in sample size to iterate over.                                    | batchsize=1000            | 10                     |
 | ou        | String  | ftAddUser                 | True         | True             | The group name used                                                                        | name=localhost-A1-1       | none                   |
 
 * The Java system properties take precedence over jmeter params.
@@ -210,7 +210,7 @@ mvn verify -Ploadtest -Dtype=ftDelUser -Dqualifier=A1 -Dverify=true -Dsleep=30
 
 C. Check Users:
  
-Will perform a createSession.  Optionally reads the entry and/or permission checks.
+Will perform a createSession.  Optionally verification and permission checks.
 
 ```bash
 mvn verify -Ploadtest -Dtype=ftCheckUser -Dqualifier=A1 -Dverify=true -Dperm=jmeterobject.oper -Dbatchsize=10000
@@ -233,10 +233,8 @@ E. Check Permissions:
 Will perform a createSession and one permission check.
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftCreateSessionCheckPerm -Dqualifier=A1 -Dperm=jmeterobject.oper -Dbatchsize=10000
+mvn verify -Ploadtest -Dtype=ftCheckAccess -Dqualifier=A1 -Dperm=jmeterobject.oper -Dbatchsize=10000
 ```
-
-This test performs one createSession and one permission check. 
 
 F. Bind User:
 
