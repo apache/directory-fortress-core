@@ -209,18 +209,19 @@ C. Check Users:
 Will perform a createSession.  Optionally reads the entry and/or permission checks.
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftCheckUser -Dqualifier=A1 -Dverify=true -Dperm=jmeterobject.oper
+mvn verify -Ploadtest -Dtype=ftCheckUser -Dqualifier=A1 -Dverify=true -Dperm=jmeterobject.oper -Dbatchsize=10000
 ```
 
 This test performs createSession and optionally checkAccess on users.  It uses runtime arguments to define behavior:
  - perm=jmeterobject.oper   <-- this is an optional property, will perform permission checks if set
+ - batchsize=10000          <-- we have 10000 users in our batch
 
 D. Check Permissions:
  
 Will perform a createSession and one permission check.
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftCreateSessionCheckPerm -Dqualifier=A1 -Dperm=jmeterobject.oper
+mvn verify -Ploadtest -Dtype=ftCreateSessionCheckPerm -Dqualifier=A1 -Dperm=jmeterobject.oper -Dbatchsize=10000
 ```
 
 This test performs createSession and one permission check. 
@@ -289,20 +290,11 @@ E. Perm
 - This applies only to the CheckUser test.  If set, it will be used as permission in checkAccess call 10 times.  For example:
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftCheckUser -Dperm=jmeterobject.oper
+mvn verify -Ploadtest -Dtype=ftCheckAccess -Dperm=jmeterobject.oper -Dbatchsize=10000
 ```
 
-- Calls checkAccess repeatedly:
-
-```  
-obj: jmeterobject op oper1
-obj: jmeterobject op oper2
-obj: jmeterobject op oper3
-...
-obj: jmeterobject op oper10
-```
-
-- These assignments must already exist (loaded via security policy) before running this test.  
+- Calls checkAccess repeatedly with a set of 10K users:
+- These permissions must already exist (loaded via security policy) before running this test.  
 
 ___________________________________________________________________________________
 ### 8. Troubleshooting
@@ -314,11 +306,15 @@ A. View the results
  - target/jmeter/results/[DATE]-ftAddUser.jtl
  - target/jmeter/results/[DATE]ftDelUser.jmx.jtl
  - target/jmeter/results/[DATE]ftCheckUser.jtl
+ - target/jmeter/results/[DATE]ftCheckAccess.jtl
+ - target/jmeter/results/[DATE]ftBindUser.jtl
 
 B. View the jmeter logs
  - target/jmeter/logs/ftAddUser.jmx.log
  - target/jmeter/logs/ftDelUser.jmx.log
  - target/jmeter/logs/ftCheckUser.jmx.log
+ - target/jmeter/logs/ftCheckAccess.jmx.log
+ - target/jmeter/logs/ftBindUser.jmx.log
    C. View the Log4j logs
 
 if file logging enabled in log4j2.xml:

@@ -51,11 +51,6 @@ public class CheckAccess extends UserBase
             user.setUserId( userId );
             user.setPassword( "secret" );
             LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
-            if( LOG.isDebugEnabled() )
-            {
-                LOG.debug( "CreateSessionCheckPerm: " + userId );
-            }
-
             Permission p = getPermission();
             assertNotNull("perm operand not setup", p);
             // This does both createSession and checkAccess:

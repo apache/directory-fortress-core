@@ -53,10 +53,6 @@ public class CheckUser extends UserBase
             user.setUserId( userId );
             user.setPassword( "secret" );
             LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
-            if( LOG.isDebugEnabled() )
-            {
-                LOG.debug( "CheckUser: " + userId );
-            }
             // This method performs both an ldap bind and a search:
             Session session = accessMgr.createSession( user, false );
             assertNotNull( session );
