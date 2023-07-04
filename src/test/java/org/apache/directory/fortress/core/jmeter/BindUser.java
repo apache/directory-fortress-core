@@ -19,11 +19,9 @@
  */
 package org.apache.directory.fortress.core.jmeter;
 
-import org.apache.directory.fortress.core.model.Permission;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
-import org.apache.directory.fortress.core.model.User;
 
 import static org.junit.Assert.*;
 

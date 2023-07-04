@@ -20,7 +20,6 @@
 package org.apache.directory.fortress.core.jmeter;
 
 import org.apache.directory.fortress.core.model.Role;
-import org.apache.directory.fortress.core.model.Session;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.directory.fortress.core.model.User;
