@@ -187,21 +187,21 @@ From **FORTRESS_HOME** folder, enter the following command from a system prompt:
 
 A. Add Users:
  
-- Adds a batch of users.  Optionally performs updates and/or role assignments on each entry.
+- Optionally performs updates and/or role assignments on each entry.
  
 ```bash
 mvn verify -Ploadtest -Dtype=ftAddUser -Dqualifier=A1 -Dverify=true -Dsleep=30 -Dupdate=true -Dou=loadtestu -Drole=jmeterrole
 ```
 
 This test adds users.  It uses runtime arguments to define behavior:
- - hostname=foo     <-- optional field useful for distributing the load across servers in a multi-master env, it will override what's in fortress.properties 
- - qualifier=A1     <-- this is used to construct userid: hostname + qualifier + counter 
- - verify=true      <-- will read after operation to verify success 
- - update=true      <-- will edit user's description if set to true 
- - sleep=30         <-- sleep this many millisecones after each op 
- - ou=loadtestu     <-- this is a required attribute on user entry and must exist in user ou tree prior to test 
- - role=jmeterrole  <-- this is an optional attribute on user entry 
-     
+ - qualifier=A1     <-- construct userid: hostname + qualifier + counter 
+ - verify=true      <-- read after operation to verify success 
+ - update=true      <-- edit user's description if set to true 
+ - sleep=30         <-- sleep this many milliseconds between ops 
+ - ou=loadtestu     <-- required attribute on user and must exist in user ou tree prior to test 
+ - role=jmeterrole  <-- optional attribute on user 
+- hostname=foo     <-- optional override to fortress.properties. For distributing load across servers in a multi-provider env.
+
 - All but hostname may also be set as properties in [add config](src/test/jmeter/ftAddUser.jmx) or [del config](src/test/jmeter/ftDelUser.jmx) files.
 
 B. Delete Users:
@@ -253,7 +253,7 @@ G. Check Role:
 Will perform a createSession and one role check.
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftCheckAccess -Dqualifier=A1 -Drole=jmeterrole -Dbatchsize=10000
+mvn verify -Ploadtest -Dtype=ftCheckRole -Dqualifier=A1 -Drole=jmeterrole -Dbatchsize=10000
 ```
 
 ___________________________________________________________________________________
