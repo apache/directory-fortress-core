@@ -55,7 +55,7 @@ public class CheckUser extends UserBase
             LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
             // This method performs both an ldap bind and a search:
             Session session = accessMgr.createSession( user, false );
-            assertNotNull( session );
+            assertNotNull( "failed createSession", session );
             if ( verify )
             {
                 // perform an ldap 'read':
@@ -73,7 +73,7 @@ public class CheckUser extends UserBase
                     {
                         p.setOpName( perm.substring( indx + 1 ) + i );
                         // This method performs an ldap 'read':
-                        assertTrue( accessMgr.checkAccess( session, p ) );
+                        assertTrue( "failed test uid: " + userId + ", perm obj: "+ p.getObjName() + ", op: " + p.getOpName(), accessMgr.checkAccess( session, p ) );
                     }
                 }
             }

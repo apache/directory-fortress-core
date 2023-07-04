@@ -76,7 +76,7 @@ public class AddUser extends UserBase
             assertNotNull( outUser );
             if ( verify )
             {
-                assertTrue( verify( userId, Op.ADD ) );
+                assertTrue( "failed test uid: " + userId, verify( userId, Op.ADD ) );
             }
             sleep();
             wrapup( sampleResult, userId );

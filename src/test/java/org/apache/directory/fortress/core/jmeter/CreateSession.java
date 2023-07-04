@@ -53,7 +53,7 @@ public class CreateSession extends UserBase
             LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
             Session session = accessMgr.createSession( user, false );
             assertNotNull("createSession failed", session);
-            assertTrue( session.getUserId().equalsIgnoreCase( userId ) );
+            assertTrue( "failed userId test", session.getUserId().equalsIgnoreCase( userId ) );
             sleep();
             wrapup( sampleResult, userId );
         }

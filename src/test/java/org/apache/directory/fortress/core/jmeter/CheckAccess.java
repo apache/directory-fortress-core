@@ -54,7 +54,7 @@ public class CheckAccess extends UserBase
             Permission p = getPermission();
             assertNotNull("perm operand not setup", p);
             // This does both createSession and checkAccess:
-            assertTrue( accessMgr.checkAccess( user, p, false ) );
+            assertTrue( "failed test uid: " + userId + ", perm obj: " + p.getObjName() + ", op: " + p.getOpName(), accessMgr.checkAccess( user, p, false ) );
             sleep();
             wrapup( sampleResult, userId );
         }

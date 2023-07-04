@@ -86,6 +86,9 @@ E. Bind User:
 F. Check Access:
  - [src/test/jmeter/ftCheckAccess.jmx](src/test/jmeter/ftCheckAccess.jmx)
 
+G. Check Role:
+ - [src/test/jmeter/ftCheckRole.jmx](src/test/jmeter/ftCheckRole.jmx)
+
 ___________________________________________________________________________________
 ### 4. Setting the jmeter parameters
 
@@ -159,6 +162,7 @@ The tests run from the command line as a maven profile.
 | create session | mvn verify -Ploadtest -Dtype=ftCreateSession [args] |
 | bind user      | mvn verify -Ploadtest -Dtype=ftBindUser [args]      |
 | check access   | mvn verify -Ploadtest -Dtype=ftCheckAccess  [args]  |
+| check role     | mvn verify -Ploadtest -Dtype=ftCheckRole  [args]    |
 
 #### Description of runtime arguments
 
@@ -228,7 +232,7 @@ Only createSession.
 mvn verify -Ploadtest -Dtype=ftCreateSession -Dqualifier=A1 -Dbatchsize=10000
 ```
 
-E. Check Permissions:
+E. Check Access:
  
 Will perform a createSession and one permission check.
 
@@ -242,6 +246,14 @@ Only bindUser.
 
 ```bash
 mvn verify -Ploadtest -Dtype=ftBindUser -Dqualifier=A1 -Dbatchsize=10000
+```
+
+G. Check Role:
+
+Will perform a createSession and one role check.
+
+```bash
+mvn verify -Ploadtest -Dtype=ftCheckAccess -Dqualifier=A1 -Drole=jmeterrole -Dbatchsize=10000
 ```
 
 ___________________________________________________________________________________
@@ -321,24 +333,20 @@ ________________________________________________________________________________
 - The files listed below contain additional info.
 
 A. View the results
- - target/jmeter/results/[DATE]-ftAddUser.jtl
- - target/jmeter/results/[DATE]ftDelUser.jmx.jtl
- - target/jmeter/results/[DATE]ftCheckUser.jtl
- - target/jmeter/results/[DATE]ftCheckAccess.jtl
- - target/jmeter/results/[DATE]ftBindUser.jtl
+ - target/jmeter/results/[DATE]-ftAddUser.csv
+ - target/jmeter/results/[DATE]ftDelUser.jmx.csv
+ - target/jmeter/results/[DATE]ftCheckUser.csv
+ - target/jmeter/results/[DATE]ftCreateSession.csv
+ - target/jmeter/results/[DATE]ftCheckAccess.csv
+ - target/jmeter/results/[DATE]ftBindUser.csv
+ - target/jmeter/results/[DATE]ftCheckRole.csv
 
-B. View the jmeter logs
- - target/jmeter/logs/ftAddUser.jmx.log
- - target/jmeter/logs/ftDelUser.jmx.log
- - target/jmeter/logs/ftCheckUser.jmx.log
- - target/jmeter/logs/ftCheckAccess.jmx.log
- - target/jmeter/logs/ftBindUser.jmx.log
-   C. View the Log4j logs
+B. View the Log4j logs
 
 if file logging enabled in log4j2.xml:
 * ./target/.../jmeter/bin/fortress-jmeter.log
 
-Otherwise the log4j outputs to console
+Otherwise log4j outputs to console
 
 #### Common Errors
 

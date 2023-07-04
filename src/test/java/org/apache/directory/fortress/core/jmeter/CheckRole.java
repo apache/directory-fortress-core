@@ -19,6 +19,8 @@
  */
 package org.apache.directory.fortress.core.jmeter;
 
+import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.Session;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.directory.fortress.core.model.User;
@@ -26,41 +28,31 @@ import org.apache.directory.fortress.core.model.User;
 import static org.junit.Assert.*;
 
 /**
- * Delete user entry tests.
+ * Authentication and authorization tests.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class DelUser extends UserBase
+public class CheckRole extends UserBase
 {
     /**
-     * This test case deletes a user. It also can perform a duplicate delete (for replication testing) and verifies.
+     * This performs createSession and checkAccess API
      *
      * @param samplerContext Description of the Parameter
      * @return Description of the Return Value
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
-        int count = getKey( Op.ADD );
-        String userId  = hostname + '-' + qualifier + '-' + count;
+        String userId  = hostname + '-' + qualifier + '-' + getKey( Op.CHECK );
         SampleResult sampleResult = new SampleResult();
         try
         {
             sampleResult.sampleStart();
-            assertNotNull( adminMgr );
+            assertNotNull( accessMgr );
             User user = new User();
             user.setUserId( userId );
+            user.setPassword( "secret" );
             LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
-            adminMgr.deleteUser( user );
-            // This tests replication, ability to handle conflicts:
-            if ( duplicate > 0 && count > duplicate && ( count % duplicate ) == 0 )
-            {
-                warn( "DUPLICATE DEL[" + count + "]: " + user.getUserId() );
-                adminMgr.deleteUser( user );
-            }
-            if ( verify )
-            {
-                assertFalse( "verify failed", verify( userId, Op.DEL ) );
-            }
+            assertTrue( "failed uid:" + userId + ", role: " + role, accessMgr.isUserInRole( user, new Role( role ), false ) );
             sleep();
             wrapup( sampleResult, userId );
         }
@@ -70,6 +62,7 @@ public class DelUser extends UserBase
             se.printStackTrace();
             sampleResult.setSuccessful( false );
         }
+
         return sampleResult;
     }
 }

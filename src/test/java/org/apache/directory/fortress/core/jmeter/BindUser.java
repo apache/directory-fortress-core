@@ -50,7 +50,7 @@ public class BindUser extends UserBase
             assertNotNull( accessMgr );
             LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
             Session session = accessMgr.authenticate( userId, "secret" );
-            assertNotNull( session );
+            assertNotNull( "no session", session );
             sleep();
             wrapup( sampleResult, userId );
         }
