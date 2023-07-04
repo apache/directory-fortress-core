@@ -32,8 +32,6 @@ import static org.junit.Assert.*;
  */
 public class DelUser extends UserBase
 {
-    private int ctr = 0;
-
     /**
      * This test case deletes a user. It also can perform a duplicate delete (for replication testing) and verifies.
      *
@@ -74,8 +72,8 @@ public class DelUser extends UserBase
                     Thread.currentThread().interrupt();
                 }
             }
+            sampleResult.setSampleCount( 1 );
             sampleResult.sampleEnd();
-            sampleResult.setBytes(1);
             sampleResult.setResponseMessage("test completed TID: " + getThreadId() + " UID: " + userId);
             sampleResult.setSuccessful(true);
         }

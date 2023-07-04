@@ -95,7 +95,6 @@ public class CheckUser extends UserBase
             }
             sampleResult.setSampleCount( 1 );
             sampleResult.sampleEnd();
-            sampleResult.setBytes(1);
             sampleResult.setResponseMessage("test completed TID: " + getThreadId() + " UID: " + userId);
             sampleResult.setSuccessful(true);
         }
