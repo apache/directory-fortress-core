@@ -100,6 +100,9 @@ These settings affect the length, duration, and the number of threads:
  - **ThreadGroup.ramp_time**: integer value, number of seconds for starting threads.  A rule of thumb, set to same as num_threads.
 
 For example:
+
+##### src/test/jmeter/ftAddUser.jmx jmeter config file:
+
 ```xml
 <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Fortress AddUser" enabled="true">
     ...
@@ -118,6 +121,8 @@ For example:
 ### 5. Configure Log4j2
 
 The jmeter-maven-plugin log4j config file, [log4j2.xml](src/test/conf/log4j2.xml) must be present in the src/test/conf folder.
+
+##### src/test/conf/log4j2.xml config file:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -197,16 +202,19 @@ mvn verify -Ploadtest -Dtype=ftAddUser -Dqualifier=A1 -Dverify=true -Dsleep=30 -
 ```
 
 This test adds users.  The following system properties are passed on the command line to define behavior:
- - type             <-- every test has one of these
- - qualifier=A1     <-- construct userid: hostname + qualifier + counter 
- - verify=true      <-- read after operation to verify success 
- - sleep=30         <-- sleep this many milliseconds between ops
- - update=true      <-- edit user's description if set to true 
- - ou=loadtestu     <-- required attribute on user and must exist in user ou tree prior to test 
- - role=jmeterrole  <-- optional attribute on user 
- - password=secret  <-- optional override to default.
 
-It may have been more convenient to set these in the jmeter config files instead. Choose the approach that works in your test setup.
+| name=value      | Usage                                            |
+|-----------------|--------------------------------------------------|
+| type=ftAddUser  | run the AddUser test case                        |
+| qualifier=A1    | construct userid: hostname + qualifier + counter | 
+| verify=true     | read after operation to verify success           | 
+| sleep=30        | sleep this many milliseconds between ops         |
+| update=true     | edit user's description if set to true           | 
+| ou=loadtestu    | orgunit is required on fortress users            |  
+| role=jmeterrole | role assignments are optional                    | 
+| password=secret | optional override to default password            |
+
+- It may be more convenient to set these in the jmeter config files instead. Choose the approach that works in your test setup.
 
 ##### B. Delete Users:
 
@@ -223,12 +231,14 @@ Performs createSession followed by optional calling checkAccess.
 ```bash
 mvn verify -Ploadtest -Dtype=ftCheckUser -Dqualifier=A1 -Dperm=jmeterobject.oper -Dbatchsize=10000
 ```
-
 Arguments:
- - type=ftCheckUser         <-- execute Check User test case
- - qualifier=A1             <-- construct userid: hostname + qualifier + counter 
- - perm=jmeterobject.oper   <-- calls checkAccess if set. Format: objectName.operationName.
- - batchsize=10000          <-- we have 10000 users in our batch
+
+| name=value             | Usage                                                      |
+|------------------------|------------------------------------------------------------|
+| type=ftCheckUser       | run the CheckUser test case                                |
+| qualifier=A1           | construct userid: hostname + qualifier + counter           |
+| perm=jmeterobject.oper | calls checkAccess if set. Format: objectName.operationName |
+| batchsize=10000        | we have 10000 users in our batch                           | 
 
 ##### D. Create Session:
  
@@ -270,18 +280,54 @@ ________________________________________________________________________________
 #### A. Batch Size property
 
 - Required on the tests that perform operations like authentication or authorization.
-- It defines the size of the user set for a particular test. The default is 10.  
+- Defines the size of the user set for a particular test. The default is 10.
+- Sets the global counter max, used to generate test userId.
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftBindUser -Dbatchsize=10000 -Dqualifier=A1
+mvn verify -Ploadtest -Dtype=ftBindUser -Dbatchsize=100 -Dqualifier=A1
 ```
 
-- The above test iterates over 10,0000 users performing authentication.
+- The above test iterates over 100 users performing authentication.
+
+##### src/test/jmeter/ftBindUser.jmx jmeter config file:
+
+```xml
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Fortress BindUser" enabled="true">
+        ...
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <stringProp name="LoopController.loops">500</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">10</stringProp>
+        ...
+      </ThreadGroup>
+```
+
+- 5,000 bind operations will occur during the test.
+
+##### target/jmeter/results/[DATE]-ftBindUser.csv log file:
+
+```
+1688562906113,21,Fortress BindUser,,test completed TID: 19 UID: localhost-A1-1,Fortress BindUser 1-1,,true,,0,0,1,1,null,0,0,0
+1688562906136,3,Fortress BindUser,,test completed TID: 19 UID: localhost-A1-2,Fortress BindUser 1-1,,true,,0,0,1,1,null,0,0,0
+1688562906139,5,Fortress BindUser,,test completed TID: 19 UID: localhost-A1-3,Fortress BindUser 1-1,,true,,0,0,1,1,null,0,0,0
+... when the counter reaches batchsize (in this case 100) it will reset to 1
+1688562906451,4,Fortress BindUser,,test completed TID: 19 UID: localhost-A1-99,Fortress BindUser 1-1,,true,,0,0,2,2,null,0,0,0
+1688562906455,4,Fortress BindUser,,test completed TID: 19 UID: localhost-A1-100,Fortress BindUser 1-1,,true,,0,0,2,2,null,0,0,0
+1688562906455,3,Fortress BindUser,,test completed TID: 20 UID: localhost-A1-1,Fortress BindUser 1-2,,true,,0,0,2,2,null,0,0,0
+1688562906459,3,Fortress BindUser,,test completed TID: 20 UID: localhost-A1-2,Fortress BindUser 1-2,,true,,0,0,2,2,null,0,0,0
+... and keep doing that until the number of iterations (5,000) has been reached
+1688562906625,3,Fortress BindUser,,test completed TID: 19 UID: localhost-A1-99,Fortress BindUser 1-1,,true,,0,0,2,2,null,0,0,0
+1688562906627,3,Fortress BindUser,,test completed TID: 20 UID: localhost-A1-100,Fortress BindUser 1-2,,true,,0,0,2,2,null,0,0,0
+1688562906628,3,Fortress BindUser,,test completed TID: 19 UID: localhost-A1-1,Fortress BindUser 1-1,,true,,0,0,2,2,null,0,0,0
+1688562906630,3,Fortress BindUser,,test completed TID: 20 UID: localhost-A1-2,Fortress BindUser 1-2,,true,,0,0,2,2,null,0,0,0
+```
 
 #### B. Qualifier property.
 
 - The add test generates userids based on: hostname + qualifier + counter.  
 - The counter is global across threads, so if you enable 20 threads * 100 loops:
+
+##### src/test/jmeter/ftAddUser.jmx jmeter config file:
 
 ```xml
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Fortress AddUser" enabled="true">
@@ -300,7 +346,7 @@ mvn verify -Ploadtest -Dtype=ftBindUser -Dbatchsize=10000 -Dqualifier=A1
 mvn verify -Ploadtest -Dtype=ftAddUser -Dqualifier=A1
 ```
 
-target/jmeter/results/[DATE]ftAddUser.csv log file:
+##### target/jmeter/results/[DATE]ftAddUser.csv log file:
 
 ```
 1688515254648,107,Fortress AddUser,,test completed TID: 19 UID: localhost-A1-1,Fortress AddUser 1-1,,true,,0,0,2,2,null,0,0,0
@@ -313,7 +359,7 @@ target/jmeter/results/[DATE]ftAddUser.csv log file:
 - If the same test runs a second time (before a delete run) it'll fail with duplicates as it tries to add the same users again.  
 - This is the idea of the 'qualifier'. It defines test batches.  
 - Change its value and create new batches.
-- Deletes work the same way. We delete the A1 batch by running:
+- DelUser work the same way. Delete the user in the A1 batch by running:
 
 ```bash
 mvn verify -Ploadtest -Dtype=ftDelUser -Dqualifier=A1
@@ -329,7 +375,7 @@ mvn verify -Ploadtest -Dtype=ftDelUser -Dqualifier=A1
 mvn verify -Ploadtest -Dtype=ftAddUser -Dqualifier=A1 -Dverify=true
 ```
 
-- don't confuse the verify property with the maven verify target. One is required on all tests invocations, the other optional.
+- Don't confuse the verify property with the maven verify target. One is required on all test invocations, the other optional.
 
 #### D. Update property
 
