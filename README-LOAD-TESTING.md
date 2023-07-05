@@ -306,20 +306,19 @@ mvn verify -Ploadtest -Dtype=ftBindUser -Dbatchsize=100 -Dqualifier=A1
 
 ##### target/jmeter/results/[DATE]-ftBindUser.csv log file:
 
-```
+```bash
+# notice the generated userids, localhost-A1-1, localhost-A1-2, localhost-A1-3
 1688562906113,21,Fortress BindUser,,test completed TID: 19 UID: localhost-A1-1,Fortress BindUser 1-1,,true,,0,0,1,1,null,0,0,0
 1688562906136,3,Fortress BindUser,,test completed TID: 19 UID: localhost-A1-2,Fortress BindUser 1-1,,true,,0,0,1,1,null,0,0,0
 1688562906139,5,Fortress BindUser,,test completed TID: 19 UID: localhost-A1-3,Fortress BindUser 1-1,,true,,0,0,1,1,null,0,0,0
-... when the counter reaches batchsize (in this case 100) it will reset to 1
-1688562906451,4,Fortress BindUser,,test completed TID: 19 UID: localhost-A1-99,Fortress BindUser 1-1,,true,,0,0,2,2,null,0,0,0
+...
+# when the counter == batchsize (100) it will reset to 1
 1688562906455,4,Fortress BindUser,,test completed TID: 19 UID: localhost-A1-100,Fortress BindUser 1-1,,true,,0,0,2,2,null,0,0,0
 1688562906455,3,Fortress BindUser,,test completed TID: 20 UID: localhost-A1-1,Fortress BindUser 1-2,,true,,0,0,2,2,null,0,0,0
 1688562906459,3,Fortress BindUser,,test completed TID: 20 UID: localhost-A1-2,Fortress BindUser 1-2,,true,,0,0,2,2,null,0,0,0
-... and keep doing that until the number of iterations (5,000) has been reached
-1688562906625,3,Fortress BindUser,,test completed TID: 19 UID: localhost-A1-99,Fortress BindUser 1-1,,true,,0,0,2,2,null,0,0,0
-1688562906627,3,Fortress BindUser,,test completed TID: 20 UID: localhost-A1-100,Fortress BindUser 1-2,,true,,0,0,2,2,null,0,0,0
-1688562906628,3,Fortress BindUser,,test completed TID: 19 UID: localhost-A1-1,Fortress BindUser 1-1,,true,,0,0,2,2,null,0,0,0
-1688562906630,3,Fortress BindUser,,test completed TID: 20 UID: localhost-A1-2,Fortress BindUser 1-2,,true,,0,0,2,2,null,0,0,0
+...
+# and keep doing that until the number of iterations (5,000) has been reached
+1688562915035,2,Fortress BindUser,,test completed TID: 28 UID: localhost-A1-100,Fortress BindUser 1-10,,true,,0,0,1,1,null,0,0,0
 ```
 
 #### B. Qualifier property.
@@ -348,11 +347,12 @@ mvn verify -Ploadtest -Dtype=ftAddUser -Dqualifier=A1
 
 ##### target/jmeter/results/[DATE]ftAddUser.csv log file:
 
-```
+```bash
 1688515254648,107,Fortress AddUser,,test completed TID: 19 UID: localhost-A1-1,Fortress AddUser 1-1,,true,,0,0,2,2,null,0,0,0
 1688515254648,115,Fortress AddUser,,test completed TID: 20 UID: localhost-A1-2,Fortress AddUser 1-2,,true,,0,0,2,2,null,0,0,0
 1688515254758,22,Fortress AddUser,,test completed TID: 19 UID: localhost-A1-3,Fortress AddUser 1-1,,true,,0,0,2,2,null,0,0,0
 ...
+# the test stops after 2,000 iterations, adding users localhost-A1-1 - localhost-A1-2000
 1688515271941,19,Fortress AddUser,,test completed TID: 37 UID: localhost-A1-2000,Fortress AddUser 1-19,,true,,0,0,1,1,null,0,0,0
 ```
 
@@ -419,12 +419,12 @@ ________________________________________________________________________________
 
 #### A. View the results
  - target/jmeter/results/[DATE]-ftAddUser.csv
- - target/jmeter/results/[DATE]ftDelUser.jmx.csv
- - target/jmeter/results/[DATE]ftCheckUser.csv
- - target/jmeter/results/[DATE]ftCreateSession.csv
- - target/jmeter/results/[DATE]ftCheckAccess.csv
- - target/jmeter/results/[DATE]ftBindUser.csv
- - target/jmeter/results/[DATE]ftCheckRole.csv
+ - target/jmeter/results/[DATE]-ftDelUser.jmx.csv
+ - target/jmeter/results/[DATE]-ftCheckUser.csv
+ - target/jmeter/results/[DATE]-ftCreateSession.csv
+ - target/jmeter/results/[DATE]-ftCheckAccess.csv
+ - target/jmeter/results/[DATE]-ftBindUser.csv
+ - target/jmeter/results/[DATE]-ftCheckRole.csv
 
 #### B. View the Log4j logs
 
