@@ -89,6 +89,9 @@ F. Check Access:
 G. Check Role:
  - [src/test/jmeter/CheckRole.jmx](src/test/jmeter/CheckRole.jmx)
 
+H. Session Perms:
+ - [src/test/jmeter/SessionPerms.jmx](src/test/jmeter/SessionPerms.jmx)
+
 ___________________________________________________________________________________
 ### 4. Setting the jmeter parameters
 
@@ -168,6 +171,7 @@ The tests run from the command line as a maven profile.
 | bind user      | mvn verify -Ploadtest -Dtype=BindUser [args]      |
 | check access   | mvn verify -Ploadtest -Dtype=CheckAccess [args]   |
 | check role     | mvn verify -Ploadtest -Dtype=CheckRole [args]     |
+| session perms  | mvn verify -Ploadtest -Dtype=SessionPerms [args]  |
 
 #### Description of runtime arguments
 
@@ -272,6 +276,14 @@ Performs createSession and isUserInRole.
 
 ```bash
 mvn verify -Ploadtest -Dtype=CheckRole -Dqualifier=A1 -Drole=jmeterrole -Dbatchsize=10000
+```
+
+##### H. Session Perms:
+
+Performs createSession and sessionPermissions.
+
+```bash
+mvn verify -Ploadtest -Dtype=SessionPerms -Dqualifier=A1 -Dbatchsize=10000
 ```
 
 ___________________________________________________________________________________
@@ -425,6 +437,7 @@ ________________________________________________________________________________
  - target/jmeter/results/[DATE]-CheckAccess.csv
  - target/jmeter/results/[DATE]-BindUser.csv
  - target/jmeter/results/[DATE]-CheckRole.csv
+ - target/jmeter/results/[DATE]-SessionPerms.csv
 
 #### B. View the Log4j logs
 

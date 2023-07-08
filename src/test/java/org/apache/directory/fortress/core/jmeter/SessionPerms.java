@@ -64,7 +64,8 @@ public class SessionPerms extends UserBase
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
-            fail( se.getMessage() );
+            warn( se.getMessage() );
+            sampleResult.setSuccessful( false );
         }
         return sampleResult;
     }
