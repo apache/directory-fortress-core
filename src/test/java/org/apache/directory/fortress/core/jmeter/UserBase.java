@@ -28,6 +28,7 @@ import org.apache.directory.fortress.core.util.Config;
 import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
+import org.apache.jmeter.threads.JMeterContextService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.directory.fortress.core.AdminMgr;
@@ -73,6 +74,8 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     // size of test user set
     protected int batchsize = 10;
     protected int duplicate = 0;
+    protected int numThreads;
+    protected String numLoops;
     protected static int TOTAL_NUMBER_OF_PERMISSIONS = 10;
 
     protected enum Op
@@ -83,38 +86,6 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     }
 
     /**
-     * Does the user exist?
-     * @param userId
-     * @param op
-     * @return
-     */
-    protected boolean verify( String userId, Op op )
-    {
-        boolean found = false;
-        try
-        {
-            assertNotNull( adminMgr );
-            User user = new User( userId );
-            User outUser = reviewMgr.readUser( user );
-            if( op == Op.DEL )
-            {
-                warn( "Failed del check, threadId: " + getThreadId() + ", user: " + userId );
-            }
-            assertNotNull( outUser );
-            found = true;
-        }
-        catch ( org.apache.directory.fortress.core.SecurityException se )
-        {
-            if( op == Op.ADD || op == Op.CHECK )
-            {
-                warn( "Failed add check, threadId: " + getThreadId() + ", error reading user: " + se );
-                se.printStackTrace();
-            }
-        }
-        return found;
-    }
-
-    /**
      * Prepare the thread, initialize variables, instantiate managers.
      *
      * @param samplerContext Description of the Parameter
@@ -122,7 +93,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     public void setupTest( JavaSamplerContext samplerContext )
     {
         init( samplerContext );
-        String message = "SETUP User TID: " + getThreadId() + ", hostname: " + hostname + ", qualifier: " + qualifier + ", role: " + role + ", verify: " + verify + ", sleep: " + sleep + ", batchsize: " + batchsize;
+        String message = "SETUP User TID: " + getThreadId() + ", num threads: " + numThreads + ", hostname: " + hostname + ", qualifier: " + qualifier + ", role: " + role + ", verify: " + verify + ", sleep: " + sleep + ", batchsize: " + batchsize;
         info( message );
         try
         {
@@ -132,13 +103,15 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         }
         catch ( SecurityException se )
         {
-            warn( "ThreadId: " + getThreadId() + ", error setting up test: " + se );
-            se.printStackTrace();
+            String error = "ThreadId: " + getThreadId() + ", error setting up test: " + se;
+            LOG.error( error );
+            fail( error );
         }
     }
 
     private void init( JavaSamplerContext samplerContext )
     {
+        numThreads = JMeterContextService.getNumberOfThreads();
         // Can override hostname via system property:
         hostname = System.getProperty( "hostname" );
         if (! StringUtils.isEmpty( hostname ))
@@ -190,18 +163,18 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         String szSleep = System.getProperty( "sleep" );
         if (StringUtils.isEmpty( szSleep ))
         {
-            szSleep = samplerContext.getParameter( "sleep" );
+            sleep = samplerContext.getIntParameter( "sleep" );
         }
-        if (!StringUtils.isEmpty( szSleep ))
+        else
         {
             sleep = Integer.valueOf( szSleep );
         }
         String szSize = System.getProperty( "batchsize" );
         if (StringUtils.isEmpty( szSize ))
         {
-            szSize = samplerContext.getParameter( "batchsize" );
+            batchsize = samplerContext.getIntParameter( "batchsize" );
         }
-        if (!StringUtils.isEmpty( szSize ))
+        else
         {
             batchsize = Integer.valueOf(szSize);
         }
@@ -217,9 +190,40 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         }
         if (!StringUtils.isEmpty( szPassword ))
         {
-            // override the default:
             password = szPassword;
         }
+    }
+
+    /**
+     * Does the user exist?
+     * @param userId
+     * @param op
+     * @return
+     */
+    protected boolean verify( String userId, Op op )
+    {
+        boolean found = false;
+        try
+        {
+            assertNotNull( adminMgr );
+            User user = new User( userId );
+            User outUser = reviewMgr.readUser( user );
+            if( op == Op.DEL )
+            {
+                warn( "Failed del check, threadId: " + getThreadId() + ", user: " + userId );
+            }
+            assertNotNull( outUser );
+            found = true;
+        }
+        catch ( org.apache.directory.fortress.core.SecurityException se )
+        {
+            if( op == Op.ADD || op == Op.CHECK )
+            {
+                warn( "Failed add check, threadId: " + getThreadId() + ", error reading user: " + se );
+                se.printStackTrace();
+            }
+        }
+        return found;
     }
 
     protected String concat( String ... val)
