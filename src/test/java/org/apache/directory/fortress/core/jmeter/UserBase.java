@@ -122,7 +122,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     public void setupTest( JavaSamplerContext samplerContext )
     {
         init( samplerContext );
-        String message = "FT SETUP User TID: " + getThreadId() + ", hostname: " + hostname + ", qualifier: " + qualifier + ", verify: " + verify + ", sleep: " + sleep + ", duplicate: " + duplicate + ", role: " + role + ", batchsize: " + batchsize;
+        String message = "SETUP User TID: " + getThreadId() + ", hostname: " + hostname + ", qualifier: " + qualifier + ", role: " + role + ", verify: " + verify + ", sleep: " + sleep + ", batchsize: " + batchsize;
         info( message );
         try
         {

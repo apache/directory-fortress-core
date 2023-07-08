@@ -69,25 +69,25 @@ ________________________________________________________________________________
 - These metadata files contain parameters that correspond with each test case.
 
 A. Add User:
- - [src/test/jmeter/ftAddUser.jmx](src/test/jmeter/ftAddUser.jmx)
+ - [src/test/jmeter/AddUser.jmx](src/test/jmeter/AddUser.jmx)
 
 B. Del User:
- - [src/test/jmeter/ftDelUser.jmx](src/test/jmeter/ftDelUser.jmx)
+ - [src/test/jmeter/DelUser.jmx](src/test/jmeter/DelUser.jmx)
 
 C. Check User:
- - [src/test/jmeter/ftCheckUser.jmx](src/test/jmeter/ftCheckUser.jmx)
+ - [src/test/jmeter/CheckUser.jmx](src/test/jmeter/CheckUser.jmx)
 
 D. Create Session:
-- [src/test/jmeter/ftCreateSession.jmx](src/test/jmeter/ftCreateSession.jmx)
+- [src/test/jmeter/CreateSession.jmx](src/test/jmeter/CreateSession.jmx)
 
 E. Bind User:
- - [src/test/jmeter/ftBindUser.jmx](src/test/jmeter/ftBindUser.jmx)
+ - [src/test/jmeter/BindUser.jmx](src/test/jmeter/BindUser.jmx)
 
 F. Check Access:
- - [src/test/jmeter/ftCheckAccess.jmx](src/test/jmeter/ftCheckAccess.jmx)
+ - [src/test/jmeter/CheckAccess.jmx](src/test/jmeter/CheckAccess.jmx)
 
 G. Check Role:
- - [src/test/jmeter/ftCheckRole.jmx](src/test/jmeter/ftCheckRole.jmx)
+ - [src/test/jmeter/CheckRole.jmx](src/test/jmeter/CheckRole.jmx)
 
 ___________________________________________________________________________________
 ### 4. Setting the jmeter parameters
@@ -101,7 +101,7 @@ These settings affect the length, duration, and the number of threads:
 
 For example:
 
-##### src/test/jmeter/ftAddUser.jmx jmeter config file:
+##### src/test/jmeter/AddUser.jmx jmeter config file:
 
 ```xml
 <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Fortress AddUser" enabled="true">
@@ -159,33 +159,33 @@ ________________________________________________________________________________
 
 The tests run from the command line as a maven profile.
 
-| Name           | Usage                                               |
-|----------------|-----------------------------------------------------|
-| add users      | mvn verify -Ploadtest -Dtype=ftAddUser [args]       |
-| del users      | mvn verify -Ploadtest -Dtype=ftDelUser [args]       |
-| user check     | mvn verify -Ploadtest -Dtype=ftCheckUser [args]     |
-| create session | mvn verify -Ploadtest -Dtype=ftCreateSession [args] |
-| bind user      | mvn verify -Ploadtest -Dtype=ftBindUser [args]      |
-| check access   | mvn verify -Ploadtest -Dtype=ftCheckAccess [args]   |
-| check role     | mvn verify -Ploadtest -Dtype=ftCheckRole [args]     |
+| Name           | Usage                                             |
+|----------------|---------------------------------------------------|
+| add users      | mvn verify -Ploadtest -Dtype=AddUser [args]       |
+| del users      | mvn verify -Ploadtest -Dtype=DelUser [args]       |
+| user check     | mvn verify -Ploadtest -Dtype=CheckUser [args]     |
+| create session | mvn verify -Ploadtest -Dtype=CreateSession [args] |
+| bind user      | mvn verify -Ploadtest -Dtype=BindUser [args]      |
+| check access   | mvn verify -Ploadtest -Dtype=CheckAccess [args]   |
+| check role     | mvn verify -Ploadtest -Dtype=CheckRole [args]     |
 
 #### Description of runtime arguments
 
 These may be injected into the runtime as Java system (-D) command-line arguments or jmeter params:
 
-| Name      | Type    | Test                      | Jmeter param | Java system prop | Description                                                                                  | Example                | Default                |
-|-----------| ------- |---------------------------|--------------| ---------------- |----------------------------------------------------------------------------------------------|------------------------|------------------------|
-| batchsize | Integer | not ftAddUser,ftDelUser   | True         | True             | Number of users to iterate over when checking authN and/or authZ.                            | batchsize=1000         | 10                     |
-| duplicate | Integer | ftAddUser,ftDelUser       | False        | True             | Duplicate operation after specified interval.                                                | duplicate=1000         | none (don't duplicate) |
-| hostname  | String  | all                       | False        | True             | Useful for distributing the load in a multi-provider env. Will override fortress.properties. | hostname=foo           | none                   |
-| ou        | String  | ftAddUser                 | True         | True             | The group name                                                                               | name=localhost-A1-1    | none                   |
-| password  | String  | not ftDelUser             | True         | True             | The password used by test users                                                              | password=newsecret     | secret                 |
-| perm      | String  | ftCheckUser,ftCheckAccess | True         | True             | Format is objectName.operationName                                                           | perm=jmeterobject.oper | none                   |
-| qualifier | String  | all                       | True         | True             | Part of the userid: hostname + qualifier + counter.                                          | qualifier=A1           | none                   |
-| role      | String  | ftAddUser,ftCheckRole     | True         | True             | The role name                                                                                | role=jmeterrole        | none                   |
-| sleep     | Integer | all                       | True         | True             | Sleep this many milliseconds after op.                                                       | sleep=30               | none (no sleep)        |
-| update    | Boolean | ftAddUser                 | True         | True             | Edit user's description.                                                                     | update=true            | false                  |
-| verify    | Boolean | ftAddUser,ftDelUser       | True         | True             | e.g. read after op to verify success.                                                        | verify=true            | false                  |
+| Name      | Type    | Test                  | Jmeter param | Java system prop | Description                                                                                  | Example                | Default                |
+|-----------| ------- |-----------------------|--------------| ---------------- |----------------------------------------------------------------------------------------------|------------------------|------------------------|
+| batchsize | Integer | not AddUser,DelUser   | True         | True             | Number of users to iterate over when checking authN and/or authZ.                            | batchsize=1000         | 10                     |
+| duplicate | Integer | AddUser,DelUser       | False        | True             | Duplicate operation after specified interval.                                                | duplicate=1000         | none (don't duplicate) |
+| hostname  | String  | all                   | False        | True             | Useful for distributing the load in a multi-provider env. Will override fortress.properties. | hostname=foo           | none                   |
+| ou        | String  | AddUser               | True         | True             | The group name                                                                               | name=localhost-A1-1    | none                   |
+| password  | String  | not DelUser           | True         | True             | The password used by test users                                                              | password=newsecret     | secret                 |
+| perm      | String  | CheckUser,CheckAccess | True         | True             | Format is objectName.operationName                                                           | perm=jmeterobject.oper | none                   |
+| qualifier | String  | all                   | True         | True             | Part of the userid: hostname + qualifier + counter.                                          | qualifier=A1           | none                   |
+| role      | String  | AddUser,CheckRole     | True         | True             | The role name                                                                                | role=jmeterrole        | none                   |
+| sleep     | Integer | all                   | True         | True             | Sleep this many milliseconds after op.                                                       | sleep=30               | none (no sleep)        |
+| update    | Boolean | AddUser               | True         | True             | Edit user's description.                                                                     | update=true            | false                  |
+| verify    | Boolean | AddUser,DelUser       | True         | True             | e.g. read after op to verify success.                                                        | verify=true            | false                  |
 
 - Java system properties take precedence over params set in the Jmeter config files.
 
@@ -198,14 +198,14 @@ From **FORTRESS_HOME** folder, enter the following command from a system prompt:
 - Update and/or role assignments are optional operations.
  
 ```bash
-mvn verify -Ploadtest -Dtype=ftAddUser -Dqualifier=A1 -Dverify=true -Dsleep=30 -Dupdate=true -Dou=loadtestu -Drole=jmeterrole -Dpassword=secret
+mvn verify -Ploadtest -Dtype=AddUser -Dqualifier=A1 -Dverify=true -Dsleep=30 -Dupdate=true -Dou=loadtestu -Drole=jmeterrole -Dpassword=secret
 ```
 
 This test adds users.  The following system properties are passed on the command line to define behavior:
 
 | name=value      | Usage                                            |
 |-----------------|--------------------------------------------------|
-| type=ftAddUser  | run the AddUser test case                        |
+| type=AddUser    | run the AddUser test case                        |
 | qualifier=A1    | construct userid: hostname + qualifier + counter | 
 | verify=true     | read after operation to verify success           | 
 | sleep=30        | sleep this many milliseconds between ops         |
@@ -219,7 +219,7 @@ This test adds users.  The following system properties are passed on the command
 ##### B. Delete Users:
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftDelUser -Dqualifier=A1
+mvn verify -Ploadtest -Dtype=DelUser -Dqualifier=A1
 ```
 
 Here the delete user is being called. It requires only a qualifier to identify the batch of users being targeted.
@@ -229,13 +229,13 @@ Here the delete user is being called. It requires only a qualifier to identify t
 Performs createSession followed by optional calling checkAccess.
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftCheckUser -Dqualifier=A1 -Dperm=jmeterobject.oper -Dbatchsize=10000
+mvn verify -Ploadtest -Dtype=CheckUser -Dqualifier=A1 -Dperm=jmeterobject.oper -Dbatchsize=10000
 ```
 Arguments:
 
 | name=value             | Usage                                                      |
 |------------------------|------------------------------------------------------------|
-| type=ftCheckUser       | run the CheckUser test case                                |
+| type=CheckUser         | run the CheckUser test case                                |
 | qualifier=A1           | construct userid: hostname + qualifier + counter           |
 | perm=jmeterobject.oper | calls checkAccess if set. Format: objectName.operationName |
 | batchsize=10000        | we have 10000 users in our batch                           | 
@@ -245,7 +245,7 @@ Arguments:
 Performs createSession only.
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftCreateSession -Dqualifier=A1 -Dbatchsize=10000
+mvn verify -Ploadtest -Dtype=CreateSession -Dqualifier=A1 -Dbatchsize=10000
 ```
 
 ##### E. Check Access:
@@ -253,7 +253,7 @@ mvn verify -Ploadtest -Dtype=ftCreateSession -Dqualifier=A1 -Dbatchsize=10000
 Perform createSession and one checkAccess.
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftCheckAccess -Dqualifier=A1 -Dperm=jmeterobject.oper -Dbatchsize=10000
+mvn verify -Ploadtest -Dtype=CheckAccess -Dqualifier=A1 -Dperm=jmeterobject.oper -Dbatchsize=10000
 ```
 Arguments:
 - perm=jmeterobject.oper   <-- Format: objectName.operationName.
@@ -263,15 +263,15 @@ Arguments:
 Performs authentication.
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftBindUser -Dqualifier=A1 -Dbatchsize=10000
+mvn verify -Ploadtest -Dtype=BindUser -Dqualifier=A1 -Dbatchsize=10000
 ```
 
 ##### G. Check Role:
 
-Perform createSession and isUserInRole.
+Performs createSession and isUserInRole.
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftCheckRole -Dqualifier=A1 -Drole=jmeterrole -Dbatchsize=10000
+mvn verify -Ploadtest -Dtype=CheckRole -Dqualifier=A1 -Drole=jmeterrole -Dbatchsize=10000
 ```
 
 ___________________________________________________________________________________
@@ -284,12 +284,12 @@ ________________________________________________________________________________
 - Sets the global counter max, used to generate test userId.
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftBindUser -Dbatchsize=100 -Dqualifier=A1
+mvn verify -Ploadtest -Dtype=BindUser -Dbatchsize=100 -Dqualifier=A1
 ```
 
 - The above test iterates over 100 users performing authentication.
 
-##### src/test/jmeter/ftBindUser.jmx jmeter config file:
+##### src/test/jmeter/BindUser.jmx jmeter config file:
 
 ```xml
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Fortress BindUser" enabled="true">
@@ -304,7 +304,7 @@ mvn verify -Ploadtest -Dtype=ftBindUser -Dbatchsize=100 -Dqualifier=A1
 
 - 5,000 bind operations will occur during the test.
 
-##### target/jmeter/results/[DATE]-ftBindUser.csv log file:
+##### target/jmeter/results/[DATE]-BindUser.csv log file:
 
 ```bash
 # notice the generated userids, localhost-A1-1, localhost-A1-2, localhost-A1-3
@@ -326,7 +326,7 @@ mvn verify -Ploadtest -Dtype=ftBindUser -Dbatchsize=100 -Dqualifier=A1
 - The add test generates userids based on: hostname + qualifier + counter.  
 - The counter is global across threads, so if you enable 20 threads * 100 loops:
 
-##### src/test/jmeter/ftAddUser.jmx jmeter config file:
+##### src/test/jmeter/AddUser.jmx jmeter config file:
 
 ```xml
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Fortress AddUser" enabled="true">
@@ -342,10 +342,10 @@ mvn verify -Ploadtest -Dtype=ftBindUser -Dbatchsize=100 -Dqualifier=A1
 - with a qualifier = 'A1', 2,000 users will be added:
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftAddUser -Dqualifier=A1
+mvn verify -Ploadtest -Dtype=AddUser -Dqualifier=A1
 ```
 
-##### target/jmeter/results/[DATE]ftAddUser.csv log file:
+##### target/jmeter/results/[DATE]AddUser.csv log file:
 
 ```bash
 1688515254648,107,Fortress AddUser,,test completed TID: 19 UID: localhost-A1-1,Fortress AddUser 1-1,,true,,0,0,2,2,null,0,0,0
@@ -362,17 +362,17 @@ mvn verify -Ploadtest -Dtype=ftAddUser -Dqualifier=A1
 - DelUser work the same way. Delete the user in the A1 batch by running:
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftDelUser -Dqualifier=A1
+mvn verify -Ploadtest -Dtype=DelUser -Dqualifier=A1
 ```
 
-- The thread and loop properties in ftDelUser.jmx must match ftAddUser.jmx in order for the same size to be computed.
+- The thread and loop properties in DelUser.jmx must match AddUser.jmx in order for the same size to be computed.
 
 #### C. Verify property
 
 - When true, a read entry is performed after the write.
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftAddUser -Dqualifier=A1 -Dverify=true
+mvn verify -Ploadtest -Dtype=AddUser -Dqualifier=A1 -Dverify=true
 ```
 
 - Don't confuse the verify property with the maven verify target. One is required on all test invocations, the other optional.
@@ -382,7 +382,7 @@ mvn verify -Ploadtest -Dtype=ftAddUser -Dqualifier=A1 -Dverify=true
 - When true, an update will be performed to the user's description field following the add.
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftAddUser -Dqualifier=A1 -Dupdate=true
+mvn verify -Ploadtest -Dtype=AddUser -Dqualifier=A1 -Dupdate=true
 ```
 
 #### E. Role property
@@ -390,7 +390,7 @@ mvn verify -Ploadtest -Dtype=ftAddUser -Dqualifier=A1 -Dupdate=true
 - If 'role' set as property, it will be assigned after the add.  The role itself must already exist before being used in assignment to user.
 
 ```bash
-mvn verify -Ploadtest -Dtype=ftAddUser -Dqualifier=A1 -Drole=jmeterrole
+mvn verify -Ploadtest -Dtype=AddUser -Dqualifier=A1 -Drole=jmeterrole
 ```
 
 - Tests that call checkAccess method (CheckUser, CheckAccess) will fail if role has not been assigned.
@@ -402,9 +402,9 @@ mvn verify -Ploadtest -Dtype=ftAddUser -Dqualifier=A1 -Drole=jmeterrole
 
 ```bash
 # will call checkAccess 10 times (if set) per test iteration:
-mvn verify -Ploadtest -Dtype=ftCheckUser -Dperm=jmeterobject.oper -Dbatchsize=10000
+mvn verify -Ploadtest -Dtype=CheckUser -Dperm=jmeterobject.oper -Dbatchsize=10000
 # calls checkAccess once per test:
-mvn verify -Ploadtest -Dtype=ftCheckAccess -Dperm=jmeterobject.oper -Dbatchsize=10000
+mvn verify -Ploadtest -Dtype=CheckAccess -Dperm=jmeterobject.oper -Dbatchsize=10000
 ```
 
 - These permissions must already exist (loaded via security policy) before running this test.
@@ -418,13 +418,13 @@ ________________________________________________________________________________
 - The files listed below contain additional info.
 
 #### A. View the results
- - target/jmeter/results/[DATE]-ftAddUser.csv
- - target/jmeter/results/[DATE]-ftDelUser.jmx.csv
- - target/jmeter/results/[DATE]-ftCheckUser.csv
- - target/jmeter/results/[DATE]-ftCreateSession.csv
- - target/jmeter/results/[DATE]-ftCheckAccess.csv
- - target/jmeter/results/[DATE]-ftBindUser.csv
- - target/jmeter/results/[DATE]-ftCheckRole.csv
+ - target/jmeter/results/[DATE]-AddUser.csv
+ - target/jmeter/results/[DATE]-DelUser.jmx.csv
+ - target/jmeter/results/[DATE]-CheckUser.csv
+ - target/jmeter/results/[DATE]-CreateSession.csv
+ - target/jmeter/results/[DATE]-CheckAccess.csv
+ - target/jmeter/results/[DATE]-BindUser.csv
+ - target/jmeter/results/[DATE]-CheckRole.csv
 
 #### B. View the Log4j logs
 
@@ -440,8 +440,8 @@ Otherwise log4j outputs to console
 Happens when jmeter test instance can't load all of its classes. Ensure the required libs have been loaded.
 
 ```bash
-[INFO] Executing test: ftAddUser.jmx
-[INFO] Arguments for forked JMeter JVM: [java, -Xms1024M, -Xmx1024M, -Djava.awt.headless=true, -jar, ApacheJMeter-5.5.jar, -d, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/b8ccc8a0-8845-4d34-aa10-b4ec7f50f4f5/jmeter, -j, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/logs/ftAddUser.jmx.log, -l, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/results/20230702-ftAddUser.csv, -n, -t, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/testFiles/ftAddUser.jmx, -Dsun.net.http.allowRestrictedHeaders, true, -Dqualifier, A10, -Dversion, 3.0.0-SNAPSHOT]
+[INFO] Executing test: AddUser.jmx
+[INFO] Arguments for forked JMeter JVM: [java, -Xms1024M, -Xmx1024M, -Djava.awt.headless=true, -jar, ApacheJMeter-5.5.jar, -d, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/b8ccc8a0-8845-4d34-aa10-b4ec7f50f4f5/jmeter, -j, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/logs/AddUser.jmx.log, -l, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/results/20230702-AddUser.csv, -n, -t, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/testFiles/AddUser.jmx, -Dsun.net.http.allowRestrictedHeaders, true, -Dqualifier, A10, -Dversion, 3.0.0-SNAPSHOT]
 [INFO]  
 [INFO] java.lang.NoSuchMethodError: 'void org.apache.logging.slf4j.Log4jLoggerFactory.<init>(org.apache.logging.slf4j.Log4jMarkerFactory)'
 [INFO]  at org.apache.logging.slf4j.SLF4JServiceProvider.initialize(SLF4JServiceProvider.java:54)
@@ -458,7 +458,7 @@ Happens when jmeter test instance can't load all of its classes. Ensure the requ
 [INFO]  at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:490)
 [INFO]  at org.apache.jmeter.NewDriver.main(NewDriver.java:257)
 [INFO] JMeter home directory was detected as: /home/smckinn/GIT/fortressDev/directory-fortress-core/target/b8ccc8a0-8845-4d34-aa10-b4ec7f50f4f5/jmeter
-[INFO] Completed Test: /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/testFiles/ftAddUser.jmx
+[INFO] Completed Test: /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/testFiles/AddUser.jmx
 [INFO]  
 [INFO] 
 [INFO] --- tools:1.4:verify-legal-files (verify-legal-files) @ fortress-core ---
@@ -481,8 +481,8 @@ The current version of jmeter v5.6 requires
 Sample error
 
 ```bash
-[INFO] Executing test: ftAddUser.jmx
-[INFO] Arguments for forked JMeter JVM: [java, -Xms1024M, -Xmx1024M, -Djava.awt.headless=true, -jar, ApacheJMeter-5.5.jar, -d, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/dceff4c0-ff24-4e9c-ad4a-7db38b276b52/jmeter, -j, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/logs/ftAddUser.jmx.log, -l, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/results/20230702-ftAddUser.csv, -n, -t, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/testFiles/ftAddUser.jmx, -Dsun.net.http.allowRestrictedHeaders, true, -Dqualifier, A10, -Dversion, 3.0.0-SNAPSHOT]
+[INFO] Executing test: AddUser.jmx
+[INFO] Arguments for forked JMeter JVM: [java, -Xms1024M, -Xmx1024M, -Djava.awt.headless=true, -jar, ApacheJMeter-5.5.jar, -d, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/dceff4c0-ff24-4e9c-ad4a-7db38b276b52/jmeter, -j, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/logs/AddUser.jmx.log, -l, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/results/20230702-AddUser.csv, -n, -t, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/testFiles/AddUser.jmx, -Dsun.net.http.allowRestrictedHeaders, true, -Dqualifier, A10, -Dversion, 3.0.0-SNAPSHOT]
 [INFO]  
 [INFO] Error in NonGUIDriver java.lang.NullPointerException
 [INFO] An error occurred: Error in NonGUIDriver null
@@ -509,8 +509,8 @@ Observation:
 When running tests that consume lots of memory, e.g. using many threads and/or enabling REST, the process hangs.
 Jmeter and log4j logs stop outputing. The machine's otherwise unaffected. LDAP and/or HTTP servers are responsive.
 Root Cause:
-Most likely jmeter has run out of memory. Unfortunately, when this happens, 
-an error is not reported. The process hangs and stops responding.
+Most likely jmeter has run out of memory.  
+An error is not reported. The process hangs and stops responding.
 
 Remedy:
 Edit the project's pom.mxl. Goto the loadtest profile. Increase the memory allocation, e.g. 2048 (2GB):
