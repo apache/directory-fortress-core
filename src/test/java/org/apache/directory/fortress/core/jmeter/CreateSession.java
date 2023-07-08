@@ -41,7 +41,7 @@ public class CreateSession extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
-        String userId  = hostname + '-' + qualifier + '-' + getKey( Op.CHECK );
+        String userId = getUserId ( Op.CHECK );
         SampleResult sampleResult = new SampleResult();
         try
         {
@@ -59,8 +59,7 @@ public class CreateSession extends UserBase
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
-            warn( "ThreadId: " + getThreadId() + ", error running test: " + se );
-            se.printStackTrace();
+            warn( se.getMessage() );
             sampleResult.setSuccessful( false );
         }
 

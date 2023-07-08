@@ -41,27 +41,26 @@ public class CheckRole extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
-        String userId  = hostname + '-' + qualifier + '-' + getKey( Op.CHECK );
+        String userId = getUserId ( Op.CHECK );
         SampleResult sampleResult = new SampleResult();
         try
         {
             sampleResult.sampleStart();
             assertNotNull( accessMgr );
-            assertNotNull( "role operand not setup", role );
+            assertNotNull( concat("role operand not setup", role ) );
             User user = new User();
             user.setUserId( userId );
             user.setPassword( password );
             LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
             assertTrue(
-                    "failed uid:" + userId + ", role: " + role,
+                    concat("failed uid:" + userId + ", role: " + role ),
                     accessMgr.isUserInRole( user, new Role( role ), false ) );
             sleep();
             wrapup( sampleResult, userId );
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
-            warn( "ThreadId: " + getThreadId() + ", error running test: " + se );
-            se.printStackTrace();
+            warn( se.getMessage() );
             sampleResult.setSuccessful( false );
         }
 

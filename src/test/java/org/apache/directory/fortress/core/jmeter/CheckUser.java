@@ -43,7 +43,7 @@ public class CheckUser extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
-        String userId  = hostname + '-' + qualifier + '-' + getKey( Op.CHECK );
+        String userId = getUserId ( Op.CHECK );
         SampleResult sampleResult = new SampleResult();
         try
         {
@@ -62,7 +62,7 @@ public class CheckUser extends UserBase
                 {
                     Permission p = getPermission( i );
                     assertTrue(
-                            "failed test uid: " + userId + ", perm obj: "+ p.getObjName() + ", op: " + p.getOpName(),
+                            concat( "failed test uid: ", userId, ", perm obj: ", p.getObjName(), ", op: ", p.getOpName() ),
                             accessMgr.checkAccess( session, p ) );
                 }
             }
@@ -71,8 +71,7 @@ public class CheckUser extends UserBase
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
-            warn( "ThreadId: " + getThreadId() + ", error running test: " + se );
-            se.printStackTrace();
+            warn( se.getMessage() );
             sampleResult.setSuccessful( false );
         }
 

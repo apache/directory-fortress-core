@@ -527,5 +527,28 @@ Edit the project's pom.mxl. Goto the loadtest profile. Increase the memory alloc
    </build>
 </profile>
 ```
+____________________________________________________________________________________
+
+##### iv. too many open files
+
+Observation:
+When running loadtests thought the REST interface, Exceptions in log file:
+
+###### target/[GUID]/jmeter/bin/fortress-jmeter.log
+
+```bash
+2023-07-05 01:59:015 WARN  UserBase:219 - ThreadId: 23, error running test: org.apache.directory.fortress.core.RestException: post uri=[https://fortress-a:8443/fortress-rest-3.0.0-SNAPSHOT/], function=[rbacCheck], caught IOException=Too many open files
+2023-07-05 01:59:015 ERROR RestUtils:389 - post uri=[https://fortress-a:8443/fortress-rest-3.0.0-SNAPSHOT/], function=[rbacCheck], caught IOException=Too many open files
+java.net.SocketException: Too many open files
+```
+
+Remedy:
+Increase the maximum open files for ALL users. Requires a reboot to become active.
+ 
+###### /etc/security/limits.conf
+
+```
+'*               -       nofile             8192'
+```
 ____________________________________________________________________________________ 
 ## END OF README

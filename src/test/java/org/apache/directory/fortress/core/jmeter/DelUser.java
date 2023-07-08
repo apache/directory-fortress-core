@@ -40,8 +40,7 @@ public class DelUser extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
-        int count = getKey( Op.ADD );
-        String userId  = hostname + '-' + qualifier + '-' + count;
+        String userId = getUserId ( Op.DEL );
         SampleResult sampleResult = new SampleResult();
         try
         {
@@ -52,9 +51,9 @@ public class DelUser extends UserBase
             LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
             adminMgr.deleteUser( user );
             // This tests replication, ability to handle conflicts:
-            if ( duplicate > 0 && count > duplicate && ( count % duplicate ) == 0 )
+            if ( duplicate > 0 && count.get() > duplicate && ( count.get() % duplicate ) == 0 )
             {
-                warn( "DUPLICATE DEL[" + count + "]: " + user.getUserId() );
+                warn( concat( "DUPLICATE DEL ", user.getUserId() ) );
                 adminMgr.deleteUser( user );
             }
             if ( verify )
@@ -66,8 +65,7 @@ public class DelUser extends UserBase
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
-            warn( "ThreadId: " + getThreadId() + ", error running test: " + se );
-            se.printStackTrace();
+            warn( se.getMessage() );
             sampleResult.setSuccessful( false );
         }
         return sampleResult;

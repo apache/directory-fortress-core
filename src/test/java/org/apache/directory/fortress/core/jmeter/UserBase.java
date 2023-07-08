@@ -51,7 +51,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
     protected static final Logger LOG = LoggerFactory.getLogger( UserBase.class );
 
     // global counter
-    private static AtomicInteger count = new AtomicInteger(0);
+    protected static AtomicInteger count = new AtomicInteger(0);
     // ldap host
     protected String hostname;
     // used to differentiate data sets
@@ -222,6 +222,19 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         }
     }
 
+    protected String concat( String ... val)
+    {
+        StringBuilder sb = new StringBuilder();
+        if ( val != null )
+        {
+            for ( int i =0; i < val.length; i++ )
+            {
+                sb.append( val[i] );
+            }
+        }
+        return sb.toString();
+    }
+
     protected void info(String message )
     {
         LOG.info( message );
@@ -262,13 +275,18 @@ public abstract class UserBase extends AbstractJavaSamplerClient
      *
      * @return
      */
-    protected int getKey( Op op )
+    protected Integer getKey( Op op )
     {
         if( op == Op.CHECK )
         {
             count.compareAndSet( batchsize, 0);
         }
         return count.incrementAndGet();
+    }
+
+    protected String getUserId ( Op op )
+    {
+        return concat(hostname, "-", qualifier, "-", getKey( op ).toString() );
     }
 
     String getThreadId()
@@ -312,7 +330,7 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         }
         else
         {
-            fail( "perm operand must be objectName.operationName: " + perm );
+            fail( concat( "perm operand must be objectName.operationName: " + perm ) );
         }
         return p;
     }

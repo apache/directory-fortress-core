@@ -42,8 +42,7 @@ public class AddUser extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
-        int count = getKey( Op.ADD );
-        String userId  = hostname + '-' + qualifier + '-' + count;
+        String userId = getUserId ( Op.ADD );
         SampleResult sampleResult = new SampleResult();
         try
         {
@@ -52,17 +51,17 @@ public class AddUser extends UserBase
             assertNotNull( "ou operand not setup", ou );
             User user = new User();
             user.setUserId( userId );
-            user.setDescription( "add one: " + user.getUserId() );
+            user.setDescription( concat( "add one: ", user.getUserId() ) );
             user.setPassword( password );
             user.setOu( ou );
             LOG.debug( "threadid: {}, userId: {}", getThreadId(), userId );
             User outUser = adminMgr.addUser( user );
             assertNotNull( outUser );
             // This tests replication, ability to handle conflicts:
-            if ( duplicate > 0 && count > duplicate && ( count % duplicate ) == 0 )
+            if ( duplicate > 0 && count.get() > duplicate && ( count.get() % duplicate ) == 0 )
             {
-                warn( "DUPLICATE ADD[" + count + "]: " + user.getUserId() );
-                user.setDescription( "add two: " + user.getUserId() );
+                warn( concat( "DUPLICATE ADD: ", user.getUserId() ) );
+                user.setDescription( concat( "add two: ", user.getUserId() ) );
                 outUser = adminMgr.addUser( user );
             }
             if( update )
@@ -77,15 +76,14 @@ public class AddUser extends UserBase
             assertNotNull( outUser );
             if ( verify )
             {
-                assertTrue( "failed test uid: " + userId, verify( userId, Op.ADD ) );
+                assertTrue( concat( "failed test uid: ", userId ), verify( userId, Op.ADD ) );
             }
             sleep();
             wrapup( sampleResult, userId );
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
-            warn( "ThreadId: " + getThreadId() + ", error running test: " + se );
-            se.printStackTrace();
+            warn( se.getMessage() );
             sampleResult.setSuccessful( false );
         }
 
