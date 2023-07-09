@@ -42,6 +42,7 @@ public class AddUser extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
+        boolean result = false;
         String userId = getUserId ( Op.ADD );
         SampleResult sampleResult = new SampleResult();
         try
@@ -78,15 +79,14 @@ public class AddUser extends UserBase
             {
                 assertTrue( concat( "failed test uid: ", userId ), verify( userId, Op.ADD ) );
             }
+            result = true;
             sleep();
-            wrapup( sampleResult, userId );
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
             warn( se.getMessage() );
-            sampleResult.setSuccessful( false );
         }
-
+        wrapup( sampleResult, userId, result );
         return sampleResult;
     }
 }

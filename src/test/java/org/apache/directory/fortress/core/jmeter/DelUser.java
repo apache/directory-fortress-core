@@ -40,6 +40,7 @@ public class DelUser extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
+        boolean result = false;
         String userId = getUserId ( Op.DEL );
         SampleResult sampleResult = new SampleResult();
         try
@@ -60,14 +61,14 @@ public class DelUser extends UserBase
             {
                 assertFalse( "verify failed", verify( userId, Op.DEL ) );
             }
+            result = true;
             sleep();
-            wrapup( sampleResult, userId );
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
             warn( se.getMessage() );
-            sampleResult.setSuccessful( false );
         }
+        wrapup( sampleResult, userId, result );
         return sampleResult;
     }
 }

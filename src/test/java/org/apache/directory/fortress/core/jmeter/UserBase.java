@@ -266,12 +266,12 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         }
     }
 
-    protected void wrapup(SampleResult sampleResult, String userId )
+    protected void wrapup(SampleResult sampleResult, String userId, boolean result )
     {
         sampleResult.setSampleCount( 1 );
         sampleResult.sampleEnd();
         sampleResult.setResponseMessage("test completed TID: " + getThreadId() + " UID: " + userId);
-        sampleResult.setSuccessful(true);
+        sampleResult.setSuccessful( result );
     }
 
     /**

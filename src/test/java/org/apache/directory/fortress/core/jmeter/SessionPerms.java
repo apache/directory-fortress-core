@@ -44,6 +44,7 @@ public class SessionPerms extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
+        boolean result = false;
         String userId = getUserId ( Op.CHECK );
         SampleResult sampleResult = new SampleResult();
         try
@@ -59,14 +60,14 @@ public class SessionPerms extends UserBase
             List<Permission> perms = accessMgr.sessionPermissions( session );
             assertTrue( concat("sessionPermissions failed uid: ", userId, ", # perms: ", Integer.toString( perms.size() ), ", expected: ", Integer.toString( TOTAL_NUMBER_OF_PERMISSIONS ) ),
                         perms.size() == TOTAL_NUMBER_OF_PERMISSIONS );
+            result = true;
             sleep();
-            wrapup( sampleResult, userId );
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
             warn( se.getMessage() );
-            sampleResult.setSuccessful( false );
         }
+        wrapup( sampleResult, userId, result );
         return sampleResult;
     }
 }

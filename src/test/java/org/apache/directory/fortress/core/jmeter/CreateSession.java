@@ -41,6 +41,7 @@ public class CreateSession extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
+        boolean result = false;
         String userId = getUserId ( Op.CHECK );
         SampleResult sampleResult = new SampleResult();
         try
@@ -54,15 +55,14 @@ public class CreateSession extends UserBase
             Session session = accessMgr.createSession( user, false );
             assertNotNull("createSession failed", session);
             assertTrue( "failed userId test", session.getUserId().equalsIgnoreCase( userId ) );
+            result = true;
             sleep();
-            wrapup( sampleResult, userId );
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
             warn( se.getMessage() );
-            sampleResult.setSuccessful( false );
         }
-
+        wrapup( sampleResult, userId, result );
         return sampleResult;
     }
 }

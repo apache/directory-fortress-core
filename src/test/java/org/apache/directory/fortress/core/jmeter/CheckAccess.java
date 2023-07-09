@@ -41,6 +41,7 @@ public class CheckAccess extends UserBase
      */
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
+        boolean result = false;
         String userId = getUserId ( Op.CHECK );
         SampleResult sampleResult = new SampleResult();
         try
@@ -54,15 +55,14 @@ public class CheckAccess extends UserBase
             Permission p = getPermission();
             assertTrue( concat("failed test uid: ", userId, ", perm obj: ", p.getObjName(), ", op: ", p.getOpName()),
                     accessMgr.checkAccess( user, p, false ) );
+            result = true;
             sleep();
-            wrapup( sampleResult, userId );
         }
         catch ( org.apache.directory.fortress.core.SecurityException se )
         {
             warn( se.getMessage() );
-            sampleResult.setSuccessful( false );
         }
-
+        wrapup( sampleResult, userId, result );
         return sampleResult;
     }
 }
