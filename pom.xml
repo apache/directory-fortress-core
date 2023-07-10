@@ -56,27 +56,6 @@
     <url>https://issues.apache.org/jira/browse/DIRFORTRESS</url>
   </issueManagement>
 
-  <developers>
-    <developer>
-      <id>smckinney</id>
-      <name>Shawn McKinney</name>
-      <email>smckinney@apache.org</email>
-    </developer>
-
-    <developer>
-      <id>elecharny</id>
-      <name>Emmanuel Lecharny</name>
-      <email>elecharny@apache.org</email>
-    </developer>
-
-    <developer>
-      <id>cpike</id>
-      <name>Chris Pike</name>
-      <email>cpike@apache.org</email>
-    </developer>
-
-  </developers>
-
   <properties>
 
     <java.version>11</java.version>
