@@ -163,18 +163,18 @@ public abstract class UserBase extends AbstractJavaSamplerClient
         String szSleep = System.getProperty( "sleep" );
         if (StringUtils.isEmpty( szSleep ))
         {
-            sleep = samplerContext.getIntParameter( "sleep" );
+            szSleep = samplerContext.getParameter( "sleep" );
         }
-        else
+        if (!StringUtils.isEmpty( szSleep ))
         {
             sleep = Integer.valueOf( szSleep );
         }
         String szSize = System.getProperty( "batchsize" );
         if (StringUtils.isEmpty( szSize ))
         {
-            batchsize = samplerContext.getIntParameter( "batchsize" );
+            szSize = samplerContext.getParameter( "batchsize" );
         }
-        else
+        if (!StringUtils.isEmpty( szSize ))
         {
             batchsize = Integer.valueOf(szSize);
         }
