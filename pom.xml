@@ -81,7 +81,7 @@
     <slf4j.api.version>2.0.7</slf4j.api.version>
     <version.opencsv>2.3</version.opencsv>
     <version.jackson-annotations>2.15.2</version.jackson-annotations>
-    <version.jmeter.plugin>3.7.0</version.jmeter.plugin>
+    <version.jmeter.plugin>3.8.0</version.jmeter.plugin>
     <commons-pool2.version>2.9.0</commons-pool2.version>
 
     <!-- TODO: FIX OR REMOVE -->
