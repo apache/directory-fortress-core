@@ -92,6 +92,12 @@ G. Check Role:
 H. Session Perms:
  - [src/test/jmeter/SessionPerms.jmx](src/test/jmeter/SessionPerms.jmx)
 
+I. Add Role:
+- [src/test/jmeter/AddRole.jmx](src/test/jmeter/AddRole.jmx)
+
+J. Del Role:
+- [src/test/jmeter/DelRole.jmx](src/test/jmeter/DelRole.jmx)
+
 ___________________________________________________________________________________
 ### 4. Setting the jmeter parameters
 
@@ -172,6 +178,8 @@ The tests run from the command line as a maven profile.
 | check access   | mvn verify -Ploadtest -Dtype=CheckAccess [args]   |
 | check role     | mvn verify -Ploadtest -Dtype=CheckRole [args]     |
 | session perms  | mvn verify -Ploadtest -Dtype=SessionPerms [args]  |
+| add roles      | mvn verify -Ploadtest -Dtype=AddRole [args]       |
+| del roles      | mvn verify -Ploadtest -Dtype=DelRole [args]       |
 
 #### Description of runtime arguments
 
@@ -438,6 +446,8 @@ ________________________________________________________________________________
  - target/jmeter/results/[DATE]-BindUser.csv
  - target/jmeter/results/[DATE]-CheckRole.csv
  - target/jmeter/results/[DATE]-SessionPerms.csv
+ - target/jmeter/results/[DATE]-AddRole.csv
+ - target/jmeter/results/[DATE]-DelRole.jmx.csv
 
 #### B. View the Log4j logs
 
