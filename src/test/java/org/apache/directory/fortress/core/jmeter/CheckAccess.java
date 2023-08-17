@@ -31,7 +31,7 @@ import static org.junit.Assert.*;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class CheckAccess extends UserBase
+public class CheckAccess extends LoadBase
 {
     /**
      * This performs createSession and checkAccess in one API call

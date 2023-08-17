@@ -32,7 +32,7 @@ import static org.junit.Assert.*;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class AddUser extends UserBase
+public class AddUser extends LoadBase
 {
     /**
      * This test case performs add user entry. It optionally also can update, assign role and verify.

@@ -34,7 +34,7 @@ import static org.junit.Assert.*;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class SessionPerms extends UserBase
+public class SessionPerms extends LoadBase
 {
     /**
      * This performs createSession and sessionPermissions API

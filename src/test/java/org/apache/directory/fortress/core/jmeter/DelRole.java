@@ -30,7 +30,7 @@ import static org.junit.Assert.*;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class DelRole extends UserBase
+public class DelRole extends LoadBase
 {
     /**
      * This test case deletes a role.

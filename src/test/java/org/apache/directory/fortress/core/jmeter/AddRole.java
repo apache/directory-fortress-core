@@ -30,7 +30,7 @@ import static org.junit.Assert.*;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class AddRole extends UserBase
+public class AddRole extends LoadBase
 {
     /**
      * This test case performs add role entry.

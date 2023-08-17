@@ -31,7 +31,7 @@ import static org.junit.Assert.*;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class AddPerm extends UserBase
+public class AddPerm extends LoadBase
 {
     /**
      * This test case performs add object entry.

@@ -31,7 +31,7 @@ import static org.junit.Assert.*;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class CheckRole extends UserBase
+public class CheckRole extends LoadBase
 {
     /**
      * This performs createSession and isUserInRole in one API call

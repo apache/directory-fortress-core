@@ -30,7 +30,7 @@ import static org.junit.Assert.*;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class BindUser extends UserBase
+public class BindUser extends LoadBase
 {
     /**
      * This performs bindUser API

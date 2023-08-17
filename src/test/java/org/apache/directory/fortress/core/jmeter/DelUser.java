@@ -30,7 +30,7 @@ import static org.junit.Assert.*;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class DelUser extends UserBase
+public class DelUser extends LoadBase
 {
     /**
      * This test case deletes a user. It also can perform a duplicate delete (for replication testing) and verifies.

@@ -44,12 +44,12 @@ import static org.junit.Assert.fail;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public abstract class UserBase extends AbstractJavaSamplerClient
+public abstract class LoadBase extends AbstractJavaSamplerClient
 {
     protected AccessMgr accessMgr;
     protected AdminMgr adminMgr;
     protected ReviewMgr reviewMgr;
-    protected static final Logger LOG = LoggerFactory.getLogger( UserBase.class );
+    protected static final Logger LOG = LoggerFactory.getLogger( LoadBase.class );
 
     // global counter
     protected static AtomicInteger count = new AtomicInteger(0);
