@@ -26,7 +26,7 @@ import org.apache.jmeter.samplers.SampleResult;
 import static org.junit.Assert.*;
 
 /**
- * Add user entry tests.
+ * Assign user entry tests.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */

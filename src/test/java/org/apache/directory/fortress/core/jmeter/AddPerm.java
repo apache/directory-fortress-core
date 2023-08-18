@@ -27,7 +27,7 @@ import org.apache.jmeter.samplers.SampleResult;
 import static org.junit.Assert.*;
 
 /**
- * Add role entry tests.
+ * Add permission entry tests.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
@@ -43,22 +43,29 @@ public class AddPerm extends LoadBase
     {
         boolean result = false;
         SampleResult sampleResult = new SampleResult();
-        Permission perm = null;
-        try
+        sampleResult.sampleStart();
+        assertNotNull( adminMgr );
+        int count = getKey( Op.ADD );
+        Permission perm = getPermission( count );
+        if ( count == 1 )
         {
-            sampleResult.sampleStart();
-            assertNotNull( adminMgr );
-            int count = getKey( Op.ADD );
-            perm = getPermission( count );
-            if ( count == 1 )
+            // Add the permission object entry (which requires a perm OU setup):
+            assertNotNull( "ou operand not setup", ou );
+            try
             {
-                assertNotNull( "ou operand not setup", ou );
                 PermObj obj = adminMgr.addPermObj( new PermObj( perm.getObjName(), ou ));
                 assertNotNull( perm.getObjName(), obj );
             }
+            catch ( org.apache.directory.fortress.core.SecurityException se )
+            {
+                warn( se.getMessage() );
+            }
+        }
+        try
+        {
             Permission outPerm = adminMgr.addPermission( perm );
             assertNotNull( perm.getOpName(), outPerm );
-            LOG.debug( "threadid: {}, perm obj: {}, op: {}", getThreadId(), perm.getObjName(), perm.getOpName() );
+            LOG.debug( "threadid: {}, add perm obj: {}, op: {}", getThreadId(), perm.getObjName(), perm.getOpName() );
             result = true;
             sleep();
         }

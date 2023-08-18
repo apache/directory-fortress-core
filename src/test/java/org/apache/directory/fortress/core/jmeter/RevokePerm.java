@@ -27,14 +27,14 @@ import org.apache.jmeter.samplers.SampleResult;
 import static org.junit.Assert.*;
 
 /**
- * Grant perm entry tests.
+ * Revoke perm entry tests.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class GrantPerm extends LoadBase
+public class RevokePerm extends LoadBase
 {
     /**
-     * This test case performs grant permission.
+     * This test case performs revoke permission.
      *
      * @param samplerContext Description of the Parameter
      * @return Description of the Return Value
@@ -50,7 +50,7 @@ public class GrantPerm extends LoadBase
             assertNotNull( adminMgr );
             assertNotNull( concat("role operand not setup", role ) );
             perm = getPermission( getKey( Op.ADD ) );
-            adminMgr.grantPermission( perm, new Role( role ) );
+            adminMgr.revokePermission( perm, new Role( role ) );
             LOG.debug( "threadid: {}, perm obj: {}, op: {}, role: {}", getThreadId(), perm.getObjName(), perm.getOpName(), role );
             result = true;
             sleep();

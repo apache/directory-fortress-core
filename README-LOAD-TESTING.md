@@ -98,6 +98,24 @@ I. Add Role:
 J. Del Role:
 - [src/test/jmeter/DelRole.jmx](src/test/jmeter/DelRole.jmx)
 
+K. Assign User:
+- [src/test/jmeter/AssignUser.jmx](src/test/jmeter/AssignUser.jmx)
+
+L. Deassign User:
+- [src/test/jmeter/DeassignUser.jmx](src/test/jmeter/DeassignUser.jmx)
+
+M. Add Permission:
+- [src/test/jmeter/AddPerm.jmx](src/test/jmeter/AddPerm.jmx)
+
+N. Del Permission:
+- [src/test/jmeter/DelPerm.jmx](src/test/jmeter/DelPerm.jmx)
+
+O. Grant Permission:
+- [src/test/jmeter/GrantPerm.jmx](src/test/jmeter/GrantPerm.jmx)
+
+P. Revoke Permission:
+- [src/test/jmeter/RevokePerm.jmx](src/test/jmeter/RevokePerm.jmx)
+
 ___________________________________________________________________________________
 ### 4. Setting the jmeter parameters
 
@@ -180,24 +198,28 @@ The tests run from the command line as a maven profile.
 | session perms  | mvn verify -Ploadtest -Dtype=SessionPerms [args]  |
 | add roles      | mvn verify -Ploadtest -Dtype=AddRole [args]       |
 | del roles      | mvn verify -Ploadtest -Dtype=DelRole [args]       |
+| assign user    | mvn verify -Ploadtest -Dtype=AssignUser [args]    |
+| deassign user  | mvn verify -Ploadtest -Dtype=DeassignUser [args]  |
+| grant perm     | mvn verify -Ploadtest -Dtype=GrantPerm [args]     |
+| revoke perm    | mvn verify -Ploadtest -Dtype=RevokePerm [args]    |
 
 #### Description of runtime arguments
 
 These may be injected into the runtime as Java system (-D) command-line arguments or jmeter params:
 
-| Name      | Type    | Test                  | Jmeter param | Java system prop | Description                                                                                  | Example                | Default                |
-|-----------| ------- |-----------------------|--------------| ---------------- |----------------------------------------------------------------------------------------------|------------------------|------------------------|
-| batchsize | Integer | not AddUser,DelUser   | True         | True             | Number of users to iterate over when checking authN and/or authZ.                            | batchsize=1000         | 10                     |
-| duplicate | Integer | AddUser,DelUser       | False        | True             | Duplicate operation after specified interval.                                                | duplicate=1000         | none (don't duplicate) |
-| hostname  | String  | all                   | False        | True             | Useful for distributing the load in a multi-provider env. Will override fortress.properties. | hostname=foo           | none                   |
-| ou        | String  | AddUser               | True         | True             | The group name                                                                               | name=localhost-A1-1    | none                   |
-| password  | String  | not DelUser           | True         | True             | The password used by test users                                                              | password=newsecret     | secret                 |
-| perm      | String  | CheckUser,CheckAccess | True         | True             | Format is objectName.operationName                                                           | perm=jmeterobject.oper | none                   |
-| qualifier | String  | all                   | True         | True             | Part of the userid: hostname + qualifier + counter.                                          | qualifier=A1           | none                   |
-| role      | String  | AddUser,CheckRole     | True         | True             | The role name                                                                                | role=jmeterrole        | none                   |
-| sleep     | Integer | all                   | True         | True             | Sleep this many milliseconds after op.                                                       | sleep=30               | none (no sleep)        |
-| update    | Boolean | AddUser               | True         | True             | Edit user's description.                                                                     | update=true            | false                  |
-| verify    | Boolean | AddUser,DelUser       | True         | True             | e.g. read after op to verify success.                                                        | verify=true            | false                  |
+| Name      | Type    | Test                                                        | Jmeter param | Java system prop | Description                                                                                  | Example                | Default                |
+|-----------| ------- |-------------------------------------------------------------|--------------| ---------------- |----------------------------------------------------------------------------------------------|------------------------|------------------------|
+| batchsize | Integer | not AddUser,DelUser                                         | True         | True             | Number of users to iterate over when checking authN and/or authZ.                            | batchsize=1000         | 10                     |
+| duplicate | Integer | AddUser,DelUser                                             | False        | True             | Duplicate operation after specified interval.                                                | duplicate=1000         | none (don't duplicate) |
+| hostname  | String  | all                                                         | False        | True             | Useful for distributing the load in a multi-provider env. Will override fortress.properties. | hostname=foo           | none                   |
+| ou        | String  | AddUser,AddPerm                                             | True         | True             | The group name                                                                               | name=localhost-A1-1    | none                   |
+| password  | String  | not DelUser                                                 | True         | True             | The password used by test users                                                              | password=newsecret     | secret                 |
+| perm      | String  | CheckUser,CheckAccess, AddPerm,DelPerm,GrantPerm,RevokePerm | True         | True             | Format is objectName.operationName                                                           | perm=jmeterobject.oper | none                   |
+| qualifier | String  | all                                                         | True         | True             | Part of the userid: hostname + qualifier + counter.                                          | qualifier=A1           | none                   |
+| role      | String  | AddUser,CheckRole,AddRole,DelRole,AssignUser,DeassignUser   | True         | True             | The role name                                                                                | role=jmeterrole        | none                   |
+| sleep     | Integer | all                                                         | True         | True             | Sleep this many milliseconds after op.                                                       | sleep=30               | none (no sleep)        |
+| update    | Boolean | AddUser                                                     | True         | True             | Edit user's description.                                                                     | update=true            | false                  |
+| verify    | Boolean | AddUser,DelUser                                             | True         | True             | e.g. read after op to verify success.                                                        | verify=true            | false                  |
 
 - Java system properties take precedence over params set in the Jmeter config files.
 
@@ -292,6 +314,62 @@ Performs createSession and sessionPermissions.
 
 ```bash
 mvn verify -Ploadtest -Dtype=SessionPerms -Dqualifier=A1 -Dbatchsize=10000
+```
+
+##### I. Add Role:
+
+- Add role entries to the directory.
+
+```bash
+mvn verify -Ploadtest -Dtype=AddRole -Dqualifier=A1
+```
+
+##### J. Delete Role:
+ 
+- Delete role entries from the directory.
+
+```bash
+mvn verify -Ploadtest -Dtype=DelRole -Dqualifier=A1
+```
+
+##### K. Assign User:
+
+- Assign users to roles.
+
+```bash
+mvn verify -Ploadtest -Dtype=AssignUser -Dqualifier=A1
+```
+
+##### L. Deassign User:
+
+- Deassign users from roles.
+
+```bash
+mvn verify -Ploadtest -Dtype=DeassignUser -Dqualifier=A1
+```
+
+##### M. Add Permission:
+
+```bash
+mvn verify -Ploadtest -Dtype=AddPerm -Dperm=foo.exe
+```
+
+##### N. Delete Permission:
+
+```bash
+mvn verify -Ploadtest -Dtype=DelPerm -Dperm=foo.exe
+```
+
+##### O. Grant Permission:
+
+```bash
+mvn verify -Ploadtest -Dtype=GrantPerm -Dperm=foo.exe -Drole=localhost-X2-78
+```
+
+##### P. Revoke Permission:
+
+```bash
+mvn verify -Ploadtest -Dtype=RevokePerm -Dperm=foo.exe -Drole=localhost-X2-78
 ```
 
 ___________________________________________________________________________________
@@ -448,6 +526,12 @@ ________________________________________________________________________________
  - target/jmeter/results/[DATE]-SessionPerms.csv
  - target/jmeter/results/[DATE]-AddRole.csv
  - target/jmeter/results/[DATE]-DelRole.jmx.csv
+ - target/jmeter/results/[DATE]-AssignUser.csv
+ - target/jmeter/results/[DATE]-DeassignUser.jmx.csv
+ - target/jmeter/results/[DATE]-AddPerm.csv
+ - target/jmeter/results/[DATE]-DelPerm.jmx.csv
+ - target/jmeter/results/[DATE]-GrantPerm.csv
+ - target/jmeter/results/[DATE]-RevokePerm.jmx.csv
 
 #### B. View the Log4j logs
 

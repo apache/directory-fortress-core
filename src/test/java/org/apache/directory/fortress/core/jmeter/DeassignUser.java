@@ -19,22 +19,21 @@
  */
 package org.apache.directory.fortress.core.jmeter;
 
-import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.Role;
+import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 
 import static org.junit.Assert.*;
 
 /**
- * Grant perm entry tests.
+ * Deassign user entry tests.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class GrantPerm extends LoadBase
+public class DeassignUser extends LoadBase
 {
     /**
-     * This test case performs grant permission.
+     * This test case performs deassign user entry.
      *
      * @param samplerContext Description of the Parameter
      * @return Description of the Return Value
@@ -42,16 +41,16 @@ public class GrantPerm extends LoadBase
     public SampleResult runTest( JavaSamplerContext samplerContext )
     {
         boolean result = false;
+        String userId = getUserId ( Op.ADD );
+        String roleNm = userId;
         SampleResult sampleResult = new SampleResult();
-        Permission perm = null;
         try
         {
             sampleResult.sampleStart();
             assertNotNull( adminMgr );
-            assertNotNull( concat("role operand not setup", role ) );
-            perm = getPermission( getKey( Op.ADD ) );
-            adminMgr.grantPermission( perm, new Role( role ) );
-            LOG.debug( "threadid: {}, perm obj: {}, op: {}, role: {}", getThreadId(), perm.getObjName(), perm.getOpName(), role );
+            UserRole userRole = new UserRole(userId, roleNm);
+            LOG.debug( "threadid: {}, userId: {}, roleNm: {}", getThreadId(), userId, roleNm );
+            adminMgr.deassignUser( userRole );
             result = true;
             sleep();
         }
@@ -59,7 +58,7 @@ public class GrantPerm extends LoadBase
         {
             warn( se.getMessage() );
         }
-        wrapup( sampleResult, perm.getObjName() + "." + perm.getOpName() + " role: " + role, result );
+        wrapup( sampleResult, userId, result );
         return sampleResult;
     }
 }

@@ -19,22 +19,22 @@
  */
 package org.apache.directory.fortress.core.jmeter;
 
+import org.apache.directory.fortress.core.model.PermObj;
 import org.apache.directory.fortress.core.model.Permission;
-import org.apache.directory.fortress.core.model.Role;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 
 import static org.junit.Assert.*;
 
 /**
- * Grant perm entry tests.
+ * Del permission entry tests.
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class GrantPerm extends LoadBase
+public class DelPerm extends LoadBase
 {
     /**
-     * This test case performs grant permission.
+     * This test case performs delete perm entry.
      *
      * @param samplerContext Description of the Parameter
      * @return Description of the Return Value
@@ -48,10 +48,16 @@ public class GrantPerm extends LoadBase
         {
             sampleResult.sampleStart();
             assertNotNull( adminMgr );
-            assertNotNull( concat("role operand not setup", role ) );
-            perm = getPermission( getKey( Op.ADD ) );
-            adminMgr.grantPermission( perm, new Role( role ) );
-            LOG.debug( "threadid: {}, perm obj: {}, op: {}, role: {}", getThreadId(), perm.getObjName(), perm.getOpName(), role );
+            int count = getKey( Op.DEL );
+            perm = getPermission( count );
+            adminMgr.deletePermission( perm );
+            LOG.debug( "threadid: {}, perm obj: {}, op: {}", getThreadId(), perm.getObjName(), perm.getOpName() );
+            /* TODO: remove perm object at the end of the test:
+            if ( test has completed )
+            {
+                LOG.debug( "threadid: {}, remove perm obj: {}", getThreadId(), perm.getObjName() );
+                adminMgr.deletePermObj( new PermObj( perm.getObjName() ) );
+            }*/
             result = true;
             sleep();
         }
@@ -59,7 +65,7 @@ public class GrantPerm extends LoadBase
         {
             warn( se.getMessage() );
         }
-        wrapup( sampleResult, perm.getObjName() + "." + perm.getOpName() + " role: " + role, result );
+        wrapup( sampleResult, perm.getObjName() + "." + perm.getOpName(), result );
         return sampleResult;
     }
 }
