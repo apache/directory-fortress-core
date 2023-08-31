@@ -64,7 +64,7 @@
     <version.apacheds>2.0.0.AM26</version.apacheds>
     <version.accelerator.api>1.0-RC41</version.accelerator.api>
     <version.accelerator.impl>1.0-RC41</version.accelerator.impl>
-    <version.ant>1.10.13</version.ant>
+    <version.ant>1.10.14</version.ant>
     <version.antlr>3.5.3</version.antlr>
     <version.apache.jdbm1>2.0.0-M3</version.apache.jdbm1>
     <version.commons.configuration>1.10</version.commons.configuration>
@@ -75,8 +75,8 @@
     <version.jaxb.api>4.0.0</version.jaxb.api>
     <version.jaxb.impl>4.0.3</version.jaxb.impl>
     <version.jgrapht-core>1.5.2</version.jgrapht-core>
-    <version.jmeter.core>5.6</version.jmeter.core>
-    <version.jmeter.java>5.6</version.jmeter.java>
+    <version.jmeter.core>5.6.2</version.jmeter.core>
+    <version.jmeter.java>5.6.2</version.jmeter.java>
     <version.junit>4.13.2</version.junit>
     <slf4j.api.version>2.0.7</slf4j.api.version>
     <version.opencsv>2.3</version.opencsv>
