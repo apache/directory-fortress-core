@@ -36,7 +36,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * This document contains instructions to install Apache Fortress 2.0.8 Core, Web, Rest and ApacheDS.
+ * This document contains instructions to install Apache Fortress 3.0.0 Core, Web, Rest and ApacheDS.
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
