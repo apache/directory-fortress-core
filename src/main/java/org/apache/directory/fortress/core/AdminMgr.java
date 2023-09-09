@@ -437,7 +437,7 @@ public interface AdminMgr extends Manageable
         throws SecurityException;
 
     /**
-     * This method enables a role to be constrainted by attributes.
+     * This method enables a role to be constrained by attributes.
      * <h4>required parameters</h4>
      * <ul>
      *   <li>Role#name - contains the name for already existing Role to be constrained</li>
@@ -467,18 +467,18 @@ public interface AdminMgr extends Manageable
         throws SecurityException;
 
     /**
-     * This method adds a roleConstraint (ftRC) to the user ldap entry. (ftRC=ROLE_NAME$type$CONSTRAINT_TYPE$CONSTRAINT_PASETNAME$CONSTRAINT_VALUE)
+     * This method adds a roleConstraint (ftRC) to the user ldap entry.
      * <h4>required parameters</h4>
      * <ul>
      *   <li>UserRole#name - contains the name for already existing Role to be assigned</li>
      *   <li>UserRole#userId - contains the userId for existing User</li>
-     *   <li>RoleConstraint#type - contains the type of role constraint (filter, other)</li>
-     *   <li>RoleConstraint#value - contains the value of the role constraint which is currently not validated in any way</li>
-     *   <li>RoleConstraint#key - contains the name of the permission attribute set this constraint is applicable for</li>
+     *   <li>RoleConstraint#key - contains the name of the attribute set this constraint is applicable for</li>
+     *   <li>RoleConstraint#value - contains the value of the role constraint</li>
+     *   <li>RoleConstraint#type - type of role constraint: [USER, FILTER, OTHER] </li>
      * </ul>
-     * 
+     *
      * @param uRole must contain UserRole#userId and UserRole#name
-     * @param roleConstraint must contain RoleConstraint#type, RoleConstraint#value and RoleConstraint#paSetName
+     * @param roleConstraint must contain RoleConstraint#type, RoleConstraint#key, RoleConstraint#value
      * @return RoleConstraint that was added to user role assignment
      * @throws SecurityException in the event of validation or system error.
      */
@@ -491,9 +491,8 @@ public interface AdminMgr extends Manageable
      * <ul>
      *   <li>UserRole#name - contains the name for already existing Role to be assigned</li>
      *   <li>UserRole#userId - contains the userId for existing User</li>
-     *   <li>RoleConstraint#type - contains the type of role constraint (filter, other)</li>
-     *   <li>RoleConstraint#value - contains the value of the role constraint which is currently not validated in any way</li>
-     *   <li>RoleConstraint#paSetName - contains the name of the permission attribute set this constraint is applicable for</li>
+     *   <li>RoleConstraint#value - contains the value of the role constraint</li>
+     *   <li>RoleConstraint#paSetName - contains the name of the attribute set this constraint is applicable for</li>
      * </ul>
      * 
      * @param uRole must contain UserRole#userId and UserRole#name
@@ -511,7 +510,7 @@ public interface AdminMgr extends Manageable
      *   <li>UserRole#userId - contains the userId for existing User</li>
      *   <li>RoleConstraint#type - contains the type of role constraint (filter, other)</li>
      *   <li>RoleConstraint#value - contains the value of the role constraint which is currently not validated in any way</li>
-     *   <li>RoleConstraint#paSetName - contains the userId for existing User, contains the name of the permission attribute set this constraint is applicable for</li>
+     *   <li>RoleConstraint#paSetName - contains the userId for existing User, contains the name of the attribute set this constraint is applicable for</li>
      * </ul>
      * 
      * @param uRole must contain UserRole#userId} and UserRole#name}
