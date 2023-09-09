@@ -453,7 +453,7 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
      */
     @Override
     @AdminPermissionOperation
-    public RoleConstraint addRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
+        public RoleConstraint addRoleConstraint( UserRole uRole, RoleConstraint roleConstraint )
         throws SecurityException
     {
         String methodName = "addRoleConstraint";
@@ -461,13 +461,19 @@ public final class AdminMgrImpl extends Manageable implements AdminMgr, Serializ
         VUtil.assertNotNull( uRole.getName(), GlobalErrIds.ROLE_NM_NULL, CLS_NM + methodName );
         VUtil.assertNotNull( roleConstraint, GlobalErrIds.ROLE_CONSTRAINT_NULL, CLS_NM + methodName );
         setEntitySession( CLS_NM, methodName, uRole );
-
         if ( roleConstraint.getType() == RoleConstraint.RCType.USER )
         {
             // This constraint type requires a global config parameter keyed by RC$tenant$role:constraint:
             String propKey = Config.getInstance().getConstraintKey( uRole.getName(), contextId );
+            VUtil.assertNotNull( propKey, GlobalErrIds.ROLE_CONSTRAINT_NOT_ENABLED, CLS_NM + methodName );
             String propValue = Config.getInstance().getProperty( propKey );
             VUtil.assertNotNull( propValue, GlobalErrIds.ROLE_CONSTRAINT_NOT_ENABLED, CLS_NM + methodName );
+            String userKey = roleConstraint.getKey();
+            if ( !userKey.equalsIgnoreCase( propValue ))
+            {
+                String error =  methodName + " invalid constraint name [" + userKey + "] not added for role [" + uRole.getName() + "] constraint key [" + propKey + "]";
+                throw new SecurityException( GlobalErrIds.ROLE_CONSTRAINT_NOT_ENABLED, error, null );
+            }
         }
 
         // Validate the user-role assignment exists:
