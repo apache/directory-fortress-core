@@ -60,7 +60,7 @@
     <java.version>11</java.version>
     <additionalparam>-Xdoclint:none</additionalparam>
     <version.ldap.api>2.1.4</version.ldap.api>
-    <version.apacheds>2.0.0.AM26</version.apacheds>
+    <version.apacheds>2.0.0.AM27</version.apacheds>
     <version.accelerator.api>1.0-RC41</version.accelerator.api>
     <version.accelerator.impl>1.0-RC41</version.accelerator.impl>
     <version.ant>1.10.14</version.ant>
@@ -76,7 +76,7 @@
     <version.jgrapht-core>1.5.2</version.jgrapht-core>
     <version.jmeter.core>5.6.2</version.jmeter.core>
     <version.jmeter.java>5.6.2</version.jmeter.java>
-    <version.junit>4.13.2</version.junit>
+    <junit-jupiter.version>5.1.0</junit-jupiter.version>
     <slf4j.api.version>2.0.7</slf4j.api.version>
     <version.opencsv>2.3</version.opencsv>
     <version.jackson-annotations>2.15.2</version.jackson-annotations>
@@ -241,13 +241,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-interceptor-kerberos</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
       <groupId>org.apache.directory.jdbm</groupId>
       <artifactId>apacheds-jdbm1</artifactId>
       <version>${version.apache.jdbm1}</version>
@@ -257,13 +250,6 @@
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-jdbm-partition</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-kerberos-codec</artifactId>
       <version>${version.apacheds}</version>
       <scope>test</scope>
     </dependency>
@@ -285,13 +271,6 @@
     <dependency>
       <groupId>org.apache.directory.server</groupId>
       <artifactId>apacheds-protocol-dns</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-protocol-kerberos</artifactId>
       <version>${version.apacheds}</version>
       <scope>test</scope>
     </dependency>
@@ -374,11 +353,18 @@
       <scope>test</scope>
     </dependency>
 
+    <!--JUnit Jupiter Engine to depend on the JUnit5 engine and JUnit 5 API -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${version.junit}</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit-jupiter.version}</version>
       <scope>test</scope>
+    </dependency>
+    <!--JUnit Jupiter Engine to depend on the JUnit4 engine and JUnit 4 API  -->
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <version>${junit-jupiter.version}</version>
     </dependency>
 
     <dependency>

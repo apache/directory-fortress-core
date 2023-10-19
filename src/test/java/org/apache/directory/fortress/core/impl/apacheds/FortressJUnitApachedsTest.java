@@ -26,11 +26,11 @@ import org.apache.directory.server.core.annotations.ApplyLdifFiles;
 import org.apache.directory.server.core.annotations.CreateDS;
 import org.apache.directory.server.core.annotations.CreatePartition;
 import org.apache.directory.server.core.integ.AbstractLdapTestUnit;
-import org.apache.directory.server.core.integ.FrameworkRunner;
+import org.apache.directory.server.core.integ.ApacheDSTestExtension;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +55,7 @@ import org.apache.directory.fortress.core.impl.UserTestData;
 import org.apache.directory.fortress.core.util.cache.CacheMgr;
 
 
-@RunWith(FrameworkRunner.class)
+@ExtendWith( { ApacheDSTestExtension.class } )
 @CreateDS(name = "classDS", partitions =
     { @CreatePartition(name = "example", suffix = "dc=example,dc=com") })
 @CreateLdapServer(
