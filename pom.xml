@@ -59,7 +59,7 @@
   <properties>
     <java.version>11</java.version>
     <additionalparam>-Xdoclint:none</additionalparam>
-    <version.ldap.api>2.1.6</version.ldap.api>
+    <version.ldap.api>2.1.7</version.ldap.api>
     <version.apacheds>2.0.0.AM26</version.apacheds>
     <version.accelerator.api>1.0-RC41</version.accelerator.api>
     <version.accelerator.impl>1.0-RC41</version.accelerator.impl>
