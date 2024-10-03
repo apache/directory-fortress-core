@@ -67,7 +67,7 @@
     <version.antlr>3.5.3</version.antlr>
     <version.apache.jdbm1>2.0.0-M3</version.apache.jdbm1>
     <version.commons.configuration>1.10</version.commons.configuration>
-    <version.commons.io>2.13.0</version.commons.io>
+    <version.commons.io>2.14.0</version.commons.io>
     <version.ehcache>2.10.9.2</version.ehcache>
     <version.httpcomponent.httpclient>4.5.14</version.httpcomponent.httpclient>
     <version.jasypt>1.9.3</version.jasypt>
