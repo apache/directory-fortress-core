@@ -51,19 +51,6 @@
        <property name="src.test.dir" value="${src.dir}/test/java"/>
        <property name="src.test.resources.dir" value="${src.dir}/test/resources"/>
 
-       <!-- ########### Build properties & artifacts ########################### -->
-       <property name="build.dir" value="${basedir}/build"/>
-       <property name="build.classes.dir" value="${build.dir}/classes"/>
-       <property name="build.test-classes.dir" value="${build.dir}/test-classes"/>
-       <property name="dist.dir" value="${basedir}/dist"/>
-       <property name="dist.jar" value="${dist.dir}/${name}-${version}.jar"/>
-       <property name="dist.test.jar" value="${dist.dir}/${name}-${version}-test.jar"/>
-       <property name="src.dist.zip" value="${dist.dir}/${name}-${version}-sources.jar"/>
-       <property name="src.test.dist.zip" value="${dist.dir}/${name}-${version}-sourcestest.jar"/>
-       <property name="src.samples.dist.zip" value="${dist.dir}/${name}SamplesSrc-${version}.zip"/>
-       <property name="samples.dist.zip" value="${dist.dir}/${name}Samples-${version}.zip"/>
-       <property name="fortressBuilder.zip" value="${dist.dir}/fortressBuilder-${platform}-${version}.zip"/>
-
        <!-- ########### LDAP properties ########################### -->
        <property name="ldap.dir" value="${basedir}/ldap"/>
        <property name="ldap.setup.dir" value="${ldap.dir}/setup"/>
@@ -93,7 +80,6 @@
        <property name="bootstrap.ehcache.conf" value="${config.bootstrap.dir}/ehcache.xml"/>
        <property name="test-resource.dir" value="${basedir}/src/test/resources"/>
        <property name="images.dir" value="${test-resource.dir}/resources/images"/>
-
 
        <!-- ########### Slapd manage & config properties ########################### -->
        <property name="stop.slapd.script-win" value="${ldap.setup.dir}/stopSlapd.cmd"/>
@@ -701,78 +687,4 @@
          <delete dir="${db.dir}"/>
 
      </target>
-
-    <!-- =================================
-          target: init-jaxb - initializes properties and taskdefs used for schema generation and compilation.
-         ================================= -->
-<!--
-    <target name="init-jaxb" depends="resolve" description="&ndash;&gt; initializes properties and taskdefs used for schema generation and compilation">
-
-        <property name="generated.dir" value="${basedir}/generated"/>
-        <property name="generated.classes.dir" value="${generated.dir}/classes"/>
-        <property name="generated.schema.dir" value="${generated.dir}/schema"/>
-
-       &lt;!&ndash; Defines XJC and SchemaGen tasks &ndash;&gt;
-        <taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
-            <classpath refid="build.class.path"/>
-        </taskdef>
-
-        <taskdef name="schemagen" classname="com.sun.tools.jxc.SchemaGenTask">
-                <classpath refid="build.class.path"/>
-        </taskdef>
-
-    </target>
--->
-
-    <!-- =================================
-          target: generate-schema - generates JAXB schmea based on Java classes.
-         ================================= -->
-<!--
-    <target name="generate-schema" depends="init-jaxb,compile" description="&ndash;&gt; generates JAXB schema based on Fortress entity classes">
-        <echo message="Generating schemas..."/>
-        <mkdir dir="${generated.schema.dir}"/>
-        <schemagen srcdir="${src.java.dir}/org/openldap/fortress" destdir="${generated.schema.dir}">
-            <classpath refid="build.class.path"/>
-            <include name="rbac/Address.java"/>
-            <include name="rbac/AdminRole.java"/>
-            <include name="rbac/AdminRoleRelationship.java"/>
-            <include name="rbac/AuthZ.java"/>
-            <include name="rbac/Bind.java"/>
-            <include name="util/time/Constraint.java"/>
-            <include name="FortEntity.java"/>
-            <include name="rest/FortRequest.java"/>
-            <include name="rest/FortResponse.java"/>
-            <include name="rbac/Mod.java"/>
-            <include name="rbac/OrgUnit.java"/>
-            <include name="rbac/OrgUnitRelationship.java"/>
-            <include name="rbac/Permission.java"/>
-            <include name="rbac/PermGrant.java"/>
-            <include name="rbac/Permission.java"/>
-            <include name="rbac/PermObj.java"/>
-            <include name="rbac/Props.java"/>
-            <include name="rbac/PwPolicy.java"/>
-            <include name="rbac/Role.java"/>
-            <include name="rbac/RolePerm.java"/>
-            <include name="rbac/RoleRelationship.java"/>
-            <include name="rbac/SDSet.java"/>
-            <include name="rbac/Session.java"/>
-            <include name="rbac/User.java"/>
-            <include name="rbac/UserAdminRole.java"/>
-            <include name="rbac/UserAudit.java"/>
-            <include name="rbac/UserRole.java"/>
-        </schemagen>
-    </target>
--->
-
-    <!-- =================================
-          target: compile-schema - generates Java classes based on schema.
-         ================================= -->
-<!--
-    <target name="compile-schema" depends="init-jaxb,generate-schema" description="&ndash;&gt; generates Java classes based on Fortress schema">
-        <echo message="Compiling the schema..."/>
-        <mkdir dir="${generated.classes.dir}"/>
-        <xjc schema="${generated.schema.dir}/schema1.xsd" destdir="${src.java.dir}" package="org.apache.directory.fortress.model" removeOldOutput="yes"/>
-    </target>
--->
-
 </project>
