@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.directory.fortress.core.impl.AccessMgrImpl;
 import org.apache.directory.fortress.core.rest.AccessMgrRestImpl;
 import org.apache.directory.fortress.core.util.ClassUtil;

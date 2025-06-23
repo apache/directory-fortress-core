@@ -21,7 +21,7 @@ package org.apache.directory.fortress.core.model;
 
 import java.util.StringTokenizer;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.ConstraintValidator;

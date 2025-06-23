@@ -31,7 +31,7 @@ import java.util.TreeSet;
 
 import junit.framework.TestCase;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.Address;
 import org.apache.directory.fortress.core.model.User;

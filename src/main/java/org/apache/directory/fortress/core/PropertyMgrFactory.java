@@ -19,7 +19,7 @@
  */
 package org.apache.directory.fortress.core;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.directory.fortress.core.model.Session;
 import org.apache.directory.fortress.core.rest.PropertyMgrRestImpl;
 import org.apache.directory.fortress.core.util.ClassUtil;

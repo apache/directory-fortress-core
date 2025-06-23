@@ -21,8 +21,8 @@ package org.apache.directory.fortress.core.ant;
 
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.ArrayUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.directory.fortress.core.util.PropUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

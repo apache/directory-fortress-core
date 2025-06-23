@@ -25,8 +25,13 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.configuration.PropertiesConfiguration;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.configuration2.CompositeConfiguration;
+import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.builder.fluent.Configurations;
+import org.apache.commons.configuration2.convert.DisabledListDelimiterHandler;
+import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.apache.commons.configuration2.io.FileHandler;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.directory.fortress.core.CfgException;
 import org.apache.directory.fortress.core.CfgRuntimeException;
 import org.apache.directory.fortress.core.ConfigMgr;
@@ -53,7 +58,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class Config
 {
-    private static PropertiesConfiguration config = new PropertiesConfiguration();
+    private static CompositeConfiguration config = new CompositeConfiguration();
     private static final String CLS_NM = Config.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
     private static final String PROP_FILE = "fortress.properties";
@@ -277,7 +282,7 @@ public final class Config
                 LOG.warn( "getInt invalid config, can't read prop [{}]", key );
             }
         }
-        catch (org.apache.commons.configuration.ConversionException e)
+        catch (org.apache.commons.configuration2.ex.ConversionException e)
         {
             LOG.debug( "getInt can't read prop [{}], exception [{}]", key, e );
         }
@@ -310,7 +315,7 @@ public final class Config
         {
             LOG.debug( "getInt - illegal state exception [{}], using default [{}]", key, defaultValue );
         }
-        catch (org.apache.commons.configuration.ConversionException e)
+        catch (org.apache.commons.configuration2.ex.ConversionException e)
         {
             LOG.debug( "getInt name [{}], conversion exception using default  [{}]", key, defaultValue );
         }
@@ -364,7 +369,7 @@ public final class Config
                     value = config.getBoolean( key, defaultValue );
                     LOG.debug( "getBoolean name [{}] value [{}]", key, value );
                 }
-                catch (org.apache.commons.configuration.ConversionException e )
+                catch (org.apache.commons.configuration2.ex.ConversionException e )
                 {
                     LOG.debug( "getBoolean name [{}], conversion exception using default  [{}]", key, defaultValue );
                 }
@@ -545,33 +550,38 @@ public final class Config
         try
         {
             // Load the system config file.
-            URL fUrl = Config.class.getClassLoader().getResource( PROP_FILE );
-            config.setDelimiterParsingDisabled( true );
-            if ( fUrl == null )
+            URL fUrl = Config.class.getClassLoader().getResource(PROP_FILE);
+            if (fUrl == null)
             {
                 String error = "static init: Error, null cfg file: " + PROP_FILE;
-                LOG.warn( error );
+                LOG.warn(error);
             }
             else
             {
-                LOG.info( "static init: found from: {} path: {}", PROP_FILE, fUrl.getPath() );
-                config.load( fUrl );
-                LOG.info( "static init: loading from: {}", PROP_FILE );
+                LOG.info("static init: found from: {} path: {}", PROP_FILE, fUrl.getPath());
+                PropertiesConfiguration sysProps = new PropertiesConfiguration();
+                FileHandler fileHandler = new FileHandler(sysProps);
+                fileHandler.load(fUrl);
+                config.addConfiguration(sysProps);
+                LOG.info("static init: loading from: {}", PROP_FILE);
             }
-
-            URL fUserUrl = Config.class.getClassLoader().getResource( USER_PROP_FILE );
-            if ( fUserUrl != null )
+            URL fUserUrl = Config.class.getClassLoader().getResource(USER_PROP_FILE);
+            if (fUserUrl != null)
             {
-                LOG.info( "static init: found user properties from: {} path: {}", USER_PROP_FILE, fUserUrl.getPath() );
-                config.load( fUserUrl );
+                LOG.info("static init: found user properties from: {} path: {}", USER_PROP_FILE, fUserUrl.getPath());
+                PropertiesConfiguration userProps = new PropertiesConfiguration();
+                FileHandler userFileHandler = new FileHandler(userProps);
+                userFileHandler.load(fUserUrl);
+                config.addConfiguration(userProps);
             }
+            config.setListDelimiterHandler(new DisabledListDelimiterHandler());
         }
-        catch ( org.apache.commons.configuration.ConfigurationException ex )
+        catch (ConfigurationException ex)
         {
             String error = "static init: Error loading from cfg file: [" + PROP_FILE
-                + "] ConfigurationException=" + ex;
-            LOG.error( error );
-            throw new CfgRuntimeException( GlobalErrIds.FT_CONFIG_BOOTSTRAP_FAILED, error, ex );
+                    + "] ConfigurationException=" + ex;
+            LOG.error(error);
+            throw new CfgRuntimeException(GlobalErrIds.FT_CONFIG_BOOTSTRAP_FAILED, error, ex);
         }
     }
 

@@ -20,7 +20,7 @@
 package org.apache.directory.fortress.core;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.directory.fortress.core.model.Group;
 
 import java.util.Enumeration;
