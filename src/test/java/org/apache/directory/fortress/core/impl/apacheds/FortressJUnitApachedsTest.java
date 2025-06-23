@@ -20,17 +20,20 @@
 package org.apache.directory.fortress.core.impl.apacheds;
 
 
+import org.apache.directory.fortress.core.ldap.LdapCounters;
+import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.server.annotations.CreateLdapServer;
 import org.apache.directory.server.annotations.CreateTransport;
 import org.apache.directory.server.core.annotations.ApplyLdifFiles;
 import org.apache.directory.server.core.annotations.CreateDS;
 import org.apache.directory.server.core.annotations.CreatePartition;
 import org.apache.directory.server.core.integ.AbstractLdapTestUnit;
-import org.apache.directory.server.core.integ.FrameworkRunner;
+import org.apache.directory.server.core.integ.ApacheDSTestExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -55,7 +58,7 @@ import org.apache.directory.fortress.core.impl.UserTestData;
 import org.apache.directory.fortress.core.util.cache.CacheMgr;
 
 
-@RunWith(FrameworkRunner.class)
+@ExtendWith( { ApacheDSTestExtension.class } )
 @CreateDS(name = "classDS", partitions =
     { @CreatePartition(name = "example", suffix = "dc=example,dc=com") })
 @CreateLdapServer(
@@ -83,14 +86,14 @@ public class FortressJUnitApachedsTest extends AbstractLdapTestUnit
     public void displayCounters()
     {
         // TODO: FIX THIS: (removed with unboundid)
-        //LdapCounters counters = UnboundIdDataProvider.getLdapCounters();
-        //System.out.println( "NUMBER OF READS: " + counters.getRead() );
-        //System.out.println( "NUMBER OF SEARCHES: " + counters.getSearch() );
-        //System.out.println( "NUMBER OF COMPARES: " + counters.getCompare() );
-        //System.out.println( "NUMBER OF BINDS: " + counters.getBind() );
-        //System.out.println( "NUMBER OF ADDS: " + counters.getAdd() );
-        //System.out.println( "NUMBER OF MODS: " + counters.getMod() );
-        //System.out.println( "NUMBER OF DELETES: " + counters.getDelete() );
+        LdapCounters counters = LdapDataProvider.getLdapCounters();
+        System.out.println( "NUMBER OF READS: " + counters.getRead() );
+        System.out.println( "NUMBER OF SEARCHES: " + counters.getSearch() );
+        System.out.println( "NUMBER OF COMPARES: " + counters.getCompare() );
+        System.out.println( "NUMBER OF BINDS: " + counters.getBind() );
+        System.out.println( "NUMBER OF ADDS: " + counters.getAdd() );
+        System.out.println( "NUMBER OF MODS: " + counters.getMod() );
+        System.out.println( "NUMBER OF DELETES: " + counters.getDelete() );
     }
 
 
