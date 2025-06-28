@@ -24,6 +24,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Set;
 
+import org.apache.directory.fortress.core.GlobalIds;
+import org.apache.directory.fortress.core.impl.*;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.server.annotations.CreateLdapServer;
 import org.apache.directory.server.annotations.CreateTransport;
 import org.apache.directory.server.core.annotations.ApplyLdifFiles;
@@ -42,14 +45,9 @@ import org.apache.directory.fortress.core.AdminMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.ldap.LdapDataProvider;
 import org.apache.directory.fortress.core.ldap.LdapCounters;
-import org.apache.directory.fortress.core.impl.DelegatedMgrImplTest;
-import org.apache.directory.fortress.core.impl.FortressJUnitTest;
-import org.apache.directory.fortress.core.impl.OrgUnitTestData;
 import org.apache.directory.fortress.core.model.Session;
-import org.apache.directory.fortress.core.impl.TestUtils;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
-import org.apache.directory.fortress.core.impl.UserTestData;
 import org.apache.directory.fortress.core.util.LogUtil;
 import org.apache.directory.fortress.core.util.cache.CacheMgr;
 
@@ -62,7 +60,7 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
             @CreateTransport(protocol = "LDAP", port = 10389)
     })
 @ApplyLdifFiles(
-    { "fortress-schema.ldif", "init-ldap.ldif"/*, "test-data.ldif"*/})
+    { "apacheds-fortress.ldif", "init-ldap.ldif"/*, "test-data.ldif"*/})
 public class AdminManagerTest extends AbstractLdapTestUnit
 {
     private static final Logger LOG = LoggerFactory.getLogger( AdminManagerTest.class.getName() );
@@ -73,6 +71,8 @@ public class AdminManagerTest extends AbstractLdapTestUnit
     public void init()
     {
         CacheMgr.getInstance().clearAll();
+        // TODO: Currently cannot evaluate ADS PPolicies in this test harness:
+        Config.getInstance().setProperty( GlobalIds.SERVER_TYPE, "none" );
     }
 
 

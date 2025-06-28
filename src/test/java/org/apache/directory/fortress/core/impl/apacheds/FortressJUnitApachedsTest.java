@@ -20,8 +20,10 @@
 package org.apache.directory.fortress.core.impl.apacheds;
 
 
+import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.ldap.LdapCounters;
 import org.apache.directory.fortress.core.ldap.LdapDataProvider;
+import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.server.annotations.CreateLdapServer;
 import org.apache.directory.server.annotations.CreateTransport;
 import org.apache.directory.server.core.annotations.ApplyLdifFiles;
@@ -77,6 +79,8 @@ public class FortressJUnitApachedsTest extends AbstractLdapTestUnit
     public void init()
     {
         CacheMgr.getInstance().clearAll();
+        // TODO: Currently cannot evaluate ADS PPolicies in this test harness:
+        Config.getInstance().setProperty( GlobalIds.SERVER_TYPE, "none" );
     }
 
 
