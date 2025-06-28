@@ -27,18 +27,11 @@ import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.User;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.LogUtil;
-import org.junit.*;
-import org.junit.Assert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 
 public class GroupMgrImplTest extends TestCase {
