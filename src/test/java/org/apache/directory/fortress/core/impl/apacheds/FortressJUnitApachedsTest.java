@@ -29,14 +29,12 @@ import org.apache.directory.server.core.annotations.CreateDS;
 import org.apache.directory.server.core.annotations.CreatePartition;
 import org.apache.directory.server.core.integ.AbstractLdapTestUnit;
 import org.apache.directory.server.core.integ.ApacheDSTestExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.impl.AccessMgrImplTest;
 import org.apache.directory.fortress.core.impl.AdminMgrImplTest;
@@ -75,14 +73,14 @@ public class FortressJUnitApachedsTest extends AbstractLdapTestUnit
     private static Session adminSess = null;
 
 
-    @Before
+    @BeforeEach
     public void init()
     {
         CacheMgr.getInstance().clearAll();
     }
 
 
-    @After
+    @AfterEach
     public void displayCounters()
     {
         // TODO: FIX THIS: (removed with unboundid)

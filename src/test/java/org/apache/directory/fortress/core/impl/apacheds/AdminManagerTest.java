@@ -20,7 +20,7 @@
 package org.apache.directory.fortress.core.impl.apacheds;
 
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.Set;
 
@@ -31,14 +31,12 @@ import org.apache.directory.server.core.annotations.CreateDS;
 import org.apache.directory.server.core.annotations.CreatePartition;
 import org.apache.directory.server.core.integ.AbstractLdapTestUnit;
 import org.apache.directory.server.core.integ.ApacheDSTestExtension;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.apache.directory.fortress.core.AdminMgr;
 import org.apache.directory.fortress.core.AdminMgrFactory;
 import org.apache.directory.fortress.core.SecurityException;
@@ -71,14 +69,14 @@ public class AdminManagerTest extends AbstractLdapTestUnit
     private static Session adminSess = null;
 
 
-    @Before
+    @BeforeEach
     public void init()
     {
         CacheMgr.getInstance().clearAll();
     }
 
 
-    @After
+    @AfterEach
     public void displayCounters()
     {
         LdapCounters counters = LdapDataProvider.getLdapCounters();
