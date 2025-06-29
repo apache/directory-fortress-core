@@ -18,7 +18,7 @@
 
 # OpenLDAP & Fortress QUICKSTART
 
- Apache Fortress 3.0.0 and OpenLDAP Quickstart System Architecture
+ Apache Fortress 3.0.1 and OpenLDAP Quickstart System Architecture
  ![OpenLDAP & Fortress System Architecture](images/fortress-openldap-accel-system-arch.png "OpenLDAP & Fortress System Architecture")
 
 -------------------------------------------------------------------------------
@@ -35,7 +35,7 @@
 ___________________________________________________________________________________
 ## Document Overview
 
- * This document contains instructions to install Apache Fortress 3.0.0 Core and related components.
+ * This document contains instructions to install Apache Fortress 3.0.1 Core and related components.
 
 -------------------------------------------------------------------------------
 ## SECTION 1. Prerequisites
