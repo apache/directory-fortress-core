@@ -104,31 +104,6 @@
       <groupId>org.apache.directory.api</groupId>
       <artifactId>api-all</artifactId>
       <version>${version.ldap.api}</version>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.directory.api</groupId>
-          <artifactId>api-ldap-schema-data</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <!--
-    jar:file:/home/smckinn/.m2/repository/org/apache/directory/api/api-all/2.1.7/api-all-2.1.7.jar!/schema/ou%3dschema/cn%3dapachedns/ou%3dobjectclasses/m-oid%3d1.3.6.1.4.1.18060.0.4.2.3.9.ldif
-    jar:file:/home/smckinn/.m2/repository/org/apache/directory/api/api-ldap-schema-data/2.1.5/api-ldap-schema-data-2.1.5.jar!/schema/ou%3dschema/cn%3dapachedns/ou%3dobjectclasses/m-oid%3d1.3.6.1.4.1.18060.0.4.2.3.9.ldif
-    -->
-
-    <dependency>
-      <groupId>org.apache.directory.api</groupId>
-      <artifactId>api-ldap-extras-codec</artifactId>
-      <version>${version.ldap.api}</version>
-<!--
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.directory.api</groupId>
-          <artifactId>api-ldap-schema-data</artifactId>
-        </exclusion>
-      </exclusions>
--->
     </dependency>
 
     <dependency>
@@ -224,228 +199,10 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-core</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.directory.api</groupId>
-          <artifactId>api-ldap-schema-data</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-core-annotations</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.directory.api</groupId>
-          <artifactId>api-ldap-schema-data</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-core-api</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.directory.api</groupId>
-          <artifactId>api-ldap-schema-data</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-core-avl</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-core-constants</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-core-jndi</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-interceptor-kerberos</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.jdbm</groupId>
-      <artifactId>apacheds-jdbm1</artifactId>
-      <version>${version.apache.jdbm1}</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-jdbm-partition</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.directory.api</groupId>
-          <artifactId>api-ldap-schema-data</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
       <groupId>org.apache.kerby</groupId>
       <artifactId>kerby-kdc</artifactId>
       <version>2.1.0</version>
       <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>5.9.3</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.junit.vintage</groupId>
-      <artifactId>junit-vintage-engine</artifactId>
-      <version>5.10.2</version>
-      <scope>test</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-ldif-partition</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.directory.api</groupId>
-          <artifactId>api-ldap-schema-data</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-protocol-dhcp</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.directory.api</groupId>
-          <artifactId>api-ldap-schema-data</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-protocol-dns</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.directory.api</groupId>
-          <artifactId>api-ldap-schema-data</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-protocol-ldap</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.directory.api</groupId>
-          <artifactId>api-ldap-schema-data</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-protocol-ntp</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.directory.api</groupId>
-          <artifactId>api-ldap-schema-data</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-protocol-shared</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.directory.api</groupId>
-          <artifactId>api-ldap-schema-data</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-server-annotations</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.directory.api</groupId>
-          <artifactId>api-ldap-schema-data</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-server-config</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.directory.api</groupId>
-          <artifactId>api-ldap-schema-data</artifactId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-server-jndi</artifactId>
-      <version>${version.apacheds}</version>
-      <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.directory.api</groupId>
-          <artifactId>api-ldap-schema-data</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
     <dependency>
@@ -462,16 +219,17 @@
     </dependency>
 
     <dependency>
-      <groupId>org.apache.directory.server</groupId>
-      <artifactId>apacheds-xdbm-partition</artifactId>
-      <version>${version.apacheds}</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.9.3</version>
       <scope>test</scope>
-      <exclusions>
-        <exclusion>
-          <groupId>org.apache.directory.api</groupId>
-          <artifactId>api-ldap-schema-data</artifactId>
-        </exclusion>
-      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <version>5.10.2</version>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -516,6 +274,7 @@
       <version>${version.jaxb.impl}</version>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
 
   <build>
