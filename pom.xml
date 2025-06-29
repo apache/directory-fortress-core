@@ -104,12 +104,31 @@
       <groupId>org.apache.directory.api</groupId>
       <artifactId>api-all</artifactId>
       <version>${version.ldap.api}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-schema-data</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
+
+    <!--
+    jar:file:/home/smckinn/.m2/repository/org/apache/directory/api/api-all/2.1.7/api-all-2.1.7.jar!/schema/ou%3dschema/cn%3dapachedns/ou%3dobjectclasses/m-oid%3d1.3.6.1.4.1.18060.0.4.2.3.9.ldif
+    jar:file:/home/smckinn/.m2/repository/org/apache/directory/api/api-ldap-schema-data/2.1.5/api-ldap-schema-data-2.1.5.jar!/schema/ou%3dschema/cn%3dapachedns/ou%3dobjectclasses/m-oid%3d1.3.6.1.4.1.18060.0.4.2.3.9.ldif
+    -->
 
     <dependency>
       <groupId>org.apache.directory.api</groupId>
       <artifactId>api-ldap-extras-codec</artifactId>
       <version>${version.ldap.api}</version>
+<!--
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-schema-data</artifactId>
+        </exclusion>
+      </exclusions>
+-->
     </dependency>
 
     <dependency>
@@ -209,6 +228,12 @@
       <artifactId>apacheds-core</artifactId>
       <version>${version.apacheds}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-schema-data</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -216,6 +241,12 @@
       <artifactId>apacheds-core-annotations</artifactId>
       <version>${version.apacheds}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-schema-data</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -223,6 +254,12 @@
       <artifactId>apacheds-core-api</artifactId>
       <version>${version.apacheds}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-schema-data</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -265,6 +302,12 @@
       <artifactId>apacheds-jdbm-partition</artifactId>
       <version>${version.apacheds}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-schema-data</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -293,6 +336,12 @@
       <artifactId>apacheds-ldif-partition</artifactId>
       <version>${version.apacheds}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-schema-data</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -300,6 +349,12 @@
       <artifactId>apacheds-protocol-dhcp</artifactId>
       <version>${version.apacheds}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-schema-data</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -307,6 +362,12 @@
       <artifactId>apacheds-protocol-dns</artifactId>
       <version>${version.apacheds}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-schema-data</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -314,6 +375,12 @@
       <artifactId>apacheds-protocol-ldap</artifactId>
       <version>${version.apacheds}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-schema-data</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -321,6 +388,12 @@
       <artifactId>apacheds-protocol-ntp</artifactId>
       <version>${version.apacheds}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-schema-data</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -328,6 +401,12 @@
       <artifactId>apacheds-protocol-shared</artifactId>
       <version>${version.apacheds}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-schema-data</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -335,6 +414,12 @@
       <artifactId>apacheds-server-annotations</artifactId>
       <version>${version.apacheds}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-schema-data</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -342,6 +427,12 @@
       <artifactId>apacheds-server-config</artifactId>
       <version>${version.apacheds}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-schema-data</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -349,6 +440,12 @@
       <artifactId>apacheds-server-jndi</artifactId>
       <version>${version.apacheds}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-schema-data</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -356,6 +453,12 @@
       <artifactId>apacheds-test-framework</artifactId>
       <version>${version.apacheds}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-schema-data</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -363,6 +466,12 @@
       <artifactId>apacheds-xdbm-partition</artifactId>
       <version>${version.apacheds}</version>
       <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.apache.directory.api</groupId>
+          <artifactId>api-ldap-schema-data</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
 
     <dependency>
@@ -684,6 +793,9 @@
     <testResources>
       <testResource>
         <directory>${project.basedir}/config</directory>
+      </testResource>
+      <testResource>
+        <directory>${project.basedir}/src/test/resources</directory>
       </testResource>
     </testResources>
   </build>

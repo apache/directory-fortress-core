@@ -60,7 +60,7 @@ import org.apache.directory.fortress.core.util.cache.CacheMgr;
             @CreateTransport(protocol = "LDAP", port = 10389)
     })
 @ApplyLdifFiles(
-    { "apacheds-fortress.ldif", "init-ldap.ldif"/*, "test-data.ldif"*/})
+    { "fortress-schema.ldif", "init-ldap.ldif"/*, "test-data.ldif"*/})
 public class AdminManagerTest extends AbstractLdapTestUnit
 {
     private static final Logger LOG = LoggerFactory.getLogger( AdminManagerTest.class.getName() );

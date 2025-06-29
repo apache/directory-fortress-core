@@ -2126,15 +2126,13 @@ public class FortressJUnitApachedsTest extends AbstractLdapTestUnit
 
         // The test itself
         // public boolean checkAccess(String object, String operation, Session session)
-        AccessMgrImplTest.checkAccess( "CHCK-ACS TU1_UPD TO1 TOP1 ", UserTestData.USERS_TU1_UPD,
+        AccessMgrImplTest.checkAccess( "CHCK-ACS TU1_UPD TO1 TOP1", UserTestData.USERS_TU1_UPD,
             PermTestData.OBJS_TOB1,
             PermTestData.OPS_TOP1, PermTestData.OBJS_TOB3, PermTestData.OPS_TOP3 );
-        AccessMgrImplTest.checkAccess( "CHCK-ACS TU3 TO3 TOP1 ", UserTestData.USERS_TU3, PermTestData.OBJS_TOB3,
-            PermTestData.OPS_TOP3,
-            PermTestData.OBJS_TOB2, PermTestData.OPS_TOP1 );
-        AccessMgrImplTest.checkAccess( "CHCK-ACS TU4 TO4 TOP1 ", UserTestData.USERS_TU4, PermTestData.OBJS_TOB2,
-            PermTestData.OPS_TOP2,
-            PermTestData.OBJS_TOB2, PermTestData.OPS_TOP1 );
+        AccessMgrImplTest.checkAccess( "CHCK-ACS TU3 TO3 TOP3", UserTestData.USERS_TU3, PermTestData.OBJS_TOB3, PermTestData.OPS_TOP3,
+            PermTestData.OBJS_TOB2, PermTestData.OPS_TOP2 );
+        AccessMgrImplTest.checkAccess( "CHCK-ACS TU4 TO4 TOP1 ", UserTestData.USERS_TU4, PermTestData.OBJS_TOB2, PermTestData.OPS_TOP2,
+                PermTestData.OBJS_TOB3, PermTestData.OPS_TOP3 );
     }
 
 
@@ -2203,8 +2201,8 @@ public class FortressJUnitApachedsTest extends AbstractLdapTestUnit
             RoleTestData.DSD_T4_B );
         AccessMgrImplTest.addActiveRolesDSD( "ADD-ACT-RLS-USRS_DSDT5B TU10 DSD_T5_B", UserTestData.USERS_TU10_SSD_HIER,
             RoleTestData.DSD_T5_B );
-        AccessMgrImplTest.addActiveRolesDSD( "ADD-ACT-RLS-USRS_DSDT6B TU11 DSD_T6_B", UserTestData.USERS_TU11_SSD_HIER,
-            RoleTestData.DSD_T6_B );
+        AccessMgrImplTest.addActiveRolesDSD( "ADD-ACT-RLS-USRS_DSDT6B TU11 DSD_T6_D", UserTestData.USERS_TU11_SSD_HIER,
+                RoleTestData.DSD_T6_D );
     }
 
 

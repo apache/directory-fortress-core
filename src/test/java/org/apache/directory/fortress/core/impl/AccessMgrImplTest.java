@@ -1056,7 +1056,7 @@ public class AccessMgrImplTest extends TestCase
             RoleTestData.DSD_T4_B );
         addActiveRolesDSD( "ADD-ACT-RLS-USRS_DSDT5B TU10 DSD_T5_B", UserTestData.USERS_TU10_SSD_HIER,
             RoleTestData.DSD_T5_B );
-        addActiveRolesDSD( "ADD-ACT-RLS-USRS_DSDT6B TU11 DSD_T6_B", UserTestData.USERS_TU11_SSD_HIER,
+        addActiveRolesDSD( "ADD-ACT-RLS-USRS_DSDT6B TU11 DSD_T6_D", UserTestData.USERS_TU11_SSD_HIER,
             RoleTestData.DSD_T6_D );
     }
 
