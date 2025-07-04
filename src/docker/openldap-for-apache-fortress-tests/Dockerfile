@@ -16,19 +16,19 @@
 #   specific language governing permissions and limitations
 #   under the License.
 #
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 # Setup openldap package:
 RUN apt-get update && apt-get install -y --no-install-recommends \
          gnupg \
          ca-certificates \
    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DA26A148887DCBEB \
-   && echo 'deb https://repo.symas.com/repo/deb/main/release25 bullseye main' > /etc/apt/sources.list.d/soldap-release25.list \
+   && echo 'deb https://repo.symas.com/repo/deb/main/release26 bookworm main' > /etc/apt/sources.list.d/soldap-release26.list \
    # Install openldap
    && apt-get update && apt-get install -y --no-install-recommends \
          symas-openldap-clients \
          symas-openldap-server \
    && rm -rf /var/lib/apt/lists/* \
-   && rm /etc/apt/sources.list.d/soldap-release25.list
+   && rm /etc/apt/sources.list.d/soldap-release26.list
 
 # Add fortress schema and slapd config
 ADD ldap/schema/*.schema /opt/symas/etc/openldap/schema/

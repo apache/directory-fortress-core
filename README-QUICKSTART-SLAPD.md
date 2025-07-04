@@ -47,7 +47,7 @@ Minimum software requirements:
 ___________________________________________________________________________________
 ## SECTION 2. Apache Fortress Core and OpenLDAP Setup
 
-1. Setup your Debian or Rehat Symas OpenLDAP 2.5 package repo: [Symas OpenLDAP 2.5](https://repo.symas.com/soldap2.5/)
+1. Setup your Debian or Rehat Symas OpenLDAP 2.6 package repo: [Symas OpenLDAP 2.6](https://repo.symas.com/lts/)
    - Select your distro
    - Debian systems must install the gpg key
    - Follow steps 1 and 2 (only) to update your repo
