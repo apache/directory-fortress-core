@@ -43,7 +43,7 @@ ________________________________________________________________________________
 Minimum software requirements:
  * RHEL or Debian Machine
  * Java SDK >= 11
- * Apache Maven >= 3
+ * Apache Maven >= 3.6.3
 ___________________________________________________________________________________
 ## SECTION 2. Apache Fortress Core and OpenLDAP Setup
 

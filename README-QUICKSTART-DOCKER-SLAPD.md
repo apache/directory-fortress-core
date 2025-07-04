@@ -39,7 +39,7 @@ ________________________________________________________________________________
 Minimum software requirements:
  * Linux Machine with docker-engine
  * Java SDK >= 11
- * Apache Maven >= 3
+ * Apache Maven >= 3.6.3
 
 ___________________________________________________________________________________
 ## SECTION 2. OpenLDAP Docker Image

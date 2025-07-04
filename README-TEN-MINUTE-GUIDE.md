@@ -35,8 +35,8 @@ ApacheDS LDAP server and get it working with Fortress.
 ## Prerequisites
 
 Minimum software requirements:
- * Java SDK >= 8
- * Apache Maven >= 3
+ * Java SDK >= 11
+ * Apache Maven >= 3.6.3
  * git
 
 Everything else covered in steps that follow.  Tested on Debian & RHEL systems.
