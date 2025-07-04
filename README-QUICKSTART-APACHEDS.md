@@ -43,7 +43,7 @@ ________________________________________________________________________________
 
 Minimum software requirements:
  * RHEL or Debian Machine
- * Java SDK >= 11
+ * Java SDK >= 17
  * Apache Maven >= 3.6.3
 ___________________________________________________________________________________
 ## SECTION 2. ApacheDS Installation
