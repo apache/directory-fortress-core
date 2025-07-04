@@ -30,7 +30,7 @@
   <artifactId>fortress-core</artifactId>
   <packaging>jar</packaging>
   <name>Apache Fortress Core</name>
-  <version>3.0.1</version>
+  <version>3.0.1-SNAPSHOT</version>
   <inceptionYear>2014</inceptionYear>
   <description>
     Apache Fortress is an authorization platform that implements ANSI INCITS 359 Role-Based Access Control (RBAC).
