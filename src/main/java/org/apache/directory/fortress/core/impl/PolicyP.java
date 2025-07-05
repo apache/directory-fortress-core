@@ -33,6 +33,7 @@ import org.apache.directory.fortress.core.ValidationException;
 import org.apache.directory.fortress.core.model.PwPolicy;
 import org.apache.directory.fortress.core.util.cache.Cache;
 import org.apache.directory.fortress.core.util.cache.CacheMgr;
+import org.apache.directory.fortress.core.util.cache.CacheMgr2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,9 +66,10 @@ final class PolicyP
     // DAO class for ol pw policy data sets must be initialized before the other statics:
     private PolicyDAO olDao = new PolicyDAO();
     // this field is used to synchronize access to the above static data set:
-    private static final ReadWriteLock policySetLock = new ReentrantReadWriteLock();
+    //private static final ReadWriteLock policySetLock = new ReentrantReadWriteLock();
     // static field holds the list of names for all valid pw policies in effect:
-    private static Cache policyCache;
+    //private static Cache policyCache;
+    private static Cache policyCache2;
     private static final int MIN_PW_LEN = 20;
     private static final int MAX_FAILURE = 100;
     private static final int MAX_GRACE_COUNT = 10;
@@ -77,8 +79,11 @@ final class PolicyP
 
     private void init()
     {
-        CacheMgr cacheMgr = CacheMgr.getInstance();
-        PolicyP.policyCache = cacheMgr.getCache( FORTRESS_POLICIES );
+        //CacheMgr cacheMgr = CacheMgr.getInstance();
+        //PolicyP.policyCache = cacheMgr.getCache( FORTRESS_POLICIES );
+
+        //CacheMgr2 cacheMgr = CacheMgr2.getInstance();
+        PolicyP.policyCache2 =  CacheMgr2.getCache(FORTRESS_POLICIES);
     }
 
 
@@ -101,9 +106,9 @@ final class PolicyP
     {
         boolean result = false;
 
-        try
-        {
-            policySetLock.readLock().lock();
+//        try
+//        {
+//            policySetLock.readLock().lock();
 
             Set<String> policySet = getPolicySet( policy.getContextId() );
 
@@ -113,11 +118,11 @@ final class PolicyP
             }
 
             return result;
-        }
-        finally
-        {
-            policySetLock.readLock().unlock();
-        }
+//        }
+//        finally
+//        {
+//            policySetLock.readLock().unlock();
+//        }
     }
 
 
@@ -148,21 +153,23 @@ final class PolicyP
         validate( policy );
         olDao.create( policy );
 
-        try
-        {
-            policySetLock.writeLock().lock();
+//        try
+//        {
+//            policySetLock.writeLock().lock();
 
             Set<String> policySet = getPolicySet( policy.getContextId() );
 
             if ( policySet != null )
             {
                 policySet.add( policy.getName() );
+                policyCache2.put( getKey( policy.getContextId() ), policySet );
+
             }
-        }
-        finally
-        {
-            policySetLock.writeLock().unlock();
-        }
+//        }
+//        finally
+//        {
+//            policySetLock.writeLock().unlock();
+//        }
     }
 
 
@@ -193,21 +200,22 @@ final class PolicyP
     {
         olDao.remove( policy );
 
-        try
-        {
-            policySetLock.writeLock().lock();
+  //      try
+  //      {
+  //          policySetLock.writeLock().lock();
 
             Set<String> policySet = getPolicySet( policy.getContextId() );
 
             if ( policySet != null )
             {
                 policySet.remove( policy.getName() );
+                policyCache2.put( getKey( policy.getContextId() ), policySet );
             }
-        }
-        finally
-        {
-            policySetLock.writeLock().unlock();
-        }
+  //      }
+  //      finally
+  //      {
+  //          policySetLock.writeLock().unlock();
+  //      }
     }
 
 
@@ -386,7 +394,8 @@ final class PolicyP
             LOG.info( warning );
         }
 
-        policyCache.put( getKey( contextId ), policySet );
+        //policyCache.put( getKey( contextId ), policySet );
+        policyCache2.put( getKey( contextId ), policySet );
 
         return policySet;
     }
@@ -399,11 +408,12 @@ final class PolicyP
      */
     private Set<String> getPolicySet( String contextId )
     {
-        try
-        {
-            policySetLock.readLock().lock();
+        //try
+        //{
+            //policySetLock.readLock().lock();
 
-            Set<String> policySet = ( Set<String> ) policyCache.get( getKey( contextId ) );
+            //Set<String> policySet = ( Set<String> ) policyCache.get( getKey( contextId ) );
+            Set<String> policySet = ( Set<String> ) policyCache2.get( getKey( contextId ) );
 
             if ( policySet == null )
             {
@@ -411,11 +421,11 @@ final class PolicyP
             }
 
             return policySet;
-        }
-        finally
-        {
-            policySetLock.readLock().unlock();
-        }
+        //}
+        //finally
+        //{
+        //    policySetLock.readLock().unlock();
+        //}
     }
 
 

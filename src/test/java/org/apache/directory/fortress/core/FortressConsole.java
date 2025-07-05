@@ -35,6 +35,7 @@ public class FortressConsole
      */
     public static void main( String[] args )
     {
+        System.out.println("**** JVM Args: " + java.lang.management.ManagementFactory.getRuntimeMXBean().getInputArguments());
         ProcessMenuCommand rc = new ProcessMenuCommand();
         rc.processRbacControl();
         System.exit( 0 );

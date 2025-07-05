@@ -34,6 +34,7 @@ import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.util.VUtil;
 import org.apache.directory.fortress.core.util.cache.Cache;
 import org.apache.directory.fortress.core.util.cache.CacheMgr;
+import org.apache.directory.fortress.core.util.cache.CacheMgr2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -65,9 +66,10 @@ final class OrgUnitP
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
 
     // these fields are used to synchronize access to the above static pools:
-    private static final ReadWriteLock userPoolLock = new ReentrantReadWriteLock();
-    private static final ReadWriteLock permPoolLock = new ReentrantReadWriteLock();
-    private static Cache ouCache;
+    //private static final ReadWriteLock userPoolLock = new ReentrantReadWriteLock();
+    //private static final ReadWriteLock permPoolLock = new ReentrantReadWriteLock();
+    //private static Cache ouCache;
+    private static Cache ouCache2;
 
     // DAO class for OU data sets must be initializer before the other statics:
     private OrgUnitDAO oDao = new OrgUnitDAO();
@@ -77,8 +79,9 @@ final class OrgUnitP
 
     private void init()
     {
-        CacheMgr cacheMgr = CacheMgr.getInstance();
-        OrgUnitP.ouCache = cacheMgr.getCache( FORTRESS_OUS );
+        //CacheMgr cacheMgr = CacheMgr.getInstance();
+        //OrgUnitP.ouCache = cacheMgr.getCache( FORTRESS_OUS );
+        OrgUnitP.ouCache2 =  CacheMgr2.getCache(FORTRESS_OUS);
     }
 
 
@@ -102,37 +105,37 @@ final class OrgUnitP
 
         if ( entity.type == OrgUnit.Type.USER )
         {
-            try
-            {
-                userPoolLock.readLock().lock();
+//            try
+//            {
+//                userPoolLock.readLock().lock();
                 Set<String> userPool = getUserSet( entity );
 
                 if ( userPool != null )
                 {
                     result = userPool.contains( entity.getName() );
                 }
-            }
-            finally
-            {
-                userPoolLock.readLock().unlock();
-            }
+ //           }
+ //           finally
+ //           {
+ //               userPoolLock.readLock().unlock();
+ //           }
         }
         else
         {
-            try
-            {
-                permPoolLock.readLock().lock();
+//            try
+//            {
+//                permPoolLock.readLock().lock();
                 Set<String> permPool = getPermSet( entity );
 
                 if ( permPool != null )
                 {
                     result = permPool.contains( entity.getName() );
                 }
-            }
-            finally
-            {
-                permPoolLock.readLock().unlock();
-            }
+//            }
+//            finally
+//            {
+//                permPoolLock.readLock().unlock();
+//            }
         }
 
         return result;
@@ -158,7 +161,7 @@ final class OrgUnitP
             LOG.info( warning, se );
         }
 
-        ouCache.put( getKey( USER_OUS, orgUnit.getContextId() ), ouUserSet );
+        ouCache2.put( getKey( USER_OUS, orgUnit.getContextId() ), ouUserSet );
 
         return ouUserSet;
     }
@@ -183,7 +186,7 @@ final class OrgUnitP
             LOG.info( warning, se );
         }
 
-        ouCache.put( getKey( PERM_OUS, orgUnit.getContextId() ), ouPermSet );
+        ouCache2.put( getKey( PERM_OUS, orgUnit.getContextId() ), ouPermSet );
 
         return ouPermSet;
     }
@@ -197,7 +200,7 @@ final class OrgUnitP
     private Set<String> getPermSet( OrgUnit orgUnit )
     {
         @SuppressWarnings("unchecked")
-        Set<String> permSet = ( Set<String> ) ouCache.get( getKey( PERM_OUS, orgUnit.getContextId() ) );
+        Set<String> permSet = ( Set<String> ) ouCache2.get( getKey( PERM_OUS, orgUnit.getContextId() ) );
 
         if ( permSet == null )
         {
@@ -216,7 +219,7 @@ final class OrgUnitP
     private Set<String> getUserSet( OrgUnit orgUnit )
     {
         @SuppressWarnings("unchecked")
-        Set<String> userSet = ( Set<String> ) ouCache.get( getKey( USER_OUS, orgUnit.getContextId() ) );
+        Set<String> userSet = ( Set<String> ) ouCache2.get( getKey( USER_OUS, orgUnit.getContextId() ) );
 
         if ( userSet == null )
         {
@@ -274,39 +277,41 @@ final class OrgUnitP
 
         if ( entity.getType() == OrgUnit.Type.USER )
         {
-            try
-            {
-                userPoolLock.writeLock().lock();
+//            try
+//            {
+//                userPoolLock.writeLock().lock();
 
                 Set<String> userPool = getUserSet( entity );
 
                 if ( userPool != null )
                 {
                     userPool.add( entity.getName() );
+                    ouCache2.put( getKey( USER_OUS, entity.getContextId() ), userPool );
                 }
-            }
-            finally
-            {
-                userPoolLock.writeLock().unlock();
-            }
+//            }
+//            finally
+//            {
+//                userPoolLock.writeLock().unlock();
+//            }
         }
         else
         {
-            try
-            {
-                permPoolLock.writeLock().lock();
+//            try
+//            {
+//                permPoolLock.writeLock().lock();
 
                 Set<String> permPool = getPermSet( entity );
 
                 if ( permPool != null )
                 {
                     permPool.add( entity.getName() );
+                    ouCache2.put( getKey( PERM_OUS, entity.getContextId() ), permPool );
                 }
-            }
-            finally
-            {
-                permPoolLock.writeLock().unlock();
-            }
+ //           }
+ //           finally
+ //           {
+ //               permPoolLock.writeLock().unlock();
+ //           }
         }
 
         return oe;
@@ -361,37 +366,39 @@ final class OrgUnitP
 
         if ( entity.getType() == OrgUnit.Type.USER )
         {
-            try
-            {
-                userPoolLock.writeLock().lock();
+ //           try
+ //           {
+ //               userPoolLock.writeLock().lock();
                 Set<String> userPool = getUserSet( entity );
 
                 if ( userPool != null )
                 {
                     userPool.remove( entity.getName() );
+                    ouCache2.put( getKey( USER_OUS, entity.getContextId() ), userPool );
                 }
-            }
-            finally
-            {
-                userPoolLock.writeLock().unlock();
-            }
+//            }
+//            finally
+//            {
+//                userPoolLock.writeLock().unlock();
+//            }
         }
         else
         {
-            try
-            {
-                permPoolLock.writeLock().lock();
+//            try
+//            {
+//                permPoolLock.writeLock().lock();
                 Set<String> permPool = getPermSet( entity );
 
                 if ( permPool != null )
                 {
                     permPool.remove( entity.getName() );
+                    ouCache2.put( getKey( PERM_OUS, entity.getContextId() ), permPool );
                 }
-            }
-            finally
-            {
-                permPoolLock.writeLock().unlock();
-            }
+//            }
+//            finally
+//            {
+//                permPoolLock.writeLock().unlock();
+//            }
         }
 
         return entity;

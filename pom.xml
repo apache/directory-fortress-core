@@ -137,6 +137,12 @@
     </dependency>
 
     <dependency>
+      <groupId>com.hazelcast</groupId>
+      <artifactId>hazelcast</artifactId>
+      <version>5.4.0</version>
+    </dependency>
+
+    <dependency>
       <groupId>org.apache.ant</groupId>
       <artifactId>ant</artifactId>
       <version>${version.ant}</version>
@@ -563,12 +569,68 @@
     <!-- This profile starts the Fortress Console App -->
     <!-- To execute: mvn -Pconsole test -->
     <profile>
+      <id>console5</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>3.5.1</version>
+            <executions>
+              <execution>
+                <id>run-fortress-console</id>
+                <phase>test</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>java</executable>
+                  <classpathScope>test</classpathScope>
+                  <arguments>
+                    <argument>-Xmx1024m</argument>
+                    <argument>--add-modules</argument>
+                    <argument>java.se</argument>
+                    <argument>--add-exports</argument>
+                    <argument>java.base/jdk.internal.ref=ALL-UNNAMED</argument>
+                    <argument>--add-opens</argument>
+                    <argument>java.base/java.lang=ALL-UNNAMED</argument>
+                    <argument>--add-opens</argument>
+                    <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
+                    <argument>--add-opens</argument>
+                    <argument>java.management/sun.management=ALL-UNNAMED</argument>
+                    <argument>--add-opens</argument>
+                    <argument>jdk.management/com.sun.management.internal=ALL-UNNAMED</argument>
+                    <argument>-cp</argument>
+                    <classpath/>
+                    <argument>org.apache.directory.fortress.core.FortressConsole</argument>
+                    <!-- put any arguments for your main class here -->
+                  </arguments>
+                  <systemProperties>
+                    <systemProperty>
+                      <key>version</key>
+                      <value>${project.version}</value>
+                    </systemProperty>
+                    <systemProperty>
+                      <key>tenant</key>
+                      <value>${tenant}</value>
+                    </systemProperty>
+                  </systemProperties>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
       <id>console</id>
       <build>
         <plugins>
           <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
+            <version>3.5.1</version>
             <executions>
               <execution>
                 <phase>test</phase>

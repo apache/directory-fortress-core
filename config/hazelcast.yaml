@@ -1,0 +1,81 @@
+hazelcast:
+  cluster-name: dev-local
+  network:
+    join:
+      multicast:
+        enabled: false
+      tcp-ip:
+        enabled: false
+
+  map:
+    fortress.policies:
+      backup-count: 0
+      time-to-live-seconds: 600
+      max-idle-seconds: 600
+      eviction:
+        size: 1000
+        max-size-policy: PER_NODE
+        eviction-policy: LFU
+
+    fortress.ous:
+      backup-count: 0
+      time-to-live-seconds: 600
+      max-idle-seconds: 600
+      eviction:
+        size: 1000
+        max-size-policy: PER_NODE
+        eviction-policy: LFU
+
+    fortress.roles:
+      backup-count: 0
+      time-to-live-seconds: 600
+      max-idle-seconds: 600
+      eviction:
+        size: 1000
+        max-size-policy: PER_NODE
+        eviction-policy: LFU
+
+    fortress.admin.roles:
+      backup-count: 0
+      time-to-live-seconds: 600
+      max-idle-seconds: 600
+      eviction:
+        size: 1000
+        max-size-policy: PER_NODE
+        eviction-policy: LFU
+
+    fortress.pso:
+      backup-count: 0
+      time-to-live-seconds: 600
+      max-idle-seconds: 600
+      eviction:
+        size: 100000
+        max-size-policy: PER_NODE
+        eviction-policy: LFU
+
+    fortress.uso:
+      backup-count: 0
+      time-to-live-seconds: 600
+      max-idle-seconds: 600
+      eviction:
+        size: 100000
+        max-size-policy: PER_NODE
+        eviction-policy: LFU
+
+    fortress.dsd:
+      backup-count: 0
+      time-to-live-seconds: 3600
+      max-idle-seconds: 3600
+      eviction:
+        size: 1000
+        max-size-policy: PER_NODE
+        eviction-policy: LFU
+
+    fortress.ssd:
+      backup-count: 0
+      time-to-live-seconds: 600
+      max-idle-seconds: 600
+      eviction:
+        size: 1000
+        max-size-policy: PER_NODE
+        eviction-policy: LFU

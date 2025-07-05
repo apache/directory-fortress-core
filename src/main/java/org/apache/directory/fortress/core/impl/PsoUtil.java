@@ -35,6 +35,7 @@ import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.util.cache.Cache;
 import org.apache.directory.fortress.core.util.cache.CacheMgr;
+import org.apache.directory.fortress.core.util.cache.CacheMgr2;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,7 +64,7 @@ import org.slf4j.LoggerFactory;
  */
 final class PsoUtil
 {
-    private Cache psoCache;
+    private Cache psoCache2;
     private OrgUnitP orgUnitP;
     private static final String CLS_NM = PsoUtil.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
@@ -97,8 +98,9 @@ final class PsoUtil
     {
         orgUnitP = new OrgUnitP();
     
-        CacheMgr cacheMgr = CacheMgr.getInstance();
-        psoCache = cacheMgr.getCache( "fortress.pso" );                
+        //CacheMgr cacheMgr = CacheMgr.getInstance();
+        //psoCache = cacheMgr.getCache( "fortress.pso" );
+        psoCache2 =  CacheMgr2.getCache("fortress.pso");
     }
 
 
@@ -231,7 +233,9 @@ final class PsoUtil
      */
     void updateHier( String contextId, Relationship relationship, Hier.Op op ) throws SecurityException
     {
-        HierUtil.updateHier( getGraph( contextId ), relationship, op );
+        SimpleDirectedGraph<String, Relationship> foo = getGraph( contextId );
+        HierUtil.updateHier( foo, relationship, op );
+        psoCache2.put( getKey( contextId ), foo );
     }
 
 
@@ -265,8 +269,8 @@ final class PsoUtil
         SimpleDirectedGraph<String, Relationship> graph;
 
         graph = HierUtil.buildGraph( hier );
-        psoCache.put( getKey( contextId ), graph );
-
+        //psoCache.put( getKey( contextId ), graph );
+        psoCache2.put( getKey( contextId ), graph );
         return graph;
     }
 
@@ -279,10 +283,7 @@ final class PsoUtil
     {
         String key = getKey( contextId );        
         LOG.debug("Getting graph for key " + contextId);
-         
-        SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) psoCache
-                 .get( key );
-             
+        SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) psoCache2.get( key );
         if(graph == null){
             LOG.debug("Graph was null, creating... " + contextId);
             return loadGraph( contextId );
