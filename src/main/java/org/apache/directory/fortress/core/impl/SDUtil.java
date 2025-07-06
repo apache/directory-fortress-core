@@ -37,6 +37,7 @@ import org.apache.directory.fortress.core.model.*;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.cache.Cache;
 import org.apache.directory.fortress.core.util.cache.CacheMgr;
+import org.apache.directory.fortress.core.util.cache.CacheMgr2;
 import org.apache.directory.fortress.core.util.cache.DsdCacheEntry;
 
 /**
@@ -52,7 +53,7 @@ final class SDUtil
 {
     private Cache m_dsdCache;
     private static final String FORTRESS_DSDS = "fortress.dsd";
-    private Cache m_ssdCache;
+    private Cache m_ssdCache2;
     private static final String FORTRESS_SSDS = "fortress.ssd";
     private SdP sp;
     private static final String IS_DSD_CACHE_ENABLED_PARM = "enable.dsd.cache";
@@ -86,7 +87,8 @@ final class SDUtil
         // This cache contains a wrapper entry for DSD and is searchable by both DSD and Role name:
         m_dsdCache = cacheMgr.getCache(FORTRESS_DSDS);
         // This cache is not searchable and contains Lists of SSD objects by Role:
-        m_ssdCache = cacheMgr.getCache(FORTRESS_SSDS);
+        //m_ssdCache = cacheMgr.getCache(FORTRESS_SSDS);
+        m_ssdCache2 =  CacheMgr2.getCache(FORTRESS_SSDS);
     }
 
     /**
@@ -505,7 +507,7 @@ final class SDUtil
     void clearSsdCacheEntry(String name, String contextId)
     {
         contextId = getContextId(contextId);
-        m_ssdCache.clear(getKey(name, contextId));
+        m_ssdCache2.clear(getKey(name, contextId));
     }
 
     /**
@@ -522,7 +524,7 @@ final class SDUtil
         Role role = new Role(name);
         role.setContextId(contextId);
         List<SDSet> ssdSets = sp.search(role, SDSet.SDType.STATIC);
-        m_ssdCache.put(getKey(name, contextId), ssdSets);
+        m_ssdCache2.put(getKey(name, contextId), ssdSets);
         return ssdSets;
     }
 
@@ -537,7 +539,7 @@ final class SDUtil
     private List<SDSet> getSsdCache(String name, String contextId)
         throws SecurityException
     {
-        List<SDSet> ssdSets = (List<SDSet>) m_ssdCache.get(getKey(name, contextId));
+        List<SDSet> ssdSets = (List<SDSet>) m_ssdCache2.get(getKey(name, contextId));
         if (ssdSets == null)
         {
             ssdSets = putSsdCache(name, contextId);
