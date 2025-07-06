@@ -21,13 +21,6 @@ package org.apache.directory.fortress.core.impl;
 
 import java.util.*;
 
-import com.hazelcast.config.IndexConfig;
-import com.hazelcast.config.IndexType;
-import com.hazelcast.core.Hazelcast;
-import com.hazelcast.core.HazelcastInstance;
-import com.hazelcast.map.IMap;
-import com.hazelcast.query.Predicates;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.directory.fortress.core.*;
@@ -35,7 +28,6 @@ import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.*;
 import org.apache.directory.fortress.core.util.Config;
 import org.apache.directory.fortress.core.util.cache.Cache;
-import org.apache.directory.fortress.core.util.cache.CacheMgr;
 import org.apache.directory.fortress.core.util.cache.CacheMgr2;
 import org.apache.directory.fortress.core.util.cache.DsdCacheEntry;
 
