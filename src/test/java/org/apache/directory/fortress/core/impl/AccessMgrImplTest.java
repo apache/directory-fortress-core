@@ -73,8 +73,11 @@ public class AccessMgrImplTest extends TestCase
         suite.addTest( new AccessMgrImplTest( "testAuthenticateLocked" ) );
         suite.addTest( new AdminMgrImplTest( "testUnlockUserAccount" ) );
         suite.addTest( new AccessMgrImplTest( "testCheckAccess" ) );
-*/
         suite.addTest( new AccessMgrImplTest( "testAbacConstraintsRole" ) );
+*/
+        suite.addTest( new AccessMgrImplTest( "createSessionsDSD" ) );
+
+
 
         return suite;
     }

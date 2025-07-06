@@ -1,5 +1,7 @@
 hazelcast:
   cluster-name: dev-local
+  jet:
+    enabled: true
   network:
     join:
       multicast:

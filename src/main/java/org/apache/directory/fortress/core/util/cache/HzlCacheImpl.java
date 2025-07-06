@@ -1,12 +1,18 @@
 package org.apache.directory.fortress.core.util.cache;
 
+import com.hazelcast.config.IndexConfig;
+import com.hazelcast.config.IndexType;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;
+import com.hazelcast.query.Predicates;
 import net.sf.ehcache.search.Attribute;
 import net.sf.ehcache.search.Query;
 import org.apache.directory.fortress.core.GlobalErrIds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Collection;
+import java.util.List;
 
 public class HzlCacheImpl implements Cache
 {
@@ -104,6 +110,18 @@ public class HzlCacheImpl implements Cache
     public Query createQuery()
     {
         throw new UnsupportedOperationException("Hazelcast native API does not provide the same query API as Ehcache 2");
+    }
+
+    @Override
+    public void addIndex( String name )
+    {
+        cache.addIndex(new IndexConfig(IndexType.HASH, name));
+    }
+
+    @Override
+    public <T> Collection<T> createQuery(String name, List<String> values)
+    {
+        return (Collection<T>) cache.values(Predicates.in(name, values.toArray(new String[0])));
     }
 
     public void clear()

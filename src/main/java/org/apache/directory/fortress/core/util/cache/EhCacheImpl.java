@@ -31,6 +31,9 @@ import org.apache.directory.fortress.core.GlobalErrIds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collection;
+import java.util.List;
+
 
 /**
  * This class provides cache functionality from <a href="http://ehcache.org//">Ehcache</a> provider.
@@ -222,6 +225,18 @@ public class EhCacheImpl implements Cache
             throw new CacheException( GlobalErrIds.FT_NULL_CACHE, error );
         }
         return this.cache.createQuery();
+    }
+
+    @Override
+    public void addIndex(String name)
+    {
+        throw new UnsupportedOperationException("Ehcache native API does not provide the same query API as Hazelcache");
+    }
+
+    @Override
+    public <T> Collection<T> createQuery(String name, List<String> values)
+    {
+        return List.of();
     }
 
 

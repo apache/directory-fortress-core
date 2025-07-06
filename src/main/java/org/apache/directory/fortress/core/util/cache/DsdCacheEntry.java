@@ -19,7 +19,11 @@
  */
 package org.apache.directory.fortress.core.util.cache;
 
+import org.apache.directory.fortress.core.GlobalErrIds;
+import org.apache.directory.fortress.core.GlobalIds;
 import org.apache.directory.fortress.core.model.SDSet;
+
+import java.io.Serializable;
 
 /**
  * Value object wraps {@link SDSet} for caching purposes.  This class also provides attributes that are used for
@@ -27,7 +31,7 @@ import org.apache.directory.fortress.core.model.SDSet;
  *
  * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
  */
-public class DsdCacheEntry
+public class DsdCacheEntry implements Serializable
 {
     private String name;
     private String member;
@@ -49,6 +53,17 @@ public class DsdCacheEntry
         this.member = member;
         this.empty = empty;
         this.contextId = sdSet.getContextId();
+    }
+
+    public DsdCacheEntry(String name)
+    {
+        SDSet set = new SDSet();
+        set.setType(SDSet.SDType.DYNAMIC);
+        set.setName( name );
+        this.name = name;
+        this.sdSet = set;
+        this.empty = true;
+        this.contextId = GlobalIds.HOME;
     }
 
     /**

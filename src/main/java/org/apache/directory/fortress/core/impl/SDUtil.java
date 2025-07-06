@@ -19,18 +19,17 @@
  */
 package org.apache.directory.fortress.core.impl;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
-import net.sf.ehcache.search.Attribute;
-import net.sf.ehcache.search.Query;
-import net.sf.ehcache.search.Result;
-import net.sf.ehcache.search.Results;
+import com.hazelcast.config.IndexConfig;
+import com.hazelcast.config.IndexType;
+import com.hazelcast.core.Hazelcast;
+import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.map.IMap;
+import com.hazelcast.query.Predicates;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.directory.api.ldap.model.constants.SchemaConstants;
 import org.apache.directory.fortress.core.*;
 import org.apache.directory.fortress.core.SecurityException;
 import org.apache.directory.fortress.core.model.*;
@@ -53,7 +52,7 @@ final class SDUtil
 {
     private Cache m_dsdCache;
     private static final String FORTRESS_DSDS = "fortress.dsd";
-    private Cache m_ssdCache2;
+    private Cache m_ssdCache;
     private static final String FORTRESS_SSDS = "fortress.ssd";
     private SdP sp;
     private static final String IS_DSD_CACHE_ENABLED_PARM = "enable.dsd.cache";
@@ -81,14 +80,10 @@ final class SDUtil
     private void init()
     {
         sp = new SdP();
-    
-        // Get a reference to the CacheManager Singleton object:
-        CacheMgr cacheMgr = CacheMgr.getInstance();
-        // This cache contains a wrapper entry for DSD and is searchable by both DSD and Role name:
-        m_dsdCache = cacheMgr.getCache(FORTRESS_DSDS);
-        // This cache is not searchable and contains Lists of SSD objects by Role:
-        //m_ssdCache = cacheMgr.getCache(FORTRESS_SSDS);
-        m_ssdCache2 =  CacheMgr2.getCache(FORTRESS_SSDS);
+        m_dsdCache = CacheMgr2.getCache(FORTRESS_DSDS);
+        m_dsdCache.addIndex("name");
+        m_dsdCache.addIndex("member");
+        m_ssdCache =  CacheMgr2.getCache(FORTRESS_SSDS);
     }
 
     /**
@@ -272,16 +267,12 @@ final class SDUtil
      */
     void clearDsdCacheEntry(String name, String contextId)
     {
-        Attribute<String> context = m_dsdCache.getSearchAttribute(CONTEXT_ID);
-        Attribute<String> dsdName = m_dsdCache.getSearchAttribute(DSD_NAME);
-        Query query = m_dsdCache.createQuery();
-        query.includeKeys();
-        query.includeValues();
-        query.addCriteria(dsdName.eq(name).and(context.eq(contextId)));
-        Results results = query.execute();
-        for (Result result : results.all())
+        List names = new ArrayList();
+        names.add(name);
+        Collection<DsdCacheEntry> byName = m_dsdCache.createQuery("name", names);
+        for (DsdCacheEntry dsd : byName)
         {
-            m_dsdCache.clear(result.getKey());
+            m_dsdCache.clear(dsd.getName());
         }
     }
 
@@ -298,29 +289,23 @@ final class SDUtil
     {
         contextId = getContextId(contextId);
         Set<SDSet> finalSet = new HashSet<>();
-        Attribute<String> context = m_dsdCache.getSearchAttribute(CONTEXT_ID);
-        Attribute<String> member = m_dsdCache.getSearchAttribute(SchemaConstants.MEMBER_AT);
-        Query query = m_dsdCache.createQuery();
-        query.includeKeys();
-        query.includeValues();
-        query.addCriteria(member.eq(name).and(context.eq(contextId)));
-        Results results = query.execute();
+        List names = new ArrayList<>();
+        names.add(name);
+        Collection<DsdCacheEntry> byMember = m_dsdCache.createQuery("member", names);
         boolean empty = false;
-        for (Result result : results.all())
+        for (DsdCacheEntry dsd : byMember)
         {
-            DsdCacheEntry entry = (DsdCacheEntry) result.getValue();
-            if (!entry.isEmpty())
+            if (!dsd.isEmpty())
             {
-                finalSet.add(entry.getSdSet());
+                finalSet.add(dsd.getSdSet());
                 finalSet = putDsdCache(name, contextId);
             }
             else
             {
                 empty = true;
             }
-            finalSet.add(entry.getSdSet());
+            finalSet.add(dsd.getSdSet());
         }
-        // If nothing was found in the cache, determine if it needs to be seeded:
         if (finalSet.size() == 0 && !empty)
         {
             finalSet = putDsdCache(name, contextId);
@@ -356,24 +341,13 @@ final class SDUtil
         }
         else
         {
-            // Search on roleName attribute which maps to 'member' attr on the cache record:
-            Attribute<String> member = m_dsdCache.getSearchAttribute(SchemaConstants.MEMBER_AT);
-            Attribute<String> context = m_dsdCache.getSearchAttribute(CONTEXT_ID);
-            Query query = m_dsdCache.createQuery();
-            query.includeKeys();
-            query.includeValues();
-            // Add the passed in authorized Role names to this cache query:
-            Set<String> roles = new HashSet<>(authorizedRoleSet);
-            query.addCriteria(member.in(roles).and(context.eq(contextId)));
-            // Return all DSD cache entries that match roleName to the 'member' attribute in cache entry:
-            Results results = query.execute();
-            for (Result result : results.all())
+            Collection<DsdCacheEntry> byMember = m_dsdCache.createQuery("member", new ArrayList<>(authorizedRoleSet ));
+            for (DsdCacheEntry dsd : byMember)
             {
-                DsdCacheEntry entry = (DsdCacheEntry) result.getValue();
                 // Do not add dummy DSD sets to the final list:
-                if (!entry.isEmpty())
+                if (!dsd.isEmpty())
                 {
-                    dsdRetSets.add(entry.getSdSet());
+                    dsdRetSets.add(dsd.getSdSet());
                 }
                 // Remove role member from authorizedRoleSet to preclude from upcoming DSD search:
                 //authorizedRoleSet.remove(entry.getMember());
@@ -507,7 +481,7 @@ final class SDUtil
     void clearSsdCacheEntry(String name, String contextId)
     {
         contextId = getContextId(contextId);
-        m_ssdCache2.clear(getKey(name, contextId));
+        m_ssdCache.clear(getKey(name, contextId));
     }
 
     /**
@@ -524,7 +498,7 @@ final class SDUtil
         Role role = new Role(name);
         role.setContextId(contextId);
         List<SDSet> ssdSets = sp.search(role, SDSet.SDType.STATIC);
-        m_ssdCache2.put(getKey(name, contextId), ssdSets);
+        m_ssdCache.put(getKey(name, contextId), ssdSets);
         return ssdSets;
     }
 
@@ -539,7 +513,7 @@ final class SDUtil
     private List<SDSet> getSsdCache(String name, String contextId)
         throws SecurityException
     {
-        List<SDSet> ssdSets = (List<SDSet>) m_ssdCache2.get(getKey(name, contextId));
+        List<SDSet> ssdSets = (List<SDSet>) m_ssdCache.get(getKey(name, contextId));
         if (ssdSets == null)
         {
             ssdSets = putSsdCache(name, contextId);

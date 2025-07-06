@@ -23,6 +23,9 @@ package org.apache.directory.fortress.core.util.cache;
 import net.sf.ehcache.search.Attribute;
 import net.sf.ehcache.search.Query;
 
+import java.util.Collection;
+import java.util.List;
+
 
 /**
  * This Interface is implemented by cacheable Fortress objects and is used to wrap the caching implementation to provide isolation.
@@ -86,4 +89,8 @@ public interface Cache
      * @return a new Query builder
      */
     Query createQuery();
+
+    void addIndex( String name );
+
+    <T> Collection<T> createQuery(String name, List<String> values);
 }
