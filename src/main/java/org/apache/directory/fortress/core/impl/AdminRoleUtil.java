@@ -35,7 +35,7 @@ import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.UserAdminRole;
 import org.apache.directory.fortress.core.util.cache.Cache;
-import org.apache.directory.fortress.core.util.cache.CacheMgr;
+import org.apache.directory.fortress.core.util.cache.CacheMgr2;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -74,8 +74,7 @@ final class AdminRoleUtil
      */
     static
     {
-        CacheMgr cacheMgr = CacheMgr.getInstance();
-        adminRoleCache = cacheMgr.getCache( "fortress.admin.roles" );
+        adminRoleCache =  CacheMgr2.getCache("fortress.admin.roles");
     }
 
     /**
@@ -233,7 +232,9 @@ final class AdminRoleUtil
      */
     static void updateHier( String contextId, Relationship relationship, Hier.Op op ) throws SecurityException
     {
-        HierUtil.updateHier( getGraph( contextId ), relationship, op );
+        SimpleDirectedGraph<String, Relationship> graph = getGraph( contextId );
+        HierUtil.updateHier( graph, relationship, op );
+        adminRoleCache.put( getKey( contextId ), graph );
     }
 
 
@@ -262,10 +263,8 @@ final class AdminRoleUtil
 
         Hier hier = HierUtil.loadHier( contextId, descendants );
         SimpleDirectedGraph<String, Relationship> graph;
-
         graph = HierUtil.buildGraph( hier );
         adminRoleCache.put( getKey( contextId ), graph );
-
         return graph;
     }
 
@@ -281,10 +280,7 @@ final class AdminRoleUtil
     {
         String key = getKey( contextId );        
         LOG.debug("Getting graph for key " + contextId);
-         
-        SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) adminRoleCache
-                 .get( key );
-             
+        SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) adminRoleCache.get( key );
         if(graph == null){
             LOG.debug("Graph was null, creating... " + contextId);
             return loadGraph( contextId );

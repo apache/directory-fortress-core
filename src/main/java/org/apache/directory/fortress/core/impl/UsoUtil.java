@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-//import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.directory.fortress.core.GlobalIds;
@@ -35,7 +34,7 @@ import org.apache.directory.fortress.core.model.Hier;
 import org.apache.directory.fortress.core.model.OrgUnit;
 import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.util.cache.Cache;
-import org.apache.directory.fortress.core.util.cache.CacheMgr;
+import org.apache.directory.fortress.core.util.cache.CacheMgr2;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,7 +66,6 @@ final class UsoUtil
     private OrgUnitP orgUnitP;
     private static final String CLS_NM = UsoUtil.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-
     private static volatile UsoUtil sINSTANCE = null;
 
     static UsoUtil getInstance()
@@ -84,8 +82,7 @@ final class UsoUtil
         }
         return sINSTANCE;
     }
-    
-    
+
     /**
      * Initialize the User OU hierarchies.  This will read the {@link org.apache.directory.fortress.core.model.Hier} data set from ldap and load into
      * the JGraphT simple digraph that referenced statically within this class.
@@ -93,9 +90,7 @@ final class UsoUtil
     private void init()
     {
         orgUnitP = new OrgUnitP();
-    
-        CacheMgr cacheMgr = CacheMgr.getInstance();
-        usoCache = cacheMgr.getCache( "fortress.uso" );
+        usoCache =  CacheMgr2.getCache("fortress.uso");
     }
 
     /**
@@ -232,7 +227,9 @@ final class UsoUtil
      */
     void updateHier( String contextId, Relationship relationship, Hier.Op op ) throws SecurityException
     {
-        HierUtil.updateHier( getGraph( contextId ), relationship, op );
+        SimpleDirectedGraph<String, Relationship> graph = getGraph( contextId );
+        HierUtil.updateHier( graph, relationship, op );
+        usoCache.put( getKey( contextId ), graph );
     }
 
 
@@ -267,7 +264,6 @@ final class UsoUtil
         
         graph = HierUtil.buildGraph( hier );
         usoCache.put( getKey( contextId ), graph );
-        
         return graph;
     }
 
@@ -280,10 +276,7 @@ final class UsoUtil
     {
         String key = getKey( contextId );        
         LOG.debug("Getting graph for key " + contextId);
-         
-        SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) usoCache
-                 .get( key );
-             
+        SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) usoCache.get( key );
         if(graph == null){
             LOG.debug("Graph was null, creating... " + contextId);
             return loadGraph( contextId );

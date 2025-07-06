@@ -36,7 +36,7 @@ import org.apache.directory.fortress.core.model.Relationship;
 import org.apache.directory.fortress.core.model.Role;
 import org.apache.directory.fortress.core.model.UserRole;
 import org.apache.directory.fortress.core.util.cache.Cache;
-import org.apache.directory.fortress.core.util.cache.CacheMgr;
+import org.apache.directory.fortress.core.util.cache.CacheMgr2;
 import org.jgrapht.graph.SimpleDirectedGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,7 +68,6 @@ final class RoleUtil implements ParentUtil
     private RoleP roleP = new RoleP();
     private static final String CLS_NM = RoleUtil.class.getName();
     private static final Logger LOG = LoggerFactory.getLogger( CLS_NM );
-
     private static volatile RoleUtil sINSTANCE = null;
 
     static RoleUtil getInstance()
@@ -98,9 +97,7 @@ final class RoleUtil implements ParentUtil
     private void init()
     {
         roleP = new RoleP();
-    
-        CacheMgr cacheMgr = CacheMgr.getInstance();
-        roleCache = cacheMgr.getCache( "fortress.roles" );
+        roleCache =  CacheMgr2.getCache("fortress.roles");
     }
 
 
@@ -336,7 +333,9 @@ final class RoleUtil implements ParentUtil
      */
     void updateHier( String contextId, Relationship relationship, Hier.Op op ) throws SecurityException
     {
-        HierUtil.updateHier( getGraph( contextId ), relationship, op );
+        SimpleDirectedGraph<String, Relationship> graph = getGraph( contextId );
+        HierUtil.updateHier( graph, relationship, op );
+        roleCache.put( getKey( contextId ), graph );
     }
 
 
@@ -365,10 +364,8 @@ final class RoleUtil implements ParentUtil
 
         Hier hier = HierUtil.loadHier( contextId, descendants );
         SimpleDirectedGraph<String, Relationship> graph;
-
         graph = HierUtil.buildGraph( hier );
         roleCache.put( getKey( contextId ), graph );
-
         return graph;
     }
 
@@ -400,10 +397,7 @@ final class RoleUtil implements ParentUtil
     {
         String key = getKey( contextId );        
         LOG.debug("Getting graph for key " + contextId);
-         
-        SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) roleCache
-                 .get( key );
-             
+        SimpleDirectedGraph<String, Relationship> graph = ( SimpleDirectedGraph<String, Relationship> ) roleCache.get( key );
         if(graph == null){
             LOG.debug("Graph was null, creating... " + contextId);
             return loadGraph( contextId );
