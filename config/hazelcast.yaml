@@ -11,7 +11,9 @@ hazelcast:
 
   map:
     fortress.policies:
+      in-memory-format: OBJECT
       backup-count: 0
+      statistics-enabled: false
       time-to-live-seconds: 600
       max-idle-seconds: 600
       eviction:
@@ -20,7 +22,9 @@ hazelcast:
         eviction-policy: LFU
 
     fortress.ous:
+      in-memory-format: OBJECT
       backup-count: 0
+      statistics-enabled: false
       time-to-live-seconds: 600
       max-idle-seconds: 600
       eviction:
@@ -29,7 +33,9 @@ hazelcast:
         eviction-policy: LFU
 
     fortress.roles:
+      in-memory-format: OBJECT
       backup-count: 0
+      statistics-enabled: false
       time-to-live-seconds: 600
       max-idle-seconds: 600
       eviction:
@@ -38,7 +44,9 @@ hazelcast:
         eviction-policy: LFU
 
     fortress.admin.roles:
+      in-memory-format: OBJECT
       backup-count: 0
+      statistics-enabled: false
       time-to-live-seconds: 600
       max-idle-seconds: 600
       eviction:
@@ -47,7 +55,9 @@ hazelcast:
         eviction-policy: LFU
 
     fortress.pso:
+      in-memory-format: OBJECT
       backup-count: 0
+      statistics-enabled: false
       time-to-live-seconds: 600
       max-idle-seconds: 600
       eviction:
@@ -56,7 +66,9 @@ hazelcast:
         eviction-policy: LFU
 
     fortress.uso:
+      in-memory-format: OBJECT
       backup-count: 0
+      statistics-enabled: false
       time-to-live-seconds: 600
       max-idle-seconds: 600
       eviction:
@@ -65,7 +77,9 @@ hazelcast:
         eviction-policy: LFU
 
     fortress.dsd:
+      in-memory-format: OBJECT
       backup-count: 0
+      statistics-enabled: false
       time-to-live-seconds: 3600
       max-idle-seconds: 3600
       eviction:
@@ -74,7 +88,9 @@ hazelcast:
         eviction-policy: LFU
 
     fortress.ssd:
+      in-memory-format: OBJECT
       backup-count: 0
+      statistics-enabled: false
       time-to-live-seconds: 600
       max-idle-seconds: 600
       eviction:
