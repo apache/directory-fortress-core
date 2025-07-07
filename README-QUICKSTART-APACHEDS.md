@@ -164,7 +164,7 @@ apt-get install ldap-utils
  Load the [fortress schema](ldap/schema/apacheds-fortress.ldif) to ApacheDS instance using ldapmodify command.
 
 ```bash
-ldapmodify -h localhost -p 10389 -D uid=admin,ou=system -w secret -a -f ./ldap/schema/apacheds-fortress.ldif
+ldapmodify -H ldap://localhost:10389 -D uid=admin,ou=system -w secret -a -f ./ldap/schema/apacheds-fortress.ldif
 ```
 
 ___________________________________________________________________________________
