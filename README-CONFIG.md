@@ -151,9 +151,9 @@ The ant config task, **init-fortress-config**, uses the values found within the 
  | fortress.ldap.server.type         | Used for non-standard processing like password policies and audits.     | Valid values: apacheds, openldap or other                             |
  
  The minimum system.properties to enable fortress apis to work (without a config file):
-  * fortress.admin.user=<service account uid>
-  * fortress.admin.pw=<service account password>
-  * fortress.config.root=<configuration root dn>
+  * fortress.admin.user
+  * fortress.admin.pw
+  * fortress.config.root
 
  If the ldap host and/or port are not the default (openldap localhost:389) or (apacheds localhost:1389) set these:
  * fortress.host
