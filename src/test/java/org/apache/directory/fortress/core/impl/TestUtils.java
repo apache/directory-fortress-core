@@ -63,7 +63,7 @@ public class TestUtils extends TestCase
 
     public static String getContext()
     {
-        // This property can be overriden with system property:
+        // This property can be overridden with system property:
         String tenant = System.getProperty( GlobalIds.TENANT );
         
         if ( StringUtils.isNotEmpty( tenant ) && !tenant.equals( "${tenant}" ) )
