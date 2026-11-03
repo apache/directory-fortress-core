@@ -1460,7 +1460,7 @@ public class CommandLineInterpreter
     {
         String contextId = GlobalIds.HOME;
         boolean success = false;
-        // This property can be overriden with system property:
+        // This property can be overridden with system property:
         String tenant = System.getProperty( GlobalIds.TENANT );
         if ( StringUtils.isNotEmpty( tenant ) && !tenant.equals( "${tenant}" ) )
         {
